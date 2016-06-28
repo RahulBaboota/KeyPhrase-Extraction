@@ -22,7 +22,7 @@ class NYTimes(Spider):
 	'''
 
 
-												Parsing through Layer 1 
+												Parsing through News Categories Layer 
 
 	'''
 
@@ -35,7 +35,9 @@ class NYTimes(Spider):
 		politics_news = response.xpath('//div[2]/header/nav/ul/li[5]/a/@href').extract()[0]
 		NY_news = response.xpath('//div[2]/header/nav/ul/li[6]/a/@href').extract()[0]
 		business_news = response.xpath('//div[2]/header/nav/ul/li[7]/a/@href').extract()[0]
+		int_business_news = response.xpath('//div[2]/header/nav/ul/li[8]/a/@href').extract()[0]
 		opinions_news = response.xpath('//div[2]/header/nav/ul/li[9]/a/@href').extract()[0]
+		int_opinions_news = response.xpath('//div[2]/header/nav/ul/li[10]/a/@href').extract()[0]
 		technology_news = response.xpath('//div[2]/header/nav/ul/li[11]/a/@href').extract()[0]
 		science_news = response.xpath('//div[2]/header/nav/ul/li[12]/a/@href').extract()[0]
 		health_news = response.xpath('//div[2]/header/nav/ul/li[13]/a/@href').extract()[0]
@@ -51,6 +53,6 @@ class NYTimes(Spider):
 		magazine_news = response.xpath('//div[2]/header/nav/ul/li[23]/a/@href').extract()[0]
 		tmagazine_news = response.xpath('//div[2]/header/nav/ul/li[24]/a/@href').extract()[0]
 		real_estate_news = response.xpath('//div[2]/header/nav/ul/li[25]/a/@href').extract()[0]
-		
+
 
 
