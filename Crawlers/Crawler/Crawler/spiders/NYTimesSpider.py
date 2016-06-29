@@ -29,10 +29,8 @@ class NYTimes(Spider):
 	def parse(self,response):
 
 		## Obtaining the various links for news categories 
+		category_links = response.xpath('//div[2]/header/nav/ul/li/a/@href').extract()
 
-		
-
-		
-
-
+		##Obtaining the categories for the corresponding links
+		categories = response.xpath('//div[2]/header/nav/ul/li/a/text()').extract()
 
