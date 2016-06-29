@@ -54,5 +54,7 @@ class NYTimes(Spider):
 		tmagazine_news = response.xpath('//div[2]/header/nav/ul/li[24]/a/@href').extract()[0]
 		real_estate_news = response.xpath('//div[2]/header/nav/ul/li[25]/a/@href').extract()[0]
 
+		
+
 
 
