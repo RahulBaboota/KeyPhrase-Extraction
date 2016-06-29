@@ -8,6 +8,5 @@
 from scrapy import Field , Item
 
 
-class NYTimesItem(scrapy.Item):
-	
-	
+class NYTimesItem(Item):
+	pass
