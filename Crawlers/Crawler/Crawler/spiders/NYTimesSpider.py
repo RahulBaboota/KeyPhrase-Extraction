@@ -28,13 +28,15 @@ class NYTimes(Spider):
 
     def parse(self,response):
 
+        item = NYTimesItem()
+
         ## Obtaining the various links for news categories 
         category_links = response.xpath('//div[2]/header/nav/ul/li/a/@href').extract()
-        # print category_links
+        print category_links
 
         ## Obtaining the categories for the corresponding links
         categories = response.xpath('//div[2]/header/nav/ul/li/a/text()').extract()
-        # print categories
+        print categories
 
         ## Yielding scrapy requests to the category links obtained above 
         for ( category , category_link ) in zip( categories , category_links ):
@@ -43,4 +45,13 @@ class NYTimes(Spider):
             request1.meta['article_links'] = item
             yield request1
 
+    def parse_article_link(self,response):
+
+        article_links = response.meta['article_links']
+
+
+        ## Extracting the links for the subcategories on the category landing page
+
+        category_links = response.xpath('//*[contains(@class, "subNavigation")]//a/@href').extract()
+        print category_links
     
