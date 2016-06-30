@@ -52,6 +52,6 @@ class NYTimes(Spider):
 
         ## Extracting the links for the subcategories on the category landing page
 
-        category_links = response.xpath('//*[contains(@class, "subNavigation")]//a/@href').extract()
-        print category_links
-    
+        category_links = response.xpath('body//a/@href').extract()
+        # print len(category_links)
+
