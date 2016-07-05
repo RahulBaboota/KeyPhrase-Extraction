@@ -7,7 +7,7 @@ import scrapy
 from scrapy.selector import Selector
 from scrapy.spider import Spider
 from Crawler.items import *
-
+import re
 """ 
 
                                                 Initiating the SpiderClass
@@ -32,11 +32,9 @@ class NYTimes(Spider):
 
         ## Obtaining the various links for news categories 
         category_links = response.xpath('//div[2]/header/nav/ul/li/a/@href').extract()
-        print category_links
 
         ## Obtaining the categories for the corresponding links
         categories = response.xpath('//div[2]/header/nav/ul/li/a/text()').extract()
-        print categories
 
         ## Yielding scrapy requests to the category links obtained above 
         for ( category , category_link ) in zip( categories , category_links ):
@@ -50,8 +48,26 @@ class NYTimes(Spider):
         article_links = response.meta['article_links']
 
 
-        ## Extracting the links for the subcategories on the category landing page
+        ## Extracting all the available links from the landing page
+        all_links = response.xpath('body//a/@href').extract()
 
-        category_links = response.xpath('body//a/@href').extract()
-        # print len(category_links)
+        ## Now , we will filter out these links obtained to just contain the article links
+        article_links = [] 
+        regex_pattern = r"^http:\/\/www.nytimes.com\/(\d+)\/(\d+)\/(\d+)\/.+"
+
+        for link in all_links:
+            if (bool(re.match(regex_pattern,link))==True):
+                article_links.append(link)
+            else:
+                pass
+
+
+
+
+
+
+
+
+
+
 
