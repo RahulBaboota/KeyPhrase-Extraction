@@ -5,7 +5,7 @@
 """
 import scrapy
 from scrapy.selector import Selector
-from scrapy.spider import Spider
+from scrapy.spiders import Spider
 from Crawler.items import *
 import re
 """ 
@@ -60,6 +60,7 @@ class NYTimes(Spider):
                 article_links.append(link)
             else:
                 pass
+        print article_links
 
 
 
