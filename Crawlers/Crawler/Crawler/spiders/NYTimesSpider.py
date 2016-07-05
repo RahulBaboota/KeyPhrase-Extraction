@@ -71,9 +71,28 @@ class NYTimes(Spider):
         ## Sending scrapy requests to the article links to extract the article text
         for article_link in article_links_list:
 
-            request2 = scrapy.Request( article_link )
+            request2 = scrapy.Request( article_link , callback = self.parse_article_info )
             request2.meta['article_info'] = article_links
             yield request2
+
+    '''
+
+
+                                                Parsing through Article Information Layer 
+
+    '''
+
+    def parse_article_info(self,response):
+
+        article_info = response.meta['article_info']
+
+        article_info['text'] = response.xpath('//*[contains(@class, "story-body")]//p/text()').extract()
+
+        yield article_info
+
+
+
+
 
 
 
