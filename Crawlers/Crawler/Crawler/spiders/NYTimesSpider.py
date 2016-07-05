@@ -43,6 +43,13 @@ class NYTimes(Spider):
             request1.meta['article_links'] = item
             yield request1
 
+    '''
+
+
+                                                Parsing through Article Links Layer 
+
+    '''
+
     def parse_article_link(self,response):
 
         article_links = response.meta['article_links']
@@ -52,15 +59,22 @@ class NYTimes(Spider):
         all_links = response.xpath('body//a/@href').extract()
 
         ## Now , we will filter out these links obtained to just contain the article links
-        article_links = [] 
+        article_links_list = [] 
         regex_pattern = r"^http:\/\/www.nytimes.com\/(\d+)\/(\d+)\/(\d+)\/.+"
 
         for link in all_links:
             if (bool(re.match(regex_pattern,link))==True):
-                article_links.append(link)
+                article_links_list.append(link)
             else:
                 pass
-        print article_links
+
+        ## Sending scrapy requests to the article links to extract the article text
+        for article_link in article_links_list:
+
+            request2 = scrapy.Request( article_link )
+            request2.meta['article_info'] = article_links
+            yield request2
+
 
 
 
