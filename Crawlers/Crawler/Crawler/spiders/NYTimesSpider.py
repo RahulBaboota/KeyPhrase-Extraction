@@ -63,7 +63,7 @@ class NYTimes(Spider):
         regex_pattern = r"^http:\/\/www.nytimes.com\/(\d+)\/(\d+)\/(\d+)\/.+"
 
         for link in all_links:
-            if (bool(re.match(regex_pattern,link))==True):
+            if (re.match(regex_pattern,link)):
                 article_links_list.append(link)
             else:
                 pass
