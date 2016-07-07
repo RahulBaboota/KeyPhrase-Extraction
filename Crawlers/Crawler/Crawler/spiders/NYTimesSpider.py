@@ -86,7 +86,10 @@ class NYTimes(Spider):
 
         article_info = response.meta['article_info']
 
-        article_info['text'] = response.xpath('//*[contains(@class, "story-body")]//p/text()').extract()
+        text_list = response.xpath('//*[contains(@class, "story-body")]//p/text()').extract()
+
+        article_info['article'] = ' '.join(text_list).strip()
+        
 
         yield article_info
 

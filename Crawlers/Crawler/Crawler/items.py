@@ -9,6 +9,6 @@ from scrapy import Field , Item
 
 
 class NYTimesItem(Item):
-	text = Field()
+	article = Field()
 
 
