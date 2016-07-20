@@ -86,10 +86,33 @@ class NYTimes(Spider):
 
         article_info = response.meta['article_info']
 
+        ## Creating a list of the article text
         text_list = response.xpath('//*[contains(@class, "story-body")]//p/text()').extract()
-
         article_info['article'] = ' '.join(text_list).strip()
-        
+
+        ## Article post date
+        try:
+            article_info['post_date'] = response.xpath('//meta[@name="dat"]/@content').extract()[0]
+        except IndexError:
+            article_info['post_date'] = ''
+
+        ##  Defining the text type
+        article_info['text_type'] = response.xpath('//meta[@property="og:type"]/@content').extract()[0]
+
+        ## Defining the article title
+        article_info['article_title'] = response.xpath('//meta[@property="og:title"]/@content').extract()[0]
+
+        ## Defining the article description
+        article_info['article_description'] = response.xpath('//meta[@property="og:description"]/@content').extract()[0]
+
+        ## Article Category
+        article_info['category'] = response.xpath('//meta[@itemprop="articleSection"]/@content').extract()[0]
+
+        ## Article Authors
+        article_info['authors'] = response.xpath('//meta[@name="author"]/@content').extract()[0]
+
+        ## Extracting the keywords from the article
+        article_info['keywords'] = response.xpath('//meta[@name="keywords"]/@content').extract()[0]
 
         yield article_info
 

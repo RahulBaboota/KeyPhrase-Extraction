@@ -10,5 +10,12 @@ from scrapy import Field , Item
 
 class NYTimesItem(Item):
 	article = Field()
+	post_date = Field()
+	text_type = Field()
+	article_title = Field()
+	article_description = Field()
+	category = Field()
+	authors = Field()
+	keywords = Field()
 
 
