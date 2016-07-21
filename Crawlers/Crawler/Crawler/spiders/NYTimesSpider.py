@@ -114,6 +114,11 @@ class NYTimes(Spider):
         ## Extracting the keywords from the article
         article_info['keywords'] = response.xpath('//meta[@name="keywords"]/@content').extract()[0]
 
+        ## Extracting image urls from the article
+        article_info['image_urls'] = response.xpath('//div[@class="image"]/img/@src').extract()
+
+        
+
         yield article_info
 
 
