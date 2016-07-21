@@ -44,6 +44,7 @@ ROBOTSTXT_OBEY = False
 #   'Accept-Language': 'en',
 #}
 
+IMAGES_STORE = '/Users/RahulBaboota/Documents/NLTK/Know Whats Happening/Crawlers/Crawler/Images'
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
@@ -64,9 +65,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'Crawler.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'Crawler.pipelines.ImagePipeline': 100,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

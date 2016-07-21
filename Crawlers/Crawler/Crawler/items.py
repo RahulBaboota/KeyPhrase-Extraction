@@ -18,5 +18,6 @@ class NYTimesItem(Item):
 	authors = Field()
 	keywords = Field()
 	image_urls = Field()
+	images = Field()
 
 

@@ -97,7 +97,10 @@ class NYTimes(Spider):
             article_info['post_date'] = ''
 
         ##  Defining the text type
-        article_info['text_type'] = response.xpath('//meta[@property="og:type"]/@content').extract()[0]
+        try:
+            article_info['text_type'] = response.xpath('//meta[@property="og:type"]/@content').extract()[0]
+        except IndexError:
+            article_info['post_date'] = ''
 
         ## Defining the article title
         article_info['article_title'] = response.xpath('//meta[@property="og:title"]/@content').extract()[0]
@@ -112,12 +115,15 @@ class NYTimes(Spider):
         article_info['authors'] = response.xpath('//meta[@name="author"]/@content').extract()[0]
 
         ## Extracting the keywords from the article
-        article_info['keywords'] = response.xpath('//meta[@name="keywords"]/@content').extract()[0]
+        try:
+            article_info['keywords'] = response.xpath('//meta[@name="keywords"]/@content').extract()[0]
+        except IndexError:
+            article_info['keywords'] = ''
 
         ## Extracting image urls from the article
         article_info['image_urls'] = response.xpath('//div[@class="image"]/img/@src').extract()
 
-        
+
 
         yield article_info
 
