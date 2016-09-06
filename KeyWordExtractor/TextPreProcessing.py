@@ -9,6 +9,7 @@
 import nltk
 from nltk import word_tokenize
 from nltk import sent_tokenize
+from nltk import pos_tag
 from nltk.corpus import stopwords
 from string import punctuation
 from collections import defaultdict
@@ -53,6 +54,24 @@ text = 'Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrims
 """
 
 ## For creating a baseline model , we dont' define any kind of grammar rules for extracting the candidate keywords and simply make ## all the tokens as the candidates . Therefore , there isn't any kind of function required to do this task .
+
+## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
+## "nouns only."
+
+def Extract_Candidates_Nouns(text_tokens):
+
+    ## Assigning the appropriate pos_tag to each token
+    pos_tagged_tokens = pos_tag(text_tokens)
+
+    ## Creating a list which will hold the candidates
+    Noun_Candidates = []
+
+    ## Looping over the pos_tagged tuple to extract nouns
+    for token_tag_pair in pos_tagged_tokens:
+        if(token_tag_pair[1]=="NN" or token_tag_pair[1]=="NNP" or token_tag_pair[1]=="NNS" or token_tag_pair[1]=="NNPS"):
+            Noun_Candidates.append(token_tag_pair[0])
+
+    return Noun_Candidates
 
 
 
