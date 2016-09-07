@@ -48,7 +48,7 @@ def TextTokenize(text):
 
     return word_tokens_filtered
 
-text = 'Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrims lying mangled on the ground in 118-degree heat, under a searing Saudi sun. Barefoot, topless and dazed, Mr. Siddiqui had somehow escaped being crushed by the surging crowd.It was Sept. 24, 2015, the third morning of the hajj, the annual five-day pilgrimage to Mecca by millions of Muslims from around the world. By some estimates, it was the deadliest day in hajj history and one of the worst accidents in the world in decades.An American from Atlanta, Mr. Siddiqui, 42, had been walking through a sprawling valley of tens of thousands of pilgrim tents. His destination: Jamarat Bridge, where pilgrims throw pebbles at three large pillars in a ritual symbolizing the stoning of the devil.He was less than a mile from the bridge when the crush began.'
+text = 'Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrims lying mangled on the ground in 118-degree heat, under a searing Saudi sun. Barefoot, topless and dazed, Mr. Siddiqui had somehow escaped being crushed by the surging crowd.It was Sept. 24, 2015, the third morning of the hajj, the annual five-day pilgrimage to Mecca by millions of Muslims from around the world. By some estimates, it was the deadliest day in hajj history and one of the worst accidents in the world in decades.An American from Atlanta, Mr. Siddiqui, 42, had been walking through a sprawling valley of tens of thousands of pilgrim tents. His destination: Jamarat Bridge, where pilgrims throw pebbles at three large pillars in a ritual symbolizing the stoning of the devil. He was less than a mile from the bridge when the crush began.'
 
 """
 -----------------------------------------  Defining Candidate Extraction Rules ----------------------------------------------------
@@ -68,7 +68,7 @@ def Extract_Candidates_Nouns(text_tokens):
     Noun_Candidates = []
 
     ##Defining the Regular Expression for extracting nouns
-    noun_pattern = r"^NN."
+    noun_pattern = r"^NN?."
 
     ## Looping over the pos_tagged tuple to extract nouns
     for token_tag_pair in pos_tagged_tokens:
@@ -80,11 +80,27 @@ def Extract_Candidates_Nouns(text_tokens):
 ## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
 ## "nouns and adjectves".
 
+def Extract_Candidates_Nouns_Adjective(text_tokens):
 
+    ## Assigning the appropriate pos_tag to each token
+    pos_tagged_tokens = pos_tag(text_tokens)
 
+    ## Creating a list which will hold the candidates
+    Noun_Adjective_Candidates = []
 
+    ##Defining the Regular Expression for extracting adjectives
+    adjective_pattern = r"^JJ?."
 
+    ##Defining the Regular Expression for extracting nouns
+    noun_pattern = r"^NN?."
 
+    ## Looping over the pos_tagged tuple to extract nouns and adjectives
+    for token_tag_pair in pos_tagged_tokens:
+        if( re.match(noun_adjective_pattern,token_tag_pair[1]) or re.match(noun_pattern,token_tag_pair[1])):
+            Noun_Adjective_Candidates.append(token_tag_pair[0])
 
+    return Noun_Adjective_Candidates
+
+#-----------------------------------------------------------------------------------------------------------------------------------
 
 
