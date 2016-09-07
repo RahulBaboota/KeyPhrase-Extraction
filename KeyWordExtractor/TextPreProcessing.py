@@ -13,6 +13,7 @@ from nltk import pos_tag
 from nltk.corpus import stopwords
 from string import punctuation
 from collections import defaultdict
+import re
 
 """
 --------------------------------------------    Tokenizing The Text   -----------------------------------------------------
@@ -66,12 +67,20 @@ def Extract_Candidates_Nouns(text_tokens):
     ## Creating a list which will hold the candidates
     Noun_Candidates = []
 
+    ##Defining the Regular Expression for extracting nouns
+    noun_pattern = r"^NN."
+
     ## Looping over the pos_tagged tuple to extract nouns
     for token_tag_pair in pos_tagged_tokens:
-        if(token_tag_pair[1]=="NN" or token_tag_pair[1]=="NNP" or token_tag_pair[1]=="NNS" or token_tag_pair[1]=="NNPS"):
+        if(re.match(noun_pattern,token_tag_pair[1])):
             Noun_Candidates.append(token_tag_pair[0])
 
     return Noun_Candidates
+
+## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
+## "nouns and adjectves".
+
+
 
 
 
