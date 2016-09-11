@@ -100,5 +100,3 @@ def Extract_Candidates_Nouns_Adjective(Text_tokens):
     return Noun_Adjective_Candidates
 
 #-----------------------------------------------------------------------------------------------------------------------------------
-
-

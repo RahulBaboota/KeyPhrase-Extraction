@@ -22,20 +22,20 @@ Text = 'Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrims
 
 def Baseline_Candidates_All(Text):
 
-	## When we are creating our model with open words (all words) , the candidates in this case are all the tokens . 
-	Candidates_All = TextTokenize(Text)
+    ## When we are creating our model with open words (all words) , the candidates in this case are all the tokens . 
+    Candidates_All = TextTokenize(Text)
 
-	## Initialising a dictionary to map the tokens with their frequencies .
-	Frequency_Candidates_All = defaultdict(int)
+    ## Initialising a dictionary to map the tokens with their frequencies .
+    Frequency_Candidates_All = defaultdict(int)
 
-	## Looping over the tokens to map them with their frequencies .
-	for token in Candidates_All:
-		Frequency_Candidates_All[token] += 1
+    ## Looping over the tokens to map them with their frequencies .
+    for token in Candidates_All:
+        Frequency_Candidates_All[token] += 1
 
-	## Sorting the tokens in descending order based on their frequencies .
-	Frequency_Candidates_All = OrderedDict(sorted(Frequency_Candidates_All.items(), reverse=True, key=lambda t: t[1]))
+    ## Sorting the tokens in descending order based on their frequencies .
+    Frequency_Candidates_All = OrderedDict(sorted(Frequency_Candidates_All.items(), reverse=True, key=lambda t: t[1]))
 
-	return Frequency_Candidates_All
+    return Frequency_Candidates_All
 
 """
 -----------------------------------------  Creating Model with Nouns ----------------------------------------------------
@@ -43,22 +43,46 @@ def Baseline_Candidates_All(Text):
 
 def Baseline_Nouns(Text):
 
-	## Tokenizing the text
-	Text_Tokens = TextTokenize(Text)
+    ## Tokenizing the text
+    Text_Tokens = TextTokenize(Text)
 
-	## Extracting the candidates from the created tokens which in this case is "nouns"
-	Candidates_Nouns = Extract_Candidates_Nouns(Text_Tokens)
+    ## Extracting the candidates from the created tokens which in this case is "nouns"
+    Candidates_Nouns = Extract_Candidates_Nouns(Text_Tokens)
 
-	## Initialising a dictionary to map the tokens with their frequencies .
-	Frequency_Candidates_Nouns = defaultdict(int)
+    ## Initialising a dictionary to map the tokens with their frequencies .
+    Frequency_Candidates_Nouns = defaultdict(int)
 
-	## Looping over the tokens to map them with their frequencies .
-	for token in Candidates_Nouns:
-		Frequency_Candidates_Nouns[token] += 1
+    ## Looping over the tokens to map them with their frequencies .
+    for token in Candidates_Nouns:
+        Frequency_Candidates_Nouns[token] += 1
 
-	## Sorting the tokens in descending order based on their frequencies .
-	Frequency_Candidates_Nouns = OrderedDict(sorted(Frequency_Candidates_Nouns.items(), reverse=True, key=lambda t: t[1]))
+    ## Sorting the tokens in descending order based on their frequencies .
+    Frequency_Candidates_Nouns = OrderedDict(sorted(Frequency_Candidates_Nouns.items(), reverse=True, key=lambda t: t[1]))
 
-	return Frequency_Candidates_Nouns
+    return Frequency_Candidates_Nouns
 
+"""
+---------------------------------------  Creating Model with Nouns and Adjectives --------------------------------------------------
+"""
 
+def Baseline_Nouns_Adjectives(Text):
+
+    ## Tokenizing the text
+    Text_Tokens = TextTokenize(Text)
+
+    ## Extracting the candidates from the created tokens which in this case is "nouns"
+    Candidates_Nouns_Adjectives = Extract_Candidates_Nouns_Adjective(Text_Tokens)
+
+    ## Initialising a dictionary to map the tokens with their frequencies .
+    Frequency_Candidates_Nouns_Adjectives = defaultdict(int)
+
+    ## Looping over the tokens to map them with their frequencies .
+    for token in Candidates_Nouns_Adjectives:
+        Frequency_Candidates_Nouns_Adjectives[token] += 1
+
+    ## Sorting the tokens in descending order based on their frequencies .
+    Frequency_Candidates_Nouns_Adjectives = OrderedDict(sorted(Frequency_Candidates_Nouns_Adjectives.items(), reverse=True, key=lambda t: t[1]))
+
+    return Frequency_Candidates_Nouns_Adjectives
+
+#-----------------------------------------------------------------------------------------------------------------------------------
