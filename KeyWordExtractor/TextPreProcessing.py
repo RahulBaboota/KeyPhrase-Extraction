@@ -22,13 +22,13 @@ import re
 StopWords = set(stopwords.words("english") + list(punctuation))
 
 ## Defining a function to tokenize our text
-def TextTokenize(text):
+def TextTokenize(Text):
 
     ## Lowering the text
-    text = text.lower()
+    Text = Text.lower()
 
     ## Creating a list of Sentence Tokens
-    sentence_tokens = sent_tokenize(text)
+    sentence_tokens = sent_tokenize(Text)
 
     ## Creating a list of Word Tokens
     word_tokens = [word_tokenize(word) for word in sentence_tokens]
@@ -57,10 +57,10 @@ def TextTokenize(text):
 ## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
 ## "nouns only."
 
-def Extract_Candidates_Nouns(text_tokens):
+def Extract_Candidates_Nouns(Text_tokens):
 
     ## Assigning the appropriate pos_tag to each token
-    pos_tagged_tokens = pos_tag(text_tokens)
+    pos_tagged_tokens = pos_tag(Text_tokens)
 
     ## Creating a list which will hold the candidates
     Noun_Candidates = []
@@ -78,10 +78,10 @@ def Extract_Candidates_Nouns(text_tokens):
 ## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
 ## "nouns and adjectves".
 
-def Extract_Candidates_Nouns_Adjective(text_tokens):
+def Extract_Candidates_Nouns_Adjective(Text_tokens):
 
     ## Assigning the appropriate pos_tag to each token
-    pos_tagged_tokens = pos_tag(text_tokens)
+    pos_tagged_tokens = pos_tag(Text_tokens)
 
     ## Creating a list which will hold the candidates
     Noun_Adjective_Candidates = []
