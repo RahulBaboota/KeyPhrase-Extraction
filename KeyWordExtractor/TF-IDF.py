@@ -8,6 +8,7 @@
 
 import nltk
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
 from nltk import sent_tokenize
 from TextPreProcessing import TextTokenize
 from TextPreProcessing import Extract_Candidates_Nouns
@@ -25,3 +26,24 @@ Sentence_Tokens = sent_tokenize(Text)
 -----------------------------------------  Creating Model with open words ----------------------------------------------------
 """
 
+def TF_IDF_Candidates_All(Text):
+
+    ## Creating a dictionary of vocabulary to create a Vector Space Model to represent words as "Vectors."
+
+    Count_Vectorizer = CountVectorizer(stop_words="english")
+    Count_Vectorizer.fit_transform(Sentence_Tokens)
+    # print "Vocabulary:", Count_Vectorizer.vocabulary_
+
+    ## Creating the vectors in our Vector Space Model with the help of the above created dictionary
+    Word_Vectors = Count_Vectorizer.transform(Sentence_Tokens).todense()
+    # print Word_Vectors
+
+    ## Instantiating the TF-IDF Transformer to assign weights to each word.
+
+    TFIDF = TfidfTransformer(norm="l2")
+    TFIDF.fit(Word_Vectors)
+    TFIDF_matrix = TFIDF.transform(Word_Vectors)
+    # print TFIDF_matrix.todense()
+
+
+TF_IDF_Candidates_All(Text)
