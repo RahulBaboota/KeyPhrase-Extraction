@@ -88,13 +88,17 @@ def TF_IDF_Baseline(Text):
 
     # print Vocabulary_Words
 
+    ## Creating a resultant dictionary to be returned containing the token as the key and it's score as it's value .
+
+    TF_IDF_Baseline_Scores = {}
+
+    for token,score in zip(Vocabulary_Words,Final_Weight_Matrix_Scores):
+        TF_IDF_Baseline_Scores[token] = score
+
+    ## Converting the dictionary into an ordered dictionary in descending order .
+    TF_IDF_Baseline_Scores = OrderedDict(sorted(TF_IDF_Baseline_Scores.items(), reverse=True, key=lambda t: t[1]))
+
+    return TF_IDF_Baseline_Scores
+
     
-
-
-
-
-
-
-
-
 TF_IDF_Baseline(Text)
