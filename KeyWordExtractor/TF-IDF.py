@@ -75,10 +75,25 @@ def TF_IDF_Baseline(Text):
     ## Storing the weights of the final score matrix in a list
     Final_Weight_Matrix_Scores = []
 
-    for i in range(0,67):
+    for i in range(0,Final_Weight_Matrix.shape[1]):
         Final_Weight_Matrix_Scores.append(Final_Weight_Matrix[0,i])
 
     # print Final_Weight_Matrix_Scores
+
+    ## Storing the vocabulary words in a list for iterating over this and Final_Weight_Matrix_Scores list simultaneously
+    Vocabulary_Words = []
+
+    for key in Vocabulary:
+        Vocabulary_Words.append(key)
+
+    # print Vocabulary_Words
+
+    
+
+
+
+
+
 
 
 
