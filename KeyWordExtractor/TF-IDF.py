@@ -68,8 +68,18 @@ def TF_IDF_Baseline(Text):
 
     ## Multiplying Matrices "TF_Matrix" and "IDF_Square_Matrix" to obtain the final matrix with final weighted scores .
     Final_Weight_Matrix = np.dot(TF_Matrix,IDF_Square_Matrix)
-    
+
     # print Final_Weight_Matrix.shape
     # print Final_Weight_Matrix
+
+    ## Storing the weights of the final score matrix in a list
+    Final_Weight_Matrix_Scores = []
+
+    for i in range(0,67):
+        Final_Weight_Matrix_Scores.append(Final_Weight_Matrix[0,i])
+
+    # print Final_Weight_Matrix_Scores
+
+
 
 TF_IDF_Baseline(Text)
