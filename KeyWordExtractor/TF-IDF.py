@@ -29,7 +29,7 @@ Sentence_Tokens = sent_tokenize(Text[0])
 -----------------------------------------  Creating Model with open words ----------------------------------------------------
 """
 
-def TF_IDF_Baseline(Text,norm="l2"):
+def TF_IDF(Text,norm="l2",term_frequency="default"):
 
     ## Creating a dictionary of vocabulary to create a Vector Space Model to represent words as "Vectors."
 
@@ -43,13 +43,25 @@ def TF_IDF_Baseline(Text,norm="l2"):
     # Creating the vector in our Vector Space Model with the help of the above created dictionary .
     # It is important to note that herein we are creating a single vector which makes records of frequency count for the tokens
     # in the entire article .
-    TF_Matrix = Count_Vectorizer.transform(Text).todense()
-    TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)
 
-    # print TF_Matrix
+    ## In this case , we consider the default term frequency term which is simply the number of times a token appears in the text.
+    if (term_frequency=="default"):
+        TF_Matrix = Count_Vectorizer.transform(Text).todense()
+        TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)
+
+        # print TF_Matrix
+
+    ## In this case , we consider the logarithmic term frequency which helps to smoothes the noise and squishes the range down.
+    elif (term_frequency=="logarithmic"):
+        TF_Matrix = Count_Vectorizer.transform(Text).todense()
+        TF_Matrix = TF_Matrix + 1
+        TF_Matrix = np.log(TF_Matrix)
+        TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)        
+
+        # print TF_Matrix
 
     # Creating the vector for each document (sentence) for helping us evaluate the idf weight for each matrix .
-    IDF_Help = Count_Vectorizer.transform(Sentence_Tokens).todense()
+    IDF_Help = Count_Vectorizer.transform(Sentence_Tokens).todense() 
 
     # print IDF_Help
 
@@ -101,5 +113,5 @@ def TF_IDF_Baseline(Text,norm="l2"):
     return TF_IDF_Baseline_Scores
 
 
-TF_IDF_Baseline(Text,"l1")
-TF_IDF_Baseline(Text,"l2")
+TF_IDF(Text,"l1","logarithmic")
+# TF_IDF(Text,"l2")
