@@ -29,7 +29,7 @@ Sentence_Tokens = sent_tokenize(Text[0])
 -----------------------------------------  Creating Model with open words ----------------------------------------------------
 """
 
-def TF_IDF_Baseline(Text):
+def TF_IDF_Baseline(Text,norm="l2"):
 
     ## Creating a dictionary of vocabulary to create a Vector Space Model to represent words as "Vectors."
 
@@ -44,7 +44,7 @@ def TF_IDF_Baseline(Text):
     # It is important to note that herein we are creating a single vector which makes records of frequency count for the tokens
     # in the entire article .
     TF_Matrix = Count_Vectorizer.transform(Text).todense()
-    TF_Matrix = normalize(TF_Matrix, norm="l1", axis=1)
+    TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)
 
     # print TF_Matrix
 
@@ -100,5 +100,6 @@ def TF_IDF_Baseline(Text):
 
     return TF_IDF_Baseline_Scores
 
-    
-TF_IDF_Baseline(Text)
+
+TF_IDF_Baseline(Text,"l1")
+TF_IDF_Baseline(Text,"l2")
