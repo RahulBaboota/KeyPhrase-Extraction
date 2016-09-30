@@ -110,3 +110,17 @@ def TF_IDF(Text,norm="l2",term_frequency="default"):
     TF_IDF_Scores = OrderedDict(sorted(TF_IDF_Scores.items(), reverse=True, key=lambda t: t[1]))
 
     return TF_IDF_Scores
+
+
+"""
+-----------------------------------------  Creating Model with open words ----------------------------------------------------
+""" 
+
+## Herein , we are creating a model with open words that is we are not trimming / pruning any of the original text except for 
+## the stop words . Therefore , in practice , the model with open words will simply be the above created function for evaluating
+## TF-IDF Scores .
+
+def TF_IDF_Candidates_All(Text,norm,term_frequency):
+
+    ## Simply returning the original function created above to do the same .
+    TF_IDF(Text,norm=norm,term_frequency=term_frequency)
