@@ -26,7 +26,7 @@ Text = ['Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrim
 Sentence_Tokens = sent_tokenize(Text[0])
 
 """
------------------------------------------  Creating Model with open words ----------------------------------------------------
+-----------------------------------------  Creating TF-IDF Model with variations -------------------------------------------------
 """
 
 def TF_IDF(Text,norm="l2",term_frequency="default"):
@@ -101,17 +101,12 @@ def TF_IDF(Text,norm="l2",term_frequency="default"):
     # print Vocabulary_Words
 
     ## Creating a resultant dictionary to be returned containing the token as the key and it's score as it's value .
-
-    TF_IDF_Baseline_Scores = {}
+    TF_IDF_Scores = {}
 
     for token,score in zip(Vocabulary_Words,Final_Weight_Matrix_Scores):
-        TF_IDF_Baseline_Scores[token] = score
+        TF_IDF_Scores[token] = score
 
     ## Converting the dictionary into an ordered dictionary in descending order .
-    TF_IDF_Baseline_Scores = OrderedDict(sorted(TF_IDF_Baseline_Scores.items(), reverse=True, key=lambda t: t[1]))
+    TF_IDF_Scores = OrderedDict(sorted(TF_IDF_Scores.items(), reverse=True, key=lambda t: t[1]))
 
-    return TF_IDF_Baseline_Scores
-
-
-TF_IDF(Text,"l1","logarithmic")
-# TF_IDF(Text,"l2")
+    return TF_IDF_Scores
