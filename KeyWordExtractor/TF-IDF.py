@@ -124,3 +124,42 @@ def TF_IDF_Candidates_All(Text,norm,term_frequency):
 
     ## Simply returning the original function created above to do the same .
     TF_IDF(Text,norm=norm,term_frequency=term_frequency)
+
+
+"""
+-----------------------------------------  Creating Model with Nouns ----------------------------------------------------
+""" 
+
+def TF_IDF_Nouns(Text,norm,term_frequency):
+
+    All_Tokens_Scores = TF_IDF(Text,norm=norm,term_frequency=term_frequency)
+
+    ## Storing the Text Tokens in a list 
+    Text_Tokens = []
+
+    for key in All_Tokens_Scores:
+        Text_Tokens.append(key)
+
+    ## Extracting the candidates from the created tokens which in this case is "nouns"
+    Candidates_Nouns = Extract_Candidates_Nouns(Text_Tokens)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TF_IDF_Nouns(Text,norm="l1",term_frequency="default")
