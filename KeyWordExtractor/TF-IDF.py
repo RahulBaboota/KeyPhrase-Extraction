@@ -138,7 +138,7 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
     Text_Tokens = []
 
     for key in All_Tokens_Scores:
-     Text_Tokens.append(key)
+        Text_Tokens.append(key)
 
     ## Extracting the candidates from the created tokens which in this case is "nouns" .
     Candidates_Nouns = Extract_Candidates_Nouns(Text_Tokens)
@@ -151,24 +151,10 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
             continue
         else:
             Delete_Keys.append(token)
-    print Delete_Keys
 
     ## Deleting the undesired keys from the original dictionary .
-    Scores_Candidates_Nouns = map(All_Tokens_Scores.pop, Delete_Keys)
+    
     print Scores_Candidates_Nouns
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 TF_IDF_Candidates_Nouns(Text,norm="l1",term_frequency="default")
