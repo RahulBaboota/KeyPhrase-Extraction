@@ -153,8 +153,10 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
             Delete_Keys.append(token)
 
     ## Deleting the undesired keys from the original dictionary .
+    for token in Delete_Keys:
+        del All_Tokens_Scores[token]
     
-    print Scores_Candidates_Nouns
-
-
-TF_IDF_Candidates_Nouns(Text,norm="l1",term_frequency="default")
+    ## Making a copy of the modified original dictionary to a new dictionary to be returned
+    Scores_Candidates_Nouns = All_Tokens_Scores
+    
+    return Scores_Candidates_Nouns
