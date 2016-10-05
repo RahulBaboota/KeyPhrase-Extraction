@@ -158,5 +158,40 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
     
     ## Making a copy of the modified original dictionary to a new dictionary to be returned
     Scores_Candidates_Nouns = All_Tokens_Scores
-    
+
     return Scores_Candidates_Nouns
+
+"""
+-----------------------------------------  Creating Model with Nouns ----------------------------------------------------
+""" 
+
+def TF_IDF_Candidates_Nouns_Adjectives(Text,norm,term_frequency):
+
+    All_Tokens_Scores = TF_IDF(Text,norm=norm,term_frequency=term_frequency)
+
+    ## Storing the Text Tokens in a list 
+    Text_Tokens = []
+
+    for key in All_Tokens_Scores:
+        Text_Tokens.append(key)
+
+    ## Extracting the candidates from the created tokens which in this case is "nouns" .
+    Candidates_Nouns_Adjective = Extract_Candidates_Nouns_Adjective(Text_Tokens)
+
+    ## Defining a list to hold the keys to be deleted from the original dictionary .
+    Delete_Keys = []
+
+    for token in Text_Tokens:
+        if  token in Candidates_Nouns_Adjective:
+            continue
+        else:
+            Delete_Keys.append(token)
+
+    ## Deleting the undesired keys from the original dictionary .
+    for token in Delete_Keys:
+        del All_Tokens_Scores[token]
+    
+    ## Making a copy of the modified original dictionary to a new dictionary to be returned
+    Scores_Candidates_Nouns_Adjectives = All_Tokens_Scores
+    
+    return Scores_Candidates_Nouns_Adjectives
