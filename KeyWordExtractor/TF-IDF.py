@@ -195,3 +195,5 @@ def TF_IDF_Candidates_Nouns_Adjectives(Text,norm,term_frequency):
     Scores_Candidates_Nouns_Adjectives = All_Tokens_Scores
     
     return Scores_Candidates_Nouns_Adjectives
+
+#-----------------------------------------------------------------------------------------------------------------------------------
