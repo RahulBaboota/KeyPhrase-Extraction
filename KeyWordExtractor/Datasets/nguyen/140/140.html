@@ -1,0 +1,894 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>untitled</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="">
+<META name="date" content="2006-06-09T10:28:38+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:18px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:14px;font-family:Times;color:#000000;}
+	.ft5{font-size:8px;font-family:Times;color:#000000;}
+	.ft6{font-size:6px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:13px;font-family:Times;color:#000000;}
+	.ft9{font-size:12px;line-height:14px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:12px;line-height:15px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft13{font-size:9px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140001.png" alt="background image">
+<DIV style="position:absolute;top:111;left:81"><nobr><span class="ft0">Modeling Node Compromise Spread in Wireless Sensor Networks Using Epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:414"><nobr><span class="ft0">Theory</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:293"><nobr><span class="ft1">Pradip De, Yonghe Liu, and Sajal K. Das</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:261"><nobr><span class="ft1">Department of Computer Science and Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:310"><nobr><span class="ft1">The University of Texas at Arlington</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:303"><nobr><span class="ft1">416 Yates Street, Arlington, TX 76019</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:309"><nobr><span class="ft1">{pradipde, yonghe, das}@cse.uta.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:219"><nobr><span class="ft1">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:93"><nobr><span class="ft2">Motivated by recent surfacing viruses that can spread</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:75"><nobr><span class="ft9">over the air interfaces, in this paper, we investigate the<br>potential disastrous threat of node compromise spreading<br>in wireless sensor networks. Originating from a single<br>infected node, we assume such a compromise can prop-<br>agate to other sensor nodes via communication and pre-<br>established mutual trust. We focus on the possible epidemic<br>breakout of such propagations where the whole network<br>may fall victim to the attack. Based on epidemic theory, we<br>model and analyze this spreading process and identify key<br>factors determining potential outbreaks. In particular, we<br>perform our study on random graphs precisely constructed<br>according to the parameters of the network, such as<br>distance, key sharing constrained communication and node<br>recovery, thereby reflecting the true characteristics therein.<br>The analytical results provide deep insights in designing<br>potential defense strategies against this threat. Further-<br>more, through extensive simulations, we validate our model<br>and perform investigations on the system dynamics.</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:75"><nobr><span class="ft10">Index Terms-- Sensor Networks, Epidemiology, Random Key<br>Predistribution, Random Graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:75"><nobr><span class="ft1">I. Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:93"><nobr><span class="ft2">As wireless sensor networks are unfolding their vast</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:75"><nobr><span class="ft9">potential in a plethora of application environments [1],<br>security still remains one of the most critical challenges<br>yet to be fully addressed. In particular, a vital problem<br>in the highly distributed and resource constrained envi-<br>ronment is node compromise, where a sensor node can<br>be completely captured and manipulated by the adversary.<br>While extensive work has focused on designing schemes<br>that can either defend and delay node capture or timely<br>identify and revoke compromised nodes themselves [5],<br>little attention has been paid to the node compromise<br>process itself. Inspired by recently emerged viruses that<br>can spread over air interfaces, we identify in this paper<br>the threat of epidemic spreading of node compromises in<br>large scale wireless sensor networks and present a model<br>that captures the unique characteristic of wireless sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:463"><nobr><span class="ft9">networks in conjunction with pairwise key schemes. In<br>particular, we identify the key factors determining the<br>potential epidemic outbreaks that in turn can be employed<br>to devise corresponding defense strategies.</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:463"><nobr><span class="ft4">A. Motivation</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:481"><nobr><span class="ft2">Due to its scarce resources and hence low defense capa-</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:463"><nobr><span class="ft9">bilities, node compromises can be expected to be common<br>phenomena for wireless sensor networks in unattended<br>and hostile environments. While extensive research efforts,<br>including those from ourselves [15], have been engineered<br>toward designing resilient network security mechanisms<br>[12], [13], the compromise itself and in particular the prop-<br>agation of node compromise (possible epidemics) have<br>attracted little attention.</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:481"><nobr><span class="ft2">While node compromise, thanks to physical capture and</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:463"><nobr><span class="ft11">succeeding analysis, is naturally constrained by the adver-<br>sary's capability, software originated compromises can be<br>much more damaging. Specifically, the recently surfaced<br>virus Cabir</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:536"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:550"><nobr><span class="ft2">that can spread over the air interface has</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:463"><nobr><span class="ft9">unveiled a disastrous threat for wireless sensor networks.<br>Inescapably, viruses targeting wireless sensor networks<br>will emerge. Consequently, node compromise by way of<br>virus spreading (over the air interface) can effortlessly<br>devastate the entire network in a short period of time. With<br>recent advancements on sensor design empowering nodes<br>such as MICA2 motes with over-the-air programmability,<br>the network becomes vulnerable to the above described<br>attack. Even worse, the inherent dense, large scale nature<br>of sensor networks undoubtedly further facilitates the virus<br>propagation.</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:481"><nobr><span class="ft2">While virus spreading over the internet has been widely</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:463"><nobr><span class="ft9">studied, and notably by means of epidemic theory [2], [3],<br>the distance and pairwise key restricted communication<br>pattern in wireless sensor networks uniquely distinguish<br>the phenomena from those on the Internet.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:463"><nobr><span class="ft4">B. Our Contribution</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:481"><nobr><span class="ft2">In this paper, we investigate the spreading process of</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:463"><nobr><span class="ft2">node compromise in large scale wireless sensor networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:475"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:480"><nobr><span class="ft7">http://www.f-secure.com/v-descs/cabir.shtml</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140002.png" alt="background image">
+<DIV style="position:absolute;top:116;left:75"><nobr><span class="ft9">Starting from a single point of failure, we assume that the<br>adversary can effectively compromise neighboring nodes<br>through wireless communication and thus can threat the<br>whole network without engaging in full scale physical<br>attacks. In particular, due to security schemes employed by<br>the sensor networks, we assume that communication can<br>only be performed when neighboring nodes can establish<br>mutual trust by authenticating a common key. Therefore,<br>node compromise is not only determined by the deploy-<br>ment of sensor nodes which in turn affects node density,<br>but also determined by the pairwise key scheme employed<br>therein. By incorporating these factors of the networks,<br>we propose an epidemiological model to investigate the<br>probability of a breakout (compromise of the whole net-<br>work) and if not, the sizes of the affected components<br>(compromised clusters of nodes). Furthermore, we analyze<br>the effect of node recovery in an active infection scenario<br>and obtain critical values for these parameters that result<br>in an outbreak. Through extensive simulations, we show<br>that our analytical results can closely capture the effects<br>in a wide range of network setups.</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:93"><nobr><span class="ft2">The remainder of the paper is organized as follows. In</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:75"><nobr><span class="ft9">Section II we present the preliminaries, including the threat<br>model, random key pre-distribution, and epidemic theory.<br>In Section III, we study the compromise propagation<br>without node recovery and with node recovery, and detail<br>our analytical results. We perform experimental study in<br>Section IV. Related work is presented in Section V and<br>we conclude in Section VI.</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:75"><nobr><span class="ft1">II. Preliminaries</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:93"><nobr><span class="ft2">In this section, we present our threat model and briefly</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:75"><nobr><span class="ft9">overview pairwise key distribution in wireless sensor net-<br>works and epidemic theory.</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:75"><nobr><span class="ft4">A. Threat model</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:93"><nobr><span class="ft2">We assume that a compromised node, by directly</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:75"><nobr><span class="ft9">communicating with a susceptible node, can spread the<br>infection and conduce to the compromise of the susceptible<br>node. Communication among sensor nodes is not only<br>constrained by their distances, but also shall be secured<br>and thus determined by the probability of pairwise key<br>sharing. Therefore, the spreading of node compromise is<br>dependent on the network deployment strategy and the<br>pairwise key scheme employed therein. We assume that<br>the "seed" compromise node could be originated by an<br>adversary through physical capture and analysis of that<br>node or by other similar means.</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:93"><nobr><span class="ft2">The spread of node compromise in a wireless sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:75"><nobr><span class="ft9">network, particularly thanks to its dense nature, can lead<br>to an epidemic effect where the whole network will get<br>infected. We consider this epidemic effect as the key threat<br>to the network and hence the investigation target of this<br>paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:75"><nobr><span class="ft4">B. Pairwise Key Pre-distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:93"><nobr><span class="ft2">As the pairwise key scheme affects the communication</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:75"><nobr><span class="ft2">and hence the propagation of the node compromise, we</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:463"><nobr><span class="ft9">provide below, a brief overview of the key distribution<br>schemes in wireless sensor networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:481"><nobr><span class="ft2">Due to the severe resource constraint of wireless sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:463"><nobr><span class="ft9">networks and limited networking bandwidth, proposed<br>pairwise key schemes have commonly adopted the pre-<br>distribution approach instead of online key management<br>schemes with prohibitive resource consumption. The con-<br>cept of pre-distribution was originated from [11], where<br>the authors propose to assign a number of keys, termed key<br>ring randomly drawn from a key pool. If two neighboring<br>nodes share a common key on their key rings, a shared<br>pairwise key exists and a secure communication can be<br>established. Pre-distribution schemes that rely on bivariate<br>polynomials is discussed in [13]. In this scheme, each<br>sensor node is pre-distributed a set of polynomials. Two<br>sensor nodes with the same polynomials can respectively<br>derive the same key.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:481"><nobr><span class="ft2">Regardless of the specific key distribution scheme, a</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:463"><nobr><span class="ft9">common parameter capturing the performance is the prob-<br>ability that two neighbors can directly establish a secure<br>communication. We denote this probability by</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:743"><nobr><span class="ft2">q. As it shall</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:463"><nobr><span class="ft2">be revealed later,</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:569"><nobr><span class="ft2">q plays an important role in the spreading</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:463"><nobr><span class="ft9">of node compromise, because direct communication, as<br>explained in the threat model, can result in propagation of<br>malicious code.</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:463"><nobr><span class="ft4">C. Node Recovery</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:481"><nobr><span class="ft2">In the event that a node is compromised, its secrets will</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:463"><nobr><span class="ft9">be revealed to the attacker. The network may attempt to<br>recover the particular node. Recovery might be realized<br>in several possible ways. For example, the keys of the<br>nodes might be revoked and the node may be given a<br>fresh set of secret keys. In this context, key revocation,<br>which refers to the task of securely removing keys that<br>are known to be compromised, has been investigated as<br>part of the key management schemes, for example in<br>[5]. Moreover, recovery can also be achieved by simply<br>removing the compromised node from the network, for<br>example by announcing a blacklist, or simply reload the<br>node's programs. More sophisticated methods may include<br>immunizing a node with an appropriate antivirus patch that<br>might render the node immune from the same virus attack.</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:481"><nobr><span class="ft2">Regardless, in our analysis, we will study virus spread-</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:463"><nobr><span class="ft9">ing under the two cases respectively depending on whether<br>a node can be recovered or not.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:463"><nobr><span class="ft4">D. Epidemic Theory</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:481"><nobr><span class="ft2">Originally, epidemic theory concerns about contagious</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:463"><nobr><span class="ft9">diseases spreading in the human society. The key feature<br>of epidemiology [2], [7] is the measurement of infection<br>outcomes in relation to a population at risk. The population<br>at risk basically comprises of the set of people who<br>possess a susceptibility factor with respect to the infection.<br>This factor is dependent on several parameters including<br>exposure, spreading rate, previous frequency of occurrence<br>etc., which define the potential of the disease causing<br>the infection. Example models characterizing the infection<br>spreading process include the Susceptible Infected Suscep-<br>tible (SIS) Model, Susceptible Infected Recovered (SIR)<br>Model etc. In the former, a susceptible individual acquires<br>infection and then after an infectious period, (i.e., the time</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:5px;font-family:Times;color:#000000;}
+	.ft15{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140003.png" alt="background image">
+<DIV style="position:absolute;top:116;left:75"><nobr><span class="ft9">the infection persists), the individual becomes susceptible<br>again. On the other hand, in the latter, the individual<br>recovers and becomes immune to further infections.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:93"><nobr><span class="ft2">Of particular interest is the phase transition of the</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:75"><nobr><span class="ft9">spreading process that is dependent on an epidemic thresh-<br>old: if the epidemic parameter is above the threshold, the<br>infection will spread out and become persistent; on the<br>contrary, if the parameter is below the threshold, the virus<br>will die out.</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:93"><nobr><span class="ft2">Epidemic theory indeed has been borrowed to the</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:75"><nobr><span class="ft9">networking field to investigate virus spreading. In this<br>paper, we will mainly rely on a random graph model to<br>characterize the unique connectivity of the sensor network<br>and perform the epidemic study [8], [10].</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:75"><nobr><span class="ft15">III. Modelling and Analysis of Compromise<br>Propagation</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:93"><nobr><span class="ft2">In this section, we analyze the propagation of node</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:75"><nobr><span class="ft9">compromise originating from a single node that has been<br>affected. Our focus is to study the outbreak point of the<br>epidemic effect where the whole network will fall victim<br>to the compromise procedure.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:93"><nobr><span class="ft2">Our key method is to characterize the sensor net-</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:75"><nobr><span class="ft9">work, including its key distribution, by mathematically<br>formulating it as a random graph whose key parameters<br>are precisely determined by those of the sensor network.<br>Therefore, the investigation of epidemic phenomena can<br>be performed on the random graph instead. Following<br>this approach, we observe the epidemic process under two<br>scenarios: without node recovery and with node recovery,<br>depending on whether infected nodes will be recovered by<br>external measures like key revocation, immunization, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:75"><nobr><span class="ft4">A. Network Model as Random Graph</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:93"><nobr><span class="ft2">Assume that sensor nodes are uniformly deployed in</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:75"><nobr><span class="ft2">a disc area with radius</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:226"><nobr><span class="ft2">R. Let  =</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:309"><nobr><span class="ft5">N</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:307"><nobr><span class="ft5">R</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:316"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:330"><nobr><span class="ft2">denote the node</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:75"><nobr><span class="ft2">density of the network where</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:269"><nobr><span class="ft2">N is the total number of</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:75"><nobr><span class="ft2">the nodes. For a sensor node with communication range</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:419"><nobr><span class="ft2">r,</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:75"><nobr><span class="ft2">the probability that</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:199"><nobr><span class="ft2">l nodes are within its communication</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:75"><nobr><span class="ft2">range is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:161"><nobr><span class="ft2">p(l) = nl p</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:243"><nobr><span class="ft5">l</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:248"><nobr><span class="ft2">(1 - p)</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:293"><nobr><span class="ft5">n-l</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:412"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:75"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:117"><nobr><span class="ft2">p is defined by</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:188"><nobr><span class="ft2">p = r</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:227"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:218"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:229"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:242"><nobr><span class="ft2">= r</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:266"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:273"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:263"><nobr><span class="ft2">N .</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:412"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:75"><nobr><span class="ft2">Thus</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:110"><nobr><span class="ft2">p is the probability of a link existing at the physical</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:75"><nobr><span class="ft9">level, i.e., whether the two nodes fall within their respective<br>communication ranges.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:93"><nobr><span class="ft2">We further assume that the probability that two neigh-</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:75"><nobr><span class="ft9">boring nodes sharing at least one key in the random pre-<br>distribution pairwise key is</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:246"><nobr><span class="ft2">q. Notice that q is determined</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:75"><nobr><span class="ft9">by the specific pairwise key scheme employed. For a<br>particular node having</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:214"><nobr><span class="ft2">l neighboring nodes, the probability</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:75"><nobr><span class="ft2">that there are</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:159"><nobr><span class="ft2">k nodes, k  l, sharing at least one key with</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:75"><nobr><span class="ft2">it is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:155"><nobr><span class="ft2">p(k|l) = lk q</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:248"><nobr><span class="ft5">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:256"><nobr><span class="ft2">(1 - q)</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:300"><nobr><span class="ft5">l-k</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:412"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:463"><nobr><span class="ft2">Therefore, the probability of having</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:691"><nobr><span class="ft2">k neighboring nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:463"><nobr><span class="ft2">sharing at least one key is</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:484"><nobr><span class="ft2">p(k) =</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:558"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:554"><nobr><span class="ft5">l=k</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:577"><nobr><span class="ft2">p(l)p(k|l)</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:800"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:527"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:558"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:554"><nobr><span class="ft5">l=k</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:588"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:590"><nobr><span class="ft2">l p</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:616"><nobr><span class="ft5">l</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:620"><nobr><span class="ft2">(1 - p)</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:665"><nobr><span class="ft5">n-l</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:699"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:697"><nobr><span class="ft2">k q</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:724"><nobr><span class="ft5">k</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:731"><nobr><span class="ft2">(1 - q)</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:776"><nobr><span class="ft5">l-k</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:800"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:463"><nobr><span class="ft9">Thus, based on both physical proximity and the proba-<br>bility of key sharing between neighbors, we get a degree<br>distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:538"><nobr><span class="ft2">p(k). Notice that this degree distribution can</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:463"><nobr><span class="ft2">be employed to generate a random graph</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:717"><nobr><span class="ft2">G. Since G pos-</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:463"><nobr><span class="ft9">sesses the same property in terms of secure communication<br>pattern as the sensor network of concern, we will next<br>perform the analysis on</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:614"><nobr><span class="ft2">G instead.</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:463"><nobr><span class="ft4">B. Compromise Spread Without Node Re-</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:463"><nobr><span class="ft4">covery</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:481"><nobr><span class="ft2">Given the random graph construction, we now analyze</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:463"><nobr><span class="ft9">the case of compromise spread when no node recovery<br>is performed. In other words, a compromised sensor node<br>will remain infectious indefinitely.</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:481"><nobr><span class="ft2">Let</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:509"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:521"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:527"><nobr><span class="ft2">(x) be the generating function of the degree</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:463"><nobr><span class="ft2">distribution of a randomly chosen vertex in</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:757"><nobr><span class="ft2">G and is</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:463"><nobr><span class="ft2">defined by</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:562"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:574"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:581"><nobr><span class="ft2">(x) =</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:626"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:621"><nobr><span class="ft5">k=0</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:645"><nobr><span class="ft2">p(k)x</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:681"><nobr><span class="ft5">k</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:800"><nobr><span class="ft2">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:463"><nobr><span class="ft2">Moreover, with</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:562"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:574"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:580"><nobr><span class="ft2">(x) given by</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:556"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:568"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:575"><nobr><span class="ft2">(x) =</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:632"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:617"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:628"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:635"><nobr><span class="ft2">(1)G</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:668"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:674"><nobr><span class="ft2">(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:800"><nobr><span class="ft2">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:463"><nobr><span class="ft2">and with</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:525"><nobr><span class="ft2"> denoting the infection probability of a node</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:463"><nobr><span class="ft9">being infected by communicating with a compromised<br>node, then following the analysis presented in [8], the<br>average size of the outbreak is derived as</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:559"><nobr><span class="ft2">s = 1 + G</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:647"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:654"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:614"><nobr><span class="ft2">1 - G</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:660"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:667"><nobr><span class="ft2">(1).</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:800"><nobr><span class="ft2">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:463"><nobr><span class="ft2">Infection probability</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:595"><nobr><span class="ft2"> essentially captures the spreading</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:463"><nobr><span class="ft9">capability of the virus that could compromise the network:<br>the larger it is, the stronger the virus is. We assume that<br>its value can be obtained by means of measurement or<br>analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:481"><nobr><span class="ft2">Given the above result, we can see that the outbreak</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:463"><nobr><span class="ft2">point for the network is</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:632"><nobr><span class="ft2"> = 1/G</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:701"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:708"><nobr><span class="ft2">(1) which marks</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:463"><nobr><span class="ft2">the onset of an epidemic. For</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:666"><nobr><span class="ft2"> &gt; 1/G</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:731"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:737"><nobr><span class="ft2">(1) we have</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:463"><nobr><span class="ft9">an epidemic in the form of a giant component in the<br>random network and the size</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:655"><nobr><span class="ft2">S of the epidemic, where</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:463"><nobr><span class="ft2">S denotes the expected fraction of the network that will</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:463"><nobr><span class="ft2">be compromised if an outbreak happens, is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:591"><nobr><span class="ft2">S = 1 - G</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:659"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:665"><nobr><span class="ft2">(u).</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:463"><nobr><span class="ft2">Here</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:498"><nobr><span class="ft2">u is the root of the self-consistency relation</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:605"><nobr><span class="ft2">u = G</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:645"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:652"><nobr><span class="ft2">(u).</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:463"><nobr><span class="ft2">Intuitively, the above conclusion reveals that if</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:785"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:463"><nobr><span class="ft2">1/G</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:490"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:497"><nobr><span class="ft2">(1), the component of compromised nodes is finite</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:5px;line-height:9px;font-family:Times;color:#000000;}
+	.ft17{font-size:5px;line-height:8px;font-family:Times;color:#000000;}
+	.ft18{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140004.png" alt="background image">
+<DIV style="position:absolute;top:331;left:132"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:154"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:179"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:205"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:230"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:256"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:281"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:307"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:332"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:358"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:386"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:127"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:123"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:123"><nobr><span class="ft14">20</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:123"><nobr><span class="ft14">30</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:123"><nobr><span class="ft14">40</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:123"><nobr><span class="ft14">50</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:123"><nobr><span class="ft14">60</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:123"><nobr><span class="ft14">70</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:123"><nobr><span class="ft14">80</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:123"><nobr><span class="ft14">90</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:119"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:221"><nobr><span class="ft6">Infection Probability(</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:294"><nobr><span class="ft6">)</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:114"><nobr><span class="ft6">Size of Cluster Compromised</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:353"><nobr><span class="ft16">q = 0.01<br>q = 0.02<br>q = 0.04<br>q = 0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:310"><nobr><span class="ft14">q = Key Sharing Prob</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:95"><nobr><span class="ft3">(a) Non-epidemic cluster size vs. infection probability (</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:403"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:132"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:154"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:179"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:205"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:230"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:256"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:281"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:307"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:332"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:358"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:386"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:127"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:121"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:121"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:121"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:121"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:121"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:121"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:121"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:121"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:121"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:127"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:220"><nobr><span class="ft6">Infection Probability (</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:295"><nobr><span class="ft6">)</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:116"><nobr><span class="ft6">Fraction of Network Compromised</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:348"><nobr><span class="ft14">q = 0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:348"><nobr><span class="ft14">q = 0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:348"><nobr><span class="ft14">q = 0.04</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:348"><nobr><span class="ft14">q = 0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:310"><nobr><span class="ft14">q = Key Sharing Prob</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:127"><nobr><span class="ft3">(b) Epidemic size vs. infection probability (</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:370"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:93"><nobr><span class="ft2">Fig. 1. Size of compromised node clusters:</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:397"><nobr><span class="ft3">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:93"><nobr><span class="ft18">depicts the average size of infected clusters when there<br>is no epidemic and (b) shows the epidemic size as the<br>fraction of the entire network. The point where non-zero<br>value appears indicates the transition from non-epidemic<br>to epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:75"><nobr><span class="ft9">in size regardless of the size of the network and each<br>node's probability of being compromised is zero for large<br>networks. On the contrary, if</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:261"><nobr><span class="ft2"> &gt; 1/G</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:318"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:324"><nobr><span class="ft2">(1), there always</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:75"><nobr><span class="ft2">exists a finite probability for a node to be compromised.</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:93"><nobr><span class="ft2">Fig. 1 depicts this effect for a network with</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:366"><nobr><span class="ft2">N = 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:75"><nobr><span class="ft2">nodes with different key sharing probabilities</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:349"><nobr><span class="ft2">q. The under-</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:75"><nobr><span class="ft9">lying physical topology, determined by the communication<br>range and node density, has an average edge probability<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:93"><nobr><span class="ft2">p = 0.25. Given the physical deployment, we vary the</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:75"><nobr><span class="ft2">probability of direct pairwise key sharing (</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:350"><nobr><span class="ft2">q) and study</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:75"><nobr><span class="ft9">the point of outbreak. As we can see in Fig. 1, while<br>undoubtedly increasing</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:223"><nobr><span class="ft2">q can facilitate communication in</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:75"><nobr><span class="ft9">the network, the network also becomes more vulnerable<br>to virus spreading. Specifically, when</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:314"><nobr><span class="ft2">q = 0.01, network</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:75"><nobr><span class="ft9">wide breakout is only possible when a compromised node<br>has an infection probability (</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:254"><nobr><span class="ft2">) larger than 0.4 to infect a</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:75"><nobr><span class="ft9">neighbor. We note that in this case, we have an average<br>node degree of</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:172"><nobr><span class="ft2">2.5. On the contrary, this probability only</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:463"><nobr><span class="ft2">needs to be around</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:581"><nobr><span class="ft2">0.05 when q = 0.1 which subsequently</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:463"><nobr><span class="ft2">makes the node degree</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:606"><nobr><span class="ft2">25. Fig. 1(b) illustrates the fraction</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:463"><nobr><span class="ft9">of the network that is ultimately infected as the infection<br>probability is increased beyond the critical point of the<br>onset of outbreak. For instance, we observe that when</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:463"><nobr><span class="ft2">q = 0.1, the whole network is compromised with a  value</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:463"><nobr><span class="ft2">of less than</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:541"><nobr><span class="ft2">0.2. On the contrary, with q = 0.01, 80% of</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:463"><nobr><span class="ft9">the network could be compromised with only a high value<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:481"><nobr><span class="ft2"> = 0.8.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:481"><nobr><span class="ft2">In summary, Fig. 1 clearly indicates the tradeoff be-</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:463"><nobr><span class="ft9">tween key sharing probability among sensor nodes and the<br>vulnerability of the network to compromise.</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:463"><nobr><span class="ft4">C. Compromise Spread With Node Recov-</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:463"><nobr><span class="ft4">ery</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:481"><nobr><span class="ft2">In this case, we assume that the network has the</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:463"><nobr><span class="ft9">capability to recover some of the compromised nodes<br>by either immunization or removal from the network. To<br>capture this recovery effect, we assume that an infected<br>node recovers or is removed from the network after an<br>average duration of infectivity</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:649"><nobr><span class="ft2">. In other words, a node in</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:463"><nobr><span class="ft2">the sensor network remains infective for an average period</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:463"><nobr><span class="ft2"> after which it is immunized. During this infective period,</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:463"><nobr><span class="ft9">the node transmits the epidemic to its neighbors with the<br>infection rate</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:550"><nobr><span class="ft2">, denoting the probability of infection per</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:463"><nobr><span class="ft2">unit time. Evidently, the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:696"><nobr><span class="ft2"> is critical to the</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:463"><nobr><span class="ft9">analysis as it measures how soon a compromised node<br>recovers. Naturally, we will perform our analysis following<br>the SIR model in epidemic theory [10], [8].</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:481"><nobr><span class="ft2">First, consider a pair of adjacent nodes where one</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:463"><nobr><span class="ft2">is infected and the other is susceptible. If</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:752"><nobr><span class="ft2">T denotes</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:463"><nobr><span class="ft9">the compromise transmission probability, given the above<br>definitions for</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:557"><nobr><span class="ft2"> and , we can say that the probability</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:463"><nobr><span class="ft9">that the disease will not be transmitted from the infected<br>to the susceptible is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:514"><nobr><span class="ft2">1 - T = lim</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:570"><nobr><span class="ft5">t0</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:599"><nobr><span class="ft2">(1 - t)</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:658"><nobr><span class="ft5">/t</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:686"><nobr><span class="ft2">= e</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:709"><nobr><span class="ft5">-</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:733"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:800"><nobr><span class="ft2">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:463"><nobr><span class="ft2">Subsequently, we have the transmission probability</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:595"><nobr><span class="ft2">T = 1 - e</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:658"><nobr><span class="ft5">-</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:682"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:463"><nobr><span class="ft9">In other words, the compromise propagation can be consid-<br>ered as a Poisson process, with average</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:711"><nobr><span class="ft2">. The outcome</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:463"><nobr><span class="ft2">of this process is the same as bond percolation and</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:791"><nobr><span class="ft2">T is</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:463"><nobr><span class="ft9">basically analogous to the bond occupation probability on<br>the graph representing the key sharing network. Thus, the<br>outbreak size would be precisely the size of the cluster<br>of vertices that can be reached from the initial vertex<br>(infected node) by traversing only occupied edges which<br>are occupied with probability</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:651"><nobr><span class="ft2">T . Notice that T explicitly</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:463"><nobr><span class="ft2">captures node recovery in terms of the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:771"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:481"><nobr><span class="ft2">Replacing</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:545"><nobr><span class="ft2"> with T in Equation 8, and following similar</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:463"><nobr><span class="ft2">steps, we get the size of the average cluster as</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:558"><nobr><span class="ft2">s = 1 + T G</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:648"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:655"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:613"><nobr><span class="ft2">1 - T G</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:661"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:668"><nobr><span class="ft2">(1).</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:793"><nobr><span class="ft2">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:463"><nobr><span class="ft2">and the epidemic size is obtained by</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:567"><nobr><span class="ft2">S = 1 - G</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:635"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:642"><nobr><span class="ft2">(u; T ).</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:793"><nobr><span class="ft2">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:463"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:505"><nobr><span class="ft2">u is obtained by</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:568"><nobr><span class="ft2">u = 1 - G</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:634"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:641"><nobr><span class="ft2">(u; T ),</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:793"><nobr><span class="ft2">(12)</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:5px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140005.png" alt="background image">
+<DIV style="position:absolute;top:331;left:129"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:214"><nobr><span class="ft14">50</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:297"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:382"><nobr><span class="ft14">150</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:127"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:123"><nobr><span class="ft14">50</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:119"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:119"><nobr><span class="ft14">150</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:225"><nobr><span class="ft6">Infectivity Duration </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:293"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:114"><nobr><span class="ft6">Size of Cluster Compromised</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:353"><nobr><span class="ft19"> = 0.01<br> = 0.02<br> = 0.04<br> = 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:319"><nobr><span class="ft14"> = Infection rate</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:103"><nobr><span class="ft3">(a) Non-epidemic cluster size vs. infectivity duration</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:400"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:126"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:163"><nobr><span class="ft14">50</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:198"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:234"><nobr><span class="ft14">150</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:270"><nobr><span class="ft14">200</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:307"><nobr><span class="ft14">250</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:343"><nobr><span class="ft14">300</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:379"><nobr><span class="ft14">350</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:125"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:119"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:119"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:119"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:119"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:119"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:119"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:119"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:119"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:119"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:125"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:222"><nobr><span class="ft6">Infectivity Duration </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:291"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:114"><nobr><span class="ft6">Fraction of Network Compromised</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:342"><nobr><span class="ft19"> = 0.01<br> = 0.02<br> = 0.04<br> = 0.08<br> = 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:306"><nobr><span class="ft14"> = infection rate</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:133"><nobr><span class="ft3">(b) Epidemic size vs. infectivity duration</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:364"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:93"><nobr><span class="ft2">Fig. 2. Size of compromised node clusters:</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:397"><nobr><span class="ft3">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:93"><nobr><span class="ft18">depicts the average size of infected clusters when there<br>is no epidemic and (b) shows the epidemic size as the<br>fraction of the entire network. The point where non-zero<br>value appears indicates the transition from non-epidemic<br>to epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:75"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:102"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:114"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:121"><nobr><span class="ft2">(u; T ) and G</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:202"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:209"><nobr><span class="ft2">(u; T ) are given respectively by</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:141"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:153"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:160"><nobr><span class="ft2">(u; T ) = G</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:229"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:236"><nobr><span class="ft2">(1 + (u - 1)T ),</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:405"><nobr><span class="ft2">(13)</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:75"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:141"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:153"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:160"><nobr><span class="ft2">(u; T ) = G</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:229"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:236"><nobr><span class="ft2">(1 + (u - 1)T ).</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:405"><nobr><span class="ft2">(14)</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:93"><nobr><span class="ft2">Fig. 2 summarizes this effect, depicting the epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:75"><nobr><span class="ft2">outbreak against the average recovery time</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:367"><nobr><span class="ft2"> for the</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:75"><nobr><span class="ft2">respective infection rates</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:239"><nobr><span class="ft2">. The plots are for a sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:75"><nobr><span class="ft2">network with typical average degree of</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:328"><nobr><span class="ft2">10. In Fig. 2(a),</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:75"><nobr><span class="ft9">we can identify the average duration that an infected<br>node is allowed to remain infective before an epidemic<br>outbreak occurs. We notice that, when the infection rate<br>is</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:91"><nobr><span class="ft2">0.01, infected nodes have to be recovered/removed on</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:75"><nobr><span class="ft9">the average in less than 100 time units in order to prevent<br>an epidemic. As expected, this time is much lower when<br>the infection rate is</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:208"><nobr><span class="ft2">0.2. Fig. 2(b) depicts the epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:75"><nobr><span class="ft2">outbreak point for different infection rates</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:345"><nobr><span class="ft2"> in terms of</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:75"><nobr><span class="ft2">the average duration of infectivity of a node.</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:481"><nobr><span class="ft2">We remark that both the analytical and experimental</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:463"><nobr><span class="ft9">results have significant implication for security scheme<br>design in terms of revoking/immunizing compromised<br>nodes in wireless sensor networks: it dictates the speed at<br>which the network must react in order to contain/prevent<br>the effect of network wide epidemic.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:463"><nobr><span class="ft1">IV. Simulation</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:481"><nobr><span class="ft2">We employ a discrete event-driven simulation to accu-</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:463"><nobr><span class="ft9">rately simulate the propagation of the infection spreading<br>process. In this section, we first outline our discrete-event<br>driven simulation model for the gradual progress of the<br>spread of node compromise. Then we use this model to<br>capture the time dynamics of the spread of the compromise<br>in the whole population.</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:463"><nobr><span class="ft4">A. Simulation Setup</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:481"><nobr><span class="ft2">In our simulation, we assume the number of sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:463"><nobr><span class="ft9">nodes in the network to be 1000. The sensor network<br>is produced by uniformly distributing the sensors in a</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:463"><nobr><span class="ft2">1200×1200 unit</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:569"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:580"><nobr><span class="ft2">area. The communication range of each</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:463"><nobr><span class="ft9">node is assumed to be 100 units. Our goal is to make<br>the physical network fairly connected with an average<br>node degree of around 20 to 25. We use the key sharing<br>probability on top of this network to further reduce the<br>average node degree of the final key sharing network to<br>typical values of 3 and 10.</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:481"><nobr><span class="ft2">We employ the random key pre-distribution scheme</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:463"><nobr><span class="ft9">described in [11] to establish the pairwise key among<br>sensor nodes. By tuning the parameters of the scheme,<br>we can achieve any specific values for the probability of<br>any two neighbors to share at least one key.</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:481"><nobr><span class="ft2">Our simulation works in two phases. In the first phase,</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:463"><nobr><span class="ft9">we form the network where each node identifies its set of<br>neighbors and entries are made into a neighbor table. The<br>average degree of the key sharing network is controlled by<br>changing the value of the key sharing probability between<br>neighbors. The entry for each node in the neighborhood<br>table can indicate whether a node is susceptible, infected or<br>recovered. We use typical values obtained for the average<br>node degree of the network, namely, 3 and 10.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:481"><nobr><span class="ft2">In the second phase, we simulate actual virus propaga-</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:463"><nobr><span class="ft2">tion. Initially, at</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:573"><nobr><span class="ft2">t = 0, the number of infected nodes,</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:463"><nobr><span class="ft2">denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:542"><nobr><span class="ft2">I(0) is set to be 1. At any time point t,</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:463"><nobr><span class="ft9">the population is divided into the group of susceptible<br>nodes,</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:510"><nobr><span class="ft2">S(t), and the group of infected nodes, I(t). In</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:463"><nobr><span class="ft9">the situation where we have nodes that are immunized<br>and thus recovered, we denote that this set of recovered<br>nodes by</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:525"><nobr><span class="ft2">R(t). The sub-population dynamics is obtained</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:463"><nobr><span class="ft9">by observing the population counts after fixed simulation<br>intervals of 1 time unit. We assume that the time it takes<br>for an infected node to infect its susceptible neighbor is<br>negative exponentially distributed with a mean of 1 unit<br>time.</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:481"><nobr><span class="ft2">There are two simulation scenarios corresponding to our</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:463"><nobr><span class="ft2">analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:463"><nobr><span class="ft4">B. Simulation Results and Discussion</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:481"><nobr><span class="ft2">1) Simulation Results for No Recovery Case: The sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:463"><nobr><span class="ft2">ulation results for the case without recovery are shown</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">5</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:5px;line-height:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140006.png" alt="background image">
+<DIV style="position:absolute;top:331;left:129"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:161"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:198"><nobr><span class="ft14">200</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:234"><nobr><span class="ft14">300</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:270"><nobr><span class="ft14">400</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:307"><nobr><span class="ft14">500</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:343"><nobr><span class="ft14">600</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:379"><nobr><span class="ft14">700</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:125"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:119"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:119"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:119"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:119"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:119"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:119"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:119"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:119"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:119"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:125"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:247"><nobr><span class="ft14">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:114"><nobr><span class="ft14">Fraction of compromised nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:202"><nobr><span class="ft14">Growth of infected nodes with time</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:351"><nobr><span class="ft19"> = 0.05<br> = 0.1<br> = 0.2<br> = 0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:333"><nobr><span class="ft17">N = 1000<br>z = 5</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:173"><nobr><span class="ft3">(a) Average node degree = 5</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:129"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:161"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:198"><nobr><span class="ft14">200</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:234"><nobr><span class="ft14">300</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:270"><nobr><span class="ft14">400</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:307"><nobr><span class="ft14">500</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:343"><nobr><span class="ft14">600</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:379"><nobr><span class="ft14">700</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:125"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:119"><nobr><span class="ft14">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:119"><nobr><span class="ft14">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:119"><nobr><span class="ft14">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:119"><nobr><span class="ft14">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:119"><nobr><span class="ft14">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:119"><nobr><span class="ft14">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:119"><nobr><span class="ft14">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:119"><nobr><span class="ft14">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:119"><nobr><span class="ft14">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:125"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:246"><nobr><span class="ft6">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:114"><nobr><span class="ft6">Fraction of compromised nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:202"><nobr><span class="ft14">Growth of infected nodes with time</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:334"><nobr><span class="ft19"> = 0.05<br> = 0.1<br> = 0.2<br> = 0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:305"><nobr><span class="ft20">N = 1000<br>Avg Degree z = 10<br> = Infection Prob</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:169"><nobr><span class="ft3">(b) Average node degree = 10</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:104"><nobr><span class="ft2">Fig. 3. System dynamics without recovery</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:75"><nobr><span class="ft2">in Fig. 3. We vary the value of the infection probability</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:75"><nobr><span class="ft2"> under different network connectivities and study the</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:75"><nobr><span class="ft9">time dynamics of the infected population. We notice, as<br>expected, that an increase in the average node degree<br>from 5 to 10 has an impact on the rate of compromise<br>of the network. For instance, the curve with the lowest</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:75"><nobr><span class="ft2"> value(0.05) has compromised the entire network by</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:75"><nobr><span class="ft9">simulation time 700 when the average node degree is 10.<br>However, with the node degree at 5, a</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:329"><nobr><span class="ft2"> value of 0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:75"><nobr><span class="ft9">could compromise upto 70% of the network by that same<br>simulation time. Thus, we find that in the no-recovery case<br>the two key parameters affecting the network compromise<br>rate are infection probability</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:270"><nobr><span class="ft2"> and the average node</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:75"><nobr><span class="ft2">degree.</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:93"><nobr><span class="ft2">2) Simulation Results for Recovery Case: Fig. 4 and 5</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:75"><nobr><span class="ft9">show the simulation results for the three sub-populations<br>(infected, immunized, and susceptible) in the situation<br>where nodes do recover.</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:93"><nobr><span class="ft2">In Fig. 4 we see the effects of the infectivity duration</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:421"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:75"><nobr><span class="ft2">and infection rate</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:189"><nobr><span class="ft2"> on the dynamics of the epidemic. In</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:75"><nobr><span class="ft9">Fig. 4(c), the highest point is reached very fast because of<br>the high value of</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:182"><nobr><span class="ft2">. Thereafter, its recovery also takes less</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:75"><nobr><span class="ft2">time. However, in Fig. 4(a),</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:253"><nobr><span class="ft2"> is smaller but </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:364"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:376"><nobr><span class="ft2">is higher</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:463"><nobr><span class="ft9">(i.e., 30), the infection rises slowly and also falls slowly<br>because of the high recovery time.</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:481"><nobr><span class="ft2">In comparison, Fig. 5 has better connectivity of average</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:463"><nobr><span class="ft9">node degree of 5 which in turn increases the rate of<br>infection significantly. Comparing Fig. 4(c) and Fig. 5(c),<br>we observe that infection penetration is higher in the latter<br>even in presence of a smaller value of</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:709"><nobr><span class="ft2">. In Fig. 5(c), it</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:463"><nobr><span class="ft2">shows that even with a low value of</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:694"><nobr><span class="ft2">, the infection still</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:463"><nobr><span class="ft2">rises to above 60%.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:481"><nobr><span class="ft2">Therefore, we observe that network connectivity has</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:463"><nobr><span class="ft9">a high impact on the infection propagation and on the<br>speed of reaching the maximal point of outbreak. However,<br>thereafter during the recover phase,</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:682"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:688"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:699"><nobr><span class="ft2">affects aggressively</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:463"><nobr><span class="ft2">the time it takes to recover the whole network.</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:463"><nobr><span class="ft1">V. Related Work</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:481"><nobr><span class="ft2">The mathematical modeling of epidemics is well doc-</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:463"><nobr><span class="ft9">umented [2], [7]. In fact, visualizing the population as a<br>complex network of interacting individuals has resulted in<br>the analysis of epidemics from a network or graph theoretic<br>point of view [8], [9], [10].</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:481"><nobr><span class="ft2">Node compromise in sensor networks and the need for</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:463"><nobr><span class="ft9">their security has also received immense attention [4]. A<br>large portion of current research on security in sensor<br>networks has been focused on protocols and schemes for<br>securing the communication between nodes [12], [13].<br>Revocation of keys of compromised nodes has been studied<br>in [14]. In [4], the authors demonstrate the ease with which<br>a sensor node can be compromised and all its information<br>extracted. Unfortunately, little work has been done on the<br>defense strategies when the compromise of a single node<br>could be used to compromise other nodes over the air. In<br>this paper, we take the first step to model this potential<br>disastrous propagation. In [6], the authors used an epi-<br>demic modeling technique for information dissemination in<br>a MANET. However, they assumed homogeneous mixing<br>which is not possible in a static sensor network as ours.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:481"><nobr><span class="ft2">In our work, we adopted some of the results presented in</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:463"><nobr><span class="ft9">[8] where the author proposes a percolation theory based<br>evaluation of the spread of an epidemic on graphs with<br>given degree distributions. However, little has been shown<br>there on the temporal dynamics of the epidemic spread and<br>the authors only studied the final outcome of an infection<br>spread.</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:463"><nobr><span class="ft1">VI. Conclusion</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:481"><nobr><span class="ft2">In this paper, we investigate the potential threat for com-</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:463"><nobr><span class="ft9">promise propagation in wireless sensor networks. Based<br>on epidemic theory, we model the process of compromise<br>spreading from a single node to the whole network. In<br>particular, we focus on the key network parameters that<br>determine a potential epidemic outbreak in the network.<br>Due to the unique distance and key sharing constrained<br>communication pattern, we resort to a random graph model<br>which is precisely generated according to the parameters of<br>the real sensor network and perform the study on the graph.<br>Furthermore, we introduce the effect of node recovery after<br>compromise and adapt our model to accommodate this<br>effect. Our results reveal key network parameters in de-<br>fending and containing potential epidemics. In particular,</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:4px;font-family:Times;color:#000000;}
+	.ft22{font-size:4px;line-height:7px;font-family:Times;color:#000000;}
+	.ft23{font-size:4px;line-height:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="140007.png" alt="background image">
+<DIV style="position:absolute;top:301;left:53"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:81"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:113"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:144"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:175"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:207"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:238"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:270"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:41"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:50"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:45"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:45"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:45"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:45"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:50"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:45"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:155"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:37"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:84"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:147"><nobr><span class="ft21">Susceptible S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:147"><nobr><span class="ft21">Infected I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:147"><nobr><span class="ft21">Recovered R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:203"><nobr><span class="ft22">Average Degree z = 3<br>Infection Prob </span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:243"><nobr><span class="ft21"> = 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:125"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:147"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:154"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:164"><nobr><span class="ft2">= 30</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:342"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:370"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:402"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:433"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:464"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:496"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:527"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:559"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:330"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:339"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:333"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:333"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:333"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:333"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:339"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:333"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:444"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:325"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:373"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:542"><nobr><span class="ft21">S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:542"><nobr><span class="ft21">I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:542"><nobr><span class="ft21">R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:526"><nobr><span class="ft23">z = 3<br> = 0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:414"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:436"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:443"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:454"><nobr><span class="ft2">= 20</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:631"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:659"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:690"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:722"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:753"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:785"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:816"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:847"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:619"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:628"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:622"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:622"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:622"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:622"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:628"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:622"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:733"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:614"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:662"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:830"><nobr><span class="ft21">S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:830"><nobr><span class="ft21">I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:830"><nobr><span class="ft21">R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:814"><nobr><span class="ft23">z = 3<br> = 0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:703"><nobr><span class="ft2">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:725"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:731"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:742"><nobr><span class="ft2">= 10</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:176"><nobr><span class="ft2">Fig. 4. The dynamics of the population with recovery for average degree of 3</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:51"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:79"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:110"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:141"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:173"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:204"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:236"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:267"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:38"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:47"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:42"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:42"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:42"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:42"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:47"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:42"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:152"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:34"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:81"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:207"><nobr><span class="ft21">Susceptible S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:207"><nobr><span class="ft21">Infected I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:207"><nobr><span class="ft21">Recovered R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:187"><nobr><span class="ft22">Average Degree z = 10<br>Infection Prob </span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:228"><nobr><span class="ft21"> = 0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:123"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:144"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:151"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:162"><nobr><span class="ft2">= 30</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:340"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:368"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:399"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:430"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:462"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:493"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:524"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:556"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:327"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:336"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:331"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:331"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:331"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:331"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:336"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:331"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:441"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:323"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:370"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:539"><nobr><span class="ft21">S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:539"><nobr><span class="ft21">I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:539"><nobr><span class="ft21">R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:518"><nobr><span class="ft23">z = 10<br> = 0.17</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:411"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:434"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:440"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:451"><nobr><span class="ft2">= 20</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:629"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:656"><nobr><span class="ft21">100</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:688"><nobr><span class="ft21">200</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:719"><nobr><span class="ft21">300</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:751"><nobr><span class="ft21">400</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:782"><nobr><span class="ft21">500</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:813"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:845"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:616"><nobr><span class="ft21">-0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:625"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:620"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:620"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:620"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:620"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:625"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:620"><nobr><span class="ft21">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:730"><nobr><span class="ft21">Time(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:612"><nobr><span class="ft21">Fraction of Network</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:659"><nobr><span class="ft21">Dynamics of the Infected, Susceptible and Revoked nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:829"><nobr><span class="ft21">S(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:829"><nobr><span class="ft21">I(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:829"><nobr><span class="ft21">R(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:811"><nobr><span class="ft23">z = 10<br> = 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:700"><nobr><span class="ft2">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:722"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:729"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:740"><nobr><span class="ft2">= 10</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:172"><nobr><span class="ft2">Fig. 5. The dynamics of the population with recovery for average degree of 10</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:75"><nobr><span class="ft9">the result provides benchmark time period for the network<br>to recover a node in order to defend against the epidemic<br>spreading. Our extensive simulation results validate our<br>analyses and moreover, provide insights of the dynamics<br>of the system in terms of temporal evolution.</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:75"><nobr><span class="ft1">References</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft7">[1] I Akyildiz, W. Su, Y Sankarasubramaniam, and E. Cayirci, "A</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:103"><nobr><span class="ft12">Survey on sensor networks," IEEE Communications Magazine, vol.<br>40, no. 8, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:81"><nobr><span class="ft7">[2] R. M. Anderson and R. M. May, "Infectious Diseases of Human:</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:103"><nobr><span class="ft7">Dynamics and Control" (Oxford Univ. Press, Oxford, 1991).</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:81"><nobr><span class="ft7">[3] S. Staniford, V. Paxson, and N. Weaver. "How to Own the Internet</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:103"><nobr><span class="ft12">in Your Spare Time". In 11th Usenix Security Symposium, San<br>Francisco, August, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:81"><nobr><span class="ft7">[4] C. Hartung, J. Balasalle, and R. Han, "Node Compromise in Sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:103"><nobr><span class="ft12">Networks: The Need for Secure Systems", Technical Report CU-<br>CS-990-05 (2005).</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:81"><nobr><span class="ft7">[5] H. Chan, V. D. Gligor, A. Perrig, G. Muralidharan, "On the Distri-</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:103"><nobr><span class="ft12">bution and Revocation of Cryptographic Keys in Sensor Networks",<br>IEEE Transactions on Dependable and Secure Computing 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft7">[6] A. Khelil, C. Becker, J. Tian, K. Rothermel, "An Epidemic Model</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:103"><nobr><span class="ft12">for Information Diffusion in MANETs", MSWiM 2002, pages 54-<br>60.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:81"><nobr><span class="ft7">[7] N. T. J. Bailey, "The Mathematical Theory of Infectious Diseases</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:103"><nobr><span class="ft7">and its Applications". Hafner Press, New York (1975)</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:469"><nobr><span class="ft7">[8] M. E. J. Newman, "Spread of epidemic disease on networks", Phys.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:491"><nobr><span class="ft7">Rev. E, 66 (2002), art. no. 016128.</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:469"><nobr><span class="ft7">[9] C. Moore and M. E. J. Newman, "Epidemics and percolation in</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:491"><nobr><span class="ft7">small- world networks". Phys. Rev. E 61, 5678-5682 (2000)</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:463"><nobr><span class="ft7">[10] P. Grassberger, "On the critical behavior of the general epidemic</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:491"><nobr><span class="ft7">process and dynamic percolation", Math. Biosc. 63 (1983) 157.</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:463"><nobr><span class="ft7">[11] L Eschenauer and V. D. Gligor. "A key-management scheme for</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:491"><nobr><span class="ft12">distributed sensor networks", in Proc. of the 9th Computer Com-<br>munication Security - CCS '02, pages 41­47, Washington D.C.,<br>USA, November 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:463"><nobr><span class="ft7">[12] H. Chan, A. Perrig, and D. Song, "Random key predistribution</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:491"><nobr><span class="ft12">schemes for sensor networks", in Proc. of the IEEE Symposium<br>on Research in Security and Privacy - SP '03, pages 197­215,<br>Washington D.C., USA, May 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:463"><nobr><span class="ft7">[13] Donggang Liu and Peng Ning, "Establishing pairwise keys in</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:491"><nobr><span class="ft12">distributed sensor networks", in Proc. of the 10th ACM Conference<br>on Computer and Communications Security - CCS '03, pages 52­<br>61, Washington D.C., USA, October 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:463"><nobr><span class="ft7">[14] H. Chan; V.D. Gligor, A. Perrig, G. Muralidharan, "On the Distri-</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:491"><nobr><span class="ft12">bution and Revocation of Cryptographic Keys in Sensor Networks",<br>IEEE Transactions on Dependable and Secure Computing, Volume<br>2, Issue 3, July-Sept. 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:463"><nobr><span class="ft7">[15] A. Chadha, Y. Liu. and S. Das, "Group key distribution via local</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:491"><nobr><span class="ft12">collaboration in wireless sensor networks," in Proceedings of the<br>IEEE SECON 2005, Santa Clara, CA, Sept. 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:443"><nobr><span class="ft2">7</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft13">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft8"><b>IEEE </b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

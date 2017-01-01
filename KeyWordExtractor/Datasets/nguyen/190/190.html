@@ -1,0 +1,734 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\190</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-07-15T14:31:18+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:19px;font-family:Times;color:#000000;}
+	.ft1{font-size:14px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:8px;font-family:Times;color:#000000;}
+	.ft6{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft7{font-size:12px;line-height:14px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190001.png" alt="background image">
+<DIV style="position:absolute;top:89;left:246"><nobr><span class="ft0">The  Model, Formalizing Topic Maps</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:248"><nobr><span class="ft1">RobertBarta</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:353"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:233"><nobr><span class="ft1">Bond University</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:158"><nobr><span class="ft1">Faculty of Information Technology</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:210"><nobr><span class="ft1">Gold Coast, Australia</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:561"><nobr><span class="ft1">GernotSalzer</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:669"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:496"><nobr><span class="ft1">Technische Universit¨</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:667"><nobr><span class="ft1">at Wien</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:487"><nobr><span class="ft1">Institut f¨</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:562"><nobr><span class="ft1">ur Computersprachen</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:549"><nobr><span class="ft1">Vienna, Austria</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:92"><nobr><span class="ft3">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:92"><nobr><span class="ft7">This paper presents a formalization for Topic Maps<br>(TM). We first simplify TMRM, the current ISO stan-<br>dard proposal for a TM reference model and then<br>characterize topic map instances. After defining a<br>minimal merging operator for maps we propose a for-<br>mal foundation for a TM query language. This path<br>expression language allows us to navigate through<br>given topic maps and to extract information. We also<br>show how such a language can be the basis for a more<br>industrial version of a query language and how it may<br>serve as foundation for a constraint language to define<br>TM-based ontologies.<br>Keywords: Knowledge Engineering, Semantic Web,<br>Topic Maps</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:92"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:117"><nobr><span class="ft3">Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:92"><nobr><span class="ft7">Topic Maps (TM (Pepper 1999)), a knowledge rep-<br>resentation technology alternative to RDF (O. Las-<br>sila and K. Swick 1993), have seen some industrial<br>adoption since 2001. Concurrently, the TM commu-<br>nity is taking various efforts to define a more fun-<br>damental, more formal model to capture the essence<br>of what Topic Maps are (Newcomb, Hunting, Alger-<br>missen &amp; Durusau 2003, Kipp 2003, Garshol 2004-07-<br>22, Bogachev n.d.). While the degree of formality and<br>the extent of TM machinery varies, all models tend<br>to abstract away from the sets of concepts defined in<br>(Pepper 2000) and use assertions (and topics) as their<br>primitives.</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:112"><nobr><span class="ft3">After giving an overview over the current state of</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:92"><nobr><span class="ft7">affairs, we start with an attempt to conceptually sim-<br>plify the TMRM (Newcomb et al. 2003) model. From<br>that, a mathematically more rigorous formalization<br>of TMs follows in section 4. Based on maps and ele-</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:92"><nobr><span class="ft7">mentary map composition we define a path expression<br>language using a postfix notation. While low-level, it<br>forms the basis for querying and constraining topic<br>maps as we point out in section 6. The last section<br>closes with future research directions.</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:92"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:117"><nobr><span class="ft3">Related Work</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:92"><nobr><span class="ft7">Historically, Topic Maps, being a relatively new tech-<br>nology, had some deficits in rigor in terms of a defining</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:92"><nobr><span class="ft3">model. This may be due to the fact that it was more</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:107"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:113"><nobr><span class="ft5">rho@bond.edu.au</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:107"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:113"><nobr><span class="ft5">salzer@logic.at</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:92"><nobr><span class="ft8">Copyright c 2005, Australian Computer Society, Inc. This pa-<br>per appeared at Second Asia-Pacific Conference on Conceptual<br>Modelling (APCCM2005), University of Newcastle, Newcastle,<br>Australia. Conferences in Research and Practice in Information<br>Technology, Vol. 43. Sven Hartmann and Markus Stumptner,<br>Ed. Reproduction for academic, not-for profit purposes per-<br>mitted provided this text is included.</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:464"><nobr><span class="ft7">endorsed by industrial players than by the academic<br>community.</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:484"><nobr><span class="ft3">Paradoxically, the standardization efforts started</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:464"><nobr><span class="ft7">out with the syntax (XTM) with only little, informal<br>description of the individual constructs. TMDM (for-<br>merly known as SAM) was supposed to fill this role<br>by precisely defining how XTM instances are to be<br>deserialized into a data structure. This is done by<br>mapping the syntax into an infoset model (compara-<br>ble to DOM) whereby UML diagrams help to illus-<br>trate the intended structure as well as the constraints<br>put on it. While such an approach to model definition<br>has a certain appeal for (Java) developers, its given<br>complexity puts it well outside the reach for a more<br>mathematical formalization.</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:484"><nobr><span class="ft3">In parallel a fraction within the TM community ar-</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:464"><nobr><span class="ft7">gued that the TM paradigm can be interpreted on a<br>much more fundamental level if one considers asser-<br>tions as the basic building blocks, abstracting from<br>the TAO-level which mainly sees topics with their<br>names, occurrences and involvements in associations.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:464"><nobr><span class="ft7">This group has developed several generations of the<br>TMRM (Newcomb et al. 2003), the reference model.<br>The model therein is mainly based on graph theory<br>mixed with informal descriptions of constraints which<br>cover the resolution of subject identity.</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:484"><nobr><span class="ft3">Several attempts to suggest an alternative founda-</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:464"><nobr><span class="ft7">tional model (Garshol 2004-07-22, Bogachev n.d.) or<br>to formalize TMRM have been made. (Kipp 2003) is<br>successfully using a purely set-theoretic approach to<br>define topic map instances. As all TMRM concepts<br>have been faithfully included, this resulted in a sig-<br>nificant set of constraints to be used when reasoning<br>about map instances.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:484"><nobr><span class="ft3">The contribution of this paper we see threefold:</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:464"><nobr><span class="ft7">Firstly, we believe that TMRM can be reasonably<br>simplified without any loss of generality by the steps<br>outlined in section 3. This is under the assumption<br>that all questions of subject identity are handled out-<br>side the model. Secondly, the assertion model seems<br>to be general enough to host conceptually not only<br>TMRM, but also serve as basis for TMDM.</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:484"><nobr><span class="ft3">As the TM community now moves to ontology def-</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:464"><nobr><span class="ft7">inition languages, retrieval and transformation lan-<br>guages, we contend that the path language which is<br>based on the  model can serve as semantic funda-</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:464"><nobr><span class="ft3">ment.</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:464"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:489"><nobr><span class="ft3">Conceptual Simplification</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:464"><nobr><span class="ft7">TMRM's main building blocks are properties which<br>are attached to topics and assertions which connect<br>topics in various ways.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:464"><nobr><span class="ft3">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:503"><nobr><span class="ft3">Properties</span></nobr></DIV>
+<DIV style="position:absolute;top:1150;left:464"><nobr><span class="ft7">For properties TMRM distinguishes between subject<br>identifying properties and other properties. The for-</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">37</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190002.png" alt="background image">
+<DIV style="position:absolute;top:63;left:92"><nobr><span class="ft7">mer can be stand-alone or a combination of other<br>properties; they control--for a given application--</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:92"><nobr><span class="ft7">under which conditions two topics should be regarded<br>the same.</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:112"><nobr><span class="ft3">With the assumption that all identity inducing</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:92"><nobr><span class="ft7">constraints are best covered by a proper ontology lan-<br>guage, we drop this distinction. Also conferred prop-<br>erties can be handled much more flexibly with an on-<br>tology language, which allows us to let conferred and<br>builtin properties collapse.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:112"><nobr><span class="ft3">We abstract further by regarding properties just</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:92"><nobr><span class="ft7">as a special form of binary assertions where the topic<br>plays a role object and the property forms the other<br>member of the assertion.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:92"><nobr><span class="ft3">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:131"><nobr><span class="ft3">Assertions</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:92"><nobr><span class="ft7">A TMRM assertion stands for a statement between<br>subjects whereby these subjects play certain roles.<br>Such an assertion consists of the subject it is about<br>and a type. Additionally, the players are cast into<br>their respective roles. To be able to reify the fact<br>that a certain topic plays a certain role in an asser-<br>tion, also this substatement is represented by a an-<br>other topic (casting).</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:112"><nobr><span class="ft3">We observe that any type information for an as-</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:92"><nobr><span class="ft7">sertion a can be represented by a second, dedicated<br>assertion b where a plays the instance and that type<br>plays the role class. A similar consideration applies<br>to casting topics: again, a second, dedicated asser-<br>tion can be used where the role, the assertion and the<br>player are playing appropriate roles.</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:112"><nobr><span class="ft3">Scoping--the restriction of an assertion to a cer-</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:92"><nobr><span class="ft7">tain context--is clearly a statement about an asser-<br>tion, so we can represent scoping relations via a fur-<br>ther assertion, one which connects the original asser-<br>tion with the scope itself, again via some predefined<br>roles.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:112"><nobr><span class="ft3">At the end of this process we only have to deal</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:92"><nobr><span class="ft7">with assertions containing role-player pairs. Asser-<br>tions have an identity which allows us to use them in<br>other assertions. Topics only exist as focal points and<br>have no explicit property except an identifier.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:92"><nobr><span class="ft3">3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:131"><nobr><span class="ft3">Reification</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:92"><nobr><span class="ft7">The term reification has a long tradition (Sowa 2000)<br>in the knowledge representation community. It has<br>changed its meaning over the years, but it is usu-<br>ally used to describe how humans form concepts and</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:92"><nobr><span class="ft7">then connect them with the `real world'. To fully<br>capture the term formally, we would have to adopt<br>a philosophical approach, something which we prefer<br>to avoid for obvious reasons. The question, though,<br>is whether any formalization of TMs can completely<br>ignore reification.</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:112"><nobr><span class="ft3">Whenever a statement S is about another asser-</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:92"><nobr><span class="ft7">tion A then one of two things could be intended by<br>the author: either (a) S is a statement about the rela-<br>tionship in the `real world' A is supposed to represent.<br>As an example consider that A is about an employ-<br>ment of a person within an organisation and that we<br>want to qualify in such that "the employment only<br>started in year 2000". Alternatively (b), a statement<br>can be about the assertion within the map itself, such<br>as "this assertion was commented on by user X". In<br>the latter case we treat A as if it were in the `real<br>world' (inverting somehow the notion of reification<br>by pulling something abstract from a concept space<br>and making it `real').</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:112"><nobr><span class="ft3">Our--pragmatic--approach is that this distinction</span></nobr></DIV>
+<DIV style="position:absolute;top:1125;left:91"><nobr><span class="ft7">can (and should) be indicated by the proper form of<br>identifiers. If a topic is supposed to reify a real world<br>concept, then its identifier should be a URI (a locator</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:464"><nobr><span class="ft7">or a name), in case that the `real world thing' has<br>one. If that thing is a topic in a topic map, then</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:464"><nobr><span class="ft7">the author must have a way to address the map as<br>well as the topic within it. If a direct reification is<br>not possible, then the topic's identifier will simply<br>not be a URI. Indirect identification can be achieved<br>via subject indicators attached to the topic or more<br>generally speaking by the context the topic is in.</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:484"><nobr><span class="ft3">For assertions we assume that they--as a whole--</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:464"><nobr><span class="ft7">implicitly reify the relationship they describe. If an-<br>other assertion makes a reference to an assertion then<br>using the assertion's identifier may thus automatically<br>cover case (a) above. Like with topics, case (b) can<br>be handled by using an identifier which addresses the<br>map and then the assertion within it.</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:484"><nobr><span class="ft3">How eventually maps as `real world' objects are</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:464"><nobr><span class="ft7">to be addressed is again a matter how identifiers are<br>formed; but this is outside the scope of our model.</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:464"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:489"><nobr><span class="ft3">Formal Maps</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:464"><nobr><span class="ft7">In this section we first prepare the grounds by defining<br>identifiers, then we build members and assertions and<br>then finally maps. For presentation, the text here has<br>two layers, one for the formal part and an informal<br>one, shaded grey. The latter is to justify design issues<br>or present examples.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:464"><nobr><span class="ft3">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:503"><nobr><span class="ft3">Identifiers</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:464"><nobr><span class="ft7">The set of identifiers, I, contains two sets of ob-<br>jects: names and literals. Literals may be numbers<br>or quoted strings. The set of names, N , is an enu-<br>merable collection of atomic objects. Atomic means<br>that objects have no other properties than being dis-<br>tinguishable from each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:464"><nobr><span class="ft7">In practical situations names may be strings such as<br>URIs. They also may be more complex like XLink<br>or even HyTime pointers. The model only uses the<br>property that they are distinct from each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:464"><nobr><span class="ft7">The reason we chose literals to be numbers or strings<br>is simply one of convenience. First, these two basic<br>data types are the most frequently used, and secondly,<br>both have naturally defined an ordering a  b on<br>which we can later base sorting.</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:464"><nobr><span class="ft7">One issue with selecting a particular set of primitive<br>data types is that of how to represent others, like com-<br>posite types as one would need for, say, spatial coor-<br>dinates. We see two approaches: One way is to model<br>the content explicitly with assertions themselves. The</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:464"><nobr><span class="ft7">other option can be used if the structure of the data<br>is not specifically relevant to a particular application,<br>but has to be kept in a map for archiving purposes.<br>In these situations data can be serialized into a string<br>and treated as such.</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:484"><nobr><span class="ft3">Further we assume that I also contains a small set</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:464"><nobr><span class="ft7">of predefined identifiers, id, instance, class, subclass,<br>superclass. By themselves, they are not special. We<br>only single them out to be able to define additional<br>semantics later.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:464"><nobr><span class="ft3">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:503"><nobr><span class="ft3">Members and Assertions</span></nobr></DIV>
+<DIV style="position:absolute;top:1091;left:464"><nobr><span class="ft7">As we are mainly interested in expressing associative<br>relations, we first define a member to be a pair r, p <br>(N × I), with r being the role and p the player of the<br>member. An assertion a is a finite (possibly empty)<br>set of members. The set of all assertions is denoted<br>by A.</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">38</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:12px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190003.png" alt="background image">
+<DIV style="position:absolute;top:63;left:112"><nobr><span class="ft3">Assertions always have an identity. It is a function</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:92"><nobr><span class="ft3">id(a) over the set of members of a, whereby we only</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:92"><nobr><span class="ft7">request that different member sets result in different<br>identities. Obviously, assertions are only equal if they<br>have identical members.</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:112"><nobr><span class="ft3">To access the components of an assertion a we</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:92"><nobr><span class="ft3">define the set roles(a) = {r</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:279"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:286"><nobr><span class="ft3">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:326"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:334"><nobr><span class="ft3">} with r</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:390"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:401"><nobr><span class="ft3">being</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:92"><nobr><span class="ft7">the roles in the individual members of a, and the set<br>players(a) = {p</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:199"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:206"><nobr><span class="ft3">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:247"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:255"><nobr><span class="ft3">} with p</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:312"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:323"><nobr><span class="ft3">being the players</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:92"><nobr><span class="ft3">in a.</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:92"><nobr><span class="ft7">Note that in assertions players are not grouped<br>around a role. If several players play one and the same<br>role, then individual members have to exist for every</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:92"><nobr><span class="ft7">such player. Also note, that assertions do not have<br>a type component; it is up to a further assertion to<br>establish such a relationship whereby the predefined<br>identifiers instance and class can be used as roles.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:92"><nobr><span class="ft7">The base model does not impose any restrictions on<br>players and roles. While not necessary for the for-<br>malism itself, we might later want to put additional<br>constraints on the form of assertions to only mean-</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:92"><nobr><span class="ft7">ingful combinations. Examples of such meaningful<br>constraints are "there may be only one player for a<br>particular role" or "in one and the same assertion a<br>particular identifier cannot be used as role and as<br>player": a  A, roles(a)  players(a) = . An-<br>other useful constraint could avoid that the identi-<br>fier for an assertion appears in that assertion itself:</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:92"><nobr><span class="ft3">a  A, id(a) /</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:181"><nobr><span class="ft3"> (roles(a)  players(a)).</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:92"><nobr><span class="ft7">This assertion structure proves to be central to the<br>whole model. It is sufficiently flat as there is no dis-<br>tinction between assertions and properties. The fo-<br>cus on assertions alone also reduces topics to iden-<br>tifiers. Still, the chosen structure seems to incorpo-<br>rate enough of the TM paradigm, in that any num-<br>ber of concepts can be bound together into an asser-<br>tion and topics--as TMRM mandates--can function<br>as the sole aggregation point for information.</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:92"><nobr><span class="ft3">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:131"><nobr><span class="ft3">Maps</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:92"><nobr><span class="ft7">We now consider assertions to be atoms from which<br>maps can be constructed. A map is a finite (possibly<br>empty) set of of assertions. The set of all maps is<br>denoted by M.</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:112"><nobr><span class="ft3">To build bigger maps, we define the elementary</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:92"><nobr><span class="ft7">composition, denoted by , of two maps m, m  M,<br>is defined as set union m  m = m  m . We say that<br>m is a submap of m if m  m .</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:92"><nobr><span class="ft7">Note that we have no special merging operation; only<br>exactly identical assertions will be identified.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:423"><nobr><span class="ft3">In</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:92"><nobr><span class="ft7">our setting special-purpose merging, such as TNC<br>(topic name constraint), is split into two phases: first<br>maps are combined using elementary composition and<br>then a second operator is applied to the composite<br>map. That operator will perform a--more or less<br>sophisticated--transformation where all the appro-<br>priate merging is done.</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:92"><nobr><span class="ft9">As an example we consider a network which hosts<br>several servers, organized into clusters (Table 1). At<br>a particular point in time, servers may be &quot;up&quot; or<br>&quot;down&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:138"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1097;left:92"><nobr><span class="ft9">Accordingly, macy, lacy and stacy are the servers,<br>the first two being in clusterA, the other in<br>clusterB</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:154"><nobr><span class="ft3">. While lacy is down, clusterA is still func-</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:92"><nobr><span class="ft3">tional, not so clusterB as its only machine is down.</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:464"><nobr><span class="ft3">4.4</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:503"><nobr><span class="ft3">Primitive Navigation Operators</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:464"><nobr><span class="ft7">To navigate through maps and to extract information<br>out of them, we first need to define basic navigation<br>operations within a given map.</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:484"><nobr><span class="ft3">In our model we can navigate along roles. One</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:464"><nobr><span class="ft7">way is to follow a role outwards in a given assertion<br>a  m. Given additionally a name r we define the<br>role-out operator a</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:612"><nobr><span class="ft3">r = {p | r, p  a}. It returns</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:464"><nobr><span class="ft3">all players of a given role in an assertion.</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:464"><nobr><span class="ft9">Looking at a00 in the above example, the expression<br>a00</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:510"><nobr><span class="ft3">class</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:554"><nobr><span class="ft3">returns the set containing server only.</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:484"><nobr><span class="ft3">Another option to navigate is to follow a role in-</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:464"><nobr><span class="ft7">wards, seen from an assertion's point of view. Given<br>a map m, a name r and an identifier p, we define the</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:464"><nobr><span class="ft3">role-in operator p</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:597"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:608"><nobr><span class="ft3">r = {a  m | r, p  a}. We</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:464"><nobr><span class="ft3">omit the reference to m if clear from the context.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:464"><nobr><span class="ft7">To find all assertions in which clusterA plays the<br>role whole, we can write clusterA</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:725"><nobr><span class="ft3">whole</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:771"><nobr><span class="ft3">which</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:464"><nobr><span class="ft3">evaluates to {a02, a11}.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:464"><nobr><span class="ft7">The role-in operator does not respect the type of as-<br>sertions. It simply finds all assertions where a partic-<br>ular player plays the given role. However, for prac-<br>tical reasons a refined version of the operator will be<br>defined in section 4.6.</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:464"><nobr><span class="ft3">4.5</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:503"><nobr><span class="ft3">Subclassing and Instances</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:464"><nobr><span class="ft7">To describe (and query) topic maps, we need to ex-<br>press relationships between concepts. While the vari-<br>ety of such relations itself is huge, two special relation-<br>ships stand out as being fundamental: The subclass-<br>superclass relationship is used between classes to form<br>taxonomies (type systems). The instance-class rela-<br>tionship is established between an object and the class<br>(or set) the object can be classified into.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:464"><nobr><span class="ft7">Given a map m and names b, c  N , we define the<br>predicate subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:598"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:610"><nobr><span class="ft3">(b, c) to be true if there exists</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:464"><nobr><span class="ft3">an a  m such that both conditions, a</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:730"><nobr><span class="ft3">subclass</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:797"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:464"><nobr><span class="ft3">{b} and a</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:553"><nobr><span class="ft3">superclass</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:637"><nobr><span class="ft3">= {c}, hold. As the usual</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:464"><nobr><span class="ft10">interpretation of subclassing is that it is transitive,<br>we build the transitive closure subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:733"><nobr><span class="ft5">m+</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:759"><nobr><span class="ft3">and the</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:464"><nobr><span class="ft3">transitive, reflexive closure subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:712"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:723"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:730"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:484"><nobr><span class="ft3">Another relationship is instance of, abbreviated as</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:464"><nobr><span class="ft7">is - a which holds if there exists a  m such that<br>a</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:495"><nobr><span class="ft3">instance</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:562"><nobr><span class="ft3">= {b} and a</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:664"><nobr><span class="ft3">class</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:707"><nobr><span class="ft3">= {c}.</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:484"><nobr><span class="ft3">Mostly we are interested in an instance-of re-</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:464"><nobr><span class="ft7">lationship which includes the transitive version of<br>subclassing above. is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:636"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:647"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:654"><nobr><span class="ft3">(b, c) holds if there ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:464"><nobr><span class="ft3">ist a  m such that for some name c we have</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:464"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:507"><nobr><span class="ft3">instance</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:579"><nobr><span class="ft3">= {b}, a</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:679"><nobr><span class="ft3">class</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:729"><nobr><span class="ft3">= {c } and</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:464"><nobr><span class="ft3">subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:533"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:544"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:551"><nobr><span class="ft3">(c , c).</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:464"><nobr><span class="ft3">According</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:552"><nobr><span class="ft3">to</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:588"><nobr><span class="ft3">our</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:632"><nobr><span class="ft3">cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:697"><nobr><span class="ft3">map</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:748"><nobr><span class="ft3">the</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:791"><nobr><span class="ft3">re-</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:464"><nobr><span class="ft3">lations</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:604"><nobr><span class="ft3">subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:673"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:684"><nobr><span class="ft3">(server, machine),</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:464"><nobr><span class="ft3">is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:502"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:513"><nobr><span class="ft3">(macy, server) and is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:686"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:697"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:704"><nobr><span class="ft3">(macy, machine)</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:464"><nobr><span class="ft3">are all true.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:464"><nobr><span class="ft3">The</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:514"><nobr><span class="ft3">difference</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:601"><nobr><span class="ft3">between</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:679"><nobr><span class="ft3">is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:717"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:729"><nobr><span class="ft3">(b, c)</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:785"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:464"><nobr><span class="ft3">is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:502"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:513"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:520"><nobr><span class="ft3">(b, c) is that the former only reiterates</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:464"><nobr><span class="ft7">the information which is already explicit in the map.<br>When querying a map, though, queries should be<br>built more robust: If we ask for "all machines" in<br>a map, then most likely one is also interested in<br>instances of all (direct and indirect) subclasses of<br>"machine".</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">39</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190004.png" alt="background image">
+<DIV style="position:absolute;top:73;left:276"><nobr><span class="ft3">Table 1: An example map about a computer network</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:170"><nobr><span class="ft3">a00 = { &lt; instance, macy</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:397"><nobr><span class="ft3">&gt;, &lt; class, server</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:170"><nobr><span class="ft3">a01 = { &lt; instance, a00</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:397"><nobr><span class="ft3">&gt;, &lt; class, isInstance</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:170"><nobr><span class="ft3">a02 = { &lt; part, macy</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:397"><nobr><span class="ft3">&gt;, &lt; whole, clusterA</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:170"><nobr><span class="ft3">a03 = { &lt; instance, a02</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:397"><nobr><span class="ft3">&gt;, &lt; class, isPartOf</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:170"><nobr><span class="ft3">a04 = { &lt; object, macy</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:397"><nobr><span class="ft3">&gt;, &lt; status, &quot;up&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:170"><nobr><span class="ft3">a05 = { &lt; instance, a04</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:397"><nobr><span class="ft3">&gt;, &lt; class, hasStatus</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:170"><nobr><span class="ft7">...<br>a10 = { &lt; instance, lacy</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:397"><nobr><span class="ft3">&gt;, &lt; class, server</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:170"><nobr><span class="ft3">a11 = { &lt; part, lacy</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:397"><nobr><span class="ft3">&gt;, &lt; whole, clusterA</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:170"><nobr><span class="ft3">a12 = { &lt; object, lacy</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:397"><nobr><span class="ft3">&gt;, &lt; status, &quot;down&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:170"><nobr><span class="ft7">...<br>a20 = { &lt; instance, stacy</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:397"><nobr><span class="ft3">&gt;, &lt; class, server</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:170"><nobr><span class="ft3">a21 = { &lt; part, stacy</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:397"><nobr><span class="ft3">&gt;, &lt; whole, clusterB</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:170"><nobr><span class="ft3">a22 = { &lt; object, stacy</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:397"><nobr><span class="ft3">&gt;, &lt; status, &quot;down&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:170"><nobr><span class="ft3">a30 = { &lt; subclass, server</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:397"><nobr><span class="ft3">&gt;, &lt; superclass, machine &gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:170"><nobr><span class="ft3">a40 = { &lt; instance, clusterA &gt;, &lt; class, cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:170"><nobr><span class="ft3">a41 = { &lt; instance, clusterB &gt;, &lt; class, cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:593"><nobr><span class="ft3">&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:91"><nobr><span class="ft3">4.6</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:131"><nobr><span class="ft3">Typed Navigation</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:91"><nobr><span class="ft3">We can use the relation is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:299"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:310"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:317"><nobr><span class="ft3">(b, c) to specialize</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:91"><nobr><span class="ft7">the role-in navigation. Given a map m, names r and<br>t and an identifier p the typed role-in operator honors<br>additionally an assertion type:</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:112"><nobr><span class="ft3">p</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:135"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:146"><nobr><span class="ft3">r [t] = {a  p</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:246"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:257"><nobr><span class="ft3">r | is - a</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:315"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:326"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:333"><nobr><span class="ft3">(id(a), t)}</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:418"><nobr><span class="ft3">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:92"><nobr><span class="ft7">The obvious difference to the original role-in naviga-<br>tion is that we now only consider assertions of the<br>given type to be part of the resulting set.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:92"><nobr><span class="ft3">The expression clusterA</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:285"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:297"><nobr><span class="ft3">whole</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:336"><nobr><span class="ft3">[hasStatus] is</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:92"><nobr><span class="ft7">supposed to find all assertions of type hasStatus in<br>which clusterA is the whole. Since there is no such<br>assertion, the result is empty.</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:112"><nobr><span class="ft3">A further way to generalize the navigation is to</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:92"><nobr><span class="ft3">allow as role also all subclasses:</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:100"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:123"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:134"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:141"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:152"><nobr><span class="ft3">= {p |  r , p  a : subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:347"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:358"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:365"><nobr><span class="ft3">(r , r)} (2)</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:94"><nobr><span class="ft3">p</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:116"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:127"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:135"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:146"><nobr><span class="ft3">= {a  m |  r , p  a : subclasses</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:372"><nobr><span class="ft5">m</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:383"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:390"><nobr><span class="ft3">(r , r)}</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:418"><nobr><span class="ft3">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:92"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:117"><nobr><span class="ft3">Map Path Language</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:92"><nobr><span class="ft7">The topic map path language can be used to extract<br>information out of given map.</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:314"><nobr><span class="ft3">The language will</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:92"><nobr><span class="ft7">be defined via postfix operators which are applied to<br>(sets of) assertions (or identifiers).</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:112"><nobr><span class="ft3">Before we can formally define the individual post-</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:92"><nobr><span class="ft7">fixes and chains of postfixes (path expressions) we<br>have to characterize the results of applying postfixes<br>to a set of assertions, such as a map. This is done<br>with a simple algebra based on tuples.</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:92"><nobr><span class="ft3">5.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:131"><nobr><span class="ft3">Tuple Algebra</span></nobr></DIV>
+<DIV style="position:absolute;top:1098;left:92"><nobr><span class="ft7">Our final result of applying a path expression will be<br>a bag of tuples. The advantage of tuples are that they<br>can hold composite results. Every tuple represents<br>then one possible result, all of them are organized<br>into a bag. Bags are like sets except that a particular</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:464"><nobr><span class="ft7">element may appear any number of times. This is<br>convenient if we later want to sort or count the tuples.<br>Otherwise all the usual set operations can be used on<br>bags.</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:464"><nobr><span class="ft7">Assertion tuples are elements from the cartesian<br>product A</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:531"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:544"><nobr><span class="ft3">with A being the set of assertions. Simi-</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:464"><nobr><span class="ft3">larily, identifier tuples are elements from I</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:742"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:750"><nobr><span class="ft3">. We call</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:464"><nobr><span class="ft3">n the dimension of the tuple.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:484"><nobr><span class="ft3">When we organize tuples t</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:652"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:659"><nobr><span class="ft3">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:697"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:709"><nobr><span class="ft3">into a bag, then</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:464"><nobr><span class="ft3">we denote this as [t</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:591"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:597"><nobr><span class="ft3">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:636"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:644"><nobr><span class="ft3">].</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:464"><nobr><span class="ft3">A map m = {a</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:568"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:575"><nobr><span class="ft3">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:616"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:624"><nobr><span class="ft3">} can be represented as the</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:464"><nobr><span class="ft3">tuple bag [ a</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:547"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:559"><nobr><span class="ft3">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:606"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:620"><nobr><span class="ft3">]. Conversely, we can also in-</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:464"><nobr><span class="ft7">terpret a tuple bag as map when the tuples it contains<br>are single assertions.</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:484"><nobr><span class="ft3">If a bag contains other bags, then the structure</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:464"><nobr><span class="ft3">can be flattened out:</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:488"><nobr><span class="ft3">[b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:498"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:505"><nobr><span class="ft3">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:518"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:525"><nobr><span class="ft3">, . . . , b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:565"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:573"><nobr><span class="ft3">] = [b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:607"><nobr><span class="ft5">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:619"><nobr><span class="ft3">| b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:634"><nobr><span class="ft5">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:646"><nobr><span class="ft3"> b</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:667"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:675"><nobr><span class="ft3"> (1  i  n)]</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:790"><nobr><span class="ft3">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:484"><nobr><span class="ft3">During application of path expressions also tuples</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:464"><nobr><span class="ft7">of bags may be created. Also these can be reduced by<br>building tuples of all combinations of bag elements:</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:529"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:536"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:543"><nobr><span class="ft3">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:556"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:562"><nobr><span class="ft3">, . . . , b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:602"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:620"><nobr><span class="ft3">= b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:642"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:652"><nobr><span class="ft3">× b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:674"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:684"><nobr><span class="ft3">× · · · × b</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:741"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:790"><nobr><span class="ft3">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:484"><nobr><span class="ft3">Finally, if a tuple only contains a single compo-</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:464"><nobr><span class="ft3">nent, then it is equivalent to that component:</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:620"><nobr><span class="ft3">b = b</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:790"><nobr><span class="ft3">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:484"><nobr><span class="ft3">As we have covered all possible constellations</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:464"><nobr><span class="ft7">which can occur when evaluating path expressions,<br>we can always reduce every result to a bag of tuples.<br>We call this set B</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:579"><nobr><span class="ft5">I</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:587"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:464"><nobr><span class="ft3">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:503"><nobr><span class="ft3">Postfixes and Path Expressions</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:464"><nobr><span class="ft7">Individual postfixes (as detailed below) can be com-<br>bined to form chains. The set of path expressions P</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:794"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:464"><nobr><span class="ft7">is defined as the smallest set satisfying the following<br>conditions:</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:474"><nobr><span class="ft3">1. The projection postfix </span></nobr></DIV>
+<DIV style="position:absolute;top:1095;left:653"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:664"><nobr><span class="ft3">is in P</span></nobr></DIV>
+<DIV style="position:absolute;top:1095;left:707"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:728"><nobr><span class="ft3">for any non-</span></nobr></DIV>
+<DIV style="position:absolute;top:1104;left:493"><nobr><span class="ft3">negative integer i.</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:474"><nobr><span class="ft3">2. Every identifier from I is in P</span></nobr></DIV>
+<DIV style="position:absolute;top:1135;left:692"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:706"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1154;left:474"><nobr><span class="ft3">3. The role-out and role-in postfixes</span></nobr></DIV>
+<DIV style="position:absolute;top:1154;left:740"><nobr><span class="ft3">r and</span></nobr></DIV>
+<DIV style="position:absolute;top:1154;left:801"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1169;left:493"><nobr><span class="ft3">for a name r are in P</span></nobr></DIV>
+<DIV style="position:absolute;top:1175;left:634"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1169;left:648"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">40</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190005.png" alt="background image">
+<DIV style="position:absolute;top:63;left:102"><nobr><span class="ft3">4. The positive predicate postfix [ p = q ] and the</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:121"><nobr><span class="ft3">negative predicate postfix [ p != q ] are both in</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:121"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:132"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:151"><nobr><span class="ft3">for two path expressions p and q. As special</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:121"><nobr><span class="ft3">cases we also include [ p ] and [ !p ].</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:102"><nobr><span class="ft7">5. For two path expressions p and q also the con-</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:121"><nobr><span class="ft3">catenation p · q is in P</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:272"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:287"><nobr><span class="ft3">. If - from the context</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:121"><nobr><span class="ft7">- it is clear that two path expressions are to be<br>concatenated, we omit the infix.</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:102"><nobr><span class="ft7">6. For two path expressions p and q the alternation</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:121"><nobr><span class="ft3">p q is in P</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:191"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:206"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:112"><nobr><span class="ft3">The application of a path expression p to a map</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:92"><nobr><span class="ft3">m is denoted by m  p.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:92"><nobr><span class="ft7">For this process, first we will reinterpret the map as<br>tuple bag. Then each of the postfixes in p is applied to<br>it. Each such step results in a new bag which will be<br>flattened according to the tuple algebra above. The<br>final bag will be the overall result.</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:92"><nobr><span class="ft3">5.2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:144"><nobr><span class="ft3">Projection and Identifiers</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:92"><nobr><span class="ft7">For both, assertion and identifier tuples, we will use<br>the projection postfix to extract a particular j:</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:188"><nobr><span class="ft3">u</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:196"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:203"><nobr><span class="ft3">, . . . , u</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:245"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:262"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:285"><nobr><span class="ft5">j</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:296"><nobr><span class="ft3">= [ u</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:330"><nobr><span class="ft5">j</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:342"><nobr><span class="ft3">]</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:418"><nobr><span class="ft3">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:92"><nobr><span class="ft7">Projection here plays a similar role like in query lan-<br>guages like SQL, except that we here use an index for<br>selection instead of names.</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:112"><nobr><span class="ft3">We drop the index 1 in </span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:271"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:282"><nobr><span class="ft3">if it is applied to a tuple</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:92"><nobr><span class="ft7">with only a single component where then obviously it<br>holds that u  = u . Such a projection also serves<br>as the empty postfix.</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:112"><nobr><span class="ft3">In case the path expression is simply an identifier</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:92"><nobr><span class="ft7">i  I, then for any u the result is always this identi-<br>fier:</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:226"><nobr><span class="ft3">u  i = [ i ]</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:418"><nobr><span class="ft3">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:92"><nobr><span class="ft3">5.2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:144"><nobr><span class="ft3">Concatenation and Alternation</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:92"><nobr><span class="ft7">We define the concatenation · of path expressions p<br>and q (given any u) as</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:186"><nobr><span class="ft3">u  (p · q) = (u  p)  q</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:417"><nobr><span class="ft3">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:92"><nobr><span class="ft3">The syntactic structure of path expressions ensures</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:92"><nobr><span class="ft7">that u is always a structure for which such an evalu-<br>ation is defined.</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:112"><nobr><span class="ft3">The alternation of two path expressions p and q</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:92"><nobr><span class="ft7">is defined as the union of the result tuple bags of the<br>individual evaluations:</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:181"><nobr><span class="ft3">u  (p q) = u  p  u  q</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:410"><nobr><span class="ft3">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:92"><nobr><span class="ft3">5.2.3</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:144"><nobr><span class="ft3">Navigation Postfix</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:92"><nobr><span class="ft7">Next we define how role-out and role-in navigation<br>postfixes can be applied to an assertion tuple. We<br>simply apply the navigation to every assertion in the<br>tuple:</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:113"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:121"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:128"><nobr><span class="ft3">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:169"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:183"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:217"><nobr><span class="ft3">r = a</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:258"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:288"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:295"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:302"><nobr><span class="ft3">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:343"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:375"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:382"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:410"><nobr><span class="ft3">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:114"><nobr><span class="ft3">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:121"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:128"><nobr><span class="ft3">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:169"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1141;left:183"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:217"><nobr><span class="ft3">r = p</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:258"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:288"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1140;left:295"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:302"><nobr><span class="ft3">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:343"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:374"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1140;left:381"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:410"><nobr><span class="ft3">(12)</span></nobr></DIV>
+<DIV style="position:absolute;top:68;left:464"><nobr><span class="ft7">Note that we have used the typed navigation from<br>section 4.6. While not absolutely necessary, it helps<br>to keep path expressions more concise. Note also,<br>that the individual elements of the resulting tuples<br>are bags. Again, the transformation rules of the tuple<br>algebra have to be used to reduce this into a bag of<br>tuples.</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:464"><nobr><span class="ft3">5.2.4</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:516"><nobr><span class="ft3">Filtering Postfixes</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:464"><nobr><span class="ft7">From tuple bags we can filter out specific tuples using<br>predicates. Given a tuple bag B = [t</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:721"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:728"><nobr><span class="ft3">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:767"><nobr><span class="ft5">k</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:774"><nobr><span class="ft3">] and</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:464"><nobr><span class="ft7">two path expressions p and q, applying the positive<br>predicate postfix [ p = q ] to B is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:488"><nobr><span class="ft3">B  [ p = q ] = [t  B | t  p  t  q = ]</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:782"><nobr><span class="ft3">(13)</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:484"><nobr><span class="ft3">If p and q are identical, then we can abbreviate</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:464"><nobr><span class="ft3">[ p = p ] with [ p ].</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:464"><nobr><span class="ft7">The result of the positive predicate prefix is that sub-<br>bag of B for which elements the evaluation of p and<br>q gives at least one common result.</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:484"><nobr><span class="ft3">Note that this implements an exists semantics as</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:464"><nobr><span class="ft7">B  [ p = p ] is reducable to [t  B | t  p = ]. Only<br>those tuples of B will be part of the result tuple bag<br>if there exists at least one result when p is applied to<br>that tuple.</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:484"><nobr><span class="ft3">By introducing negation in predicate postfixes, we</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:464"><nobr><span class="ft7">can also implement forall semantics. Given a tuple<br>bag B and two path expressions p and q, we define<br>the negative predicate postfix as</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:486"><nobr><span class="ft3">B  [ p != q ] = [t  B | t  p  t  q = ]</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:782"><nobr><span class="ft3">(14)</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:484"><nobr><span class="ft3">If p and q are identical, then we can abbreviate</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:464"><nobr><span class="ft3">[ p != p ] with [ ! p ]. In this case the result tuple</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:464"><nobr><span class="ft3">bag becomes [t  B | t  p = ].</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:464"><nobr><span class="ft7">A particular tuple will only then be part of the result<br>tuple bag if p applied to it will not render a single<br>value, i.e. all evaluations will return no result.</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:464"><nobr><span class="ft7">Implicit in the formalism are the logic conjunction<br>and disjunction of predicate postfixes. Obviously, a<br>logical and is provided by concatenating two pred-<br>icate postfixes ([ .. ] · [ .. ]) as the result of the first<br>postfix will be further tested for the second predicate.<br>The logical or between predicate postfixes is implic-<br>itly given by alternating them ([ .. ] [ .. ]).</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:464"><nobr><span class="ft3">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:503"><nobr><span class="ft3">Evaluation Example</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:464"><nobr><span class="ft7">Let us assume that we are looking for the status of<br>the servers in clusterA: [</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:663"><nobr><span class="ft3">class</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:707"><nobr><span class="ft3">= isPartOf]</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:464"><nobr><span class="ft3">instance</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:526"><nobr><span class="ft3">[</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:576"><nobr><span class="ft3">whole</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:626"><nobr><span class="ft3">= clusterA]</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:751"><nobr><span class="ft3">part</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:464"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:515"><nobr><span class="ft3">&lt; </span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:563"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:610"><nobr><span class="ft3">, </span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:649"><nobr><span class="ft3">status</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:700"><nobr><span class="ft3">&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:464"><nobr><span class="ft3">The first predicate selects out all those assertions in</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:464"><nobr><span class="ft9">the map which have a class role where one of the<br>players happens to be isPartOf. If we are then look-<br>ing at these assertions and the player(s) of the role<br>instance</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:526"><nobr><span class="ft3">, then we have effectively selected the asser-</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:464"><nobr><span class="ft3">tions of type isPartOf from the map.</span></nobr></DIV>
+<DIV style="position:absolute;top:1087;left:464"><nobr><span class="ft7">We consider each of these assertions (in our case these<br>are a02, a11 and a21) and filter out those of them<br>which have a whole role where one player is clusterA.<br>When we continue with a02 and a11, and then fol-<br>low the part, this leads to a bag containing only the<br>names macy and lacy.</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">41</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="190006.png" alt="background image">
+<DIV style="position:absolute;top:68;left:92"><nobr><span class="ft7">In the next step we investigate where these names<br>are players of the role object, so we find a bag with<br>assertions a04 and a12. Here our path splits into two<br>components: the first one navigates to the name of<br>that object, the other to its status. The result is<br>then [ macy, "up" , lacy, "down" ].</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:92"><nobr><span class="ft7">In second example we look at all clusters which are<br>down, i.e. where all machines in that cluster are<br>down. As result we get [ clusterB ]: [</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:381"><nobr><span class="ft3">class</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:425"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:92"><nobr><span class="ft3">cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:146"><nobr><span class="ft3">]</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:188"><nobr><span class="ft3">instance</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:251"><nobr><span class="ft3">[</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:302"><nobr><span class="ft3">whole</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:379"><nobr><span class="ft3">part</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:92"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:162"><nobr><span class="ft3">status</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:209"><nobr><span class="ft3">! = "up"]</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:92"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:117"><nobr><span class="ft3">Querying, Filtering and Constraining of<br>Maps</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:92"><nobr><span class="ft7">Maps and path expressions, as presented here, can<br>serve as a basis for more high-level concepts, as they<br>are needed for ontology and knowledge engineering<br>(Fensel, Hendler, Lieberman &amp; Wahlster 2003). The<br>use of path expressions to extract information out of<br>maps leads to the following observations:</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:112"><nobr><span class="ft3">Obviously, P</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:196"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:216"><nobr><span class="ft3">is a (primitive) language to query</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:92"><nobr><span class="ft3">topic maps. Note, though, that P</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:323"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:344"><nobr><span class="ft3">lacks all facil-</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:92"><nobr><span class="ft7">ities to newly create content, such as XML or TM<br>content as described in (Garshol &amp; Barta 2003). A<br>more industrial topic map query language (TMQL)<br>will have to offer content generation language con-<br>structs. While it will also provide more concise syn-<br>tax due to high-level concepts, P</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:301"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:319"><nobr><span class="ft3">can (and probably</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:92"><nobr><span class="ft3">will) act as a semantic foundation.</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:112"><nobr><span class="ft3">More formally, we can identify a subset of P</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:418"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:433"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:92"><nobr><span class="ft3">the filters F</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:169"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:184"><nobr><span class="ft3">, which contains all those queries which</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:92"><nobr><span class="ft3">return maps:</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:92"><nobr><span class="ft3">F</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:102"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:121"><nobr><span class="ft3">= {q  P</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:180"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:199"><nobr><span class="ft3">| m  M, mq = [ a</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:342"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:357"><nobr><span class="ft3">. . . a</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:390"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:408"><nobr><span class="ft3">| a</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:424"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:434"><nobr><span class="ft3"> m]}</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:410"><nobr><span class="ft3">(15)</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:112"><nobr><span class="ft3">Clearly, the filtered maps are always submaps of</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:92"><nobr><span class="ft3">the queried map: m  f  m, for f  F</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:352"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:367"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:112"><nobr><span class="ft3">Interestingly, P</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:213"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:234"><nobr><span class="ft3">can also be regarded as primi-</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:92"><nobr><span class="ft7">tive constraint language: only when the application<br>of a path expression c to a map m renders any result,<br>then the map conforms to the expectations we have<br>set up in c.</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:92"><nobr><span class="ft7">If, for instance, we had set up a query which asks<br>for all weapons of mass destruction in our running<br>example, then the result would have been the empty</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:92"><nobr><span class="ft7">bag. Only if the query follows the structure and the<br>vocabulary of the map, then there will be a non-empty<br>result. Equivalently, this is also true the other way<br>round.</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:112"><nobr><span class="ft3">Consequently, we can define a satisfaction relation</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:92"><nobr><span class="ft3">|= P</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:131"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:148"><nobr><span class="ft3">× M between a path expression c and a map</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:92"><nobr><span class="ft3">m, such that</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:168"><nobr><span class="ft3">c |= m</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:238"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:295"><nobr><span class="ft3">m  c = </span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:410"><nobr><span class="ft3">(16)</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:112"><nobr><span class="ft3">Based on this, logical connectives between con-</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:92"><nobr><span class="ft3">straints can be defined.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:92"><nobr><span class="ft3">7</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:117"><nobr><span class="ft3">Future Work</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:92"><nobr><span class="ft7">While we concentrate in this work on formalizing the<br>structure of topic maps (at least our understanding<br>thereof) and of an expression language to extract in-<br>formation from them, we have not yet studied any<br>properties of P</span></nobr></DIV>
+<DIV style="position:absolute;top:1115;left:189"><nobr><span class="ft5">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1109;left:204"><nobr><span class="ft3">. Specifically, we are interested how</span></nobr></DIV>
+<DIV style="position:absolute;top:1124;left:92"><nobr><span class="ft7">path expressions relate to formulas in description log-<br>ics (Baader, Calvanese, McGuinness, Nardi &amp; Patel-<br>Schneider 2003, Description Logics Home Page n.d.),<br>especially in the light that both can be used to model</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:464"><nobr><span class="ft7">an ontology. A related question is how a path lan-<br>guage can be used to express identity (apart from the</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:464"><nobr><span class="ft3">explicit identity given by the topic's identifier).</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:484"><nobr><span class="ft3">Finally, in a larger picture, we are interested</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:464"><nobr><span class="ft7">in connecting maps, constraints, queries and even<br>maybe updates for topic maps in an algebra. When<br>connecting maps, merging as defined by the XTM<br>standard is an issue.</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:464"><nobr><span class="ft3">References</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:464"><nobr><span class="ft9">Baader, F., Calvanese, D., McGuinness, D., Nardi, D.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:495"><nobr><span class="ft9">&amp; Patel-Schneider, P., eds (2003), The Descrip-<br>tion Logic Handbook.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:541"><nobr><span class="ft3">http:// books.cambridge.org/ 0521781760.</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:495"><nobr><span class="ft3">htm</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:464"><nobr><span class="ft3">Bogachev, D. (n.d.), `TMAssert'.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:495"><nobr><span class="ft3">URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:566"><nobr><span class="ft3">http:// homepage.mac.com/ dmitryv/</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:495"><nobr><span class="ft3">TopicMaps/ TMRM/ TMAssert.pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:464"><nobr><span class="ft3">Description Logics Home Page (n.d.).</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:495"><nobr><span class="ft3">URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:541"><nobr><span class="ft3">http:// dl.kr.org/</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:464"><nobr><span class="ft3">Fensel, D., Hendler, J. A., Lieberman, H. &amp; Wahlster,</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:495"><nobr><span class="ft9">W., eds (2003), Spinning the Semantic Web, The<br>MIT Press.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:551"><nobr><span class="ft3">http:// mitpress.mit.edu/ catalog/ item/</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:495"><nobr><span class="ft3">default.asp? tid=9182</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:464"><nobr><span class="ft3">Garshol, L. M. (2004-07-22), `A proposed founda-</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:495"><nobr><span class="ft9">tional model for Topic Maps'.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:565"><nobr><span class="ft3">http:// www.jtc1sc34.org/ repository/</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:495"><nobr><span class="ft3">0529.htm</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:464"><nobr><span class="ft3">Garshol, L. M. &amp; Barta, R. (2003), `JTC1/SC34:</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:495"><nobr><span class="ft9">TMQL requirements'.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:570"><nobr><span class="ft3">http:// www.isotopicmaps.org/ tmql/</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:495"><nobr><span class="ft3">tmqlreqs.html</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:464"><nobr><span class="ft3">Kipp, N. A. (2003), `A mathematical formal-</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:495"><nobr><span class="ft9">ism for the Topic Maps reference model'.<br>http://www.isotopicmaps.org/tmrm/0441.htm.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:562"><nobr><span class="ft3">http:// www.isotopicmaps.org/ tmrm/</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:495"><nobr><span class="ft3">0441.htm</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:464"><nobr><span class="ft3">Newcomb, S. R., Hunting, S., Algermissen, J. &amp; Du-</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:495"><nobr><span class="ft9">rusau, P. (2003), `ISO/IEC JTC1/SC34, Topic<br>Maps - reference model, editor's draft, revision<br>3.10'.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:541"><nobr><span class="ft3">http:// www.isotopicmaps.org/ tmrm/</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:464"><nobr><span class="ft3">O. Lassila and K. Swick (1993), Resource Description</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:495"><nobr><span class="ft9">Framework (RDF) model and syntax specifica-<br>tion, Technical report, W3C, Camo AS.<br>URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:602"><nobr><span class="ft3">http:// www.w3.org/ TR/ 1999/</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:495"><nobr><span class="ft3">REC-rdf-syntax-19990222.html</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:464"><nobr><span class="ft3">Pepper, S. (1999), `Navigating haystacks, discovering</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:495"><nobr><span class="ft7">needles', Markup Languages: Theory and Prac-<br>tice, Vol. 1 No. 4 .</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:464"><nobr><span class="ft3">Pepper, S. (2000), `The TAO of Topic Maps'.</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:495"><nobr><span class="ft3">URL:</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:620"><nobr><span class="ft3">http:// www.gca.org/ papers/</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:495"><nobr><span class="ft3">xmleurope2000/ papers/ s11-01.html</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:464"><nobr><span class="ft3">Sowa, J. (2000), Knowledge Representation: Logical,</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:495"><nobr><span class="ft7">Philosophical and Computational Foundations,<br>Brooks-Cole, Pacific Grove.</span></nobr></DIV>
+<DIV style="position:absolute;top:1216;left:438"><nobr><span class="ft6">42</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,507 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>p107-bahle.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2002-06-20T11:55:44+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:144"><nobr><span class="ft0"><b>Efficient Phrase Querying with an Auxiliary Index</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:261"><nobr><span class="ft1">Dirk Bahle</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:380"><nobr><span class="ft1">Hugh E. Williams</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:557"><nobr><span class="ft1">Justin Zobel</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:269"><nobr><span class="ft2">School of Computer Science and Information Technology</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:346"><nobr><span class="ft2">RMIT University, GPO Box 2476V</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:366"><nobr><span class="ft2">Melbourne, Australia, 3001.</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:359"><nobr><span class="ft3">{dbahle,hugh,jz}@cs.rmit.edu.au</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft9">Search engines need to evaluate queries extremely fast, a<br>challenging task given the vast quantities of data being in-<br>dexed.</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:134"><nobr><span class="ft3">A significant proportion of the queries posed to</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft9">search engines involve phrases. In this paper we consider<br>how phrase queries can be efficiently supported with low disk<br>overheads. Previous research has shown that phrase queries<br>can be rapidly evaluated using nextword indexes, but these<br>indexes are twice as large as conventional inverted files. We<br>propose a combination of nextword indexes with inverted<br>files as a solution to this problem. Our experiments show<br>that combined use of an auxiliary nextword index and a con-<br>ventional inverted file allow evaluation of phrase queries in<br>half the time required to evaluate such queries with an in-<br>verted file alone, and the space overhead is only 10% of the<br>size of the inverted file. Further time savings are available<br>with only slight increases in disk requirements.</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:81"><nobr><span class="ft9">H.3.4 [Information Storage and Retrieval]: Systems<br>and Software evaluation--(efficiency); E.2 [Data]: Storage<br>Representations</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:81"><nobr><span class="ft4"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft3">Algorithms, performance</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:81"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:81"><nobr><span class="ft9">Indexing, query evaluation, phrase query evaluation, inverted<br>index, nextword index, evaluation efficiency, index represen-<br>tation, stopping</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:112"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:94"><nobr><span class="ft3">Search engines are used to find data in response to ad hoc</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:81"><nobr><span class="ft9">queries. On the Web, most queries consist of simple lists<br>of words. However, a significant fraction of the queries in-<br>clude phrases, where the user has indicated that some of the</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft10">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>SIGIR'02, </i>August 11-15, 2002, Tampere, Finland.<br>Copyright 2002 ACM 1-58113-561-0/02/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:316"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:323"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft9">query terms must be adjacent, typically by enclosing them<br>in quotation marks. Phrases have the advantage of being<br>unambiguous concept markers and are therefore viewed as<br>a valuable retrieval technique [5, 6, 7, 10]</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:489"><nobr><span class="ft3">In this paper, we explore new techniques for efficient eval-</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:475"><nobr><span class="ft3">uation of phrase queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:489"><nobr><span class="ft3">A standard way to evaluate phrase queries is to use an</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft9">inverted index, in which for each index term there is a list<br>of postings, and each posting includes a document identifier,<br>an in-document frequency, and a list of offsets. These offsets<br>are the ordinal word positions at which the term occurs in<br>the document. Given such a word-level inverted index and a<br>phrase query, it is straightforward to combine the postings<br>lists for the query terms to identify matching documents.<br>This does not mean, however, that the process is fast. Even<br>with an efficient representation of postings [16], the list for<br>a common term can require several megabytes for each gi-<br>gabyte of indexed text. Worse, heuristics such as frequency-<br>ordering [13] or impact-ordering [1] are not of value, as the<br>frequency of a word in a document does not determine its<br>frequency of participation in a particular phrase.</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:489"><nobr><span class="ft3">A crude solution is to use stopping, as is done by some</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:475"><nobr><span class="ft9">widely-used web search engines (the Google search engine,<br>for example, neglects common words in queries), but this<br>approach means that a small number of queries cannot be<br>evaluated, while many more evaluate incorrectly [12]. An-<br>other solution is to index phrases directly, but the set of<br>word pairs in a text collection is large and an index on such<br>phrases difficult to manage.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:489"><nobr><span class="ft3">In recent work, we proposed nextword indexes as a way</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:475"><nobr><span class="ft9">of supporting phrase queries and phrase browsing [2, 3, 15].<br>In a nextword index, for each index term or firstword there<br>is a list of the words or nextwords that follow that term,<br>together with the documents and word positions at which<br>the firstword and nextword occur as a pair. The disadvan-<br>tage of a nextword index is its size, typically around half<br>that of the indexed collection. Also, as described originally,<br>nextword index processing is not particularly efficient, as the<br>nextwords must be processed linearly and (compared to an<br>standard inverted index) for rare firstwords the overhead of<br>the additional layer of structure may outweigh the benefits.</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:489"><nobr><span class="ft3">In this paper we propose that phrase queries be evalu-</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:475"><nobr><span class="ft9">ated through a combination of an inverted index on rare<br>words and a form of nextword index on common words. We<br>explore the properties of phrase queries and show experi-<br>mentally that query evaluation time can be halved if just<br>the three most common firstwords are supported through<br>a nextword index. While phrase browsing is not possible</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">215</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:6px;font-family:Times;color:#000000;}
+	.ft12{font-size:5px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft14{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">with such an arrangement, the disk overheads of the partial<br>nextword index are small and the benefits are substantial.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:94"><nobr><span class="ft3">We have observed that many ordinary queries -- those</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft9">without quotation marks -- nonetheless resolve successfully<br>if processed as a phrase query, a phenomenon that search<br>engine users are familiar with, as the most popular engines<br>highly rank matches in which the query terms are adjacent.<br>This suggests that phrase querying is a potential method for<br>a fast "first cut" evaluation method, as it allows more rapid<br>identification of documents in which the terms occur as a<br>phrase.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:112"><nobr><span class="ft4"><b>PROPERTIES OF QUERIES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:94"><nobr><span class="ft3">With large web search engines being used daily by mil-</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:81"><nobr><span class="ft9">lions of users, it has become straightforward to gather large<br>numbers of queries and see how users are choosing to express<br>their information needs. Some search engine companies have<br>made extracts of their query logs freely available. In our re-<br>search, we have made extensive use of query logs provided<br>by Excite dating to 1997 and 1999, as well as more recent<br>logs from other sources.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:242"><nobr><span class="ft3">These logs have similar proper-</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:81"><nobr><span class="ft9">ties (with regard to our purposes), and we report primarily<br>on the Excite logs in this work. In the Excite log, after<br>sanitizing to remove obscenity there are 1,583,922 queries<br>(including duplicates). Of these, 132,276 or 8.3% are ex-<br>plicit phrase queries, that is, they include a sequence of two<br>or more words enclosed in quotes. Amongst the rest of the<br>queries--those without a phrase-- about 5% contain a word<br>that does not occur at all in the 21.9 gigabytes (Gb) of<br>data we use. However, almost exactly 41% of the remaining<br>non-phrase queries actually match a phrase in the 21.9 Gb<br>dataset we use in our experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">A surprising proportion of the phrases include a common</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft9">term. Amongst the explicit phrase queries, 11,103 or 8.4%<br>include one of the three words that are commonest in our<br>dataset, "the", "to", and "of". 14.4% of the phrase queries<br>include one of the 20 commonest terms. In some of these<br>queries the common word has a structural function only, as<br>in tower of london, and can arguably be safely neglected<br>during query evaluation. In other queries, however, com-<br>mon words play an important role, as in the movie title end<br>of days or the band name the who, and evaluation of these<br>queries is difficult with the common words removed, espe-<br>cially when both "the" and "who" happen to be common<br>terms [12].</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:94"><nobr><span class="ft3">Taken together, these observations suggest that stopping</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft9">of common words will have an unpredictable effect. Stop-<br>ping may yield efficiency gains, but means that a significant<br>number of queries cannot be correctly evaluated. We exper-<br>imented with a set of 122,438 phrase queries that between<br>them match 309</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:187"><nobr><span class="ft3">× 10</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:216"><nobr><span class="ft11">6</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:229"><nobr><span class="ft3">documents.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:310"><nobr><span class="ft3">Stopping of common</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">words means that a query such as tower of london must<br>be evaluated as tower -- london: the query evaluation en-<br>gine knows that the two remaining query terms must appear<br>with a single term between them. If the commonest three<br>words are stopped, there are 390</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:292"><nobr><span class="ft3">× 10</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:320"><nobr><span class="ft11">6</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:333"><nobr><span class="ft3">total matches for</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft9">all queries extracted from the log. However, these are dis-<br>tributed extremely unevenly amongst the queries: for some<br>queries the great majority of matches are incorrect. The<br>figure rises to 490</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:194"><nobr><span class="ft3">× 10</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:222"><nobr><span class="ft11">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:234"><nobr><span class="ft3">for the commonest 20 words, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft3">1693</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:110"><nobr><span class="ft3">× 10</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:137"><nobr><span class="ft11">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:148"><nobr><span class="ft3">for the commonest 254 words, while a significant</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">number of queries, containing only stopped words, cannot<br>be evaluated at all.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:489"><nobr><span class="ft3">It can be argued that stopwords are often insignificant,</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft9">and that even a document that is technically a mismatch--<br>due to the wrong stopword being present--may be just as<br>likely to be relevant as a document where the match is cor-<br>rect. However, it is worth emphasising that there are many<br>queries in which stopwords do play an important role. The<br>words "to" and "from" are often stopped, for example, but<br>mismatches to the query flights to london are likely to<br>be incorrect. Another instance is that the word "the" often<br>forms part of a description, thus the moon should not match<br>websites about a moon of Jupiter, Keith Moon, or a book<br>publisher.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:489"><nobr><span class="ft3">Amongst the phrase queries, the median number of words</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:475"><nobr><span class="ft9">in a phrase is 2, and the average is almost 2.5. About 34%<br>of the queries have three words or more, and 1.3% have six<br>words or more. A few queries are much longer, such as titles:<br>the architect of desire beauty and danger in<br>the stanford white family by suzannah lessard.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:489"><nobr><span class="ft3">Another point of interest is where in a phrase the com-</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:475"><nobr><span class="ft3">mon words occur.</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:599"><nobr><span class="ft3">In English, the common words rarely</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:475"><nobr><span class="ft9">terminate a phrase query. Only 0.4% of phrase queries with<br>"the", "to", or "of" have these words at the end. Almost all<br>of these queries are short: virtually no queries of four words<br>or more terminate with one of the commonest terms. In<br>the short queries ending in a common term, the other query<br>terms are themselves usually common. We take advantage<br>of these trends in the methods for phrase query evaluation<br>proposed in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:475"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:506"><nobr><span class="ft4"><b>INVERTED INDEXES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:489"><nobr><span class="ft3">Inverted indexes are the standard method for supporting</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:475"><nobr><span class="ft9">queries on large text databases; there are no practical al-<br>ternatives to inverted indexes that provide sufficiently fast<br>ranked query evaluation. An inverted index is a two-level<br>structure. The upper level is all the index terms for the col-<br>lection. For text databases, the index terms are usually the<br>words occurring in the text, and all words are included. The<br>lower level is a set of postings lists, one per index term. Fol-<br>lowing the notation of Zobel and Moffat [17], each posting<br>is a triple of the form:</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:514"><nobr><span class="ft3">d, f</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:534"><nobr><span class="ft11">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:548"><nobr><span class="ft3">, [o</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:565"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:571"><nobr><span class="ft3">, . . . , o</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:609"><nobr><span class="ft11">f</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:614"><nobr><span class="ft12">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:629"><nobr><span class="ft3">]</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft9">where d is the identifier of a document containing term t, the<br>frequency of t in d is f</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:610"><nobr><span class="ft11">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:624"><nobr><span class="ft3">, and the o values are the positions</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft9">in d at which t is observed. An example inverted file is shown<br>in Figure 1. In this example, there is a vocabulary of five<br>words, each of which has a postings list.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">It is straightforward to use an inverted index to eval-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft9">uate a phrase query. Consider the query magdalene sue<br>prentiss. Of these terms, "magdalene" is the rarest, and<br>its inverted list is fetched first. The postings are decoded<br>and a temporary structure is created, recording which doc-<br>uments contain this word and the ordinal word positions in<br>each document at which it occurs. The term "prentiss" is<br>the next rarest, and is processed next. For each document<br>identifier and word offset in the temporary structure cre-<br>ated earlier, a posting is sought to see whether "prentiss"<br>is in the document two words later. If the search fails, that<br>word position is discarded from the temporary structure, as<br>is the document identifier if no word positions for that doc-<br>ument remain. As both the structure and the postings are<br>sorted, this process is a linear merge. Then the postings list</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">216</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:8px;font-family:Times;color:#000000;}
+	.ft16{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78003.png" alt="background image">
+<DIV style="position:absolute;top:87;left:436"><nobr><span class="ft16">On Disk<br>Vectors</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:441"><nobr><span class="ft5">1,(&lt;9,2,[4,1001]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:441"><nobr><span class="ft5">53,(&lt;9,3,[3,8,90] ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:441"><nobr><span class="ft15">23,(&lt;4,2,[5,34]&gt;, ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:440"><nobr><span class="ft15">243,(&lt;5,1,[45]&gt;,&lt;9,1,[7]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:335"><nobr><span class="ft16">In Memory<br>Vocabulary</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:340"><nobr><span class="ft15">new</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:340"><nobr><span class="ft15">in</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:340"><nobr><span class="ft15">historic</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:340"><nobr><span class="ft15">hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:340"><nobr><span class="ft15">railroads</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:441"><nobr><span class="ft15">15,(&lt;1,1,[100]&gt;,&lt;9,1,[6]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:199"><nobr><span class="ft3">Figure 1: An inverted file for a collection with a vocabulary of five words.</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:81"><nobr><span class="ft9">for "sue" is fetched and decoded, and used to further delete<br>entries from the temporary structure. The remaining en-<br>tries are documents and word positions at which the phrase<br>occurs.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:94"><nobr><span class="ft3">Summarizing, phrase queries are evaluated as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:97"><nobr><span class="ft3">1. Sort the query terms from rarest to commonest, keep-</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:114"><nobr><span class="ft3">ing note of their original position in the phrase.</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:97"><nobr><span class="ft3">2. Fetch the postings list for the first (rarest) query term.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:114"><nobr><span class="ft9">Decode this list into a temporary structure of docu-<br>ment identifiers and word offset positions.</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:97"><nobr><span class="ft3">3. For each remaining query term, decode its postings</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:114"><nobr><span class="ft9">list, merging it with the temporary data; this merge<br>process discards from the temporary structure all doc-<br>ument identifiers and word offsets that do not match<br>any entry in the postings list.</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">In this query evaluation model, processing of the first</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft9">query term establishes a superset of the possible locations<br>of the complete phrase, which are maintained in a tempo-<br>rary structure; as the subsequent query terms are evaluated,<br>this structure is pruned, never added to. It is thus essen-<br>tial to begin processing with the rarest query term, to avoid<br>creation of an excessively large temporary structure (or of<br>having to process the inverted lists in stages to stay within<br>a memory limit).</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:94"><nobr><span class="ft3">A simple heuristic to address this problem is to directly</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft9">merge the inverted lists rather than decode them in turn. On<br>the one hand, merging has the disadvantage that techniques<br>such as skipping [11] cannot be as easily used to reduce pro-<br>cessing costs (although as we discuss later skipping does not<br>necessarily yield significant benefits). On the other hand,<br>merging of at least some of the inverted lists is probably the<br>only viable option when all the query terms are moderately<br>common.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft3">Whether the lists are merged or processed in turn, the</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">whole of each list needs to be fetched (unless query process-<br>ing terminates early due to lack of matches). For ranked<br>query processing it is possible to predict which postings<br>in each inverted list are most likely to be of value, and<br>move these to the front of the inverted list; techniques for<br>such list modification include frequency-ordering [13] and<br>impact-ordering [1]. With these techniques, only the first of<br>the inverted lists need be fetched during evaluation of most<br>queries, greatly reducing costs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">In contrast, for phrase querying it is not simple to predict</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">which occurrences of the term will be in a query phrase, and<br>thus such reordering is unlikely to be effective. Offsets only</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:475"><nobr><span class="ft9">Table 1: Size of inverted index (Mb) after stopping<br>of common words.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:576"><nobr><span class="ft3">Number of</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:684"><nobr><span class="ft3">Index size</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:565"><nobr><span class="ft3">words stopped</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:699"><nobr><span class="ft3">(Mb)</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:611"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:700"><nobr><span class="ft3">2350</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:611"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:700"><nobr><span class="ft3">2259</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:611"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:700"><nobr><span class="ft3">2195</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:605"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:700"><nobr><span class="ft3">2135</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:605"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:700"><nobr><span class="ft3">2089</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:598"><nobr><span class="ft3">254</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:700"><nobr><span class="ft3">1708</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:475"><nobr><span class="ft9">have to be decoded when there is a document match, but<br>they still have to be retrieved.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:489"><nobr><span class="ft3">Other techniques do have the potential to reduce query</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft9">evaluation time, in particular skipping [11], in which addi-<br>tional information is placed in inverted lists to reduce the<br>decoding required in regions in the list that cannot contain<br>postings that will match documents that have been identi-<br>fied as potential matches. On older machines, on which CPU<br>cycles were relatively scarce, skipping could yield substan-<br>tial gains. On current machines, however, disk access costs<br>are the more important factor, and in other experiments we<br>have observed that the increase in length of lists required<br>by skipping outweighs the reduction in decoding time. We<br>therefore do not use skipping in our experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft3">We have implemented a phrase query evaluator based on</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft9">inverted lists, using compression techniques similar to those<br>employed in MG [16] to reduce costs, and have used it to<br>test the efficiency of phrase query evaluation. Our test data<br>is 21.9 Gb of HTML containing about 8.3 Gb of text (drawn<br>from the TREC large web track [9]).</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">Table 1 shows the size of the index with a range of levels</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft9">of stopping. As can be seen, the three commonest words<br>account for around 4% of the index size, and only small space<br>savings are yielded by stopping. However, as Table 2 shows,<br>the impact of stopping on query evaluation time is dramatic.<br>Just removing the three commonest words reduces average<br>time by about 60%, and by a factor of 3 for longer queries.<br>For these longer queries, the savings continue to increase as<br>more common words are stopped. It is the scale of these<br>savings that make stopping attractive, despite the fact that<br>they are at the cost of inaccurate query results.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">217</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78004.png" alt="background image">
+<DIV style="position:absolute;top:96;left:81"><nobr><span class="ft9">Table 2: Times for phrase query evaluation (sec-<br>onds) on an inverted index after stopping of com-<br>mon words.</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:176"><nobr><span class="ft3">Results are shown for all queries; 2-</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:81"><nobr><span class="ft3">word queries only; and 5-word queries only.</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:123"><nobr><span class="ft3">Number of</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:240"><nobr><span class="ft3">Overall</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:308"><nobr><span class="ft3">2-word</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:366"><nobr><span class="ft3">5-word</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:112"><nobr><span class="ft3">words stopped</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:231"><nobr><span class="ft3">time (sec)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:308"><nobr><span class="ft3">queries</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:366"><nobr><span class="ft3">queries</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:159"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:249"><nobr><span class="ft3">1.56</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:316"><nobr><span class="ft3">0.49</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:374"><nobr><span class="ft3">6.41</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:159"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:249"><nobr><span class="ft3">0.66</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:316"><nobr><span class="ft3">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:374"><nobr><span class="ft3">1.94</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:159"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:249"><nobr><span class="ft3">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:316"><nobr><span class="ft3">0.29</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:374"><nobr><span class="ft3">1.07</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:152"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:249"><nobr><span class="ft3">0.40</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:316"><nobr><span class="ft3">0.28</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:374"><nobr><span class="ft3">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:152"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:249"><nobr><span class="ft3">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:316"><nobr><span class="ft3">0.28</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:374"><nobr><span class="ft3">0.70</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:145"><nobr><span class="ft3">254</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:249"><nobr><span class="ft3">0.18</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:316"><nobr><span class="ft3">0.16</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:374"><nobr><span class="ft3">0.26</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:112"><nobr><span class="ft4"><b>NEXTWORD INDEXES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:94"><nobr><span class="ft3">Inverted indexes allow evaluation of phrase queries, but</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:81"><nobr><span class="ft9">faster evaluation is possible with phrase-oriented indexes.<br>One possibility is to use a conventional inverted index in<br>which the terms are word pairs. Another way to support<br>phrase based query modes is to index and store phrases<br>directly [8] or simply by using an inverted index and ap-<br>proximating phrases through a ranked query technique [5,<br>10]. Greater efficiency, with no additional in-memory space<br>overheads, is possible with a special-purpose structure, the<br>nextword index [15], where search structures are used to ac-<br>celerate processing of word pairs. The nextword index takes<br>the middle ground by indexing pairs of words and, therefore,<br>is particularly good at resolving phrase queries containing<br>two or more words. As noted above and observed elsewhere,<br>the commonest number of words in a phrase is two [14].</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:94"><nobr><span class="ft3">A nextword index is a three-level structure. The highest</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:81"><nobr><span class="ft9">level is of the distinct index terms in the collection, which we<br>call firstwords. At the middle level, for each firstword there<br>is a data structure (such as a front-coded list, or for fast<br>access a structure such as a tree) of nextwords, which are<br>the words observed to follow that firstword in the indexed<br>text. For example, for the firstword "artificial", nextwords<br>include "intelligence", "insemination", and "hip". At the<br>lowest level, for each nextword there is a postings list of the<br>positions at which that firstword-nextword pair occur.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:94"><nobr><span class="ft3">An example nextword index is shown in Figure 2. In this</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:81"><nobr><span class="ft9">example, there are two firstwords, "in" and "new". Some<br>of the nextwords for "in" are "all", "new", and "the". For<br>each firstword-nextword pair, there is a postings list. (A<br>nextword index is of course a form of inverted index, but for<br>consistency with other work we use "inverted index" solely<br>to refer to a standard word-level inverted file.)</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft3">In nextword indexes, the postings lists are typically short,</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">because most pairs only occur infrequently. For example,<br>the postings list for the firstword-nextword pair "the"</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:397"><nobr><span class="ft3">·"who"</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft9">is orders of magnitude smaller than the postings lists for<br>these words in an inverted file. It follows that phrase query<br>evaluation can be extremely fast.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:94"><nobr><span class="ft3">Nextword indexes also have the benefit of allowing phrase</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft9">browsing or phrase querying [4, 15]; given a sequence of<br>words, the index can be used to identify which words fol-<br>low the sequence, thus providing an alternative mechanism<br>for searching text collections. However, we do not consider<br>phrase browsing further in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:94"><nobr><span class="ft3">For phrase queries of more than two words, multiple post-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">ings lists must be fetched from the nextword index to resolve<br>the query. Selection of which listings to fetch requires a little<br>care. For example, with the query</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:509"><nobr><span class="ft3">boulder municipal employees credit union</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:475"><nobr><span class="ft9">the query can be resolved by fetching the postings lists for<br>the firstword-nextword pairs "boulder"</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:717"><nobr><span class="ft3">·"municipal", "em-</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:475"><nobr><span class="ft3">ployees"</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:525"><nobr><span class="ft3">·"credit", and "credit"·"union". Alternatively, it</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:475"><nobr><span class="ft3">would be possible to get the lists for "boulder"</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:753"><nobr><span class="ft3">·"municipal",</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:475"><nobr><span class="ft3">"municipal"</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:548"><nobr><span class="ft3">·"employees", and "credit"·"union". Which is</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:475"><nobr><span class="ft9">most efficient depends on which is shorter: the list for "em-<br>ployees"</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:525"><nobr><span class="ft3">·"credit" or the list for for "municipal"·"employees".</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:489"><nobr><span class="ft3">Unfortunately, establishing which is shorter requires two</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:475"><nobr><span class="ft9">disk accesses, to retrieve the nextwords for "employees" and<br>"municipal". However, we have observed that the frequency<br>of a firstword closely correlates to the lengths of its nextword<br>lists.<br>Thus in the query</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:509"><nobr><span class="ft3">historic railroads in new hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:475"><nobr><span class="ft3">we can with confidence choose "railroads"</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:740"><nobr><span class="ft3">·"in" in prefer-</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:475"><nobr><span class="ft3">ence to "in"</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:550"><nobr><span class="ft3">·"new", because "railroads" is much less com-</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:475"><nobr><span class="ft9">mon than "in". We have considered algorithms for choosing<br>order of evaluation elsewhere [3]. An efficient algorithm for<br>evaluating phrase queries with a nextword index is as fol-<br>lows.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:491"><nobr><span class="ft3">1. If the number of query terms n is even, the query</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:509"><nobr><span class="ft9">can consist of n/2 disjoint firstword-nextword pairs. If<br>the number of query terms n is odd, n/2 firstword-<br>nextword pairs must be chosen. However, in both cases<br>it is more efficient to choose more than the minimum<br>number of pairs, if doing so avoids choice of a common<br>word as a firstword.</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:491"><nobr><span class="ft3">2. The method we use is to choose all n - 1 firstword-</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:509"><nobr><span class="ft9">nextword pairs; then sort them by increasing firstword<br>frequency; then discard from the list the pairs that<br>are completely covered by preceding selections. This<br>approach can lead to processing of more than n/2<br>pairs, but experimentally was shown to reduces costs<br>overall.</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:491"><nobr><span class="ft3">3. The selected word pairs are sorted by increasing fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:509"><nobr><span class="ft9">quency of the firstwords, then their postings lists are<br>processed as for inverted file phrase query processing.</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft9">The nextword index for our Web collection is 4487 Mb in<br>size, almost exactly twice that of an inverted file. For phrase<br>queries, the savings in query evaluation time are dramatic.<br>Average query evaluation time is reduced to 0.06 seconds,<br>faster than inverted files by a factor of 25. For two-word<br>queries, the time falls to 0.01 seconds, which is faster by a<br>factor of 50. The time for 5-word queries is 0.32.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:489"><nobr><span class="ft3">An interesting possibility suggested by these results is</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft9">that--given space for a nextword index--all queries be eval-<br>uated as if they were phrases. We observed above that a<br>significant fraction of all queries successfully evaluate, and<br>indeed on browsing the query logs it is obvious that many<br>of the queries without quotation marks are nonetheless in-<br>tended to be phrases. Spink et al. [14] suggest that most<br>two-word queries should be treated as a phrase query even<br>if they were entered as a ranked query. Given that search<br>engines return as highest matches the pages in which the</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">218</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:7px;font-family:Times;color:#000000;}
+	.ft18{font-size:7px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78005.png" alt="background image">
+<DIV style="position:absolute;top:87;left:208"><nobr><span class="ft18">In Memory<br>Vocabulary</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:284"><nobr><span class="ft18">On Disk<br>Nextword Lists</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:212"><nobr><span class="ft15">in</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:212"><nobr><span class="ft15">new</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:305"><nobr><span class="ft15">...</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:300"><nobr><span class="ft15">age</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:300"><nobr><span class="ft15">hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:300"><nobr><span class="ft15">house</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:305"><nobr><span class="ft15">...</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:300"><nobr><span class="ft15">the</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:300"><nobr><span class="ft15">all</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:300"><nobr><span class="ft15">new</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:385"><nobr><span class="ft17">On Disk Inverted Vectors</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:390"><nobr><span class="ft15">15,(&lt;1,15,[100]&gt;,&lt;65,1,[1]&gt;,&lt;74,7,[23,43,54,62,68,114,181,203]&gt;, ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:389"><nobr><span class="ft15">1,(&lt;9,1,[6]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:389"><nobr><span class="ft15">3,(&lt;1,1,[12]&gt;,&lt;34,3,[23,34,111]&gt;,&lt;77,1,[29]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:389"><nobr><span class="ft15">305,(&lt;9,2,[7,199]&gt;,&lt;532,1,[256]&gt;, ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:389"><nobr><span class="ft15">2,(&lt;9,1,[423]&gt;,&lt;19,1,[4]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:389"><nobr><span class="ft15">2,(&lt;31,3,[21,41,91]&gt;,&lt;44,1,[34)]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:288"><nobr><span class="ft3">Figure 2: A nextword index with two firstwords.</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:81"><nobr><span class="ft9">query words appear in sequence, use of a nextword index<br>provides a rapid mechanism for finding these pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:94"><nobr><span class="ft3">Much of the speed improvement for phrase queries yielded</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:81"><nobr><span class="ft9">by nextword indexes is for queries involving a non-rare word.<br>Indeed, for queries of rare words there may be little gain, as<br>query processing with nextword indexes involves more com-<br>plex structures than does processing with inverted indexes.<br>As the two approaches to phrase query processing appear,<br>then, to have complementary advantages, it is attractive to<br>try to combine their strengths.</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:81"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:112"><nobr><span class="ft4"><b>COMBINED QUERY EVALUATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:94"><nobr><span class="ft3">We have observed above that inverted indexes are the</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:81"><nobr><span class="ft9">least efficient for phrases involving common words, the case<br>where nextword indexes yield the greatest speed advantage.<br>We therefore propose that common words only be used as<br>firstwords in a stripped-down nextword index, and that this<br>new index be used where possible in evaluation of phrase<br>queries. We call this a top frequency based scheme, since<br>only the most frequent words are indexed in the nextword<br>index. We have explored other schemes based on the fre-<br>quency of words in the indexed collection, or based on the<br>frequency of words in the query log. None of the investi-<br>gated schemes offered a better space and time trade-off, so<br>we report only results from the top frequency scheme.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:94"><nobr><span class="ft3">An example of a top frequency combined index is shown</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:81"><nobr><span class="ft9">in Figure 3. At the left there is a vocabulary of five words.<br>Each word has an inverted list, together constituting a com-<br>plete inverted file for these words. In addition, the common<br>words "in" and "new" have a nextword index.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:94"><nobr><span class="ft3">With a combined index, processing involves postings lists</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:81"><nobr><span class="ft9">from both the inverted index and the nextword index. Con-<br>sider again the query:</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:114"><nobr><span class="ft3">historic railroads in new hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">Neither "historic" nor "railroads" is a common word, so<br>establishing that these terms occur in the phrase involves<br>fetching their postings lists from the inverted index and pro-<br>cessing in the usual way. However, "in" and "new" are both<br>common. The posting list for the firstword-nextword pair<br>"in"</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:106"><nobr><span class="ft3">·"new" from the nextword index must be fetched and</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft9">processed. Then there is a choice. On the one hand, the<br>nextword index postings list for "new"</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:314"><nobr><span class="ft3">·"hampshire" cannot</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:81"><nobr><span class="ft9">be longer than the inverted index postings list for "hamp-<br>shire" and in all likelihood is a great deal shorter.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:421"><nobr><span class="ft3">On</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">the other hand, compared to the inverted index, an ex-<br>tra disk access is required to fetch a postings list from the</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:475"><nobr><span class="ft9">nextword index. In our implementation, we process using<br>the nextword index if possible, and resort to the inverted<br>index only for terms that are not in an indexed firstword-<br>nextword pair.</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:489"><nobr><span class="ft3">In summary, we use the following process:</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:491"><nobr><span class="ft3">1. Identify all pairs in the list in which the first term is</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:509"><nobr><span class="ft9">an indexed firstword. Sort these terms, and prune the<br>list as for standard evaluation of phrase queries via a<br>nextword index.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:491"><nobr><span class="ft3">2. For all terms not in a firstword-nextword pair, sort.</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:491"><nobr><span class="ft3">3. Process the postings lists in increasing order of first-</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:509"><nobr><span class="ft9">word frequency, so that processing of nextword index<br>lists and of inverted file lists is interleaved.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:475"><nobr><span class="ft9">In this model, a common word need only be evaluated via its<br>postings list in the inverted file if it occurs as the last word<br>in a query, which in the Excite query log is a rare event.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:489"><nobr><span class="ft3">We have tested other query resolution methods that in-</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:475"><nobr><span class="ft9">volved term sorting based on nextword frequency (or NWF,<br>the number of nextwords for a firstword), inverted docu-<br>ment frequency (or IDF, the number of documents in which<br>a word occurs), or both. We also experimented with resolv-<br>ing nextword entries of a given query always first, or always<br>last. We found overall that these different resolution meth-<br>ods did not significantly vary in query speed and behaved<br>almost identically to sorting by IDF only. We therefore sort<br>inverted index terms and nextword terms based on IDF since<br>we do not need to keepanother statistical value per index<br>term and sorting is straightforward.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:506"><nobr><span class="ft4"><b>EXPERIMENTAL RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">All experiments were run on an Intel 700 MHz Pentium</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft9">III-based server with 2 Gb of memory, running the Linux<br>operating system under light load. In Table 3 we show sizes<br>of nextword indexes in which only the commonest terms are<br>allowed as firstwords. The table shows that a nextword in-<br>dex that contains only the three commonest terms consumes<br>254 Mb, that is, just over 10% of the space of the inverted<br>index or around 1% of the size of the original HTML collec-<br>tion.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:489"><nobr><span class="ft3">Query evaluation time with a combined index is shown</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft9">in Table 4. (The "0" line is repeated from Table 2.) As<br>can be seen, use of a nextword index allows evaluation of all<br>phrase queries, and much more rapidly than was previously<br>possible. Use of a partial nextword index of 1% of the HTML<br>collection halves query evaluation time; a partial nextword</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">219</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78006.png" alt="background image">
+<DIV style="position:absolute;top:170;left:211"><nobr><span class="ft15">in</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:211"><nobr><span class="ft15">hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:211"><nobr><span class="ft15">historic</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:211"><nobr><span class="ft15">new</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:211"><nobr><span class="ft15">railroads</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:207"><nobr><span class="ft18">In Memory<br>Vocabulary</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:294"><nobr><span class="ft18">On Disk<br>Nextword Lists</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:306"><nobr><span class="ft15">...</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:302"><nobr><span class="ft15">the</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:302"><nobr><span class="ft15">all</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:302"><nobr><span class="ft15">new</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:405"><nobr><span class="ft15">15,(&lt;15,1,[100]&gt;,&lt;65,1,[1]&gt;,&lt;74,7,[23,43,54,62,68,114,181]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:405"><nobr><span class="ft15">251,(&lt;5,1,[45]&gt;,&lt;9,1,[6]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:405"><nobr><span class="ft15">1,(&lt;9,1,[7]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:408"><nobr><span class="ft15">23,(&lt;9,3,[4,8,245]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:405"><nobr><span class="ft15">2,(&lt;1,1,[53]&gt;,&lt;9,2,[4,1001&gt;])</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:405"><nobr><span class="ft15">23,(&lt;1,2,[65,98]&gt;,&lt;9,4,[7,54,64,69]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:302"><nobr><span class="ft15">age</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:302"><nobr><span class="ft15">hampshire</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:302"><nobr><span class="ft15">house</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:302"><nobr><span class="ft15">...</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:405"><nobr><span class="ft15">15,(&lt;2,1,[100]&gt;,&lt;6,1,[1]&gt;,&lt;9,8,[1,5,54,62,68,114,181,203]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:389"><nobr><span class="ft17">On Disk Inverted Vectors</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:405"><nobr><span class="ft15">3,(&lt;1,1,[12]&gt;,&lt;34,3,[23,34,111]&gt;,&lt;77,1,[29]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:405"><nobr><span class="ft15">2,(&lt;31,3,[21,41,91]&gt;,&lt;44,1,[34]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:405"><nobr><span class="ft15">305,(&lt;9,2,[7,54]&gt;,&lt;532,1,[256]&gt; ...)</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:405"><nobr><span class="ft15">2,(&lt;9,1,[423]&gt;,&lt;19,1,[4]&gt;)</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:262"><nobr><span class="ft3">Figure 3: A combined inverted file and nextword index.</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:81"><nobr><span class="ft9">Table 3: Size of nextword index (Mb) containing<br>only common firstwords.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:182"><nobr><span class="ft3">Number of</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:291"><nobr><span class="ft3">Index size</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:169"><nobr><span class="ft3">common words</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:306"><nobr><span class="ft3">(Mb)</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:217"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:314"><nobr><span class="ft3">254</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:217"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:314"><nobr><span class="ft3">427</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:210"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:314"><nobr><span class="ft3">520</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:210"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:314"><nobr><span class="ft3">657</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:204"><nobr><span class="ft3">254</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:307"><nobr><span class="ft3">1366</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:81"><nobr><span class="ft9">index of less than 3% of the size of the collection cuts time<br>to a third.</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:94"><nobr><span class="ft3">These are substantial savings at low cost. Phrase query</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:81"><nobr><span class="ft9">processing time with a nextword index is only slightly greater<br>than with a stopped inverted file, and no answers are lost.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:94"><nobr><span class="ft3">Such combined processing can be integrated with other</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:81"><nobr><span class="ft9">heuristics for phrase query evaluation. For example, a strat-<br>egy that is likely to be successful in the context of a web<br>search engine is to maintain indexes (perhaps for a lim-<br>ited time only) on phrases, or word pairs from phrases,<br>that are commonly posed as queries. Amongst our 132,276<br>queries, 72,184 are distinct. The commonest phrase query<br>(thumbnail post) occurs 205 times and involves no com-<br>mon words. The queries themselves contain 92,846 distinct<br>word pairs; the commonest pair occurs 683 times. Indexing<br>of common query pairs has the potential to yield significant<br>further savings.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:81"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:112"><nobr><span class="ft4"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:94"><nobr><span class="ft3">We have proposed that phrase queries on large text col-</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft9">lections be supported by use of a small auxiliary index. In<br>this approach, all words in the text are indexed via an in-<br>verted file; in addition, the commonest words are indexed<br>via an auxiliary nextword index, which stores postings lists<br>for firstword-nextword pairs. We have shown that the cost<br>of evaluating phrase indexes can be cut by a factor of three,<br>with an auxiliary index that is only 3% of the size of the</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:475"><nobr><span class="ft9">Table 4: Times for phrase query evaluation (sec-<br>onds) on a combined index, with different numbers<br>of common words used in the nextword index. Re-<br>sults are shown for all queries; 2-word queries only;<br>and 5-word queries only.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:518"><nobr><span class="ft3">Number of</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:636"><nobr><span class="ft3">Overall</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:704"><nobr><span class="ft3">2-word</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:762"><nobr><span class="ft3">5-word</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:505"><nobr><span class="ft3">common words</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:628"><nobr><span class="ft3">time (sec)</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:704"><nobr><span class="ft3">queries</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:762"><nobr><span class="ft3">queries</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:553"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:645"><nobr><span class="ft3">1.56</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:713"><nobr><span class="ft3">0.49</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:771"><nobr><span class="ft3">6.41</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:553"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:645"><nobr><span class="ft3">0.76</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:713"><nobr><span class="ft3">0.31</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:771"><nobr><span class="ft3">2.99</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:553"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:645"><nobr><span class="ft3">0.57</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:713"><nobr><span class="ft3">0.31</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:771"><nobr><span class="ft3">2.28</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:546"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:645"><nobr><span class="ft3">0.53</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:713"><nobr><span class="ft3">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:771"><nobr><span class="ft3">2.10</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:546"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:645"><nobr><span class="ft3">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:713"><nobr><span class="ft3">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:771"><nobr><span class="ft3">1.98</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:540"><nobr><span class="ft3">254</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:645"><nobr><span class="ft3">0.46</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:713"><nobr><span class="ft3">0.27</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:771"><nobr><span class="ft3">1.83</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:475"><nobr><span class="ft3">indexed data.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:489"><nobr><span class="ft3">These results show that there is no need to use stopping</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:475"><nobr><span class="ft9">in phrases. Indeed, the statistics on the number of matches<br>indicate that such stopping leads to significant error rates.<br>While it can be argued that mistakes in matching due to<br>stopping of common words are in many cases unimportant,<br>there are numerous queries where the stopwords are signifi-<br>cant; moreover, we have demonstrated that there is no rea-<br>son to make such mistakes at all.</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:489"><nobr><span class="ft3">Our schemes have scope for improvement. In particular,</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:475"><nobr><span class="ft9">choosing of pairs during query evaluation requires further<br>exploration, and we are further investigating structures for<br>representing nextword lists. However, our results show that<br>evaluation of phrase queries can be dramatically accelerated<br>with only a small additional index, and that stopping of<br>phrases leads to errors and is not necessary for efficiency.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">220</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="78007.png" alt="background image">
+<DIV style="position:absolute;top:83;left:81"><nobr><span class="ft4"><b>Acknowledgements</b></span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">This research was supported by the Australian Research<br>Council. We thank Amanda Spink, Doug Cutting, Jack Xu,<br>and Excite Inc. for providing the query log.</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:81"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:112"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:88"><nobr><span class="ft3">[1] V. N. Anh, O. Kretser, and A. Moffat. Vector-Space</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:109"><nobr><span class="ft9">ranking with effective early termination. In W. B.<br>Croft, D. J. Harp er, D. H. Kraft, and J. Zobel,<br>editors, Proc. ACM-SIGIRInternational Conference<br>on Research and Development in Information<br>Retrieval, pages 35­42, New York, Sept. 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:88"><nobr><span class="ft3">[2] D. Bahle, H.E. Williams, and J. Zobel. Compaction</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:109"><nobr><span class="ft9">techniques for nextword indexes. In Proc. 8th<br>International Symposium on String Processing and<br>Information Retrieval (SPIRE2001), pages 33­45, San<br>Rafael, Chile, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:88"><nobr><span class="ft3">[3] D. Bahle, H. E. Williams, and J. Zobel. Optimised</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:109"><nobr><span class="ft9">phrase querying and browsing in text databases. In<br>M. Oudshoorn, editor, Proc. Australasian Computer<br>Science Conference, pages 11­19, Gold Coast,<br>Australia, Jan. 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:88"><nobr><span class="ft3">[4] P. Bruza, R. McArthur, and S. Dennis. Interactive</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:109"><nobr><span class="ft9">internet search: keyword, directory and query<br>reformulation mechanisms compared. In N. J. Belkin,<br>P. Ingwersen, and M.-K. Leong, editors, Proc.<br>ACM-SIGIRInternational Conference on Research<br>and Development in Information Retrieval, pages<br>280­287, Athens, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:88"><nobr><span class="ft3">[5] C. L. Clarke, G. V. Cormack, and E. A. Tudhope.</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:109"><nobr><span class="ft9">Relevance ranking for one- to three-term queries. In<br>Proc. of RIAO-97, 5th International Conference<br>"Recherche d'Information Assistee par Ordinateur",<br>pages 388­400, Montreal, CA, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:88"><nobr><span class="ft3">[6] W. B. Croft, H. R. Turtle, and D. D. Lewis. The use</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:109"><nobr><span class="ft9">of phrases and structured queries in information<br>retrieval. In A. Bookstein, Y. Chiaramella, G. Salton,<br>and V. V. Raghavan, editors, Proc. ACM-SIGIR<br>International Conference on Research and<br>Development in Information Retrieval, pages 32­45,<br>Chicago, 1991.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:88"><nobr><span class="ft3">[7] E. F. de Lima and J. O. Pedersen. Phrase recognition</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:109"><nobr><span class="ft9">and expansion for short, precision-biased queries based<br>on a query log. In Proc. ACM-SIGIRInternational<br>Conference on Research and Development in<br>Information Retrieval, pages 145­152, Berkeley, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft3">[8] C. Gutwin, G. Paynter, I. Witten, C. NevillManning,</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft9">and E. Frank. Improving browsing in digital libraries<br>with keyphrase indexes. Decision Support Systems,<br>27(1/2):81­104, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:482"><nobr><span class="ft3">[9] D. Hawking, N. Craswell, P. Thistlewaite, and</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft9">D. Harman. Results and challenges in web search<br>evaluation. In Proc. of the Eighth International<br>World-Wide Web Conference, volume 31, pages<br>1321­1330, May 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:475"><nobr><span class="ft3">[10] D. D. Lewis and W. B. Croft. Term clustering of</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:503"><nobr><span class="ft9">syntactic phrases. In J.-L. Vidick, editor, Proc.<br>ACM-SIGIRInternational Conference on Research<br>and Development in Information Retrieval, pages<br>385­404, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:475"><nobr><span class="ft3">[11] A. Moffat and J. Zobel. Self-indexing inverted files for</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:503"><nobr><span class="ft9">fast text retrieval. ACM Transactions on Information<br>Systems, 14(4):349­379, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:475"><nobr><span class="ft3">[12] G. W. Paynter, I. H. Witten, S. J. Cunningham, and</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:503"><nobr><span class="ft9">G. Buchanan. Scalable browsing for large collections:<br>A case study. In Proc. of the 5th ACM International<br>Conference on Digital Libraries, pages 215­223, San<br>Antonio, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft3">[13] M. Persin, J. Zobel, and R. Sacks-Davis. Filtered</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:503"><nobr><span class="ft9">document retrieval with frequency-sorted indexes.<br>Journal of the American Society for Information<br>Science, 47(10):749­764, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:475"><nobr><span class="ft3">[14] A. Spink, D. Wolfram, B. J. Jansen, and T. Saracevic.</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:503"><nobr><span class="ft9">Searching the web: The public and their queries.<br>Journal of the American Society for Information<br>Science, 52(3):226­234, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:475"><nobr><span class="ft3">[15] H. Williams, J. Zobel, and P. Anderson. What's next?</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:503"><nobr><span class="ft9">index structures for efficient phrase querying. In<br>M. Orlowska, editor, Proc. Australasian Database<br>Conference, pages 141­152, Auckland, New Zealand,<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:475"><nobr><span class="ft3">[16] I. H. Witten, A. Moffat, and T. C. Bell. Managing</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:503"><nobr><span class="ft9">Gigabytes: Compressing and Indexing Documents and<br>Images. Morgan Kaufmann, San Francisco, California,<br>second edition, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:475"><nobr><span class="ft3">[17] J. Zobel and A. Moffat. Exploring the similarity</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:503"><nobr><span class="ft3">space. SIGIRForum, 32(1):18­34, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">221</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

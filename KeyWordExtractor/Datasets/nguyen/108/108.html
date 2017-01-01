@@ -1,0 +1,888 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\108</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-08-05T21:36:58+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:11px;font-family:Times;color:#000000;}
+	.ft2{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:6px;font-family:Times;color:#000000;}
+	.ft8{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft12{font-size:11px;line-height:22px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+	.ft14{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:127"><nobr><span class="ft0"><b>IncSpan: Incremental Mining of Sequential Patterns</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:331"><nobr><span class="ft0"><b>in Large Database</b></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:570"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:188"><nobr><span class="ft2">Hong Cheng</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:155"><nobr><span class="ft3">Department of Computer</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:211"><nobr><span class="ft3">Science</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:166"><nobr><span class="ft3">University of Illinois at</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:173"><nobr><span class="ft3">Urbana-Champaign</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:166"><nobr><span class="ft3">Urbana, Illinois 61801</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:161"><nobr><span class="ft2">hcheng3@uiuc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:415"><nobr><span class="ft2">Xifeng Yan</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:375"><nobr><span class="ft3">Department of Computer</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:431"><nobr><span class="ft3">Science</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:385"><nobr><span class="ft3">University of Illinois at</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:392"><nobr><span class="ft3">Urbana-Champaign</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:385"><nobr><span class="ft3">Urbana, Illinois 61801</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:396"><nobr><span class="ft2">xyan@uiuc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:633"><nobr><span class="ft2">Jiawei Han</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:594"><nobr><span class="ft3">Department of Computer</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:650"><nobr><span class="ft3">Science</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:605"><nobr><span class="ft3">University of Illinois at</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:611"><nobr><span class="ft3">Urbana-Champaign</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:604"><nobr><span class="ft3">Urbana, Illinois 61801</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:605"><nobr><span class="ft2">hanj@cs.uiuc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:81"><nobr><span class="ft10">Many real life sequence databases grow incrementally. It is<br>undesirable to mine sequential patterns from scratch each<br>time when a small set of sequences grow, or when some new<br>sequences are added into the database. Incremental algo-<br>rithm should be developed for sequential pattern mining so<br>that mining can be adapted to incremental database up-<br>dates. However, it is nontrivial to mine sequential patterns<br>incrementally, especially when the existing sequences grow<br>incrementally because such growth may lead to the gener-<br>ation of many new patterns due to the interactions of the<br>growing subsequences with the original ones. In this study,<br>we develop an efficient algorithm,</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:292"><nobr><span class="ft1">IncSpan, for incremental</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:81"><nobr><span class="ft10">mining of sequential patterns, by exploring some interesting<br>properties. Our performance study shows that</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:365"><nobr><span class="ft1">IncSpan out-</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft10">performs some previously proposed incremental algorithms<br>as well as a non-incremental one with a wide margin.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:81"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:81"><nobr><span class="ft10">H.2.8 [Database Management]: Database Applications--<br>data mining</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:81"><nobr><span class="ft4"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:81"><nobr><span class="ft1">Algorithms, Performance, Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:81"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:81"><nobr><span class="ft13">incremental mining, buffering pattern, reverse pattern match-<br>ing, shared projection<br>The work was supported in part by U.S. National Science<br>Foundation NSF IIS-02-09199, University of Illinois, and Mi-<br>crosoft Research. Any opinions, findings, and conclusions or<br>recommendations expressed in this paper are those of the au-<br>thors and do not necessarily reflect the views of the funding<br>agencies.</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft14">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>KDD'04, </i>August 22­25, 2004, Seattle, Washington, USA.<br>Copyright 2004 ACM 1-58113-888-1/04/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft1">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:475"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:507"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:489"><nobr><span class="ft1">Sequential pattern mining is an important and active re-</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:475"><nobr><span class="ft10">search topic in data mining [1, 5, 4, 8, 13, 2], with broad<br>applications, such as customer shopping transaction analy-<br>sis, mining web logs, mining DNA sequences, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:489"><nobr><span class="ft1">There have been quite a few sequential pattern or closed</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:475"><nobr><span class="ft10">sequential pattern mining algorithms proposed in the previ-<br>ous work, such as [10, 8, 13, 2, 12, 11], that mine frequent<br>subsequences from a large sequence database efficiently. These<br>algorithms work in a one-time fashion: mine the entire<br>database and obtain the set of results. However, in many<br>applications, databases are updated incrementally. For ex-<br>ample, customer shopping transaction database is growing<br>daily due to the appending of newly purchased items for ex-<br>isting customers for their subsequent purchases and/or in-<br>sertion of new shopping sequences for new customers. Other<br>examples include Weather sequences and patient treatment<br>sequences which grow incrementally with time. The exist-<br>ing sequential mining algorithms are not suitable for han-<br>dling this situation because the result mined from the old<br>database is no longer valid on the updated database, and it<br>is intolerably inefficient to mine the updated databases from<br>scratch.</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:489"><nobr><span class="ft1">There are two kinds of database updates in applications:</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:475"><nobr><span class="ft10">(1) inserting new sequences (denoted as INSERT), and (2)<br>appending new itemsets/items to the existing sequences (de-<br>noted as APPEND). A real application may contain both.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:489"><nobr><span class="ft1">It is easier to handle the first case: INSERT. An im-</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:475"><nobr><span class="ft10">portant property of INSERT is that a frequent sequence in<br>DB = DB</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:552"><nobr><span class="ft1"> db must be frequent in either DB or db</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:475"><nobr><span class="ft10">(or both). If a sequence is infrequent in both DB and db,<br>it cannot be frequent in DB , as shown in Figure 1. This<br>property is similar to that of frequent patterns, which has<br>been used in incremental frequent pattern mining [3, 9, 14].<br>Such incremental frequent pattern mining algorithms can be<br>easily extended to handle sequential pattern mining in the<br>case of INSERT.</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:489"><nobr><span class="ft1">It is far trickier to handle the second case, APPEND, than</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:475"><nobr><span class="ft10">the first one. This is because not only the appended items<br>may generate new locally frequent sequences in db, but<br>also that locally infrequent sequences may contribute their<br>occurrence count to the same infrequent sequences in the<br>original database to produce frequent ones. For example,<br>in the appended database in Figure 1, suppose</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:765"><nobr><span class="ft1">|DB|=1000</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:475"><nobr><span class="ft1">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:503"><nobr><span class="ft1">|db|=20, min sup=10%. Suppose a sequence s is in-</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">527</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:677"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:8px;font-family:Times;color:#000000;}
+	.ft16{font-size:8px;font-family:Times;color:#000000;}
+	.ft17{font-size:5px;font-family:Times;color:#000000;}
+	.ft18{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108002.png" alt="background image">
+<DIV style="position:absolute;top:124;left:138"><nobr><span class="ft15">s infrequent</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:138"><nobr><span class="ft15">s infrequent</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:85"><nobr><span class="ft15">DB</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:129"><nobr><span class="ft15">s is infrequent in</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:155"><nobr><span class="ft15">DB'</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:288"><nobr><span class="ft15">sup(s)=99</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:430"><nobr><span class="ft16"><i>db=20</i></span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:357"><nobr><span class="ft15">sup(s)=1</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:278"><nobr><span class="ft15">s is frequent in</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:299"><nobr><span class="ft15">DB'</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:89"><nobr><span class="ft16"><i>db</i></span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:200"><nobr><span class="ft18">      |DB| =<br>      1000</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:81"><nobr><span class="ft1">Figure 1:</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:165"><nobr><span class="ft1">Examples in INSERT and APPEND</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:81"><nobr><span class="ft1">database</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft10">frequent in DB with 99 occurrences (sup = 9.9%). In ad-<br>dition, it is also infrequent in db with only 1 occurrence<br>(sup = 5%).</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:174"><nobr><span class="ft1">Although s is infrequent in both DB and</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:81"><nobr><span class="ft10">db, it becomes frequent in DB with 100 occurrences. This<br>problem complicates the incremental mining since one can-<br>not ignore the infrequent sequences in db, but there are<br>an exponential number of infrequent sequences even in a<br>small db and checking them against the set of infrequent<br>sequences in DB will be very costly.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:94"><nobr><span class="ft1">When the database is updated with a combination of IN-</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:81"><nobr><span class="ft10">SERT and APPEND, we can treat INSERT as a special case<br>of APPEND ­ treating the inserted sequences as appended<br>transactions to an empty sequence in the original database.<br>Then this problem is reduced to APPEND. Therefore, we<br>focus on the APPEND case in the following discussion.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:94"><nobr><span class="ft1">In this paper, an efficient algorithm, called</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:373"><nobr><span class="ft1">IncSpan, is</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:81"><nobr><span class="ft10">developed, for incremental mining over multiple database<br>increments. Several novel ideas are introduced in the al-<br>gorithm development: (1) maintaining a set of "almost fre-<br>quent " sequences as the candidates in the updated database,<br>which has several nice properties and leads to efficient tech-<br>niques, and (2) two optimization techniques, reverse pattern<br>matching and shared projection, are designed to improve the<br>performance. Reverse pattern matching is used for matching<br>a sequential pattern in a sequence and prune some search<br>space. Shared projection is designed to reduce the number<br>of database projections for some sequences which share a<br>common prefix. Our performance study shows that</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:394"><nobr><span class="ft1">IncSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft1">is efficient and scalable.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:94"><nobr><span class="ft1">The remaining of the paper is organized as follows. Sec-</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:81"><nobr><span class="ft10">tion 2introduces the basic concepts related to incremental<br>sequential pattern mining. Section 3 presents the idea of<br>buffering patterns, several properties of this technique and<br>the associated method. Section 4 formulates the</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:374"><nobr><span class="ft1">IncSpan al-</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:81"><nobr><span class="ft10">gorithm with two optimization techniques. We report and<br>analyze performance study in Section 5, introduce related<br>work in Section 6. We conclude our study in Section 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:81"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:112"><nobr><span class="ft4"><b>PRELIMINARY CONCEPTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:94"><nobr><span class="ft1">Let I =</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:152"><nobr><span class="ft1">{i</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:163"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:170"><nobr><span class="ft1">, i</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:180"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:187"><nobr><span class="ft1">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:222"><nobr><span class="ft7">k</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:229"><nobr><span class="ft1">} be a set of all items. A subset</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft1">of I is called an itemset. A sequence s = t</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:364"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:370"><nobr><span class="ft1">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:381"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:388"><nobr><span class="ft1">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:423"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft1">(t</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:91"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:102"><nobr><span class="ft1"> I) is an ordered list. The size, |s|, of a sequence is</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft10">the number of itemsets in the sequence. The length, l(s),<br>is the total number of items in the sequence, i.e., l(s) =</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:95"><nobr><span class="ft7">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:95"><nobr><span class="ft7">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:116"><nobr><span class="ft1">|t</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:125"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:130"><nobr><span class="ft1">|. A sequence  = a</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:255"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:261"><nobr><span class="ft1">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:275"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:281"><nobr><span class="ft1">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:319"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:339"><nobr><span class="ft1">is a sub-sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:81"><nobr><span class="ft1">of another sequence  = b</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:247"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:253"><nobr><span class="ft1">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:265"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:272"><nobr><span class="ft1">, . . . , b</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:308"><nobr><span class="ft7">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:321"><nobr><span class="ft1">, denoted as </span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:431"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft1">(if  = , written as </span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:229"><nobr><span class="ft1"> ), if and only if i</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:366"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:372"><nobr><span class="ft1">, i</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:383"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:390"><nobr><span class="ft1">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:425"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:436"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft1">such that 1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:172"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:177"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:188"><nobr><span class="ft1">&lt; i</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:209"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:220"><nobr><span class="ft1">&lt; . . . &lt; i</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:279"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:311"><nobr><span class="ft1">n and a</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:360"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:371"><nobr><span class="ft1"> b</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:393"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:397"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:404"><nobr><span class="ft1">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:417"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:429"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft1">b</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:87"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:91"><nobr><span class="ft17">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:97"><nobr><span class="ft1">, . . . , and a</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:166"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:180"><nobr><span class="ft1"> b</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:201"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:205"><nobr><span class="ft17">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:215"><nobr><span class="ft1">.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:489"><nobr><span class="ft1">A sequence database, D =</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:655"><nobr><span class="ft1">{s</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:668"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:674"><nobr><span class="ft1">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:687"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:693"><nobr><span class="ft1">, . . . , s</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:730"><nobr><span class="ft7">n</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:738"><nobr><span class="ft1">}, is a set of se-</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft10">quences. The support of a sequence  in D is the number<br>of sequences in D which contain , support() =</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:791"><nobr><span class="ft1">|{s|s </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft1">D and </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:563"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:569"><nobr><span class="ft1">}|. Given a minimum support threshold,</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft10">min sup, a sequence is frequent if its support is no less<br>than min sup; given a factor µ</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:675"><nobr><span class="ft1"> 1, a sequence is semi-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:475"><nobr><span class="ft10">frequent if its support is less than min sup but no less<br>than µ</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:521"><nobr><span class="ft1"> min sup; a sequence is infrequent if its support</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft1">is less than µ</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:561"><nobr><span class="ft1"> min sup. The set of frequent sequential</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:475"><nobr><span class="ft10">pattern, F S, includes all the frequent sequences; and the<br>set of semi-frequent sequential pattern SF S, includes<br>all the semi-frequent sequences.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:489"><nobr><span class="ft1">EXAMPLE 1. The second column of Table 1 is a sam-</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:475"><nobr><span class="ft1">ple sequence database D. If min sup = 3, F S =</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:789"><nobr><span class="ft1">{ (a) :</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:475"><nobr><span class="ft1">4, (b) : 3, (d) : 4, (b)(d) : 3</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:657"><nobr><span class="ft1">}.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:529"><nobr><span class="ft1">Seq ID.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:590"><nobr><span class="ft1">Original Part</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:687"><nobr><span class="ft1">Appended Part</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:529"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:590"><nobr><span class="ft1">(a)(h)</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:687"><nobr><span class="ft1">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:529"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:590"><nobr><span class="ft1">(eg)</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:687"><nobr><span class="ft1">(a)(bce)</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:529"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:590"><nobr><span class="ft1">(a)(b)(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:687"><nobr><span class="ft1">(ck)(l)</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:529"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:590"><nobr><span class="ft1">(b)(df )(a)(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:687"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:529"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:590"><nobr><span class="ft1">(a)(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:687"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:529"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:590"><nobr><span class="ft1">(be)(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:687"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:475"><nobr><span class="ft10">Table 1: A Sample Sequence Database D and the<br>Appended part</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:489"><nobr><span class="ft1">Given a sequence s = t</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:638"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:645"><nobr><span class="ft1">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:680"><nobr><span class="ft7">m</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:702"><nobr><span class="ft1">and another sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:482"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:495"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:519"><nobr><span class="ft1">t</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:524"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:530"><nobr><span class="ft1">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:566"><nobr><span class="ft7">n</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:579"><nobr><span class="ft1">, s = s</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:647"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:653"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:666"><nobr><span class="ft1">means s concatenates with</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:482"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:488"><nobr><span class="ft1">. s is called an appended sequence of s, denoted as</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:492"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:503"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:516"><nobr><span class="ft1">s. If s</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:558"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:571"><nobr><span class="ft1">is empty, s = s, denoted as s </span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:771"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:782"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:795"><nobr><span class="ft1">s. An</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:475"><nobr><span class="ft1">appended sequence database D</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:698"><nobr><span class="ft1">of a sequence database</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:475"><nobr><span class="ft1">D is one that (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:586"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:600"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:609"><nobr><span class="ft1"> D , s</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:662"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:673"><nobr><span class="ft1"> D such that s</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:772"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:782"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:793"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:804"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:811"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:822"><nobr><span class="ft1">or</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:482"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:491"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:491"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:502"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:514"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:520"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:526"><nobr><span class="ft1">, and (2 )</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:585"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:599"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:609"><nobr><span class="ft1"> D, s</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:658"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:669"><nobr><span class="ft1"> D such that s</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:772"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:783"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:794"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:805"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:812"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:822"><nobr><span class="ft1">or</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:482"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:493"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:493"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:504"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:517"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:523"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:528"><nobr><span class="ft1">. We denote LDB =</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:667"><nobr><span class="ft1">{s</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:680"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:685"><nobr><span class="ft1">|s</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:695"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:706"><nobr><span class="ft1"> D and s</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:777"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:787"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:798"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:811"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:817"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:823"><nobr><span class="ft1">},</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:475"><nobr><span class="ft10">i.e., LDB is the set of sequences in D which are appended<br>with items/itemsets. We denote ODB =</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:739"><nobr><span class="ft1">{s</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:752"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:757"><nobr><span class="ft1">|s</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:767"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:778"><nobr><span class="ft1"> D and</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:475"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:482"><nobr><span class="ft7">i</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:490"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:501"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:512"><nobr><span class="ft1">s</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:518"><nobr><span class="ft7">j</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:524"><nobr><span class="ft1">}, i.e., ODB is the set of sequences in D which are</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:475"><nobr><span class="ft10">appended with items/itemsets in D . We denote the set of<br>frequent sequences in D as F S .</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:489"><nobr><span class="ft1">EXAMPLE 2. The third column of Table 1 is the ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:475"><nobr><span class="ft1">pended part of the original database.</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:725"><nobr><span class="ft1">If min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:805"><nobr><span class="ft1">= 3,</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:475"><nobr><span class="ft1">F S</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:507"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:526"><nobr><span class="ft1">{ (a) : 5, (b) : 4, (d) : 4, (b)(d) : 3, (c) :</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:475"><nobr><span class="ft1">3, (a)(b) : 3, (a)(c) : 3</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:622"><nobr><span class="ft1">}.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:489"><nobr><span class="ft1">A sequential pattern tree T is a tree that represents</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:475"><nobr><span class="ft10">the set of frequent subsequences in a database. Each node<br>p in T has a tag labelled with s or i. s means the node is a<br>starting item in an itemset; i means the node is an interme-<br>diate item in an itemset. Each node p has a support value<br>which represents the support of the subsequence starting<br>from the root of T and ending at the node p.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:489"><nobr><span class="ft1">Problem Statement.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:644"><nobr><span class="ft1">Given a sequence database D,</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:475"><nobr><span class="ft10">a min sup threshold, the set of frequent subsequences F S<br>in D, and an appended sequence database D of D, the<br>problem of incremental sequential pattern mining is<br>to mine the set of frequent subsequences F S in D based<br>on F S instead of mining on D from scratch.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:475"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:507"><nobr><span class="ft4"><b>BUFFER SEMI-FREQUENT PATTERNS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:489"><nobr><span class="ft1">In this section, we present the idea of buffering semi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft10">frequent patterns, study its properties, and design solutions<br>of how to incrementally mine and maintain F S and SF S.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">528</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:14px;font-family:Times;color:#000000;}
+	.ft20{font-size:11px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108003.png" alt="background image">
+<DIV style="position:absolute;top:77;left:270"><nobr><span class="ft19">&lt;&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:316"><nobr><span class="ft19">&lt;d&gt;s:4</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:256"><nobr><span class="ft19">&lt;b&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:161"><nobr><span class="ft19">&lt;a&gt;s:4</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:377"><nobr><span class="ft19">&lt;e&gt;s:2</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:256"><nobr><span class="ft19">&lt;d&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:184"><nobr><span class="ft19">&lt;d&gt;s:2</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:100"><nobr><span class="ft19">&lt;b&gt;s:2</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:81"><nobr><span class="ft10">Figure 2: The Sequential Pattern Tree of F S and<br>SF S in D</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:81"><nobr><span class="ft4"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:121"><nobr><span class="ft4"><b>Buffering Semi-frequent Patterns</b></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:94"><nobr><span class="ft1">We buffer semi-frequent patterns, which can be consid-</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:81"><nobr><span class="ft1">ered as a statistics-based approach.</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:316"><nobr><span class="ft1">The technique is to</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:81"><nobr><span class="ft1">lower the min sup by a buffer ratio µ</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:320"><nobr><span class="ft1"> 1 and keep a set</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:81"><nobr><span class="ft10">SF S in the original database D. This is because since the<br>sequences in SF S are "almost frequent ", most of the fre-<br>quent subsequences in the appended database will either<br>come from SF S or they are already frequent in the original<br>database. With a minor update to the original database,<br>it is expected that only a small fraction of subsequences<br>which were infrequent previously would become frequent.<br>This is based on the assumption that updates to the original<br>database have a uniform probability distribution on items.<br>It is expected that most of the frequent subsequences intro-<br>duced by the updated part of the database would come from<br>the SF S. The SF S forms a kind of boundary (or "buffer<br>zone") between the frequent subsequences and infrequent<br>subsequences.</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:94"><nobr><span class="ft1">EXAMPLE 3. Given a database D in Example 1, min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:81"><nobr><span class="ft10">= 3, µ = 0.6. The sequential pattern tree T representing<br>F S and SF S in D is shown in Figure 2. F S are shown in<br>solid line and SF S in dashed line.</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:94"><nobr><span class="ft1">When the database D is updated to D , we have to check</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:81"><nobr><span class="ft10">LDB to update support of every sequence in F S and SF S.<br>There are several possibilities:</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:86"><nobr><span class="ft1">1. A pattern which is frequent in D is still frequent in D ;</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:86"><nobr><span class="ft1">2. A pattern which is semi-frequent in D becomes frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:103"><nobr><span class="ft1">in D ;</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:86"><nobr><span class="ft1">3. A pattern which is semi-frequent in D is still semi-frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:103"><nobr><span class="ft1">in D ;</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:86"><nobr><span class="ft1">4. Appended database db brings new items.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:86"><nobr><span class="ft1">5. A pattern which is infrequent in D becomes frequent in</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:103"><nobr><span class="ft1">D</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:119"><nobr><span class="ft1">;</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:86"><nobr><span class="ft1">6. A pattern which is infrequent in D becomes semi-frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:103"><nobr><span class="ft1">in D ;</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:94"><nobr><span class="ft1">Case (1)­(3) are trivial cases since we already keep the</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft1">information. We will consider case (4)­(6) now.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:94"><nobr><span class="ft1">Case (4): Appended database db brings new items. For</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft10">example, in the database D , (c) is a new item brought by<br>db. It does not appear in D.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:94"><nobr><span class="ft1">Property: An item which does not appear in D and is</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft1">brought by db has no information in F S or SF S.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:94"><nobr><span class="ft10">Solution: Scan the database LDB for single items.<br>For a new item or an originally infrequent item in D, if</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft10">it becomes frequent or semi-frequent, insert it into F S or<br>SF S. Then use the new frequent item as prefix to construct<br>projected database and discover frequent and semi-frequent<br>sequences recursively. For a frequent or semi-frequent item<br>in D, update its support.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:489"><nobr><span class="ft1">Case (5): A pattern which is infrequent in D becomes</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft10">frequent in D . For example, in the database D , (a)(c) is<br>an example of case (5). It is infrequent in D and becomes<br>frequent in D . We do not keep (a)(c) in F S or SF S, but<br>we have the information of its prefix (a) .</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:489"><nobr><span class="ft1">Property: If an infrequent sequence p in D becomes</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:475"><nobr><span class="ft10">frequent in D , all of its prefix subsequences must also be<br>frequent in D . Then at least one of its prefix subsequences<br>p is in F S.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:489"><nobr><span class="ft1">Solution: Start from its frequent prefix p in F S and</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:475"><nobr><span class="ft1">construct p-projected database, we will discover p .</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:489"><nobr><span class="ft1">Formally stated, given a frequent pattern p in D , we want</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft10">to discover whether there is any pattern p with p as prefix<br>where p was infrequent in D but is frequent in D . A se-<br>quence p which changes from infrequent to frequent must<br>have sup(p ) &gt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:595"><nobr><span class="ft1">- µ)min sup.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:489"><nobr><span class="ft1">We claim if a frequent pattern p has support in LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:475"><nobr><span class="ft1">sup</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:497"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:523"><nobr><span class="ft1">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:545"><nobr><span class="ft1"> (1 - µ)min sup, it is possible that some sub-</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:475"><nobr><span class="ft10">sequences with p as prefix will change from infrequent to<br>frequent. If sup</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:577"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:604"><nobr><span class="ft1">(p) &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:663"><nobr><span class="ft1">- µ)min sup, we can safely</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:475"><nobr><span class="ft1">prune search with prefix p.</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:490"><nobr><span class="ft1">Theorem 1. For a frequent pattern p, if its support in</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:475"><nobr><span class="ft1">LDB sup</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:535"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:562"><nobr><span class="ft1">(p) &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:620"><nobr><span class="ft1">- µ)min sup, then there is no se-</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:475"><nobr><span class="ft20">quence p having p as prefix changing from infrequent in D<br>to frequent in D .<br>Proof : p was infrequent in D, so</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:531"><nobr><span class="ft1">sup</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:553"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:563"><nobr><span class="ft1">(p ) &lt; µ</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:612"><nobr><span class="ft1">min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:816"><nobr><span class="ft1">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:489"><nobr><span class="ft1">If</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:512"><nobr><span class="ft1">sup</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:533"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:559"><nobr><span class="ft1">(p) &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:611"><nobr><span class="ft1">- µ)min sup, then</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:531"><nobr><span class="ft1">sup</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:553"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:579"><nobr><span class="ft1">(p )</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:604"><nobr><span class="ft1"> sup</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:640"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:667"><nobr><span class="ft1">(p) &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:718"><nobr><span class="ft1">- µ)min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:489"><nobr><span class="ft1">Since sup</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:548"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:575"><nobr><span class="ft1">(p ) = sup</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:642"><nobr><span class="ft7">ODB</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:670"><nobr><span class="ft1">(p ) + sup(p ). Then we</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:475"><nobr><span class="ft1">have</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:531"><nobr><span class="ft1">sup</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:564"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:590"><nobr><span class="ft1">(p )</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:619"><nobr><span class="ft1"> sup</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:659"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:685"><nobr><span class="ft1">(p ) &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:749"><nobr><span class="ft1">- µ)min sup.</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:475"><nobr><span class="ft1">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:489"><nobr><span class="ft1">Since sup</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:549"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:563"><nobr><span class="ft1">(p ) = sup</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:631"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:641"><nobr><span class="ft1">(p ) + sup(p ), combining (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:475"><nobr><span class="ft1">and (2), we have sup</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:610"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:624"><nobr><span class="ft1">(p ) &lt; min sup. So p cannot be</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:475"><nobr><span class="ft1">frequent in D .</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:489"><nobr><span class="ft1">Therefore, if a pattern p has support in LDB sup</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:777"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:803"><nobr><span class="ft1">(p) &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft1">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:491"><nobr><span class="ft1">- µ)min sup, we can prune search with prefix p. Other-</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft1">wise, if sup</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:541"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:568"><nobr><span class="ft1">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:589"><nobr><span class="ft1"> (1-µ)min sup, it is possible that some</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:475"><nobr><span class="ft10">sequences with p as prefix will change from infrequent to fre-<br>quent. In this case, we have to project the whole database<br>D</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:494"><nobr><span class="ft1">using p as prefix. If</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:612"><nobr><span class="ft1">|LDB| is small or µ is small, there are</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft1">very few patterns that have sup</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:672"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:699"><nobr><span class="ft1">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:722"><nobr><span class="ft1"> (1 - µ)min sup,</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:475"><nobr><span class="ft1">making the number of projections small.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:489"><nobr><span class="ft1">In our example, sup</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:612"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:638"><nobr><span class="ft1">(a) = 3 &gt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:719"><nobr><span class="ft1">- 0.6)  3, we have</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft10">to do the projection with (a) as prefix. And we discover<br>" (a)(c) : 3" which was infrequent in D. For another ex-<br>ample, sup</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:541"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:568"><nobr><span class="ft1">(d) = 1 &lt; (1</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:646"><nobr><span class="ft1">- 0.6)  3, there is no sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft10">with d as prefix which changes from infrequent to frequent,<br>so we can prune the search on it.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:489"><nobr><span class="ft1">Theorem 1 provides an effective bound to decide whether</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:475"><nobr><span class="ft10">it is necessary to project a database. It is essential to guar-<br>antee the result be complete.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft1">We can see from the projection condition, sup</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:774"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:800"><nobr><span class="ft1">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:823"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft1">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:491"><nobr><span class="ft1">- µ)min sup, the smaller µ is, the larger buffer we keep,</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft10">the fewer database projections the algorithm needs. The<br>choice of µ is heuristic. If µ is too high, then the buffer is<br>small and we have to do a lot of database projections to<br>discover sequences outside of the buffer. If µ is set very<br>low, we will keep many subsequences in the buffer. But<br>mining the buffering patterns using µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:713"><nobr><span class="ft1"> min sup would be</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft1">much more inefficient than with min sup. We will show this</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">529</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:677"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:13px;font-family:Times;color:#000000;}
+	.ft22{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108004.png" alt="background image">
+<DIV style="position:absolute;top:77;left:250"><nobr><span class="ft9">&lt;&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:294"><nobr><span class="ft9">&lt;d&gt;s:4</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:237"><nobr><span class="ft9">&lt;b&gt;s:4</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:180"><nobr><span class="ft9">&lt;a&gt;s:5</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:340"><nobr><span class="ft9">&lt;c&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:231"><nobr><span class="ft9">&lt;d&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:177"><nobr><span class="ft9">&lt;c&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:134"><nobr><span class="ft9">&lt;d&gt;s:2</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:100"><nobr><span class="ft9">&lt;b&gt;s:3</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:287"><nobr><span class="ft9">&lt;e&gt;i:2</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:380"><nobr><span class="ft9">&lt;e&gt;s:2</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:81"><nobr><span class="ft10">Figure 3: The Sequential Pattern Tree of F S and<br>SF S in D</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:81"><nobr><span class="ft1">tradeoff through experiments in Section 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:94"><nobr><span class="ft1">Case (6): A pattern which is infrequent in D becomes</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:81"><nobr><span class="ft10">semi-frequent in D . For example, in the database D , (be)<br>is an example of case (6). It is infrequent in D and becomes<br>semi-frequent in D .</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:94"><nobr><span class="ft1">Property: If an infrequent sequence p becomes semi-</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:81"><nobr><span class="ft10">frequent in D , all of its prefix subsequences must be either<br>frequent or semi-frequent. Then at least one of its prefix<br>subsequences, p, is in F S or SF S.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:94"><nobr><span class="ft1">Solution: Start from its prefix p in F S or SF S and con-</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:81"><nobr><span class="ft1">struct p-projected database, we will discover p .</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:94"><nobr><span class="ft1">Formally stated, given a pattern p, we want to discover</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:81"><nobr><span class="ft10">whether there is any pattern p with p as prefix where p was<br>infrequent but is semi-frequent in D .</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:94"><nobr><span class="ft1">If the prefix p is in F S or SF S, construct p-projected</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:81"><nobr><span class="ft10">database and we will discover p in p-projected database.<br>Therefore, for any pattern p from infrequent to semi-frequent,<br>if its prefix is in F S or SF S, p can be discovered.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:94"><nobr><span class="ft1">In our example, for the frequent pattern (b) , we do the</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:81"><nobr><span class="ft10">projection on (b) and get a semi-frequent pattern (be) : 2<br>which was infrequent in D.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:94"><nobr><span class="ft1">We show in Figure 3 the sequential pattern tree T includ-</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:81"><nobr><span class="ft10">ing F S and SF S after the database updates to D . We can<br>compare it with Figure 2to see how the database update<br>affects F S and SF S.</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:81"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:112"><nobr><span class="ft22"><b>INCSPAN: DESIGN AND<br>IMPLEMENTATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:94"><nobr><span class="ft1">In this section, we formulate the</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:292"><nobr><span class="ft1">IncSpan algorithm which</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft10">exploits the technique of buffering semi-frequent patterns.<br>We first present the algorithm outline and then introduce<br>two optimization techniques.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:81"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:121"><nobr><span class="ft4"><b>IncSpan: Algorithm Outline</b></span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:94"><nobr><span class="ft1">Given an original database D, an appended database D ,</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft10">a threshold min sup, a buffer ratio µ, a set of frequent se-<br>quences F S and a set of semi-frequent sequences SF S, we<br>want to discover the set of frequent sequences F S in D .</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft10">Step 1: Scan LDB for single items, as shown in case (4).<br>Step 2: Check every pattern in F S and SF S in LDB to</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft1">adjust the support of those patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:94"><nobr><span class="ft1">Step 2.1: If a pattern becomes frequent, add it to F S .</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft10">Then check whether it meets the projection condition. If so,<br>use it as prefix to project database, as shown in case (5).</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:94"><nobr><span class="ft10">Step 2.2: If a pattern is semi-frequent, add it to SF S .<br>The algorithm is given in Figure 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:81"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:121"><nobr><span class="ft4"><b>Reverse Pattern Matching</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft1">Reverse pattern matching is a novel optimization tech-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft10">nique. It matches a sequential pattern against a sequence<br>from the end towards the front. This is used to check sup-</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:483"><nobr><span class="ft10">Algorithm. IncSpan(D , min sup, µ, F S, SF S)<br>Input: An appended database D , min sup, µ, frequent<br>sequences F S in D, semi-frequent sequences SF S<br>in D.<br>Output: F S and SF S .</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:483"><nobr><span class="ft10">1: F S = , SF S = <br>2 : Scan LDB for single items;<br>3: Add new frequent item into F S ;<br>4: Add new semi-frequent item into SF S ;<br>5: for each new item i in F S do<br>6:</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:532"><nobr><span class="ft1">PrefixSpan(i, D</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:632"><nobr><span class="ft1">|i, µ  min sup, F S , SF S );</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:483"><nobr><span class="ft10">7: for every pattern p in F S or SF S do<br>8:</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:526"><nobr><span class="ft1">check sup(p);</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:483"><nobr><span class="ft1">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:526"><nobr><span class="ft1">if sup(p) = sup</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:620"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:630"><nobr><span class="ft1">(p) + sup(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:719"><nobr><span class="ft1"> min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:483"><nobr><span class="ft1">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:550"><nobr><span class="ft1">insert(F S , p);</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:483"><nobr><span class="ft1">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:550"><nobr><span class="ft1">if sup</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:586"><nobr><span class="ft7">LDB</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:613"><nobr><span class="ft1">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:634"><nobr><span class="ft1"> (1 - µ)min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:483"><nobr><span class="ft1">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:558"><nobr><span class="ft1">PrefixSpan(p, D</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:661"><nobr><span class="ft1">|p, µ  min sup, F S , SF S );</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:483"><nobr><span class="ft1">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:526"><nobr><span class="ft1">else</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:483"><nobr><span class="ft1">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:550"><nobr><span class="ft1">insert(SF S , p);</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:483"><nobr><span class="ft1">15: return;</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:555"><nobr><span class="ft1">Figure 4: IncSpan algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:623"><nobr><span class="ft21">s                              s</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:775"><nobr><span class="ft9">a</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:649"><nobr><span class="ft21">s'</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:527"><nobr><span class="ft1">Figure 5: Reverse Pattern Matching</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:475"><nobr><span class="ft10">port increase of a sequential pattern in LDB. Since the<br>appended items are always at the end part of the original<br>sequence, reverse pattern matching would be more efficient<br>than projection from the front.</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:489"><nobr><span class="ft1">Given an original sequence s, an appended sequence s =</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:475"><nobr><span class="ft1">s s</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:499"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:506"><nobr><span class="ft1">, and a sequential pattern p, we want to check whether</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:475"><nobr><span class="ft1">the support of p will be increased by appending s</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:792"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:805"><nobr><span class="ft1">to s.</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:475"><nobr><span class="ft1">There are two possibilities:</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:480"><nobr><span class="ft1">1. If the last item of p is not supported by s</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:757"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:764"><nobr><span class="ft1">, whether p</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:498"><nobr><span class="ft10">is supported by s or not, sup(p) is not increased when<br>s grows to s . Therefore, as long as we do not find the<br>last item of p in s</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:605"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:612"><nobr><span class="ft1">, we can prune searching.</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:480"><nobr><span class="ft1">2. If the last item of p is supported by s</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:719"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:726"><nobr><span class="ft1">, we have to check</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:498"><nobr><span class="ft10">whether s supports p. We check this by continuing in<br>the reverse direction. If p is not supported by s , we can<br>prune searching and keep sup(p) unchanged. Otherwise<br>we have to check whether s supports p. If s supports p,<br>keep sup(p) unchanged; otherwise, increase sup(p) by 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:475"><nobr><span class="ft1">Figure 5 shows the reverse pattern matching.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:475"><nobr><span class="ft4"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:516"><nobr><span class="ft4"><b>Shared Projection</b></span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:489"><nobr><span class="ft1">Shared Projection is another optimization technique we</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft1">exploit. Suppose we have two sequences (a)(b)(c)(d) and</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:481"><nobr><span class="ft1">(a)(b)(c)(e) , and we need to project database using each</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:475"><nobr><span class="ft10">as prefix. If we make two database projections individu-<br>ally, we do not take advantage of the similarity between the<br>two subsequences. Actually the two projected databases up<br>to subsequence (a)(b)(c) , i.e., D</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:683"><nobr><span class="ft1">| (a)(b)(c) are the same.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">530</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft23{font-size:11px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft1">From D</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:132"><nobr><span class="ft1">| (a)(b)(c) , we do one more step projection for item</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft1">d and e respectively. Then we can share the projection for</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:86"><nobr><span class="ft1">(a)(b)(c) .</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft1">To use shared projection, when we detect some subse-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft10">quence that needs projecting database, we do not do the<br>projection immediately. Instead we label it. After finishing<br>checking and labelling all the sequences, we do the projec-<br>tion by traversing the sequential pattern tree. Tree is natural<br>for this task because the same subsequences are represented<br>using shared branches.</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:81"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:112"><nobr><span class="ft4"><b>PERFORMANCE STUDY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:94"><nobr><span class="ft1">A comprehensive performance study has been conducted</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:81"><nobr><span class="ft10">in our experiments. We use a synthetic data generator pro-<br>vided by IBM. The synthetic dataset generator can be re-<br>trieved from an IBM website, http://www.almaden.ibm.com<br>/cs/quest. The details about parameter settings can be re-<br>ferred in [1].</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:94"><nobr><span class="ft1">All experiments are done on a PowerEdge 6600 server</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:81"><nobr><span class="ft1">with Xeon 2.8 , 4G memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:282"><nobr><span class="ft1">The algorithms are writ-</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:81"><nobr><span class="ft10">ten in C++ and compiled using g++ with -O3 optimiza-<br>tion. We compare three algorithms:</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:298"><nobr><span class="ft1">IncSpan, an incremental</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:81"><nobr><span class="ft1">mining algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:190"><nobr><span class="ft1">ISM [7], and a non-incremental algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:81"><nobr><span class="ft1">PrefixSpan[8].</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:94"><nobr><span class="ft1">Figure 6 (a) shows the running time of three algorithms</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:81"><nobr><span class="ft10">when min sup changes on the dataset D10C10T2.5N10, 0.5%<br>of which has been appended with transactions.</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:379"><nobr><span class="ft1">IncSpan is</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:81"><nobr><span class="ft1">the fastest, outperforming</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:250"><nobr><span class="ft1">PrefixSpan by a factor of 5 or</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:81"><nobr><span class="ft1">more, and outperforming</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:238"><nobr><span class="ft1">ISM even more. ISM even cannot</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:81"><nobr><span class="ft1">finish within a time limit when the support is low.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:94"><nobr><span class="ft1">Figure 6 (b) shows how the three algorithms can be af-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft10">fected when we vary the percentage of sequences in the<br>database that have been updated. The dataset we use is<br>D10C10T2.5N10, min sup=1%. The buffer ratio µ = 0.8.<br>The curves show that the time increases as the incremental<br>portion of the database increases. When the incremental<br>part exceeds 5% of the database,</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:297"><nobr><span class="ft1">PrefixSpan outperforms</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft10">IncSpan. This is because if the incremental part is not very<br>small, the number of patterns brought by it increases, mak-<br>ing a lot overhead for</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:209"><nobr><span class="ft1">IncSpan to handle. In this case, mining</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft1">from scratch is better. But</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:245"><nobr><span class="ft1">IncSpan still outperforms ISM by</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft1">a wide margin no matter what the parameter is.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:94"><nobr><span class="ft1">Figure 6 (c) shows the memory usage of</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:335"><nobr><span class="ft1">IncSpan and ISM.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft10">The database is D10C10T2.5N10, min sup varies from 0.4%<br>to 1.5%, buffer ratio µ = 0.8. Memory usage of</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:373"><nobr><span class="ft1">IncSpan in-</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:81"><nobr><span class="ft10">creases linearly as min sup decreases while memory used by<br>ISM increases dramatically. This is because the number of<br>sequences in negative border increases sharply as min sup<br>decreases.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:154"><nobr><span class="ft1">This figure verifies that negative border is a</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft1">memory-consuming approach.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft1">Figure 7 (a) shows how the</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:265"><nobr><span class="ft1">IncSpan algorithm can be af-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft10">fected by varying buffer ratio µ. Dataset is D10C10T2.5N10,<br>5% of which is appended with new transactions. We use<br>PrefixSpan as a baseline. As we have discussed before, if we<br>set µ very high, we will have fewer pattern in SF S, then the<br>support update for sequences in SF S on LDB will be more<br>efficient. However, since we keep less information in SF S,<br>we may need to spend more time on projecting databases.<br>In the extreme case µ = 1, SF S becomes empty. On the<br>other hand, if we set the µ very low, we will have a large<br>number of sequences in SF S, which makes the support up-<br>date stage very slow. Experiment shows, when µ = 0.8, it<br>achieves the best performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:489"><nobr><span class="ft1">Figure 7 (b) shows the performance of</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:726"><nobr><span class="ft1">IncSpan to handle</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft10">multiple (5 updates in this case) database updates. Each<br>time the database is updated, we run</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:718"><nobr><span class="ft1">PrefixSpan to mine</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft10">from scratch. We can see from the figure, as the increments<br>accumulate, the time for incremental mining increases, but<br>increase is very small and the incremental mining still out-<br>performs mining from scratch by a factor of 4 or 5. This<br>experiment shows that</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:621"><nobr><span class="ft1">IncSpan can really handle multiple</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft10">database updates without significant performance degrad-<br>ing.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:489"><nobr><span class="ft1">Figure 7 (c) shows the scalability of the three algorithms</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:475"><nobr><span class="ft10">by varying the size of database. The number of sequences in<br>databases vary from 10,000 to 100,000. 5% of each database<br>is updated. min sup=0.8%. It shows that all three algo-<br>rithms scale well with the database size.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:507"><nobr><span class="ft4"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:489"><nobr><span class="ft1">In sequential pattern mining, efficient algorithms like</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:808"><nobr><span class="ft1">GSP</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:475"><nobr><span class="ft1">[10],</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:506"><nobr><span class="ft1">SPADE [13], PrefixSpan [8], and SPAM [2] were devel-</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:475"><nobr><span class="ft1">oped.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:489"><nobr><span class="ft1">Partition [9] and FUP [3] are two algorithms which pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:475"><nobr><span class="ft10">mote partitioning the database, mining local frequent item-<br>sets, and then consolidating the global frequent itemsets by<br>cross check. This is based on that a frequent itemset must<br>be frequent in at least one local database. If a database is<br>updated with INSERT, we can use this idea to do the incre-<br>mental mining. Zhang et al. [14] developed two algorithms<br>for incremental mining sequential patterns when sequences<br>are inserted into or deleted from the original database.</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:489"><nobr><span class="ft1">Parthasarathy et al. [7] developed an incremental mining</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:475"><nobr><span class="ft1">algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:539"><nobr><span class="ft1">ISM by maintaining a sequence lattice of an old</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:475"><nobr><span class="ft10">database. The sequence lattice includes all the frequent se-<br>quences and all the sequences in the negative border. How-<br>ever, there are some disadvantages for using negative border:<br>(1) The combined number of sequences in the frequent set<br>and the negative border is huge; (2) The negative border<br>is generated based on the structural relation between se-<br>quences. However, these sequences do not necessarily have<br>high support. Therefore, using negative border is very time<br>and memory consuming.</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:489"><nobr><span class="ft1">Masseglia et al. [6] developed another incremental mining</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:475"><nobr><span class="ft10">algorithm ISE using candidate generate-and-test approach.<br>The problem of this algorithm is (1) the candidate set can<br>be very huge, which makes the test-phase very slow; and<br>(2) its level-wise working manner requires multiple scans of<br>the whole database. This is very costly, especially when the<br>sequences are long.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:475"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:507"><nobr><span class="ft4"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft1">In this paper, we investigated the issues for incremen-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:475"><nobr><span class="ft10">tal mining of sequential patterns in large databases and<br>addressed the inefficiency problem of mining the appended<br>database from scratch. We proposed an algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:788"><nobr><span class="ft1">IncSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft10">by exploring several novel techniques to balance efficiency<br>and reusability.</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:580"><nobr><span class="ft1">IncSpan outperforms the non-incremental</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft1">method (using</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:566"><nobr><span class="ft1">PrefixSpan) and a previously proposed incre-</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft1">mental mining algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:636"><nobr><span class="ft1">ISM by a wide margin. It is a</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft10">promising algorithm to solve practical problems with many<br>real applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:489"><nobr><span class="ft1">There are many interesting research problems related to</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:475"><nobr><span class="ft23">IncSpan that should be pursued further. For example, in-<br>cremental mining of closed sequential patterns, structured</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">531</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:677"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft24{font-size:3px;font-family:Times;color:#000000;}
+	.ft25{font-size:3px;font-family:Times;color:#000000;}
+	.ft26{font-size:5px;font-family:Times;color:#000000;}
+	.ft27{font-size:4px;font-family:Times;color:#000000;}
+	.ft28{font-size:5px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft29{font-size:5px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft30{font-size:5px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft31{font-size:3px;line-height:6px;font-family:Times;color:#000000;}
+	.ft32{font-size:3px;line-height:7px;font-family:Times;color:#000000;}
+	.ft33{font-size:5px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft34{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft35{font-size:5px;line-height:-6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="108006.png" alt="background image">
+<DIV style="position:absolute;top:196;left:114"><nobr><span class="ft24">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:118"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:123"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:119"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:116"><nobr><span class="ft24">100</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:112"><nobr><span class="ft24">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:134"><nobr><span class="ft24">0.03 0.06</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:169"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:185"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:202"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:218"><nobr><span class="ft24">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:238"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:251"><nobr><span class="ft24">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:180"><nobr><span class="ft25"><b>minsup (%)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:109"><nobr><span class="ft28"><b>Ti<br>m<br>e<br> (s<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:290"><nobr><span class="ft31">IncSpan<br>PrefixSpan<br>ISM</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:153"><nobr><span class="ft1">(a) varying min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:365"><nobr><span class="ft24">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:369"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:374"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:371"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:367"><nobr><span class="ft24">100</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:389"><nobr><span class="ft24">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:412"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:433"><nobr><span class="ft24">2</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:455"><nobr><span class="ft24">3</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:476"><nobr><span class="ft24">4</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:497"><nobr><span class="ft24">5</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:404"><nobr><span class="ft25"><b>Percent of growing seq (%)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:359"><nobr><span class="ft28"><b>Ti<br>m<br>e<br> (s<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:535"><nobr><span class="ft32">IncSpan<br>PrefixSpan<br>ISM</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:359"><nobr><span class="ft10">(b) varying percentage of up-<br>dated sequences</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:624"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:621"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:617"><nobr><span class="ft24">100</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:613"><nobr><span class="ft24">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:610"><nobr><span class="ft24">10000</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:641"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:666"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:691"><nobr><span class="ft24">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:719"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:741"><nobr><span class="ft24">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:677"><nobr><span class="ft25"><b>minsup (%)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:610"><nobr><span class="ft26"><b>Mem</b></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:610"><nobr><span class="ft33"><b>o<br>ry<br> U<br>s<br>a<br>g<br>e (<br>M<br>B<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:785"><nobr><span class="ft24">ISM</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:785"><nobr><span class="ft24">IncSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:604"><nobr><span class="ft34">(c) Memory Usage under varied<br>min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:356"><nobr><span class="ft1">Figure 6: Performance study</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:125"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:125"><nobr><span class="ft24">8</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:122"><nobr><span class="ft24">16</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:122"><nobr><span class="ft24">24</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:122"><nobr><span class="ft24">32</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:122"><nobr><span class="ft24">40</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:139"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:159"><nobr><span class="ft24">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:179"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:199"><nobr><span class="ft24">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:218"><nobr><span class="ft24">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:238"><nobr><span class="ft24">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:260"><nobr><span class="ft24">1 PrefixSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:178"><nobr><span class="ft27"><b>varying buffer ratio u</b></span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:116"><nobr><span class="ft30"><b>Ti<br>m<br>e<br> (<br>s<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:306"><nobr><span class="ft24">T ime</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:137"><nobr><span class="ft1">(a) varying buffer ratio µ</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:369"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:366"><nobr><span class="ft24">30</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:366"><nobr><span class="ft24">60</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:366"><nobr><span class="ft24">90</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:362"><nobr><span class="ft24">120</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:390"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:418"><nobr><span class="ft24">2</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:447"><nobr><span class="ft24">3</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:476"><nobr><span class="ft24">4</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:504"><nobr><span class="ft24">5</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:415"><nobr><span class="ft25"><b>Increment of database</b></span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:356"><nobr><span class="ft28"><b>Ti<br>m<br>e<br> (s<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:534"><nobr><span class="ft24">IncSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:534"><nobr><span class="ft24">PrefixSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:359"><nobr><span class="ft1">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:395"><nobr><span class="ft1">multiple</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:462"><nobr><span class="ft1">increments</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:544"><nobr><span class="ft1">of</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:359"><nobr><span class="ft1">database</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:612"><nobr><span class="ft24">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:615"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:621"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:617"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:614"><nobr><span class="ft24">100</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:610"><nobr><span class="ft24">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:638"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:663"><nobr><span class="ft24">20</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:688"><nobr><span class="ft24">50</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:714"><nobr><span class="ft24">80</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:737"><nobr><span class="ft24">100</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:653"><nobr><span class="ft25"><b>No. of S equences in 1000</b></span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:604"><nobr><span class="ft30"><b>Ti<br>m<br>e<br> (<br>s<br>)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:781"><nobr><span class="ft31">IncSpan<br>PrefixSpan<br>ISM</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:604"><nobr><span class="ft11">(c) varying # of sequences (in<br>1000) in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:356"><nobr><span class="ft1">Figure 7: Performance study</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:81"><nobr><span class="ft10">patterns in databases and/or data streams are interesting<br>problems for future research.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:81"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:112"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:88"><nobr><span class="ft1">[1] R. Agrawal and R. Srikant. Mining sequential</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:109"><nobr><span class="ft10">patterns. In Proc. 1995 Int. Conf. Data Engineering<br>(ICDE'95), pages 3­14, March 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:88"><nobr><span class="ft1">[2 ] J. Ayres, J. E. Gehrke, T. Yiu, and J. Flannick.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:109"><nobr><span class="ft10">Sequential pattern mining using bitmaps. In Proc.<br>2002 ACM SIGKDD Int. Conf. Knowledge Discovery<br>in Databases (KDD'02), July 2 002 .</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:88"><nobr><span class="ft1">[3] D. Cheung, J. Han, V. Ng, and C. Wong. Maintenance</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:109"><nobr><span class="ft10">of discovered association rules in large databases: An<br>incremental update technique. In Proc. of the 12th Int.<br>Conf. on Data Engineering (ICDE'96), March 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:88"><nobr><span class="ft1">[4] M. Garofalakis, R. Rastogi, and K. Shim. SPIRIT:</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:109"><nobr><span class="ft10">Sequential pattern mining with regular expression<br>constraints. In Proc. 1999 Int. Conf. Very Large Data<br>Bases (VLDB'99), pages 223­234, Sept 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:88"><nobr><span class="ft1">[5] H. Mannila, H. Toivonen, and A. I. Verkamo.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:109"><nobr><span class="ft10">Discovering frequent episodes in sequences. In Proc.<br>1995 Int. Conf. Knowledge Discovery and Data<br>Mining (KDD'95), pages 210­215, Aug 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:88"><nobr><span class="ft1">[6] F. Masseglia, P. Poncelet, and M. Teisseire.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:109"><nobr><span class="ft10">Incremental mining of sequential patterns in large<br>databases. Data Knowl. Eng., 46(1):97­121, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:88"><nobr><span class="ft1">[7] S. Parthasarathy, M. Zaki, M. Ogihara, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:109"><nobr><span class="ft10">S. Dwarkadas. Incremental and interactive sequence<br>mining. In Proc. of the 8th Int. Conf. on Information<br>and Knowledge Management (CIKM'99), Nov 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:482"><nobr><span class="ft1">[8] J. Pei, J. Han, B. Mortazavi-Asl, H. Pinto, Q. Chen,</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:503"><nobr><span class="ft10">U. Dayal, and M.-C. Hsu. PrefixSpan: Mining<br>sequential patterns efficiently by prefix-projected<br>pattern growth. In Proc. 2001 Int. Conf. Data<br>Engineering (ICDE'01), pages 215­224, April 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:482"><nobr><span class="ft1">[9] A. Savasere, E. Omiecinski, and S. Navathe. An</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:503"><nobr><span class="ft10">efficient algorithm for mining association rules in large<br>databases. In Proc. 1995 Int. Conf. Very Large Data<br>Bases (VLDB'95), Sept 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:475"><nobr><span class="ft1">[10] R. Srikant and R. Agrawal. Mining sequential</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:503"><nobr><span class="ft10">patterns: Generalizations and performance<br>improvements. In Proc. of the 5th Int. Conf. on<br>Extending Database Technology (EDBT'96), Mar 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:475"><nobr><span class="ft1">[11] J. Wang and J. Han. Bide: Efficient mining of</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:503"><nobr><span class="ft10">frequent closed sequences. In Proc. of 2004 Int. Conf.<br>on Data Engineering (ICDE'04), March 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:475"><nobr><span class="ft1">[12] X. Yan, J. Han, and R. Afshar. CloSpan: Mining</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:503"><nobr><span class="ft10">closed sequential patterns in large datasets. In Proc.<br>2003 SIAM Int.Conf. on Data Mining (SDM'03), May<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:475"><nobr><span class="ft1">[13] M. Zaki. SPADE: An efficient algorithm for mining</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:503"><nobr><span class="ft1">frequent sequences. Machine Learning, 40:31­60, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:475"><nobr><span class="ft1">[14] M. Zhang, B. Kao, D. Cheung, and C. Yip. Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:503"><nobr><span class="ft10">algorithms for incremental updates of frequent<br>sequences. In Proc. of Pacific-Asia Conf. on<br>Knowledge Discovery and Data Mining (PAKDD'02),<br>May 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft9">532</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft8"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>er40-huang.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-05-14T08:59:21+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:6px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="75001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:169"><nobr><span class="ft0"><b>Easy Language Extension with Meta-AspectJ</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:298"><nobr><span class="ft1">Shan Shan Huang, Yannis Smaragdakis</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:385"><nobr><span class="ft2">College of Computing</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:354"><nobr><span class="ft2">Georgia Institute of Technology</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:377"><nobr><span class="ft2">Atlanta, GA 30332, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:343"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:350"><nobr><span class="ft1">ssh,yannis</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:434"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:441"><nobr><span class="ft1">@cc.gatech.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft10">Domain-specific languages hold the potential of automating<br>the software development process. Nevertheless, the adop-<br>tion of a domain-specific language is hindered by the diffi-<br>culty of transitioning to different language syntax and em-<br>ploying a separate translator in the software build process.<br>We present a methodology that simplifies the development<br>and deployment of small language extensions, in the con-<br>text of Java. The main language design principle is that of<br>language extension through unobtrusive annotations. The<br>main language implementation idea is to express the lan-<br>guage as a generator of customized AspectJ aspects, using<br>our Meta-AspectJ tool. The advantages of the approach are<br>twofold. First, the tool integrates into an existing software<br>application much as a regular API or library, instead of as<br>a language extension. This means that the programmer can<br>remove the language extension at any point and choose to<br>implement the required functionality by hand without need-<br>ing to rewrite the client code. Second, a mature language<br>implementation is easy to achieve with little effort since As-<br>pectJ takes care of the low-level issues of interfacing with<br>the base Java language</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:225"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:231"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft4">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft10">D.1.2 [Program-<br>ming Techniques]:</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:228"><nobr><span class="ft3">Automatic Programming;</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:400"><nobr><span class="ft3">D.2.13</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:81"><nobr><span class="ft10">[Software Engineering]: Reusable Software; D.3.3 [Pro-<br>gramming Languages]: Language Constructs and Fea-<br>tures</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:81"><nobr><span class="ft4">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:81"><nobr><span class="ft10">domain-specific languages, language ex-<br>tensions</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:81"><nobr><span class="ft3">Keywords: domain-specific languages, language extensions</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:81"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:112"><nobr><span class="ft4"><b>INTRODUCTION AND MOTIVATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:94"><nobr><span class="ft3">The idea of extensible languages has fascinated program-</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:81"><nobr><span class="ft3">mers for many decades, as evident by the extensibility fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:81"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:88"><nobr><span class="ft3">This material is based upon work supported by the Na-</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:81"><nobr><span class="ft11">tional Science Foundation under Grants No. CCR-0220248<br>and CCR-0238289.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:81"><nobr><span class="ft12">Copyright is held by the author/owner.<br><i>ICSE'06, </i>May 20­28, 2006, Shanghai, China.<br>ACM 1-59593-085-X/06/0005.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft3">tures in languages as old as Lisp.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:701"><nobr><span class="ft3">From a Software En-</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:475"><nobr><span class="ft10">gineering standpoint, the main advantages of expressing a<br>concept as a language feature, as opposed to a library API,<br>are in terms of conciseness, safety, and performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:823"><nobr><span class="ft3">A</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:475"><nobr><span class="ft10">language feature allows expressing the programmer's intent<br>much more concisely--in contrast, libraries are limited to<br>a function- or method-call syntax. A language feature also<br>allow better static error checking--a library can only check<br>the static types of arguments of a function call against the<br>declared types of the formals. Finally, a language feature<br>can take advantage of context information and employ an<br>optimized implementation, while a library routine cannot be<br>customized according to its uses.</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:489"><nobr><span class="ft3">Despite these advantages, there are excellent reasons why</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:475"><nobr><span class="ft10">full language extensibility is undesirable. Changing the syn-<br>tax and semantics of a programming language is confusing<br>and can lead to incomprehensible code. Furthermore, pro-<br>gramming languages are complex entities, designed to pro-<br>vide a small number of features but allow them to be com-<br>bined as generally as possible.</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:676"><nobr><span class="ft3">A new feature can either</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:475"><nobr><span class="ft10">increase the complexity of the language implementation sig-<br>nificantly (because of interactions with all existing features),<br>or will need to be limited in its interactions, which is a bad<br>language design principle that leads to single-use features<br>and design bloat.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:489"><nobr><span class="ft3">In past work [3], we have advocated expressing small</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:475"><nobr><span class="ft10">language extensions purely through unobtrusive annota-<br>tions. Indeed, the introduction of user-defined annotations<br>in mainstream programming languages, such as C# and<br>Java, has allowed specialized language extensions (e.g., for<br>distributed computing, persistence, or real-time program-<br>ming) to be added without changing the base syntax.</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:489"><nobr><span class="ft3">We believe that the approach of limited language exten-</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:475"><nobr><span class="ft10">sion through annotations meshes very well with an imple-<br>mentation technique that uses our Meta-AspectJ (MAJ)<br>tool [4] to express the semantics of the language extension.<br>Specifically, MAJ is a language that allows writing programs<br>that generate aspects in the AspectJ language [1]. The pro-<br>grammer can easily express an extension to the Java lan-<br>guage as a program that: a) reads annotations and type<br>information from an existing program using Java reflection;<br>b) outputs a customized AspectJ aspect that transforms the<br>original program according to the information in the annota-<br>tion; c) executes the generated aspect by using the standard<br>AspectJ compiler.</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:489"><nobr><span class="ft3">In other words, our approach uses the AspectJ language</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:475"><nobr><span class="ft3">as a compiler back-end.</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:636"><nobr><span class="ft3">AspectJ code is not written by</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:475"><nobr><span class="ft3">the application programmer but generated by the language</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">865</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft14{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="75002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">extension, for the sole purpose of expressing program trans-<br>formations easily and generally. This is appropriate, as As-<br>pectJ embodies the Aspect-Oriented Programming [2] phi-<br>losophy of expressing program enhancements orthogonally<br>and independently of the original source code.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:94"><nobr><span class="ft3">Our approach has the advantage of simplifying the im-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft10">plementation of the language extension significantly, with-<br>out encouraging undisciplined language extension (since the<br>only extensions allowed are through annotations). Specifi-<br>cally, the approach leverages the engineering sophistication<br>of the AspectJ compiler implementation and its provisions<br>for dealing correctly with different Java language features.<br>If a programmer were to replicate the same effort by hand,<br>she would likely need to reproduce much of the AspectJ<br>compiler complexity.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:94"><nobr><span class="ft3">The purpose of this paper is to support the idea of im-</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft10">plementing small language extensions as programs that pro-<br>duce aspects. We have recently implemented a number of<br>such small extensions to Java and they all exhibit a striking<br>simplicity. Specifically, we did not have to implement (or<br>extend) a Java parser, we did not need to deal with syntax<br>tree pattern matching and transformation, and we did not<br>need to provide special handling for many Java complexities.<br>The combined annotations-MAJ approach ensured that our<br>small language extensions were implementable in a few hun-<br>dreds of lines of code, without sacrificing generality in their<br>conditions of use. We discuss two such extensions in detail,<br>after first introducing the MAJ language.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:81"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:112"><nobr><span class="ft4"><b>BACKGROUND: MAJ SYNTAX</b></span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:94"><nobr><span class="ft3">MAJ is an extension of Java that allows writing pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft3">grams that generate AspectJ source code.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:369"><nobr><span class="ft3">MAJ offers</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:81"><nobr><span class="ft10">two operators for creating AspectJ code fragments: `[...]<br>("quote") and #[...] ("unquote").</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:316"><nobr><span class="ft3">The quote operator</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:81"><nobr><span class="ft10">creates representations of AspectJ code fragments. Parts<br>of these representations can be variable and are desig-<br>nated by the unquote operator (instances of unquote can<br>only occur inside a quoted code fragment).</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:375"><nobr><span class="ft3">For exam-</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft10">ple, the value of the MAJ expression `[call(* *(..))] is<br>a data structure that represents the abstract syntax tree<br>for the fragment of AspectJ code call(* *(..)).</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:412"><nobr><span class="ft3">Sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:81"><nobr><span class="ft10">ilarly, the MAJ expression `[!within(#className)] is a<br>quoted pattern with an unquoted part. Its value depends<br>on the value of the variable className.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:343"><nobr><span class="ft3">If, for instance,</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:81"><nobr><span class="ft13">className holds the identifier "SomeClass", the value of<br>`[!within(#className)] is the abstract syntax tree for the<br>expression !within(SomeClass).</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:94"><nobr><span class="ft3">MAJ also introduces a new keyword infer that can be</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:81"><nobr><span class="ft10">used in place of a type name when a new variable is being<br>declared and initialized to a quoted expression. For example,<br>we can write:</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:81"><nobr><span class="ft3">infer pct1 = `[call(* *(..))];</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft10">This declares a variable pct1 that can be used just like any<br>other program variable. For instance, we can unquote it:</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:81"><nobr><span class="ft3">infer adv1 = `[void around() : #pct1 { }];</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft10">This creates the abstract syntax tree for a piece of AspectJ<br>code defining (empty) advice for a pointcut. Of course, since<br>AspectJ is an extension of Java, any regular Java program<br>fragment can be generated using MAJ.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">We can now see a full MAJ method that generates a trivial</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">but complete AspectJ file:</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:475"><nobr><span class="ft3">void generateTrivialLogging(String classNm) {</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:489"><nobr><span class="ft3">infer aspectCode =</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:496"><nobr><span class="ft3">`[</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:532"><nobr><span class="ft10">package MyPackage;<br>aspect #[classNm + &quot;Aspect&quot;] {</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:546"><nobr><span class="ft10">before : call(* #classNm.*(..))<br>{ System.out.println(&quot;Method called&quot;); }</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:532"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:503"><nobr><span class="ft3">];</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:489"><nobr><span class="ft3">System.out.println(aspectCode.unparse());</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:475"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:475"><nobr><span class="ft10">The generated aspect causes a message to be printed before<br>every call of a method in a class. The name of the affected<br>class is a parameter passed to the MAJ routine. This code<br>also shows the unparse method that MAJ supports for cre-<br>ating a text representation of their code.</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:475"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:507"><nobr><span class="ft14"><b>EXAMPLE 1: FILLING<br>INTERFACE METHODS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:489"><nobr><span class="ft3">Our first language extension is simple but a good example</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:475"><nobr><span class="ft10">to our approach, since it can be defined very quickly and it<br>is hard to implement with alternate means.</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:489"><nobr><span class="ft3">The Java language ensures that a class cannot declare</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:475"><nobr><span class="ft10">to "implement" an interface unless it provides implementa-<br>tions for all of its methods. Nevertheless, this often results<br>in very tedious code. For instance, it is very common in<br>code dealing with the Swing graphics library to implement<br>an event-listener interface with many methods, yet provide<br>empty implementations for most of them because the appli-<br>cation does not care about the corresponding events. The<br>example code below is representative:</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:475"><nobr><span class="ft3">private class SomeListener</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:496"><nobr><span class="ft3">implements MouseListener, MouseMotionListener {</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:489"><nobr><span class="ft3">public void mousePressed (MouseEvent event) {</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:503"><nobr><span class="ft3">... // do something</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:489"><nobr><span class="ft10">}<br>public void mouseDragged (MouseEvent event) {</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:503"><nobr><span class="ft3">... // do something</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:489"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:489"><nobr><span class="ft10">// the rest are not needed. Provide empty bodies.<br>public void mouseReleased (MouseEvent event) {}<br>public void mouseEntered (MouseEvent event) {}<br>public void mouseExited (MouseEvent event) {}<br>public void mouseMoved (MouseEvent event) {}</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:475"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">Of course, the programmer could avoid providing the</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft10">empty method bodies on a per-interface basis, by associating<br>each interface with a class that by default provides empty<br>implementations of all interface methods. Then a client class<br>can inherit the empty implementations and only provide im-<br>plementations for the methods it needs. This pattern is in-<br>deed supported in Swing code (through library classes called<br>adapters), but it is usually not possible to employ since the<br>listener class may already have another superclass. Instead,<br>it would be nice to provide a simple Java language exten-<br>sion implemented as an annotation. The implementation of<br>the extension would be responsible for finding the unimple-<br>mented methods and supplying empty implementations by<br>default (or implementations that just return a default prim-<br>itive or null value, in the case of methods that have a return</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">866</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="75003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">type). In this case, the above class could be written more<br>simply as:</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:81"><nobr><span class="ft10">@Implements ({&quot;MouseListener&quot;,&quot;MouseMotionListener&quot;})<br>public class SomeListener {</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:95"><nobr><span class="ft3">public void mousePressed (MouseEvent event) {</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:109"><nobr><span class="ft3">... // do something</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:95"><nobr><span class="ft10">}<br>public void mouseDragged (MouseEvent event) {</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:109"><nobr><span class="ft3">... // do something</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:95"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:81"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:94"><nobr><span class="ft3">Of course, this extension should be used carefully since</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:81"><nobr><span class="ft10">it weakens the tests of interface conformance performed by<br>the Java compiler.</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:94"><nobr><span class="ft3">We implemented the above Java extension using MAJ.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:81"><nobr><span class="ft10">The code for the implementation was less than 200 lines<br>long, with most of the complexity in the traversal of Java<br>classes, interfaces, and their methods using reflection. The<br>code processes a set of given Java classes and retrieves the<br>ones with an Implements annotation. It then finds all meth-<br>ods that are in any of the interfaces passed as arguments to<br>the Implements annotation and are not implemented by the<br>current class. For each such method, code is generated in an<br>AspectJ aspect to add an appropriate method implementa-<br>tion to the class. For instance, the code to add the method<br>to the class in the case of a void return type is:</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:81"><nobr><span class="ft3">infer newMethod =</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:109"><nobr><span class="ft3">`[ public void #methodName (#formals) {} ];</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:81"><nobr><span class="ft3">aspectMembers.add(newMethod);</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:94"><nobr><span class="ft3">Finally, the class needs to be declared to implement the</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:81"><nobr><span class="ft10">interfaces specified by the annotation. This is easily done<br>by emitting the appropriate AspectJ code:</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft3">infer dec = `[declare parents:</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:95"><nobr><span class="ft3">#[c.getName()] implements #[iface.getName()]; ];</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:94"><nobr><span class="ft3">The final aspect (slightly simplified for formatting rea-</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft3">sons) generated for our earlier listener class example is:</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:81"><nobr><span class="ft3">public aspect SomeListenerImplementsAspect1 {</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:95"><nobr><span class="ft10">void SomeListener.mouseEntered(MouseEvent e) {}<br>void SomeListener.mouseExited(MouseEvent e) {}<br>void SomeListener.mouseMoved(MouseEvent e) {}<br>void SomeListener.mouseReleased(MouseEvent e) {}</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:95"><nobr><span class="ft3">declare parents:</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:116"><nobr><span class="ft3">SomeListener implements MouseListener;</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:95"><nobr><span class="ft3">declare parents:</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:116"><nobr><span class="ft3">SomeListener implements MouseMotionListener;</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:81"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft15">This aspect performs exactly the modifications required<br>to the original class so that it correctly implements the<br>MouseListener and MouseMotionListener interfaces.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:94"><nobr><span class="ft3">We invite the reader to consider how else this language</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft10">extension might be implemented. Our approach of using<br>annotations in combination with MAJ yielded a very simple<br>implementation by letting AspectJ deal with most of the<br>complexities of Java. Specifically, we did not have to deal<br>with the low-level complexities of either Java source syntax<br>or Java bytecode. For instance, we did not have to do any<br>code parsing to find the class body or declaration that needs</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">to be modified.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:583"><nobr><span class="ft3">Dealing with Java syntactic sugar, such</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft10">as inner classes, was automatic. We did not need to do a<br>program transformation to add the implements clauses or<br>the extra methods to the class. Similarly, we did not need<br>to worry about the valid syntax for adding an implemented<br>interface if the class already implements another.</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:475"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:507"><nobr><span class="ft4"><b>EXAMPLE 2:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:639"><nobr><span class="ft4"><b>LANGUAGE SUPPORT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:507"><nobr><span class="ft4"><b>FOR OBJECT POOLING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:489"><nobr><span class="ft3">Our second example language extension addresses a com-</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:475"><nobr><span class="ft10">mon programming need, especially in server-side program-<br>ming. Software applications often find the need for pooling<br>frequently-used objects with high instantiation costs. We<br>use the following database connection class as a running ex-<br>ample:</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:475"><nobr><span class="ft3">public class DBConnection {</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:503"><nobr><span class="ft3">public DBConnection(String dbURI,</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:645"><nobr><span class="ft10">String userName,<br>String password ) { ... }</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:503"><nobr><span class="ft10">public void open() { ... }<br>public void close() { ... }</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:475"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:475"><nobr><span class="ft10">The cost of an open() call is very high for a database connec-<br>tion. In applications concerned with performance, such as<br>high-volume websites with lots of database requests, one of-<br>ten finds the need to pool database connections and keep<br>them open, instead of repeatedly creating new ones and<br>opening them.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:489"><nobr><span class="ft3">Making a class such as DBConnection into a "pooled"</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:475"><nobr><span class="ft10">class involves at the very least creating a pooling manager<br>class that knows how to manage instances of the class be-<br>ing pooled.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:557"><nobr><span class="ft3">A different pooling manager class is needed</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:475"><nobr><span class="ft10">for each class being pooled, since the manager needs to<br>have class-specific information such as how to instantiate<br>a new instance of the class when the pool is running low<br>(e.g., DBConnection objects are created by a constructor<br>call, followed by an open() call), and how to uniquely iden-<br>tify objects of the same class that belong to different pools<br>(e.g., DBConnection objects of different dbURI, userName,<br>and password combinations need to be in different pools,<br>and the pooling manager needs to understand which pool to<br>fetch objects from when a request arrives).</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:489"><nobr><span class="ft3">We expressed the pooling concept as a language feature</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft10">that can used transparently with any Java class, as long<br>as some broad properties hold regarding its construction<br>and instantiation interface. The rest of the application will<br>be completely oblivious to the change. This facilitates the<br>application of pooling after a large code base which uses<br>the class in its non-pooled form has been developed. Using<br>our extension, converting a class to a pooled class involves<br>only 4 annotations: @pooled, @constructor, @request, and<br>@release. For example, to convert the DBConnection class<br>into a "pooled" class, and to adapt an existing code base to<br>using the pooled functionality, the user only has the add the<br>following annotations to the code:</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:475"><nobr><span class="ft10">@pooled(mgr=pooled.PoolTypes.BASIC, max=10, min=2)<br>public class DBConnection {</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:489"><nobr><span class="ft10">@constructor<br>public DBConnection(String dbURI,String userName,</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:631"><nobr><span class="ft3">String password ) { ... }</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">867</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:8px;font-family:Times;color:#000000;}
+	.ft17{font-size:8px;line-height:11px;font-family:Times;color:#000000;}
+	.ft18{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="75004.png" alt="background image">
+<DIV style="position:absolute;top:87;left:95"><nobr><span class="ft10">@request public void open() { ... }<br>@release public void close() { ... }</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:81"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:94"><nobr><span class="ft3">The @pooled annotation indicates that class DBConnection</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:81"><nobr><span class="ft10">should be pooled. It accepts parameters that can be used to<br>customize the pooling policy. @constructor annotates the<br>constructor call whose parameters serve as unique identifiers<br>for different kinds of DBConnection objects. In this example,<br>DBConnection objects with different dbURI, userName, and<br>password combinations should be maintained separately.<br>@request annotates the method that signals for the request<br>of a pooled object, and @release annotates the method call<br>that signals for the return of the pooled object back to the<br>pooling manager.</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:94"><nobr><span class="ft3">The implementation of this extension using MAJ is less</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:81"><nobr><span class="ft3">than 400 lines of code.</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:241"><nobr><span class="ft3">The MAJ program searches for</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:81"><nobr><span class="ft10">classes annotated with @pooled, and generates two Java<br>classes and one aspect to facilitate converting this class to be<br>pooled. We next describe the generated code in more detail.<br>The reader may want to consider in parallel how the same<br>task could be accomplished through other means. Neither<br>conventional Java facilities (i.e., classes and generics) nor<br>AspectJ alone would be sufficient for expressing the func-<br>tionality we describe below in a general way, so that it can<br>be applied with little effort to arbitrary unomdified classes.<br>For instance, none of these facilities can be used to create a<br>proxy class with methods with identical signatures as those<br>of an arbitrary Java class.</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:94"><nobr><span class="ft3">First, a pooling manager class, PoolMgrForDBConnection,</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:81"><nobr><span class="ft3">is generated for DBConnection.</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:301"><nobr><span class="ft3">The pooling manager</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:81"><nobr><span class="ft13">class contains methods for requesting and releasing pooled<br>DBConnection objects, as well as code to manage the expan-<br>sion of the pool based on the min and max parameters.</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:94"><nobr><span class="ft3">In order to retrofit an existing code base to use</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:81"><nobr><span class="ft10">DBConnection as a pooled class, we need to introduce proxy<br>objects that will be used wherever an object of the original<br>class would exist in the application code. This is necessary<br>as different objects from the perspective of the client code<br>will correspond to the same pooled object. We generate a<br>proxy class as a subclass of the pooled class. In our ex-<br>ample: DBConnection_Proxy extends DBConnection. All<br>instances of the proxy class share a static reference to<br>an instance of PoolMgrForDBConnection.</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:346"><nobr><span class="ft3">Each proxy in-</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:81"><nobr><span class="ft10">stance holds (non-static) references to the parameters to<br>the @constructor constructor call, and the DBConnection<br>object obtained from the pooling manager. The proxy class<br>rewrites the @request and @release methods: the @request<br>method is rewritten to obtain an object of DBConnection<br>type from the pooling manager, using the unique identifiers<br>kept from the constructor call, and the @release method<br>returns the DBConnection method back to the pool, while<br>setting the reference to this object to null. The MAJ code in<br>the proxy takes care to exactly replicate the signature of the<br>original methods, including modifiers and throws clauses.<br>For instance, the @release method in the proxy is gener-<br>ated as:</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:81"><nobr><span class="ft3">infer meth =</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:88"><nobr><span class="ft3">`[ #mods #ret #[m.getName()] (#formals) #throwStmt</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:109"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:123"><nobr><span class="ft10">m_poolMgr.release(m_uniqueId, m_proxiedObj);<br>m_proxiedObj = null;</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:109"><nobr><span class="ft3">}];</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft10">All other methods simply delegate to the same method in<br>the superclass.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft3">The idea is to have variables declared to hold a</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:475"><nobr><span class="ft13">DBConnection object, now hold a DBConnection_Proxy ob-<br>ject.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:520"><nobr><span class="ft3">Therefore, to complete the "proxy" pattern, we</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:475"><nobr><span class="ft10">need to change all the calls of new DBConnection(...) to<br>new DBConnection_Proxy(...). This is the role of our gen-<br>erated aspect: tedious recoding effort is easily replaced by<br>an aspect: the aspect intercepts all the constructor calls of<br>DBConnection, and returns an object instantiated by calling<br>new DBConnection_Proxy(...).</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:489"><nobr><span class="ft3">In summary, a user can easily turn a class into a pooled</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft10">class, and retrofit any existing code base to use this class in<br>its new, pooled form. The client code does not need to be<br>hand-edited at all, other than with the introduction of our<br>4 annotations.</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:475"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:507"><nobr><span class="ft4"><b>FUTURE WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:489"><nobr><span class="ft3">We believe that the years to come will see the emer-</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:475"><nobr><span class="ft10">gence of a healthy ecology of small language extensions<br>based on the annotation features of Java and C#. There<br>are already major examples of such extensions, especially<br>with distribution- and persistence-related annotations, im-<br>plemented in the context of J2EE Application Servers. Such<br>extensions can be implemented with heavyweight support--<br>e.g., parsing files, or recognizing annotations in a class loader<br>and performing bytecode manipulation. In fact, the JBoss<br>AOP mechanism (in whose early design and implementa-<br>tion we have played an active role) is the foremost example<br>of infrastructure used to implement annotation-based lan-<br>guage extensions. Nevertheless, experience from compilers<br>in general-purpose languages has shown that it is beneficial<br>to develop a mature back-end language and implement high-<br>level features by translating to that back-end. Our approach<br>proposes that AspectJ is well-suited as such a back-end lan-<br>guage for small Java language extensions and that gener-<br>ating AspectJ code offers significant simplicity benefits. In<br>the future we plan to support this claim with more exam-<br>ples and perform a thorough comparison with competing<br>mechanisms.</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:507"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:484"><nobr><span class="ft16">[1] G. Kiczales, E. Hilsdale, J. Hugunin, M. Kersten, J. Palm, and</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:503"><nobr><span class="ft17">W. G. Griswold. An overview of AspectJ. In ECOOP '01:<br>Proceedings of the 15th European Conference on<br>Object-Oriented Programming, pages 327­353, London, UK,<br>2001. Springer-Verlag.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:484"><nobr><span class="ft16">[2] G. Kiczales, J. Lamping, A. Menhdhekar, C. Maeda, C. Lopes,</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:503"><nobr><span class="ft18">J.-M. Loingtier, and J. Irwin. Aspect-oriented programming. In<br>M. Ak¸</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:537"><nobr><span class="ft16">sit and S. Matsuoka, editors, Proceedings European</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:503"><nobr><span class="ft17">Conference on Object-Oriented Programming, volume 1241,<br>pages 220­242. Springer-Verlag, Berlin, Heidelberg, and New<br>York, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:484"><nobr><span class="ft16">[3] Y. Smaragdakis. A personal outlook on generator research. In</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:503"><nobr><span class="ft17">C. Lengauer, D. Batory, C. Consel, and M. Odersky, editors,<br>Domain-Specific Program Generation. Springer-Verlag, 2004.<br>LNCS 3016.</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:484"><nobr><span class="ft16">[4] D. Zook, S. S. Huang, and Y. Smaragdakis. Generating</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:503"><nobr><span class="ft17">AspectJ programs with meta-AspectJ. In Generative<br>Programming and Component Engineering (GPCE), pages<br>1­18. Springer-Verlag, October 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">868</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,694 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\35</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-05-14T08:57:34+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:6px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:93"><nobr><span class="ft0"><b>An Intensional Approach to the Specification of Test Cases</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:304"><nobr><span class="ft0"><b>for Database Applications</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:245"><nobr><span class="ft1">David Willmor</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:206"><nobr><span class="ft2">School of Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:218"><nobr><span class="ft2">University of Manchester</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:201"><nobr><span class="ft2">Oxford Road, Manchester, UK</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:174"><nobr><span class="ft1">d.willmor@cs.manchester.ac.uk</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:558"><nobr><span class="ft1">Suzanne M. Embury</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:545"><nobr><span class="ft2">School of Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:557"><nobr><span class="ft2">University of Manchester</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:540"><nobr><span class="ft2">Oxford Road, Manchester, UK</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:502"><nobr><span class="ft1">s.m.embury@cs.manchester.ac.uk</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:93"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:93"><nobr><span class="ft8">When testing database applications, in addition to creating<br>in-memory fixtures it is also necessary to create an initial<br>database state that is appropriate for each test case. Cur-<br>rent approaches either require exact database states to be<br>specified in advance, or else generate a single initial state<br>(under guidance from the user) that is intended to be suit-<br>able for execution of all test cases. The first method allows<br>large test suites to be executed in batch, but requires con-<br>siderable programmer effort to create the test cases (and<br>to maintain them). The second method requires less pro-<br>grammer effort, but increases the likelihood that test cases<br>will fail in non-fault situations, due to unexpected changes<br>to the content of the database. In this paper, we propose a<br>new approach in which the database states required for test-<br>ing are specified intensionally, as constrained queries, that<br>can be used to prepare the database for testing automati-<br>cally. This technique overcomes the limitations of the other<br>approaches, and does not appear to impose significant per-<br>formance overheads.</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:93"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:93"><nobr><span class="ft8">D.2.5 [Software Engineering]: Testing and Debugging--<br>Testing tools</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:93"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:93"><nobr><span class="ft3">Experimentation, Verification</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:93"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:93"><nobr><span class="ft3">databases, software testing, database testing</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:93"><nobr><span class="ft1">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:125"><nobr><span class="ft1">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:107"><nobr><span class="ft3">Modern information systems are typically organised as</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:93"><nobr><span class="ft8">collections of independent application programs that com-<br>municate with one another by means of a central database.<br>The database records the state of the organisation that the</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:93"><nobr><span class="ft9">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>ICSE'06,</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:140"><nobr><span class="ft4">May 20­28, 2006, Shanghai, China.</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:93"><nobr><span class="ft4">Copyright 2006 ACM 1-59593-085-X/06/0005 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:330"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:337"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:488"><nobr><span class="ft8">information system supports, while the application programs<br>implement the business processes that manipulate the state.<br>To take a simple but ubiquitous example, a database sys-<br>tem might record details of customers, products and sales,<br>while the application programs associated with it handle op-<br>erations such as new product purchases and update of the<br>product catalogue, as well as supporting decision making<br>by generating reports regarding the most profitable product<br>lines, names and addresses of loss-making customers, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:501"><nobr><span class="ft3">In order to test such application programs, it is necessary</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:488"><nobr><span class="ft8">to create test fixtures that simulate the presence of the rest<br>of the information system. Fixtures for traditional test cases<br>typically consist of in-memory objects and data structures<br>that provide the inputs to the program being tested. This<br>kind of fixture is also needed when testing database appli-<br>cations (especially when performing unit testing); however,<br>since it is unrealistic (and often incorrect) to execute test<br>cases against an empty database, we need to create addi-<br>tional fixture elements within the database itself.</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:501"><nobr><span class="ft3">Current practice in the software industry is to maintain</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:488"><nobr><span class="ft8">one or more test databases that can be used for testing in-<br>dividual programs. These databases can be artificially gen-<br>erated (e.g., using tools such as DBMonster</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:753"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:764"><nobr><span class="ft3">and DataFac-</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:488"><nobr><span class="ft3">tory</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:513"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:519"><nobr><span class="ft3">) or they may be subsets of the live database, taken</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:488"><nobr><span class="ft8">as a snapshot at some recent point in time. Copies of the<br>live data sets have the advantage that they are more likely<br>to be representative of the patterns of data encountered in<br>practice, while artificial data sets have the advantage that<br>they can be made to embody specific characteristics (such<br>as particular data skew patterns or volumes), which may be<br>useful for load and stress testing.</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:501"><nobr><span class="ft3">Both approaches, however, suffer from several disadvan-</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:488"><nobr><span class="ft8">tages. The most significant problem occurs when none of<br>the available test databases are suitable starting points for a<br>particular test case. For example, suppose a particular test<br>case executes a program which purges inactive customers,<br>with the aim of verifying that the business rule forbidding<br>deletion of customers with negative balances is correctly en-<br>forced. If none of the test databases contains any inactive<br>customers with negative balances, then the test case can-<br>not be executed successfully. For a one-off test run, testing<br>personnel can choose a database that is close to what is re-<br>quired, and manually update it so that it is suitable for use<br>with the test case. But if a complete test suite is to be exe-<br>cuted (possibly including test cases which themselves make<br>modifications to the database state) then in the worst case</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:488"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:495"><nobr><span class="ft3">http://DBMonster.kernelpanic.pl</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:488"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:495"><nobr><span class="ft3">http://www.quest.com/datafactory</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">102</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">this manual intervention will be required in between every<br>test case execution. This is clearly undesirable if test suites<br>are large or time-consuming to execute, or if the test suite<br>is to be run in batch (as in the case of overnight regression<br>testing, for example).</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:107"><nobr><span class="ft3">Current research in testing for database systems proposes</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:93"><nobr><span class="ft8">two approaches to this problem. One of these is to include<br>within the test case description a full (extensional) specifica-<br>tion of the database state against which it is to be run (and<br>of the database state that should be produced if the test has<br>executed successfully) [13, 14]. This solution is exemplified<br>by DBUnit</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:161"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:167"><nobr><span class="ft3">, an extension of the JUnit testing framework</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:446"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:93"><nobr><span class="ft8">that is designed for testing database applications written in<br>Java. Each DBUnit test case is accompanied by an XML<br>file describing the data set required for the test. Before each<br>test run, DBUnit clears the database state and inserts the<br>data described by the XML file.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:107"><nobr><span class="ft3">This approach has the advantage of simplicity, but it places</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:93"><nobr><span class="ft8">a considerable burden on testing personnel, especially when<br>complex database states are required. It is also inefficient,<br>since the database must be continually destroyed and recre-<br>ated between tests, even when significant parts of the database<br>might have been reused by the succeeding tests. Moreover,<br>maintenance of a large suite of such tests is extremely chal-<br>lenging, since any small change to the database schema may<br>require corresponding changes to many test cases.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:107"><nobr><span class="ft3">The second approach that has been explored in the liter-</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:93"><nobr><span class="ft8">ature is more efficient in that it requires the creation of only<br>one database state per test suite (rather than one per test<br>case). It is exemplified by the AGENDA database testing<br>toolkit [6, 7], which can automatically generate a database<br>state given information about the schema, some data gen-<br>eration functions for individual attributes and some user-<br>selected heuristics describing the kind of database state re-<br>quired. The AGENDA tool also generates test cases from a<br>simple analysis of the program being verified. The user must<br>then add preconditions to each test case that are checked<br>just before it is executed and that will prevent a case from<br>being executed against an inappropriate database state. This<br>approach successfully relieves the user of the need to specify<br>complete database states in full detail, but at a cost. The<br>user must accept that some of the test cases may not be<br>executed because the database state fails the precondition,<br>even when it would require only a small change to bring the<br>database into a suitable state for the test. Since only one<br>database state is created per test suite, this problem of failed<br>tests is likely to become more severe as the size of the test<br>suite grows. There is also a potential inefficiency involved<br>in generating test descriptions and inputs, and in creating<br>the additional log tables and constraints/triggers needed by<br>the AGENDA tool, for test cases that are not in fact going<br>to be executed.</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:107"><nobr><span class="ft3">Ideally, we would prefer to be able to combine the advan-</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:93"><nobr><span class="ft8">tages of both these approaches, to give a form of database<br>test case that is quick and natural to specify, and which<br>maximises the number of cases within the suite that can be<br>executed while minimising the number of full test databases<br>that need to be maintained.</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:283"><nobr><span class="ft3">Our thesis is that this can</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:93"><nobr><span class="ft8">be achieved by allowing testing personnel to describe the<br>database states involved in their test cases intensionally, in</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:94"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:100"><nobr><span class="ft3">http://www.dbunit.org</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:94"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:100"><nobr><span class="ft3">http://www.junit.org</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft8">the form of declarative conditions that the input database<br>must satisfy, and by providing a testing harness that can<br>automatically adjust the input database so that the test<br>conditions are satisfied [19].</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:501"><nobr><span class="ft3">In this paper, we present a language for specifying such</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:488"><nobr><span class="ft8">intensional database tests, and describe its semantics and<br>operational behaviour (Section 2). We present an algorithm<br>for automatically modifying database states so that test pre-<br>conditions are satisfied (Section 3), thus ensuring that all<br>test cases can be executed without requiring any human<br>intervention. We further describe how we have extended the<br>JUnit testing framework to allow intensional database tests<br>to be specified and executed in practice (Section 4). Finally,<br>we present the results of an evaluation of the performance<br>of the techniques (Section 5) and conclude (Section 6).</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:488"><nobr><span class="ft1">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:519"><nobr><span class="ft1">SPECIFYING INTENSIONAL TESTS</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:501"><nobr><span class="ft3">A conventional test case is typically modelled as a triple</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:488"><nobr><span class="ft8">&lt; p, i, o &gt;, which denotes a test that executes program p<br>with inputs (e.g., parameters) denoted by i. If no faults are<br>encountered during the test execution, the output that will<br>be produced is o. In the case of test cases for database ap-<br>plications, we must add two further elements--the specifica-<br>tion of the database state against which p is to be executed,<br>and some statement of the database state that should result<br>from the execution of p if it is operating correctly according<br>to its specification.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:501"><nobr><span class="ft3">For example, consider the example program mentioned</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:488"><nobr><span class="ft8">in Section 1 that prunes inactive customer details from the<br>database. For this test case, we require a database state that<br>contains at least one inactive customer. This could easily<br>be stated as a predicate logic condition over the database,<br>assuming the obvious mapping between stored relations and<br>predicates, e.g.:</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:577"><nobr><span class="ft3">(custNo, lastOrderOn, a, b, c)</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:547"><nobr><span class="ft3">customer (custNo, a, b, c, lastOrderOn) </span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:588"><nobr><span class="ft3">lastOrderOn &lt; today - 90</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:488"><nobr><span class="ft8">The program in question does not access any parts of the<br>database other than the customer table. Therefore, we do<br>not care what values the other tables contain and need not<br>mention them in the intensional specification of the test.</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:501"><nobr><span class="ft3">This approach works equally well for observing the results</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:488"><nobr><span class="ft8">of the test. For example, when testing the customer pruning<br>behaviour, we might require that no inactive customer with<br>a non-negative balance should exist in the database after<br>the test:</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:559"><nobr><span class="ft3">¬((custNum, lastOrderDate, a, b, c)</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:530"><nobr><span class="ft3">customer (custNum, a, bal , c, lastOrderDate) </span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:552"><nobr><span class="ft3">lastOrderDate &lt; today - 90  bal &gt; 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:488"><nobr><span class="ft8">Effectively, the test case describes a set of valid (i.e., fault-<br>free) state transition for the database, as a classic pre/post-<br>condition pair.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:501"><nobr><span class="ft3">This first-order-logic style of database specification does</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:488"><nobr><span class="ft8">not work so well when we consider the testing problem in<br>more depth, however. The problem is that we need to do<br>more than test the input database for compliance with the<br>requirements of the test case; we also need to extract in-<br>formation from it to be used to instantiate other elements</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">103</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">of the test case. For example, suppose we wish to test a<br>program that deletes details of individual customers. Such<br>programs typically require some input from the user, identi-<br>fying the specific customer record that is to be deleted (e.g.,<br>by supplying the relevant customer code as a parameter).<br>This could be achieved by requiring the tester to embed the<br>customer code into the test case elements, as literal values.<br>Alternatively, we could search for a suitable customer that<br>already exists in the database, using a standard database<br>query, and use the values from that in specifying the inputs<br>for the test case. This would minimise the amount of work<br>required to prepare the database for test execution (since we<br>would be using data already present in the database), and it<br>would also mean that test cases can be written very quickly,<br>since the user does not need to specify every last detail of<br>the data to be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:107"><nobr><span class="ft3">Under this approach, the specification of the input database</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:93"><nobr><span class="ft8">state now has a dual role: it must state the condition that<br>determines whether the database state is suitable for execu-<br>tion of the test case and it must also return bindings for the<br>free variables that appear in the remaining components of<br>the test case. For the latter purpose, we would prefer to use<br>a straightforward query language, while for the former we<br>require the ability to place conditions on the data. With a<br>simple extension of a standard query language such as SQL,<br>we can combine both these purposes in a single statement.<br>For example, the following statement:</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:109"><nobr><span class="ft3">ANY :cn GENERATED BY</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:126"><nobr><span class="ft3">SELECT custNo FROM customer</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:126"><nobr><span class="ft3">WHERE lastOrderDate &lt; today() - 90</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:142"><nobr><span class="ft3">AND balance &lt; 0</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:93"><nobr><span class="ft8">retrieves the customer code of some record that meets the<br>given conditions (an inactive customer with negative bal-<br>ance) from the database, and binds it to the variable :cn.<br>It also places a cardinality constraint on the result of the<br>query, that at least one such binding must exist (implied by<br>the use of the keyword ANY).</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:107"><nobr><span class="ft3">The variable :cn can then be used to specify other ele-</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:93"><nobr><span class="ft8">ments of the test case. The obvious usage in this example is<br>in specifying the inputs to the program being tested, but it<br>can also be used in describing the expected outputs of the<br>program. In this example test case, the correct behaviour<br>of the DeleteCustomer program is to reject the deletion<br>of :cn, since customers with a negative balance cannot be<br>purged from the database. We might therefore give the fol-<br>lowing specification of the desired output database state:</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:109"><nobr><span class="ft3">AT LEAST 1 :cn2 GENERATED BY</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:126"><nobr><span class="ft3">SELECT custNo FROM customer</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:126"><nobr><span class="ft3">WHERE custNo = :cn</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:93"><nobr><span class="ft8">Of course, not all test cases are best specified in terms of<br>values retrieved from the database. For example, suppose<br>that we wish to write test cases for a program that adds new<br>customers to the database. The inputs to this program are<br>the details of the new customer, and the precondition for one<br>particular test case states that no customer should exist that<br>has the same customer code as that of the customer being<br>created. We cannot retrieve the customer details from the<br>database in this case, as they have not yet been stored in it.<br>Again, we could force the user to include the required values<br>as literals in the test case, but ideally we would like to give</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:488"><nobr><span class="ft3">&lt;CONDITION&gt; ::= &lt;TYPE&gt; &lt;BINDINGLIST&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:617"><nobr><span class="ft3">GENERATED BY &lt;SELECT&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:488"><nobr><span class="ft3">&lt;TYPE&gt; ::= ANY | NO | AT LEAST &lt;i&gt; |</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:577"><nobr><span class="ft3">AT MOST &lt;i&gt; | EXACTLY &lt;i&gt; |</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:577"><nobr><span class="ft3">ALL | FIRST</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:488"><nobr><span class="ft3">&lt;i&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:544"><nobr><span class="ft3">::= {0-9}</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:488"><nobr><span class="ft3">&lt;BINDINGLIST&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:544"><nobr><span class="ft3">::=</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:585"><nobr><span class="ft3">&lt;BINDING&gt; { `,' &lt;BINDINGLIST&gt; }</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:488"><nobr><span class="ft3">&lt;BINDING&gt; ::= {A-Z | a-z}</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:488"><nobr><span class="ft3">&lt;SELECT&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:568"><nobr><span class="ft3">::= ...</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:488"><nobr><span class="ft8">Figure 1: Simplified BNF Grammar for SQL Exten-<br>sions</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:488"><nobr><span class="ft8">more support to the process of test case generation. One<br>way to achieve this is to allow user-defined data generator<br>functions to be incorporated within queries as though they<br>were relations. For example, the following expression states<br>our requirements for this test case, while also binding the<br>variables needed for input to the program:</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:504"><nobr><span class="ft3">ANY :cn, :name, :addr, :bal GENERATED BY</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:520"><nobr><span class="ft3">SELECT gc.custno, gc.name, gc.addr, 0</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:520"><nobr><span class="ft3">FROM genCustomerDetails() AS gc</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:520"><nobr><span class="ft3">WHERE gc.custno NOT IN (</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:568"><nobr><span class="ft3">SELECT custno</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:568"><nobr><span class="ft3">FROM customer</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:568"><nobr><span class="ft3">WHERE balance &gt; 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:488"><nobr><span class="ft8">Here, the data generator function getCustomerDetails()<br>is used as if it were a normal relation, whereas in fact the<br>results it returns are computed on the fly. In fact, several<br>of the main commercial database management systems al-<br>ready allow user-defined functions to be embedded in queries<br>in this way, so this does not require a further extension of<br>SQL. Figure 1 shows the minimal extensions that are needed<br>to support all the kinds of constrained query shown above<br>using the SQL99 standard [17].</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:488"><nobr><span class="ft1">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:528"><nobr><span class="ft1">Test Case Semantics</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:501"><nobr><span class="ft3">Clearly, the semantics of these intensional database test</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:488"><nobr><span class="ft8">cases is more complex than for traditional extensional tests.<br>However, we can define their semantics formally in terms<br>of a mapping from intensional tests to sets of equivalent<br>extensional database test cases. We first present a formal<br>definition of the structure of our intensional test cases:</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:503"><nobr><span class="ft3">Definition 1. An intensional database test case is a quin-</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:488"><nobr><span class="ft3">tuple &lt; p, i, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:585"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:590"><nobr><span class="ft3">, o, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:631"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:641"><nobr><span class="ft3">&gt;, where:</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:508"><nobr><span class="ft3">· p is the program to be executed in the test,</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:508"><nobr><span class="ft3">· i is a tuple of n variables and literals that describes the</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:521"><nobr><span class="ft8">inputs to be given to program p, where n is the number<br>of parameters expected by p,</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:508"><nobr><span class="ft3">· DB</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:544"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:552"><nobr><span class="ft3">is a set of constrained queries that together specify</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:521"><nobr><span class="ft3">the initial database state.</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:508"><nobr><span class="ft3">· o is a tuple of m variables and literal that describes the</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:521"><nobr><span class="ft3">expected outputs from the program p.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:508"><nobr><span class="ft3">· DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:544"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:553"><nobr><span class="ft3">is a set of constrained queries that together specify</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:521"><nobr><span class="ft8">the conditions that must hold in the database state after<br>execution of p if no fault has been encountered.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">104</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">A constrained query has the form &lt; Q, min, max , vars &gt;,<br>where Q is a standard relational algebra query, min and<br>max describe the constraints on the cardinality of the query<br>result set, and vars is the list of variables bound by the<br>query result.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:107"><nobr><span class="ft3">A database test case is well-formed for use with a partic-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:93"><nobr><span class="ft3">ular database schema  iff:</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:113"><nobr><span class="ft3">· for every variable v that occurs free in i, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:404"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:409"><nobr><span class="ft3">, o and</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:127"><nobr><span class="ft3">DB</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:149"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:155"><nobr><span class="ft3">, there exists a query in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:319"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:328"><nobr><span class="ft3">that provides a bind-</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:127"><nobr><span class="ft3">ing for v,</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:113"><nobr><span class="ft3">· for every query &lt; q, n, m, vs &gt; in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:360"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:368"><nobr><span class="ft3"> DB</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:403"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:409"><nobr><span class="ft3">, q is a</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:127"><nobr><span class="ft10">well-formed query over  that returns k-tuples, where<br>|vs| = k, and</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:113"><nobr><span class="ft3">· there are no circular variable dependencies amongst</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:127"><nobr><span class="ft3">the queries in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:236"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:240"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:93"><nobr><span class="ft8">We can now define a semantics for the intensional database<br>test cases as follows. Every intensional test case is equivalent<br>to a set of extensional test cases. An extensional test case<br>defines a specific test run, in terms of actual inputs and<br>outputs, rather than expressions denoting sets of inputs and<br>outputs.</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:156"><nobr><span class="ft3">The set of all possible extensional test cases is</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:93"><nobr><span class="ft3">given by:</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:200"><nobr><span class="ft3">P × L</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:237"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:247"><nobr><span class="ft3">× DB × L × DB</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:93"><nobr><span class="ft8">where P is the set of all programs, L is the set of all lit-<br>erals, L</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:140"><nobr><span class="ft5">n</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:154"><nobr><span class="ft3">is the set of all n-tuples formed from L and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:93"><nobr><span class="ft3">is the set of all database states (relative to all schemas)</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:442"><nobr><span class="ft5">5</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:448"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:93"><nobr><span class="ft8">The components of each extensional test are the program<br>to be tested, the input values, the initial database state,<br>the expected output and the expected final database state,<br>respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:107"><nobr><span class="ft3">An intensional test case is effectively a shorthand expres-</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:93"><nobr><span class="ft8">sion for a set of extensional test cases that are all derived<br>from the same equivalence partition of the test case inputs.<br>An intensional database test &lt; p, i, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:336"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:341"><nobr><span class="ft3">, o, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:384"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:396"><nobr><span class="ft3">&gt;, where</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:93"><nobr><span class="ft3">DB</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:115"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:123"><nobr><span class="ft3">= {&lt; q</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:166"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:170"><nobr><span class="ft3">, n</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:185"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:190"><nobr><span class="ft3">, m</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:208"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:213"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:225"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:234"><nobr><span class="ft3">&gt;} and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:302"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:313"><nobr><span class="ft3">= {&lt; q</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:355"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:361"><nobr><span class="ft3">, n</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:376"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:382"><nobr><span class="ft3">, m</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:401"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:407"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:420"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:430"><nobr><span class="ft3">&gt;},</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:93"><nobr><span class="ft3">is equivalent to the following set of extensional tests:</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:163"><nobr><span class="ft3">{&lt; p, i[v</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:213"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:217"><nobr><span class="ft3">/v], db</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:256"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:260"><nobr><span class="ft3">, o[v</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:284"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:289"><nobr><span class="ft3">/v], db</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:327"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:337"><nobr><span class="ft3">&gt; |</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:284"><nobr><span class="ft3">db</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:298"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:307"><nobr><span class="ft3"> DB </span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:214"><nobr><span class="ft3">(n</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:228"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:236"><nobr><span class="ft3"> |q</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:261"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:266"><nobr><span class="ft3">(db</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:285"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:290"><nobr><span class="ft3">)|  m</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:330"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:335"><nobr><span class="ft3">) </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:275"><nobr><span class="ft3">v  q</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:306"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:310"><nobr><span class="ft3">(db</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:330"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:335"><nobr><span class="ft3">) </span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:282"><nobr><span class="ft3">db</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:296"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:307"><nobr><span class="ft3"> DB </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:173"><nobr><span class="ft3">(n</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:186"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:196"><nobr><span class="ft3"> |(q</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:226"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:233"><nobr><span class="ft3">[v</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:243"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:248"><nobr><span class="ft3">/v])(db</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:291"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:297"><nobr><span class="ft3">)|  m</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:337"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:343"><nobr><span class="ft3">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:93"><nobr><span class="ft3">We use the notation exp[</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:246"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:253"><nobr><span class="ft3">/</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:266"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:272"><nobr><span class="ft3">] to express the substitution of</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:93"><nobr><span class="ft3">the values in </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:179"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:189"><nobr><span class="ft3">by the corresponding values in </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:382"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:392"><nobr><span class="ft3">whereever</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:93"><nobr><span class="ft8">they occur in exp. Therefore, this expression denotes the set<br>of extensional tests where the input database satisfies the<br>constraints imposed by the initial constrained query, and<br>where the bindings from execution of that query (here ex-<br>pressed as the tuple of variables v) are substituted into the</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:94"><nobr><span class="ft5">5</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:100"><nobr><span class="ft3">For simplicity of presentation, we assume that all programs</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:93"><nobr><span class="ft11">require the same number of inputs (n). In practice, n can<br>be the largest number of inputs required by any program,<br>and the unused values can be filled with nulls.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft8">expressions defining the inputs, expected output and ex-<br>pected final database state before they too are evaluated</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:831"><nobr><span class="ft5">6</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:838"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:501"><nobr><span class="ft3">The idea underlying this notion of an intensional test is</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:488"><nobr><span class="ft8">that when any of its corresponding extensional sets are ex-<br>ecuted, the intensional test is itself deemed to have been<br>executed. Thus, the use of intensional tests allows much<br>greater freedom at test execution time, since we may choose<br>any of the possible extensional tests, depending on which is<br>closest to our starting environment. In the next section, we<br>will consider the practical ramifications of this approach to<br>testing, and describe how the semantics just described can<br>be implemented in practice.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:488"><nobr><span class="ft1">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:519"><nobr><span class="ft1">DATABASE PREPARATION</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:501"><nobr><span class="ft3">The execution of an intensional database test case con-</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:488"><nobr><span class="ft8">sists of three distinct phases: 1) preparation of the environ-<br>ment for test execution; 2) execution of the test with the<br>prepared inputs; and 3) capture and storage of the results,<br>for later analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:609"><nobr><span class="ft3">Since all the work of finding bindings</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:488"><nobr><span class="ft8">for the variables in the test case specification is done in the<br>preparation phase, the final two phases are straightforward<br>and differ little from standard testing procedures. When<br>program execution is complete, the constrained query that<br>determines whether the test has been successful or not is<br>evaluated against the database, and the output from the<br>program is checked against what is expected. In the case<br>of test failure, the details of the actual extensional test that<br>was executed are recorded, for diagnosis purposes.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:501"><nobr><span class="ft3">The first phase, however, is more complex. If we were</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:488"><nobr><span class="ft8">content to execute only those test cases which happen to<br>be suitable for use with the initial database state, then the<br>preparation phase would simply be a matter of executing<br>the input constrained queries against the database and, if<br>they are all successful, using the bindings thus produced<br>to instantiate the remaining components of the test case.<br>However, thanks to the declarative nature of our test case<br>specifications, the testing framework can be pro-active in<br>cases where the given database is not suitable for use by<br>the test case, and can automatically generate a sequence of<br>updates that will cause the constrained queries to produce<br>the required number of bindings.</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:501"><nobr><span class="ft3">In fact, this problem is similar (though not identical) to</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:488"><nobr><span class="ft8">one that has been studied by the database and artificial in-<br>telligence communities for many years. It is known variously<br>as the view update problem [9], the knowledge base update<br>problem [12], and the transaction repair problem [10]. Many<br>database systems have the capability to define views on top<br>of the basic database. A view is a kind of virtual relation.<br>To the user, it appears to be a normal relation, but it con-<br>tains no stored data. Instead, the contents of the view are<br>defined by a expression over other relations, and attempts<br>to retrieve data from the view are converted into queries<br>over these relations. To take a simple example for illustra-<br>tion, we might create a view called Debtors which appears<br>to be a relation of the same name containing all customers<br>with a negative balance. Attempts to retrieve Debtors is</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:488"><nobr><span class="ft5">6</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:495"><nobr><span class="ft3">For simplicity of presentation, we assume here that there</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:488"><nobr><span class="ft3">is only one query in each of DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:693"><nobr><span class="ft5">i</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:704"><nobr><span class="ft3">and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:754"><nobr><span class="ft5">o</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:760"><nobr><span class="ft3">. In practice,</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:488"><nobr><span class="ft11">it may be necessary to include several queries, each pro-<br>ducing different bindings and imposing different cardinality<br>constraints. In this case, the constraints must be conjoined,<br>and the full set of bindings can be retrieved by performing<br>a natural join of all the queries, with join condition true.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">105</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">converted into a query against the customer table with an<br>added constraint on the balance.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:107"><nobr><span class="ft3">If views are truly to act as normal relations then it should</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:93"><nobr><span class="ft8">be possible to update them as well query them. But what<br>does it mean to update a virtual relation? In this case, the<br>view update must be converted into a sequence of updates<br>on the stored relations that will cause the desired change in<br>the contents of the view itself. This is a non-trivial problem<br>for realistic view languages, and becomes even more difficult<br>when we move into the context of knowledge bases, where<br>virtual relations can be defined using rules over other rela-<br>tions, and when we add integrity constraints that must be<br>maintained by all updates [1, 2, 3, 4, 5, 8, 11].</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:107"><nobr><span class="ft3">Only in very narrow circumstances does a view update</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:93"><nobr><span class="ft8">have a single translation into real updates [15, 18]. Various<br>heuristics for selecting from amongst the possible transla-<br>tions have been proposed (of which the most common is to<br>choose the update that results in the smallest change to the<br>existing data set [2]), but in real applications user input is<br>needed in order to identify the translation that corresponds<br>most closely to the real world state that the database should<br>reflect [10].</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:107"><nobr><span class="ft3">In the case of intensional database tests, we have a query</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:93"><nobr><span class="ft8">(the constrained query that describes our requirements for<br>the test) that does not produce the correct number of an-<br>swers when executed against the test database. We need to<br>find a sequence of updates to the base data that will cause<br>our query to produce the number of answers we need. How-<br>ever, in this case, there is no requirement to find the set of<br>updates that matches the state of reality -- any sensible up-<br>date that satisfies the query conditions will be acceptable.<br>This simplifies the problem considerably, removing the need<br>for complex search procedures and for any user input.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:93"><nobr><span class="ft1">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:134"><nobr><span class="ft1">The Preparation Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:107"><nobr><span class="ft3">One of the advantages of using a query-based language</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:93"><nobr><span class="ft8">for test specification (as opposed to a predicate calculus-<br>based language) is that we can make use of a very common<br>and easy-to-analyse internal form for (relational) database<br>queries, called relational algebra. This form provides a small<br>number of operations on relations that can be combined to<br>form complex queries. For example, the three most basic<br>(and useful) relational algebra operators are:</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:113"><nobr><span class="ft3">· The projection operator, </span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:292"><nobr><span class="ft5">Atts</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:315"><nobr><span class="ft3">R, which creates a re-</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:127"><nobr><span class="ft8">lation from R by deleting all attributes not in Atts.<br>For example, </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:221"><nobr><span class="ft5">[Country]</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:267"><nobr><span class="ft3">Customer produces a relation</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:127"><nobr><span class="ft12">that contains just the countries that appear in the<br>Customer</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:196"><nobr><span class="ft3">relation.</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:113"><nobr><span class="ft3">· The selection operator, </span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:281"><nobr><span class="ft5">c</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:287"><nobr><span class="ft3">R, which creates a relation</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:127"><nobr><span class="ft8">that contains all the rows from relation R that satisfy<br>the condition c. For example, </span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:316"><nobr><span class="ft5">bal &lt;0</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:345"><nobr><span class="ft3">Customer returns</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:127"><nobr><span class="ft8">a relation containing details of all customers with neg-<br>ative balances.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:113"><nobr><span class="ft3">· The join operator, R</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:263"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:273"><nobr><span class="ft5">c</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:285"><nobr><span class="ft3">S, which creates a relation</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:127"><nobr><span class="ft8">containing rows from the cross product of R and S that<br>satisfy the join condition c. The query Debtor</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:401"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:411"><nobr><span class="ft5">dNo=iNo</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:127"><nobr><span class="ft8">Inactive returns details of all debtors who are also in-<br>active.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft8">Since the result of each relational algebra operator is itself<br>a relation, together they form a closed algebra. This means</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft8">that we can form arbitrarily complex queries by applying<br>operators to the results of other operators. For example, a<br>query which retrieves the customer number of all customers<br>with a negative balance would be written as:</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:580"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:587"><nobr><span class="ft5">[custNo]</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:627"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:640"><nobr><span class="ft5">balance&lt;0</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:690"><nobr><span class="ft3">Customer )</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:488"><nobr><span class="ft8">A common way to visualise such expressions is as a tree of<br>operators. The tree for the above query is shown in Figure 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:488"><nobr><span class="ft8">Figure 2: Relational Algebra Tree for Negative Bal-<br>ance Query.</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:501"><nobr><span class="ft3">Our algorithm for preparing a database for testing is based</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:488"><nobr><span class="ft8">around this notion of a relational algebra tree. We take the<br>cardinality constraints from the test specification, and push<br>them down through the nodes of the input database query<br>tree, collecting up additional conditions as we go. When we<br>reach a leaf node (i.e. a base relation), we make updates<br>to the database so that the pushed-down constraints are<br>satisfied for that relation.</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:501"><nobr><span class="ft3">At each stage, we collect up the different kinds of con-</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:488"><nobr><span class="ft8">straint and push them further down into the tree. These<br>constraint types are:</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:508"><nobr><span class="ft3">· Min and Max, the upper and lower bounds on the de-</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:521"><nobr><span class="ft3">sired cardinality of the result set.</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:508"><nobr><span class="ft3">· SelC, the selection conditions on the relations that we</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:521"><nobr><span class="ft3">are interested in.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:508"><nobr><span class="ft3">· UAtts, the collection of attributes that are used in the</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:521"><nobr><span class="ft8">constrained query, and that must be populated in any<br>new data that we insert.</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:488"><nobr><span class="ft8">We also build up a collection of queries that describe the<br>data that has been prepared for testing so far, as we progress<br>through the tree. We call these queries "bindings" (Bgs),<br>since they give us values for the variables that occur within<br>the selection and join conditions. At each stage, the bindings<br>should contain one query for each leaf node that has so far<br>been prepared.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:501"><nobr><span class="ft3">It is easiest to see how this works by considering a simple</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:488"><nobr><span class="ft8">example, such as that shown in Figure 2. Let us assume we<br>have a constrained query that requires at least one customer<br>with negative balance to exist, and that our database does<br>not currently contain any such customers. We begin at the<br>root node of the tree, with only the cardinality constraints<br>extracted from the test specification:</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:559"><nobr><span class="ft3">Min = 1, Max = null, SelC = true,</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:607"><nobr><span class="ft3">UAtts = , Bgs = </span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:488"><nobr><span class="ft8">The top node is a projection operator. Projection does not<br>affect the cardinality of the result set, nor impose any condi-<br>tions, but it does tell us something about the attributes used</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">106</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35006.png" alt="background image">
+<DIV style="position:absolute;top:320;left:93"><nobr><span class="ft8">Figure 3: Relational Algebra Tree Showing Multiple<br>Joins</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:93"><nobr><span class="ft8">by the query. We therefore add the projection attributes to<br>UAtts and push the constraints down to the next node:</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:165"><nobr><span class="ft3">Min = 1, Max = null, SelC = true,</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:188"><nobr><span class="ft3">UAtts = {custNo}, Bgs = </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:93"><nobr><span class="ft8">Next we must deal with the selection node. Selection nodes<br>reduce the cardinality of their input, so we need to push<br>down the selection conditions to ensure that any updates<br>we may make affect the correct tuples. We also need to add<br>any attributes appearing in the selection condition to UAtts:</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:141"><nobr><span class="ft3">Min = 1, Max = null, SelC = balance &lt; 0,</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:162"><nobr><span class="ft3">UAtts = {custNo, balance}, Bgs = </span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:93"><nobr><span class="ft8">The final node is the leaf node, representing the Customer<br>relation. We construct a query from the conditions on that<br>relation and execute it, to find out how many answers are<br>currently in the database. In this case, there are none, so<br>we need to insert a new Customer record with at least<br>the custNo and balance attributes populated, and with<br>a negative balance. If there are any integrity constraints<br>on this relation, then we need to make sure they are also<br>satisfied by the new data.</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:107"><nobr><span class="ft3">We use the DBMonster data generator mentioned earlier</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:93"><nobr><span class="ft8">to create the new data. It allows generation functions to<br>be specified for attributes, and additional constraints to be<br>placed on them. It will also maintain primary key, foreign<br>key, non-null and domain constraints if configured appro-<br>priately using the information present in the pushed-down<br>constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:107"><nobr><span class="ft3">Of course, this is a very simple example. In general, we</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:93"><nobr><span class="ft8">can expect to have to deal with more complicated queries<br>involving several joins, such as that shown in Figure 3. This<br>relational algebra tree is equivalent to the following con-<br>strained query:</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:109"><nobr><span class="ft3">ANY :orderNo, :productNo GENERATED BY</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:109"><nobr><span class="ft3">SELECT o.orderno, p.productno</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:109"><nobr><span class="ft3">FROM Order o, Orderdetail d, Product p</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:109"><nobr><span class="ft3">WHERE o.orderno = d.orderno AND</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:158"><nobr><span class="ft3">d.productno = p.productno AND</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:158"><nobr><span class="ft3">p.price &gt; 50</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft8">which requires that at least one order must exist that in-<br>volves the purchase of at least one product that costs more</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft8">than £50. Joins complicate the process of preparing the<br>database, because they introduce dependencies between the<br>updates that take place at different leaf nodes. For example,<br>imagine that we have processed the tree shown in Figure 3 as<br>far as the leaf node representing the OrderDetail relation.<br>Join operators further constrain the selection condition (by<br>conjoining in their join condition), but add no other con-<br>straints. So, by the time we reach this leaf node, SelC will<br>have been set to:</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:510"><nobr><span class="ft3">o.orderno = d.orderno  d.productno = p.productno</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:488"><nobr><span class="ft12">We need to find out whether a suitable OrderDetail record<br>exists within the database. However, in order to do this,<br>we need to know something about what preparation actions<br>were performed when the Product leaf node was processed.<br>Maybe there were already plenty of £50-plus products in<br>the catalogue, or maybe there were none and one had to<br>be created. How is this information passed through to the<br>OrderDetail</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:581"><nobr><span class="ft3">node so that the correct tuple can be identi-</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:488"><nobr><span class="ft3">fied or created?</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:501"><nobr><span class="ft3">In the current version of our algorithm, we have chosen</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:488"><nobr><span class="ft8">to use the database itself to communicate these values. If<br>there are many suitable Product records, then we can find<br>one by querying the database directly once again. If a new<br>product had to be created, then it will now be present in<br>the database, so we can still retrieve it by querying. The<br>information needed to construct these queries is present in<br>the selection conditions that have been considered during<br>the processing of the relational algebra tree up to this point.<br>For example, in order to search for an OrderDetail tuple<br>that is connected to a suitable Product, we need to issue<br>the following query:</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:488"><nobr><span class="ft8">SELECT d.* FROM OrderDetail d, Product p<br>WHERE d.productno = p.productno AND</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:536"><nobr><span class="ft3">p.price &gt; 50</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:488"><nobr><span class="ft8">This query cannot be constructed from only the constraints<br>pushed-down from the parent nodes of the leaf node; instead,<br>we need to collect up the constraints imposed by all nodes<br>visited before the current node, so that they are available for<br>query formation. This is done using the Bgs data structure<br>mentioned earlier.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:501"><nobr><span class="ft3">Figure 4 presents the complete algorithm, showing the be-</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:488"><nobr><span class="ft8">haviour required for each different type of operator. The al-<br>gorithm is presented as a side-effecting function which takes<br>the constrained query that is to be satisfied by the database,<br>and a set of initial conditions that state the required cardi-<br>nality bounds and initialise SelC to true, UAtts to  and Bgs<br>to . The function returns a set of bindings, but these are<br>discarded. The main task of the algorithm is carried out<br>by the side-effecting updates that occur when leaf nodes are<br>processed.</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:488"><nobr><span class="ft1">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:519"><nobr><span class="ft1">DOT-UNIT TESTING FRAMEWORK</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:501"><nobr><span class="ft3">The intensional database test language and accompanying</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:488"><nobr><span class="ft8">preparation algorithm have been implemented within a test-<br>ing tool, called DOT-Unit. This tool is part of a larger Data-<br>Oriented Testing</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:590"><nobr><span class="ft5">7</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:601"><nobr><span class="ft3">framework that is under development at</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:488"><nobr><span class="ft8">the University of Manchester [20]. DOT-Unit has been im-<br>plemented as an extension to the JUnit testing framework</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:488"><nobr><span class="ft5">7</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:495"><nobr><span class="ft3">http://www.cs.man.ac.uk/</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:688"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:697"><nobr><span class="ft3">willmord/dot/</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">107</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35007.png" alt="background image">
+<DIV style="position:absolute;top:82;left:128"><nobr><span class="ft3">Projection operator</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:128"><nobr><span class="ft3">prepare(</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:187"><nobr><span class="ft5">Atts</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:207"><nobr><span class="ft3">Q, Min, Max, UAtts, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:149"><nobr><span class="ft3">= prepare(Q, Min, Max, UAtts  Atts, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:128"><nobr><span class="ft3">Selection operator</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:128"><nobr><span class="ft3">prepare(</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:187"><nobr><span class="ft5">c</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:193"><nobr><span class="ft3">Q, Min, Max, UAtts, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:149"><nobr><span class="ft3">= prepare(Q, Min, Max, UAtts, SelC  c, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:128"><nobr><span class="ft3">Join operator</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:128"><nobr><span class="ft3">prepare(Q</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:190"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:200"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:210"><nobr><span class="ft5">jc</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:223"><nobr><span class="ft3">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:234"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:240"><nobr><span class="ft3">, Min, Max, UAtts, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:149"><nobr><span class="ft3">= prepare(Q</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:226"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:232"><nobr><span class="ft3">, Min, Max, UAtts, SelC  jc,</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:176"><nobr><span class="ft3">prepare(Q</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:238"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:244"><nobr><span class="ft3">, Min, Max, UAtts, SelC, Bgs))</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:488"><nobr><span class="ft3">Relation (leaf node)</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:488"><nobr><span class="ft3">prepare(Rasv , Min, Max, UAtts, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:509"><nobr><span class="ft3">Q = bindingQuery(v, SelC, Bgs)</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:509"><nobr><span class="ft3">Execute Q to produce result set RS</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:509"><nobr><span class="ft3">if |RS| &lt; Min then</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:525"><nobr><span class="ft8">Invoke DBMonster to create (Min - |RS|) more<br>instances of R that satisfy the conditions in Q</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:509"><nobr><span class="ft3">else if |RS| &gt; Max then</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:525"><nobr><span class="ft3">Delete the first (|RS| - Max) tuples in RS</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:509"><nobr><span class="ft3">else</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:525"><nobr><span class="ft3">No preparation updates needed</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:509"><nobr><span class="ft3">return (Bgs  binding(v, Q))</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:304"><nobr><span class="ft3">Figure 4: The Database Preparation Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:93"><nobr><span class="ft8">for the unit testing of Java applications [16]. We have sub-<br>classed the standard JUnit TestCase class, to create a ded-<br>icated DatabaseTestCase class for specifying and man-<br>aging intensional database tests. DatabaseTestCase pro-<br>vides facilities for specifying pre-conditions on database state,<br>generating and manipulating the bindings that are produced<br>by such pre-conditions, and evaluating post-conditions on<br>the database state after the test has been completed. The<br>standard JUnit methods for determining the results of test<br>execution on the in-memory fixture can also be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:107"><nobr><span class="ft3">Figure 5 shows an example DatabaseTestCase that in-</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:93"><nobr><span class="ft8">cludes two individual tests. The first verifies that when a<br>customer with a non-negative balance is deleted, all cus-<br>tomers with that customer number really do disappear from<br>the database. The second uses a data generation function to<br>propose attribute values for a new customer record (includ-<br>ing a unique customer number), and checks that after the<br>program has executed only one customer with the generated<br>customer number exists.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:107"><nobr><span class="ft3">We use a prefixed colon to indicate variables that are</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:93"><nobr><span class="ft8">shared amongst the test components -- a notation that will<br>be familiar to many database programmers, since it is com-<br>monly used in various forms of embedded SQL. The shared<br>variables acquire their values when the test harness evalu-<br>ates the precondition (and performs any necessary database<br>preparation steps). These values can then be accessed us-<br>ing the binding method, and can be used in arbitrarily<br>complex assert conditions, as well as in instantiating the<br>post-condition query.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:107"><nobr><span class="ft3">One of the main advantages of using the JUnit framework</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:93"><nobr><span class="ft8">as the basis for the implementation of DOT-Unit is that it<br>allows us to integrate our tool seamlessly into existing de-<br>velopment environments, such as Eclipse</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:335"><nobr><span class="ft5">8</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:341"><nobr><span class="ft3">. Thus, DOT-Unit</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:93"><nobr><span class="ft8">tests are executed in exactly the same way as a standard JU-<br>nit test case, and the results are displayed using the same<br>interface components. This allows testing of database and<br>non-database components to be interleaved in a convenient<br>and natural manner.</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:94"><nobr><span class="ft5">8</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:100"><nobr><span class="ft3">http://www.eclipse.org</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:488"><nobr><span class="ft1">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:519"><nobr><span class="ft1">EVALUATION</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:501"><nobr><span class="ft3">The practicality of this intensional test case approach de-</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:488"><nobr><span class="ft8">pends largely on the performance overhead imposed by the<br>database preparation algorithm. If the time required to ex-<br>ecute each individual test case is significantly higher using<br>our approach than with DBUnit, say, then fewer tests will<br>be able to be executed in the time available and the benefits<br>of faster test development and fewer spurious test failures<br>will be negated.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:501"><nobr><span class="ft3">To gain a handle on the degree of performance overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:488"><nobr><span class="ft8">to be expected from DOT-Unit, we made use of an exist-<br>ing extensional DB test suite that we created for earlier<br>work [20]. This suite was designed for mp3cd browser</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:817"><nobr><span class="ft5">9</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:823"><nobr><span class="ft3">, an</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:488"><nobr><span class="ft8">open-source Java/JDBC program that stories information<br>about mp3 files in a MySQL 5.0 database</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:748"><nobr><span class="ft5">10</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:760"><nobr><span class="ft3">. The schema</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:488"><nobr><span class="ft8">of the database consists of 6 relations with 22 attributes, 7<br>primary key constraints and 6 foreign key constraints. We<br>created an equivalent intensional test suite, consisting of 20<br>test cases, from the extensional suite by converting each test<br>case into DOT-Unit pre- and post-conditions. We also re-<br>placed each hard-coded test parameter in the original tests<br>into constrained query bindings.</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:501"><nobr><span class="ft3">We wanted to investigate two specific aspects of the per-</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:488"><nobr><span class="ft8">formance of DOT-Unit. First, we wanted to compare its<br>performance with that of DBUnit over the equivalent test<br>cases as the database size grows. Second, we wanted to gain<br>some idea of what aspects of DB preparation and testing<br>were dominating the performance of DOT-Unit. The re-<br>sults of the experiments we performed are presented below.<br>All experiments were run on a Pentium-M 2.0GHz machine,<br>with 1Gb RAM, running Ubuntu Linux.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:488"><nobr><span class="ft1">5.1</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:528"><nobr><span class="ft1">Comparison with DBUnit</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:501"><nobr><span class="ft3">At first sight, the extensional approach, as exemplified</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:488"><nobr><span class="ft8">by DBUnit, would seem to be the more efficient method<br>of the two, as the testing harness does not need to spend<br>any time figuring out what updates need to be made prior<br>to each test--it only needs to execute them.</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:786"><nobr><span class="ft3">This does</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:488"><nobr><span class="ft5">9</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:495"><nobr><span class="ft3">http://mp3cdbrowser.sourceforge.net/mp3cd/</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:483"><nobr><span class="ft5">10</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:495"><nobr><span class="ft3">http://www.mysql.com</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">108</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35008.png" alt="background image">
+<DIV style="position:absolute;top:87;left:93"><nobr><span class="ft4">public class ProgramTest extends DatabaseTestCase {</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:129"><nobr><span class="ft4">public void testDeleteCustomer() {</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:165"><nobr><span class="ft9">preCondition(&quot;ANY :cn GENERATED BY SELECT custNo FROM customer WHERE balance &gt; 0;&quot;);<br>Program p = new Program();<br>p.deleteCustomer(binding(&quot;:cn&quot;));<br>postCondition(&quot;NO :cn2 GENERATED BY SELECT custno FROM customer WHERE custNo = :cn;&quot;);</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:129"><nobr><span class="ft9">}<br>public void testNewCustomer() {</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:165"><nobr><span class="ft4">preCondition(&quot;ANY :cn, :name, :addr GENERATED BY SELECT gc.custNo, gc.name, gc.addr FROM</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:201"><nobr><span class="ft4">genCustomerDetails() AS gc WHERE gc.custNo NOT IN (SELECT custNo FROM customer);&quot;);</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:165"><nobr><span class="ft9">Program p = new Program();<br>boolean b = p.newCustomer(binding(&quot;:cn&quot;), binding(&quot;:name&quot;), binding(&quot;:addr&quot;));<br>assertTrue(b);<br>postCondition(&quot;EXACTLY 1 :cn, :name, :addr GENERATED BY SELECT custno, name, addr</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:201"><nobr><span class="ft4">FROM customer;&quot;);</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:129"><nobr><span class="ft4">}</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:93"><nobr><span class="ft4">}</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:329"><nobr><span class="ft3">Figure 5: Example DOT-Unit Test Case</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:93"><nobr><span class="ft8">not happen by accident, but because a human programmer<br>has spent time earlier, deciding exactly what the database<br>should look like for each test case. However, when writing<br>DBUnit tests, it is common to try to reuse database de-<br>scriptions for multiple test cases where possible, to reduce<br>the amount of programming and maintenance time. In this<br>case, some redundant updates will be made before each test<br>case - updates that our extensional approach will not bother<br>to make. It is also the case that DBUnit makes its updates<br>blindly, whether they are needed or not, whereas the inten-<br>sional approach will be able to reuse much of the existing<br>database state for each new test case.</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:107"><nobr><span class="ft3">Given this, it seems likely that the performance of DBUnit</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:93"><nobr><span class="ft8">will be better when the database state required for each<br>test case is relatively small, but that the situation will be<br>reversed when the database state grows much larger.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:439"><nobr><span class="ft3">In</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:93"><nobr><span class="ft8">order to gauge the point at which this change occurs, we<br>ran our two test suites (extensional and intensional) with<br>databases of varying sizes, and measured the execution time<br>taken to execute the whole test suite.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:107"><nobr><span class="ft3">In each case, we generated initial database states of vary-</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:93"><nobr><span class="ft8">ing sizes at random - either populating the database directly<br>(for the intensional test cases) or generating XML descrip-<br>tions of the required state (for the extensional test cases).<br>The results are shown in Figure 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft3">Figure 6:</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:171"><nobr><span class="ft3">Comparison of Approaches as DB Size</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:93"><nobr><span class="ft3">Increases</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:488"><nobr><span class="ft8">To our surprise, although the performance of DOT-Unit was<br>initially worse than that of DBUnit, it overtook its com-<br>petitor at a comparatively small database size of around 20<br>tuples per relation. Obviously, this experiment is a little<br>unfair to DBUnit, since programmers are unlikely to create<br>database descriptions consisting of 1000s of tuples per re-<br>lation. However, tests of this scale will be needed at some<br>point in the development cycle, in order to verify the be-<br>haviour of the system on more realistic data sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:501"><nobr><span class="ft3">In order to assess the behaviour of DOT-Unit more pre-</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:488"><nobr><span class="ft8">cisely, consider the graph in Figure 7, which shows the re-<br>sults at small databases sizes in more detail. It can be ob-<br>served that the performance of DOT-Unit first improves and<br>then begins to degrade again at a database size of around<br>50 tuples per relation.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:506"><nobr><span class="ft3">Figure 7: Detailed Comparison of Approaches</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:488"><nobr><span class="ft8">One possible explanation for this initial improvement in per-<br>formance is that, as the database size rises, so does the<br>probability that the data needed for the test case is al-<br>ready present in the database. For the very small states,<br>a lot of preparation work is required to create the needed<br>data, whereas less work is needed for a more fully populated<br>database. As the database size increases further, however,<br>the costs of making the queries needed to test the precondi-<br>tions and formulate the preparation updates rises, pushing<br>up the time required for the entire preparation step. This</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">109</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35009.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">behaviour may be a peculiarity of the particular test suite<br>used, of course, and further, more extensive studies will be<br>required in order to completely characterise the performance<br>of the DOT-Unit test harness.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:107"><nobr><span class="ft3">From these initial results, however, DOT-Unit appears to</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:93"><nobr><span class="ft8">scale well relative to database size, and the execution times<br>are of the same order of magnitude as those resulting from<br>DBUnit. This suggests that the intensional approach may<br>provide a good compromise between saving expensive pro-<br>grammer time in developing new test cases and expenditure<br>of cheaper processing time in executing the test cases.</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:93"><nobr><span class="ft1">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:134"><nobr><span class="ft1">Effect of Constraint Complexity</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:107"><nobr><span class="ft3">A further concern was the effect of increasing constraint</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:93"><nobr><span class="ft8">complexity on the performance of DOT-Unit test cases. How<br>much additional overhead is added for conditions involving<br>a higher number of selection conditions and (most impor-<br>tantly) joins? In order to assess this, we grouped the test<br>cases into three groups, according to their complexity:</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:113"><nobr><span class="ft3">· A: queries with one or more selections and no joins,</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:113"><nobr><span class="ft3">· B: queries with one or more selections and a join be-</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:127"><nobr><span class="ft3">tween two relations,</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:113"><nobr><span class="ft3">· C: queries with one or more selections and joins be-</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:127"><nobr><span class="ft3">tween three relations.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:93"><nobr><span class="ft8">This gave a test suite with 5 test cases in each of these<br>categories, which we executed against a randomly generated<br>database state with 500 tuples per relation that does not<br>satisfy any of the test case pre-conditions. Figure 8 shows<br>the results obtained for the three complexity categories. We<br>measured the average time taken to execute the test cases<br>in each category, including a breakdown of where the time<br>is spent in each case:</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:113"><nobr><span class="ft3">· Test: the time required to execute the procedural as-</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:127"><nobr><span class="ft3">pects of the test case;</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:113"><nobr><span class="ft3">· Query: the time required to execute the query aspect</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:127"><nobr><span class="ft3">of the test case condition;</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:113"><nobr><span class="ft3">· Prepare the time required to execute the preparation</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:127"><nobr><span class="ft3">aspect of the test case condition.</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:93"><nobr><span class="ft8">While the overall time required to execute the test cases rises<br>as the complexity rises (unsurprisingly), the relative propor-<br>tions of time spent in the various phases remains roughly the<br>same. The preparation phase seems to account for slightly<br>more than half of the time in each case, indicating that sig-<br>nificant improvements could be achieved with a less-naive<br>preparation algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:93"><nobr><span class="ft1">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:125"><nobr><span class="ft1">CONCLUSIONS</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:107"><nobr><span class="ft3">We have presented a new approach to the specification</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:93"><nobr><span class="ft8">of test cases for database systems that attempts to reduce<br>the amount of manual intervention required in between test<br>case runs while also minimising the number of spurious test<br>failures due to inappropriate input database states. The ap-<br>proach has the further advantage that it sits naturally on top<br>of test data sets taken from live databases, and this allows<br>testing to be carried out using realistic data sets without re-<br>quiring significant programmer effort to tailor the data set to<br>the test cases. In effect, the intensional approach we have</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:488"><nobr><span class="ft8">Figure 8: The Affect of Changing Constraint Com-<br>plexity</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:488"><nobr><span class="ft8">described allows software developers to trade programmer<br>time for test execution time</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:501"><nobr><span class="ft3">Our experience has indicated that intensional test cases</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:488"><nobr><span class="ft8">are quick and natural to write for anyone who is familiar<br>with SQL and database programming, although a study<br>with an independent testing team would be necessary be-<br>fore we can make any strong claims in this regard. How-<br>ever, compared with what is involved in writing pure JDBC<br>database test cases and DBUnit test cases, we found that<br>the self-contained nature of the intensional test cases was a<br>definite advantage. Writing DBUnit test cases requires the<br>programmer to continually check that the test case is com-<br>patible with the database description. Moreover, since it is<br>common to try to reuse database descriptions for multiple<br>test cases by combining their requirements into one database<br>state, it becomes very easy to break one test case by chang-<br>ing the database description in order to ready it for another.<br>These problems do not arise with intensional testing, since<br>all the information about the test case is present in a single<br>file (the Java class file).</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:501"><nobr><span class="ft3">We designed this first version of the preparation algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:488"><nobr><span class="ft8">for simplicity and correctness rather than efficiency, and as<br>such it performs rather stupidly in many cases. We are cur-<br>rently exploring options for improving the algorithm, includ-<br>ing more intelligent selection of the order in which the rela-<br>tional algebra tree is traversed, alternating between passing<br>query bindings and passing literal value bindings as is most<br>efficient, and making use of modifications to existing tuples<br>as well as simply adding and deleting tuples (both of which<br>are comparatively expensive operations). The complexity of<br>the conditions we can handle is at present limited by the<br>capabilities of DBMonster, and can be expanded by devel-<br>opment of a custom data generation facility. We also need<br>to expand the range of queries that can be handled, beyond<br>simple select-project-join queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:706"><nobr><span class="ft3">For example, standard</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:488"><nobr><span class="ft8">SQL also allows aggregation and ordering within queries--<br>both of which offer challenges in terms of automatic prepa-<br>ration.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:501"><nobr><span class="ft3">A further problem with our current algorithm is that it</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:488"><nobr><span class="ft8">may sometimes fail to find a solution to the database prepa-<br>ration problem, even though one exists. This is due to the<br>fact that updates are made at leaf nodes before the full set of<br>constraints on those nodes has been encountered. It should</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">110</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="35010.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft8">be possible to address the problem with more sophisticated<br>querying techniques (this is an example of a fairly standard<br>constrained search problem, after all), although this will add<br>to the performance overhead. A thorough study of the trade-<br>offs between spurious failures and more intelligent searching<br>will need to be carried out before any concrete recommen-<br>dations can be made.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:107"><nobr><span class="ft3">Finally, we note that where it is important to test large</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:93"><nobr><span class="ft8">numbers of frame constraints (i.e. aspects of the original<br>database state that are not affected by the execution of the<br>program under test), it may be easier to express the test case<br>using DBUnit, rather than cluttering up the intensional test<br>with many such constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:107"><nobr><span class="ft3">Our work presents a number of possible avenues for future</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:93"><nobr><span class="ft8">work beyond the improvements mentioned above, of which<br>the most urgent is the question of ordering of test cases<br>within suites. This ordering can be in terms of reducing the<br>cost of the modifications to database state or to maximise<br>fault coverage. There is also the question of whether the<br>modifications to database state should always persist be-<br>tween test cases or under certain conditions discarded. For<br>example, a test case may specify that a relation be empty<br>and to satisfy the condition the content is discarded. How-<br>ever, this relation may be required by later test cases and so<br>by discarding its contents we increase the divide between the<br>test state and the real world. This could be accomplished<br>by either embedding the modifications inside of a transac-<br>tion which can then be aborted or by using a hypothetical<br>database engine.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:93"><nobr><span class="ft1">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:125"><nobr><span class="ft1">ACKNOWLEDGMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:107"><nobr><span class="ft3">We thank Leonardo Mariani and the anonymous reviewers</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:93"><nobr><span class="ft8">for comments on earlier drafts of this paper. David Willmor<br>is supported by a research studentship from the UK Engi-<br>neering and Physical Sciences Research Council.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:93"><nobr><span class="ft1">8.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:125"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:100"><nobr><span class="ft3">[1] M. Arenas, L. E. Bertossi, and J. Chomicki.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:121"><nobr><span class="ft8">Consistent query answers in inconsistent databases. In<br>Proceedings of the 18th ACM<br>SIGACT-SIGMOD-SIGART Symposium on Principles<br>of Database Systems (PODS), pages 68­79. ACM<br>Press, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:100"><nobr><span class="ft3">[2] L. E. Bertossi and J. Chomicki. Query answering in</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:121"><nobr><span class="ft8">inconsistent databases. In J. Chomicki, R. van der<br>Meyden, and G. Saake, editors, Logics for Emerging<br>Applications of Databases, pages 43­83. Springer,<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:100"><nobr><span class="ft3">[3] P. Bohannon, M. Flaster, W. Fan, and R. Rastogi. A</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:121"><nobr><span class="ft8">cost-based model and effective heuristic for repairing<br>constraints by value modification. In Proceedings of<br>the SIGMOD Conference, pages 143­154. ACM, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:100"><nobr><span class="ft3">[4] L. Bravo and L. E. Bertossi. Logic programs for</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:121"><nobr><span class="ft8">consistently querying data integration systems. In<br>G. Gottlob and T. Walsh, editors, Proceedings of the<br>18th International Joint Conference on Artificial<br>Intelligence (IJCAI), pages 10­15. Morgan Kaufmann,<br>August 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:100"><nobr><span class="ft3">[5] A. Cal`i, D. Lembo, and R. Rosati. On the decidability</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:121"><nobr><span class="ft8">and complexity of query answering over inconsistent<br>and incomplete databases. In Proceedings of the 22nd<br>ACM SIGACT-SIGMOD-SIGART Symposium on</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:516"><nobr><span class="ft8">Principles of Database Systems (PODS), pages<br>260­271. ACM, June 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:495"><nobr><span class="ft3">[6] D. Chays, S. Dan, P. G. Frankl, F. I. Vokolos, and</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:516"><nobr><span class="ft8">E. J. Weber. A framework for testing database<br>applications. In Proceedings of the International<br>Symposium on Software Testing and Analysis<br>(ISSTA), pages 147­157, August 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:495"><nobr><span class="ft3">[7] D. Chays, Y. Deng, P. G. Frankl, S. Dan, F. I.</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:516"><nobr><span class="ft8">Vokolos, and E. J. Weyuker. An AGENDA for testing<br>relational database applications. Software Testing,<br>Verification and Reliability, 14(1):17­44, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:495"><nobr><span class="ft3">[8] J. Chomicki and J. Marcinkowski. On the</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:516"><nobr><span class="ft8">computational complexity of minimal-change integrity<br>maintenance in relational databases. In L. E. Bertossi,<br>A. Hunter, and T. Schaub, editors, Inconsistency<br>Tolerance, volume 3300 of Lecture Notes in Computer<br>Science, pages 119­150. Springer, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:495"><nobr><span class="ft3">[9] S. S. Cosmadakis and C. H. Papadimitriou. Updates</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:516"><nobr><span class="ft8">of relational views. Journal of the ACM,<br>31(4):742­760, 1984.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:488"><nobr><span class="ft3">[10] S. M. Embury, S. M. Brandt, J. S. Robinson,</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:516"><nobr><span class="ft8">I. Sutherland, F. A. Bisby, W. A. Gray, A. C. Jones,<br>and R. J. White. Adapting integrity enforcement<br>techniques for data reconciliation. Information<br>Systems, 26(8):657­689, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:488"><nobr><span class="ft3">[11] G. Greco, S. Greco, and E. Zumpano. A logical</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:516"><nobr><span class="ft8">framework for querying and repairing inconsistent<br>databases. IEEE Transactions on Knowledge and<br>Data Engineering, 15(6):1389­1408, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:488"><nobr><span class="ft3">[12] A. Guessoum and J. W. Lloyd. Updating knowledge</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:516"><nobr><span class="ft3">bases. New Generation Computing, 8(1):71­89, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:488"><nobr><span class="ft3">[13] F. Haftmann, D. Kossmann, and A. Kreutz. Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:516"><nobr><span class="ft8">regression tests for database applications. In<br>Proceedings of the 2nd Biennial Conference on<br>Innovative Data Systems Research (CIDR), pages<br>95­106. Online Proceedings, January 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:488"><nobr><span class="ft3">[14] G. M. Kapfhammer and M. L. Soffa. A family of test</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:516"><nobr><span class="ft8">adequacy criteria for database-driven applications. In<br>Proceedings of the 11th ACM SIGSOFT Symposium<br>on Foundations of Software Engineering, pages<br>98­107. ACM, September 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:488"><nobr><span class="ft3">[15] R. Langerak. View updates in relational databases</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:516"><nobr><span class="ft8">with an independent scheme. ACM Transactions on<br>Database Systems (TODS), 15(1):40­66, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:488"><nobr><span class="ft3">[16] P. Louridas. Junit: Unit testing and coding in</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:516"><nobr><span class="ft3">tandem. IEEE Software, 22(4):12 ­ 15, July-Aug 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:488"><nobr><span class="ft3">[17] J. Melton and A. R. Simon. SQL:1999 Understanding</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:516"><nobr><span class="ft8">Relational Language Components. Morgan Kaufmann,<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:488"><nobr><span class="ft3">[18] H. Shu. Using constraint satisfaction for view update.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:516"><nobr><span class="ft8">Journal of Intelligent Information Systems,<br>15(2):147­173, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:488"><nobr><span class="ft3">[19] D. Willmor and S. M. Embury. Exploring test</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:516"><nobr><span class="ft8">adequacy for database systems. In Proceedings of the<br>3rd UK Software Testing Research Workshop<br>(UKTest), pages 123­133. The University of Sheffield,<br>September 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:488"><nobr><span class="ft3">[20] D. Willmor and S. M. Embury. A safe regression test</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:516"><nobr><span class="ft8">selection technique for database­driven applications.<br>In Proceedings of the 21st International Conference on<br>Software Maintenance (ICSM), pages 421­430. IEEE<br>Computer Society, September 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft7">111</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

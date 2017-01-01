@@ -1,0 +1,1254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>graphmine.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-08-05T21:35:34+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:6px;font-family:Times;color:#000000;}
+	.ft2{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:105"><nobr><span class="ft0"><b>Scalable Mining of Large Disk-based Graph Databases</b></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:809"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:133"><nobr><span class="ft2">Chen Wang</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:227"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:286"><nobr><span class="ft2">Wei Wang</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:367"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:426"><nobr><span class="ft2">Jian Pei</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:489"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:547"><nobr><span class="ft2">Yongtai Zhu</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:641"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:699"><nobr><span class="ft2">Baile Shi</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:770"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:218"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:224"><nobr><span class="ft3">Fudan University, China,</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:380"><nobr><span class="ft3">{chenwang, weiwang1, 0024065, bshi}@fudan.edu.cn</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:131"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:137"><nobr><span class="ft3">State University of New York at Buffalo, USA &amp; Simon Fraser University, Canada, jianpei@cse.buffalo.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft10">Mining frequent structural patterns from graph databases<br>is an interesting problem with broad applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:409"><nobr><span class="ft3">Most</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:81"><nobr><span class="ft10">of the previous studies focus on pruning unfruitful search<br>subspaces effectively, but few of them address the mining<br>on large, disk-based databases. As many graph databases<br>in applications cannot be held into main memory, scalable<br>mining of large, disk-based graph databases remains a chal-<br>lenging problem. In this paper, we develop an effective index<br>structure, ADI (for adjacency index), to support mining var-<br>ious graph patterns over large databases that cannot be held<br>into main memory. The index is simple and efficient to build.<br>Moreover, the new index structure can be easily adopted in<br>various existing graph pattern mining algorithms. As an ex-<br>ample, we adapt the well-known gSpan algorithm by using<br>the ADI structure. The experimental results show that the<br>new index structure enables the scalable graph pattern min-<br>ing over large databases. In one set of the experiments, the<br>new disk-based method can mine graph databases with one<br>million graphs, while the original gSpan algorithm can only<br>handle databases of up to 300 thousand graphs. Moreover,<br>our new method is faster than gSpan when both can run in<br>main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:81"><nobr><span class="ft4">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:81"><nobr><span class="ft10">H.2.8 [Database<br>Applications]: Data Mining</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:81"><nobr><span class="ft4">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:81"><nobr><span class="ft3">Algorithms, Performances.</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:81"><nobr><span class="ft10">Keywords: Graph mining, index, graph database, frequent<br>graph pattern.</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:81"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:112"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:94"><nobr><span class="ft3">Mining frequent graph patterns is an interesting research</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:81"><nobr><span class="ft3">problem with broad applications, including mining struc-</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:88"><nobr><span class="ft3">This research is supported in part by NSF grant IIS-</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:81"><nobr><span class="ft11">0308001 and National Natural Science Foundation of China<br>(No. 60303008). All opinions, findings, conclusions and rec-<br>ommendations in this paper are those of the authors and do<br>not necessarily reflect the views of the funding agencies.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft12">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>KDD'04, </i>August 22­25, 2004, Seattle, Washington, USA.<br>Copyright 2004 ACM 1-58113-888-1/04/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft10">tural patterns from chemical compound databases, plan<br>databases, XML documents, web logs, citation networks,<br>and so forth. Several efficient algorithms have been pro-<br>posed in the previous studies [2, 5, 6, 8, 11, 9], ranging<br>from mining graph patterns, with and without constraints,<br>to mining closed graph patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:489"><nobr><span class="ft3">Most of the existing methods assume implicitly or explic-</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft10">itly that the databases are not very large, and the graphs<br>in the database are relatively simple. That is, either the<br>databases or the major part of them can fit into main mem-<br>ory, and the number of possible labels in the graphs [6] is<br>small. For example, [11] reports the performance of gSpan,<br>an efficient frequent graph pattern mining algorithm, on<br>data sets of size up to 320 KB, using a computer with 448<br>MB main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:605"><nobr><span class="ft3">Clearly, the graph database and the</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:475"><nobr><span class="ft10">projected databases can be easily accommodated into main<br>memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:489"><nobr><span class="ft3">Under the large main memory assumption, the computa-</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:475"><nobr><span class="ft10">tion is CPU-bounded instead of I/O-bounded. Then, the<br>algorithms focus on effective heuristics to prune the search<br>space. Few of them address the concern of handling large<br>graph databases that cannot be held in main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:489"><nobr><span class="ft3">While the previous studies have made excellent progress</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:475"><nobr><span class="ft10">in mining graph databases of moderate size, mining large,<br>disk-based graph databases remains a challenging problem.<br>When mining a graph database that cannot fit into main<br>memory, the algorithms have to scan the database and nav-<br>igate the graphs repeatedly. The computation becomes I/O-<br>bounded.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:489"><nobr><span class="ft3">For example, we obtain the executable of gSpan from the</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:475"><nobr><span class="ft3">authors and test its scalability. In one of our experiments</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:824"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:830"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:475"><nobr><span class="ft10">we increase the number of graphs in the database to test<br>the scalability of gSpan on the database size. gSpan can<br>only handle up to 300 thousand graphs. In another exper-<br>iment, we increase the number of possible labels in graphs.<br>We observe that the runtime of gSpan increases exponen-<br>tially. It finishes a data set of 300 thousand graphs with 636<br>seconds when there are only 10 possible labels, but needs<br>15 hours for a data set with the same size but the number<br>of possible labels is 45! This result is consistent with the<br>results reported in [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:489"><nobr><span class="ft3">Are there any real-life applications that need to mine large</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:475"><nobr><span class="ft10">graph databases? The answer is yes. For example, in data<br>integration of XML documents or mining semantic web, it is<br>often required to find the common substructures from a huge<br>collection of XML documents. It is easy to see applications<br>with collections of millions of XML documents. There are</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:476"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:482"><nobr><span class="ft3">Details will be provided in Section 6</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">316</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:10px;font-family:Times;color:#000000;}
+	.ft14{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">hundreds of even thousands of different labels. As another<br>example, chemical structures can be modeled as graphs. A<br>chemical database for drug development can contain millions<br>of different chemical structures, and the number of different<br>labels in the graphs can easily go to up to 100. These large<br>databases are disk-based and often cannot be held into main<br>memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:94"><nobr><span class="ft3">Why is mining large disk-based graph databases so chal-</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:81"><nobr><span class="ft10">lenging? In most of the previous studies, the major data<br>structures are designed for being held in main memory. For<br>example, the adjacency-list or adjacency-matrix representa-<br>tions are often used to represent graphs. Moreover, most of<br>the previous methods are based on efficient random accesses<br>to elements (e.g., edges and their adjacent edges) in graphs.<br>However, if the adjacency-list or adjacency-matrix represen-<br>tations cannot be held in main memory, the random accesses<br>to them become very expensive. For disk-based data, with-<br>out any index, random accesses can be extremely costly.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:94"><nobr><span class="ft3">Can we make mining large, disk-based graph databases fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft3">sible and scalable? This is the motivation of our study.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:94"><nobr><span class="ft3">Since the bottleneck is the random accesses to the large</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:81"><nobr><span class="ft10">disk-based graph databases, a natural idea is to index the<br>graph databases properly. Designing effective and efficient<br>index structures is one of the most invaluable exercises in<br>database research. A good index structure can support a<br>general category of data access operations. Particularly, a<br>good index should be efficient and scalable in construction<br>and maintenance, and fast for data access.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:94"><nobr><span class="ft3">Instead of inventing new algorithms to mine large, disk-</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:81"><nobr><span class="ft10">based graph patterns, can we devise an efficient index struc-<br>ture for graph databases so that mining various graph pat-<br>terns can be conducted scalably? Moreover, the index struc-<br>ture should be easy to be adopted in various existing meth-<br>ods with minor adaptations.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:94"><nobr><span class="ft3">Stimulated by the above thinking, in this paper, we study</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:81"><nobr><span class="ft10">the problem of efficient index for scalable mining of large,<br>disk-based graph databases, and make the following contri-<br>butions.</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:101"><nobr><span class="ft3">· By analyzing the frequent graph pattern mining prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:114"><nobr><span class="ft10">lem and the typical graph pattern mining algorithms<br>(taking gSpan as an example), we identify several bot-<br>tleneck data access operations in mining large, disk-<br>based graph databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:101"><nobr><span class="ft3">· We propose ADI (for adjacency index), an effective</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:114"><nobr><span class="ft10">index structure for graphs. We show that the major<br>operations in graph mining can be facilitated efficiently<br>by an ADI structure. The construction algorithm of<br>ADI structure is presented.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:101"><nobr><span class="ft3">· We adapt the gSpan algorithm by using the ADI struc-</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:114"><nobr><span class="ft10">ture on mining large, disk-based graph databases, and<br>achieve algorithm ADI-Mine. We show that ADI-Mine<br>outperforms gSpan in mining complex graph databases<br>and can mine much larger databases than gSpan.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:101"><nobr><span class="ft3">· A systematic performance study is reported to verify</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:114"><nobr><span class="ft10">our design. The results show that our new index struc-<br>ture and algorithm are scalable on large data sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">The remainder of the paper is organized as follows. We</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft10">define the problem of frequent graph pattern mining in Sec-<br>tion 2. The idea of minimum DFS code and algorithm gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:496"><nobr><span class="ft8">b</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:537"><nobr><span class="ft8">b</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:510"><nobr><span class="ft8">a</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:527"><nobr><span class="ft8">a</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:538"><nobr><span class="ft8">y</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:501"><nobr><span class="ft8">z</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:520"><nobr><span class="ft8">x</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:521"><nobr><span class="ft8">x</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:611"><nobr><span class="ft8">x</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:610"><nobr><span class="ft8">x</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:590"><nobr><span class="ft8">z</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:617"><nobr><span class="ft8">a</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:600"><nobr><span class="ft8">a</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:586"><nobr><span class="ft8">b</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:713"><nobr><span class="ft13">v3</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:675"><nobr><span class="ft13">v2</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:697"><nobr><span class="ft13">v1</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:697"><nobr><span class="ft13">v0</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:661"><nobr><span class="ft13">b</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:701"><nobr><span class="ft13">b</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:675"><nobr><span class="ft13">a</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:692"><nobr><span class="ft13">a</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:702"><nobr><span class="ft13">y</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:665"><nobr><span class="ft13">z</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:685"><nobr><span class="ft13">x</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:686"><nobr><span class="ft13">x</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:763"><nobr><span class="ft13">v3</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:783"><nobr><span class="ft13">v2</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:800"><nobr><span class="ft13">v0</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:783"><nobr><span class="ft13">v1</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:748"><nobr><span class="ft13">b</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:787"><nobr><span class="ft13">b</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:762"><nobr><span class="ft13">a</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:778"><nobr><span class="ft13">a</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:789"><nobr><span class="ft13">y</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:752"><nobr><span class="ft13">z</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:771"><nobr><span class="ft13">x</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:772"><nobr><span class="ft13">x</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:494"><nobr><span class="ft14">(a) Graph</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:567"><nobr><span class="ft14">(b) Subgraph</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:657"><nobr><span class="ft14">(c) DFS-tree</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:744"><nobr><span class="ft14">(d) DFS-tree</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:517"><nobr><span class="ft14">G</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:597"><nobr><span class="ft14">G</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:686"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:693"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:773"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:780"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:531"><nobr><span class="ft3">Figure 1: Subgraph and DFS codes</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:475"><nobr><span class="ft10">are reviewed in Section 3, and the major data access opera-<br>tions in graph mining are also identified. The ADI structure<br>is developed in Section 4. The efficient algorithm ADI-Mine<br>for mining large, disk-based graph databases using ADI is<br>presented in Section 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:631"><nobr><span class="ft3">The experimental results are re-</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:475"><nobr><span class="ft10">ported in Section 6. The related work is discussed in Sec-<br>tion 7. Section 8 concludes the paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:475"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:507"><nobr><span class="ft4"><b>PROBLEM DEFINITION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:489"><nobr><span class="ft3">In this paper, we focus on undirected labeled simple graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:475"><nobr><span class="ft10">A labeled graph is a 4-tuple G = (V, E, L, l), where V is a set<br>of vertices, E</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:560"><nobr><span class="ft3"> V × V is a set of edges, L is a set of labels,</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:475"><nobr><span class="ft3">and l : V</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:531"><nobr><span class="ft3"> E  L is a labeling function that assigns a label</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:475"><nobr><span class="ft10">to an edge or a vertex. We denote the vertex set and the<br>edge set of a graph G by V (G) and E(G), respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:489"><nobr><span class="ft3">A graph G is called connected if for any vertices u, v</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:825"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:475"><nobr><span class="ft3">V (G), there exist vertices w</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:655"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:661"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:702"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:718"><nobr><span class="ft3"> V (G) such that</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:475"><nobr><span class="ft3">{(u, w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:512"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:518"><nobr><span class="ft3">), (w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:545"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:551"><nobr><span class="ft3">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:567"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:573"><nobr><span class="ft3">), . . . , (w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:624"><nobr><span class="ft1">n-1</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:646"><nobr><span class="ft3">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:662"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:670"><nobr><span class="ft3">), (w</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:697"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:704"><nobr><span class="ft3">, v)</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:723"><nobr><span class="ft3">}  E(G).</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:489"><nobr><span class="ft3">Frequent patterns in graphs are defined based on subgraph</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:475"><nobr><span class="ft3">isomorphism.</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:490"><nobr><span class="ft3">Definition 1</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:591"><nobr><span class="ft3">(Subgraph isomorphism). Given graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft10">G = (V, E, L, l) and G = (V , E , L , l ). An injective func-<br>tion f : V</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:541"><nobr><span class="ft3"> V is called a subgraph isomorphism from G to</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft3">G if (1) for any vertex u</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:622"><nobr><span class="ft3"> V , f(u)  V and l (u) = l(f(u));</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft3">and (2) for any edge (u, v)</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:655"><nobr><span class="ft3"> E , (f(u), f(v))  E and</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:475"><nobr><span class="ft3">l</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:484"><nobr><span class="ft3">(u, v) = l(f (u), f (v)).</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:489"><nobr><span class="ft3">If there exists a subgraph isomorphism from G to G, then</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft3">G</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:495"><nobr><span class="ft3">is called a subgraph of G and G is called a supergraph of</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:475"><nobr><span class="ft3">G</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:490"><nobr><span class="ft3">, denoted as G</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:601"><nobr><span class="ft3">G.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:489"><nobr><span class="ft3">For example, the graph G in Figure 1(b) is a subgraph of</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:475"><nobr><span class="ft3">G in Figure 1(a).</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:489"><nobr><span class="ft3">A graph database is a set of tuples (gid, G), where gid is</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:475"><nobr><span class="ft10">a graph identity and G is a graph. Given a graph database<br>GDB, the support of a graph G in GDB, denoted as sup(G )<br>for short, is the number of graphs in the database that are<br>supergraphs of G , i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:618"><nobr><span class="ft3">|{(gid, G)  GDB|G</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:763"><nobr><span class="ft3">G</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:774"><nobr><span class="ft3">}|.</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:489"><nobr><span class="ft3">For a support threshold min sup (0</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:699"><nobr><span class="ft3"> min sup  |GDB|),</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:475"><nobr><span class="ft3">a graph G is called a frequent graph pattern if sup(G )</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:823"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:475"><nobr><span class="ft3">min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:527"><nobr><span class="ft3">. In many applications, users are only interested</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:475"><nobr><span class="ft10">in the frequent recurring components of graphs. Thus, we<br>put a constraint on the graph patterns: we only find the<br>frequent graph patterns that are connected.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:475"><nobr><span class="ft10">Problem definition. Given a graph database GDB and<br>a support threshold min sup. The problem of mining fre-<br>quent connected graph patterns is to find the complete set of<br>connected graphs that are frequent in GDB.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">317</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:5px;font-family:Times;color:#000000;}
+	.ft16{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft18{font-size:15px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173003.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:112"><nobr><span class="ft4"><b>MINIMUM DFS CODE AND GSPAN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:94"><nobr><span class="ft3">In [11], Yan and Han developed the lexicographic order-</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:81"><nobr><span class="ft10">ing technique to facilitate the graph pattern mining. They<br>also propose an efficient algorithm, gSpan, one of the most<br>efficient graph pattern mining algorithms so far.</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:398"><nobr><span class="ft3">In this</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:81"><nobr><span class="ft10">section, we review the essential ideas of gSpan, and point<br>out the bottlenecks in the graph pattern mining from large<br>disk-based databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:81"><nobr><span class="ft4"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:121"><nobr><span class="ft4"><b>Minimum DFS Code</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:94"><nobr><span class="ft3">In order to enumerate all frequent graph patterns effi-</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:81"><nobr><span class="ft10">ciently, we want to identify a linear order on a representation<br>of all graph patterns such that if two graphs are in identical<br>representation, then they are isomorphic. Moreover, all the<br>(possible) graph patterns can be enumerated in the order<br>without any redundancy.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:94"><nobr><span class="ft3">The depth-first search tree (DFS-tree for short) [3] is pop-</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:81"><nobr><span class="ft3">ularly used for navigating connected graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:372"><nobr><span class="ft3">Thus, it is</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:81"><nobr><span class="ft10">natural to encode the edges and vertices in a graph based<br>on its DFS-tree. All the vertices in G can be encoded in<br>the pre-order of T . However, the DFS-tree is generally not<br>unique for a graph. That is, there can be multiple DFS-trees<br>corresponding to a given graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:94"><nobr><span class="ft3">For example, Figures 1(c) and 1(d) show two DFS-trees of</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:81"><nobr><span class="ft10">the graph G in Figure 1(a). The thick edges in Figures 1(c)<br>and 1(d) are those in the DFS-trees, and are called forward<br>edges, while the thin edges are those not in the DFS-trees,<br>and are called backward edges. The vertices in the graph<br>are encoded v</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:165"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:176"><nobr><span class="ft3">to v</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:200"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:211"><nobr><span class="ft3">according to the pre-order of the cor-</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:81"><nobr><span class="ft3">responding DFS-trees.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:94"><nobr><span class="ft3">To solve the uniqueness problem, a minimum DFS code</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft3">notation is proposed in [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">For any connected graph G, let T be a DFS-tree of G.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft3">Then, an edge is always listed as (v</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:295"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:300"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:313"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:319"><nobr><span class="ft3">) such that i &lt; j. A</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:81"><nobr><span class="ft3">linear order</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:156"><nobr><span class="ft3"> on the edges in G can be defined as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft3">Given edges e = (v</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:202"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:207"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:220"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:225"><nobr><span class="ft3">) and e = (v</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:311"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:319"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:332"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:342"><nobr><span class="ft3">). e</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:374"><nobr><span class="ft3"> e if (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:81"><nobr><span class="ft10">when both e and e are forward edges (i.e., in DFS-tree T ),<br>j &lt; j</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:128"><nobr><span class="ft3">or (i &gt; i</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:195"><nobr><span class="ft3"> j = j ); (2) when both e and e are</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:81"><nobr><span class="ft10">backward edges (i.e., edges not in DFS-tree T ), i &lt; i or<br>(i = i</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:125"><nobr><span class="ft3"> j &lt; j ); (3) when e is a forward edge and e is a</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft3">backward edge, j</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:187"><nobr><span class="ft3"> i ; or (4) when e is a backward edge and</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft3">e</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:96"><nobr><span class="ft3">is a forward edge, i &lt; j .</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:94"><nobr><span class="ft3">For a graph G and a DFS-tree T , a list of all edges in</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft3">E(G) in order</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:168"><nobr><span class="ft3"> is called the DFS code of G with respect to</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:81"><nobr><span class="ft10">T , denoted as code(G, T ). For example, the DFS code with<br>respect to the DFS-tree T</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:239"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:251"><nobr><span class="ft3">in Figure 1(c) is code(G, T</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:412"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:418"><nobr><span class="ft3">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:86"><nobr><span class="ft3">(v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:98"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:104"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:117"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:123"><nobr><span class="ft3">, x, a, x)-(v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:187"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:193"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:206"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:212"><nobr><span class="ft3">, x, a, z)-(v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:275"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:281"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:294"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:300"><nobr><span class="ft3">, z, b, x)-(v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:362"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:368"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:381"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:387"><nobr><span class="ft3">, x, b, y) ,</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft3">where an edge (v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:187"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:192"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:205"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:210"><nobr><span class="ft3">) is written as (v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:317"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:321"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:338"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:344"><nobr><span class="ft3">, l(v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:370"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:375"><nobr><span class="ft3">), l(v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:407"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:411"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:424"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:430"><nobr><span class="ft3">),</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft3">l(v</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:97"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:103"><nobr><span class="ft3">)), i.e., the labels are included. Similarly, the DFS code</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft3">with respect to the DFS-tree T</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:302"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:320"><nobr><span class="ft3">in Figure 1(d) is</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft3">code(G, T</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:137"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:144"><nobr><span class="ft3">) = (v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:189"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:195"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:208"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:215"><nobr><span class="ft3">, y, b, x)-(v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:276"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:282"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:295"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:301"><nobr><span class="ft3">, x, a, x)-(v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:365"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:371"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:384"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:390"><nobr><span class="ft3">, x, b, z)-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft3">(v</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:93"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:99"><nobr><span class="ft3">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:112"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:118"><nobr><span class="ft3">, z, a, x) .</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:94"><nobr><span class="ft3">Suppose there is a linear order over the label set L. Then,</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft3">for DFS-trees T</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:177"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:189"><nobr><span class="ft3">and T</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:225"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:237"><nobr><span class="ft3">on the same graph G, their DFS</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft10">codes can be compared lexically according to the labels of<br>the edges. For example, we have code(G, T</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:340"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:347"><nobr><span class="ft3">) &lt; code(G, T</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:428"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:434"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft3">in Figures 1(c) and 1(d).</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft3">The lexically minimum DFS code is selected as the repre-</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft10">sentation of the graph, denoted as min(G). In our example<br>in Figure 1, min(G) = code(G, T</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:278"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:284"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">Minimum DFS code has a nice property: two graphs G</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft10">and G are isomorphic if and only if min(G) = min(G ).<br>Moreover, with the minimum DFS code of graphs, the prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:475"><nobr><span class="ft10">Input: a DFS code s, a graph database GDB and min sup<br>Output: the frequent graph patterns<br>Method:</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:503"><nobr><span class="ft10">if s is not a minimum DFS code then return;<br>output s as a pattern if s is frequent in GDB;<br>let C =</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:552"><nobr><span class="ft3">;</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:503"><nobr><span class="ft3">scan GDB once, find every edge e such that</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:517"><nobr><span class="ft3">e can be concatenated to s to form a DFS code s</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:828"><nobr><span class="ft3">e</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:517"><nobr><span class="ft3">and s</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:563"><nobr><span class="ft3">e is frequent; C = C</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:689"><nobr><span class="ft3"> {s e};</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:503"><nobr><span class="ft17">sort the DFS codes in C in lexicographic order;<br>for each s e  C in lexicographic order do</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:517"><nobr><span class="ft3">call gSpan(s e, GDB, min sup);</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:503"><nobr><span class="ft3">return;</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:559"><nobr><span class="ft3">Figure 2: Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:706"><nobr><span class="ft3">gSpan.</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:475"><nobr><span class="ft10">lem of mining frequent graph patterns is reduced to mining<br>frequent minimum DFS codes, which are sequences, with<br>some constraints that preserve the connectivity of the graph<br>patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:475"><nobr><span class="ft4"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:516"><nobr><span class="ft4"><b>Algorithm gSpan</b></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:489"><nobr><span class="ft3">Based on the minimum DFS codes of graphs, a depth-</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:475"><nobr><span class="ft10">first search, pattern-growth algorithm, gSpan, is developed<br>in [11], as shown in Figure 2. The central idea is to con-<br>duct a depth-first search of minimum DFS codes of possi-<br>ble graph patterns, and obtain longer DFS codes of larger<br>graph patterns by attaching new edges to the end of the<br>minimum DFS code of the existing graph pattern.</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:810"><nobr><span class="ft3">The</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:475"><nobr><span class="ft10">anti-monotonicity of frequent graph patterns, i.e., any super<br>pattern of an infrequent graph pattern cannot be frequent, is<br>used to prune.</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:489"><nobr><span class="ft3">Comparing to the previous methods on graph pattern</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:475"><nobr><span class="ft10">mining, gSpan is efficient, since gSpan employs the smart<br>idea of minimum DFS codes of graph patterns that facili-<br>tates the isomorphism test and pattern enumeration. More-<br>over, gSpan inherits the depth-first search, pattern-growth<br>methodology to avoid any candidate-generation-and-test. As<br>reported in [11], the advantages of gSpan are verified by the<br>experimental results on both real data sets and synthetic<br>data sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:475"><nobr><span class="ft4"><b>3.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:516"><nobr><span class="ft18"><b>Bottlenecks in Mining Disk-based Graph<br>Databases</b></span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:489"><nobr><span class="ft3">Algorithm gSpan is efficient when the database can be</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft10">held into main memory. For example, in [11], gSpan is scal-<br>able for databases of size up to 320 KB using a computer<br>with 448 MB main memory. However, it may encounter dif-<br>ficulties when mining large databases. The major overhead<br>is that gSpan has to randomly access elements (e.g., edges<br>and vertices) in the graph database as well as the projec-<br>tions of the graph database many times. For databases that<br>cannot be held into main memory, the mining becomes I/O<br>bounded and thus is costly.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft3">Random accesses to elements in graph databases and check-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft10">ing the isomorphism are not unique to gSpan. Instead, such<br>operations are extensive in many graph pattern mining al-<br>gorithms, such as FSG [6] (another efficient frequent graph<br>pattern mining algorithm) and CloseGraph [9] (an efficient<br>algorithm for mining frequent closed graph patterns).</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">In mining frequent graph patterns, the major data access</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">operations are as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">318</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft3">OP1: Edge support checking. Find the support of an</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:114"><nobr><span class="ft3">edge (l</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:156"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:163"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:174"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:180"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:190"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:197"><nobr><span class="ft3">), where l</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:256"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:269"><nobr><span class="ft3">and l</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:300"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:312"><nobr><span class="ft3">are the labels of ver-</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:114"><nobr><span class="ft3">tices and l</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:177"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:188"><nobr><span class="ft3">is the label of the edge, respectively;</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:81"><nobr><span class="ft3">OP2: Edge-host graph checking. For an edge e</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:429"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:114"><nobr><span class="ft3">(l</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:124"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:131"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:141"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:147"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:158"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:164"><nobr><span class="ft3">), find the graphs in the database where e ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:114"><nobr><span class="ft3">pears;</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:81"><nobr><span class="ft3">OP3: Adjacent edge checking. For</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:332"><nobr><span class="ft3">an</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:361"><nobr><span class="ft3">edge</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:402"><nobr><span class="ft3">e</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:429"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:114"><nobr><span class="ft3">(l</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:124"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:131"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:141"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:147"><nobr><span class="ft3">, l</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:158"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:164"><nobr><span class="ft3">), find the adjacent edges of e in the graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:114"><nobr><span class="ft10">where e appears, so that the adjacent edges can be<br>used to expand the current graph pattern to larger<br>ones.</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:94"><nobr><span class="ft3">Each of the above operations may happen many times</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:81"><nobr><span class="ft10">during the mining of frequent graph patterns. Without an<br>appropriate index, each of the above operations may have to<br>scan the graph database or its projections. If the database<br>and its projections cannot fit into main memory, the scan-<br>ning and checking can be very costly.</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:94"><nobr><span class="ft3">Can we devise an index structure so that the related in-</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:81"><nobr><span class="ft10">formation can be kept and all the above operations can be<br>achieved using the index only, and thus without scanning<br>the graph database and checking the graphs? This motivates<br>the design of the ADI structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:81"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:112"><nobr><span class="ft4"><b>THE ADI STRUCTURE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:94"><nobr><span class="ft3">In this section we will devise an effective data structure,</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:81"><nobr><span class="ft10">ADI (for adjacency index), to facilitate the scalable mining<br>of frequent graph patterns from disk-based graph databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:81"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:121"><nobr><span class="ft4"><b>Data Structure</b></span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:94"><nobr><span class="ft3">The ADI index structure is a three-level index for edges,</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:81"><nobr><span class="ft10">graph-ids and adjacency information. An example is shown<br>in Figure 3, where two graphs, G</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:281"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:292"><nobr><span class="ft3">and G</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:330"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:336"><nobr><span class="ft3">, are indexed.</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:85"><nobr><span class="ft19"><i>4.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:134"><nobr><span class="ft19"><i>Edge Table</i></span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:94"><nobr><span class="ft3">There can be many edges in a graph database. The edges</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:81"><nobr><span class="ft10">are often retrieved by the labels during the graph pattern<br>mining, such as in the operations identified in Section 3.3.<br>Therefore, the edges are indexed by their labels in the ADI<br>structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:94"><nobr><span class="ft3">In ADI, an edge e = (u, v) is recorded as a tuple</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft10">(l(u), l(u, v), l(v)) in the edge table, and is indexed by the<br>labels of the vertices, i.e., l(u) and l(v), and the label of<br>the edge itself, i.e., l(u, v). Each edge appears only once in<br>the edge table, no matter how many times it appears in the<br>graphs. For example, in Figure 3, edge (A, d, C) appears<br>once in graph G</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:182"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:194"><nobr><span class="ft3">and twice in graph G</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:328"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:334"><nobr><span class="ft3">. However, there</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft10">is only one entry for the edge in the edge table in the ADI<br>structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:94"><nobr><span class="ft3">All edges in the edge table in the ADI structure are sorted.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft10">When the edge table is stored on disk, a B+-tree is built on<br>the edges. When part of the edge table is loaded into main<br>memory, it is organized as a sorted list. Thus, binary search<br>can be conducted.</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:85"><nobr><span class="ft19"><i>4.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:134"><nobr><span class="ft19"><i>Linked Lists of Graph-ids</i></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft3">For each edge e, the identities of the graphs that contain</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft3">e form a linked list of graph-ids. Graph-id G</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:355"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:365"><nobr><span class="ft3">is in the list</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:81"><nobr><span class="ft10">of edge e if and only if there exists at least one instance of e<br>in G</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:108"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:112"><nobr><span class="ft3">. For example, in Figure 3, both G</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:323"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:334"><nobr><span class="ft3">and G</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:371"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:382"><nobr><span class="ft3">appear in</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft3">the list of edge (A, d, C), since the edge appears in G</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:402"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:412"><nobr><span class="ft3">once</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">and in G</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:135"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:146"><nobr><span class="ft3">twice. Please note that the identity of graph G</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:435"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:626"><nobr><span class="ft5">G1</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:625"><nobr><span class="ft5">G2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:625"><nobr><span class="ft5">G1</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:624"><nobr><span class="ft5">G2</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:625"><nobr><span class="ft5">G2</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:625"><nobr><span class="ft5">G1</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:576"><nobr><span class="ft5">A</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:541"><nobr><span class="ft5">B</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:612"><nobr><span class="ft5">C</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:576"><nobr><span class="ft5">D</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:551"><nobr><span class="ft5">a</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:603"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:602"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:554"><nobr><span class="ft5">b</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:585"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:553"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:571"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:619"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:572"><nobr><span class="ft5">G1</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:685"><nobr><span class="ft5">A</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:718"><nobr><span class="ft5">B</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:686"><nobr><span class="ft5">C</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:655"><nobr><span class="ft5">C</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:717"><nobr><span class="ft5">D</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:655"><nobr><span class="ft5">B</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:706"><nobr><span class="ft5">a</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:661"><nobr><span class="ft5">c</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:666"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:690"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:715"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:698"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:728"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:707"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:646"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:643"><nobr><span class="ft5">5</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:683"><nobr><span class="ft5">G2</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:534"><nobr><span class="ft5">Edges</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:681"><nobr><span class="ft5">Block 1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:680"><nobr><span class="ft5">Block 2</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:585"><nobr><span class="ft5">Graph-ids (on disk)</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:711"><nobr><span class="ft5">1  2</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:711"><nobr><span class="ft5">2  3</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:709"><nobr><span class="ft5">1  4</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:710"><nobr><span class="ft5">3  4</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:710"><nobr><span class="ft5">1  2</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:710"><nobr><span class="ft5">1  4</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:709"><nobr><span class="ft5">1  6</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:710"><nobr><span class="ft5">2  3</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:709"><nobr><span class="ft5">4  5</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:533"><nobr><span class="ft5">(A, a, B)</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:533"><nobr><span class="ft5">(A, d, C)</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:532"><nobr><span class="ft5">(B, b, D)</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:625"><nobr><span class="ft5">G2</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:625"><nobr><span class="ft5">G1</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:533"><nobr><span class="ft5">(B, c, C)</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:533"><nobr><span class="ft5">(B, d, D)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:533"><nobr><span class="ft5">(C, d, D)</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:680"><nobr><span class="ft5">Adjacency (on disk)</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:686"><nobr><span class="ft5">6</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:555"><nobr><span class="ft3">Figure 3: An</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:651"><nobr><span class="ft3">ADI structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:475"><nobr><span class="ft10">appears in the linked list of edge e only once if e appears in<br>G</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:486"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:491"><nobr><span class="ft3">, no matter how many times edge e appears in G</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:788"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:793"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:489"><nobr><span class="ft3">A list of graph-ids of an edge are stored together. There-</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:475"><nobr><span class="ft10">fore, given an edge, it is efficient to retrieve all the identities<br>of graphs that contain the edge.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:489"><nobr><span class="ft3">Every entry in the edge table is linked to its graph-id</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:475"><nobr><span class="ft10">linked list. By this linkage, the operation OP2: edge-host<br>graph checking can be conducted efficiently. Moreover, to<br>facilitate operation OP1: edge support checking, the length<br>of the graph-id linked list, i.e., the support of an edge, is<br>registered in the edge table.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:479"><nobr><span class="ft19"><i>4.1.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:529"><nobr><span class="ft19"><i>Adjacency Information</i></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:489"><nobr><span class="ft3">The edges in a graph are stored as a list of the edges</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:475"><nobr><span class="ft10">encoded. Adjacent edges are linked together by the common<br>vertices, as shown in Figure 3. For example, in block 1,<br>all the vertices having the same label (e.g., 1) are linked<br>together as a list. Since each edge has two vertices, only<br>two pointers are needed for each edge.</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:489"><nobr><span class="ft3">Moreover, all the edges in a graph are physically stored</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:475"><nobr><span class="ft10">in one block on disk (or on consecutive blocks if more space<br>is needed), so that the information about a graph can be<br>retrieved by reading one or several consecutive blocks from<br>disk. Often, when the graph is not large, a disk-page (e.g.,<br>of size 4k) can hold more than one graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:489"><nobr><span class="ft3">Encoded edges recording the adjacency information are</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:475"><nobr><span class="ft10">linked to the graph-ids that are further associated with the<br>edges in the edge table.</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:475"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:516"><nobr><span class="ft4"><b>Space Requirement</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:489"><nobr><span class="ft3">The storage of an ADI structure is flexible. If the graph</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft10">database is small, then the whole index can be held into<br>main memory. On the other hand, if the graph database<br>is large and thus the ADI structure cannot fit into main</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">319</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">memory, some levels can be stored on disk. The level of<br>adjacency information is the most detailed and can be put<br>on disk. If the main memory is too small to hold the graph-<br>id linked lists, they can also be accommodated on disk. In<br>the extreme case, even the edge table can be held on disk<br>and a B+-tree or hash index can be built on the edge table.</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:96"><nobr><span class="ft3">Theorem 1</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:186"><nobr><span class="ft3">(Space complexity). For graph database</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:81"><nobr><span class="ft3">GDB</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:137"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:170"><nobr><span class="ft3">{G</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:188"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:194"><nobr><span class="ft3">, . . . , G</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:236"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:243"><nobr><span class="ft3">},</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:272"><nobr><span class="ft3">the</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:305"><nobr><span class="ft3">space</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:351"><nobr><span class="ft3">complexity</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:430"><nobr><span class="ft3">is</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:81"><nobr><span class="ft3">O(</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:112"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:112"><nobr><span class="ft1">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:132"><nobr><span class="ft3">|E(G</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:163"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:168"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:174"><nobr><span class="ft3">|).</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:81"><nobr><span class="ft10">Proof. The space complexity is determined by the following<br>facts. (1) The number of tuples in the edge table is equal to<br>the number of distinct edges in the graph database, which is<br>bounded by</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:170"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:170"><nobr><span class="ft1">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:191"><nobr><span class="ft3">|E(G</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:222"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:227"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:232"><nobr><span class="ft3">|; (2) The number of entries in the</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:81"><nobr><span class="ft10">graph-id linked lists in the worst case is the number of edges<br>in the graph database, i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:258"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:258"><nobr><span class="ft1">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:279"><nobr><span class="ft3">|E(G</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:310"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:315"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:320"><nobr><span class="ft3">| again; and (3) The</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:81"><nobr><span class="ft3">adjacency information part records every edge exactly once.</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:94"><nobr><span class="ft3">Please note that, in many application, it is reasonable to</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:81"><nobr><span class="ft10">assume that the edge table can be held into main memory.<br>For example, suppose we have 1, 000 distinct vertex labels<br>and 1, 000 distinct edge labels. There can be up to 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:429"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:81"><nobr><span class="ft3">999</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:103"><nobr><span class="ft3">÷ 2 × 1000 = 4.995 × 10</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:243"><nobr><span class="ft1">8</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:253"><nobr><span class="ft3">different edges, i.e., all possible</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:81"><nobr><span class="ft10">combinations of vertex and edge labels. Suppose up to 1%<br>edges are frequent, there are only less than 5 million different<br>edges, and thus the edge table can be easily held into main<br>memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:94"><nobr><span class="ft3">In real applications, the graphs are often sparse, that is,</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:81"><nobr><span class="ft10">not all possible combinations of vertex and edge labels ap-<br>pear in the graphs as an edge. Moreover, users are often<br>interested in only those frequent edges. That shrinks the<br>edge table substantially.</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:81"><nobr><span class="ft4"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:121"><nobr><span class="ft4"><b>Search Using ADI</b></span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:94"><nobr><span class="ft3">Now, let us examine how the ADI structure can facilitate</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:81"><nobr><span class="ft10">the major data access operations in graph pattern mining<br>that are identified in Section 3.3.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:81"><nobr><span class="ft3">OP1: Edge support checking Once an ADI structure is</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:114"><nobr><span class="ft10">constructed, this information is registered on the edge<br>table for every edge. We only need to search the edge<br>table, which is either indexed (when the table is on<br>disk) or can be searched using binary search (when<br>the table is in main memory).</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:114"><nobr><span class="ft10">In some cases, we may need to count the support of an<br>edge in a subset of graphs G</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:300"><nobr><span class="ft3"> G. Then, the linked</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:114"><nobr><span class="ft10">list of the graph-ids of the edge is searched. There is<br>no need to touch any record in the adjacency informa-<br>tion part. That is, we do not need to search any detail<br>about the edges. Moreover, for counting supports of<br>edges in projected databases, we can maintain the sup-<br>port of each edge in the current projected database and<br>thus we do not even search the graph-id linked lists.</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:81"><nobr><span class="ft3">OP2: Edge-host graph checking We only need to search</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:114"><nobr><span class="ft10">the edge table for the specific edge and follow the link<br>from the edge to the list of graph-ids. There is no<br>need to search any detail from the part of adjacency<br>information.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft3">OP3: Adjacent edge checking Again, we start from an</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:114"><nobr><span class="ft10">entry in the edge table and follow the links to find<br>the list of graphs where the edge appears. Then, only</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft10">Input: a graph database GDB and min sup<br>Output: the ADI structure<br>Method:</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:503"><nobr><span class="ft17">scan GDB once, find the frequent edges;<br>initialize the edge table for frequent edges;<br>for each graph do</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:517"><nobr><span class="ft10">remove infrequent edges;<br>compute the mininmum DFS code [11];<br>use the DFS-tree to encode the vertices;<br>store the edges in the graph onto disk and form</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:531"><nobr><span class="ft3">the adjacency information;</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:517"><nobr><span class="ft3">for each edge do</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:531"><nobr><span class="ft3">insert the graph-id to the graph-id list</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:544"><nobr><span class="ft3">associated with the edge;</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:531"><nobr><span class="ft3">link the graph-id to the related adjacency</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:544"><nobr><span class="ft3">information;</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:517"><nobr><span class="ft3">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:503"><nobr><span class="ft3">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:509"><nobr><span class="ft3">Figure 4: Algorithm of</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:674"><nobr><span class="ft3">ADI construction.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:509"><nobr><span class="ft10">the blocks containing the details of the instances of the<br>edge are visited, and there is no need to scan the whole<br>database. The average I/O complexity is O(log n +<br>m + l), where n is the number of distinct edges in the<br>graph, m is the average number of graph-ids in the<br>linked lists of edges, and l is the average number of<br>blocks occupied by a graph. In many applications, m<br>is orders of magnitudes smaller than the n, and l is a<br>very small number (e.g., 1 or 2).</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:489"><nobr><span class="ft3">The algorithms for the above operations are simple. Lim-</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:475"><nobr><span class="ft10">ited by space, we omit the details here. As can be seen,<br>once the ADI structure is constructed, there is no need to<br>scan the database for any of the above operations. That is,<br>the ADI structure can support the random accesses and the<br>mining efficiently.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:475"><nobr><span class="ft4"><b>4.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:516"><nobr><span class="ft4"><b>Construction of ADI</b></span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:489"><nobr><span class="ft3">Given a graph database, the corresponding ADI structure</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:475"><nobr><span class="ft3">is easy to construct by scanning the database only twice.</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:489"><nobr><span class="ft3">In the first scan, the frequent edges are identified. Accord-</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:475"><nobr><span class="ft10">ing to the apriori property of frequent graph patterns, only<br>those frequent edges can appear in frequent graph patterns<br>and thus should be indexed in the ADI structure. After the<br>first scan, the edge table of frequent edges is initialized.</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:489"><nobr><span class="ft3">In the second scan, graphs in the database are read and</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:475"><nobr><span class="ft10">processed one by one. For each graph, the vertices are en-<br>coded according to the DFS-tree in the minimum DFS code,<br>as described in [11] and Section 3. Only the vertices involved<br>in some frequent edges should be encoded. Then, for each<br>frequent edge, the graph-id is inserted into the correspond-<br>ing linked list, and the adjacency information is stored. The<br>sketch of the algorithm is shown in Figure 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:475"><nobr><span class="ft19"><i>Cost Analysis</i></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft10">There are two major costs in the ADI construction: writing<br>the adjacency information and updating the linked lists of<br>graph-ids. Since all edges in a graph will reside on a disk<br>page or several consecutive disk pages, the writing of adja-<br>cency information is sequential. Thus, the cost of writing<br>adjacency information is comparable to that of making a</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">320</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173006.png" alt="background image">
+<DIV style="position:absolute;top:107;left:217"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:188"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:160"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:195"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:187"><nobr><span class="ft5">D</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:215"><nobr><span class="ft5">C</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:186"><nobr><span class="ft5">A</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:158"><nobr><span class="ft5">B</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:169"><nobr><span class="ft5">a</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:341"><nobr><span class="ft5">d  1</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:292"><nobr><span class="ft5">d  3</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:341"><nobr><span class="ft5">d  4</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:292"><nobr><span class="ft5">b  2</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:292"><nobr><span class="ft5">a  1</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:341"><nobr><span class="ft5">b  3</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:341"><nobr><span class="ft5">d  4</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:292"><nobr><span class="ft5">a  2</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:244"><nobr><span class="ft5">4  C</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:244"><nobr><span class="ft5">3  D</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:244"><nobr><span class="ft5">2  B</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:244"><nobr><span class="ft5">1  A</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:207"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:206"><nobr><span class="ft5">d</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:170"><nobr><span class="ft5">b</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:146"><nobr><span class="ft3">(a) The graph and the adjacency-lists</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:212"><nobr><span class="ft3">1 A</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:250"><nobr><span class="ft3">2 B</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:287"><nobr><span class="ft3">3 D</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:325"><nobr><span class="ft3">4 C</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:173"><nobr><span class="ft3">1 A</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:219"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:257"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:295"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:332"><nobr><span class="ft3">d</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:174"><nobr><span class="ft3">2 B</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:219"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:257"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:295"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:333"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:173"><nobr><span class="ft3">3 D</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:219"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:257"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:295"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:332"><nobr><span class="ft3">d</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:174"><nobr><span class="ft3">4 C</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:219"><nobr><span class="ft3">d</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:257"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:294"><nobr><span class="ft3">d</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:333"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:182"><nobr><span class="ft3">(b) The adjacency-matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:81"><nobr><span class="ft10">Figure 5: The adjacency-list and adjacency-matrix<br>representations of graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft3">copy of the original database plus some bookkeeping.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:94"><nobr><span class="ft3">Updating the linked lists of graph-ids requires random</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:81"><nobr><span class="ft10">accesses to the edge table and the linked lists. In many<br>cases, the edge table can be held into main memory, but not<br>the linked list. Therefore, it is important to cache the linked<br>lists of graph-ids in a buffer. The linked lists can be cached<br>according to the frequency of the corresponding edges.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:94"><nobr><span class="ft3">Constructing ADI for large, disk-based graph database</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft10">may not be cheap. However, the ADI structure can be built<br>once and used by the mining many times. That is, we can<br>build an ADI structure using a very low support threshold,<br>or even set min sup = 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:243"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:261"><nobr><span class="ft3">The index is stored on disk.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:81"><nobr><span class="ft10">Then, the mining in the future can use the index directly,<br>as long as the support threshold is no less than the one that<br>is used in the ADI structure construction.</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:81"><nobr><span class="ft4"><b>4.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:121"><nobr><span class="ft4"><b>Projected Databases Using ADI</b></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:94"><nobr><span class="ft3">Many depth-first search, pattern-growth algorithms uti-</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft10">lize proper projected databases. During the depth-first search<br>in graph pattern mining, the graphs containing the cur-<br>rent graph pattern P should be collected and form the P -<br>projected database. Then, the further search of larger graph<br>patterns having P as the prefix of their minimum DFS codes<br>can be achieved by searching only the P -projected database.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:94"><nobr><span class="ft3">Interestingly, the projected databases can be constructed</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:81"><nobr><span class="ft10">using ADI structures. A projected database can be stored<br>in the form of an ADI structure. In fact, only the edge table<br>and the list of graph-ids should be constructed for a new<br>projected database and the adjacency information residing<br>on disk can be shared by all projected databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:409"><nobr><span class="ft3">That</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:81"><nobr><span class="ft10">can save a lot of time and space when mining large graph<br>databases that contain many graph patterns, where many<br>projected databases may have to be constructed.</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:81"><nobr><span class="ft4"><b>4.6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:121"><nobr><span class="ft4"><b>Why Is ADI Good for Large Databases?</b></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:94"><nobr><span class="ft3">In most of the previous methods for graph pattern mining,</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:81"><nobr><span class="ft10">the adjacency-list or adjacency-matrix representations are<br>used to represent graphs. Each graph is represented by an<br>adjacency-matrix or a set of adjacency-lists. An example is<br>shown in Figure 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:81"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:88"><nobr><span class="ft3">If min sup = 1, then the ADI structure can be constructed</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:81"><nobr><span class="ft11">by scanning the graph database only once. We do not need<br>to find frequent edges, since every edge appearing in the<br>graph database is frequent.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:489"><nobr><span class="ft3">In Figure 5(a), the adjacency-lists have 8 nodes and 8</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft10">pointers. It stores the same information as Block 1 in Fig-<br>ure 3, where the block has 4 nodes and 12 pointers.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:489"><nobr><span class="ft3">The space requirements of adjacency-lists and ADI struc-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft10">ture are comparable. From the figure, we can see that each<br>edge in a graph has to be stored twice: one instance for<br>each vertex. (If we want to remove this redundancy, the<br>tradeoff is the substantial increase of cost in finding adja-<br>cency information). In general, for a graph of n edges, the<br>adjacency-list representation needs 2n nodes and 2n point-<br>ers. An ADI structure stores each edge once, and use the<br>linkage among the edges from the same vertex to record the<br>adjacency information. In general, for a graph of n edges, it<br>needs n nodes and 3n pointers.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:489"><nobr><span class="ft3">Then, what is the advantage of ADI structure against</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:475"><nobr><span class="ft10">adjacency-list representation? The key advantage is that the<br>ADI structure extracts the information about containments<br>of edges in graphs in the first two levels (i.e., the edge table<br>and the linked list of graph-ids). Therefore, in many opera-<br>tions, such as the edge support checking and edge-host graph<br>checking, there is no need to visit the adjacency information<br>at all. To the contrast, if the adjacency-list representation<br>is used, every operation has to check the linked lists. When<br>the database is large so that either the adjacency-lists of all<br>graphs or the adjacency information in the ADI structure<br>cannot be accommodated into main memory, using the first<br>two levels of the ADI structure can save many calls to the<br>adjacency information, while the adjacency-lists of various<br>graphs have to be transferred between the main memory and<br>the disk many times.</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:489"><nobr><span class="ft3">Usually, the adjacency-matrix is sparse. The adjacency-</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:475"><nobr><span class="ft10">matrix representation is inefficient in space and thus is not<br>used.</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:475"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:507"><nobr><span class="ft4"><b>ALGORITHM ADI-MINE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:489"><nobr><span class="ft3">With the help from the ADI structure, how can we im-</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft10">prove the scalability and efficiency of frequent graph pattern<br>mining? Here, we present a pattern-growth algorithm ADI-<br>Mine, which is an improvement of algorithm gSpan. The<br>algorithm is shown in Figure 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:489"><nobr><span class="ft3">If the ADI structure is unavailable, then the algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:475"><nobr><span class="ft10">scans the graph database and constructs the index. Other-<br>wise, it just uses the ADI structure on the disk.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:489"><nobr><span class="ft3">The frequent edges can be obtained from the edge table in</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:475"><nobr><span class="ft10">the ADI structure. Each frequent edge is one of the smallest<br>frequent graph patterns and thus should be output. Then,<br>the frequent edges should be used as the "seeds" to grow<br>larger frequent graph patterns, and the frequent adjacent<br>edges of e should be used in the pattern-growth. An edge<br>e</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:490"><nobr><span class="ft3">is a frequent adjacent edge of e if e is an adjacent edge of</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft10">e in at least min sup graphs. The set of frequent adjacent<br>edges can be retrieved efficiently from the ADI structure<br>since the identities of the graphs containing e are indexed<br>as a linked-list, and the adjacent edges are also indexed in<br>the adjacency information part in the ADI structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft3">The pattern growth is implemented as calls to procedure</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft3">subgraph-mine.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:579"><nobr><span class="ft3">Procedure subgraph-mine tries every fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft3">quent adjacent edge e (i.e., edges in set F</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:748"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:754"><nobr><span class="ft3">) and checks</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft10">whether e can be added into the current frequent graph pat-<br>tern G to form a larger pattern G . We use the DFS code to<br>test the redundancy. Only the patterns G whose DFS code<br>is minimum is output and further grown. All other patterns<br>G</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:496"><nobr><span class="ft3">are either found before or will be found later at other</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">321</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173007.png" alt="background image">
+<DIV style="position:absolute;top:89;left:81"><nobr><span class="ft10">Input: a graph database GDB and min sup<br>Output: the complete set of frequent graph patterns<br>Method:</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:108"><nobr><span class="ft3">construct the ADI structure for the graph database if</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:122"><nobr><span class="ft3">it is not available;</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:108"><nobr><span class="ft3">for each frequent edge e in the edge table do</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:122"><nobr><span class="ft10">output e as a graph pattern;<br>from the ADI structure, find set F</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:330"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:336"><nobr><span class="ft3">, the set of</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:136"><nobr><span class="ft3">frequent adjacent edges for e;</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:122"><nobr><span class="ft3">call subgraph-mine(e, F</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:260"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:266"><nobr><span class="ft3">);</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:108"><nobr><span class="ft3">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:81"><nobr><span class="ft3">Procedure</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:157"><nobr><span class="ft3">subgraph-mine</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:81"><nobr><span class="ft3">Parameters: a frequent graph pattern G, and</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:108"><nobr><span class="ft3">the set of frequent adjacent edges F</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:325"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:108"><nobr><span class="ft10">// output the frequent graph patterns whose<br>// minimum DFS-codes contain that of G as a prefix</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:81"><nobr><span class="ft3">Method:</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:108"><nobr><span class="ft3">for each edge e in F</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:233"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:243"><nobr><span class="ft3">do</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:122"><nobr><span class="ft10">let G be the graph by adding e into G;<br>compute the DFS code of G ; if the DFS code is</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:136"><nobr><span class="ft3">not minimum, then return;</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:122"><nobr><span class="ft10">output G as a frequent graph pattern;<br>update the set F</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:223"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:233"><nobr><span class="ft3">of adjacent edges;</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:122"><nobr><span class="ft3">call subgraph-mine(G , F</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:269"><nobr><span class="ft1">e</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:275"><nobr><span class="ft3">);</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:108"><nobr><span class="ft16">end for<br>return;</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:149"><nobr><span class="ft3">Figure 6: Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:296"><nobr><span class="ft3">ADI-Mine.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:81"><nobr><span class="ft10">branches. The correctness of this step is guaranteed by the<br>property of DFS code [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:94"><nobr><span class="ft3">Once a larger pattern G is found, the set of adjacent edges</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:81"><nobr><span class="ft10">of the current pattern should be updated, since the adjacent<br>edges of the newly inserted edge should also be considered<br>in the future growth from G . This update operation can be<br>implemented efficiently, since the identities of graphs that<br>contain an edge e are linked together in the ADI structure,<br>and the adjacency information is also indexed and linked<br>according to the graph-ids.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:81"><nobr><span class="ft19"><i>Differences Between ADI-Mine and gSpan</i></span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:81"><nobr><span class="ft10">At high level, the structure as well as the search strategies<br>of ADI-Mine and gSpan are similar. The critical difference<br>is on the storage structure for graphs--ADI-Mine uses ADI<br>structure and gSpan uses adjacency-list representation.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:94"><nobr><span class="ft3">In the recursive mining, the critical operation is find-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft10">ing the graphs that contain the current graph pattern (i.e.,<br>the test of subgraph isomorphism) and finding the adjacent<br>edges to grow larger graph patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:324"><nobr><span class="ft3">The current graph</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft10">pattern is recorded using the labels. Thus, the edges are<br>searched using the labels of the vertices and that of the<br>edges.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:94"><nobr><span class="ft3">In gSpan, the test of subgraph isomorphism is achieved</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft3">by scanning the current (projected) database.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:382"><nobr><span class="ft3">Since the</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft10">graphs are stored in adjacency-list representation, and one<br>label may appear more than once in a graph, the search can<br>be costly. For example, in graph G</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:301"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:312"><nobr><span class="ft3">in Figure 3, in order</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft10">to find an edge (C, d, A), the adjacency-list for vertices 4<br>and 6 may have to be searched. If the graph is large and<br>the labels appear multiple times in a graph, there may be</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft10">many adjacency-lists for vertices of the same label, and the<br>adjacency-lists are long.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft3">Moreover, for large graph database that cannot be held</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft10">into main memory, the adjacency-list representation of a<br>graph has to be loaded into main memory before the graph<br>can be searched.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:489"><nobr><span class="ft3">In ADI-Mine, the graphs are stored in the ADI structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:475"><nobr><span class="ft10">The edges are indexed by their labels. Then, the graphs that<br>contain the edges can be retrieved immediately. Moreover,<br>all edges with the same labels are linked together by the<br>links between the graph-id and the instances. That helps<br>the test of subgraph isomorphism substantially.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:489"><nobr><span class="ft3">Furthermore, using the index of edges by their labels, only</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:475"><nobr><span class="ft10">the graphs that contain the specific edge will be loaded into<br>main memory for further subgraph isomorphism test. Irrel-<br>evant graphs can be filtered out immediately by the index.<br>When the database is too large to fit into main memory, it<br>saves a substantial part of transfers of graphs between disk<br>and main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:507"><nobr><span class="ft4"><b>EXPERIMENTAL RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:489"><nobr><span class="ft3">In this section, we report a systematic performance study</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:475"><nobr><span class="ft10">on the ADI structure and a comparison of gSpan and ADI-<br>Mine on mining both small, memory-based databases and<br>large, disk-based databases. We obtain the executable of<br>gSpan from the authors. The ADI structure and algorithm<br>ADI-Mine are implemented using C/C++.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:475"><nobr><span class="ft4"><b>6.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:516"><nobr><span class="ft4"><b>Experiment Setting</b></span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:489"><nobr><span class="ft3">All the experiments are conducted on an IBM NetFinity</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:475"><nobr><span class="ft10">5100 machine with an Intel PIII 733MHz CPU, 512M RAM<br>and 18G hard disk. The speed of the hard disk is 10, 000<br>RPM. The operating system is Redhat Linux 9.0.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:489"><nobr><span class="ft3">We implement a synthetic data generator following the</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:475"><nobr><span class="ft10">procedure described in [6]. The data generator takes five<br>parameters as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:490"><nobr><span class="ft3">D:</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:522"><nobr><span class="ft3">the total number of graphs in the data set</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:491"><nobr><span class="ft3">T :</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:522"><nobr><span class="ft3">the average number of edges in graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:492"><nobr><span class="ft3">I:</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:522"><nobr><span class="ft10">the average number of edges in potentially fre-<br>quent graph patterns (i.e., the frequent kernels)</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:491"><nobr><span class="ft3">L:</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:522"><nobr><span class="ft3">the number of potentially frequent kernels</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:489"><nobr><span class="ft3">N :</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:522"><nobr><span class="ft3">the number of possible labels</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:489"><nobr><span class="ft3">Please refer to [6] for the details of the data generator.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:475"><nobr><span class="ft10">For example, a data set D10kN 4I10T 20L200 means that<br>the data set contains 10k graphs; there are 4 possible labels;<br>the average number of edges in the frequent kernel graphs<br>is 10; the average number of edges in the graphs is 20; and<br>the number of potentially frequent kernels is 200. Hereafter<br>in this section, when we say "parameters", it means the<br>parameters for the data generator to create the data sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:489"><nobr><span class="ft3">In [11], L is fixed to 200. In our experiments, we also set</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:475"><nobr><span class="ft10">L = 200 as the default value, but will test the scalability of<br>our algorithm on L as well.</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:489"><nobr><span class="ft3">Please note that, in all experiments, the runtime of ADI-</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:475"><nobr><span class="ft10">Mine includes both the ADI construction time and the min-<br>ing time.</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:475"><nobr><span class="ft4"><b>6.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:516"><nobr><span class="ft4"><b>Mining Main Memory-based Databases</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">In this set of experiments, both gSpan and ADI-Mine run</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">in main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">322</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:14px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173008.png" alt="background image">
+<DIV style="position:absolute;top:84;left:85"><nobr><span class="ft19"><i>6.2.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:134"><nobr><span class="ft19"><i>Scalability on Minimum Support Threshold</i></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:94"><nobr><span class="ft3">We test the scalability of gSpan and ADI-Mine on the min-</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:81"><nobr><span class="ft10">imum support threshold. Data set D100kN 30I5T 20L200 is<br>used. The minimum support threshold varies from 4% to<br>10%. The results are shown in Figure 7(a).</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:94"><nobr><span class="ft3">As can be seen, both gSpan and ADI-Mine are scalable,</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:81"><nobr><span class="ft10">but ADI-Mine is about 10 times faster. We discussed the<br>result with Mr. X. Yan, the author of gSpan. He confirms<br>that counting frequent edges in gSpan is time consuming.<br>On the other hand, the construction of ADI structure is<br>relatively efficient. When the minimum support threshold<br>is set to 1, i.e., all edges are indexed, the ADI structure uses<br>approximately 57M main memory and costs 86 seconds in<br>construction.</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:85"><nobr><span class="ft19"><i>6.2.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:134"><nobr><span class="ft19"><i>Scalability on Database Size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:94"><nobr><span class="ft3">We test the scalability of gSpan and ADI-Mine on the</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:81"><nobr><span class="ft10">size of databases. We fix the parameters N = 30, I = 5,<br>T = 20 and L = 200, and vary the number of graphs in<br>database from 50 thousand to 100 thousand. The minimum<br>support threshold is set to 1% of the number of graphs in<br>the database. The results are shown in Figure 7(b). The<br>construction time of ADI structure is also plotted in the<br>figure.</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:94"><nobr><span class="ft3">Both the algorithms and the construction of ADI struc-</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:81"><nobr><span class="ft10">ture are linearly scalable on the size of databases. ADI-Mine<br>is faster. We observe that the size of ADI structure is also<br>scalable. For example, it uses 28M when the database has 50<br>thousand graphs, and 57M when the database has 100 thou-<br>sand graphs. This observation concurs with Theorem 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:85"><nobr><span class="ft19"><i>6.2.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:134"><nobr><span class="ft19"><i>Effects of Data Set Parameters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:94"><nobr><span class="ft3">We test the scalability of the two algorithms on param-</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:81"><nobr><span class="ft10">eter N --the number of possible labels. We use data set<br>D100kN 20-50I5T 20L200, that is, the N value varies from<br>20 to 50. The minimum support threshold is fixed at 1%.<br>The results are shown in Figure 7(c). Please note that the<br>Y -axis is in logarithmic scale.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:94"><nobr><span class="ft3">We can observe that the runtime of gSpan increases ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:81"><nobr><span class="ft10">ponentially as N increases. This result is consistent with<br>the result reported in [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:241"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:254"><nobr><span class="ft3">When there are many possible</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:81"><nobr><span class="ft10">labels in the database, the search without index becomes<br>dramatically more costly. Interestingly, both ADI-Mine and<br>the construction of ADI structure are linearly scalable on N .<br>As discussed before, the edge table in ADI structure only in-<br>dexes the unique edges in a graph database. Searching using<br>the indexed edge table is efficient. The time complexity of<br>searching an edge by labels is O(log n), where n is the num-<br>ber of distinct edges in the database. This is not affected by<br>the increase of the possible labels. As expected, the size of<br>the ADI structure is stable, about 57M in this experiment.</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:94"><nobr><span class="ft3">We use data set D100kN 30I5T 10-30L200 to test the scal-</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:81"><nobr><span class="ft10">ability of the two algorithms on parameter T --the average<br>number of edges in a graph. The minimum support thresh-<br>old is set to 1%. The results are shown in Figure 7(d).</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:94"><nobr><span class="ft3">As the number of edges increases, the graph becomes more</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:81"><nobr><span class="ft10">complex. The cost of storing and searching the graph also<br>increases accordingly. As shown in the figure, both algo-<br>rithms and the construction of ADI are linearly scalable.</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:94"><nobr><span class="ft3">We also test the effects of other parameters. The experi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:81"><nobr><span class="ft3">mental results show that both gSpan and ADI-Mine are not</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:81"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:88"><nobr><span class="ft3">Please refer to Figures 5(b) and 5(c) in the UIUC technical</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">report version of [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft10">sensitive to I--the average number of edges in potentially<br>frequent graph patterns--and L--the number of potentially<br>frequent kernels. The construction time and space cost of<br>ADI structures are also stable. The reason is that the ef-<br>fects of those two parameters on the distribution in the data<br>sets are minor. Similar observations have been reported by<br>previous studies on mining frequent itemsets and sequential<br>patterns. Limited by space, we omit the details here.</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:475"><nobr><span class="ft4"><b>6.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:516"><nobr><span class="ft4"><b>Mining Disk-based Databases</b></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:489"><nobr><span class="ft3">Now, we report the experimental results on mining large,</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:475"><nobr><span class="ft10">disk-based databases. In this set of experiments, we reserve<br>a block of main memory of fixed size for ADI structure.<br>When the size is too small for the ADI-structure, some levels<br>of the ADI structure are accommodated on disk. On the<br>other hand, we do not confine the memory usage for gSpan.</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:479"><nobr><span class="ft19"><i>6.3.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:529"><nobr><span class="ft19"><i>Scalability on Database Size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:489"><nobr><span class="ft3">We test the scalability of both gSpan and ADI-Mine on the</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:475"><nobr><span class="ft10">size of databases. We use data set D100k-1mN 30I5T 20L200.<br>The number of graphs in the database is varied from 100<br>thousand to 1 million. The main memory block for ADI<br>structure is limited to 250M. The results are shown in Fig-<br>ure 8(a). The construction time of ADI structure is also<br>plotted. Please note that the Y -axis is in logarithmic scale.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:489"><nobr><span class="ft3">The construction runtime of ADI structure is approxi-</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:475"><nobr><span class="ft10">mately linear on the database size. That is, the construc-<br>tion of the ADI index is highly scalable. We also measure<br>the size of ADI structure. The results are shown in Fig-<br>ure 8(b). We can observe that the size of the ADI structure<br>is linear to the database size. In this experiment, the ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:477"><nobr><span class="ft3">size of ADI structure in megabytes</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:489"><nobr><span class="ft3">number of graphs in thousands</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:694"><nobr><span class="ft3">is about 0.6. When the</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:475"><nobr><span class="ft10">database size is 1 million, the size of ADI structure is 601M,<br>which exceeds the main memory size of our machine. Even<br>in such case, the construction runtime is still linear.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:489"><nobr><span class="ft3">As explained before, the construction of ADI structure</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft10">makes sequential scans of the database and conducts a se-<br>quential write of the adjacency information. The overhead<br>of construction of edge table and the linked lists of graph-<br>ids is relatively small and thus has a minor effect on the<br>construction time.</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:489"><nobr><span class="ft3">While gSpan can handle databases of only up to 300 thou-</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft10">sand graphs in this experiment, ADI-Mine can handle<br>databases of 1 million graphs. The curve of the runtime<br>of ADI-Mine can be divided into three stages.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:489"><nobr><span class="ft3">First, when the database has up to 300 thousand graphs,</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft10">the ADI structure can be fully accommodated in main mem-<br>ory. ADI-Mine is faster than gSpan.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">Second, when the database has 300 to 600 thousand graphs,</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft10">gSpan cannot finish. The ADI structure cannot be fully held<br>in main memory. Some part of the adjacency information is<br>put on disk. We see a significant jump in the runtime curve<br>of ADI-Mine between the databases of 300 thousand graphs<br>and 400 thousand graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:489"><nobr><span class="ft3">Last, when the database has 800 thousand or more graphs,</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft10">even the linked lists of graph-ids cannot be fully put into<br>main memory. Thus, another significant jump in the run-<br>time curve can be observed.</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:479"><nobr><span class="ft19"><i>6.3.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:529"><nobr><span class="ft20"><i>Tradeoff Between Efficiency and Main Memory<br>Consumption</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">It is interesting to examine the tradeoff between efficiency</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">and size of available main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:725"><nobr><span class="ft3">We use data set</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">323</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173009.png" alt="background image">
+<DIV style="position:absolute;top:188;left:116"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:109"><nobr><span class="ft21"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:109"><nobr><span class="ft21"> 400</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:109"><nobr><span class="ft21"> 600</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:109"><nobr><span class="ft21"> 800</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:105"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:105"><nobr><span class="ft21"> 1200</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:122"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:149"><nobr><span class="ft21"> 2</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:175"><nobr><span class="ft21"> 4</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:201"><nobr><span class="ft21"> 6</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:227"><nobr><span class="ft21"> 8</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:252"><nobr><span class="ft21"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:97"><nobr><span class="ft21">Runtime (second)</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:173"><nobr><span class="ft21">min_sup (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:141"><nobr><span class="ft21">gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:133"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:311"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:304"><nobr><span class="ft21"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:304"><nobr><span class="ft21"> 400</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:304"><nobr><span class="ft21"> 600</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:304"><nobr><span class="ft21"> 800</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:300"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:300"><nobr><span class="ft21"> 1200</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:315"><nobr><span class="ft21"> 50  55  60  65  70  75  80  85  90  95  100</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:292"><nobr><span class="ft21">Runtime (second)</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:344"><nobr><span class="ft21">Number of graphs (thousand)</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:366"><nobr><span class="ft21">gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:358"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:338"><nobr><span class="ft21">ADI-construction</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:510"><nobr><span class="ft21"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:506"><nobr><span class="ft21"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:502"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:499"><nobr><span class="ft21"> 10000</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:495"><nobr><span class="ft21"> 100000</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:518"><nobr><span class="ft21"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:538"><nobr><span class="ft21"> 25</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:559"><nobr><span class="ft21"> 30</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:580"><nobr><span class="ft21"> 35</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:600"><nobr><span class="ft21"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:621"><nobr><span class="ft21"> 45</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:641"><nobr><span class="ft21"> 50</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:487"><nobr><span class="ft21">Runtime (second)</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:582"><nobr><span class="ft21">N</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:569"><nobr><span class="ft21">gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:561"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:540"><nobr><span class="ft21">ADI-construction</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:700"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:693"><nobr><span class="ft21"> 500</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:689"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:689"><nobr><span class="ft21"> 1500</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:689"><nobr><span class="ft21"> 2000</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:705"><nobr><span class="ft21"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:738"><nobr><span class="ft21"> 15</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:771"><nobr><span class="ft21"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:803"><nobr><span class="ft21"> 25</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:836"><nobr><span class="ft21"> 30</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:681"><nobr><span class="ft21">Runtime (second)</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:773"><nobr><span class="ft21">T</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:756"><nobr><span class="ft21">gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:748"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:727"><nobr><span class="ft21">ADI-construction</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:99"><nobr><span class="ft3">(a) scalability on min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:307"><nobr><span class="ft3">(b) Scalability on size</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:507"><nobr><span class="ft3">(c) Scalability on N</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:702"><nobr><span class="ft3">(d) Scalability on T</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:111"><nobr><span class="ft3">D100kN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:296"><nobr><span class="ft3">D50-100kN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:491"><nobr><span class="ft3">D100kN 20-50I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:686"><nobr><span class="ft3">D100kN 30I5T 10-30L200</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:329"><nobr><span class="ft3">min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:384"><nobr><span class="ft3">= 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:523"><nobr><span class="ft3">min sup = 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:718"><nobr><span class="ft3">min sup = 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:188"><nobr><span class="ft3">Figure 7: The experimental results of mining main memory-based databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:199"><nobr><span class="ft21"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:195"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:192"><nobr><span class="ft21"> 10000</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:188"><nobr><span class="ft21"> 100000</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:209"><nobr><span class="ft21"> 100  200  300  400  500  600  700  800  900 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:180"><nobr><span class="ft21">Runtime (second)</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:235"><nobr><span class="ft21">Number of graphs (thousand)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:262"><nobr><span class="ft21">gSpan</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:254"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:233"><nobr><span class="ft21">ADI-construction</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:389"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:382"><nobr><span class="ft21"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:382"><nobr><span class="ft21"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:382"><nobr><span class="ft21"> 300</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:382"><nobr><span class="ft21"> 400</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:382"><nobr><span class="ft21"> 500</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:382"><nobr><span class="ft21"> 600</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:382"><nobr><span class="ft21"> 700</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:392"><nobr><span class="ft21"> 100  200  300  400  500  600  700  800  900  1000</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:374"><nobr><span class="ft21">Size (M)</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:424"><nobr><span class="ft21">Number of graphs (thousand)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:415"><nobr><span class="ft21">ADI structure</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:590"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:583"><nobr><span class="ft21"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:583"><nobr><span class="ft21"> 400</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:583"><nobr><span class="ft21"> 600</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:583"><nobr><span class="ft21"> 800</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:579"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:596"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:611"><nobr><span class="ft21"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:627"><nobr><span class="ft21"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:644"><nobr><span class="ft21"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:660"><nobr><span class="ft21"> 80  100  120  140  160</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:571"><nobr><span class="ft21">Runtime (s)</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:616"><nobr><span class="ft21">Size of available main memory (M)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:674"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:196"><nobr><span class="ft3">(a) scalability on size</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:379"><nobr><span class="ft3">(b) Size of ADI structure</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:561"><nobr><span class="ft3">(c) Runtime vs. main memory</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:181"><nobr><span class="ft3">D100k-1mN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:376"><nobr><span class="ft3">D100k-1mN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:585"><nobr><span class="ft3">D100kN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:216"><nobr><span class="ft3">min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:272"><nobr><span class="ft3">= 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:411"><nobr><span class="ft3">min sup = 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:608"><nobr><span class="ft3">min sup = 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:203"><nobr><span class="ft3">Figure 8: The experimental results of mining large disk-based databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:81"><nobr><span class="ft10">D100kN 30I5T 20L200, set the minimum support threshold<br>to 1%, vary the main memory limit from 10M to 150M for<br>ADI structure, and measure the runtime of ADI-Mine. The<br>results are shown in Figure 8(c). In this experiment, the<br>size of ADI structure is 57M. The construction time is 86<br>seconds. The highest watermark of main memory usage for<br>gSpan in mining this data set is 87M. gSpan uses 1161 sec-<br>onds in the mining if it has sufficient main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:94"><nobr><span class="ft3">When the ADI structure can be completely loaded into</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:81"><nobr><span class="ft10">main memory (57M or larger), ADI-Mine runs fast. Further<br>increase of the available main memory cannot reduce the<br>runtime.</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:94"><nobr><span class="ft3">When the ADI structure cannot be fully put into main</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:81"><nobr><span class="ft10">memory, the runtime increases. The more main memory,<br>the faster ADI-Mine runs.</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:94"><nobr><span class="ft3">When the available main memory is too small to even</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:81"><nobr><span class="ft10">hold the linked lists of graph-ids, the runtime of ADI-Mine<br>increases substantially. However, it still can finish the min-<br>ing with 10M main memory limit in 2 hours.</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:85"><nobr><span class="ft19"><i>6.3.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:134"><nobr><span class="ft19"><i>Number of Disk Block Reads</i></span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:94"><nobr><span class="ft3">In addition to runtime, the efficiency of mining large disk-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft10">based databases can also be measured by the number of disk<br>block read operations.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:94"><nobr><span class="ft3">Figure 9(a) shows the number of disk block reads versus</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft10">the minimum support threshold. When the support thresh-<br>old is high (e.g., 9% or up), the number of frequent edges<br>is small. The ADI structure can be held into main memory<br>and thus the I/O cost is very low. As the support threshold<br>goes down, larger and larger part of the ADI structure is<br>stored on disk, and the I/O cost increases. This curve is<br>consistent with the trend in Figure 7(a).</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:94"><nobr><span class="ft3">Figure 9(b) shows the number of disk block reads versus</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:475"><nobr><span class="ft10">the number of graphs in the database. As the database size<br>goes up, the I/O cost increases exponentially. This explains<br>the curve of ADI-Mine in Figure 8(a).</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:489"><nobr><span class="ft3">We also test the I/O cost on available main memory. The</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:475"><nobr><span class="ft10">result is shown in Figure 9(c), which is consistent with the<br>trend of runtime curve in Figure 8(c).</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:479"><nobr><span class="ft19"><i>6.3.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:529"><nobr><span class="ft19"><i>Effects of Other Parameters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:489"><nobr><span class="ft3">We also test the effects of the other parameters on the</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:475"><nobr><span class="ft10">efficiency. We observe similar trends as in mining memory-<br>based databases. Limited by space, we omit the details here.</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:475"><nobr><span class="ft4"><b>6.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:516"><nobr><span class="ft4"><b>Summary of Experimental Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:489"><nobr><span class="ft3">The extensive performance study clearly shows the fol-</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:475"><nobr><span class="ft10">lowing. First, both gSpan and ADI-Mine are scalable when<br>database can be held into main memory. ADI-Mine is faster<br>than gSpan. Second, ADI-Mine can mine very large graph<br>databases by accommodating the ADI structure on disk.<br>The performance of ADI-Mine on mining large disk-based<br>databases is highly scalable. Third, the size of ADI struc-<br>ture is linearly scalable with respect to the size of databases.<br>Fourth, we can control the tradeoff between the mining effi-<br>ciency and the main memory consumption. Last, ADI-Mine<br>is more scalable than gSpan in mining complex graphs--the<br>graphs that have many different kinds of labels.</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:475"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:507"><nobr><span class="ft4"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:489"><nobr><span class="ft3">The problem of finding frequent common structures has</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:475"><nobr><span class="ft10">been studied since early 1990s. For example, [1, 7] study the<br>the problem of finding common substructures from chemi-<br>cal compounds. SUBDUE [4] proposes an approximate al-<br>gorithm to identify some, instead of the complete set of,</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">324</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="173010.png" alt="background image">
+<DIV style="position:absolute;top:187;left:191"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:173"><nobr><span class="ft21"> 100000</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:173"><nobr><span class="ft21"> 200000</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:173"><nobr><span class="ft21"> 300000</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:173"><nobr><span class="ft21"> 400000</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:173"><nobr><span class="ft21"> 500000</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:173"><nobr><span class="ft21"> 600000</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:173"><nobr><span class="ft21"> 700000</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:197"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:222"><nobr><span class="ft21"> 2</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:247"><nobr><span class="ft21"> 4</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:271"><nobr><span class="ft21"> 6</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:296"><nobr><span class="ft21"> 8</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:319"><nobr><span class="ft21"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:164"><nobr><span class="ft21">Number of blocks read</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:244"><nobr><span class="ft21">min_sup (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:208"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:406"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:392"><nobr><span class="ft21"> 5e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:392"><nobr><span class="ft21"> 1e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:386"><nobr><span class="ft21"> 1.5e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:392"><nobr><span class="ft21"> 2e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:386"><nobr><span class="ft21"> 2.5e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:412"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:433"><nobr><span class="ft21"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:457"><nobr><span class="ft21"> 400</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:481"><nobr><span class="ft21"> 600</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:505"><nobr><span class="ft21"> 800</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:527"><nobr><span class="ft21"> 1000</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:376"><nobr><span class="ft21">Number of blocks read</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:433"><nobr><span class="ft21">Number of graphs (thousand)</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:423"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:618"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:604"><nobr><span class="ft21"> 5e+06</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:604"><nobr><span class="ft21"> 1e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:598"><nobr><span class="ft21"> 1.5e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:604"><nobr><span class="ft21"> 2e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:598"><nobr><span class="ft21"> 2.5e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:604"><nobr><span class="ft21"> 3e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:598"><nobr><span class="ft21"> 3.5e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:604"><nobr><span class="ft21"> 4e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:625"><nobr><span class="ft21"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:638"><nobr><span class="ft21"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:653"><nobr><span class="ft21"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:668"><nobr><span class="ft21"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:683"><nobr><span class="ft21"> 80  100  120  140  160</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:588"><nobr><span class="ft21">Number of blocks read</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:638"><nobr><span class="ft21">Size of available main memory (M)</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:690"><nobr><span class="ft21">ADI-Mine</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:141"><nobr><span class="ft3">(a) # blocks vs. support threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:366"><nobr><span class="ft3">(b) # blocks vs. database size</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:563"><nobr><span class="ft3">(c) # blocks vs. main memory size</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:178"><nobr><span class="ft3">D100kN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:378"><nobr><span class="ft3">D100k-1mN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:601"><nobr><span class="ft3">D100kN 30I5T 20L200</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:412"><nobr><span class="ft3">min sup</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:468"><nobr><span class="ft3">= 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:624"><nobr><span class="ft3">min sup = 1%</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:260"><nobr><span class="ft3">Figure 9: The number of disk blocks read in the mining.</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:81"><nobr><span class="ft10">frequent substructures. However, these methods do not aim<br>at scalable algorithms for mining large graph databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:94"><nobr><span class="ft3">The problem of mining the complete set of frequent graph</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:81"><nobr><span class="ft10">patterns is firstly explored by Inokuchi et al. [5]. An Apriori-<br>like algorithm AGM is proposed. Kuramochi and Karypis [6]<br>develop an efficient algorithm, FSG, for graph pattern min-<br>ing. The major idea is to utilize an effective graph repre-<br>sentation, and conduct the edge-growth mining instead of<br>vertex-growth mining. Both AGM and FSG adopt breadth-<br>first search.</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:94"><nobr><span class="ft3">Recently, Yan and Han propose the depth-first search ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:81"><nobr><span class="ft10">proach, gSpan [11] for graph mining. They also investigate<br>the problem of mining frequent closed graphs [9], which is<br>a non-redundant representation of frequent graph patterns.<br>As a latest result, Yan et al. [10] uses frequent graph pat-<br>terns to index graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:94"><nobr><span class="ft3">As a special case of graph mining, tree mining also re-</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:81"><nobr><span class="ft3">ceives intensive research recently.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:300"><nobr><span class="ft3">Zaki [12] proposes the</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:81"><nobr><span class="ft3">first algorithm for mining frequent tree patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:94"><nobr><span class="ft3">Although there are quite a few studies on the efficient min-</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:81"><nobr><span class="ft10">ing of frequent graph patterns, none of them addresses the<br>problem of effective index structure for mining large disk-<br>based graph databases. When the database is too large to<br>fit into main memory, the mining becomes I/O bounded,<br>and the appropriate index structure becomes very critical<br>for the scalability.</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:81"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:112"><nobr><span class="ft4"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:94"><nobr><span class="ft3">In this paper, we study the problem of scalable mining</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:81"><nobr><span class="ft10">of large disk-based graph database. The ADI structure, an<br>effective index structure, is developed. Taking gSpan as a<br>concrete example, we propose ADI-Mine, an efficient algo-<br>rithm adopting the ADI structure, to improve the scalability<br>of the frequent graph mining substantially.</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:94"><nobr><span class="ft3">The ADI-Mine structure is a general index for graph min-</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft10">ing. As future work, it is interesting to examine the effect of<br>the index structure on improving other graph pattern mining<br>methods, such as mining frequent closed graphs and mining<br>graphs with constraints. Furthermore, devising index struc-<br>tures to support scalable data mining on large disk-based<br>databases is an important and interesting research problem<br>with extensive applications and industrial values.</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:81"><nobr><span class="ft4"><b>Acknowledgements</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft10">We are very grateful to Mr. Xifeng Yan and Dr. Jiawei Han<br>for kindly providing us the executable of gSpan and answer-<br>ing our questions promptly. We would like to thank the</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:475"><nobr><span class="ft10">anonymous reviewers for their insightful comments, which<br>help to improve the quality of the paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:475"><nobr><span class="ft4"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:507"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:482"><nobr><span class="ft14">[1] D.M. Bayada, R. W. Simpson, and A. P. Johnson. An</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:502"><nobr><span class="ft22">algorithm for the multiple common subgraph problem. J. of<br>Chemical Information &amp; Computer Sci., 32:680­685, 1992.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:482"><nobr><span class="ft14">[2] C. Borgelt and M.R. Berthold. Mining molecular</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:502"><nobr><span class="ft22">fragments: Finding relevant substructures of molecules. In<br>Proc. 2002 Int. Conf. Data Mining (ICDM'02), Maebashi<br>TERRSA, Maebashi City, Japan, Dec. 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:482"><nobr><span class="ft14">[3] Thomas H. Cormen, Charles E. Leiserson, Ronald L.</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:502"><nobr><span class="ft22">Rivest, and Clifford Stein. Introduction to Algorithms,<br>Second Edition. MIT Press and McGraw-Hill, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:482"><nobr><span class="ft14">[4] L. B. Holder, D. J. Cook, and S. Djoko. Substructure</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:502"><nobr><span class="ft22">discovery in the subdue system. In Proc. AAAI'94<br>Workshop Knowledge Discovery in Databases (KDD'94),<br>pages 359­370, Seattle, WA, July 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:482"><nobr><span class="ft14">[5] A. Inokuchi, T. Washio, and H. Motoda. An apriori-based</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:502"><nobr><span class="ft22">algorithm for mining frequent substructures from graph<br>data. In Proc. 2000 European Symp. Principle of Data<br>Mining and Knowledge Discovery (PKDD'00), pages<br>13­23, Lyon, France, Sept. 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:482"><nobr><span class="ft14">[6] M. Kuramochi and G. Karypis. Frequent subgraph</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:502"><nobr><span class="ft22">discovery. In Proc. 2001 Int. Conf. Data Mining<br>(ICDM'01), pages 313­320, San Jose, CA, Nov. 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:482"><nobr><span class="ft14">[7] Y. Takahashi, Y. Satoh, and S. Sasaki. Recognition of</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:502"><nobr><span class="ft22">largest common fragment among a variety of chemical<br>structures. Analytical Sciences, 3:23­38, 1987.</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:482"><nobr><span class="ft14">[8] N. Vanetik, E. Gudes, and S.E. Shimony. Computing</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:502"><nobr><span class="ft22">frequent graph patterns from semistructured data. In Proc.<br>2002 Int. Conf. Data Mining (ICDM'02), Maebashi<br>TERRSA, Maebashi City, Japan, Dec. 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:482"><nobr><span class="ft14">[9] X. Yan and J. Han. Closegraph: Mining closed frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:502"><nobr><span class="ft22">graph patterns. In Proceedings of the 9th ACM SIGKDD<br>International Conference on Knowledge Discovery and<br>Data Mining (KDD'03), Washington, D.C, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:475"><nobr><span class="ft14">[10] X. Yan, P.S. Yu, and J. Han. Graph indexing: A frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:502"><nobr><span class="ft22">structure-based approach. In Proc. 2004 ACM SIGMOD<br>Int. Conf. on Management of Data (SIGMOD'04), Paris,<br>France, June 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:475"><nobr><span class="ft14">[11] Y. Yan and J. Han. gspan: Graph-based substructure</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:502"><nobr><span class="ft22">pattern mining. In Proc. 2002 Int. Conf. on Data Mining<br>(ICDM'02), Maebashi, Japan, December 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:475"><nobr><span class="ft14">[12] M.J. Zaki. Efficiently mining frequent trees in a forest. In</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:502"><nobr><span class="ft22">Proc. 2002 Int. Conf. on Knowledge Discovery and Data<br>Mining (KDD'02), Edmonton, Alberta, Canada, July 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">325</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

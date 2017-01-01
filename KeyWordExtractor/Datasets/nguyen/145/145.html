@@ -1,0 +1,1527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>untitled</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="">
+<META name="date" content="2006-06-09T10:28:40+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:32px;font-family:Times;color:#000000;}
+	.ft1{font-size:13px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:10px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:38px;font-family:Times;color:#000000;}
+	.ft6{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+	.ft7{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145001.png" alt="background image">
+<DIV style="position:absolute;top:125;left:129"><nobr><span class="ft0">Optimal Transmission Range for Cluster-Based</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:186"><nobr><span class="ft0">Wireless Sensor Networks With Mixed</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:297"><nobr><span class="ft0">Communication Modes</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:384"><nobr><span class="ft1">Hang Su and Xi Zhang</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:316"><nobr><span class="ft2">Networking and Information Systems Laboratory</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:307"><nobr><span class="ft2">Department of Electrical and Computer Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:290"><nobr><span class="ft2">Texas A&amp;M University, College Station, TX 77843, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:337"><nobr><span class="ft2">Email:</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:380"><nobr><span class="ft2">{hangsu, xizhang}@ece.tamu.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:239"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:107"><nobr><span class="ft3"><i><b>Prolonging the network lifetime is one of the</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:93"><nobr><span class="ft6"><i><b>most important designing objectives in wireless sensor networks<br>(WSN). We consider a heterogeneous cluster-based WSN, which<br>consists of two types of nodes: powerful cluster-heads and<br>basic sensor nodes. All the nodes are randomly deployed in a<br>specific area. To better balance the energy dissipation, we use a<br>simple mixed communication modes where the sensor nodes can<br>communicate with cluster-heads in either single-hop or multi-hop<br>mode. Given the initial energy of the basic sensor nodes, we derive<br>the optimal communication range and identify the optimal mixed<br>communication mode to maximize the WSN's lifetime through<br>optimizations. Moreover, we also extend our model from 2-D<br>space to 3-D space.</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:107"><nobr><span class="ft3"><i><b>Keywords: Wireless sensor networks, network lifetime,</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:93"><nobr><span class="ft3"><i><b>clustering, Voronoi cell, optimization.</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:239"><nobr><span class="ft1">1 INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:93"><nobr><span class="ft5"><b>A</b></span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:125"><nobr><span class="ft7">WIRELESS sensor network consists of a large amount<br>of sensor nodes, which have wireless communication</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:93"><nobr><span class="ft7">capability and some level of ability for signal processing.<br>Distributed wireless sensor networks enable a variety of appli-<br>cations for sensing and controlling the physical world [1], [2].<br>One of the most important applications is the monitor of a<br>specific geographical area (e.g., to detect and monitor the<br>environmental changes in forests) by spreading a great number<br>of wireless sensor nodes across the area [3]­[6].</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:107"><nobr><span class="ft2">Because of the sensor nodes' self constraints (generally tiny</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:93"><nobr><span class="ft7">size, low-energy supply, weak computation ability, etc.), it<br>is challenging to develop a scalable, robust, and long-lived<br>wireless sensor network. Much research effort has focused on<br>this area which result in many new technologies and methods<br>to address these problems in recent years. The combination<br>of clustering and data-fusion is one of the most effective<br>approaches to construct the large-scale and energy-efficient<br>data gathering sensor networks [7]­[9].</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:107"><nobr><span class="ft2">In particular, the authors of [9] develop a distributed al-</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:93"><nobr><span class="ft7">gorithm called Low-Energy Adaptive Clustering Hierarchy<br>(LEACH) for homogeneous sensor networks where each sen-<br>sor elects itself as a cluster-head with some probability and</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:105"><nobr><span class="ft4">The research reported in this paper was supported in part by the U.S.</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:93"><nobr><span class="ft4">National Science Foundation CAREER Award under Grant ECS-0348694.</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:468"><nobr><span class="ft7">the cluster reconfiguration scheme is used to balance the<br>energy load. The LEACH allows only single-hop clusters<br>to be constructed. On the other hand, in [10] we proposed<br>the similar clustering algorithms where sensors communicate<br>with their cluster-heads in multi-hop mode. However, in these<br>homogeneous sensor networks, the requirement that every<br>node is capable of aggregating data leads to the extra hardware<br>cost for all the nodes. Instead of using homogeneous sensor<br>nodes and the cluster reconfiguration scheme, the authors<br>of [11] focus on the heterogeneous sensor networks in which<br>there are two types of nodes: supernodes and basic sensor<br>nodes. The supernodes act as the cluster-heads. The basic<br>sensor nodes communicate with their closest cluster-heads via<br>multi-hop mode. The authors of [11] formulate an optimization<br>problem to minimize the network cost which depends on the<br>nodes' densities and initial energies.</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:482"><nobr><span class="ft2">In addition, The authors of [12] obtain the upper bounds</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:468"><nobr><span class="ft7">on the lifetime of a sensor network through all possible<br>routes/ communication modes. However, it is complicated to<br>implement a distributed scheme to achieve the upper bound<br>of the WSN lifetime because it is required to know the<br>distance between every two sensor nodes in their scheme. The<br>authors of [13] develop a simpler, but sub-optimal, scheme<br>where the nodes employ the mixed communication modes:<br>single-hop mode and multi-hop mode periodically. This mixed<br>communication modes can better balance the energy load<br>efficiently over WSNs. However, the authors of [13] do not<br>obtain the optimal communication range for the multi-hop<br>mode which is a critically important parameter for the mixed<br>communication modes scheme. Also, their analytical model<br>can only deal with the case of grid deployment, where the<br>nodes are placed along the grids, without considering the<br>random deployment.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:482"><nobr><span class="ft2">In order to further increase the network lifetime of heteroge-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:468"><nobr><span class="ft7">neous WSNs by remedying the deficiencies in the aforemen-<br>tioned pervious work, we develop the analytical models to<br>determine the optimal transmission range of the sensor nodes<br>and identify the optimal communication modes in this paper.<br>In our models, the basic sensor nodes are allowed to com-<br>municate with their cluster-heads with mixed communication</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:5px;font-family:Times;color:#000000;}
+	.ft11{font-size:3px;font-family:Times;color:#000000;}
+	.ft12{font-size:7px;font-family:Times;color:#000000;}
+	.ft13{font-size:5px;line-height:9px;font-family:Times;color:#000000;}
+	.ft14{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145002.png" alt="background image">
+<DIV style="position:absolute;top:291;left:134"><nobr><span class="ft13"><b>Cluster-head<br>Basic sensor node</b></span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:357"><nobr><span class="ft11"><b>Zone1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:360"><nobr><span class="ft11"><b>Zone 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:364"><nobr><span class="ft11"><b>Zone 3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:367"><nobr><span class="ft11"><b>Zone 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:426"><nobr><span class="ft11"><b>R</b></span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:134"><nobr><span class="ft10"><b>Mobile base station</b></span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:355"><nobr><span class="ft10"><b>Cluster</b></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:92"><nobr><span class="ft4">Fig. 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:134"><nobr><span class="ft4">An example of the wireless sensor data-gathering networks. In each</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:92"><nobr><span class="ft14">round, the aircraft hovers above the cluster-heads in the monitored area to<br>collect the aggregated data. Within each cluster, the basic sensor nodes can<br>communicate with its cluster-head in either single-hop or multi-hop.</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:92"><nobr><span class="ft7">modes instead of only multi-hop mode or only single-hop<br>mode. Applying the derived optimal transmission range and<br>communication modes, we also study how the other WSN<br>parameters (e.g., the density and initial energy of the cluster-<br>heads, etc.) affect the network lifetime through simulation<br>experiments. Moreover, simulation results verify our analytical<br>models. We also extend our model from 2-D space to 3-D<br>space.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:107"><nobr><span class="ft2">The rest of the paper is organized as follows. Section II</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:92"><nobr><span class="ft7">develops our proposed models and formulates the design<br>procedure as an optimization problem. Section III solves the<br>formulated optimization problem. Section IV presents the<br>numerical and experimental results. Section V addresses the<br>extended 3-D model. The paper concludes with Section VI.</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:210"><nobr><span class="ft1">2  SYSTEM MODEL</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:107"><nobr><span class="ft2">We study the following WSN scenario in this paper. A</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:92"><nobr><span class="ft7">heterogeneous sensor network consisting of two types of<br>sensor nodes, i) the more powerful but more expensive cluster-<br>head nodes with density of</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:259"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:268"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:280"><nobr><span class="ft2">and ii) the inexpensive basic</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:92"><nobr><span class="ft2">sensor nodes with density of</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:275"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:283"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:289"><nobr><span class="ft2">, is deployed in a specific</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:92"><nobr><span class="ft7">area. The density of the basic sensor nodes is determined by<br>the application requirements. A basic sensor node joins the<br>cluster whose cluster-head is the closest in hops or distance to<br>this basic sensor node. In each round, the cluster-heads send<br>the aggregated data to the mobile base station (e.g., an aircraft<br>or a satellite) after the cluster-heads receive and process the<br>raw data from the basic sensor node. Fig. 1 shows an example<br>of this type of sensor networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:107"><nobr><span class="ft2">The definition of network lifetime used in this paper is</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:92"><nobr><span class="ft7">the period in rounds from the time when the network starts<br>working to the time when the first node dies [15]. Notice that<br>energy dissipation is not uniform over the cluster-based WSNs,<br>implying that some nodes in specific zones (e.g., the nodes<br>which are close to the cluster-heads need to consume more<br>energy for relaying traffic of other nodes in multi-hop mode)<br>drain out their energy faster than others. Thus, the network<br>lifetime of these critical nodes decides how long the WSN can</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:467"><nobr><span class="ft7">survive. Hence, maximizing the network lifetime is equivalent<br>to minimizing the energy consumption of the critical sensor<br>nodes if the initial energy of sensor nodes is given. In this<br>paper, our optimization objective is not to minimize the total<br>energy consumption by all the sensor nodes, but to minimize<br>the energy consumption of the critical nodes to prolong the<br>network lifetime.</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:467"><nobr><span class="ft2">A. Node Architectures and Energy Models</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:481"><nobr><span class="ft2">A wireless sensor node typically consists of the following</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:467"><nobr><span class="ft7">three parts: 1) the sensor component, 2) the transceiver com-<br>ponent, and 3) the signal processing component. In this paper,<br>we have the following assumptions for each component.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:481"><nobr><span class="ft2">1) For the sensor component:</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:501"><nobr><span class="ft7">Assume that the sensor nodes sense constant amount<br>of information every round. The energy consumed in<br>sensing is simply</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:606"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:616"><nobr><span class="ft12">sense</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:646"><nobr><span class="ft2">(l) = l, where  is the power</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:501"><nobr><span class="ft2">consumption for sensing a bit of data and</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:745"><nobr><span class="ft2">l is the length</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:501"><nobr><span class="ft7">in bits of the information which a sensor node should<br>sense in every data-gathering round. In general the value<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:518"><nobr><span class="ft2">l is a constant.</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:481"><nobr><span class="ft2">2) For the transceiver component:</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:501"><nobr><span class="ft7">We use a simple model for the radio hardware energy<br>consumption [16]. The energy</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:683"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:693"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:705"><nobr><span class="ft2">(r, l) and the energy</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:501"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:512"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:524"><nobr><span class="ft2">(l) required for a node to transmit and receive a</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:501"><nobr><span class="ft2">packet of</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:564"><nobr><span class="ft2">l bits over r distance, respectively, can be</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:501"><nobr><span class="ft2">expressed as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:582"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:593"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:604"><nobr><span class="ft2">(r, l) = (r</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:680"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:691"><nobr><span class="ft2">+ )l</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:582"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:593"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:605"><nobr><span class="ft2">(l)</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:640"><nobr><span class="ft2">= l</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:808"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:501"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:542"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:558"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:572"><nobr><span class="ft2">accounts for the radiated power necessary</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:501"><nobr><span class="ft2">to transmit over a distance of</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:691"><nobr><span class="ft2">r between source and</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:501"><nobr><span class="ft2">destination and</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:595"><nobr><span class="ft2"> is the energy dissipated in the trans-</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:501"><nobr><span class="ft7">mitter circuit (PLLs, VCOs, etc) which depends on<br>the digital coding, modulation, etc. The value of path<br>loss exponent</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:588"><nobr><span class="ft2">n depends on the surrounding environ-</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:501"><nobr><span class="ft2">ment [16]. In general,</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:635"><nobr><span class="ft2"> = 10pJ/bit/m</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:737"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:749"><nobr><span class="ft2">when</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:785"><nobr><span class="ft2">n = 2,</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:501"><nobr><span class="ft2"> = 0.0013pJ/bit/m</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:627"><nobr><span class="ft12">4</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:638"><nobr><span class="ft2">when</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:674"><nobr><span class="ft2">n = 4,  = 50nJ/bit [9].</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:481"><nobr><span class="ft2">3) For the signal processing component:</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:501"><nobr><span class="ft7">This component conducts data-fusion. Because the sig-<br>nal processing component usually consists of compli-<br>cated and expensive gear such as Digital Signal Proces-<br>sors (DSP), Field Programmable Gate Arrays (FPGA),<br>etc., the basic sensor nodes do not contain the signal<br>processing component. Only the cluster-heads have these<br>components and the ability for data-fusion. The energy<br>spent in aggregating</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:622"><nobr><span class="ft2">k streams of l bits raw information</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:501"><nobr><span class="ft2">into a single stream is determined by</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:612"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:622"><nobr><span class="ft12">aggr</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:646"><nobr><span class="ft2">(k, l) = kl</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:808"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:501"><nobr><span class="ft2">where the typical value of</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:659"><nobr><span class="ft2"> is 5nJ/bit/stream [17].</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:467"><nobr><span class="ft2">B. Mixed Communication Modes</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:481"><nobr><span class="ft2">Notice that in the multi-hop mode, the closer the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:467"><nobr><span class="ft7">between the sensor node and its cluster-head, the more energy<br>the sensor node consumes since the inner nodes are required</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:12px;line-height:22px;font-family:Times;color:#000000;}
+	.ft16{font-size:12px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145003.png" alt="background image">
+<DIV style="position:absolute;top:115;left:93"><nobr><span class="ft7">to relay the more traffics than that for the outer nodes. On<br>the other hand, for the case of pure single-hop mode, the<br>basic sensor nodes which are closer to their cluster-heads<br>dissipate less energy than those farther from the cluster-heads<br>because the energy consumption increases as the</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:386"><nobr><span class="ft2">n-th power</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:93"><nobr><span class="ft2">of distance, where</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:204"><nobr><span class="ft2">n is the path loss exponent.</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:107"><nobr><span class="ft2">In order to balance the energy load of the basic sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:93"><nobr><span class="ft7">nodes, our model employs the mixed communication modes<br>which consist of the mixed single-hop and multi-hop mode.<br>The basic sensor nodes use single-hop communication mode in<br>some rounds but multi-hop communication mode in the other<br>rounds. This kind of mixed communication modes is easy<br>to implement. For example, the cluster-head can broadcast a<br>notifying message periodically to all member nodes to inform<br>of which communication mode should be used for next data-<br>gathering round. We use parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:308"><nobr><span class="ft2"> to measure how often</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:93"><nobr><span class="ft2">the single-hop mode is used.</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:107"><nobr><span class="ft2">Suppose</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:159"><nobr><span class="ft2">T is the total rounds that the network can perform,</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:93"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:101"><nobr><span class="ft12">s</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:114"><nobr><span class="ft2">is the number of rounds that single-hop communication</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:93"><nobr><span class="ft2">mode is used and</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:200"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:208"><nobr><span class="ft12">m</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:224"><nobr><span class="ft2">is the number of rounds that multi-hop</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:93"><nobr><span class="ft2">communication mode is employed. Let</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:318"><nobr><span class="ft2"> = T</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:352"><nobr><span class="ft12">s</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:359"><nobr><span class="ft2">/T = 1-T</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:422"><nobr><span class="ft12">m</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:433"><nobr><span class="ft2">/T</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:93"><nobr><span class="ft7">be the frequency with which the single-hop communication<br>mode is used. Note that</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:237"><nobr><span class="ft2"> = 0 means that the pure multi-hop</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:93"><nobr><span class="ft2">communication mode is employed, while</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:332"><nobr><span class="ft2"> = 1 represents that</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:93"><nobr><span class="ft2">only the single-hop communication mode is used.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:93"><nobr><span class="ft2">C. Deployment Models</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:107"><nobr><span class="ft2">The sensor nodes and the cluster-heads are randomly dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:93"><nobr><span class="ft2">tributed on a 2-D circular area, whose radius is</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:384"><nobr><span class="ft2">A unit. We</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:93"><nobr><span class="ft7">can model such random deployment (e.g., deployed by the<br>aircraft in a large-scale mode) as a spatial Poisson point<br>process. Specifically, the cluster-heads and basic sensor nodes<br>in the wireless sensor network are distributed according to<br>two independent spatial Poisson processes PP1 and PP2 with<br>densities equal to</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:199"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:208"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:219"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:244"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:253"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:259"><nobr><span class="ft2">, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:107"><nobr><span class="ft2">The basic sensor nodes will join the clusters in which</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:93"><nobr><span class="ft7">the cluster-heads are the closest to the sensor nodes to form<br>Voronoi cells [14]. The 2-D plane is thus partitioned into a<br>number of Voronoi cells which correspond to a PP1 process<br>point. The authors of [14] have studied the moments and tail<br>of the distributions of the number of PP2 nodes (i.e., the basic<br>sensor nodes) connected to a particular PP1 node (i.e, a cluster-<br>head). Because PP1 and PP2 are homogeneous Poisson point<br>processes, we can shift the origin to one of the PP1 nodes.<br>Let</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:118"><nobr><span class="ft2">V be the set of nodes which belong to the Voronoi cell</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:93"><nobr><span class="ft2">corresponding to a PP1 node located at the origin and</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:418"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:427"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:93"><nobr><span class="ft2">be a PP2 node whose polar coordinate is (</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:343"><nobr><span class="ft2">r, ). By using the</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:93"><nobr><span class="ft2">results of [14], we can get the probability that</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:369"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:378"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:406"><nobr><span class="ft2">belongs</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:93"><nobr><span class="ft2">to</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:109"><nobr><span class="ft2">V as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:191"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:228"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:256"><nobr><span class="ft2"> V = e</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:313"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:328"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:334"><nobr><span class="ft12">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:346"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:434"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:107"><nobr><span class="ft2">Let</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:132"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:144"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:158"><nobr><span class="ft2">be the number of PP2 nodes belonging to the</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:437"><nobr><span class="ft2">V.</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:468"><nobr><span class="ft2">Then, the average</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:576"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:588"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:601"><nobr><span class="ft2">can be given by</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:503"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:530"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:539"><nobr><span class="ft2">] =</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:596"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:590"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:626"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:620"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:641"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:678"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:705"><nobr><span class="ft2"> V </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:748"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:754"><nobr><span class="ft2">rdrd</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:557"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:596"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:590"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:626"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:620"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:641"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:647"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:663"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:668"><nobr><span class="ft12">r</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:681"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:687"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:695"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:702"><nobr><span class="ft2">rdrd</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:557"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:592"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:584"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:592"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:808"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:468"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:507"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:516"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:522"><nobr><span class="ft2">rdrd denotes the number of PP2 nodes in a small</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:468"><nobr><span class="ft2">area of</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:513"><nobr><span class="ft2">rdrd.</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:482"><nobr><span class="ft2">If we confine the cluster size to</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:683"><nobr><span class="ft2">X hops (i.e., maximum</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:467"><nobr><span class="ft2">number of</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:537"><nobr><span class="ft2">X hops is allowed from the basic sensor node</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:468"><nobr><span class="ft7">to its cluster-head), the average number of sensors which do<br>not belong to any cluster-head, denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:734"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:761"><nobr><span class="ft12">O</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:771"><nobr><span class="ft2">], can be</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:468"><nobr><span class="ft2">expressed as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:481"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:508"><nobr><span class="ft12">O</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:518"><nobr><span class="ft2">] = </span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:569"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:576"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:595"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:618"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:611"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:648"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:641"><nobr><span class="ft12">XR</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:663"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:700"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:728"><nobr><span class="ft2"> V </span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:770"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:776"><nobr><span class="ft2">rdrd</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:536"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:569"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:576"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:595"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:601"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:608"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:623"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:629"><nobr><span class="ft12">(XR)</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:663"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:808"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:482"><nobr><span class="ft2">Clearly, we want a small</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:627"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:654"><nobr><span class="ft12">O</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:664"><nobr><span class="ft2">] with an appropriate cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:468"><nobr><span class="ft2">size</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:495"><nobr><span class="ft2">X.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:592"><nobr><span class="ft2">E [N</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:621"><nobr><span class="ft12">O</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:631"><nobr><span class="ft2">]  </span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:668"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:675"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:694"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:808"><nobr><span class="ft2">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:468"><nobr><span class="ft2">where (</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:530"><nobr><span class="ft2">&gt; 0) is the percentage of sensor nodes that will not</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:468"><nobr><span class="ft2">join any cluster-head.</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:482"><nobr><span class="ft2">Solving Eq. (5) and Eq. (6) together, we obtain the following</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:468"><nobr><span class="ft2">inequality.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:601"><nobr><span class="ft2">X </span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:649"><nobr><span class="ft15">- log<br></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:666"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:672"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:683"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:808"><nobr><span class="ft2">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:468"><nobr><span class="ft7">The average number of sensor nodes which do not join any<br>cluster-head is less or equal than</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:670"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:678"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:684"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:704"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:715"><nobr><span class="ft2">if</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:729"><nobr><span class="ft2">X is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:592"><nobr><span class="ft2">X =</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:649"><nobr><span class="ft15">- log<br></span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:666"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:672"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:683"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:808"><nobr><span class="ft2">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:468"><nobr><span class="ft2">Thus, we know that every cluster can be divided into</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:812"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:468"><nobr><span class="ft2">ring zones with the ring width equal to</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:714"><nobr><span class="ft2">R when multi-hop</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:468"><nobr><span class="ft2">communication mode is used.</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:482"><nobr><span class="ft2">The average number of sensor nodes in the</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:735"><nobr><span class="ft2">i-th zone of the</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:468"><nobr><span class="ft2">cluster can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:495"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:524"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:529"><nobr><span class="ft2">] =</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:586"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:580"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:616"><nobr><span class="ft12">iR</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:610"><nobr><span class="ft12">(i-1)R</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:649"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:686"><nobr><span class="ft12">(r,)</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:714"><nobr><span class="ft2"> V </span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:756"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:762"><nobr><span class="ft2">rdrd</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:547"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:582"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:574"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:582"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:601"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:608"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:623"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:629"><nobr><span class="ft12">[(i-1)R]</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:678"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:688"><nobr><span class="ft2">- e</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:708"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:724"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:730"><nobr><span class="ft12">(iR)</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:758"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:808"><nobr><span class="ft2">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:468"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:507"><nobr><span class="ft2">i is an positive integer ranging from 1 to X.</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:468"><nobr><span class="ft2">D. The Wireless Sensor Network Lifetime</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:482"><nobr><span class="ft2">In our model, the nodes at the same zone will die at almost</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:468"><nobr><span class="ft7">the same time. Therefore, the network lifetime is equivalent<br>to the period from the time when the WSN begins working to<br>the time when all nodes of a zone die.</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:482"><nobr><span class="ft16">i) The basic sensor nodes<br>The sensor nodes have the responsibility to relay the traffic</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:468"><nobr><span class="ft7">from the peers laid in the outer zone in the multi-hop com-<br>munication mode. We define the average number of packets</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:7px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145004.png" alt="background image">
+<DIV style="position:absolute;top:116;left:90"><nobr><span class="ft2">by</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:110"><nobr><span class="ft2">Y(i), which a sensor node placed in the i-th zone need</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:90"><nobr><span class="ft7">to relay. Because each basic sensor node sends out a packet<br>of sensed information per round,</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:292"><nobr><span class="ft2">Y(i) is determined by the</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:90"><nobr><span class="ft2">average number of nodes for which node</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:338"><nobr><span class="ft2">i needs to forward</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:90"><nobr><span class="ft2">messages and can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:198"><nobr><span class="ft2">Y(i) =</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:261"><nobr><span class="ft17">X<br>j=i+1</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:296"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:323"><nobr><span class="ft12">j</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:329"><nobr><span class="ft2">]</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:271"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:298"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:303"><nobr><span class="ft2">]</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:335"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:424"><nobr><span class="ft2">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:104"><nobr><span class="ft2">The energy consumption of the basic sensor nodes in the</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:90"><nobr><span class="ft7">i-th zone can be written as the summation of the following 3<br>terms:</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:108"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:119"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:154"><nobr><span class="ft2">(i, ) = (1 - ) E</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:269"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:280"><nobr><span class="ft2">(R, l) + Y(i) E</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:374"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:385"><nobr><span class="ft2">(R, l)</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:208"><nobr><span class="ft2">+E</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:229"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:242"><nobr><span class="ft2">(l) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:307"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:319"><nobr><span class="ft2">(iR, l) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:384"><nobr><span class="ft12">sense</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:413"><nobr><span class="ft2">(l)</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:424"><nobr><span class="ft2">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:90"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:132"><nobr><span class="ft2"> (0    1) is a parameter measuring the fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:90"><nobr><span class="ft7">quency with which the single-hop communication mode will<br>be employed. The first term of Eq. (11) represents the energy<br>spent in the relaying the traffic for the sensor nodes in the<br>outer zone and transmitting its own traffic when the multi-<br>hop communication mode is employed. The second term of<br>Eq. (11) is energy consumption for transmitting a packet by<br>single-hop. The third term of Eq. (11) is the energy dissipation<br>for sensing.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:104"><nobr><span class="ft2">In our model, because the basic sensor nodes in the same</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:90"><nobr><span class="ft7">zone will consume almost the same energy in each round<br>(i.e., sharing the same relaying traffic load when multi-hop<br>communication mode is used), their lifetimes are equal if<br>their initial energies are the same. Therefore, if the initial<br>energy is the same for each basic sensor node, the sensor<br>nodes which belong to the (arg max</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:299"><nobr><span class="ft12">1iX</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:337"><nobr><span class="ft2">{E</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:355"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:390"><nobr><span class="ft2">(i, )})-th</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:90"><nobr><span class="ft7">zone will cost the most energy and die first which decides the<br>network lifetime. Given the initial energy, denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:408"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:418"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:444"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:90"><nobr><span class="ft7">which is carried by the basic sensor node, the network lifetime<br>in rounds (</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:154"><nobr><span class="ft2">T ) can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:144"><nobr><span class="ft2">T =</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:228"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:238"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:175"><nobr><span class="ft2">max</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:202"><nobr><span class="ft12">1iX</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:242"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:253"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:288"><nobr><span class="ft2">(i, ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:347"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:357"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:339"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:350"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:373"><nobr><span class="ft2">()</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:424"><nobr><span class="ft2">(12)</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:90"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:130"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:141"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:164"><nobr><span class="ft2">()</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:205"><nobr><span class="ft2">max</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:231"><nobr><span class="ft12">1iX</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:272"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:282"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:317"><nobr><span class="ft2">(i, ). One of our ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:90"><nobr><span class="ft2">jectives is to find the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:266"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:272"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:284"><nobr><span class="ft2">which is determined by</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:191"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:198"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:208"><nobr><span class="ft2">= arg min</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:246"><nobr><span class="ft12">01</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:280"><nobr><span class="ft2">{E</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:298"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:321"><nobr><span class="ft2">()}</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:424"><nobr><span class="ft2">(13)</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:104"><nobr><span class="ft7">ii) The cluster-heads<br>Because the main functions of cluster-heads include (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:90"><nobr><span class="ft7">sensing, (2) collecting data from the basic sensor nodes, (3)<br>aggregating the raw data, and (4) transferring the processed<br>data to the base station, the energy consumption of cluster-<br>heads is the sum of the energy dissipation of these four parts<br>for the above four parts. Therefore, the energy consumption<br>for a cluster-head, denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:277"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:288"><nobr><span class="ft12">CH</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:307"><nobr><span class="ft2">, in each round can be</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:90"><nobr><span class="ft2">expressed as summation of the following 4 terms:</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:112"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:122"><nobr><span class="ft12">CH</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:156"><nobr><span class="ft2">= E [N ] E</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:230"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:242"><nobr><span class="ft2">(l) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:286"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:297"><nobr><span class="ft2">(H, l ) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:363"><nobr><span class="ft12">sense</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:392"><nobr><span class="ft2">(l) +</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:181"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:192"><nobr><span class="ft12">aggr</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:216"><nobr><span class="ft2">(E [N ] + 1, l)</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:424"><nobr><span class="ft2">(14)</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:464"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:504"><nobr><span class="ft2">E[N ] is the average number of basic sensor nodes in</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:464"><nobr><span class="ft2">a cluster, and</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:547"><nobr><span class="ft2">H is the distance between the cluster-head and</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:464"><nobr><span class="ft2">the mobile base-station.</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:478"><nobr><span class="ft2">The first term of Eq. (14) represents the energy consumed</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:464"><nobr><span class="ft7">for receiving the packets from the basic sensor nodes. The<br>second term of Eq. (14) is the energy spent in transmitting the<br>aggregated information to the mobile base station. The third<br>term of Eq. (14) denotes the energy dissipation for sensing and<br>the fourth term of Eq. (14) means the energy consumption for<br>aggregating (</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:543"><nobr><span class="ft2">E [N ] + 1) packets, each with l bits, into one</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:464"><nobr><span class="ft2">packet of</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:523"><nobr><span class="ft2">l bits.</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:478"><nobr><span class="ft2">Because</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:532"><nobr><span class="ft2">E[N ] = </span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:598"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:605"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:620"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:626"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:637"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:647"><nobr><span class="ft12">CH</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:673"><nobr><span class="ft2">depends on the ratio be-</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:464"><nobr><span class="ft2">tween</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:504"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:513"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:525"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:552"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:560"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:567"><nobr><span class="ft2">. The energy consumption of cluster-heads</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:464"><nobr><span class="ft16">is reversely proportional to the density of cluster-heads. The<br>larger the density of cluster-heads, the smaller the value of<br>E</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:475"><nobr><span class="ft12">CH</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:494"><nobr><span class="ft2">. Thus, in order to ensure</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:642"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:650"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:660"><nobr><span class="ft2">rounds network lifetime, the</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:464"><nobr><span class="ft2">initial energy for the cluster-heads can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:579"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:589"><nobr><span class="ft12">init1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:619"><nobr><span class="ft2"> T</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:642"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:649"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:659"><nobr><span class="ft12">CH</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:798"><nobr><span class="ft2">(15)</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:464"><nobr><span class="ft2">E. Connectivity</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:478"><nobr><span class="ft2">Because the mixed communication modes contains multi-</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:464"><nobr><span class="ft2">hop communication mode, the communication range (</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:790"><nobr><span class="ft2">R) is</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:464"><nobr><span class="ft7">required to be large enough to ensure the connectivity of the<br>network. When the nodes are assumed to be distributed with<br>Poisson density</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:559"><nobr><span class="ft2"> in a disc of a unit area, the authors of [18]</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:464"><nobr><span class="ft2">derived a lower bound on the communication range (</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:788"><nobr><span class="ft2">R) to</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:464"><nobr><span class="ft2">ensure the network connectivity with probability</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:756"><nobr><span class="ft2">P r{conn},</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:464"><nobr><span class="ft2">which is determined by</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:550"><nobr><span class="ft2">P r{conn}  1 - e</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:670"><nobr><span class="ft12">-R</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:701"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:798"><nobr><span class="ft2">(16)</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:464"><nobr><span class="ft7">Hence, the following inequality need to hold to ensure the<br>connectivity.</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:590"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:604"><nobr><span class="ft12">-R</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:636"><nobr><span class="ft10"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:646"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:798"><nobr><span class="ft2">(17)</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:464"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:504"><nobr><span class="ft2"> &gt; 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:478"><nobr><span class="ft2">By resolving Eq. (17), we obtain the minimum transmission</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:464"><nobr><span class="ft2">range, denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:581"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:591"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:613"><nobr><span class="ft2">, to ensure that the probability of</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:464"><nobr><span class="ft2">connectivity is greater than (1</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:642"><nobr><span class="ft2">- ).</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:523"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:534"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:570"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:609"><nobr><span class="ft2">- 1</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:622"><nobr><span class="ft2"> log</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:666"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:665"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:570"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:640"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:611"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:625"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:634"><nobr><span class="ft2">+ </span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:657"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:663"><nobr><span class="ft2">) log</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:704"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:717"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:727"><nobr><span class="ft2">+ </span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:749"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:756"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:729"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:798"><nobr><span class="ft2">(18)</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:464"><nobr><span class="ft2">F. The Optimization Problem Formulation</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:478"><nobr><span class="ft2">Our objective is to find the optimal transmission range (</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:806"><nobr><span class="ft2">R)</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:464"><nobr><span class="ft2">and the parameter for the mixed communication modes (</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:795"><nobr><span class="ft2">) to</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:464"><nobr><span class="ft2">maximize the network lifetime.</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:549"><nobr><span class="ft2">Objective:</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:640"><nobr><span class="ft2">max{T }</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:798"><nobr><span class="ft2">(19)</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:548"><nobr><span class="ft2">Subject to</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:640"><nobr><span class="ft2">R  R</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:680"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:798"><nobr><span class="ft2">(20)</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:640"><nobr><span class="ft2">0    1</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:798"><nobr><span class="ft2">(21)</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:640"><nobr><span class="ft2">0  E</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:676"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:706"><nobr><span class="ft2"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:731"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:798"><nobr><span class="ft2">(22)</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:464"><nobr><span class="ft7">where the first constraint given by Eq. (20) is to ensure the<br>connectivity of the network. The expression of</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:738"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:749"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:775"><nobr><span class="ft2">depends</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:2px;font-family:Times;color:#000000;}
+	.ft19{font-size:6px;font-family:Times;color:#000000;}
+	.ft20{font-size:5px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145005.png" alt="background image">
+<DIV style="position:absolute;top:123;left:89"><nobr><span class="ft7">on the types of deployment. The second constraint given by<br>Eq. (21) indicates that we can use mixed communication<br>modes. The third constraint given by Eq. (22) is due to the<br>very limited energy carried by the basic sensor nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:104"><nobr><span class="ft2">By observing Eq. (12), we can simplify the objective</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:89"><nobr><span class="ft2">function as "min</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:192"><nobr><span class="ft2">{E</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:210"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:233"><nobr><span class="ft2">}" and remove the constraint given</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:89"><nobr><span class="ft2">by Eq. (22) by letting</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:234"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:244"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:278"><nobr><span class="ft2">= E</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:308"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:315"><nobr><span class="ft2">. Then, the simplified</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:89"><nobr><span class="ft2">optimization problem can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:187"><nobr><span class="ft2">Objective:</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:278"><nobr><span class="ft2">min{E</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:319"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:343"><nobr><span class="ft2">}</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:423"><nobr><span class="ft2">(23)</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:187"><nobr><span class="ft2">Subject to</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:278"><nobr><span class="ft2">R  R</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:319"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:278"><nobr><span class="ft2">0    1</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:113"><nobr><span class="ft1">3 SOLUTIONS FOR THE OPTIMIZATION PROBLEM</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:104"><nobr><span class="ft2">First, we show that given a specified transmission range</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:89"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:94"><nobr><span class="ft2">R), the function of E</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:221"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:244"><nobr><span class="ft2">() is convex in  and the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:89"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:96"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:107"><nobr><span class="ft2">= arg min</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:168"><nobr><span class="ft12">01</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:203"><nobr><span class="ft2">{E</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:221"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:244"><nobr><span class="ft2">()} is a function of R.</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:104"><nobr><span class="ft2">Because the energy consumption</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:295"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:306"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:341"><nobr><span class="ft2">(i, ) of the sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:89"><nobr><span class="ft2">nodes in the</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:170"><nobr><span class="ft2">i-th zone is a convex function of i (the proof</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:89"><nobr><span class="ft2">is omitted for lack of space), the value of</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:348"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:358"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:382"><nobr><span class="ft2">() will be</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:89"><nobr><span class="ft16">achieved by the sensor nodes laid in either the 1st zone or the<br>X-th zone, i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:117"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:128"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:151"><nobr><span class="ft2">() = max {E</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:234"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:269"><nobr><span class="ft2">(1, ), E</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:317"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:352"><nobr><span class="ft2">(X, )}</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:423"><nobr><span class="ft2">(24)</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:104"><nobr><span class="ft2">Note that</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:160"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:171"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:206"><nobr><span class="ft2">(1, ) is a monotonically decreasing linear</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:89"><nobr><span class="ft2">function of</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:157"><nobr><span class="ft2"> while E</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:215"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:250"><nobr><span class="ft2">(X, ) is a monotonically increas-</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:89"><nobr><span class="ft2">ing linear function of</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:221"><nobr><span class="ft2">, and E</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:274"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:309"><nobr><span class="ft2">(1, 1) = E</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:372"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:407"><nobr><span class="ft2">(X, 0).</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:89"><nobr><span class="ft7">Hence, we can find that the two lines corresponding to these<br>two linear functions will intersect at the point where</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:423"><nobr><span class="ft2"> is</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:89"><nobr><span class="ft7">within the range between 0 to 1. Clearly, the intersecting<br>point, denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:196"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:203"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:210"><nobr><span class="ft2">, yields the minimum value of</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:392"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:402"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:425"><nobr><span class="ft2">().</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:89"><nobr><span class="ft2">Therefore,</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:155"><nobr><span class="ft2"> = </span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:193"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:206"><nobr><span class="ft2">is the optimal value when the following</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:89"><nobr><span class="ft2">equation is satisfied.</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:173"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:183"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:218"><nobr><span class="ft2">(1, </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:244"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:251"><nobr><span class="ft2">) = E</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:286"><nobr><span class="ft12">sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:321"><nobr><span class="ft2">(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:351"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:358"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:423"><nobr><span class="ft2">(25)</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:104"><nobr><span class="ft2">By resolving Eq. (25), we obtain the solution for Eq. (13).</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:112"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:119"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:140"><nobr><span class="ft2">= arg min</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:187"><nobr><span class="ft12">01</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:222"><nobr><span class="ft2">{E</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:239"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:263"><nobr><span class="ft2">()}</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:140"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:234"><nobr><span class="ft2">Y(1)[E</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:277"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:289"><nobr><span class="ft2">(R) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:338"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:351"><nobr><span class="ft2">]</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:167"><nobr><span class="ft2">Y(1)[E</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:210"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:221"><nobr><span class="ft2">(R) + E</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:271"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:284"><nobr><span class="ft2">] + E</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:315"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:327"><nobr><span class="ft2">(XR) - E</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:389"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:401"><nobr><span class="ft2">(R)</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:140"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:217"><nobr><span class="ft2">Y(1)(R</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:271"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:282"><nobr><span class="ft2">+ 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:167"><nobr><span class="ft2">Y(1)(R</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:221"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:232"><nobr><span class="ft2">+ 2) + R</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:305"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:312"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:331"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:342"><nobr><span class="ft2">- 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:140"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:213"><nobr><span class="ft2">Y(1)(R</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:258"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:269"><nobr><span class="ft2">+ 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:167"><nobr><span class="ft2">Y(1)(R</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:212"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:223"><nobr><span class="ft2">+ 2) + R</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:286"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:293"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:312"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:323"><nobr><span class="ft2">- 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:423"><nobr><span class="ft2">(26)</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:89"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:131"><nobr><span class="ft2"> = /, and we use E</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:286"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:297"><nobr><span class="ft2">(R), E</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:340"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:352"><nobr><span class="ft2">(XR), and E</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:434"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:89"><nobr><span class="ft2">instead of</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:152"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:162"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:173"><nobr><span class="ft2">(R, l), E</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:225"><nobr><span class="ft12">tx</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:237"><nobr><span class="ft2">(XR, l), and E</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:327"><nobr><span class="ft12">rx</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:339"><nobr><span class="ft2">(l) since the value</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:89"><nobr><span class="ft2">of</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:106"><nobr><span class="ft2">l is a constant for a specific application.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:104"><nobr><span class="ft2">The factor</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:172"><nobr><span class="ft2"> measures to what extent R has the impact</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:89"><nobr><span class="ft7">on the transmission energy consumption. For example, The<br>transmission energy consumption is more sensitive to</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:401"><nobr><span class="ft2">R when</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:89"><nobr><span class="ft7"> is larger. The factor  also determines the cost of relaying<br>traffic. The cost of relaying traffic increases with the increment<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:106"><nobr><span class="ft2"> because receiving packets consumes more energy with a</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:89"><nobr><span class="ft2">greater</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:134"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:526"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:535"><nobr><span class="ft18">-5</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:642"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:651"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:757"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:765"><nobr><span class="ft18">5</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:734"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:742"><nobr><span class="ft18">4</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:711"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:719"><nobr><span class="ft18">3</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:688"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:696"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:665"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:674"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:618"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:626"><nobr><span class="ft18">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:595"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:603"><nobr><span class="ft18">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:572"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:580"><nobr><span class="ft18">-3</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:549"><nobr><span class="ft10"><b>10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:557"><nobr><span class="ft18">-4</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:528"><nobr><span class="ft10"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:521"><nobr><span class="ft10"><b>0.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:521"><nobr><span class="ft10"><b>0.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:521"><nobr><span class="ft10"><b>0.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:521"><nobr><span class="ft10"><b>0.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:521"><nobr><span class="ft10"><b>0.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:521"><nobr><span class="ft10"><b>0.6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:521"><nobr><span class="ft10"><b>0.7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:521"><nobr><span class="ft10"><b>0.8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:521"><nobr><span class="ft10"><b>0.9</b></span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:528"><nobr><span class="ft10"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:646"><nobr><span class="ft10"><b></b></span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:517"><nobr><span class="ft10"><b></b></span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:513"><nobr><span class="ft11"><b>*</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:558"><nobr><span class="ft20"><b>R=0.1, n=2<br>R=1, n=2<br>R=0.1, n=4<br>R=1, n=4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:561"><nobr><span class="ft4">Fig. 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:603"><nobr><span class="ft4">The optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:663"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:669"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:679"><nobr><span class="ft4">against</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:715"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:478"><nobr><span class="ft2">If</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:492"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:522"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:533"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:540"><nobr><span class="ft2">, Eq. (26) reduces to its approximated expression</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:464"><nobr><span class="ft2">as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:560"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:566"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:577"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:630"><nobr><span class="ft2">Y(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:594"><nobr><span class="ft2">Y(1) + (X</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:658"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:669"><nobr><span class="ft2">- 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:798"><nobr><span class="ft2">(27)</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:478"><nobr><span class="ft2">By substituting Eq. (9) and (10) into Eq. (26), we have</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:485"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:492"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:503"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:567"><nobr><span class="ft12">1-e</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:587"><nobr><span class="ft10"><b>-1(X2-1)R2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:588"><nobr><span class="ft12">e</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:593"><nobr><span class="ft10"><b>1R2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:625"><nobr><span class="ft12">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:662"><nobr><span class="ft2">(R</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:678"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:689"><nobr><span class="ft2">+ 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:521"><nobr><span class="ft12">1-e</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:541"><nobr><span class="ft10"><b>-1(X2-1)R2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:542"><nobr><span class="ft12">e</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:547"><nobr><span class="ft10"><b>1R2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:579"><nobr><span class="ft12">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:616"><nobr><span class="ft2">(R</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:632"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:643"><nobr><span class="ft2">+ 2) + R</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:706"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:714"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:732"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:743"><nobr><span class="ft2">- 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:798"><nobr><span class="ft2">(28)</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:464"><nobr><span class="ft2">Notice that</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:533"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:539"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:551"><nobr><span class="ft2">is a function of</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:645"><nobr><span class="ft2">R if we substitute Eq. (8) into</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:464"><nobr><span class="ft2">Eq. (28).</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:478"><nobr><span class="ft2">Let</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:501"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:509"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:519"><nobr><span class="ft2">= 0.001, </span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:582"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:593"><nobr><span class="ft2">= 3, and  = 10</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:688"><nobr><span class="ft12">-12</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:709"><nobr><span class="ft2">. By using Eq. (28),</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:464"><nobr><span class="ft2">we plot the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:592"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:599"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:612"><nobr><span class="ft2">against</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:659"><nobr><span class="ft2"> as shown in Fig. 2. We</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:464"><nobr><span class="ft2">observe from Fig. 2 that the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:680"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:686"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:698"><nobr><span class="ft2">is almost 0 (i.e., pure</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:464"><nobr><span class="ft2">multi-hop communication mode) if</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:671"><nobr><span class="ft2">n = 4 and  is small. The</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:464"><nobr><span class="ft7">reason is because the energy consumption for transmission is<br>proportional to</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:557"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:568"><nobr><span class="ft12">4</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:581"><nobr><span class="ft2">and the term of</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:680"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:700"><nobr><span class="ft12">4</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:713"><nobr><span class="ft2">in the first part of</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:464"><nobr><span class="ft2">Eq. (1) dominates the transmission energy consumption if</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:813"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:464"><nobr><span class="ft7">is small. Thus, the energy consumption in single-hop mode is<br>much more than that in multi-hop mode. In contrast, if</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:798"><nobr><span class="ft2"> is</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:464"><nobr><span class="ft7">large, the multi-hop mode loses its advantage over the single-<br>hop mode because the transmission energy consumption is<br>dominated by the constant term of</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:664"><nobr><span class="ft2"> in the first part of Eq. (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:464"><nobr><span class="ft2">and it is not sensitive to the transmission range.</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:478"><nobr><span class="ft2">So far, given the communication range (</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:717"><nobr><span class="ft2">R), we obtain the</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:464"><nobr><span class="ft2">minimum</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:526"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:536"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:560"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:572"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:578"><nobr><span class="ft2">) for the basic sensor nodes in order to</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:464"><nobr><span class="ft7">derive the solutions for objective function of Eq. (24) as<br>follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:494"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:504"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:528"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:540"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:547"><nobr><span class="ft2">) = [R</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:595"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:603"><nobr><span class="ft2">(1 + </span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:640"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:646"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:659"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:670"><nobr><span class="ft2">- </span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:691"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:697"><nobr><span class="ft2">) +  + ]l</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:798"><nobr><span class="ft2">(29)</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:478"><nobr><span class="ft2">Next, we want to identify the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:724"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:735"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:749"><nobr><span class="ft2">to minimize</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:464"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:474"><nobr><span class="ft12">max</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:498"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:510"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:517"><nobr><span class="ft2">) when constraint given by Eq. (20) applies. Because</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:464"><nobr><span class="ft2">it is difficult to find the closed form for the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:778"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:789"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:796"><nobr><span class="ft2">, we</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:464"><nobr><span class="ft2">use a numerical solutions to determine the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:764"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:775"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:787"><nobr><span class="ft2">which</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:464"><nobr><span class="ft2">is detailed for some scenarios in Section IV.</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:477"><nobr><span class="ft1">4 THE NUMERICAL AND SIMULATION EVALUATIONS</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:478"><nobr><span class="ft2">For the following discussions, we set</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:707"><nobr><span class="ft2"> = 10pJ/bit/m</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:811"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:818"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:464"><nobr><span class="ft2"> = 50nJ/bit,  = 5nJ/bit/stream, the packet length</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:4px;font-family:Times;color:#000000;}
+	.ft22{font-size:4px;line-height:9px;font-family:Times;color:#000000;}
+	.ft23{font-size:12px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145006.png" alt="background image">
+<DIV style="position:absolute;top:298;left:164"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:171"><nobr><span class="ft18">-3</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:208"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:215"><nobr><span class="ft18">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:252"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:260"><nobr><span class="ft18">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:298"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:305"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:342"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:349"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:386"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:394"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:164"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:164"><nobr><span class="ft21">5</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:161"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:161"><nobr><span class="ft21">15</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:161"><nobr><span class="ft21">20</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:161"><nobr><span class="ft21">25</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:161"><nobr><span class="ft21">30</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:225"><nobr><span class="ft21">The density of the cluster-heads (</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:328"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:331"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:334"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:156"><nobr><span class="ft21">The optimal transmission range (R</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:153"><nobr><span class="ft11"><b>*</b></span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:156"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:349"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:353"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:356"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:358"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:362"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:365"><nobr><span class="ft21">=100</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:349"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:353"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:356"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:358"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:362"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:365"><nobr><span class="ft21">=5000</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:209"><nobr><span class="ft21">=1000</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:189"><nobr><span class="ft21">=50</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:202"><nobr><span class="ft21">=0</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:531"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:538"><nobr><span class="ft18">-3</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:575"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:583"><nobr><span class="ft18">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:619"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:627"><nobr><span class="ft18">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:665"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:672"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:709"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:716"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:753"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:761"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:532"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:526"><nobr><span class="ft21">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:526"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:526"><nobr><span class="ft21">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:526"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:526"><nobr><span class="ft21">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:526"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:526"><nobr><span class="ft21">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:526"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:526"><nobr><span class="ft21">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:532"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:592"><nobr><span class="ft21">The density of the cluster-heads (</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:695"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:698"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:701"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:521"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:517"><nobr><span class="ft11"><b>*</b></span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:568"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:572"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:575"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:576"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:580"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:583"><nobr><span class="ft21">=100</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:568"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:572"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:575"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:576"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:580"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:583"><nobr><span class="ft21">=5000</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:642"><nobr><span class="ft21">=1000</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:721"><nobr><span class="ft21">=0</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:626"><nobr><span class="ft21">=50</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:266"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:630"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:105"><nobr><span class="ft4">Fig. 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:148"><nobr><span class="ft4">The optimal parameters versus the density of cluster-heads under different</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:499"><nobr><span class="ft4">. (a) The optimal communication range R</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:702"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:708"><nobr><span class="ft4">. (b) The optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:793"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:798"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:805"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:161"><nobr><span class="ft21">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:191"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:216"><nobr><span class="ft21">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:245"><nobr><span class="ft21">2</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:270"><nobr><span class="ft21">2.5</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:300"><nobr><span class="ft21">3</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:324"><nobr><span class="ft21">3.5</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:354"><nobr><span class="ft21">4</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:378"><nobr><span class="ft21">4.5</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:160"><nobr><span class="ft21">0</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:155"><nobr><span class="ft21">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:155"><nobr><span class="ft21">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:155"><nobr><span class="ft21">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:155"><nobr><span class="ft21">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:155"><nobr><span class="ft21">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:155"><nobr><span class="ft21">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:155"><nobr><span class="ft21">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:155"><nobr><span class="ft21">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:155"><nobr><span class="ft21">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:160"><nobr><span class="ft21">1</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:225"><nobr><span class="ft21">Transmission range in meters (R)</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:150"><nobr><span class="ft21">The normalized network lifetime</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:359"><nobr><span class="ft22">=0<br>=0.2<br>=0.5<br>=0.8<br>=1</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:90"><nobr><span class="ft4">Fig. 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:133"><nobr><span class="ft4">The normalized network lifetime versus the transmission range (</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:435"><nobr><span class="ft4">R)</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:90"><nobr><span class="ft4">with</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:115"><nobr><span class="ft4"> = 50, </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:164"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:173"><nobr><span class="ft4">= 0.1, </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:215"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:221"><nobr><span class="ft4">/</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:234"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:243"><nobr><span class="ft4">= 5000, and  = 0, 0.2, 0.5, 0.8, 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:90"><nobr><span class="ft7">l = 120 bits and the path loss exponent n = 2. We consider<br>various scenarios with three different values of</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:363"><nobr><span class="ft2">, two average</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:90"><nobr><span class="ft2">numbers of basic sensor nodes in a cluster (</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:338"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:346"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:352"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:368"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:374"><nobr><span class="ft2">) and various</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:90"><nobr><span class="ft2">densities of cluster-heads (</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:244"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:253"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:259"><nobr><span class="ft2">). According to the discussion in</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:90"><nobr><span class="ft2">Section III, we get the numerical solutions for the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:427"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:438"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:444"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:90"><nobr><span class="ft2">and then the value of optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:271"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:278"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:290"><nobr><span class="ft2">can be calculated by using</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:90"><nobr><span class="ft2">Eq. (28).</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:105"><nobr><span class="ft2">The numerical results of optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:295"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:306"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:317"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:341"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:348"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:358"><nobr><span class="ft2">with different</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:440"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:90"><nobr><span class="ft2">and (</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:120"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:128"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:134"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:150"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:156"><nobr><span class="ft2">) are shown in Fig. 3(a) and Fig. 3(b), respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:90"><nobr><span class="ft2">The optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:165"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:176"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:187"><nobr><span class="ft2">decreases as</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:262"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:271"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:282"><nobr><span class="ft2">increases. With the same</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:430"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:438"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:444"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:90"><nobr><span class="ft2">the larger</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:154"><nobr><span class="ft2">, the larger the value of R</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:328"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:335"><nobr><span class="ft2">. When</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:386"><nobr><span class="ft2"> is small</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:90"><nobr><span class="ft2">(e.g.,</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:126"><nobr><span class="ft2"> = 0 and  = 50), the value of </span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:352"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:365"><nobr><span class="ft2">is small (e.g.,</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:90"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:97"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:111"><nobr><span class="ft2">&lt; 0.1). This implies that the multi-hop communication</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:90"><nobr><span class="ft7">mode dominates the single-hop mode. The reason for these<br>observations includes the following two. First, the cost of<br>relaying traffics is small since the receiving energy is small.<br>Second, the transmission energy is sensitive to the transmission<br>range.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:105"><nobr><span class="ft2">We also conduct the simulation experiments to verify our</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:90"><nobr><span class="ft7">analytical results. In our simulations, Minimum Transmission<br>Energy (MTE) routing algorithm [19], which minimizes the<br>total energy consumption for sending a packet, is used as the<br>relaying scheme for the multi-hop communication mode. Let</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:465"><nobr><span class="ft2"> = 50, </span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:531"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:544"><nobr><span class="ft2">= 0.1, and </span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:626"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:632"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:648"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:661"><nobr><span class="ft2">= 5000. We set the initial</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:465"><nobr><span class="ft2">energy of cluster-heads (</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:607"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:617"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:643"><nobr><span class="ft2">) high enough to guarantee that</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:465"><nobr><span class="ft7">the cluster-heads can have longer lifetime than the basic sensor<br>nodes. Fig. 4 shows the simulation results of network lifetime.<br>The plots in Fig. 4 is the average results of 1000 experiments.<br>It shows that in most cases (i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:660"><nobr><span class="ft2"> = 0, 0.2, 0.5, and 0.8) the</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:465"><nobr><span class="ft2">network lifetime is maximized when</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:684"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:694"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:705"><nobr><span class="ft2">= 3.5, which agrees</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:465"><nobr><span class="ft2">with the numerical results shown in Fig. 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:479"><nobr><span class="ft2">In the following simulations, the parameters are set as</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:465"><nobr><span class="ft2">follows: the initial energy of basic sensor nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:767"><nobr><span class="ft2">E</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:778"><nobr><span class="ft12">init2</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:811"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:465"><nobr><span class="ft23">0.01J, the distance between the cluster-heads and the mobile<br>base station</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:540"><nobr><span class="ft2">H = 100m, l = l = 120bits and </span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:762"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:774"><nobr><span class="ft2">= 1000.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:465"><nobr><span class="ft7">Fig. 5 shows the network lifetime changes with the average<br>number of the basic sensor nodes in a cluster by using the<br>optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:514"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:525"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:536"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:562"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:569"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:581"><nobr><span class="ft2">when</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:617"><nobr><span class="ft2"> is equal to 0, 100 and 1000. We</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:465"><nobr><span class="ft2">observe that increasing the density of cluster-heads (i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:786"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:794"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:801"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:816"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:465"><nobr><span class="ft2">decreases given constant</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:614"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:622"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:629"><nobr><span class="ft2">) does not always help to extend</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:465"><nobr><span class="ft7">the network lifetime. For example, the network lifetime can be<br>increased by 51% when the density of cluster-heads changes<br>from</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:497"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:505"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:515"><nobr><span class="ft2">= 0.01 or </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:584"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:590"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:606"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:616"><nobr><span class="ft2">= 10</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:645"><nobr><span class="ft12">6</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:656"><nobr><span class="ft2">to</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:671"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:679"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:690"><nobr><span class="ft2">= 0.1 or </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:751"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:758"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:773"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:783"><nobr><span class="ft2">= 10</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:812"><nobr><span class="ft12">5</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:819"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:465"><nobr><span class="ft7">while the network lifetime is almost the same when the density<br>of cluster-heads is greater than</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:655"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:663"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:676"><nobr><span class="ft2">= 1 (i.e., the average of</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:465"><nobr><span class="ft2">basic sensor nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:580"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:588"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:594"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:610"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:621"><nobr><span class="ft2"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:651"><nobr><span class="ft12">4</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:657"><nobr><span class="ft2">). On the other hand, Fig. 6</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:465"><nobr><span class="ft7">shows the energy consumption of a cluster-head against the<br>average number of the basic sensor nodes. We find that the<br>average energy consumption of a cluster-head is proportional<br>to (</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:485"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:493"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:500"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:515"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:522"><nobr><span class="ft2">) from Fig. 6. The required initial energy of cluster-</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:465"><nobr><span class="ft7">heads increases with the decrease of the density of cluster-<br>heads (</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:509"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:517"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:523"><nobr><span class="ft2">). Thus, there is a trade-off between the network</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:465"><nobr><span class="ft2">lifetime and the initial energy of the cluster-heads.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:565"><nobr><span class="ft1">5 3-D WSN EXTENSION</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:479"><nobr><span class="ft2">Our work can be easily extended to a 3-D space model.</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:465"><nobr><span class="ft7">The differences between the 3-D space model and the 2-D<br>space model lie in the deployment models and the connectivity<br>models.</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:479"><nobr><span class="ft2">The probability that a basic sensor node with spherical</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:465"><nobr><span class="ft2">coordinate (</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:537"><nobr><span class="ft2">r, , ) belongs to a cluster-head located in the</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:465"><nobr><span class="ft2">origin is</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:554"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:591"><nobr><span class="ft12">(r,,)</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:629"><nobr><span class="ft2"> V = e</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:686"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:701"><nobr><span class="ft10"><b>1 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:708"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:715"><nobr><span class="ft12">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:728"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:799"><nobr><span class="ft2">(30)</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="145007.png" alt="background image">
+<DIV style="position:absolute;top:310;left:160"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:167"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:204"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:211"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:248"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:255"><nobr><span class="ft18">3</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:292"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:300"><nobr><span class="ft18">4</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:336"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:344"><nobr><span class="ft18">5</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:380"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:388"><nobr><span class="ft18">6</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:151"><nobr><span class="ft21">600</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:151"><nobr><span class="ft21">700</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:151"><nobr><span class="ft21">800</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:151"><nobr><span class="ft21">900</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:148"><nobr><span class="ft21">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:148"><nobr><span class="ft21">1100</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:148"><nobr><span class="ft21">1200</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:148"><nobr><span class="ft21">1300</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:182"><nobr><span class="ft21">The average number of basic sensor nodes in a cluster (</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:351"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:355"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:358"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:360"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:364"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:367"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:143"><nobr><span class="ft21">Network lifetime in rounds</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:196"><nobr><span class="ft22">=0<br>=100<br>=1000</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:91"><nobr><span class="ft4">Fig. 5. Optimal network lifetime under various situations where</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:393"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:400"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:409"><nobr><span class="ft4">= 1000.</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:160"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:167"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:204"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:211"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:248"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:255"><nobr><span class="ft18">3</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:292"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:300"><nobr><span class="ft18">4</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:336"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:344"><nobr><span class="ft18">5</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:380"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:388"><nobr><span class="ft18">6</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:150"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:157"><nobr><span class="ft18">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:150"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:157"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:150"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:157"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:150"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:157"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:150"><nobr><span class="ft21">10</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:157"><nobr><span class="ft18">3</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:182"><nobr><span class="ft21">The average number of basic sensor nodes in a cluster (</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:351"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:355"><nobr><span class="ft11"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:358"><nobr><span class="ft21">/</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:360"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:364"><nobr><span class="ft11"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:367"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:145"><nobr><span class="ft21">Energy consumption of a cluster-head in Joules</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:196"><nobr><span class="ft22">=0<br>=100<br>=1000</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:91"><nobr><span class="ft4">Fig. 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:133"><nobr><span class="ft4">The energy consumption of cluster-heads against the number of the</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:91"><nobr><span class="ft4">basic sensor nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:105"><nobr><span class="ft2">The average number of basic sensor nodes in a cluster is</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:91"><nobr><span class="ft2">determined by</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:115"><nobr><span class="ft2">E[N</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:142"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:151"><nobr><span class="ft2">]</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:122"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:151"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:144"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:173"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:166"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:200"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:194"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:215"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:252"><nobr><span class="ft12">(r,,)</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:290"><nobr><span class="ft2"> V </span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:332"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:338"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:345"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:354"><nobr><span class="ft2">sin drdd</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:122"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:151"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:144"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:175"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:169"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:205"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:199"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:219"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:226"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:241"><nobr><span class="ft10"><b>1 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:249"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:255"><nobr><span class="ft12">r</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:268"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:274"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:282"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:289"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:295"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:304"><nobr><span class="ft2">sin drdd</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:122"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:147"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:138"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:147"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:425"><nobr><span class="ft2">(31)</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:105"><nobr><span class="ft2">In the similar way, we can obtain the number of basic sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:91"><nobr><span class="ft2">nodes in the</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:167"><nobr><span class="ft2">i-th zone as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:104"><nobr><span class="ft2">E [N</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:133"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:142"><nobr><span class="ft2">]</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:110"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:139"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:133"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:163"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:157"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:193"><nobr><span class="ft12">iR</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:187"><nobr><span class="ft12">(i-1)R</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:226"><nobr><span class="ft2">P r S</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:263"><nobr><span class="ft12">(r,,)</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:301"><nobr><span class="ft2"> V </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:343"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:350"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:356"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:365"><nobr><span class="ft2">sin drdd</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:110"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:135"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:127"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:135"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:154"><nobr><span class="ft2">e</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:160"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:176"><nobr><span class="ft10"><b>1 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:183"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:190"><nobr><span class="ft12">[(i-1)R]</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:239"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:249"><nobr><span class="ft2">- e</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:269"><nobr><span class="ft12">-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:285"><nobr><span class="ft10"><b>1 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:292"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:299"><nobr><span class="ft12">(iR)</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:327"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:425"><nobr><span class="ft2">(32)</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:105"><nobr><span class="ft2">To satisfy the requirement of connectivity, the minimum</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:91"><nobr><span class="ft2">communication range</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:221"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:231"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:258"><nobr><span class="ft2">can be written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:156"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:167"><nobr><span class="ft12">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:193"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:211"><nobr><span class="ft10"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:257"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:224"><nobr><span class="ft2">4(</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:245"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:255"><nobr><span class="ft2">+ </span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:277"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:284"><nobr><span class="ft2">) log</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:324"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:338"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:347"><nobr><span class="ft2">+ </span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:370"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:349"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:425"><nobr><span class="ft2">(33)</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:480"><nobr><span class="ft2">Again, we can obtain the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:686"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:693"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:705"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:732"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:743"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:755"><nobr><span class="ft2">for the 3-D</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:466"><nobr><span class="ft7">space model along the same manner as a class of the case of<br>2-D space WSN model.</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:590"><nobr><span class="ft1">6 CONCLUSION</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:480"><nobr><span class="ft2">We investigated the optimal transmission range for a het-</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:466"><nobr><span class="ft7">erogeneous cluster-based sensor network which consists of<br>two types of nodes, the super cluster-heads and the basic<br>sensor nodes. To balance the energy load of the basic sensor<br>nodes, the mixed communication modes are employed. By<br>developing the analytical models, we numerically derive the<br>optimal transmission range</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:622"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:633"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:643"><nobr><span class="ft2">and the frequency of single-hop</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:466"><nobr><span class="ft2">mode</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:501"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:508"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:518"><nobr><span class="ft2">to achieve the longest network lifetime. Our analyses</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:466"><nobr><span class="ft7">also showed that our proposed model can be easily extended<br>from 2-D to 3-D. The simulation results validated our proposed<br>analytical models. Our simulation results with the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:806"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:816"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:466"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:491"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:498"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:510"><nobr><span class="ft2">indicated that the high density of cluster-heads is not</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:466"><nobr><span class="ft2">very helpful for prolonging the network lifetime.</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:605"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:473"><nobr><span class="ft12">[1] I. F. Akyildiz, W. Su, Y. Sankarsubramaniam, and E. Cayirci, "Wireless sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:492"><nobr><span class="ft12">networks: a survey," Computer Networks, 38 (2002) pp. 393-422.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:473"><nobr><span class="ft12">[2] G. J. Pottie and W. J. Kaiser, "Wireless integrated network sensors," Communica-</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:492"><nobr><span class="ft12">tions of the ACM, Vol. 43, No 5, pp 51-58, May 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:473"><nobr><span class="ft12">[3] A. Cerpa, J. Elson, D. Estrin, L. Girod, M. Hamilton, and J. Zhao, "Habitat</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:492"><nobr><span class="ft17">monitoring: application driver for wireless communications technology," in Proc.<br>of ACM SIGCOMM Workshop on Data Communications in Latin America and the<br>Caribbean, Costa Rica, April 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:473"><nobr><span class="ft12">[4] J. Lundquist, D. Cayan, and M. Dettinger, "Meteorology and hydrology in yosemite</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:492"><nobr><span class="ft17">national park: a sensor network application," in Proc. of Information Processing<br>in Sensor Networks (IPSN), April, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:473"><nobr><span class="ft12">[5] A. Mainwaring, J. Polastre, R. Szewczyk, D. Culler, and J. Anderson, "Wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:492"><nobr><span class="ft17">sensor networks for habitat monitoring," in Proc. of WSNA'02, Atlanta, Georgia,<br>September 28, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:473"><nobr><span class="ft12">[6] G. Tolle, D. Gay, W. Hong, J. Polastre, R. Szewczyk, D. Culler, N. Turner, K.</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:492"><nobr><span class="ft17">Tu, S. Burgess, T. Dawson, and P. Buonadonna, "A macroscope in the redwoods,"<br>in 3rd ACM Conference on Embedded Networked Sensor Systems (SenSys), San<br>Diego, November 2-4, 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:473"><nobr><span class="ft12">[7] O. Younis and S. Fahmy, "Distributed clustering in ad-hoc sensor networks: a</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:492"><nobr><span class="ft12">hybrid, energy-efficient approach", in Proc. of INFOCOM'04, March 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:473"><nobr><span class="ft12">[8] A. Boulis, S. Ganeriwal, and M. B. Srivastava, "Aggregation in sensor networks:</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:492"><nobr><span class="ft17">an energy-accuracy trade-off," Elsevier Ad Hoc Networks Journal, Vol. 1, 2003,<br>pp. 317-331</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:473"><nobr><span class="ft12">[9] W. R. Heinzelman, A. Chandrakasan and H. Balakrishman, "Energy-efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:492"><nobr><span class="ft17">communication protocol for wireless microsensor networks," in Proc. Of IEEE<br>HICSS, January 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:468"><nobr><span class="ft12">[10] H. Su and X. Zhang, "Energy-efficient clustering system model and reconfiguration</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:492"><nobr><span class="ft17">schemes for wireless sensor networks," in proc. of the 40th Conference on<br>Information Sciences and Systems (CISS 2006), March 2006.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:468"><nobr><span class="ft12">[11] V. P. Mhatre, C. Rosenberg, D. Kofman, R. Mazumdar and N. Shroff, "A minmum</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:492"><nobr><span class="ft17">cost heterogeneous sensor network with a lifetime constraint," IEEE Trans. on<br>Mobile Computing, Vol.4, No.1, Jan./Feb. 2005, pp.4-15.</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:468"><nobr><span class="ft12">[12] M. Bhardwaj and A. P. Chanrakasan, "Bouding the lifetime of sensor networks</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:492"><nobr><span class="ft12">via optimal role assignments," in Proc. of INFOCOM'02, pp.1587-1596, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:468"><nobr><span class="ft12">[13] V. Mhatre and C. Rosenberg, "Design guidelines for wireless sensor networks:</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:492"><nobr><span class="ft17">communication, clustering and aggregation", Elsevier Ad Hoc Networks Journal,<br>Vol. 2, 2004, pp. 45-63.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:468"><nobr><span class="ft12">[14] S. G. Foss and S. A. Zuyev, "On a voronoi aggregative process related to a bivariate</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:492"><nobr><span class="ft17">poisson process," Advances in Applied Probability, vol. 28, no. 4, 1996, pp. 965-<br>981.</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:468"><nobr><span class="ft12">[15] J. H. Chang and L. Tassiulas, "Energy conserving routing in wireless ad hoc</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:492"><nobr><span class="ft12">networks," in Proc. INFOCOM, Tel Aviv, Israel, March 2000, pp. 22-31.</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:468"><nobr><span class="ft12">[16] T. Rappaport, Wireless Communication Priciples and Practice (2nd Edition). Upper</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:492"><nobr><span class="ft12">Saddle River, N.J. Prentice Hall PTR, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:468"><nobr><span class="ft12">[17] A. Wang, W. Heinzelman, and A. Chandrakasan, "Energy-scalable protocols for</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:492"><nobr><span class="ft17">battery-operated microsensor networks," in Proc. of the IEEE workshop on Signal<br>Processing Systems (SiPS'99), pp. 483-492, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:468"><nobr><span class="ft12">[18] P. Gupta and P. R. Kumar, Critical power for asymptotic connectivity in wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:492"><nobr><span class="ft17">networks, in W. M. McEneany, G. Yin, Q. Zhang (Editors), Stochastic Analysis,<br>Control, Optimization and Applications: A Volume in Honor of W. H. Fleming,<br>Birkhauser, Boston, MA, 1998, pp. 547-566.</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:468"><nobr><span class="ft12">[19] T. Shepard, "Decentralized channel management in scalable multihop spread</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:492"><nobr><span class="ft17">spectrum packet radio networks," Massachusetts Inst. of Technol., Lab. for Comput.<br>Sci., Cambridge, Tech. Rep. MIT/LCS/ TR-670, July 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:30"><nobr><span class="ft9">Proceedings of the 2006 International Symposium on a World of Wireless, Mobile and Multimedia <br>Networks (WoWMoM'06) <br>0-7695-2593-8/06 $20.00 © 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:1146;left:211"><nobr><span class="ft9">IEEE </span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

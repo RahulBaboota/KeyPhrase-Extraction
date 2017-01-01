@@ -1,0 +1,1138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>paper.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-11-10T12:26:51+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#221f1f;}
+	.ft1{font-size:8px;font-family:Times;color:#221f1f;}
+	.ft2{font-size:15px;font-family:Times;color:#221f1f;}
+	.ft3{font-size:11px;font-family:Times;color:#221f1f;}
+	.ft4{font-size:9px;font-family:Times;color:#221f1f;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#221f1f;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:274"><nobr><span class="ft0"><b>Seven Cardinal Properties of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:188"><nobr><span class="ft0"><b>Sensor Network Broadcast Authentication</b></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:726"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:238"><nobr><span class="ft2">Mark Luk</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:403"><nobr><span class="ft2">Adrian Perrig</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:581"><nobr><span class="ft2">Bram Whillock</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:311"><nobr><span class="ft2">Electrical and Computer Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:350"><nobr><span class="ft2">Carnegie Mellon University</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:196"><nobr><span class="ft2">mluk@ece.cmu.edu adrian@ece.cmu.edu bramski@gmail.com</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft2">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft7">We investigate the design space of sensor network broadcast au-<br>thentication. We show that prior approaches can be organized based<br>on a taxonomy of seven fundamental proprieties, such that each ap-<br>proach can satisfy at most six of the seven proprieties. An empirical<br>study of the design space reveals possibilities of new approaches,<br>which we present in the following two new authentication proto-<br>cols: RPT and LEA. Based on this taxonomy, we offer guidance in<br>selecting the most appropriate protocol based on an application's<br>desired proprieties. Finally, we pose the open challenge for the re-<br>search community to devise a protocol simultaneously providing<br>all seven properties.</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:81"><nobr><span class="ft2">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:81"><nobr><span class="ft7">C.2.0 [Computer-Communication Networks]: General­ Security<br>and protection; K.6.5 [Security and Protection]: Security and<br>Protection ­ Authentication</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:81"><nobr><span class="ft2">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:81"><nobr><span class="ft3">Security, Design</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:81"><nobr><span class="ft2">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:81"><nobr><span class="ft3">Broadcast Authentication, Taxonomy, Sensor Network</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:81"><nobr><span class="ft2">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:112"><nobr><span class="ft2">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:94"><nobr><span class="ft3">Due to the nature of wireless communication in sensor networks,</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:81"><nobr><span class="ft7">attackers can easily inject malicious data messages or alter the con-<br>tent of legitimate messages during multihop forwarding. Sensor<br>network applications thus need to rely on authentication mecha-<br>nisms to ensure that data from a valid source was not altered in<br>transit. Authentication is thus arguably the most important secu-</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:81"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:87"><nobr><span class="ft4">This research was supported in part by CyLab at Carnegie Mellon un-</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:81"><nobr><span class="ft8">der grant DAAD19-02-1-0389 from the Army Research Office, and grant<br>CNS-0347807 from the National Science Foundation, and by a gift from<br>Bosch. The views and conclusions contained here are those of the authors<br>and should not be interpreted as necessarily representing the official poli-<br>cies or endorsements, either express or implied, of ARO, Bosch, Carnegie<br>Mellon University, NSF, or the U.S. Government or any of its agencies.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>SASN'06, October 30, 2006, Alexandria, Virginia, USA.<br>Copyright 2006 ACM 1-59593-554-1/06/0010 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft7">rity primitive in sensor network communication. Source authen-<br>tication ensures a receiver that the message originates from the<br>claimed sender, and data authentication ensures that the data from<br>that sender was unchanged (thus also providing message integrity).<br>When we use the term authentication we mean both source and<br>data authentication.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:489"><nobr><span class="ft3">Broadcast authentication is a challenging problem. Furthermore,</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft7">it is of central importance as broadcasts are used in many applica-<br>tions. For example, routing tree construction, network query, soft-<br>ware updates, time synchronization, and network management all<br>rely on broadcast. Without an efficient broadcast authentication al-<br>gorithm, the base station would have to resort to per-node unicast<br>messages, which does not scale to large networks. The practical-<br>ity of many secure sensor network applications thus hinges on the<br>presence of an efficient algorithm for broadcast authentication.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:489"><nobr><span class="ft3">In point-to-point authentication, authentication can be achieved</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:475"><nobr><span class="ft7">through purely symmetric means: the sender and receiver would<br>share a secret key used to compute a cryptographic message au-<br>thentication code (MAC) over each message [15, 23]. When a mes-<br>sage with a valid MAC is received, the receiver can be assured that<br>the message originated from the sender. Researchers showed that<br>MACs can be efficiently implemented on resource-constrained sen-<br>sor network nodes [31], and find that computing a MAC function<br>requires on the order of 1ms on the computation-constrained Berke-<br>ley mote platform [11, 14].</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:489"><nobr><span class="ft3">Authentication of broadcast messages in sensor networks is much</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:475"><nobr><span class="ft7">harder than point-to-point authentication [1]. The symmetric ap-<br>proach used in point-to-point authentication is not secure in broad-<br>cast settings, where receivers are mutually untrusted. If all nodes<br>share one secret key, any compromised receiver can forge messages<br>from the sender.</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:489"><nobr><span class="ft3">In fact, authenticated broadcast requires an asymmetric mech-</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:475"><nobr><span class="ft7">anism [1]. The traditional approach for asymmetric mechanisms<br>is to use digital signatures, for example the RSA signature [34].<br>Unfortunately, asymmetric cryptographic mechanisms have high<br>computation, communication, and storage overhead, making their<br>usage on resource-constrained devices impractical for many appli-<br>cations.</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:489"><nobr><span class="ft3">The property we need is asymmetry, and many approaches had</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:475"><nobr><span class="ft7">been suggested for sensor network broadcast authentication. How-<br>ever, objectively comparing such approaches and selecting the most<br>appropriate one for a given application is a non-trivial process, es-<br>pecially for an engineer not specialized in security. The goal of<br>this work is to provide guidance for sensor network broadcast au-<br>thentication by presenting a systematic investigation of the design<br>space. We arrive at a taxonomy of seven fundamental properties,<br>and present protocols that satisfy all but one property. The list of<br>the desired properties are:</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">147</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:98"><nobr><span class="ft3">1. Resistance against node compromise,</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:98"><nobr><span class="ft3">2. Low computation overhead,</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:98"><nobr><span class="ft3">3. Low communication overhead,</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:98"><nobr><span class="ft3">4. Robustness to packet loss,</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:98"><nobr><span class="ft3">5. Immediate authentication,</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:98"><nobr><span class="ft3">6. Messages sent at irregular times,</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:98"><nobr><span class="ft3">7. High message entropy.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:81"><nobr><span class="ft7">If we remove any one of the above requirements, a viable proto-<br>col exists. Table 1 gives an overview of the seven approaches for<br>addressing each case. We show that existing protocols, or small<br>modifications thereof, make up for five of the seven possible cases.<br>We also introduce novel approaches for addressing the final two<br>cases: the RPT protocol to authenticate messages sent at regular<br>times, and the LEA protocol to authenticate low-entropy messages.<br>Finally, we pose the open challenge to the research community to<br>design a broadcast authentication mechanism that satisfies all seven<br>properties.</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:81"><nobr><span class="ft3">Outline.</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:141"><nobr><span class="ft3">The paper is organized as follows. We introduce the</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:81"><nobr><span class="ft7">taxonomy of seven properties and discuss how current approaches<br>can be organized based on our taxonomy in Section 2. Section 3 de-<br>scribes the µTESLA broadcast authentication protocol and presents<br>several extensions to increase its efficiency and robustness to DoS<br>attacks. In Section 3.3, we introduce RPT, a novel protocol that<br>authenticates synchronous messages. In Section 4, we introduce<br>LEA, a novel protocol for efficient network broadcast authentica-<br>tion for low-entropy messages. Implementation and evaluation is<br>discussed in Section 5. Finally, we present related work in Sec-<br>tion 6 and our conclusions and future work in Section 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:81"><nobr><span class="ft2">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:112"><nobr><span class="ft2">TAXONOMY OF EXISTING PROTOCOLS</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:94"><nobr><span class="ft3">In this section, we discuss the seven properties of broadcast au-</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:81"><nobr><span class="ft7">thentication and describe possible approaches if we were to leave<br>out one of the seven requirements.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft3">Node Compromise.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:206"><nobr><span class="ft3">Since sensor nodes are not equipped with</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft7">tamper-proof or tamper-resistant hardware, any physical attacker<br>would be able to physically compromise a node and obtain its cryp-<br>tographic keys [5]. Since it is unlikely that tamper-proof hardware<br>will be deployed on sensor motes in the near future, secure sensor<br>network protocols need to be resilient against compromised nodes.<br>However, if the nodes are deployed in a physically secured area<br>(such as an attended army base), or if the application itself is re-<br>silient against malicious nodes, node compromise might not be an<br>issue.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:94"><nobr><span class="ft3">If we assume no compromised nodes, all parties could maintain a</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft7">network-wide key that is used to generate and verify a single Mes-<br>sage Authentication Code (MAC) per message. If instead one can<br>assume a low number of compromised nodes, a simple approach<br>exists which uses a different key for each receiver and adds one<br>MAC per receiver to each message. Unfortunately, this approach<br>does not scale to large networks since a 10-byte MACs per receiver<br>would result in prohibitively large messages. To trade off commu-<br>nication overhead with security, researchers propose a multi-MAC<br>approach [3]. In their scheme, the sender chooses some number of<br>random MAC keys, and distributes a subset of keys to each node.<br>Every message carries one MAC with each key (assuming 10 bytes</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">per MAC),</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:534"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:543"><nobr><span class="ft3">which adds a substantial overhead. If an attacker com-</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft7">promises a node, it can only forge a subset of MACs, thus with<br>high probability, other nodes will be able to detect the forgery with<br>their subset of keys. A variant of this approach was used to prevent<br>malicious injection of messages in sensor networks [36, 37].</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:475"><nobr><span class="ft7">Computation Overhead. Sensor nodes have limited computation<br>resources, so an ideal protocol would have low computation over-<br>head for both sender and receiver. However, there exist scenarios<br>where computation might not be a particularly critical issue. For<br>example, it is conceivable that certain applications would only re-<br>quire authenticated broadcasts for a small number of packets. In<br>such a case, the application engineer might be willing to allow for<br>a small number of intensive computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:489"><nobr><span class="ft3">If we admit a high computation overhead, we can use digital sig-</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:475"><nobr><span class="ft7">natures. RSA today requires at least a 1024-bit modulus to achieve<br>a reasonable level of security, and a 2048-bit modulus for a high<br>level of security [18]. ECC can offer the same level of security<br>using 160-bit keys and 224-bit keys, respectively. Recent advance-<br>ment in ECC signature schemes on embedded processors can per-<br>form signature verification using 160-bit ECC keys in about 1 sec-<br>ond [10]. Although this represents a dramatic improvement over<br>earlier public key cryptographic schemes [2, 4, 21], signature ver-<br>ification is still 3 orders of magnitude slower than MAC verifica-<br>tion, while signature generation is 4 orders of magnitude slower.<br>While we expect future sensor nodes to have more powerful proces-<br>sors, the energy constraints dictated by the limited battery resources<br>will always favor the use of more efficient symmetric cryptographic<br>primitives.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:475"><nobr><span class="ft3">Communication Overhead.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:646"><nobr><span class="ft3">Energy is an extremely scarce re-</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:475"><nobr><span class="ft7">source on sensor nodes, and as a result, heavily influences the de-<br>sign of sensor network protocols. In particular, radio communica-<br>tion consumes the most amount of energy, and thus protocols with<br>high communication overhead are avoided if possible. However, in<br>some settings (e.g., powered nodes) energy consumption is not an<br>issue. Thus an authentication protocol that requires high commu-<br>nication overhead would be acceptable.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:489"><nobr><span class="ft3">If we admit a high communication overhead, we can leverage</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:475"><nobr><span class="ft7">efficient one-time signatures that are fast to compute, but require<br>on the order of 100­200 bytes per signature. Examples include the<br>Merkle-Winternitz (MW) signature which requires 230 bytes per<br>signature [25, 26, 35] (we describe the MW signature in detail in<br>Section 4.1), or the HORS signature, which requires around 100<br>bytes per signature [33]. The MW signature requires around 200<br>one-way function computations to verify a signature (which cor-<br>responds to roughly 200 ms computation time on a sensor node),<br>while the HORS signature only requires 11 one-way function com-<br>putations. The disadvantage of the HORS signature is that the pub-<br>lic key is about 10 Kbytes,</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:625"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:636"><nobr><span class="ft3">whereas the public key for the MW</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:475"><nobr><span class="ft7">signature is only 10 bytes. Signature generation is very efficient<br>for both mechanisms, and can be reduced to a single hash function<br>computation assuming a lookup table for the cryptographic values.<br>We leverage the MW signature to construct the LEA broadcast au-<br>thentication mechanism, which we present in Section 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:475"><nobr><span class="ft7">Message Reliability. Our fourth property is message reliability.<br>Reliable message delivery is the property of a network such that<br>valid messages are not dropped. Ultimately, message reliability is<br>an applications issue - some applications require message reliabil-<br>ity, while others do not.</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:476"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:482"><nobr><span class="ft3">An 80-bit MAC value achieves security comparable to a 1024-bit</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:475"><nobr><span class="ft3">RSA signature [18].</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:476"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:482"><nobr><span class="ft3">This is prohibitively large, since each public key of a one-time</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">signature can be used to authenticate only a single message.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">148</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:15px;line-height:20px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177003.png" alt="background image">
+<DIV style="position:absolute;top:83;left:275"><nobr><span class="ft3">Desired property</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:464"><nobr><span class="ft3">Approach if property is relaxed</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:275"><nobr><span class="ft3">Resistance to node compromise</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:464"><nobr><span class="ft3">Network-wide key</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:275"><nobr><span class="ft3">Low computation overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:464"><nobr><span class="ft3">Digital signatures</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:275"><nobr><span class="ft3">Low communication overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:464"><nobr><span class="ft3">One-time signatures</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:275"><nobr><span class="ft3">Robustness to packet loss</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:464"><nobr><span class="ft3">HORS + chaining of public keys</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:275"><nobr><span class="ft3">Immediate authentication</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:464"><nobr><span class="ft3">µTESLA</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:275"><nobr><span class="ft3">Messages sent at irregular times</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:464"><nobr><span class="ft3">RPT, described in Section 3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:275"><nobr><span class="ft3">High message entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:464"><nobr><span class="ft3">LEA, described in Section 4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:81"><nobr><span class="ft7">Table 1: Overview of desired properties of broadcast authentication and approaches. The left column presents the desired property,<br>and the right column presents the approach that achieves all properties but relaxes the property in its left column. The text describes<br>each approach in more detail.</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:94"><nobr><span class="ft3">If we have perfect message reliability, we can achieve efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:81"><nobr><span class="ft7">and immediate authentication by using the HORS signature in a<br>special construction that combines multiple public keys [28]. In<br>this construction, a public key is still 10 Kbytes, but a single public<br>key can be used to authenticate almost arbitrarily many messages,<br>as the public values are incrementally updated as signed messages<br>are sent. The communication and computation costs are the same<br>as for the HORS signature: 1 ms for signature generation, 11 ms<br>for signature verification, and 100 bytes for the signature. Note that<br>in such a scheme, an attacker can start forging HORS signatures if<br>many packets are dropped.</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:81"><nobr><span class="ft3">Authentication Delay.</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:219"><nobr><span class="ft3">Depending on the application, authenti-</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:81"><nobr><span class="ft7">cation delay may influence the design of the sensor network pro-<br>tocol. For time-critical messages such as fire alarms, the receiver<br>would most likely need to authenticate the message immediately.<br>However, authentication delay is typically acceptable for non-time-<br>critical messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:94"><nobr><span class="ft3">If we admit an authentication delay and assume that the receivers</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:81"><nobr><span class="ft7">are loosely time synchronized with the sender, the µTESLA broad-<br>cast authentication protocol only adds a 10 byte MAC and an op-<br>tional 10 byte key to each message [31]. We review the µTESLA<br>protocol in detail in Section 3.1. To achieve a low computation<br>overhead in the case of infrequent messages sent at unpredictable<br>times, we need to extend the µTESLA protocol to enable fast au-<br>thentication of the keys in the one-way key chain. In Section 3.2<br>we present a more efficient key chain construction that enables ef-<br>ficient authentication in this case. Simultaneously, our approach<br>protects µTESLA against denial-of-service attacks by sending bo-<br>gus key chain values.</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:81"><nobr><span class="ft3">Synchronous Messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:234"><nobr><span class="ft3">Some applications send synchronous</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:81"><nobr><span class="ft7">messages at regular and predictable times. For example, a key re-<br>vocation list might be sent to the entire network everyday at noon.</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:94"><nobr><span class="ft3">We extend the µTESLA protocol to provide efficient and imme-</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:81"><nobr><span class="ft7">diate authentication for synchronous messages sent at regular and<br>predictable times. We name the protocol RPT (Regular-Predictable<br>Tesla), and we present its details in Section 3.3.</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:81"><nobr><span class="ft7">Message Entropy. So far, all schemes we describe authenticate<br>unpredictable messages with high entropy. However, in practice,<br>many protocols might only communicate with low-entropy mes-<br>sages. For example, in many applications, there are only a handful<br>of valid commands that a base station can send to a sensor node.<br>Therefore, these command packets could be considered as low-<br>entropy messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:94"><nobr><span class="ft3">If we can assure a low upper bound on message entropy, we can</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:81"><nobr><span class="ft7">leverage one-time signatures in constructions that provide message<br>recovery, where the message is not hashed but directly encoded in<br>the signature. We describe our new LEA protocol in Section 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:94"><nobr><span class="ft3">For messages with merely a single bit of entropy, we could em-</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:475"><nobr><span class="ft7">ploy the following optimization using two hash chains. One hash<br>chain would correspond to messages of '1', while another would<br>correspond to messages of '0'. The sender first sends the last value<br>of both chains to the receivers in an authenticated manner (e.g., us-<br>ing one-time signatures or digital signatures). Next, whenever the<br>sender wishes to send a '0', it would reveal the next value in the<br>hash chain corresponding to '0'. The same is done for the hash<br>chain corresponding to '1'. The receiver needs to keep state of the<br>most recent value it received for each hash chain. Consequently, the<br>receiver can easily verify the authenticity of new values by hashing<br>them and comparing them against the most recent value of each<br>hash chain.</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:475"><nobr><span class="ft2">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:507"><nobr><span class="ft9">BROADCAST AUTHENTICATION WITH<br>THE</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:549"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:556"><nobr><span class="ft2">TESLA PROTOCOL</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:489"><nobr><span class="ft3">In this section, we first present a brief overview of the µTESLA</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:475"><nobr><span class="ft7">protocol [29], the recommended broadcast authentication proto-<br>col if immediate authentication is not required. We improve the<br>µTESLA broadcast authentication protocol to provide efficient au-<br>thentication for infrequent messages sent at unpredictable times<br>(Section 3.2). In Section 3.3, we describe RPT, further modifi-<br>cation of µTESLA that provides immediate authentication for syn-<br>chronous messages sent at regular and predictable times.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:475"><nobr><span class="ft2">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:516"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:522"><nobr><span class="ft2">TESLA Overview</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:489"><nobr><span class="ft3">The TESLA protocol provides efficient broadcast authentication</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:475"><nobr><span class="ft7">over the Internet which can scale to millions of users, tolerate packet<br>loss, and support real time applications [30]. Currently, TESLA is<br>in the process of being standardized in the MSEC working group<br>of the IETF for multicast authentication.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:489"><nobr><span class="ft3">TESLA has been adapted for broadcast authentication in sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft7">networks, the resulting protocol is called the µTESLA broadcast<br>authentication protocol [30, 31]. µTESLA is used to secure routing<br>information [17], data aggregation messages [12, 32], etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">We now overview the µTESLA protocol, a detailed description</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft7">is available in our earlier paper [31]. Broadcast authentication re-<br>quires a source of asymmetry, such that the receivers can only ver-<br>ify the authentication information, but not generate valid authenti-<br>cation information. µTESLA uses time for asymmetry. µTESLA<br>assumes that receivers are all loosely time synchronized with the<br>sender ­ up to some time synchronization error</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:733"><nobr><span class="ft3">, all parties agree</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft7">on the current time. Recent research in sensor network time syn-<br>chronization protocols has made significant progress, resulting in<br>time synchronization accuracy in the range of µs [6, 7], which is<br>much more accurate than the loose time synchronization required<br>by µTESLA. By using only symmetric cryptographic primitives,<br>µTESLA is very efficient and provides practical solutions for resource-<br>constrained sensor networks. Figure 1 shows an example of µTESLA<br>authentication, and here is a sketch of the basic approach:</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">149</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:5px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177004.png" alt="background image">
+<DIV style="position:absolute;top:203;left:241"><nobr><span class="ft10"><i>M j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:322"><nobr><span class="ft10"><i>M j+1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:369"><nobr><span class="ft10"><i>M j+2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:491"><nobr><span class="ft10"><i>M j+3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:538"><nobr><span class="ft10"><i>M j+4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:579"><nobr><span class="ft10"><i>M j+5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:619"><nobr><span class="ft10"><i>M j+6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:235"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:243"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:246"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:356"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:365"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:464"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:473"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:476"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:579"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:587"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:590"><nobr><span class="ft1">+2</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:302"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:307"><nobr><span class="ft10"><i>(Ki)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:410"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:415"><nobr><span class="ft10"><i>(Ki+1)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:525"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:530"><nobr><span class="ft10"><i>(Ki+2)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:639"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:644"><nobr><span class="ft10"><i>(Ki+3)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:221"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:272"><nobr><span class="ft3">- 1</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:338"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:436"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:487"><nobr><span class="ft3">+ 1</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:551"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:601"><nobr><span class="ft3">+ 2</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:707"><nobr><span class="ft3">time</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:81"><nobr><span class="ft7">Figure 1: At the top of the figure is the one-way key chain (using the one-way function F). Time advances left-to-right. At the bottom<br>of the figure, we can see the messages that the sender sends in each time interval. For each message, the sender uses the current time<br>interval key to compute the MAC of the message.</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:101"><nobr><span class="ft3">· The sender splits up the time into time intervals of uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:114"><nobr><span class="ft7">duration. Next, the sender forms a one-way chain of self-<br>authenticating keys, by selecting key K</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:323"><nobr><span class="ft1">N</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:334"><nobr><span class="ft3">of interval N at ran-</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:114"><nobr><span class="ft7">dom, and by repeatedly applying a one-way hash function F<br>to derive earlier keys. A cryptographic hash function, such<br>as SHA-1 [27], offers the required properties. The sender<br>assigns keys sequentially to time intervals (one key per time<br>interval). The one-way chain is used in the reverse order of<br>generation, so any key of a time interval can be used to de-<br>rive keys of previous time intervals. For example, assuming<br>a disclosure delay of 2 time intervals, key K</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:352"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:360"><nobr><span class="ft3">will be used to</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:114"><nobr><span class="ft7">compute MACs of broadcast messages sent during time in-<br>terval i, but disclosed during time interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:351"><nobr><span class="ft3">+ 2. The sender</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:114"><nobr><span class="ft7">defines a disclosure delay for keys, usually on the order of a<br>few time intervals. The sender publishes the keys after the<br>disclosure time.</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:101"><nobr><span class="ft3">· The sender attaches a MAC to each message, computed over</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:114"><nobr><span class="ft7">the data, using the key for the current time interval. Along<br>with the message, the sender also sends the most recent key<br>that it can disclose. In the example of Figure 1, the sender<br>uses key K</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:174"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:177"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:195"><nobr><span class="ft3">to compute the MAC of message M</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:395"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:398"><nobr><span class="ft1">+3</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:412"><nobr><span class="ft3">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:114"><nobr><span class="ft3">publishes key K</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:201"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:204"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:223"><nobr><span class="ft3">assuming a key disclosure delay of two</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:114"><nobr><span class="ft3">time intervals.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:101"><nobr><span class="ft3">· Each receiver that receives the message performs the follow-</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:114"><nobr><span class="ft7">ing operation. It knows the schedule for disclosing keys and,<br>since the clocks are loosely synchronized, can check that the<br>key used to compute the MAC is still secret by determining<br>that the sender could not have yet reached the time interval<br>for disclosing it. If the MAC key is still secret, then the re-<br>ceiver buffers the message. In the example of Figure 1, when<br>the receiver gets message M</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:273"><nobr><span class="ft1">j</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:276"><nobr><span class="ft1">+3</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:290"><nobr><span class="ft3">, it needs to verify that the</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:114"><nobr><span class="ft3">sender did not yet publish key K</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:289"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:292"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:306"><nobr><span class="ft3">, by using the loose time</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:114"><nobr><span class="ft7">synchronization and the maximum time synchronization er-<br>ror</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:135"><nobr><span class="ft3">. If the receiver is certain that the sender did not yet</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:114"><nobr><span class="ft3">reach interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:196"><nobr><span class="ft3">+ 3, it knows that key K</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:326"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:329"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:346"><nobr><span class="ft3">is still secret, and</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:114"><nobr><span class="ft3">it can buffer the packet for later verification.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:101"><nobr><span class="ft3">· Each receiver also checks that the disclosed key is correct</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:114"><nobr><span class="ft7">(using self-authentication and previously released keys) and<br>then checks the correctness of the MAC of buffered mes-<br>sages that were sent in the time interval of the disclosed key.<br>Assuming the receiver knows the authentic key K</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:385"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:387"><nobr><span class="ft1">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:402"><nobr><span class="ft3">, it can</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:114"><nobr><span class="ft3">verify the authenticity of key K</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:282"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:284"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:302"><nobr><span class="ft3">by checking that F</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:403"><nobr><span class="ft3">(K</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:417"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:420"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:434"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:114"><nobr><span class="ft3">equals K</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:163"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:166"><nobr><span class="ft1">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:180"><nobr><span class="ft3">. If K</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:217"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:220"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:240"><nobr><span class="ft3">is authentic, the receiver can verify</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:114"><nobr><span class="ft7">the authenticity of buffered packets sent during time inter-<br>val i</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:142"><nobr><span class="ft3">- 1, since they were authenticated using key K</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:407"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:410"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:429"><nobr><span class="ft3">to</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:114"><nobr><span class="ft3">compute the MAC.</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:489"><nobr><span class="ft3">One-way chains have the property that if intermediate keys are</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:475"><nobr><span class="ft7">lost, they can be recomputed using later keys. So, even if some<br>disclosed keys are lost due to packet loss or jamming attacks, a<br>receiver can recover the key from keys disclosed later and check<br>the authenticity of earlier messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:489"><nobr><span class="ft3">Along with each message M</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:639"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:643"><nobr><span class="ft3">, the sender broadcasts the µTESLA</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:475"><nobr><span class="ft7">authentication information. The broadcast channel may be lossy,<br>but the sender would need to retransmit with an updated MAC key.<br>Despite loss, each receiver can authenticate all the messages it re-<br>ceives.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft2">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:516"><nobr><span class="ft2">Reducing Verification Overhead of</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:778"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:785"><nobr><span class="ft2">TESLA</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:489"><nobr><span class="ft3">Even though µTESLA provides a viable solution for broadcast</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:475"><nobr><span class="ft7">authentication in sensor networks, many challenges still remain.<br>We describe the remaining challenges below and propose exten-<br>sions and new approaches to address these challenges.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:489"><nobr><span class="ft3">Some applications broadcast messages infrequently at unpredict-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft7">able times and the receivers may need to authenticate messages<br>immediately. For example, a fire alarm event is infrequent and<br>needs to be quickly distributed and authenticated. Unfortunately,<br>when messages are infrequent, due to the one-way chain approach<br>to verify the authenticity of keys, a receiver may need to compute<br>a long chain of hash values in order to authenticate the key which<br>could take several tens of seconds for verification. Such verification<br>delays the message authentication significantly and may consume<br>significant computation and energy resources. This approach also<br>introduces a Denial-of-Service (DoS) attack: an attacker sends a<br>bogus key to a receiver, and the receiver spends several thousands<br>of one-way function computations (and several seconds) to finally<br>notice that the sent key was incorrect.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:489"><nobr><span class="ft3">One approach is to periodically release µTESLA keys and hence</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft7">the work for verification of an infrequent message would be dis-<br>tributed over time. However, this approach wastes energy for pe-<br>riodic broadcast of µTESLA keys. In the same vein, a sender can<br>publish several keys in a packet to reduce the effect of DoS at-<br>tacks by requiring a receiver to perform a small number of one-way<br>function computations to incrementally authenticate each key of the<br>one-way chain. An advantage of this approach is that it makes the<br>DoS attack described above less attractive to an attacker, as a re-<br>ceiver would need to follow the one-way chain for a short interval<br>only to detect a bogus key.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft3">Another approach to counteract the slow and expensive verifica-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft7">tion problem is to use a Merkle hash tree [24] instead of a one-way<br>chain to authenticate µTESLA keys. This approach has been sug-<br>gested in another context [13]. For N keys, the tree has height<br>d</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:486"><nobr><span class="ft3">= log</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:516"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:522"><nobr><span class="ft3">(N) and along with each message, the sender sends d val-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft7">ues to verify the key. Despite the logarithmic communication cost,<br>this is still too large for most sensor networks: consider a network<br>where we switch to a different hash tree every day, and we need a</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">150</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:15px;line-height:17px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177005.png" alt="background image">
+<DIV style="position:absolute;top:279;left:290"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:296"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:334"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:340"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:375"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:381"><nobr><span class="ft1">8</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:415"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:421"><nobr><span class="ft1">11</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:457"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:463"><nobr><span class="ft1">14</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:500"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:506"><nobr><span class="ft1">17</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:542"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:548"><nobr><span class="ft1">20</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:585"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:591"><nobr><span class="ft1">23</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:290"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:296"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:334"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:340"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:375"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:381"><nobr><span class="ft1">7</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:415"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:421"><nobr><span class="ft1">10</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:457"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:463"><nobr><span class="ft1">13</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:500"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:506"><nobr><span class="ft1">16</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:542"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:548"><nobr><span class="ft1">19</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:585"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:591"><nobr><span class="ft1">22</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:290"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:296"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:334"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:340"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:375"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:381"><nobr><span class="ft1">6</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:418"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:424"><nobr><span class="ft1">9</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:457"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:463"><nobr><span class="ft1">12</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:500"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:506"><nobr><span class="ft1">15</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:542"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:548"><nobr><span class="ft1">18</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:585"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:591"><nobr><span class="ft1">21</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:304"><nobr><span class="ft3">F</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:449"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:455"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:460"><nobr><span class="ft1">-7</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:477"><nobr><span class="ft3">= F(v</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:511"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:516"><nobr><span class="ft1">-3</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:534"><nobr><span class="ft3">|| v</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:551"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:556"><nobr><span class="ft1">-7</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:570"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:351"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:357"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:362"><nobr><span class="ft1">-3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:517"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:523"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:528"><nobr><span class="ft1">-7</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:308"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:314"><nobr><span class="ft1">01</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:397"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:403"><nobr><span class="ft1">23</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:479"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:485"><nobr><span class="ft1">45</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:563"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:569"><nobr><span class="ft1">67</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:290"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:296"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:332"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:338"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:375"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:381"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:417"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:423"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:460"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:466"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:502"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:508"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:545"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:551"><nobr><span class="ft1">6</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:587"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:593"><nobr><span class="ft1">7</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:256"><nobr><span class="ft3">Figure 2: Hash tree constructed over one-way chains of µTESLA keys.</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:81"><nobr><span class="ft7">key resolution of 1 second. The 86,400 keys that we need in one<br>day require a tree of height 17. Assuming a hash output of 10 bytes,<br>the sender would need to consequently add 170 bytes to each mes-<br>sage for authentication (17 nodes at 10 bytes each). This is far too<br>much for most sensor networks, where nodes typically communi-<br>cate with messages shorter than 100 bytes. Splitting the load up into<br>two messages is not a viable approach, because of the usually high<br>packet loss rates in sensor networks. The receiver would only need<br>to compute O</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:153"><nobr><span class="ft3">(log(N)) operations for verification, 17 hash function</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft7">computations in our example which requires around 17ms on cur-<br>rent sensor nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:94"><nobr><span class="ft3">To reduce the bandwidth overhead, we design a different ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft7">proach that achieves lower message size at the cost of higher veri-<br>fication computation. our approach is to combine one-way chains<br>with hash trees. Consider the structure that Figure 2 shows. We<br>construct a hash tree over short one-way chains. If each one-way<br>chain has a length of k, the verification cost is expected to be k</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:414"><nobr><span class="ft3">/2+</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:81"><nobr><span class="ft3">log</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:98"><nobr><span class="ft3">(N/k) (it is at most k + log(N/k)), and the communication cost</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:81"><nobr><span class="ft3">is log</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:111"><nobr><span class="ft3">(N/k). For a given upper bound on the verification time, we</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:81"><nobr><span class="ft7">can thus minimize the communication overhead. Consider an up-<br>per bound on the verification time of approximately 500ms. We can<br>set k</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:108"><nobr><span class="ft3">= 2</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:128"><nobr><span class="ft1">9</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:137"><nobr><span class="ft3">= 512, thus the hash tree will have 8 levels, requiring 80</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:81"><nobr><span class="ft7">bytes per packet, making this an attractive approach for many ap-<br>plications.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:94"><nobr><span class="ft3">An alternative approach would be to construct a hash tree over</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:81"><nobr><span class="ft7">the one-way key chain, where the every k'th key will be a leaf node<br>of the hash tree (for example, in Figure 2, the value k</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:378"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:389"><nobr><span class="ft3">would be</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:81"><nobr><span class="ft3">derived from the previous leaf node k</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:289"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:298"><nobr><span class="ft3">= F(v</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:333"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:339"><nobr><span class="ft3">)). The advantage</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:81"><nobr><span class="ft7">of this approach is that a sender would not need to send the hash<br>tree values along with a message, as a value can be authenticated<br>by following the one-way chain to the last known value. However,<br>if the sender did not send out any message during an extended time<br>period, that authentication would be computationally expensive and<br>thus the sender can choose to also send the hash tree nodes along<br>for fast verification. This approach would also prevent DoS attacks<br>since the verification is very efficient.</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:577"><nobr><span class="ft3">M</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:588"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:631"><nobr><span class="ft3">M</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:642"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:544"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:552"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:555"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:665"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:674"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:773"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:782"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:785"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:611"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:616"><nobr><span class="ft10"><i>(Ki)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:719"><nobr><span class="ft10"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:724"><nobr><span class="ft10"><i>(Ki+1)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:530"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:581"><nobr><span class="ft3">- 1</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:647"><nobr><span class="ft3">Interval i</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:793"><nobr><span class="ft3">time</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:496"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:503"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:505"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:618"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:624"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:719"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:725"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:728"><nobr><span class="ft1">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:475"><nobr><span class="ft7">Figure 3: This figure shows authentication of one message in<br>the RPT protocol. Message M</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:655"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:663"><nobr><span class="ft3">= MAC</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:710"><nobr><span class="ft1">K</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:717"><nobr><span class="ft10"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:721"><nobr><span class="ft3">(M</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:737"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:741"><nobr><span class="ft3">) , and message</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:475"><nobr><span class="ft3">M</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:486"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:493"><nobr><span class="ft3">= M</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:523"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:527"><nobr><span class="ft3">,K</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:540"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:549"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:475"><nobr><span class="ft2">3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:516"><nobr><span class="ft11">RPT: Authenticating Messages Sent at Reg-<br>ular and Predictable Times</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft3">As described in our taxonomy in Section 2, one additional prop-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft7">erty in the design space of broadcast authentication is to authen-<br>ticate asynchronous messages sent at irregular and unpredictable<br>times. All protocols described so far can achieve this property.<br>However, if we were to remove this requirement, new possible ap-<br>proaches exist that can only authenticate messages sent at regular<br>and predictable times, yet satisfy all of the other cardinal properties<br>defined in our taxonomy. In this section, we introduce our design<br>of one such protocol called RPT, a modification of the µTESLA<br>protocol.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:489"><nobr><span class="ft3">In practice, many protocols send synchronous messages at regu-</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft7">lar and predictable times. The plaintext of these messages are often<br>known by the sender a priori. In particular, messages containing<br>meta-data are especially well-suited for this type of communica-<br>tion. For example, a base-station often performs key update or time<br>re-synchronization at a preset time of day. In these examples, the<br>sender knows exactly what message needs to be sent at a particular<br>time, but the protocol dictates that such messages cannot be sent<br>until a pre-specified time.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">Consider an application that broadcasts a message every day at</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">noon to all nodes. If we use standard µTESLA with one key per</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">151</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:11px;line-height:16px;font-family:Times;color:#221f1f;}
+	.ft13{font-size:11px;line-height:13px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">day, it would take one day to authenticate the message, since the<br>receivers would need to wait for the disclosed key one day later.<br>On the other hand, if we use many keys, for example, one key per<br>second, it would require 86</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:231"><nobr><span class="ft3">,400 keys per day (not using the opti-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft7">mization we presented in the previous section), and a sensor node<br>would require an expected time of 43 seconds to verify the authen-<br>ticity of the key. Hence, if messages are sent at very regular time<br>intervals, we can streamline µTESLA to immediately authenticate<br>these messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:94"><nobr><span class="ft3">The RPT protocol (Regular-Predictable TESLA) achieves imme-</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft7">diate authentication for messages sent at regular and predictable<br>times. Consider a message that needs to be sent at times T</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:421"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:429"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:87"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:96"><nobr><span class="ft3">+ i · D. The sender creates a one-way key chain, and assigns</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:81"><nobr><span class="ft7">one key to each time interval of duration D. We assume that the<br>sender knows the content of the message M</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:312"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:319"><nobr><span class="ft3">to be broadcast at time</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:81"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:87"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:94"><nobr><span class="ft3">by time T</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:144"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:149"><nobr><span class="ft3">-, where  is the maximum network broadcast prop-</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft7">agation delay plus the maximum time synchronization error. At<br>time T</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:116"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:122"><nobr><span class="ft3">- , the sender broadcasts message MAC</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:356"><nobr><span class="ft1">K</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:363"><nobr><span class="ft10"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:366"><nobr><span class="ft3">(M</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:383"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:386"><nobr><span class="ft3">) , and at</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:81"><nobr><span class="ft3">time T</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:115"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:122"><nobr><span class="ft3">the sender broadcasts M</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:259"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:262"><nobr><span class="ft3">,K</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:276"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:285"><nobr><span class="ft3">. As soon as the receiver re-</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft7">ceives the first message, it needs to verify the safety condition that<br>key K</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:112"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:120"><nobr><span class="ft3">is still secret, given its current time and the maximum time</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:81"><nobr><span class="ft7">synchronization error. When receiving the second message, the re-<br>ceiver first verifies the key K</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:240"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:243"><nobr><span class="ft3">. If the key is correct it verifies the</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:81"><nobr><span class="ft3">MAC, and if the MAC is correct it is assured that M</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:366"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:374"><nobr><span class="ft3">is authentic.</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:81"><nobr><span class="ft7">Note that this approach does not exhibit any authentication delay,<br>as the receiver can immediately authenticate M</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:336"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:344"><nobr><span class="ft3">immediately after</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:81"><nobr><span class="ft3">reception.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:94"><nobr><span class="ft3">At first glance, it may appear that RPT is susceptible to a denial-</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft7">of-broadcast attack, where an attacker sends a large number of<br>forged MACs around the time the legitimate is sent out. This prob-<br>lem had been studied and addressed in previous work [16]. How-<br>ever, it is not easy to evaluate how well this works in practice.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft2">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:112"><nobr><span class="ft9">BROADCAST AUTHENTICATION WITH<br>ONE-TIME SIGNATURES</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:94"><nobr><span class="ft3">Another way to achieve asymmetric authentication is through the</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft7">use of one-time signatures. A one-time signature is much faster to<br>generate and verify than general purpose signatures, but the private<br>key associated with the signature can be used to sign only a sin-<br>gle message, otherwise the security degrades and an attacker could<br>forge signatures. Unlike µTESLA, time synchronization is not nec-<br>essary and authentication is immediate. Moreover, one-time signa-<br>tures achieve non-repudiation in addition to authentication, which<br>enables a node to buffer a message and retransmit it later. The re-<br>ceiver of the retransmitted message can still authenticate the mes-<br>sage.</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:94"><nobr><span class="ft3">One-time signatures are advantageous in applications with infre-</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:81"><nobr><span class="ft7">quent messages at unpredictable times, as they do not add com-<br>putation to the receiver based upon the time at which the message<br>is received. This makes them resilient to many forms of DoS at-<br>tacks. We now present an overview of one-time signatures, and<br>then present our LEA broadcast authentication protocol for authen-<br>tication of low-entropy messages in Section 4.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft2">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:121"><nobr><span class="ft2">One-Time Signatures Overview</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:94"><nobr><span class="ft3">The Merkle-Winternitz signature was first drafted by Merkle [25,</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft7">26], and was later also used by Even, Goldreich, and Micali [8],<br>and more recently also by Rohatgi for efficient stream authentica-<br>tion [35]. We briefly describe the basic principle of the Merkle-<br>Winternitz signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">A Merkle-Winternitz signature relies on efficient one-way func-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">tions to construct a DAG (directed acyclic graph) to encode a sig-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">nature. Each edge between two vertices (v</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:717"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:727"><nobr><span class="ft3"> v</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:750"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:756"><nobr><span class="ft3">) in the graph</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft7">represents an application of the one-way function, where the value<br>of the end node is the result of the one-way function applied to the<br>beginning node (v</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:571"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:580"><nobr><span class="ft3">= F(v</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:614"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:620"><nobr><span class="ft3">), where F represents the one-way func-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft7">tion). End nodes with multiple incoming edges take on the value<br>of the hash of the concatenation of predecessor nodes. The initial<br>values of the graph represent the private key, and the final value<br>represents the public key.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:489"><nobr><span class="ft3">To achieve a secure one-time signature, the property of the sig-</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:475"><nobr><span class="ft7">nature encoding is that an attacker would have to invert at least one<br>one-way function to sign any other value (i.e., forge a signature).</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:489"><nobr><span class="ft3">We now discuss an example of a signature graph and signature</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft7">encoding. Figure 4(a) depicts the one-time signature. A one-way<br>hash chain of length 4 can be used to encode the values 0</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:788"><nobr><span class="ft3">- 3. For</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:475"><nobr><span class="ft7">this signature chain, we will use the convention that the 1st value<br>s</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:480"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:490"><nobr><span class="ft3">in the chain encodes the value 3, the second 2, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:489"><nobr><span class="ft3">The signer derives the value s</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:652"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:662"><nobr><span class="ft3">from a randomly generated pri-</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:475"><nobr><span class="ft3">vate key K</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:536"><nobr><span class="ft1">priv</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:559"><nobr><span class="ft3">by using a Pseudo-Random Function (PRF), e.g.,</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:475"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:480"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:490"><nobr><span class="ft3">= PRF</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:528"><nobr><span class="ft1">K</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:536"><nobr><span class="ft10"><i>priv</i></span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:549"><nobr><span class="ft3">(0).</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:570"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:586"><nobr><span class="ft3">To prevent signature forgery (as we will ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:475"><nobr><span class="ft3">plain later), the sender also creates a checksum chain c</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:774"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:782"><nobr><span class="ft3">...c</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:803"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:809"><nobr><span class="ft3">, de-</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:475"><nobr><span class="ft3">riving value c</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:552"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:563"><nobr><span class="ft3">also from the private key, e.g., c</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:745"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:755"><nobr><span class="ft3">= PRF</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:792"><nobr><span class="ft1">K</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:800"><nobr><span class="ft10"><i>priv</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:813"><nobr><span class="ft3">(1),</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:475"><nobr><span class="ft7">and again using the one-way function to derive the other values,<br>e.g., c</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:509"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:519"><nobr><span class="ft3">= F(c</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:554"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:560"><nobr><span class="ft3">). The application of the one-way function on s</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:828"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:475"><nobr><span class="ft3">and c</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:505"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:515"><nobr><span class="ft3">forms the public key: K</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:647"><nobr><span class="ft1">pub</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:667"><nobr><span class="ft3">= F(s</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:700"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:711"><nobr><span class="ft3">|| c</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:728"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:734"><nobr><span class="ft3">). To sign value i,</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:475"><nobr><span class="ft3">where 0</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:521"><nobr><span class="ft3"> i  3, the signer uses values s</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:693"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:700"><nobr><span class="ft3">and c</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:729"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:736"><nobr><span class="ft3">as the signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:489"><nobr><span class="ft3">To verify the signature s</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:617"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:623"><nobr><span class="ft3">and c</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:651"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:655"><nobr><span class="ft3">, the receiver follows the one-way</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:475"><nobr><span class="ft3">chains and recomputes the public key as follows, with F</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:778"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:784"><nobr><span class="ft3">(x) = x:</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:577"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:586"><nobr><span class="ft1">pub</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:606"><nobr><span class="ft3">= F(F</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:643"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:647"><nobr><span class="ft3">(s</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:657"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:661"><nobr><span class="ft3">) || F</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:690"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:695"><nobr><span class="ft1">-i</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:707"><nobr><span class="ft3">(c</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:718"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:722"><nobr><span class="ft3">))</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:475"><nobr><span class="ft7">A signature is correct if the recomputed value matches the public<br>key For example, consider a signature on value 2: s</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:763"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:773"><nobr><span class="ft3">and c</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:803"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:809"><nobr><span class="ft3">. To</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:475"><nobr><span class="ft3">verify, the receiver checks that K</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:652"><nobr><span class="ft1">pub</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:671"><nobr><span class="ft3">= F(F(F(s</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:734"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:740"><nobr><span class="ft3">)) || F(c</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:785"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:791"><nobr><span class="ft3">)).</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:489"><nobr><span class="ft3">An attacker who wishes to forge a signature is forced to invert at</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:475"><nobr><span class="ft7">least one one-way function (since the indices of the checksum chain<br>run in direction opposite to the signature chain). Assuming the one-<br>way function is secure, an attacker cannot invert the function to<br>forge a signature, hence, the signature is secure. In practice, we can<br>use a secure cryptographic hash function for our one-way function,<br>but for increased efficiency we use a block cipher in hash mode, for<br>example the commonly used Matyas-Meyer-Oseas mode [22].</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:489"><nobr><span class="ft3">Using two chains achieves a secure one-time signature, but does</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:475"><nobr><span class="ft7">not scale well to sign a large number of bits. If we use two chains,<br>a signature on 32 bits would require a chain 2</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:719"><nobr><span class="ft1">32</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:733"><nobr><span class="ft3">values long, which</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:475"><nobr><span class="ft7">has a very high overhead to generate and verify. Instead, if more<br>than one chain is used, each chain can encode some number of bits<br>of the signature. For example, one could encode an 8 bit number by<br>using four chains of length 4 to encode two bits in each chain. The<br>public key is derived from the last value on all the chains. However,<br>in this scheme, we would still need an additional 4 chains of length<br>4 to encode the values in the opposite direction to prevent forgeries.</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:489"><nobr><span class="ft3">The Merkle-Winternitz signature reduces the number of check-</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:475"><nobr><span class="ft7">sum chains, in that the redundant checksum chains do not encode<br>the actual value, but instead encode the sum of the values on the sig-<br>nature chains. As explained in detail by Merkle [25,26], the check-<br>sum chain encodes the sum of all values in the signature chains.<br>Assuming k signature chains that sign m bits each, the maximum<br>sum would be k</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:561"><nobr><span class="ft3">·(2</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:579"><nobr><span class="ft1">m</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:589"><nobr><span class="ft3">-1), thus the checksum chains would encode</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:476"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:482"><nobr><span class="ft3">We use a block cipher to implement the PRF efficiently. A block</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:475"><nobr><span class="ft12">cipher is a good PRF as long as we do not use the PRF to compute<br>more than O</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:545"><nobr><span class="ft3">(2</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:568"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:574"><nobr><span class="ft3">) operations with the same key, where n is the</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:475"><nobr><span class="ft13">blocksize in bits. Since we only perform a few operations, the block<br>cipher is a secure and efficient PRF.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">152</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:11px;line-height:19px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177007.png" alt="background image">
+<DIV style="position:absolute;top:359;left:308"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:318"><nobr><span class="ft1">priv</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:309"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:318"><nobr><span class="ft1">pub</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:291"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:296"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:291"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:296"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:291"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:296"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:291"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:296"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:333"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:339"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:333"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:339"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:333"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:339"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:333"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:339"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:212"><nobr><span class="ft3">(a) Simple one-time signature to sign 2 bits.</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:515"><nobr><span class="ft3">F</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:603"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:613"><nobr><span class="ft1">priv</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:604"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:613"><nobr><span class="ft1">pub</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:497"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:502"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:507"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:497"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:502"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:507"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:497"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:502"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:507"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:497"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:502"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:507"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:539"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:544"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:550"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:541"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:546"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:551"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:541"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:546"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:551"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:541"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:546"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:551"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:582"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:587"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:592"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:582"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:587"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:592"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:582"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:587"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:592"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:582"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:587"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:592"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:624"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:629"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:635"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:625"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:630"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:635"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:625"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:630"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:635"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:625"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:630"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:635"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:666"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:672"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:678"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:666"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:672"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:678"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:666"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:672"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:678"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:666"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:672"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:678"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:709"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:715"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:720"><nobr><span class="ft1">,3</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:709"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:715"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:720"><nobr><span class="ft1">,2</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:709"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:715"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:720"><nobr><span class="ft1">,1</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:709"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:715"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:720"><nobr><span class="ft1">,0</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:506"><nobr><span class="ft13">(b) Merkle-Winternitz one-time signature.<br>This construction can sign 8 bits.</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:244"><nobr><span class="ft3">Figure 4: This figure illustrates the Merkle-Winternitz one-time signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:81"><nobr><span class="ft3">log</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:98"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:110"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:118"><nobr><span class="ft3">· (2</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:135"><nobr><span class="ft1">m</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:145"><nobr><span class="ft3">- 1) bits, providing for a significant savings. This ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:81"><nobr><span class="ft7">proach still ensures that an attacker would have to invert at least<br>one one-way function to forge a signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:94"><nobr><span class="ft3">Using signature chains with 4 values, a signature on n bits will</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:81"><nobr><span class="ft3">then require n</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:156"><nobr><span class="ft3">/2 signature chains. Since each chain encodes up to</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:81"><nobr><span class="ft3">the value 3, the checksum chain at most needs to encode the value</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:81"><nobr><span class="ft14">(n/2)  3 as the total sum; thus, the checksum chains need to sign<br>log</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:98"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:104"><nobr><span class="ft3">(n/2  3) bits. If we also use checksum chains with 4 values,</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:81"><nobr><span class="ft3">each checksum chain can again sign 2 bits and we need log</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:400"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:406"><nobr><span class="ft3">(n/2</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:87"><nobr><span class="ft3">)/2 checksum chains. Figure 4(b) shows an example of such a</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:81"><nobr><span class="ft7">signature for signing 8 bits. Since the four signature chains can<br>at most encode the number 3, the total sum is at most 4</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:390"><nobr><span class="ft3"> 3 = 12.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft7">Thus we only need 2 additional checksum chains to encode the 4<br>bits. Again, the indices in the checksum chain run opposite to the<br>indices in the signature chain, to ensure that an attacker would have<br>to invert at least one one-way function to forge a different signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:94"><nobr><span class="ft3">For the specific case of signing 80 bits, researchers suggest using</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:81"><nobr><span class="ft7">chains of length 16 to encode 4 bits per chain [35]. Thus, we need<br>20</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:97"><nobr><span class="ft3">= 80/4 signature chains, and the checksum chains would need</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:81"><nobr><span class="ft3">to encode at most values 0</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:226"><nobr><span class="ft3">...300(= 20 · 15), which will require 9</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:81"><nobr><span class="ft7">bits, which again requires 3 checksum chains (where the third chain<br>only requires 2 values to sign a single bit).</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:309"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:94"><nobr><span class="ft3">We now compute the computation overhead of signature verifi-</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:81"><nobr><span class="ft7">cation. On average, signature verification requires following half<br>the signature chains, which requires 8 one-way function compu-<br>tations. In the case of signing 80 bits with 20 signature chains,<br>this will result in 160 one-way function computations. On average,<br>the checksum chains require 16 one-way function computations,<br>adding up to a total of 176 computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:81"><nobr><span class="ft2">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:121"><nobr><span class="ft2">LEA: Authentication of Low-Entropy Mes-</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:121"><nobr><span class="ft2">sages</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:94"><nobr><span class="ft3">If messages have high entropy, the one-time signature is still</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:81"><nobr><span class="ft7">quite large in size. For example, if messages have 80 bits or more<br>of entropy, the signer can hash the message before signing it. Using</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:87"><nobr><span class="ft3">We could also use 2 signature chains with 18 values each, as 18</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:421"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:429"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">324, saving one checksum chain.</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:475"><nobr><span class="ft7">the construction we discussed in Section 4.1, signing an 80-bit hash<br>value would yield a 230 bytes signature (or 184 bytes if we assume<br>8 byte long hash chain values). Unfortunately, this is still too large<br>for current sensor networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:489"><nobr><span class="ft3">However, for messages with lower entropy, one-time signatures</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:475"><nobr><span class="ft7">can be very effective. We thus present the LEA (Low-Entropy<br>Authentication) protocol. The LEA protocol is based on Merkle-<br>Winternitz one-time signatures, and periodically pre-distributes one-<br>time public keys to receivers, and the sender uses the corresponding<br>private keys to sign messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:489"><nobr><span class="ft3">The Merkle-Winternitz one-time signature is efficient for signing</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:475"><nobr><span class="ft7">small numbers of bits. For example, assuming chains of length 16,<br>to sign a message of n bits, we would need n</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:725"><nobr><span class="ft3">/4 signature chains.</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:475"><nobr><span class="ft3">Thus we need to encode log</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:623"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:629"><nobr><span class="ft3">(n/415) bits in the checksum chains,</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:475"><nobr><span class="ft3">hence requiring log</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:590"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:596"><nobr><span class="ft3">(n/4  15)/4 additional checksum chains.</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:475"><nobr><span class="ft7">For signing 8 bits, the signature would require 2 signature chains<br>and 2 additional checksum chains to encode the sum ranging from<br>0</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:483"><nobr><span class="ft3">...30, which would require 32 bytes assuming 8 byte values.</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:475"><nobr><span class="ft7">Since communication cost is a premium, we could use a single<br>checksum chain of length 30 to encode the checksum, thus sav-<br>ing 8 bytes. Hence, the total size of the authentication information<br>would be 24 bytes.</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:489"><nobr><span class="ft3">Since the size of the signature depends on the number of bits</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:475"><nobr><span class="ft7">being signed, this method is preferable for situations where the<br>message is a simple time critical command, such as an alarm, or<br>a preset command. For example, to sign 128 different commands,<br>we would only need one signature chain with 16 values, one signa-<br>ture chain with 8 values, and one checksum chain with 22 values.<br>Assuming 8 byte values, the total signature length is 24 bytes.</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:489"><nobr><span class="ft3">In some applications it may be possible to use a lossy compres-</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:475"><nobr><span class="ft7">sion algorithm to compress and quantize the data for the signature.<br>This would allow the message to contain uncompressed data, but<br>the attacher would only be able to change the message to a small<br>degree. This could be helpful in commands which set the sensi-<br>tivity of a motion sensor and the administrator is willing to allow<br>a small error in the sensitivity which is actually received on the<br>device.</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:489"><nobr><span class="ft3">One of the main challenges of using one-time signatures is to dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">153</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177008.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">tribute one authentic public key for each signature to the receivers.<br>Without an authentic public key an attacker could inject it's own<br>public key and one-time signatures. This problem is easier than<br>the original problem of general broadcast authentication because<br>the public keys can be distributed far ahead of time at a predictable<br>time.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:94"><nobr><span class="ft3">There are several methods by which this may be achieved. The</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft7">simplest would be to distribute a set of k public keys to each re-<br>ceiver at bootstrap and these keys would be usable for the first k<br>messages. If the lifetime of the devices compared to k is small,<br>then the devices will not have to be re-bootstrapped.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:94"><nobr><span class="ft3">In general, the number of total messages is unknown. Thus, we</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft7">design a mechanism to efficiently replenish authentic public keys<br>after their use. We leverage the RPT protocol for this purpose.<br>Nodes store a number of authentic public keys. The sender uses up<br>one one-time signature (or one private key) per message it broad-<br>casts. With this approach, all receivers can immediately authenti-<br>cate the message. Periodically, the sender sends a RPT message at<br>a regular time with new one-time public keys to replenish the used-<br>up public keys at receivers. Since each public key is only 10 bytes<br>long, this is an efficient approach.</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:81"><nobr><span class="ft2">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:121"><nobr><span class="ft2">Chaining Merkle-Winternitz Public Keys</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:94"><nobr><span class="ft3">The above scheme illustrates an effective way to use µTESLA in</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:81"><nobr><span class="ft7">conjunction with Merkle-Winternitz signatures to provide fast and<br>efficient authentication. The only drawback of using the Merkle-<br>Winternitz one-time signature is that the public key can only be<br>used once. Therefore when a µTESLA authenticated message is<br>sent at the beginning of the day authenticating k Merkle-Winternitz<br>public keys, the sender and receiver are limited to only being able<br>to authenticate k messages that day. The tradeoff is that choosing a<br>large k uses up receiver memory resources.</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">To circumvent this problem, rather than sending a fixed number</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft7">of messages per interval, the public keys can be chained together<br>in such a way that if more messages are needed they can be sent to<br>the receiver and authenticated immediately.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:94"><nobr><span class="ft3">In this approach, the sender generates a large number of public</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:81"><nobr><span class="ft7">and private keys for one-time signatures, labeling the public keys<br>P</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:88"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:94"><nobr><span class="ft3">,P</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:106"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:112"><nobr><span class="ft3">,...,P</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:145"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:151"><nobr><span class="ft3">. These public keys are then combined, such that ver-</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft7">ification of one signature will automatically authenticate the public<br>key of the next signature:</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:88"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:97"><nobr><span class="ft3">= P</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:117"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:88"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:97"><nobr><span class="ft3">= H(P</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:133"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:142"><nobr><span class="ft3">|| V</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:160"><nobr><span class="ft1">0</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:166"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft3">...</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:88"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:94"><nobr><span class="ft3">= H(P</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:130"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:137"><nobr><span class="ft3">|| V</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:155"><nobr><span class="ft1">i</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:158"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:172"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:81"><nobr><span class="ft3">...</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:88"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:97"><nobr><span class="ft3">= H(P</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:133"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:142"><nobr><span class="ft3">|| V</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:160"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:165"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:179"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:94"><nobr><span class="ft3">In this approach, the sender only needs to send the value V</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:412"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:422"><nobr><span class="ft3">au-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft7">thenticated with µTESLA. The sender subsequently uses the private<br>key that corresponds to the public key P</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:303"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:314"><nobr><span class="ft3">to sign a message, and</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft3">sends value V</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:154"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:159"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:177"><nobr><span class="ft3">along with the message. From the signature, the</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft3">receiver can compute the public key P</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:282"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:288"><nobr><span class="ft3">, and together with the value</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:88"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:93"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:111"><nobr><span class="ft3">the receiver can authenticate the public key and V</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:385"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:390"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:409"><nobr><span class="ft3">based</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft3">on the trusted value V</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:195"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:201"><nobr><span class="ft3">. Now that the receiver trusts value V</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:397"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:402"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:416"><nobr><span class="ft3">, the</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft3">next public key P</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:173"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:179"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:196"><nobr><span class="ft3">can be authenticated in the same way.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:94"><nobr><span class="ft3">This approach has the drawback that the message to be authen-</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft3">ticated also needs to carry the value V</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:290"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:295"><nobr><span class="ft1">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:313"><nobr><span class="ft3">increasing the message</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft7">size by 8­10 bytes, and that message loss prevents later messages<br>to be authenticated. We propose to use a hybrid approach: send k<br>public keys authenticated with RPT each day, along with one value</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:80"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:88"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">. If the sender needs to send more than k authenticated messages,</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">it can then use the chained public keys after the first k messages.</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:502"><nobr><span class="ft15">0uA</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:491"><nobr><span class="ft15">500uA</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:486"><nobr><span class="ft15">1000uA</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:486"><nobr><span class="ft15">1500uA</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:486"><nobr><span class="ft15">2000uA</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:553"><nobr><span class="ft1">22</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:604"><nobr><span class="ft1">23</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:660"><nobr><span class="ft1">24</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:720"><nobr><span class="ft1">25</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:777"><nobr><span class="ft1">26</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:792"><nobr><span class="ft1">97 bits</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:794"><nobr><span class="ft1">60 bits</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:791"><nobr><span class="ft1">32 bits</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:592"><nobr><span class="ft1">Power consumed (uA) vs.  chain lengths</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:475"><nobr><span class="ft7">Figure 5: The power consumption for an MSP430 sensor<br>node receiving and validating Merkle-Winternitz signatures for<br>varying signature chain lengths.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft2">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:507"><nobr><span class="ft9">IMPLEMENTATION AND PERFORMANCE<br>EVALUATION</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:489"><nobr><span class="ft3">Figure 5 illustrates the amount of energy required for using a</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:475"><nobr><span class="ft7">Merkle-Winternitz signature for signing 32 bits, 60 bits, and 97<br>bits. In this example, the sensor is an 16-bit TI MSP430 processor<br>running at 1 MHz, which can compute an 8-byte hash in approx-<br>imately 5ms using RC5. This processor uses up 0.28 µA per ms,<br>and 3.8 µA per byte received. Shown are the overall power con-<br>sumption for five different chain lengths, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:714"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:720"><nobr><span class="ft3">, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:736"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:742"><nobr><span class="ft3">, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:757"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:763"><nobr><span class="ft3">, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:778"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:784"><nobr><span class="ft3">, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:800"><nobr><span class="ft1">6</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:806"><nobr><span class="ft3">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:475"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:482"><nobr><span class="ft1">7</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:488"><nobr><span class="ft3">. Table 2 shows the power consumption, validation times, and</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:475"><nobr><span class="ft7">communication overhead for signing 60 bits with varying length<br>chains.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:489"><nobr><span class="ft3">We implemented the PRF using the Helix stream cipher [9].</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:475"><nobr><span class="ft7">Unlike RC5, this cipher is not patented. It also features an effi-<br>cient MAC construction which we use in our implementation of<br>µTESLA. The PRF is computed by using the input to the PRF as<br>the key in encryption mode, and using the keystream as the output<br>of the PRF. In this implementation, it takes about 8 ms to compute<br>an 8-byte PRF. Since the signature generation requires comparable<br>amount of computation as verification, generation of a 64-bit signa-<br>ture takes about 1.2 seconds and verification takes about 1 second<br>in our un-optimized implementation. However, in this scheme, the<br>public keys are generated in advance, so the sender must compute<br>twice as many hashes because it must recompute the hashes when<br>he wishes to actually compute a signature instead of simply gener-<br>ating the public key. This still makes it feasible for a sensor-node<br>to act as the base station in our implementation, but generating a<br>large amount of public keys becomes costly. The implementation<br>is about 4k in size, 2k for the Helix assembly code, and 2k for the<br>Merkle-Winternitz code (with code for both generation and valida-<br>tion).</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:475"><nobr><span class="ft2">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:507"><nobr><span class="ft2">RELATED WORK</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft3">The µTESLA protocol is a viable mechanism for broadcast au-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft7">thentication in sensor networks [31]. Unfortunately, this approach<br>introduces an authentication delay and thus does not provide imme-<br>diate authentication of messages which is necessary in applications</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">154</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:11px;line-height:12px;font-family:Times;color:#221f1f;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177009.png" alt="background image">
+<DIV style="position:absolute;top:84;left:378"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:385"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:428"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:435"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:482"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:526"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:533"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:580"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:586"><nobr><span class="ft1">6</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:633"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:640"><nobr><span class="ft1">7</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:256"><nobr><span class="ft3">Power-cons (µA)</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:366"><nobr><span class="ft3">1126.7</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:420"><nobr><span class="ft3">823.1</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:467"><nobr><span class="ft3">707.2</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:517"><nobr><span class="ft3">717.5</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:571"><nobr><span class="ft3">858.3</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:621"><nobr><span class="ft3">1163.2</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:256"><nobr><span class="ft3">Auth-time (ms)</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:369"><nobr><span class="ft3">332.5</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:420"><nobr><span class="ft3">442.5</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:467"><nobr><span class="ft3">680.0</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:514"><nobr><span class="ft3">1042.5</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:567"><nobr><span class="ft3">1762.5</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:621"><nobr><span class="ft3">2960.0</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:256"><nobr><span class="ft3">Overhead (bytes)</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:374"><nobr><span class="ft3">272</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:425"><nobr><span class="ft3">184</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:472"><nobr><span class="ft3">136</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:522"><nobr><span class="ft3">112</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:579"><nobr><span class="ft3">96</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:633"><nobr><span class="ft3">88</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:202"><nobr><span class="ft3">Table 2: Efficiency for signing a 60 bit value using Merkle-Winternitz one-time signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:81"><nobr><span class="ft7">with real-time requirements. Moreover, the µTESLA approach has<br>some denial-of-service vulnerabilities, which we address in this pa-<br>per.</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:94"><nobr><span class="ft3">Liu and Ning subsequently improved the efficiency of bootstrap-</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:81"><nobr><span class="ft7">ping new clients, using multiple levels of one-way key chains [20].<br>This work also discussed the DoS attack explained in Section 3.2.<br>Liu et al. also outlines a potential approach to authenticate commit-<br>ment messages with Merkle hash trees [19].</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:94"><nobr><span class="ft3">Several researchers have investigated the use of asymmetric cryp-</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:81"><nobr><span class="ft7">tographic techniques in sensor networks. Unfortunately, the over-<br>head is too high to warrant use of such techniques for per-packet<br>broadcast authentication. Such schemes were discussed in Sec-<br>tion 2 in the context of protocols with high computation overhead.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:81"><nobr><span class="ft2">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:112"><nobr><span class="ft2">CONCLUSION</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:94"><nobr><span class="ft3">We have studied viable and efficient solutions for efficient broad-</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:81"><nobr><span class="ft7">cast authentication in sensor networks. This problem is challenging<br>due to the highly constrained nature of the devices and the unpre-<br>dictable nature of communication in many environments. Since the<br>authentication of broadcast messages is one of the most important<br>security properties in sensor networks, we need to study viable ap-<br>proaches for a variety of settings. We establish a set of properties<br>of broadcast authentication: security against compromised nodes,<br>low computation and communication cost, immediate authentica-<br>tion (with no receiver delay), authentication of unpredictable mes-<br>sages with high entropy, and robustness to packet loss. We present<br>a viable protocol for each case where we relax one property, and<br>pose the open challenge to find a protocol that satisfies all proper-<br>ties.</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:81"><nobr><span class="ft2">8.</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:112"><nobr><span class="ft2">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:87"><nobr><span class="ft3">[1] D. Boneh, G. Durfee, and M. Franklin. Lower bounds for</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:110"><nobr><span class="ft7">multicast message authentication. In Advances in Cryptology<br>-- EUROCRYPT '01, pages 434­450, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:87"><nobr><span class="ft3">[2] M. Brown, D. Cheung, D. Hankerson, J. Lopez Hernandez,</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:110"><nobr><span class="ft7">M. Kirkup, and A. Menezes. PGP in constrained wireless<br>devices. In Proceedings of USENIX Security Symposium,<br>August 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:87"><nobr><span class="ft3">[3] R. Canetti, J. Garay, G. Itkis, D. Micciancio, M. Naor, and</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:110"><nobr><span class="ft7">B. Pinkas. Multicast security: A taxonomy and some<br>efficient constructions. In INFOCOMM'99, pages 708­716,<br>March 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:87"><nobr><span class="ft3">[4] J. Deng, R. Han, and S. Mishra. A performance evaluation of</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:110"><nobr><span class="ft7">intrusion-tolerant routing in wireless sensor networks. In<br>Proceedings of IEEE Workshop on Information Processing in<br>Sensor Networks (IPSN), April 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:87"><nobr><span class="ft3">[5] J. Deng, C. Hartung, R. Han, and S. Mishra. A practical</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:110"><nobr><span class="ft7">study of transitory master key establishment for wireless<br>sensor networks. In Proceedings of the First IEEE/CreateNet<br>Conference on Security and Privacy for Emerging Areas in<br>Communication Networks (SecureComm), 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:87"><nobr><span class="ft3">[6] Jeremy Elson, Lewis Girod, and Deborah Estrin.</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:110"><nobr><span class="ft16">Fine-grained network time synchronization using reference<br>broadcasts. In Proceedings of Symposium on Operating</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:504"><nobr><span class="ft7">Systems Design and Implementation (OSDI), December<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:482"><nobr><span class="ft3">[7] Jeremy Elson and Kay R¨omer. Wireless sensor networks: A</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:504"><nobr><span class="ft7">new regime for time synchronization. In Proceedings of<br>Workshop on Hot Topics In Networks (HotNets-I), October<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:482"><nobr><span class="ft3">[8] S. Even, O. Goldreich, and S. Micali. On-line/off-line digital</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:504"><nobr><span class="ft7">signatures. In Advances in Cryptology -- CRYPTO '89,<br>volume 435, pages 263­277, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:482"><nobr><span class="ft3">[9] Niels Ferguson, Doug Whiting, Bruce Schneier, John Kelsey,</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:504"><nobr><span class="ft7">Stefan Lucks, and Tadayoshi Kohno. Helix: Fast encryption<br>and authentication in a single cryptographic primitive. In<br>Proceedings of the International Workshop on Fast Software<br>Encryption (FSE 2003), 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:475"><nobr><span class="ft3">[10] V. Gupta, M. Millard, S. Fung, Y. Zhu, N. Gura, H. Eberle,</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:504"><nobr><span class="ft7">and S. C. Shantz. Sizzle: A standards-based end-to-end<br>security architecture for the embedded internet. In<br>Proceedings of the Third IEEE International Conference on<br>Pervasive Computing and Communication (PerCom), 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:475"><nobr><span class="ft3">[11] Jason Hill, Robert Szewczyk, Alec Woo, Seth Hollar,</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:504"><nobr><span class="ft7">David E. Culler, and Kristofer S. J. Pister. System<br>architecture directions for networked sensors. In Proceedings<br>of Architectural Support for Programming Languages and<br>Operating Systems (ASPLOS IX), pages 93­104, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:475"><nobr><span class="ft3">[12] Lingxuan Hu and David Evans. Secure aggregation for</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:504"><nobr><span class="ft7">wireless networks. In Workshop on Security and Assurance<br>in Ad hoc Networks, January 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:475"><nobr><span class="ft3">[13] Yih-Chun Hu, Adrian Perrig, and David B. Johnson. Packet</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:504"><nobr><span class="ft7">leashes: A defense against wormhole attacks in wireless<br>networks. In Proceedings of IEEE INFOCOM, April 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft3">[14] J. M. Kahn, R. H. Katz, and K. S. Pister. Mobile networking</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:504"><nobr><span class="ft7">for smart dust. In Proceedings of ACM/IEEE Conference on<br>Mobile Computing and Networking (MobiCom), August<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:475"><nobr><span class="ft3">[15] C. Karlof, N. Sastry, and D. Wagner. TinySec: A link layer</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:504"><nobr><span class="ft7">security architecture for wireless sensor networks. In ACM<br>SenSys, November 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:475"><nobr><span class="ft3">[16] Chris Karlof, Naveen Sastry, Yaping Li, Adrian Perrig, and</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:504"><nobr><span class="ft7">J. D. Tygar. Distillation codes and applications to dos<br>resistant multicast authentication. In Proceedings of the<br>Symposium on Network and Distributed Systems Security<br>(NDSS), November 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:475"><nobr><span class="ft3">[17] Chris Karlof and David Wagner. Secure routing in wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:504"><nobr><span class="ft7">sensor networks: Attacks and countermeasures. In<br>Proceedings of First IEEE International Workshop on Sensor<br>Network Protocols and Applications, May 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:475"><nobr><span class="ft3">[18] A. Lenstra and E. Verheul. Selecting cryptographic key sizes.</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:504"><nobr><span class="ft3">Journal of Cryptology, 14(4):255­293, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:475"><nobr><span class="ft3">[19] D. Liu, P. Ning, S. Zhu, and S. Jajodia. Practical broadcast</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:504"><nobr><span class="ft7">authentication in sensor networks. In Proceedings of The 2nd<br>Annual International Conference on Mobile and Ubiquitous<br>Systems: Networking and Services</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:690"><nobr><span class="ft3">, November 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:475"><nobr><span class="ft3">[20] Donggang Liu and Peng Ning. Efficient distribution of key</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:504"><nobr><span class="ft3">chain commitments for broadcast authentication in</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">155</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="177010.png" alt="background image">
+<DIV style="position:absolute;top:86;left:110"><nobr><span class="ft7">distributed sensor networks. In Proceedings of Network and<br>Distributed System Security Symposium (NDSS), pages<br>263­276, February 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:81"><nobr><span class="ft3">[21] David Malan, Matt Welsh, and Michael Smith. A public-key</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:110"><nobr><span class="ft7">infrastructure for key distribution in TinyOS based on elliptic<br>curve cryptography. In Proceedings of IEEE International<br>Conference on Sensor and Ad hoc Communications and<br>Networks (SECON), October 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:81"><nobr><span class="ft3">[22] S. Matyas, C. Meyer, and J. Oseas. Generating strong</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:110"><nobr><span class="ft7">one-way functions with cryptographic algorithm. IBM<br>Technical Disclosure Bulletin, 27:5658­5659, 1985.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:81"><nobr><span class="ft3">[23] A. Menezes, P. van Oorschot, and S. Vanstone. Handbook of</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:110"><nobr><span class="ft3">Applied Cryptography. CRC Press, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:81"><nobr><span class="ft3">[24] R. Merkle. Protocols for public key cryptosystems. In</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:110"><nobr><span class="ft7">Proceedings of the IEEE Symposium on Research in Security<br>and Privacy, pages 122­134, April 1980.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:81"><nobr><span class="ft3">[25] R. Merkle. A digital signature based on a conventional</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:110"><nobr><span class="ft7">encryption function. In Advances in Cryptology -- CRYPTO<br>'87, pages 369­378, 1988.</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:81"><nobr><span class="ft3">[26] R. Merkle. A certified digital signature. In Advances in</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:110"><nobr><span class="ft3">Cryptology -- CRYPTO '89, pages 218­238, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:81"><nobr><span class="ft3">[27] National Institute of Standards and Technology (NIST),</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:110"><nobr><span class="ft7">Computer Systems Laboratory. Secure Hash Standard.<br>Federal Information Processing Standards Publication (FIPS<br>PUB) 180-2, February 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:81"><nobr><span class="ft3">[28] A. Perrig. The BiBa one-time signature and broadcast</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:110"><nobr><span class="ft7">authentication protocol. In Proceedings of ACM Conference<br>on Computer and Communications Security (CCS), pages<br>28­37, November 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:81"><nobr><span class="ft3">[29] A. Perrig, R. Canetti, J. D. Tygar, and D. Song. Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:110"><nobr><span class="ft7">authentication and signature of multicast streams over lossy<br>channels. In Proceedings of the IEEE Symposium on</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:504"><nobr><span class="ft3">Research in Security and Privacy, pages 56­73, May 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:475"><nobr><span class="ft3">[30] A. Perrig, R. Canetti, J. D. Tygar, and D. Song. The TESLA</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:504"><nobr><span class="ft7">broadcast authentication protocol. RSA CryptoBytes,<br>5(Summer), 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:475"><nobr><span class="ft3">[31] Adrian Perrig, Robert Szewczyk, Victor Wen, David Culler,</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:504"><nobr><span class="ft7">and J. D. Tygar. SPINS: Security protocols for sensor<br>networks. In Proceedings of ACM Conference on Mobile<br>Computing and Networks (MobiCom), pages 189­199, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:475"><nobr><span class="ft3">[32] Bartosz Przydatek, Dawn Song, and Adrian Perrig. SIA:</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:504"><nobr><span class="ft7">Secure information aggregation in sensor networks. In<br>Proceedings of the First ACM International Conference on<br>Embedded Networked Sensor Systems (SenSys 2003), pages<br>255­265, November 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:475"><nobr><span class="ft3">[33] Leonid Reyzin and Natan Reyzin. Better than BiBa: Short</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:504"><nobr><span class="ft7">one-time signatures with fast signing and verifying. In<br>Proceedings of Conference on Information Security and<br>Privacy (ACISP), July 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:475"><nobr><span class="ft3">[34] R. Rivest, A. Shamir, and L. Adleman. A method for</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:504"><nobr><span class="ft7">obtaining digital signatures and public-key cryptosystems.<br>Communications of the ACM, 21(2):120­126, February<br>1978.</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft3">[35] P. Rohatgi. A compact and fast hybrid signature scheme for</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:504"><nobr><span class="ft7">multicast packet. In Proceedings of the 6th ACM Conference<br>on Computer and Communications Security, pages 93­100.<br>ACM Press, November 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:475"><nobr><span class="ft3">[36] F. Ye, H. Luo, S. Lu, and L. Zhang. Statistical en-route</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:504"><nobr><span class="ft7">filtering of injected false data in sensor networks. In<br>Proceedings of IEEE INFOCOM, March 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:475"><nobr><span class="ft3">[37] S. Zhu, S. Setia, S. Jajodia, and P. Ning. An interleaved</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:504"><nobr><span class="ft7">hop-by-hop authentication scheme for filtering false data in<br>sensor networks. In Proceedings of IEEE Symposium on<br>Security and Privacy, pages 259­271, May 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">156</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,1094 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\117</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-08-05T21:35:00+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:118"><nobr><span class="ft0"><b>Interestingness of Frequent Itemsets Using Bayesian</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:221"><nobr><span class="ft0"><b>Networks as Background Knowledge</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:205"><nobr><span class="ft1">Szymon Jaroszewicz</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:226"><nobr><span class="ft1">sj@cs.umb.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:209"><nobr><span class="ft2">Dept. of Comp. Science</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:182"><nobr><span class="ft2">Technical University of Szczecin</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:233"><nobr><span class="ft2">ul. Zolnierska 49</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:206"><nobr><span class="ft2">71-210 Szczecin, Poland</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:564"><nobr><span class="ft1">Dan A. Simovici</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:553"><nobr><span class="ft1">dsim@cs.umb.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:548"><nobr><span class="ft2">Dept. of Comp. Science</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:500"><nobr><span class="ft2">University of Massachusetts at Boston</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:561"><nobr><span class="ft2">100 Morrissey Blvd.</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:555"><nobr><span class="ft2">02125 Boston, U.S.A.</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:81"><nobr><span class="ft10">The paper presents a method for pruning frequent itemsets<br>based on background knowledge represented by a Bayesian<br>network. The interestingness of an itemset is defined as the<br>absolute difference between its support estimated from data<br>and from the Bayesian network. Efficient algorithms are pre-<br>sented for finding interestingness of a collection of frequent<br>itemsets, and for finding all attribute sets with a given mini-<br>mum interestingness. Practical usefulness of the algorithms<br>and their efficiency have been verified experimentally.</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:81"><nobr><span class="ft10">H.2.8 [Database Management]: Database Applications--<br>data mining</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:81"><nobr><span class="ft4">Algorithms</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:81"><nobr><span class="ft10">association rule, frequent itemset, background knowledge,<br>interestingness, Bayesian network</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:94"><nobr><span class="ft4">Finding frequent itemsets and association rules in data-</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:81"><nobr><span class="ft10">base tables has been an active research area in recent years.<br>Unfortunately, the practical usefulness of the approach is<br>limited by huge number of patterns usually discovered. For<br>larger databases many thousands of association rules may<br>be produced when minimum support is low. This creates<br>a secondary data mining problem: after mining the data,<br>we are now compelled to mine the discovered patterns. The<br>problem has been addressed in literature mainly in the con-<br>text of association rules, where the two main approaches are</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft11">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>KDD'04, </i>August 22­25, 2004, Seattle, Washington, USA.<br>Copyright 2004 ACM 1-58113-888-1/04/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:315"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:475"><nobr><span class="ft10">sorting rules based on some interestingness measure, and<br>pruning aiming at removing redundant rules.</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:489"><nobr><span class="ft4">Full review of such methods is beyond the scope of this</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:475"><nobr><span class="ft10">paper. Overviews of interestingness measures can be found<br>for example in [3, 13, 11, 32], some of the papers on rule<br>pruning are [30, 31, 7, 14, 28, 16, 17, 33].</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:489"><nobr><span class="ft4">Many interestingness measures are based on the diver-</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:475"><nobr><span class="ft10">gence between true probability distributions and distribu-<br>tions obtained under the independence assumption. Prun-<br>ing methods are usually based on comparing the confidence<br>of a rule to the confidence of rules related to it.</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:489"><nobr><span class="ft4">The main drawback of those methods is that they tend</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:475"><nobr><span class="ft10">to generate rules that are either obvious or have already<br>been known by the user. This is to be expected, since the<br>most striking patterns which those methods select can also<br>easily be discovered using traditional methods or are known<br>directly from experience.</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:489"><nobr><span class="ft4">We believe that the proper way to address the problem</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:475"><nobr><span class="ft10">is to include users background knowledge in the process.<br>The patterns which diverge the most from that background<br>knowledge are deemed most interesting. Discovered patterns<br>can later be applied to improve the background knowledge<br>itself.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:489"><nobr><span class="ft4">Many approaches to using background knowledge in ma-</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:475"><nobr><span class="ft10">chine learning are focused on using background knowledge<br>to speed up the hypothesis discovery process and not on dis-<br>covering interesting patterns. Those methods often assume<br>strict logical relationships, not probabilistic ones. Examples<br>are knowledge based neural networks (KBANNs) and uses<br>of background knowledge in Inductive Logic Programming.<br>See Chapter 12 in [20] for an overview of those methods and<br>a list of further references.</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:489"><nobr><span class="ft4">Tuzhilin et. al. [23, 22, 29] worked on applying background</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:475"><nobr><span class="ft10">knowledge to finding interesting rules. In [29, 22] inter-<br>estingness measures are presented, which take into account<br>prior beliefs; in another paper [23], the authors present an<br>algorithm for selecting a minimum set of interesting rules<br>given background knowledge. The methods used in those<br>papers are local, that is, they don't use a full joint probabil-<br>ity of the data. Instead, interestingness of a rule is evaluated<br>using rules in the background knowledge with the same con-<br>sequent. If no such knowledge is present for a given rule, the<br>rule is considered uninteresting. This makes it impossible to<br>take into account transitivity. Indeed, in the presence of the<br>background knowledge represented by the rules A  B and</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">178</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:6px;font-family:Times;color:#000000;}
+	.ft13{font-size:5px;font-family:Times;color:#000000;}
+	.ft14{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117002.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft10">B  C, the rule A  C is uninteresting. However, this can-<br>not be discovered locally. See [25] for a detailed discussion<br>of advantages of global versus local methods. Some more<br>comparisons can be found in [18].</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:94"><nobr><span class="ft4">In this paper we present a method of finding interest-</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:81"><nobr><span class="ft10">ing patterns using background knowledge represented by a<br>Bayesian network. The main advantage of Bayesian net-<br>works is that they concisely represent full joint probability<br>distributions, and allow for practically feasible probabilistic<br>inference from those distributions [25, 15]. Other advantages<br>include the ability to represent causal relationships, easy to<br>understand graphical structure, as well as wide availability<br>of modelling tools. Bayesian networks are also easy to mod-<br>ify by adding or deleting edges.</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:94"><nobr><span class="ft4">We opt to compute interestingness of frequent itemsets</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:81"><nobr><span class="ft10">instead of association rules, agreeing with [7] that directions<br>of dependence should be decided by the user based on her<br>experience and not suggested by interestingness measures.<br>Our approach works by estimating supports of itemsets from<br>Bayesian networks and comparing thus estimated supports<br>with the data. Itemsets with strongly diverging supports<br>are considered interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:94"><nobr><span class="ft4">Further definitions of interestingness exploiting Bayesian</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:81"><nobr><span class="ft10">network's structure are presented, as well as efficient meth-<br>ods for computing interestingness of large numbers of item-<br>sets and for finding all attribute sets with given minimum<br>interestingness.</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:94"><nobr><span class="ft4">There are some analogies between mining emerging pat-</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:81"><nobr><span class="ft10">terns [6] and our approach, the main differences being that<br>in our case a Bayesian network is used instead of a second<br>dataset, and that we use a different measure for comparing<br>supports. Due to those differences our problem requires a<br>different approach and a different set of algorithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:112"><nobr><span class="ft3"><b>DEFINITIONS AND NOTATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:94"><nobr><span class="ft4">Database attributes will be denoted with uppercase let-</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:81"><nobr><span class="ft10">ters A, B, C, . . ., domain of an attribute A will be denoted<br>by Dom(A). In this paper we are only concerned with cat-<br>egorical attributes, that is attributes with finite domains.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:94"><nobr><span class="ft4">Sets of attributes will be denoted with uppercase letters</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:81"><nobr><span class="ft10">I, J, . . .. We often use database notation for representing<br>sets of attributes, i.e. I = A</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:246"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:252"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:263"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:271"><nobr><span class="ft4">. . . A</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:300"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:310"><nobr><span class="ft4">instead of the set the-</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:81"><nobr><span class="ft4">oretical notation {A</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:203"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:209"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:226"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:232"><nobr><span class="ft4">, . . . , A</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:273"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:280"><nobr><span class="ft4">}. Domain of an attribute</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:81"><nobr><span class="ft4">set I = A</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:138"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:144"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:155"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:163"><nobr><span class="ft4">. . . A</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:192"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:204"><nobr><span class="ft4">is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:107"><nobr><span class="ft4">Dom(I) = Dom(A</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:217"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:224"><nobr><span class="ft4">) × Dom(A</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:291"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:297"><nobr><span class="ft4">) × . . . × Dom(A</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:397"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:404"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:81"><nobr><span class="ft10">Values from domains of attributes and attribute sets are de-<br>noted with corresponding lowercase boldface letters, e.g. i <br>Dom(I).</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:94"><nobr><span class="ft4">Let P</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:129"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:141"><nobr><span class="ft4">denote a joint probability distribution of the at-</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:81"><nobr><span class="ft4">tribute set I. Similarly let P</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:256"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:262"><nobr><span class="ft12">|J</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:278"><nobr><span class="ft4">be a distribution of I con-</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:81"><nobr><span class="ft10">ditioned on J. When used in arithmetic operations such<br>distributions will be treated as functions of attributes in I<br>and I  J respectively, with values in the interval [0, 1]. For<br>example P</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:144"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:150"><nobr><span class="ft4">(i) denotes the probability that I = i.</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:94"><nobr><span class="ft4">Let P</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:128"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:140"><nobr><span class="ft4">be a probability distribution, and let J  I. De-</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:81"><nobr><span class="ft4">note by P</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:141"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:139"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:159"><nobr><span class="ft4">the marginalization of P</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:306"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:317"><nobr><span class="ft4">onto J, that is</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:218"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:229"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:227"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:246"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:261"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:262"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:267"><nobr><span class="ft12">\J</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:283"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:292"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:298"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:422"><nobr><span class="ft4">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft10">where the summation is over the domains of all variables<br>from I \ J.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:489"><nobr><span class="ft4">Probability distributions estimated from data will be de-</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:475"><nobr><span class="ft4">noted by adding a hat symbol, e.g. ^</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:691"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:699"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:706"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:489"><nobr><span class="ft4">An itemset is a pair (I, i), where I is an attribute set and</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft4">i  Dom(I). The support of an itemset (I, i) is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:600"><nobr><span class="ft4">supp(I, i) = ^</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:675"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:684"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:690"><nobr><span class="ft4">(i),</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:475"><nobr><span class="ft10">where the probability is estimated from some dataset. An<br>itemset is called frequent if its support is greater than or<br>equal to some user defined threshold minsupp. Finding all<br>frequent itemsets in a given database table is a well known<br>datamining problem [1].</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:489"><nobr><span class="ft4">A Bayesian network BN over a set of attributes H =</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:475"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:486"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:494"><nobr><span class="ft4">. . . A</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:523"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:538"><nobr><span class="ft4">is a directed acyclic graph BN = (V, E) with</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:475"><nobr><span class="ft4">the set of vertices V = {V</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:647"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:655"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:662"><nobr><span class="ft4">, . . . , V</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:701"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:709"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:717"><nobr><span class="ft4">} corresponding to</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:475"><nobr><span class="ft10">attributes of H, and a set of edges E  V × V , where each<br>vertex V</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:525"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:533"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:542"><nobr><span class="ft4">has associated a conditional probability distribu-</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:475"><nobr><span class="ft4">tion P</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:513"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:521"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:526"><nobr><span class="ft12">|par</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:542"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:547"><nobr><span class="ft4">, where par</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:615"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:624"><nobr><span class="ft4">= {A</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:657"><nobr><span class="ft12">j</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:667"><nobr><span class="ft4">: (V</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:689"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:697"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:704"><nobr><span class="ft4">, V</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:718"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:726"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:732"><nobr><span class="ft4">)  E} is the set</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:475"><nobr><span class="ft4">of attributes corresponding to parents of V</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:733"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:741"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:751"><nobr><span class="ft4">in G. See [25,</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:475"><nobr><span class="ft4">15] for a detailed discussion of Bayesian networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:489"><nobr><span class="ft4">A Bayesian network BN over H uniquely defines a joint</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:475"><nobr><span class="ft4">probability distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:599"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:609"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:607"><nobr><span class="ft12">H</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:632"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:652"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:647"><nobr><span class="ft4">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:647"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:651"><nobr><span class="ft12">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:667"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:676"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:684"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:689"><nobr><span class="ft12">|par</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:705"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:475"><nobr><span class="ft10">of H. For I  H the distribution over I marginalized from<br>P</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:486"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:484"><nobr><span class="ft12">H</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:510"><nobr><span class="ft4">will be denoted by P</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:637"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:635"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:598"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:609"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:607"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:632"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:646"><nobr><span class="ft4">"P</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:665"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:663"><nobr><span class="ft12">H</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:685"><nobr><span class="ft4">"</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:693"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:707"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:475"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:506"><nobr><span class="ft14"><b>INTERESTINGNESS OF AN ATTRIBUTE<br>SET WITH RESPECT TO A BAYESIAN<br>NETWORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:489"><nobr><span class="ft4">Let us first define the support of an itemset (I, i) in a</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:475"><nobr><span class="ft4">Bayesian network BN as</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:583"><nobr><span class="ft4">supp</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:611"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:631"><nobr><span class="ft4">(I, i) = P</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:688"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:686"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:707"><nobr><span class="ft4">(i).</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:489"><nobr><span class="ft4">Let BN be a Bayesian network over an attribute set H,</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:475"><nobr><span class="ft10">and let (I, i) be an itemset such that I  H. The interest-<br>ingness of the itemset (I, i) with respect to BN is defined<br>as</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:539"><nobr><span class="ft4">I</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:547"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:566"><nobr><span class="ft4">(I, i) = |supp(I, i) - supp</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:719"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:738"><nobr><span class="ft4">(I, i)|</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft10">that is, the absolute difference between the support of the<br>itemset estimated from data, and the estimate of this sup-<br>port made from the Bayesian network BN . In the remaining<br>part of the paper we assume that interestingness is always<br>computed with respect to a Bayesian network BN and the<br>subscript is omitted.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:489"><nobr><span class="ft4">An itemset is -interesting if its interestingness is greater</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft4">than or equal to some user specified threshold .</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:489"><nobr><span class="ft4">A frequent interesting itemset represents a frequently oc-</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:475"><nobr><span class="ft10">curring (due to minimum support requirement) pattern in<br>the database whose probability is significantly different from<br>what it is believed to be based on the Bayesian network<br>model.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:489"><nobr><span class="ft4">An alternative would be to use supp(I, i)/supp</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:786"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:805"><nobr><span class="ft4">(I, i)</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:475"><nobr><span class="ft10">as the measure of interestingness [6]. We decided to use<br>absolute difference instead of a quotient since we found it to<br>be more robust, especially when both supports are small.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:489"><nobr><span class="ft4">One could think of applying our approach to association</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:475"><nobr><span class="ft10">rules with the difference in confidences as a measure of inter-<br>estingness but, as mentioned in the Introduction, we think</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">179</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:15px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117003.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft10">that patterns which do not suggest a direction of influence<br>are more appropriate.</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:94"><nobr><span class="ft4">Since in Bayesian networks dependencies are modelled us-</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft10">ing attributes not itemsets, it will often be easier to talk<br>about interesting attribute sets, especially when the discov-<br>ered interesting patterns are to be used to update the back-<br>ground knowledge.</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:96"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:174"><nobr><span class="ft4">3.1. Let I be an attribute set. The interest-</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:81"><nobr><span class="ft4">ingness of I is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:192"><nobr><span class="ft4">I(I) =</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:248"><nobr><span class="ft4">max</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:237"><nobr><span class="ft12">iDom(I)</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:287"><nobr><span class="ft4">I(I, i),</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:422"><nobr><span class="ft4">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:81"><nobr><span class="ft4">analogously, I is -interesting if I(I)  .</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:94"><nobr><span class="ft4">An alternative approach would be to use generalizations</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:81"><nobr><span class="ft10">of Bayesian networks allowing dependencies to vary for dif-<br>ferent values of attributes, see [27], and deal with itemset<br>interestingness directly.</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:81"><nobr><span class="ft3"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:121"><nobr><span class="ft3"><b>Extensions to the Definition of Interesting-</b></span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:121"><nobr><span class="ft3"><b>ness</b></span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:94"><nobr><span class="ft4">Even though applying the above definition and sorting</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:81"><nobr><span class="ft10">attribute sets on their interestingness works well in practice,<br>there might still be a large number of patterns retained,<br>especially if the background knowledge is not well developed<br>and large number of attribute sets have high interestingness<br>values. This motivates the following two definitions.</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:96"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:174"><nobr><span class="ft4">3.2. An attribute set I is hierarchically -</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:81"><nobr><span class="ft10">interesting if it is -interesting and none of its proper subsets<br>is -interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:94"><nobr><span class="ft4">The idea is to prevent large attribute sets from becoming</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft10">interesting when the true cause of them being interesting<br>lies in their subsets.</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:94"><nobr><span class="ft4">There is also another problem with Definition 3.1. Con-</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:81"><nobr><span class="ft4">sider a Bayesian network</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:239"><nobr><span class="ft4">A  B</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft10">where nodes A and B have respective probability distribu-<br>tions P</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:126"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:142"><nobr><span class="ft4">and P</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:180"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:188"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:208"><nobr><span class="ft4">attached. Suppose also that A is -</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:81"><nobr><span class="ft4">interesting. In this case even if P</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:287"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:295"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:313"><nobr><span class="ft4">is the same as ^</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:406"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:414"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:423"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:81"><nobr><span class="ft10">attribute sets B and AB may be considered -interesting.<br>Below we present a definition of interestingness aiming at<br>preventing such situations.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:94"><nobr><span class="ft4">A vertex V is an ancestor of a vertex W in a directed graph</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:81"><nobr><span class="ft10">G if there is a directed path from V to W in G. The set of<br>ancestors of a vertex V in a graph G is denoted by anc(V ).<br>Moreover, let us denote by anc(I) the set of all ancestor<br>attributes in BN of an attribute set I. More formally:</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:81"><nobr><span class="ft4">anc</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:101"><nobr><span class="ft4">(I) = {A</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:154"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:164"><nobr><span class="ft4">/</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:163"><nobr><span class="ft4"> I : V</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:203"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:211"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:220"><nobr><span class="ft4"> anc(V</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:267"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:275"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:281"><nobr><span class="ft4">) in BN, for some A</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:402"><nobr><span class="ft12">j</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:412"><nobr><span class="ft4"> I}.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:96"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:174"><nobr><span class="ft4">3.3. An attribute set I is topologically</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:86"><nobr><span class="ft4">-interesting if it is -interesting, and there is no attribute</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:81"><nobr><span class="ft4">set J such that</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:96"><nobr><span class="ft4">1. J  anc(I)  I, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:96"><nobr><span class="ft4">2. I  J, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:96"><nobr><span class="ft4">3. J is -interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:489"><nobr><span class="ft4">The intention here is to prevent interesting attribute sets</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:475"><nobr><span class="ft10">from causing all their successors in the Bayesian network<br>(and the supersets of their successors) to become interesting<br>in a cascading fashion.</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:489"><nobr><span class="ft4">To see why condition 2 is necessary consider a Bayesian</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:475"><nobr><span class="ft4">network</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:616"><nobr><span class="ft4">A  X  B</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:475"><nobr><span class="ft10">Suppose that there is a dependency between A and B in data<br>which makes AB -interesting. Now however ABX may<br>also become interesting, (even if P</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:681"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:689"><nobr><span class="ft12">|X</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:707"><nobr><span class="ft4">and P</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:743"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:751"><nobr><span class="ft12">|X</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:770"><nobr><span class="ft4">are correct</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:475"><nobr><span class="ft10">in the network) and cause AB to be pruned. Condition 2<br>prevents AB from being pruned and ABX from becoming<br>interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:489"><nobr><span class="ft4">Notice that topological interestingness is stricter than hi-</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:475"><nobr><span class="ft10">erarchical interestingness. Indeed if J  I is -interesting,<br>then it satisfies all the above conditions, and makes I not<br>topologically -interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:475"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:506"><nobr><span class="ft14"><b>ALGORITHMS FOR FINDING INTER-<br>ESTING ITEMSETS AND ATTRIBUTE<br>SETS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:489"><nobr><span class="ft4">In this section we present algorithms using the definition</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:475"><nobr><span class="ft10">of interestingness introduced in the previous section to select<br>interesting itemsets or attribute sets. We begin by describ-<br>ing a procedure for computing marginal distributions for a<br>large collection of attribute sets from a Bayesian network.</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:475"><nobr><span class="ft3"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:515"><nobr><span class="ft15"><b>Computing a Large Number of Marginal<br>Distributions from a Bayesian Network</b></span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:489"><nobr><span class="ft4">Computing the interestingness of a large number of fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:475"><nobr><span class="ft10">quent itemsets requires the computation of a large number of<br>marginal distributions from a Bayesian network. The prob-<br>lem has been addressed in literature mainly in the context<br>of finding marginals for every attribute [25, 15], while here<br>we have to find marginals for multiple, overlapping sets of<br>attributes. The approach taken in this paper is outlined<br>below.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:489"><nobr><span class="ft4">The problem of computing marginal distributions from a</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:475"><nobr><span class="ft10">Bayesian network is known to be NP-hard, nevertheless in<br>most cases the network structure can be exploited to speed<br>up the computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:489"><nobr><span class="ft4">Here we use exact methods for computing the marginals.</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:475"><nobr><span class="ft10">Approximate methods like Gibbs sampling are an interesting<br>topic for future work.</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:489"><nobr><span class="ft4">Best known approaches to exact marginalizations are join</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:475"><nobr><span class="ft10">trees [12] and bucket elimination [5]. We chose bucket elim-<br>ination method which is easier to implement and according<br>to [5] as efficient as join tree based methods. Also, join<br>trees are mainly useful for computing marginals for single<br>attributes, and not for sets of attributes.</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:489"><nobr><span class="ft4">The bucket elimination method, which is based on the dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:475"><nobr><span class="ft10">tributive law, proceeds by first choosing a variable ordering<br>and then applying distributive law repeatedly to simplify the<br>summation. For example suppose that a joint distribution<br>of a Bayesian network over H = ABC is expressed as</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:577"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:588"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:586"><nobr><span class="ft12">ABC</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:616"><nobr><span class="ft4">= P</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:639"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:652"><nobr><span class="ft4">· P</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:667"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:676"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:692"><nobr><span class="ft4">· P</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:707"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:716"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:728"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:475"><nobr><span class="ft4">and we want to find P</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:612"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:610"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:631"><nobr><span class="ft4">. We need to compute the sum</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:583"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:589"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:606"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:611"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:628"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:637"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:649"><nobr><span class="ft4">· P</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:665"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:673"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:689"><nobr><span class="ft4">· P</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:705"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:713"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">180</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:11px;line-height:24px;font-family:Times;color:#000000;}
+	.ft17{font-size:6px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117004.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft4">which can be rewritten as</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:129"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:138"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:150"><nobr><span class="ft4">· 0</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:157"><nobr><span class="ft4">@ X</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:169"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:174"><nobr><span class="ft12">Dom(B)</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:224"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:233"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:241"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:254"><nobr><span class="ft16">1<br>A · 0@ X</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:288"><nobr><span class="ft12">c</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:293"><nobr><span class="ft12">Dom(C)</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:343"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:352"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:360"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:373"><nobr><span class="ft16">1<br>A.</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:81"><nobr><span class="ft10">Assuming that domains of all attributes have size 3, com-<br>puting the first sum directly requires 12 additions and 18<br>multiplications, while the second sum requires only 4 addi-<br>tions and 6 multiplications.</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:94"><nobr><span class="ft4">The expression is interpreted as a tree of buckets, each</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:81"><nobr><span class="ft10">bucket is either a single probability distribution, or a sum<br>over a single attribute taken over a product of its child buck-<br>ets in the tree. In the example above a special root bucket<br>without summation could be introduced for completeness.</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:94"><nobr><span class="ft4">In most cases the method significantly reduces the time</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:81"><nobr><span class="ft10">complexity of the problem. An important problem is choos-<br>ing the right variable ordering. Unfortunately that problem<br>is itself NP-hard. We thus adopt a heuristic which orders<br>variables according to the decreasing number of factors in<br>the product depending on each variable. A detailed discus-<br>sion of the method can be found in [5].</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:94"><nobr><span class="ft4">Although bucket elimination can be used to obtain sup-</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:81"><nobr><span class="ft4">ports of itemsets directly (i.e. P</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:282"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:288"><nobr><span class="ft4">(i)), we use it to obtain</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:81"><nobr><span class="ft10">complete marginal distributions. This way we can directly<br>apply marginalization to obtain distributions for subsets of<br>I (see below).</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:94"><nobr><span class="ft4">Since bucket elimination is performed repeatedly we use</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:81"><nobr><span class="ft10">memoization to speed it up, as suggested in [21]. We re-<br>member each partial sum and reuse it if possible. In the<br>example above</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:175"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:190"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:194"><nobr><span class="ft12">Dom(B)</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:245"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:254"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:262"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:275"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:284"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:299"><nobr><span class="ft12">c</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:304"><nobr><span class="ft12">Dom(C)</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:354"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:363"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:371"><nobr><span class="ft12">|A</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:384"><nobr><span class="ft4">, and the</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:81"><nobr><span class="ft4">computed P</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:155"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:153"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:179"><nobr><span class="ft4">would have been remembered.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:94"><nobr><span class="ft4">Another method of obtaining a marginal distribution P</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:433"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:81"><nobr><span class="ft4">is marginalizing it from P</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:234"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:245"><nobr><span class="ft4">where I  J using Equation (1),</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:81"><nobr><span class="ft4">provided that P</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:177"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:190"><nobr><span class="ft4">is already known. If |J \ I| is small, this</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:81"><nobr><span class="ft10">procedure is almost always more efficient than bucket elim-<br>ination, so whenever some P</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:253"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:264"><nobr><span class="ft4">is computed by bucket elimi-</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:81"><nobr><span class="ft10">nation, distributions of all subsets of I are computed using<br>Equation (1).</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:96"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:174"><nobr><span class="ft4">4.1. Let C be a collection of attribute sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:81"><nobr><span class="ft4">The positive border of C [19], denoted by Bd</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:366"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:375"><nobr><span class="ft4">(C), is the</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:81"><nobr><span class="ft10">collection of those sets from C which have no proper superset<br>in C:</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:96"><nobr><span class="ft4">Bd</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:114"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:124"><nobr><span class="ft4">(C) = {I  C : there is no J  C such that I  J}.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft10">It is clear from the discussion above that we only need to<br>use bucket elimination to compute distributions of itemsets<br>in the positive border. We are going to go further than this;<br>we will use bucket elimination to obtain supersets of sets<br>in the positive border, and then use Equation (1) to obtain<br>marginals even for sets in the positive border. Experiments<br>show that this approach can give substantial savings, espe-<br>cially when many overlapping attribute sets from the posi-<br>tive border can be covered by a single set only slightly larger<br>then the covered ones.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:94"><nobr><span class="ft4">The algorithm for selecting the marginal distribution to</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:81"><nobr><span class="ft10">compute is motivated by the algorithm from [9] for com-<br>puting views that should be materialized for OLAP query<br>processing. Bucket elimination corresponds to creating a<br>materialized view, and marginalizing thus obtained distri-<br>bution to answering OLAP queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:489"><nobr><span class="ft4">We first need to define costs of marginalization and bucket</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:475"><nobr><span class="ft10">elimination. In our case the cost is defined as the total<br>number of additions and multiplications used to compute<br>the marginal distribution.</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:489"><nobr><span class="ft4">The cost of marginalizing P</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:655"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:667"><nobr><span class="ft4">from P</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:709"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:715"><nobr><span class="ft4">, J  I using Equa-</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:475"><nobr><span class="ft4">tion (1) is</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:522"><nobr><span class="ft4">cost(P</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:562"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:560"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:575"><nobr><span class="ft4">) = | Dom(J)| · (| Dom(I \ J)| - 1) .</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:475"><nobr><span class="ft4">It follows from the fact that each value of P</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:766"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:764"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:786"><nobr><span class="ft4">requires</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:475"><nobr><span class="ft4">adding | Dom(I \ J)| values from P</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:687"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:693"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:489"><nobr><span class="ft4">The cost of bucket elimination can be computed cheaply</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:475"><nobr><span class="ft10">without actually executing the procedure. Each bucket is<br>either an explicitly given probability distribution, or com-<br>putes a sum over a single variable of a product of functions<br>(computed in buckets contained in it) explicitly represented<br>as multidimensional tables, see [5] for details. If the bucket<br>is an explicitly given probability distribution, the cost is of<br>course 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:489"><nobr><span class="ft4">Consider now a bucket b containing child buckets b</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:785"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:791"><nobr><span class="ft4">, . . . , b</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:828"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:475"><nobr><span class="ft4">yielding functions f</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:591"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:597"><nobr><span class="ft4">, . . . , f</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:634"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:645"><nobr><span class="ft4">respectively. Let Var(f</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:781"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:786"><nobr><span class="ft4">) the set</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:475"><nobr><span class="ft4">of attributes on which f</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:620"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:630"><nobr><span class="ft4">depends.</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:489"><nobr><span class="ft4">Let f = f</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:549"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:559"><nobr><span class="ft4">· f</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:573"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:581"><nobr><span class="ft4">· · · f</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:606"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:619"><nobr><span class="ft4">denote the product of all factors in</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:475"><nobr><span class="ft4">b. We have Var(f ) = </span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:630"><nobr><span class="ft17">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:634"><nobr><span class="ft12">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:651"><nobr><span class="ft4">Var(f</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:685"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:689"><nobr><span class="ft4">), and since each value</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:475"><nobr><span class="ft10">of f requires n - 1 multiplications, computing f requires<br>| Dom(Var(f ))| · (n - 1) multiplications. Let A</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:762"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:773"><nobr><span class="ft4">be the at-</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:475"><nobr><span class="ft10">tribute over which summation in b takes place. Computing<br>the sum will require | Dom(Var(f ) \ {A</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:707"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:713"><nobr><span class="ft4">})| · (| Dom(A</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:793"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:798"><nobr><span class="ft4">)| - 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:475"><nobr><span class="ft4">additions.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:489"><nobr><span class="ft4">So the total cost of computing the function in bucket b</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:475"><nobr><span class="ft4">(including costs of computing its children) is thus</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:484"><nobr><span class="ft4">cost(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:539"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:569"><nobr><span class="ft12">n</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:563"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:564"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:568"><nobr><span class="ft12">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:585"><nobr><span class="ft4">cost(b</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:621"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:625"><nobr><span class="ft4">) + | Dom(Var(f ))| · (n - 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:563"><nobr><span class="ft4">+ | Dom(Var(f ) \ {A</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:689"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:694"><nobr><span class="ft4">})| · (| Dom(A</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:777"><nobr><span class="ft12">b</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:782"><nobr><span class="ft4">)| - 1).</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft4">The cost of computing P</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:636"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:634"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:662"><nobr><span class="ft4">through bucket elimination,</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:475"><nobr><span class="ft4">denoted cost</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:552"><nobr><span class="ft12">BE</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:570"><nobr><span class="ft4">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:586"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:584"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:605"><nobr><span class="ft4">), is the cost of the root bucket of the</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:475"><nobr><span class="ft4">summation used to compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:662"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:660"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:681"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft4">Let C be a collection of attribute sets. The gain of using</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft4">bucket elimination to find P</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:645"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:643"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:668"><nobr><span class="ft4">for some I while computing</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:475"><nobr><span class="ft4">interestingness of attribute sets from C can be expressed as:</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:475"><nobr><span class="ft4">gain(I) = -cost</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:593"><nobr><span class="ft12">BE</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:611"><nobr><span class="ft4">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:627"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:625"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:646"><nobr><span class="ft4">) +</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:587"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:558"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:565"><nobr><span class="ft12">Bd</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:587"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:596"><nobr><span class="ft12">(C),J I</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:638"><nobr><span class="ft4">hcost</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:668"><nobr><span class="ft12">BE</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:686"><nobr><span class="ft4">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:702"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:700"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:721"><nobr><span class="ft4">) - cost(P</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:784"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:782"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:803"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:816"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:822"><nobr><span class="ft4">i.</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:475"><nobr><span class="ft10">An attribute set to which bucket elimination will be applied<br>is found using a greedy procedure by adding in each itera-<br>tion the attribute giving the highest increase of gain. The<br>complete algorithm is presented in Figure 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:475"><nobr><span class="ft3"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:515"><nobr><span class="ft15"><b>Computing The Interestingness of a Col-<br>lection of Itemsets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:489"><nobr><span class="ft4">First we present an algorithm for computing interesting-</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:475"><nobr><span class="ft10">ness of all itemsets in a given collection. Its a simple appli-<br>cation of the algorithm in Figure 1. It is useful if we already</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">181</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft4">Input: collection of attribute sets C, Bayesian network BN</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:81"><nobr><span class="ft4">Output: distributions P</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:235"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:233"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:258"><nobr><span class="ft4">for all I  C</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:97"><nobr><span class="ft4">1. S  Bd</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:164"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:173"><nobr><span class="ft4">(C)</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:97"><nobr><span class="ft4">2. while S = :</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:97"><nobr><span class="ft4">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:147"><nobr><span class="ft4">I  an attribute set from S.</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:97"><nobr><span class="ft4">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:147"><nobr><span class="ft4">for A in H \ I:</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:97"><nobr><span class="ft4">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:174"><nobr><span class="ft4">compute gain(I  {A})</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:97"><nobr><span class="ft4">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:146"><nobr><span class="ft4">pick A for which the gain in Step 5 was maximal</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:97"><nobr><span class="ft4">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:147"><nobr><span class="ft4">if gain(I  {A }) &gt; gain(I):</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:97"><nobr><span class="ft4">8.</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:174"><nobr><span class="ft4">I  I  {A }</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:97"><nobr><span class="ft4">9.</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:174"><nobr><span class="ft4">goto 4</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:90"><nobr><span class="ft4">10.</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:146"><nobr><span class="ft4">compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:212"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:210"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:234"><nobr><span class="ft4">from BN using bucket elimination</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:90"><nobr><span class="ft4">11.</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:146"><nobr><span class="ft4">compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:212"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:210"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:231"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:249"><nobr><span class="ft4">for all J  S, J  I using Equa-</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:114"><nobr><span class="ft4">tion (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:90"><nobr><span class="ft4">12.</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:147"><nobr><span class="ft4">remove from S all attribute sets included in I</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:90"><nobr><span class="ft4">13. compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:183"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:181"><nobr><span class="ft12">J</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:209"><nobr><span class="ft4">for all J  C \ Bd</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:330"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:339"><nobr><span class="ft4">(C) using Equa-</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:114"><nobr><span class="ft4">tion (1)</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:81"><nobr><span class="ft10">Figure 1: Algorithm for computing a large number<br>of marginal distributions from a Bayesian network.</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:81"><nobr><span class="ft10">have a collection of itemsets (e.g. all frequent itemsets found<br>in a database table) and want to select those which are the<br>most interesting. The algorithm is given below</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:81"><nobr><span class="ft10">Input: collection of itemsets K, supports of all itemsets in<br>K, Bayesian network BN<br>Output: interestingness of all itemsets in K.</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:97"><nobr><span class="ft4">1. C  {I : (I, i)  K for some i  Dom(I)}</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:97"><nobr><span class="ft4">2. compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:180"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:178"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:203"><nobr><span class="ft4">for all I  C using algorithm in Figure 1</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:97"><nobr><span class="ft4">3. compute interestingness of all itemsets in K using dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:114"><nobr><span class="ft4">tributions computed in step 2</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:81"><nobr><span class="ft3"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:121"><nobr><span class="ft15"><b>Finding All Attribute Sets With Given Min-<br>imum Interestingness</b></span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:94"><nobr><span class="ft4">In this section we will present an algorithm for finding all</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:81"><nobr><span class="ft10">attribute sets with interestingness greater than or equal to a<br>specified threshold given a dataset and a Bayesian network<br>BN .</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:94"><nobr><span class="ft4">Let us first make an observation:</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:96"><nobr><span class="ft4">Observation</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:186"><nobr><span class="ft4">4.2. If an itemset (I, i) has interestingness</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:81"><nobr><span class="ft4">greater than or equal to</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:233"><nobr><span class="ft4">with respect to a Bayesian network</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:81"><nobr><span class="ft4">BN then its support must be greater than or equal to</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:427"><nobr><span class="ft4">in</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:81"><nobr><span class="ft4">either the data or in BN . Moreover if an attribute set is</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:86"><nobr><span class="ft4">-interesting, by definition 3.1, at least one of its itemsets</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:81"><nobr><span class="ft4">must be -interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:94"><nobr><span class="ft4">It follows that if an attribute set is -interesting, then one</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft10">of its itemsets must be frequent, with minimum support ,<br>either in the data or in the Bayesian network.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft4">Input: Bayesian network BN , minimum support minsupp.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:475"><nobr><span class="ft4">Output: itemsets whose support in BN is  minsupp</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:491"><nobr><span class="ft4">1. k  1</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:491"><nobr><span class="ft4">2. Cand  {(I, i) : |I| = 1}</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:491"><nobr><span class="ft4">3. compute supp</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:594"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:613"><nobr><span class="ft4">(I, i) for all (I, i)  Cand using the</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:509"><nobr><span class="ft4">algorithm in Figure 1</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:491"><nobr><span class="ft4">4. F req</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:539"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:550"><nobr><span class="ft4"> {(I, i)  Cand : supp</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:694"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:713"><nobr><span class="ft4">(I, i)  minsupp}</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:491"><nobr><span class="ft4">5. Cand  generate new candidates from F req</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:780"><nobr><span class="ft12">k</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:491"><nobr><span class="ft4">6. remove itemsets with infrequent subsets from Cand</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:491"><nobr><span class="ft4">7. k  k + 1; goto 3</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:535"><nobr><span class="ft4">Figure 2: The AprioriBN algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:489"><nobr><span class="ft4">The algorithm works in two stages. First all frequent item-</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:475"><nobr><span class="ft4">sets with minimum support</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:659"><nobr><span class="ft4">are found in the dataset and</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft10">their interestingness is computed. The first stage might have<br>missed itemsets which are -interesting but don't have suf-<br>ficient support in the data.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:489"><nobr><span class="ft4">In the second stage all itemsets frequent in the Bayesian</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:475"><nobr><span class="ft10">network are found, and their supports in the data are com-<br>puted using an extra database scan.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:489"><nobr><span class="ft4">To find all itemsets frequent in the Bayesian network we</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:475"><nobr><span class="ft10">use the Apriori algorithm [1] with a modified support count-<br>ing part, which we call AprioriBN. The sketch of the algo-<br>rithm is shown in Figure 2, except for step 3 it is identical<br>to the original algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:489"><nobr><span class="ft4">We now have all the elements needed to present the al-</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:475"><nobr><span class="ft10">gorithm for finding all -interesting attribute sets, which is<br>given in Figure 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:489"><nobr><span class="ft4">Step 4 of the algorithm can reuse marginal distributions</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:475"><nobr><span class="ft4">found in step 3 to speed up the computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:489"><nobr><span class="ft4">Notice that it is always possible to compute interesting-</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft10">ness of every itemset in step 6 since both supports of each<br>itemset will be computed either in steps 1 and 3, or in steps 4<br>and 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft4">The authors implemented hierarchical and topological in-</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:475"><nobr><span class="ft10">terestingness as a postprocessing step. They could however<br>be used to prune the attribute sets which are not interest-<br>ing without evaluating their distributions, thus providing a<br>potentially large speedup in the computations. We plan to<br>investigate that in the future.</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:475"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:506"><nobr><span class="ft3"><b>EXPERIMENTAL RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:489"><nobr><span class="ft4">In this section we present experimental evaluation of the</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:475"><nobr><span class="ft10">method. One problem we were faced with was the lack<br>of publicly available datasets with nontrivial background<br>knowledge that could be represented as a Bayesian net-<br>work.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:522"><nobr><span class="ft4">The UCI Machine Learning repository contains a</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft10">few datasets with background knowledge (Japanese credit,<br>molecular biology), but they are aimed primarily at Induc-<br>tive Logic Programming: the relationships are logical rather<br>than probabilistic, only relationships involving the class at-<br>tribute are included. These examples are of little value for<br>our approach.</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:489"><nobr><span class="ft4">We have thus used networks constructed using our own</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">182</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft4">Input:</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:139"><nobr><span class="ft4">Bayesian network BN , dataset, interestingness</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft10">threshold .<br>Output: all attribute sets with interestingness at least ,<br>and some of the attribute sets with lower interestingness.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:97"><nobr><span class="ft4">1. K  {(I, i) : supp(I, i)  } (using Apriori algorithm)</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:97"><nobr><span class="ft4">2. C  {I : (I, i)  K for some i  Dom(I)}</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:97"><nobr><span class="ft4">3. compute P</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:180"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:178"><nobr><span class="ft12">I</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:203"><nobr><span class="ft4">for all I  C using algorithm in Figure 1</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:97"><nobr><span class="ft4">4. K  {(I, i) : supp</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:240"><nobr><span class="ft12">BN</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:259"><nobr><span class="ft4">(I, i)  } (using AprioriBN</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:114"><nobr><span class="ft4">algorithm)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:97"><nobr><span class="ft4">5. compute support in data for all itemsets in K \ K by</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:114"><nobr><span class="ft4">scanning the dataset</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:97"><nobr><span class="ft4">6. compute interestingness of all itemsets in K  K</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:97"><nobr><span class="ft4">7. C  {I : (I, i)  K for some i  Dom(I)}</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:97"><nobr><span class="ft4">8. compute interestingness of all attribute sets I in C C:</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:130"><nobr><span class="ft4">I(I) = max{I(I, i) : (I, i)  K  K , i  Dom(I)}</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:81"><nobr><span class="ft10">Figure 3: Algorithm for finding all -interesting at-<br>tribute sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:81"><nobr><span class="ft10">common-sense knowledge as well as networks learned from<br>data.</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:81"><nobr><span class="ft3"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:121"><nobr><span class="ft3"><b>An Illustrative Example</b></span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:94"><nobr><span class="ft4">We first present a simple example demonstrating the use-</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:81"><nobr><span class="ft10">fulness of the method. We use the KSL dataset of Danish<br>70 year olds, distributed with the DEAL Bayesian network<br>package [4]. There are nine attributes, described in Table 1,<br>related to the person's general health and lifestyle. All con-<br>tinuous attributes have been discretized into 3 levels using<br>the equal weight method.</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:112"><nobr><span class="ft4">FEV</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:159"><nobr><span class="ft4">Forced ejection volume of person's lungs</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:115"><nobr><span class="ft4">Kol</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:159"><nobr><span class="ft4">Cholesterol</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:113"><nobr><span class="ft4">Hyp</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:159"><nobr><span class="ft4">Hypertension (no/yes)</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:112"><nobr><span class="ft4">BMI</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:159"><nobr><span class="ft4">Body Mass Index</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:109"><nobr><span class="ft4">Smok</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:159"><nobr><span class="ft4">Smoking (no/yes)</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:116"><nobr><span class="ft4">Alc</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:159"><nobr><span class="ft4">Alcohol consumption (seldom/frequently)</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:110"><nobr><span class="ft4">Work</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:159"><nobr><span class="ft4">Working (yes/no)</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:116"><nobr><span class="ft4">Sex</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:159"><nobr><span class="ft4">male/female</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:112"><nobr><span class="ft4">Year</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:159"><nobr><span class="ft4">Survey year (1967/1984)</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:126"><nobr><span class="ft4">Table 1: Attributes of the KSL dataset.</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:94"><nobr><span class="ft4">We began by designing a network structure based on au-</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft10">thors' (non-expert) knowledge. The network structure is<br>given in Figure 4a. Since we were not sure about the rela-<br>tion of cholesterol to other attributes, we left it unconnected.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:94"><nobr><span class="ft4">Conditional probabilities were estimated directly from the</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft4">KSL</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:107"><nobr><span class="ft4">dataset. Note that this is a valid approach since even</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:81"><nobr><span class="ft10">when the conditional probabilities match the data perfectly<br>interesting patterns can still be found because the network<br>structure usually is not capable of representing the full joint<br>distribution of the data. The interesting patterns can then<br>be used to update the network's structure. Of course if both<br>the structure and the conditional probabilities are given by</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:648"><nobr><span class="ft4">a)</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:647"><nobr><span class="ft4">b)</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:475"><nobr><span class="ft10">Figure 4: Network structures for the KSL dataset<br>constructed by the authors</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:475"><nobr><span class="ft10">the expert, then the discovered patterns can be used to up-<br>date both the network's structure and conditional probabil-<br>ities.</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:489"><nobr><span class="ft4">We applied the algorithm for finding all interesting at-</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft4">tribute sets to the KSL dataset and the network, using the</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:485"><nobr><span class="ft4">threshold of 0.01. The attribute sets returned were sorted</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:475"><nobr><span class="ft4">by interestingness, and top 10 results were kept.</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:489"><nobr><span class="ft4">The two most interesting attribute sets were {F EV, Sex}</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:475"><nobr><span class="ft10">with interestingness 0.0812 and {Alc, Y ear} with interest-<br>ingness 0.0810.</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:489"><nobr><span class="ft4">Indeed, it is known (see [8]) that women's lungs are on av-</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:475"><nobr><span class="ft10">erage 20% - 25% smaller than men's lungs, so sex influences<br>the forced ejection volume (FEV) much more than smoking<br>does (which we thought was the primary influence). This<br>fact, although not new in general, was overlooked by the<br>authors, and we suspect that, due to large amount of lit-<br>erature on harmful effects of smoking, it might have been<br>overlooked by many domain experts. This proves the high<br>value of our approach for verification of Bayesian network<br>models.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft4">The data itself implied a growth in alcohol consumption</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:475"><nobr><span class="ft10">between 1967 and 1984, which we considered to be a plau-<br>sible finding.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:489"><nobr><span class="ft4">We then decided to modify the network structure based on</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:475"><nobr><span class="ft10">our findings by adding edges Sex  F EV and Y ear  Alc.<br>One could of course consider other methods of modifying<br>network structure, like deleting edges or reversing their di-<br>rection.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:534"><nobr><span class="ft4">A brief overview of more advanced methods of</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:475"><nobr><span class="ft10">Bayesian network modification can be found in [15, Chap. 3,<br>Sect. 3.5]. Instead of adapting the network structure one<br>could keep the structure unchanged, and tune conditional<br>probabilities in the network instead, see [15, Chap. 3, Sect. 4]<br>for details.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">183</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft19{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft20{font-size:4px;line-height:8px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117007.png" alt="background image">
+<DIV style="position:absolute;top:85;left:94"><nobr><span class="ft4">As a method of scoring network structures we used the</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:81"><nobr><span class="ft10">natural logarithm of the probability of the structure condi-<br>tioned on the data, see [10, 26] for details on computing the<br>score.</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:94"><nobr><span class="ft4">The modified network structure had the score of -7162.71</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:81"><nobr><span class="ft4">which is better than that of the original network: -7356.68.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:94"><nobr><span class="ft4">With the modified structure, the most interesting attribute</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:81"><nobr><span class="ft10">set was {Kol, Sex, Y ear} with interestingness 0.0665. We<br>found in the data that cholesterol levels decreased between<br>the two years in which the study was made, and that choles-<br>terol level depends on sex. We found similar trends in the<br>U.S. population based on data from American Heart Asso-<br>ciation [2]. Adding edges Y ear  Kol and Sex  Kol<br>improved the network score to -7095.25.</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:94"><nobr><span class="ft4">{F EV, Alc, Y ear} became the most interesting attribute</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:81"><nobr><span class="ft10">set with the interestingness of 0.0286. Its interestingness is<br>however much lower than that of previous most interesting<br>attribute sets. Also, we were not able to get any improve-<br>ment in network score after adding edges related to that<br>attribute set.</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:94"><nobr><span class="ft4">Since we were unable to obtain a better network in this</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:81"><nobr><span class="ft10">case, we used topological pruning, expecting that some other<br>attribute sets might be the true cause of the observed dis-<br>crepancies. Only four attribute sets, given below, were topo-<br>logically 0.01-interesting.</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:194"><nobr><span class="ft4">{Kol, BM I}</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:307"><nobr><span class="ft4">0.0144</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:201"><nobr><span class="ft4">{Kol, Alc}</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:307"><nobr><span class="ft4">0.0126</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:174"><nobr><span class="ft4">{Smok, Sex, Y ear}</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:307"><nobr><span class="ft4">0.0121</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:194"><nobr><span class="ft4">{Alc, W ork}</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:307"><nobr><span class="ft4">0.0110</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:94"><nobr><span class="ft4">We found all those patters intuitively valid, but were un-</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:81"><nobr><span class="ft10">able to obtain an improvement in the network's score by<br>adding related edges. Moreover, the interestingness values<br>were quite small. We thus finished the interactive network<br>structure improvement process with the final result given in<br>Figure 4b.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:94"><nobr><span class="ft4">The algorithm was implemented in Python and used on</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:81"><nobr><span class="ft10">a 1.7GHz Pentium 4 machine. The computation of inter-<br>estingness for this example took only a few seconds so an<br>interactive use of the program was possible. Further perfor-<br>mance evaluation is given below.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:81"><nobr><span class="ft3"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:121"><nobr><span class="ft3"><b>Performance Evaluation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:94"><nobr><span class="ft4">We now present the performance evaluation of the algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:81"><nobr><span class="ft10">rithm for finding all attribute sets with given minimum in-<br>terestingness. We used the UCI datasets and Bayesian net-<br>works learned from data using B-Course [26]. The results<br>are given in Table 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:94"><nobr><span class="ft4">The max. size column gives the maximum size of frequent</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft10">attribute sets considered. The #marginals column gives the<br>total number of marginal distributions computed from the<br>Bayesian network. The attribute sets whose marginal dis-<br>tributions have been cached between the two stages of the<br>algorithm are not counted twice.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:94"><nobr><span class="ft4">The time does not include the initial run of the Apriori al-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft10">gorithm used to find frequent itemsets in the data (the time<br>of the AprioriBN algorithm is included though). The times<br>for larger networks can be substantial; however the proposed<br>method has still a huge advantage over manually evaluating<br>thousands of frequent patterns, and there are several possi-<br>bilities to speed up the algorithm not yet implemented by<br>the authors, discussed in the following section.</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:518"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:601"><nobr><span class="ft18">5000</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:687"><nobr><span class="ft18">10000</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:775"><nobr><span class="ft18">15000</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:499"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:499"><nobr><span class="ft18">50</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:499"><nobr><span class="ft18">100</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:499"><nobr><span class="ft18">150</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:499"><nobr><span class="ft18">200</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:499"><nobr><span class="ft18">250</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:499"><nobr><span class="ft18">300</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:643"><nobr><span class="ft18">no. of marginals</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:483"><nobr><span class="ft18">time [s]</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:475"><nobr><span class="ft19">Figure 5: Time of computation depending on the<br>number of marginal distributions computed for the<br>lymphography</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:565"><nobr><span class="ft4">database</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:524"><nobr><span class="ft18">20</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:594"><nobr><span class="ft18">30</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:663"><nobr><span class="ft18">40</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:733"><nobr><span class="ft18">50</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:803"><nobr><span class="ft18">60</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:499"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:499"><nobr><span class="ft18">2000</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:499"><nobr><span class="ft18">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:499"><nobr><span class="ft18">6000</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:499"><nobr><span class="ft18">8000</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:644"><nobr><span class="ft18">no. of attributes</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:483"><nobr><span class="ft18">time [s]</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:776"><nobr><span class="ft20">max. size = 3<br>max. size = 4</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:475"><nobr><span class="ft10">Figure 6: Time of computation depending on the<br>number of attributes for datasets from Table 2</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:489"><nobr><span class="ft4">The maximum interestingness column gives the interest-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft10">ingness of the most interesting attribute set found for a given<br>dataset. It can be seen that there are still highly interesting<br>patterns to be found after using classical Bayesian network<br>learning methods. This proves that frequent pattern and as-<br>sociation rule mining has the capability to discover patterns<br>which traditional methods might miss.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:489"><nobr><span class="ft4">To give a better understanding of how the algorithm scales</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft10">as the problem size increases we present two additional fig-<br>ures. Figure 5 shows how the computation time increases<br>with the number of marginal distributions that must be com-<br>puted from the Bayesian network. It was obtained by vary-<br>ing the maximum size of attribute sets between 1 and 5.<br>The value of</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:568"><nobr><span class="ft4">= 0.067 was used (equivalent to one row in</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft10">the database). It can be seen that the computation time<br>grows slightly slower than the number of marginal distri-<br>butions. The reason for that is that the more marginal<br>distributions we need to compute, the more opportunities<br>we have to avoid using bucket elimination by using direct<br>marginalization from a superset instead.</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:489"><nobr><span class="ft4">Determining how the computation time depends on the</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">184</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117008.png" alt="background image">
+<DIV style="position:absolute;top:82;left:233"><nobr><span class="ft4">dataset</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:314"><nobr><span class="ft4">#attrs</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:418"><nobr><span class="ft4">max. size</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:490"><nobr><span class="ft4">#marginals</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:576"><nobr><span class="ft4">time [s]</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:637"><nobr><span class="ft4">max. inter.</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:241"><nobr><span class="ft4">KSL</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:331"><nobr><span class="ft4">9</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:442"><nobr><span class="ft4">5</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:515"><nobr><span class="ft4">382</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:586"><nobr><span class="ft4">1.12</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:654"><nobr><span class="ft4">0.032</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:231"><nobr><span class="ft4">soybean</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:327"><nobr><span class="ft4">36</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:370"><nobr><span class="ft4">0.075</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:442"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:511"><nobr><span class="ft4">7633</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:585"><nobr><span class="ft4">1292</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:654"><nobr><span class="ft4">0.064</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:231"><nobr><span class="ft4">soybean</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:327"><nobr><span class="ft4">36</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:370"><nobr><span class="ft4">0.075</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:442"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:508"><nobr><span class="ft4">61976</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:585"><nobr><span class="ft4">7779</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:654"><nobr><span class="ft4">0.072</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:215"><nobr><span class="ft4">breast-cancer</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:327"><nobr><span class="ft4">10</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:442"><nobr><span class="ft4">5</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:515"><nobr><span class="ft4">638</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:586"><nobr><span class="ft4">3.49</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:654"><nobr><span class="ft4">0.082</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:226"><nobr><span class="ft4">annealing</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:327"><nobr><span class="ft4">40</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:442"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:511"><nobr><span class="ft4">9920</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:585"><nobr><span class="ft4">1006</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:654"><nobr><span class="ft4">0.048</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:226"><nobr><span class="ft4">annealing</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:327"><nobr><span class="ft4">40</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:442"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:508"><nobr><span class="ft4">92171</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:585"><nobr><span class="ft4">6762</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:654"><nobr><span class="ft4">0.061</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:223"><nobr><span class="ft4">mushroom</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:327"><nobr><span class="ft4">23</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:442"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:511"><nobr><span class="ft4">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:579"><nobr><span class="ft4">132.78</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:647"><nobr><span class="ft4">0.00036</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:223"><nobr><span class="ft4">mushroom</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:327"><nobr><span class="ft4">23</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:442"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:507"><nobr><span class="ft4">10903</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:579"><nobr><span class="ft4">580.65</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:647"><nobr><span class="ft4">0.00036</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:212"><nobr><span class="ft4">lymphography</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:327"><nobr><span class="ft4">19</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:370"><nobr><span class="ft4">0.067</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:442"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:511"><nobr><span class="ft4">1160</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:582"><nobr><span class="ft4">29.12</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:654"><nobr><span class="ft4">0.123</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:212"><nobr><span class="ft4">lymphography</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:327"><nobr><span class="ft4">19</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:370"><nobr><span class="ft4">0.067</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:442"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:511"><nobr><span class="ft4">5036</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:579"><nobr><span class="ft4">106.13</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:654"><nobr><span class="ft4">0.126</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:238"><nobr><span class="ft4">splice</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:327"><nobr><span class="ft4">61</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:374"><nobr><span class="ft4">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:442"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:508"><nobr><span class="ft4">37882</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:585"><nobr><span class="ft4">8456</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:654"><nobr><span class="ft4">0.036</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:138"><nobr><span class="ft4">Table 2: Performance evaluation of the algorithm for finding all -interesting attribute sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:81"><nobr><span class="ft10">size of the network is difficult, because the time depends<br>also on the network structure and the number of marginal<br>distributions computed (which in turn depends on the max-<br>imum size of attribute sets considered).</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:94"><nobr><span class="ft4">We nevertheless show in Figure 6 the numbers of attributes</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:81"><nobr><span class="ft10">and computation times plotted against each other for some<br>of the datasets from Table 2. Data corresponding to maxi-<br>mum attribute set sizes equal to 3 and 4 are plotted sepa-<br>rately.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:94"><nobr><span class="ft4">It can be seen that the algorithm remains practically us-</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:81"><nobr><span class="ft10">able for fairly large networks of up to 60 variables, even<br>though the computation time grows exponentially. For larger<br>networks approximate inference methods might be neces-<br>sary, but this is beyond the scope of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:81"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:112"><nobr><span class="ft14"><b>CONCLUSIONS AND DIRECTIONS OF<br>FUTURE RESEARCH</b></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:94"><nobr><span class="ft4">A method of computing interestingness of itemsets and at-</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:81"><nobr><span class="ft10">tribute sets with respect to background knowledge encoded<br>as a Bayesian network was presented. We built efficient al-<br>gorithms for computing interestingness of frequent itemsets<br>and finding all attribute sets with given minimum interest-<br>ingness. Experimental evaluation proved the effectiveness<br>and practical usefulness of the algorithms for finding inter-<br>esting, unexpected patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:94"><nobr><span class="ft4">An obvious direction for future research is increasing ef-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft4">ficiency of the algorithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:259"><nobr><span class="ft4">Partial solution would be to</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:81"><nobr><span class="ft10">rewrite the code in C, or to use some off-the-shelf highly op-<br>timized Bayesian network library like Intel's PNL. Another<br>approach would be to use approximate inference methods<br>like Gibbs sampling.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:94"><nobr><span class="ft4">Adding or removing edges in a Bayesian network does not</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:81"><nobr><span class="ft10">always influence all of its marginal distributions. Interactiv-<br>ity of network building could be imporved by making use of<br>this property.</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:94"><nobr><span class="ft4">Usefulness of methods developed for mining emerging pat-</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft10">terns [6], especially using borders to represent collections of<br>itemsets, could also be investigated.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:94"><nobr><span class="ft4">Another interesting direction (suggested by a reviewer)</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft10">could be to iteratively apply interesting patterns to modify<br>the network structure until no further improvement in the<br>network score can be achieved. A similar procedure has been<br>used in [24] for background knowledge represented by rules.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:94"><nobr><span class="ft4">It should be noted however that it might be better to just</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft10">inform the user about interesting patterns and let him/her<br>use their experience to update the network. Manually up-</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:475"><nobr><span class="ft10">dated network might better reflect causal relationships be-<br>tween attributes.</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:489"><nobr><span class="ft4">Another research area could be evaluating other proba-</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:475"><nobr><span class="ft10">bilistic models such as log-linear models and chain graphs<br>instead of Bayesian networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:475"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:506"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:482"><nobr><span class="ft4">[1] R. Agrawal, T. Imielinski, and A. Swami. Mining</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:503"><nobr><span class="ft10">association rules between sets of items in large<br>databases. In Proc. ACM SIGMOD Conference on<br>Management of Data, pages 207­216, Washington,<br>D.C., 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:482"><nobr><span class="ft4">[2] American Heart Association. Risk factors: High blood</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:503"><nobr><span class="ft10">cholesterol and other lipids.<br>http://www.americanheart.org/downloadable/<br>heart/1045754065601FS13CHO3.pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:721"><nobr><span class="ft4">, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:482"><nobr><span class="ft4">[3] R. J. Bayardo and R. Agrawal. Mining the most</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:503"><nobr><span class="ft10">interesting rules. In Proc. of the 5th ACM SIGKDD<br>Int'l Conf. on Knowledge Discovery and Data Mining,<br>pages 145­154, August 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:482"><nobr><span class="ft4">[4] Susanne G. Bøttcher and Claus Dethlefsen. Deal: A</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:503"><nobr><span class="ft10">package for learning bayesian networks.<br>www.math.auc.dk/novo/Publications/<br>bottcher:dethlefsen:03.ps</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:679"><nobr><span class="ft4">, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:482"><nobr><span class="ft4">[5] Rina Dechter. Bucket elimination: A unifying</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:503"><nobr><span class="ft10">framework for reasoning. Artificial Intelligence,<br>113(1-2):41­85, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:482"><nobr><span class="ft4">[6] Guozhu Dong and Jinyan Li. Efficient mining of</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:503"><nobr><span class="ft10">emerging patterns: Discovering trends and differences.<br>In Proc. of the 5th Intl. Conf. on Knowledge Discovery<br>and Data Mining (KDD'99), pages 43­52, San Diego,<br>CA, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:482"><nobr><span class="ft4">[7] William DuMouchel and Daryl Pregibon. Empirical</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:503"><nobr><span class="ft10">bayes screening for multi-item associations. In<br>Proceedings of the Seventh International Conference<br>on Knowledge Discovery and Data Mining, pages<br>67­76, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:482"><nobr><span class="ft4">[8] H. Gray. Gray's Anatomy. Grammercy Books, New</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:503"><nobr><span class="ft4">York, 1977.</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:482"><nobr><span class="ft4">[9] Venky Harinarayan, Anand Rajaraman, and Jeffrey D.</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:503"><nobr><span class="ft10">Ullman. Implementing data cubes efficiently. In Proc.<br>ACM SIGMOD, pages 205­216, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:475"><nobr><span class="ft4">[10] David Heckerman. A tutorial on learning with</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:503"><nobr><span class="ft10">Bayesian networks. Technical Report MSR-TR-95-06,<br>Microsoft Research, Redmond, WA, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">185</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:11px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="117009.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft4">[11] R. Hilderman and H. Hamilton. Knowledge discovery</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:109"><nobr><span class="ft10">and interestingness measures: A survey. Technical<br>Report CS 99-04, Department of Computer Science,<br>University of Regina, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:81"><nobr><span class="ft4">[12] C. Huang and A. Darwiche. Inference in belief</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:109"><nobr><span class="ft10">networks: A procedural guide. Intl. Journal of<br>Approximate Reasoning, 15(3):225­263, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:81"><nobr><span class="ft4">[13] S. Jaroszewicz and D. A. Simovici. A general measure</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:109"><nobr><span class="ft10">of rule interestingness. In 5th European Conference on<br>Principles of Data Mining and Knowledge Discovery<br>(PKDD 2001), pages 253­265, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:81"><nobr><span class="ft4">[14] S. Jaroszewicz and D. A. Simovici. Pruning redundant</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:109"><nobr><span class="ft10">association rules using maximum entropy principle. In<br>Advances in Knowledge Discovery and Data Mining,<br>6th Pacific-Asia Conference, PAKDD'02, pages<br>135­147, Taipei, Taiwan, May 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:81"><nobr><span class="ft4">[15] Finn V. Jensen. Bayesian Networks and Decision</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:109"><nobr><span class="ft4">Graphs. Springer Verlag, New York, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:81"><nobr><span class="ft4">[16] Bing Liu, Wynne Hsu, and Shu Chen. Using general</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:109"><nobr><span class="ft10">impressions to analyze discovered classification rules.<br>In Proceedings of the Third International Conference<br>on Knowledge Discovery and Data Mining (KDD-97),<br>page 31. AAAI Press, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:81"><nobr><span class="ft4">[17] Bing Liu, Wynne Jsu, Yiming Ma, and Shu Chen.</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:109"><nobr><span class="ft10">Mining interesting knowledge using DM-II. In<br>Proceedings of the Fifth ACM SIGKDD International<br>Conference on Knowledge Discovery and Data Mining,<br>pages 430­434, N.Y., August 15­18 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:81"><nobr><span class="ft4">[18] Heikki Mannila. Local and global methods in data</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:109"><nobr><span class="ft10">mining: Basic techniques and open problems. In<br>ICALP 2002, 29th International Colloquium on<br>Automata, Languages, and Programming, Malaga,<br>Spain, July 2002. Springer-Verlag.</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:81"><nobr><span class="ft4">[19] Heikki Mannila and Hannu Toivonen. Levelwise search</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:109"><nobr><span class="ft10">and borders of theories in knowledge discovery. Data<br>Mining and Knowledge Discovery, 1(3):241­258, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:81"><nobr><span class="ft21">[20] T.M. Mitchell. Machine Learning. McGraw-Hill, 1997.<br>[21] Kevin Murphy. A brief introduction to graphical</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:109"><nobr><span class="ft10">models and bayesian networks.<br>http://www.ai.mit.edu/~murphyk/Bayes/<br>bnintro.html</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:193"><nobr><span class="ft4">, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft4">[22] B. Padmanabhan and A. Tuzhilin. Belief-driven</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:109"><nobr><span class="ft10">method for discovering unexpected patterns. In<br>Proceedings. of the 4th International Conference on<br>Knowledge Discovery and Data Mining (KDD'98),<br>pages 94­100, August 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft4">[23] B. Padmanabhan and A. Tuzhilin. Small is beautiful:</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:503"><nobr><span class="ft10">discovering the minimal set of unexpected patterns. In<br>Proceedinmgs of the 6th ACM SIGKDD International<br>Conference on Knowledge Discovery and Data Mining<br>(KDD'00), pages 54­63, N. Y., August 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:475"><nobr><span class="ft4">[24] B. Padmanabhan and A. Tuzhilin. Methods for</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:503"><nobr><span class="ft10">knowledge refinement based on unexpected patterns.<br>Decision Support Systems, 33(3):221­347, July 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:475"><nobr><span class="ft4">[25] Judea Pearl. Probabilistic Reasoning in Intelligent</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:503"><nobr><span class="ft4">Systems. Morgan Kaufmann, Los Altos, CA, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:475"><nobr><span class="ft4">[26] P.Myllym¨</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:562"><nobr><span class="ft4">aki, T.Silander, H.Tirri, and P.Uronen.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:503"><nobr><span class="ft10">B-course: A web-based tool for bayesian and causal<br>data analysis. International Journal on Artificial<br>Intelligence Tools, 11(3):369­387, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:475"><nobr><span class="ft4">[27] D. Poole and N. L. Zhang. Exploiting contextual</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:503"><nobr><span class="ft10">independence in probablisitic inference. Journal of<br>Artificial Intelligence Research, 18:263­313, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:475"><nobr><span class="ft4">[28] D. Shah, L. V. S. Lakshmanan, K. Ramamritham, and</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:503"><nobr><span class="ft10">S. Sudarshan. Interestingness and pruning of mined<br>patterns. In 1999 ACM SIGMOD Workshop on<br>Research Issues in Data Mining and Knowledge<br>Discovery, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:475"><nobr><span class="ft4">[29] Abraham Silberschatz and Alexander Tuzhilin. On</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:503"><nobr><span class="ft10">subjective measures of interestingness in knowledge<br>discovery. In Knowledge Discovery and Data Mining,<br>pages 275­281, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:475"><nobr><span class="ft4">[30] E. Suzuki. Autonomous discovery of reliable exception</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:503"><nobr><span class="ft10">rules. In Proceedings of the Third International<br>Conference on Knowledge Discovery and Data Mining<br>(KDD-97), page 259. AAAI Press, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:475"><nobr><span class="ft4">[31] E. Suzuki and Y. Kodratoff. Discovery of surprising</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:503"><nobr><span class="ft10">exception rules based on intensity of implication. In<br>Proc of PKDD-98, Nantes, France, pages 10­18, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:475"><nobr><span class="ft4">[32] P.-N. Tan, V. Kumar, and J. Srivastava. Selecting the</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:503"><nobr><span class="ft10">right interestingness measure for association patterns.<br>In Proc of the Eighth ACM SIGKDD Int'l Conf. on<br>Knowledge Discovery and Data Mining (KDD-2002),<br>pages 32­41, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:475"><nobr><span class="ft4">[33] M. J. Zaki. Generating non-redundant association</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:503"><nobr><span class="ft10">rules. In Proceedinmgs of the 6th ACM SIGKDD<br>International Conference on Knowledge Discovery and<br>Data Mining (KDD-00), pages 34­43, N. Y.,<br>August 20­23 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:449"><nobr><span class="ft8">186</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

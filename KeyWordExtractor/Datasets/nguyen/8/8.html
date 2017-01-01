@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\8</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-11-02T10:37:56+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:7px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:7px;font-family:Helvetica;color:#0000ff;}
+	.ft2{font-size:16px;font-family:Times;color:#000000;}
+	.ft3{font-size:19px;font-family:Times;color:#000000;}
+	.ft4{font-size:12px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:15px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:6px;font-family:Times;color:#000000;}
+	.ft9{font-size:7px;line-height:12px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:7px;line-height:11px;font-family:Helvetica;color:#000000;}
+	.ft11{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="8001.png" alt="background image">
+<DIV style="position:absolute;top:989;left:476"><nobr><span class="ft9">Copyright © 2005 by the Association for Computing Machinery, Inc. <br>Permission to make digital or hard copies of part or all of this work for personal or <br>classroom use is granted without fee provided that copies are not made or distributed <br>for commercial advantage and that copies bear this notice and the full citation on the <br>first page. Copyrights for components of this work owned by others than ACM must be <br>honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on <br>servers, or to redistribute to lists, requires prior specific permission and/or a fee. <br>Request permissions from Permissions Dept, ACM Inc., fax +1 (212) 869-0481 or e-mail </span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:476"><nobr><span class="ft1">permissions@acm.org</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:566"><nobr><span class="ft0">. </span></nobr></DIV>
+<DIV style="position:absolute;top:1097;left:476"><nobr><span class="ft0">© 2005 ACM 1-59593-201-1/05/0010 $5.00</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:649"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:152"><nobr><span class="ft3">A Flexible 3D Slicer for Voxelization Using Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:259"><nobr><span class="ft4">Hsien-Hsi Hsieh, Yueh-Yi Lai, Wen-Kai Tai</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:523"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:534"><nobr><span class="ft4">and Sheng-Yi Chang</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:270"><nobr><span class="ft4">Department of Computer Science and Information Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:366"><nobr><span class="ft4">National Dong Hwa University</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:81"><nobr><span class="ft6">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft11">In this paper we present a simple but general 3D slicer for voxeliz-<br>ing polygonal model. Instead of voxelizing a model by projecting<br>and rasterizing triangles with clipping planes, the distance field is<br>used for more accurate and stable voxelization. Distance transform<br>is used with triangles on voxels of each slice. A voxel is marked<br>with opacity only when the shortest distance between it and trian-<br>gles is judged as intersection. With advanced programmable graph-<br>ics hardware assistance, surface and solid voxelization are feasible<br>and more efficient than on a CPU.</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:81"><nobr><span class="ft7">CR Categories:</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:211"><nobr><span class="ft7">I.3.1 [Computer Graphics]:</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:388"><nobr><span class="ft7">Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:81"><nobr><span class="ft11">Architecture--Graphics processors; I.3.5 [Computer Graphics]:<br>Computational Geometry and Object Modeling--Curve, surface,<br>solid, and object representations;</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:81"><nobr><span class="ft7">Keywords: voxelization, GPU, distance transform.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:111"><nobr><span class="ft6">Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:81"><nobr><span class="ft11">Object representation is a broad topic in research. In computer<br>graphics, polygons play a dominant role in 3D graphics because<br>they approximate arbitrary surfaces by meshes. In games and ani-<br>mations, surface representation is the main technique used in ren-<br>dering and visualization. However, volumetric representation, an<br>alternative method to traditional geometric representation, is well<br>known since the 1980s. It provides a simple and uniform descrip-<br>tion to measure and model a volumetric objects and establish the<br>research field of volumetric graphics. Voxelization is a process of<br>constructing a volumetric representation of an object. Voxelizing a<br>polygonal object is not only a shift of the representation, it gives<br>an opportunity to manipulate mesh object with volumetric opera-<br>tions such as morphological operation and solid modeling. Many<br>applications, for example, CSG modeling, virtual medicine, haptic<br>rendering, visualization of geometric model, collision detection, 3D<br>spatial analysis, and model fixing, work on volumetric representa-<br>tion or use it as the inter-medium.</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:81"><nobr><span class="ft11">In this paper, we calculate the accurate distance field on GPU to<br>compute coverage of each voxel in voxelization for polygonal mod-<br>els. Our method works for arbitrary triangulated models without<br>any preprocessing for models, except organizing meshes slab by<br>slab in order to prune the unnecessary computation while voxeliz-<br>ing complex models. By using the power of GPU, Hausdorff dis-<br>tance is guaranteed between each sampled voxel and the polygonal<br>model. Surface voxelization with distance field on a GPU works<br>well and runs faster than on a PC with a CPU. Our method is a re-<br>liable and accurate solution for the polygonal model under a given<br>distribution of sampling voxels and a specific opacity criterion. Be-<br>sides, error tolerance in voxelization is easy to manipulate by ad-<br>justing the threshold of opacity criterion for voxelization, which<br>also dominates the smoothness of features and the thickness of sur-<br>face voxelization.</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:97"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:103"><nobr><span class="ft5">e-mail:wktai@mail.ndhu.edu.tw</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:477"><nobr><span class="ft11">The rest of paper is organized as follows. Some related works are<br>surveyed in the section 2. In section 3, we present the computation<br>of Hausdorff distance and our framework. The experimental results<br>are illustrated in section 4. Finally, we conclude the proposed ap-<br>proach and point out some future works.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:477"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:507"><nobr><span class="ft6">Related Works</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:477"><nobr><span class="ft11">Volume construction approaches are often referred to as scan-<br>conversion or voxelization methods. Researchers mainly focused<br>on modeling aspects such as robustness and accuracy. Wang and<br>Kaufman [Wang and Kaufman 1993] used a method that samples<br>and filters the voxels in 3D space to produce alias-free 3D volume<br>models. They used filters to produce final density from the sup-<br>port of the region that polygons lie inside. Schroeder and Lorensen<br>[Schroeder et al. 1994] created a volumetric model by finding clos-<br>est polygon from distance map and classify the opacity of voxels.<br>Huang et al. [Huang et al. 1998] described separability and min-<br>imality as two desirable features of a discrete surface representa-<br>tion and extended 2D scan line algorithm to perform voxelization.<br>Dachille and Kaufman [Dachille IX and Kaufman 2000] presented<br>an incremental method for voxelizing a triangle with pre-filtering<br>to generate multivalued voxelization. Widjaya et al. [Widjaya et al.<br>2003] presented the voxelization in common sampling lattices as<br>general 2D lattices including hexagonal lattices and 3D body-center<br>cubic lattices. Ju [Ju 2004] constructed an octree grid for record-<br>ing intersected edges with the model and expanded nodes to scan-<br>convert a polygon on an octree, and then generate signs from the<br>boundary edges and faces of the octree.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:477"><nobr><span class="ft11">In recent years, attention on performance of voxelization raises.<br>More and more studies try to explore the benefits of graphics hard-<br>ware for more efficient rendering. Chen and Feng [Chen and Fang<br>1999] presented a slicing-based voxelization algorithm to generate<br>slices of the underlying model in the frame buffer by setting appro-<br>priate clipping planes and extracting each slice of the model, which<br>is extended and published in later [Chen and Fang 2000]. Karabassi<br>and Theoharis [Karabassi and Theoharis 1999] projected an object<br>to six faces of its bounding box through standard graphics system<br>for the outermost parts and read back the information from depth<br>buffer. However it works well only on convex objects. Dong et<br>al. [Dong et al. 2004] proposed a real-time voxelization method us-<br>ing GPU acceleration to rasterize and texelize an object into three<br>directional textures and then synthesize textures back to the final<br>volume.</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft2">285</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:8px;font-family:Times;color:#000000;}
+	.ft13{font-size:5px;font-family:Times;color:#000000;}
+	.ft14{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft16{font-size:8px;line-height:9px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="8002.png" alt="background image">
+<DIV style="position:absolute;top:83;left:81"><nobr><span class="ft6">3</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:111"><nobr><span class="ft14">Hausdorff Distance Computation and<br>Voxelization</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:81"><nobr><span class="ft11">In this section, we first discuss the computation of Hausdorff dis-<br>tance between a given triangle and a point. Then we explain how<br>we use GPU to compute the distance field of triangles and modify<br>the rendering pipeline.</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:81"><nobr><span class="ft4">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:118"><nobr><span class="ft4">Distance Field Computation</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:81"><nobr><span class="ft7">For a given 3D point P(x, y, z) and a triangle T (V</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:353"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:359"><nobr><span class="ft7">,V</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:371"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:377"><nobr><span class="ft7">,V</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:390"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:395"><nobr><span class="ft7">), Haus-</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:81"><nobr><span class="ft11">dorff distance is the shortest distance between the point P and any<br>point v on the triangle. A point on triangle T can be parametrically<br>defined by two linearly independent vectors with two weights (s,t)<br>by</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:199"><nobr><span class="ft7">T</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:208"><nobr><span class="ft7">(s,t) = B + se</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:283"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:291"><nobr><span class="ft7">+ te</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:314"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:320"><nobr><span class="ft7">,</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:425"><nobr><span class="ft7">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:81"><nobr><span class="ft7">where (s,t)  D = {(s,t) : s  [0, 1],t  [0, 1], s + t  1}, and B =</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:80"><nobr><span class="ft7">V</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:88"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:94"><nobr><span class="ft7">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:105"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:114"><nobr><span class="ft7">= V</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:134"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:142"><nobr><span class="ft7">-V</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:161"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:171"><nobr><span class="ft7">and e</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:199"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:208"><nobr><span class="ft7">= V</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:229"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:237"><nobr><span class="ft7">-V</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:256"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:262"><nobr><span class="ft7">.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:81"><nobr><span class="ft7">For any point on triangle T , the distance from T to P is</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:230"><nobr><span class="ft7">T</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:239"><nobr><span class="ft7">(s,t) - P ,</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:425"><nobr><span class="ft7">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:81"><nobr><span class="ft7">or we can use the squared-distance function instead</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:195"><nobr><span class="ft7">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:204"><nobr><span class="ft7">(s,t) = T (s,t) - P</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:316"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:324"><nobr><span class="ft7">,</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:425"><nobr><span class="ft7">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:81"><nobr><span class="ft7">where a point p = ( ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:191"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:196"><nobr><span class="ft7">, ¯t) exists which makes Q( ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:336"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:342"><nobr><span class="ft7">, ¯t) minimum.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:81"><nobr><span class="ft15">Therefore, the computation of distance can be reduced into a min-<br>imization problem. For an efficient computation, we can expand<br>Q</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:91"><nobr><span class="ft7">(s,t) as</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:147"><nobr><span class="ft7">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:157"><nobr><span class="ft7">(s,t) = as</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:211"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:219"><nobr><span class="ft7">+ 2bst + ct</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:278"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:286"><nobr><span class="ft7">+ 2ds + 2et + f ,</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:425"><nobr><span class="ft7">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:81"><nobr><span class="ft7">where</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:124"><nobr><span class="ft7">a</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:145"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:171"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:177"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:184"><nobr><span class="ft7">· e</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:196"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:261"><nobr><span class="ft7">b</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:284"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:309"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:315"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:323"><nobr><span class="ft7">· e</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:334"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:124"><nobr><span class="ft7">c</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:145"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:171"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:177"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:184"><nobr><span class="ft7">· e</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:196"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:261"><nobr><span class="ft7">d</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:284"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:309"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:315"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:323"><nobr><span class="ft7">· (B - P)</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:124"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:145"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:171"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:177"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:184"><nobr><span class="ft7">· (B - P)</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:263"><nobr><span class="ft7">f</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:284"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:309"><nobr><span class="ft7">(B - P) · (B - P)</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:425"><nobr><span class="ft7">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:81"><nobr><span class="ft7">From analyzing the gradient of Q(s,t), the minimum ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:375"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:385"><nobr><span class="ft7">and ¯t hap-</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:81"><nobr><span class="ft7">pens only when Q is zero, where</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:187"><nobr><span class="ft7">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:185"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:193"><nobr><span class="ft7">= be - cd</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:209"><nobr><span class="ft7">ac</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:223"><nobr><span class="ft7">- b</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:242"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:272"><nobr><span class="ft7">¯t = bd - ae</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:295"><nobr><span class="ft7">ac</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:310"><nobr><span class="ft7">- b</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:329"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:425"><nobr><span class="ft7">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:81"><nobr><span class="ft7">If ( ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:99"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:104"><nobr><span class="ft7">, ¯t)  D, the minimum distance is the distance between p and</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:81"><nobr><span class="ft7">P</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:89"><nobr><span class="ft7">; otherwise, according to the sign of ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:286"><nobr><span class="ft7">s</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:294"><nobr><span class="ft7">and ¯t, there are six possible</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:81"><nobr><span class="ft11">regions that the shortest distance point p may lie on triangle T ,<br>as shown in Figure 1. Efficient solutions are well addressed on<br>the book [Schneider and Eberly 2003] by CPU computation with<br>simple calculation and logic classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:81"><nobr><span class="ft11">However, in GPU, there is no efficient dynamic flow control to de-<br>termine the shortest point on a triangle. Therefore, instead of di-<br>rectly computing the point of shortest distance on a triangle, we<br>compute the distance from the 3D point to four possible points<br>which may be inside the triangle or on the three boundaries and<br>then the minimum scalar is the shortest distance. These four points<br>are</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:90"><nobr><span class="ft7">(s</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:101"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:107"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:115"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:121"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:141"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:167"><nobr><span class="ft7">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:174"><nobr><span class="ft12">be</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:184"><nobr><span class="ft12">-cd</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:174"><nobr><span class="ft12">ac</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:184"><nobr><span class="ft12">-b</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:197"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:204"><nobr><span class="ft7">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:211"><nobr><span class="ft12">bd</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:222"><nobr><span class="ft12">-ae</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:212"><nobr><span class="ft12">ac</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:222"><nobr><span class="ft12">-b</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:235"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:242"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:309"><nobr><span class="ft7">(s</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:320"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:326"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:334"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:340"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:361"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:386"><nobr><span class="ft7">(0, -</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:415"><nobr><span class="ft16">e<br>c</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:422"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:90"><nobr><span class="ft7">(s</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:101"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:107"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:115"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:121"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:141"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:167"><nobr><span class="ft7">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:174"><nobr><span class="ft12">c</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:178"><nobr><span class="ft12">+e-b-d</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:178"><nobr><span class="ft12">a</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:183"><nobr><span class="ft12">-2b+c</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:220"><nobr><span class="ft7">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:227"><nobr><span class="ft12">a</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:232"><nobr><span class="ft12">+d-b-e</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:232"><nobr><span class="ft12">a</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:237"><nobr><span class="ft12">-2b+c</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:274"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:309"><nobr><span class="ft7">(s</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:320"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:326"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:334"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:340"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:361"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:386"><nobr><span class="ft7">(-</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:403"><nobr><span class="ft16">d<br>a</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:411"><nobr><span class="ft7">, 0),</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:425"><nobr><span class="ft7">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:477"><nobr><span class="ft11">Figure 1: Six regions in s,t coordinate. Space is partitioned by<br>range of parameters s and t for efficient shortest position classifica-<br>tion and calculation.</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:477"><nobr><span class="ft17">Figure 2: Rendering pipeline for generating a distance field of a<br>triangle. A quad is rendered instead of a triangle. Five channels of<br>each vertex of a quad (position, normal, and 4 texture coordinates)<br>is filled with position of quad, position of voxel, and information of<br>a triangle: v</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:541"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:547"><nobr><span class="ft7">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:560"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:566"><nobr><span class="ft7">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:579"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:585"><nobr><span class="ft7">, and normal N respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:477"><nobr><span class="ft7">where position (s</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:571"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:577"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:585"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:591"><nobr><span class="ft7">) assumes point p is inside the triangle, posi-</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:477"><nobr><span class="ft7">tions (s</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:517"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:523"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:532"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:538"><nobr><span class="ft7">), (s</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:561"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:567"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:576"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:582"><nobr><span class="ft7">) and (s</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:625"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:631"><nobr><span class="ft7">,t</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:639"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:645"><nobr><span class="ft7">) assume point p is on boundaries</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:477"><nobr><span class="ft11">of s = 0, t = 0, and s + t = 1. All calculated points are truncated<br>in the range of [0, 1] so that three end vertices of the triangle T are<br>also in consideration and it guarantees these points are on the trian-<br>gle for distance computation. Therefore, the minimum distance is<br>the shortest distance from the point P to the triangle T .</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:477"><nobr><span class="ft4">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:514"><nobr><span class="ft4">Geometry Rendering for Voxelization</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:477"><nobr><span class="ft11">Voxelization by projection and rasterization faces the difficulty of<br>non-uniform sampling of polygons because polygons with arbitrary<br>orientations are not parallel to projection plane for maximum pro-<br>jection area. Even classifying polygons and projecting them to in-<br>dividual best-fit plane, there still have no guarantee on valid rasteri-<br>zation. However, distance field is omni-directional, i.e., insensitive<br>to the projection plane, and has no assumption on input geometry<br>and therefore no extra preprocessing is required.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:477"><nobr><span class="ft15">Our approach is a slice-based approach for distance field gen-<br>eration and voxelization. Figure 2 shows the rendering process<br>for generating the distance field for a triangle. For each triangle<br>T</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:483"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:490"><nobr><span class="ft7">= {T</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:516"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:519"><nobr><span class="ft7">(s,t)|v</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:554"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:562"><nobr><span class="ft7">+ se</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:585"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:592"><nobr><span class="ft7">+te</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:614"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:620"><nobr><span class="ft7">, s  0,t  0, s +t  1}, a full-filled quad</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:477"><nobr><span class="ft7">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:487"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:493"><nobr><span class="ft7">= {q</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:519"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:522"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:527"><nobr><span class="ft7">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:539"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:542"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:547"><nobr><span class="ft7">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:559"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:562"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:567"><nobr><span class="ft7">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:579"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:582"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:588"><nobr><span class="ft7">} is rendered and rasterized to generate the dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:477"><nobr><span class="ft17">tance field from voxels on a slice to the triangle. Triangle data and<br>voxel positions are associated with the rendering quads. Voxel po-<br>sitions are stored in the channel of vertex normal, the triangle data<br>(base vertex B, vectors e</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:607"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:617"><nobr><span class="ft7">and te</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:649"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:655"><nobr><span class="ft7">, and the normal N) are separately</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:477"><nobr><span class="ft11">stored in channels of texture coordinates and transmitted to GPU.<br>Voxel positions are linearly interpolated in rasterization of render-<br>ing pipeline and pairs of triangle data and voxel positions are sent<br>to pixel processors for Hausdorff distance computation. After dis-<br>tance computation, the shortest distance between a triangle and a</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft2">286</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:8px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="8003.png" alt="background image">
+<DIV style="position:absolute;top:87;left:81"><nobr><span class="ft11">voxel is stored in the pixel depth and the pixel color is assigned<br>for identification depending on applications. For example, binary<br>surface voxelization uses color information to identify whether a<br>voxel intersects a geometry such as 0 for empty and 1 for opacity;<br>distance visualization uses color information to display the distance<br>from geometries, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:81"><nobr><span class="ft11">The distance field of polygonal objects is constructed incrementally<br>by rendering quads of triangles. Each pixel of depth buffer keeps<br>the shortest distance from its voxel to triangles rendered. Depth<br>buffer updates when a triangle is rendered. Unless distance is recal-<br>culated on different slice or rendered objects deform, quads which<br>have been rendered have no need to be re-rendered again even new<br>geometry are added in the scene. Depth buffer of the viewport is<br>initialized as infinitude.</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:81"><nobr><span class="ft7">The rendering pseudo code is abstracted as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:81"><nobr><span class="ft12">for each triangle t on slice i {</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:92"><nobr><span class="ft18">Create a quad Q for the triangle t<br>for k = 0 to 3 {</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:103"><nobr><span class="ft18">// assign a full-filled quad<br>// q is end vertices of quad<br>Q.q[k].position = ScreenBoundary.q[k];<br>// assign voxel position, and triangle data<br>Q.q[k].normal = Slice[i].q[k];<br>Q.q[k].tex0 = t.B;<br>Q.q[k].tex1 = t.e0;<br>Q.q[k].tex2 = t.e1;<br>}</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:92"><nobr><span class="ft12">RenderQuad(Q);</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:81"><nobr><span class="ft12">}</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:81"><nobr><span class="ft4">3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:118"><nobr><span class="ft4">Surface Voxelization</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:81"><nobr><span class="ft11">We use local distance field to reduce work load of GPU because<br>the distance field far away from a triangle is meaningless for sur-<br>face voxelization. For each triangle, we extend its parallel projected<br>bounding rectangle by a small scalar for effective rasterization es-<br>pecially for triangles perpendicular to the projection plane. Due to<br>coherence and precision in interpolating voxel positions, triangles<br>are rendered with extended bounding rectangles. While a pixel is<br>rasterized by a quad, Hausdorff distance is calculated according to<br>the interpolated voxels, i.e., centers of voxels, and the triangle data.<br>Only if the distance is less than the given threshold, e.g., distance<br>from a uniform voxel center to its corner, the pixel is marked as<br>opacity. Using local distance field could guarantee a small region<br>of Hausdorff distance but greatly improve the performance of sur-<br>face voxelization.</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:81"><nobr><span class="ft11">For more efficient voxelization process on GPU, triangles can be<br>culled early by space partitioning. We construct an active triangle<br>list for each slice. Currently we define slabs along Z-axis. Ac-<br>cording to partitioning planes, triangles are filtered and rearranged<br>slab by slab. Many triangles can be pruned while rendering a slice.<br>It is significantly helpful while voxelizing very complex models.<br>Because distance field is insensitive to projecting directions of tri-<br>angles, selection of partitioning plane has no influence on effective-<br>ness of voxelization.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft6">4</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:111"><nobr><span class="ft6">Experimental Results</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:81"><nobr><span class="ft11">We implement our fragment program using HLSL on a Pentium 4<br>3.0 MHz PC with 1G RAM and a nVidia Geforce FX5800 graphics<br>card running on Windows XP with DirectX 9.0c. We use Vertex<br>Shader 1.1 and Pixel Shader 2.0 to implement fragment program<br>in scattering pairs of voxel positions and triangle data and in dis-<br>tance calculation and visualization. Table 1 shows the performance</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:477"><nobr><span class="ft7">Figure 4: Rendering from the results of voxelization (512</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:782"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:788"><nobr><span class="ft7">): dragon</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:477"><nobr><span class="ft7">of 870K faces in 512</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:590"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:599"><nobr><span class="ft7">voxels.</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:477"><nobr><span class="ft11">of surface voxelization on different models and in different voxel<br>resolutions. Figure 3 and Figure 4 demonstrate quality of voxeliza-<br>tion results. In the experiment, opacity threshold is set to the dis-<br>tance from voxel center to its corner. That means if the shortest<br>distance between a voxel and a triangle is less than the threshold,<br>the voxel will be marked as opacity. Note that voxels are normal-<br>ized to cubes in rendering so the scale of output may differ from the<br>original polygonal model.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:477"><nobr><span class="ft11">In Table 1, we list average time on surface voxelization per slice, per<br>voxel, and per triangle. In the same resolution, voxelization time is<br>proportional to the complexity of polygonal model. For each voxel,<br>process time is always less than 0.1 ms. Even when voxel resolution<br>increase, GPU still could handle voxelization for complex object in<br>stable throughput which may be increased much more for CPU.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:477"><nobr><span class="ft11">Due to speed up by using local distance field and culling for unre-<br>lated geometry, voxelization by distance field can be displayed slice<br>by slice interactively under 128</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:646"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:655"><nobr><span class="ft7">voxel resolution. When voxel res-</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:477"><nobr><span class="ft11">olution is low, voxelization time highly depends on complexity of<br>model. However, when the voxel resolution increases higher, even<br>for a low complexity model, it still need more time to voxelize a<br>model than in lower voxel resolution. On average, resolution of<br>256</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:497"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:506"><nobr><span class="ft7">could provide a benefit of reliable voxelization both in quality</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:477"><nobr><span class="ft7">and time cost.</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:477"><nobr><span class="ft11">Rendering cost is stable for a triangle even when resolution of vol-<br>ume increases while it is linear on a CPU. Voxelization with pro-<br>posed method is still slower than methods using traditional projec-<br>tion and rasterization by graphic hardware. However, our method<br>is stable, correct and flexible because the opacity of each voxel is<br>determined by thresholding the distance field of objects.</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:477"><nobr><span class="ft6">5</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:507"><nobr><span class="ft6">Conclusion</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:477"><nobr><span class="ft11">In this paper, we propose a GPU-based 3D slicer approach for vox-<br>elizing polygonal models. We calculate minimum distance between<br>pairs of sampled voxels and triangles of arbitrary models with guar-<br>antee of Hausdorff distance. With programmable hardware ver-<br>tex/pixel processors, efficient surface voxelization, solid voxeliza-<br>tion, and visualization of the distance field all are feasible on the<br>proposed 3D slicer.</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:477"><nobr><span class="ft11">However, in current implementation, performance of pixel shader<br>is the bottleneck in overall processing speed. Area of rasteriza-<br>tion also has a significant influence on the loading of pixel shader.</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft2">287</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="8004.png" alt="background image">
+<DIV style="position:absolute;top:100;left:165"><nobr><span class="ft7">Model</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:245"><nobr><span class="ft7">Faces</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:294"><nobr><span class="ft7">Res.</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:337"><nobr><span class="ft7">Time(s)</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:400"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:399"><nobr><span class="ft12">Slices</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:448"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:445"><nobr><span class="ft12">Voxels</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:495"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:497"><nobr><span class="ft12">Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:511"><nobr><span class="ft12">.</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:536"><nobr><span class="ft7">Res.</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:578"><nobr><span class="ft7">Time(s)</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:641"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:640"><nobr><span class="ft12">Slices</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:689"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:686"><nobr><span class="ft12">Voxels</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:741"><nobr><span class="ft12">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:743"><nobr><span class="ft12">Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:757"><nobr><span class="ft12">.</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:154"><nobr><span class="ft7">Beethoven</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:249"><nobr><span class="ft7">5027</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:349"><nobr><span class="ft7">13.94</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:402"><nobr><span class="ft7">0.11</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:452"><nobr><span class="ft7">6.65</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:495"><nobr><span class="ft7">2.77</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:590"><nobr><span class="ft7">85.86</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:643"><nobr><span class="ft7">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:692"><nobr><span class="ft7">5.12</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:734"><nobr><span class="ft7">17.08</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:164"><nobr><span class="ft7">Teapot</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:249"><nobr><span class="ft7">6320</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:349"><nobr><span class="ft7">14.31</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:402"><nobr><span class="ft7">0.11</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:452"><nobr><span class="ft7">6.82</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:495"><nobr><span class="ft7">2.26</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:590"><nobr><span class="ft7">87.62</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:643"><nobr><span class="ft7">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:692"><nobr><span class="ft7">5.22</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:734"><nobr><span class="ft7">13.86</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:171"><nobr><span class="ft7">Cup</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:249"><nobr><span class="ft7">7494</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:349"><nobr><span class="ft7">15.24</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:402"><nobr><span class="ft7">0.12</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:452"><nobr><span class="ft7">7.27</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:495"><nobr><span class="ft7">2.03</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:590"><nobr><span class="ft7">93.65</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:643"><nobr><span class="ft7">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:692"><nobr><span class="ft7">5.58</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:734"><nobr><span class="ft7">12.50</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:164"><nobr><span class="ft7">Bunny</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:242"><nobr><span class="ft7">10000</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:349"><nobr><span class="ft7">16.24</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:402"><nobr><span class="ft7">0.13</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:452"><nobr><span class="ft7">7.75</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:495"><nobr><span class="ft7">1.62</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:590"><nobr><span class="ft7">93.98</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:643"><nobr><span class="ft7">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:692"><nobr><span class="ft7">5.60</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:741"><nobr><span class="ft7">9.40</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:164"><nobr><span class="ft7">Bunny</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:242"><nobr><span class="ft7">69451</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:349"><nobr><span class="ft7">43.21</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:402"><nobr><span class="ft7">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:445"><nobr><span class="ft7">20.60</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:495"><nobr><span class="ft7">0.62</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:583"><nobr><span class="ft7">231.85</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:643"><nobr><span class="ft7">0.91</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:686"><nobr><span class="ft7">13.82</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:741"><nobr><span class="ft7">3.34</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:162"><nobr><span class="ft7">Dragon</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:236"><nobr><span class="ft7">871414</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:349"><nobr><span class="ft7">84.21</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:402"><nobr><span class="ft7">0.66</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:445"><nobr><span class="ft7">40.15</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:495"><nobr><span class="ft7">0.10</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:583"><nobr><span class="ft7">325.87</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:643"><nobr><span class="ft7">1.27</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:686"><nobr><span class="ft7">19.42</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:741"><nobr><span class="ft7">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:161"><nobr><span class="ft7">Buddha</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:229"><nobr><span class="ft7">1087716</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:297"><nobr><span class="ft7">128</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:342"><nobr><span class="ft7">170.44</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:402"><nobr><span class="ft7">1.33</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:445"><nobr><span class="ft7">81.27</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:495"><nobr><span class="ft7">0.16</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:540"><nobr><span class="ft7">256</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:583"><nobr><span class="ft7">347.65</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:643"><nobr><span class="ft7">1.36</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:686"><nobr><span class="ft7">20.72</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:741"><nobr><span class="ft7">0.32</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:162"><nobr><span class="ft7">Dragon</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:236"><nobr><span class="ft7">871414</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:297"><nobr><span class="ft7">512</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:335"><nobr><span class="ft7">1748.11</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:402"><nobr><span class="ft7">3.41</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:445"><nobr><span class="ft7">13.02</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:495"><nobr><span class="ft7">2.01</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:536"><nobr><span class="ft7">* The time unit in Time/Voxels is µs</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:161"><nobr><span class="ft7">Buddha</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:229"><nobr><span class="ft7">1087716</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:297"><nobr><span class="ft7">512</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:335"><nobr><span class="ft7">1825.47</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:402"><nobr><span class="ft7">3.57</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:445"><nobr><span class="ft7">13.60</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:495"><nobr><span class="ft7">1.68</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:536"><nobr><span class="ft7">* The time unit in Time/Tri. is ms</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:234"><nobr><span class="ft7">Table 1: Surface voxelization on different models and in different voxel resolutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:205"><nobr><span class="ft7">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:374"><nobr><span class="ft7">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:544"><nobr><span class="ft7">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:705"><nobr><span class="ft7">(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:205"><nobr><span class="ft7">(e)</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:375"><nobr><span class="ft7">(f)</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:543"><nobr><span class="ft7">(g)</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:705"><nobr><span class="ft7">(h)</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:81"><nobr><span class="ft7">Figure 3: Rendering from the results of voxelization (256</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:389"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:395"><nobr><span class="ft7">): (a) Beethoven in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:519"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:528"><nobr><span class="ft7">voxels, (b) Teapot in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:662"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:671"><nobr><span class="ft7">voxels, (c) Cup in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:790"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:799"><nobr><span class="ft7">voxels,</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft7">(d) Bunny of 10000 faces in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:258"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:268"><nobr><span class="ft7">voxels, (e) dragon of 10000 faces in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:487"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:497"><nobr><span class="ft7">voxels, (f) Bunny of 69451 faces in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:714"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:723"><nobr><span class="ft7">voxels, (g) dragon of</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:81"><nobr><span class="ft7">870K faces in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:179"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:188"><nobr><span class="ft7">voxels, and (h) Buddha of 1M faces in 256</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:418"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:428"><nobr><span class="ft7">voxels.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:81"><nobr><span class="ft11">Therefore, in the near feature, searching a better computational<br>methodology for GPU is one direction to improve performance of<br>distance field computation. In addition, a sophisticated culling for<br>error-free distance computation will be a technique in demand. To<br>improve the quality of voxelization, adaptive dense voxelization<br>and a mechanism for quality measurement and guide on GPU is<br>another interesting topic.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:81"><nobr><span class="ft6">References</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:81"><nobr><span class="ft7">C</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:91"><nobr><span class="ft12">HEN</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:115"><nobr><span class="ft7">, H.,</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:144"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:173"><nobr><span class="ft7">F</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:180"><nobr><span class="ft12">ANG</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:205"><nobr><span class="ft7">, S. 1999. Fast voxelization of 3D synthetic</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:96"><nobr><span class="ft7">objects. ACM Journal of Graphics Tools 3, 4, 33­45.</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:81"><nobr><span class="ft7">C</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:91"><nobr><span class="ft12">HEN</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:115"><nobr><span class="ft7">, H.,</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:146"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:175"><nobr><span class="ft7">F</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:182"><nobr><span class="ft12">ANG</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:207"><nobr><span class="ft7">, S. 2000. Hardware accelerated voxeliza-</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:96"><nobr><span class="ft7">tion. Computers and Graphics 24, 3, 433­442.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:81"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:91"><nobr><span class="ft12">ACHILLE</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:146"><nobr><span class="ft7">IX, F.,</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:191"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:222"><nobr><span class="ft7">K</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:232"><nobr><span class="ft12">AUFMAN</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:282"><nobr><span class="ft7">, A. E. 2000. Incremental</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:96"><nobr><span class="ft7">triangle voxelization. In Graphics Interface, 205­212.</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:81"><nobr><span class="ft7">D</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:92"><nobr><span class="ft12">ONG</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:117"><nobr><span class="ft7">, Z., C</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:159"><nobr><span class="ft12">HEN</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:183"><nobr><span class="ft7">, W., B</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:228"><nobr><span class="ft12">AO</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:244"><nobr><span class="ft7">, H., Z</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:287"><nobr><span class="ft12">HANG</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:321"><nobr><span class="ft7">, H.,</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:355"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:385"><nobr><span class="ft7">P</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:393"><nobr><span class="ft12">ENG</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:417"><nobr><span class="ft7">, Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:96"><nobr><span class="ft15">2004. Real-time voxelization for complex polygonal models. In<br>Proceedings of Pacific Graphics '04</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:291"><nobr><span class="ft7">, 43­50.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:477"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:488"><nobr><span class="ft12">UANG</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:521"><nobr><span class="ft7">, J., Y</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:556"><nobr><span class="ft12">AGEL</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:587"><nobr><span class="ft7">, R., F</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:624"><nobr><span class="ft12">ILIPPOV</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:668"><nobr><span class="ft7">, V.,</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:696"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:725"><nobr><span class="ft7">K</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:736"><nobr><span class="ft12">URZION</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:780"><nobr><span class="ft7">, Y. 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:492"><nobr><span class="ft15">An accurate method for voxelizing polygon meshes. In Proceed-<br>ings of IEEE symposium on Volume visualization</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:756"><nobr><span class="ft7">, 119­126.</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:477"><nobr><span class="ft7">J</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:483"><nobr><span class="ft12">U</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:492"><nobr><span class="ft15">, T. 2004. Robust repair of polygonal models. ACM Transactions<br>on Graphics 23</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:575"><nobr><span class="ft7">, 3, 888­895.</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:477"><nobr><span class="ft7">K</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:488"><nobr><span class="ft12">ARABASSI</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:546"><nobr><span class="ft7">, G. P. E.-A.,</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:632"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:663"><nobr><span class="ft7">T</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:672"><nobr><span class="ft12">HEOHARIS</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:731"><nobr><span class="ft7">, T. 1999. A fast</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:492"><nobr><span class="ft7">depth-buffer-based voxelization algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:744"><nobr><span class="ft7">ACM Journal of</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:492"><nobr><span class="ft7">Graphics Tools 4</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:584"><nobr><span class="ft7">, 4, 5­10.</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:477"><nobr><span class="ft7">S</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:485"><nobr><span class="ft12">CHNEIDER</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:545"><nobr><span class="ft7">, P.,</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:572"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:602"><nobr><span class="ft7">E</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:611"><nobr><span class="ft12">BERLY</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:646"><nobr><span class="ft7">, D. H. 2003. Geometry Tools for</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:492"><nobr><span class="ft7">Computer Graphics</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:599"><nobr><span class="ft7">. Morgan Kaufmann.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:477"><nobr><span class="ft7">S</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:485"><nobr><span class="ft12">CHROEDER</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:548"><nobr><span class="ft7">, W. J., L</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:608"><nobr><span class="ft12">ORENSEN</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:663"><nobr><span class="ft7">, W. E.,</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:717"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:747"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:756"><nobr><span class="ft12">INTHICUM</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:815"><nobr><span class="ft7">, S.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:492"><nobr><span class="ft15">1994. Implicit modeling of swept surfaces and volumes. In Pro-<br>ceedings of IEEE Visualization</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:659"><nobr><span class="ft7">, 40­45.</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:477"><nobr><span class="ft7">W</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:489"><nobr><span class="ft12">ANG</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:514"><nobr><span class="ft7">, S. W.,</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:566"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:596"><nobr><span class="ft7">K</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:606"><nobr><span class="ft12">AUFMAN</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:656"><nobr><span class="ft7">, A. E. 1993. Volume sampled</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:492"><nobr><span class="ft15">voxelization of geometric primitives. In Proceedings of IEEE<br>Visualization</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:562"><nobr><span class="ft7">, 78­84.</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:477"><nobr><span class="ft7">W</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:491"><nobr><span class="ft12">IDJAYA</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:530"><nobr><span class="ft7">, H., M</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:575"><nobr><span class="ft12">UELLER</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:620"><nobr><span class="ft7">, T.,</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:649"><nobr><span class="ft12">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:679"><nobr><span class="ft7">E</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:688"><nobr><span class="ft12">NTEZARI</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:738"><nobr><span class="ft7">., A. 2003. Vox-</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:492"><nobr><span class="ft15">elization in common sampling lattices. In Proceedings of Pacific<br>Graphics '03</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:563"><nobr><span class="ft7">, 497­501.</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft2">288</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

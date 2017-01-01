@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\63</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-08-05T21:37:50+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:111"><nobr><span class="ft0"><b>Data Mining in Metric Space: An Empirical Analysis of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:188"><nobr><span class="ft0"><b>Supervised Learning Performance Criteria</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:233"><nobr><span class="ft1">Rich Caruana</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:226"><nobr><span class="ft2">Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:229"><nobr><span class="ft2">Cornell University</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:191"><nobr><span class="ft1">caruana@cs.cornell.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:524"><nobr><span class="ft1">Alexandru Niculescu-Mizil</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:565"><nobr><span class="ft2">Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:568"><nobr><span class="ft2">Cornell University</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:541"><nobr><span class="ft1">alexn@cs.cornell.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:81"><nobr><span class="ft10">Many criteria can be used to evaluate the performance of<br>supervised learning. Different criteria are appropriate in<br>different settings, and it is not always clear which criteria<br>to use. A further complication is that learning methods<br>that perform well on one criterion may not perform well<br>on other criteria. For example, SVMs and boosting are de-<br>signed to optimize accuracy, whereas neural nets typically<br>optimize squared error or cross entropy. We conducted an<br>empirical study using a variety of learning methods (SVMs,<br>neural nets, k-nearest neighbor, bagged and boosted trees,<br>and boosted stumps) to compare nine boolean classifica-<br>tion performance metrics: Accuracy, Lift, F-Score, Area<br>under the ROC Curve, Average Precision, Precision/Recall<br>Break-Even Point, Squared Error, Cross Entropy, and Prob-<br>ability Calibration. Multidimensional scaling (MDS) shows<br>that these metrics span a low dimensional manifold. The<br>three metrics that are appropriate when predictions are in-<br>terpreted as probabilities: squared error, cross entropy, and<br>calibration, lay in one part of metric space far away from<br>metrics that depend on the relative order of the predicted<br>values: ROC area, average precision, break-even point, and<br>lift. In between them fall two metrics that depend on com-<br>paring predictions to a threshold: accuracy and F-score.<br>As expected, maximum margin methods such as SVMs and<br>boosted trees have excellent performance on metrics like ac-<br>curacy, but perform poorly on probability metrics such as<br>squared error. What was not expected was that the mar-<br>gin methods have excellent performance on ordering metrics<br>such as ROC area and average precision. We introduce a<br>new metric, SAR, that combines squared error, accuracy,<br>and ROC area into one metric. MDS and correlation anal-<br>ysis shows that SAR is centrally located and correlates well<br>with other metrics, suggesting that it is a good general pur-<br>pose metric to use when more specific criteria are not known.</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:81"><nobr><span class="ft10">Categories &amp; Subject Descriptors: I.5.2 [Pattern Recog-<br>nition]: Design Methodology - classifier design &amp; evaluation.</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:81"><nobr><span class="ft10">General Terms: Algorithms, Measurement, Performance,<br>Experimentation.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft11">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>KDD'04, </i>August 22­25, 2004, Seattle, Washington, USA.<br>Copyright 2004 ACM 1-58113-888-1/04/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:315"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:475"><nobr><span class="ft10">Keywords: Supervised Learning, Performance Evaluation,<br>Metrics, ROC, Precision, Recall, Lift, Cross Entropy.</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:475"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:506"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:489"><nobr><span class="ft4">In supervised learning, finding a model that could predict</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:475"><nobr><span class="ft10">the true underlying probability for each test case would be<br>optimal. We refer to such an ideal model as the One True<br>Model. Any reasonable performance metric should be opti-<br>mized (in expectation, at least) by the one true model, and<br>no other model should yield performance better than it.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:489"><nobr><span class="ft4">Unfortunately, we usually do not know how to train mod-</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:475"><nobr><span class="ft10">els to predict the true underlying probabilities. The one<br>true model is not easy to learn. Either the correct paramet-<br>ric model type for the domain is not known, or the training<br>sample is too small for the model parameters to be esti-<br>mated accurately, or there is noise in the data. Typically,<br>all of these problems occur together to varying degrees.</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:489"><nobr><span class="ft4">Even if magically the one true model were given to us, we</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:475"><nobr><span class="ft10">would have difficulty selecting it from other less true models.<br>We do not have performance metrics that will reliably assign<br>best performance to the probabilistically true model given<br>finite validation data.</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:489"><nobr><span class="ft4">In practice, we train models to minimize loss measured via</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:475"><nobr><span class="ft10">a specific performance metric. Since we don't have metrics<br>that could reliably select the one true model, we must ac-<br>cept the fact that the model(s) we select will necessarily be<br>suboptimal. There may be only one true model, but there<br>are many suboptimal models.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:489"><nobr><span class="ft4">There are different ways that suboptimal models can dif-</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:475"><nobr><span class="ft10">fer from the one true model ­ tradeoffs can be made between<br>different kinds of deviation from the one true model. Differ-<br>ent performance metrics reflect these different tradeoffs. For<br>example, ordering metrics such as area under the ROC curve<br>and average precision do not care if the predicted values are<br>near the true probabilities, but depend only on the rela-<br>tive size of the values. Dividing all predictions by ten does<br>not change the ROC curve, and metrics based on the ROC<br>curve are insensitive to this kind of deviation from truth.<br>Metrics such as squared error and cross entropy, however,<br>are greatly affected by scaling the predicted values, but are<br>less affected by small changes in predicted values that might<br>alter the relative ordering but not significantly change the<br>deviation from the target values. Squared error and cross<br>entropy reflect very different tradeoffs than metrics based<br>on the ROC curve. Similarly, metrics such as accuracy de-<br>pend on how the predicted values fall relative to a threshold.<br>If predicted values are rescaled, accuracy will be unaffected<br>if the threshold also is rescaled. But if small changes to</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">69</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft13{font-size:3px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63002.png" alt="background image">
+<DIV style="position:absolute;top:187;left:104"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:100"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:100"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:100"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:100"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:104"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:109"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:126"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:145"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:165"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:184"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:205"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:92"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:155"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:162"><nobr><span class="ft12">Max ACC</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:229"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:224"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:224"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:224"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:224"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:229"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:234"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:251"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:270"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:289"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:308"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:330"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:217"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:280"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:287"><nobr><span class="ft12">Max AUC</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:353"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:349"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:349"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:349"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:349"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:353"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:358"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:375"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:394"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:414"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:433"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:454"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:341"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:404"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:412"><nobr><span class="ft12">Min RMS</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:477"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:473"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:473"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:473"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:473"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:477"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:483"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:500"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:519"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:538"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:557"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:579"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:466"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:529"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:537"><nobr><span class="ft12">Min MXE</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:602"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:598"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:598"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:598"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:598"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:602"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:607"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:624"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:643"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:663"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:682"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:703"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:590"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:653"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:662"><nobr><span class="ft12">Min CAL</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:726"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:722"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:722"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:722"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:722"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:726"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:732"><nobr><span class="ft12"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:749"><nobr><span class="ft12"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:768"><nobr><span class="ft12"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:787"><nobr><span class="ft12"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:806"><nobr><span class="ft12"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:828"><nobr><span class="ft12"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:715"><nobr><span class="ft13">W2</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:778"><nobr><span class="ft12">W1</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:785"><nobr><span class="ft12">Max SAR</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:95"><nobr><span class="ft4">Figure 1: Level curves for six error metrics: ACC, AUC, RMS, MXE, CAL, SAR for a simple problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:81"><nobr><span class="ft10">predicted values are made for cases near the threshold, this<br>can have large impact on accuracy. Accuracy reflects yet<br>another tradeoff in how deviation from truth is measured.</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:94"><nobr><span class="ft4">The one true model, if available, would have (in expecta-</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:81"><nobr><span class="ft10">tion) the best accuracy, the best ROC curve, and the best<br>cross entropy, and the different tradeoffs made by these met-<br>rics would not be important. But once we accept that we<br>will not be able to find the one true model, and must there-<br>fore accept suboptimal models, the different tradeoffs made<br>by different performance metrics become interesting and im-<br>portant. Unfortunately, little is known about how different<br>performance metrics compare to each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:94"><nobr><span class="ft4">In this paper we present results from an empirical anal-</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:81"><nobr><span class="ft10">ysis of nine widely used performance metrics. We perform<br>this empirical comparison using models trained with seven<br>learning algorithms: SVMs, neural nets, k-nearest neigh-<br>bor, bagged and boosted trees, and boosted stumps. We<br>use multidimensional scaling (MDS) and correlation analy-<br>sis to interpret the results. We also examine which learning<br>methods perform best on the different metrics. Finally, we<br>introduce a new metric, SAR, that combines squared error,<br>accuracy, and ROC area into a single, robust metric.</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:112"><nobr><span class="ft3"><b>THE PERFORMANCE METRICS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:94"><nobr><span class="ft4">We experiment with nine performance metrics for boolean</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:81"><nobr><span class="ft10">classification: Accuracy (ACC), Lift (LFT), F-Score (FSC),<br>Area under the ROC Curve (AUC), Average Precision (APR),<br>the Precision/Recall Break-Even Point (BEP), Root Mean<br>Squared Error (RMS), Mean Cross Entropy (MXE), and<br>Probability Calibration (CAL). Definitions for each of the<br>metrics can be found in Appendix A.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:94"><nobr><span class="ft4">Figure 1 shows level curves for six of the ten performance</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:81"><nobr><span class="ft10">metrics for a model with only two parameters (W 1 and W 2)<br>trained on a simple synthetic binary problem. Peak perfor-<br>mance in the first two plots occurs along a ridge in weight<br>space. In the other four plots peak performance is indicated<br>by solid dots. Peak performance for some metrics nearly<br>coincide: RMS and MXE peak at nearly the same model<br>weights. But other metrics peak in different places: CAL<br>has a local optimum near the optima for RMS and MXE,<br>but its global optimum is in a different place. Also, the<br>ridges for optimal ACC and optimal AUC do not align, and<br>the ridges do not cross the optima for the other four metrics.<br>Optimizing to each of these metrics yields different models,<br>each representing different tradeoffs in the kinds of errors<br>the models make. Which of these tradeoffs is best depends<br>on the problem, the learning algorithm, and how the model<br>predictions ultimately will be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:94"><nobr><span class="ft4">We originally divided the nine metrics into three groups:</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft10">threshold metrics, ordering/rank metrics, and probability<br>metrics. The three threshold metrics are accuracy (ACC),</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:475"><nobr><span class="ft10">F-score (FSC) and lift (LFT). F-score is the harmonic mean<br>of precision and recall at some threshold. Lift measures the<br>true positive rate in the fraction of cases that fall above<br>threshold. (See Appendix A for a definition of lift, and [3]<br>for a description of Lift Curves. Lift is the same as precision<br>at some threshold, but scaled so that it can be larger than<br>1.) Usually ACC and FSC use a fixed threshold. In this<br>paper we use 0.5. With lift, often the threshold is adjusted<br>so that a fixed percent, p, of cases are predicted as positive,<br>the rest falling below threshold. Usually p depends on the<br>problem. For example, in marketing one might want to send<br>fliers to 10% of customers. Here we somewhat arbitrarily set<br>p = 25% for all problems. Note that for all threshold metrics<br>it is not important how close a prediction is too a threshold,<br>only if the predicted value is above or below threshold.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:489"><nobr><span class="ft4">The ordering/rank metrics look at predictions differently</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:475"><nobr><span class="ft10">from the threshold metrics. If cases are ordered by predicted<br>value, the ordering/rank metrics measure how well the or-<br>dering ranks positive cases above negative cases. The rank<br>metrics can be viewed as a summary of the performance of<br>a model across all possible thresholds. The rank metrics we<br>use are area under the ROC curve (AUC), average precision<br>(APR), and precision/recall break even point (BEP). See<br>[10] for a discussion of ROC curves from a machine learn-<br>ing perspective. Rank metrics depend only on the ordering<br>of the predictions, not the actual predicted values. If the<br>ordering is preserved it makes no difference if the predicted<br>values range between 0 and 1 or between 0.29 and 0.31.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:489"><nobr><span class="ft4">Although we group Lift with the threshold metrics, and</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:475"><nobr><span class="ft10">BEP with the ordering metrics, BEP and Lift are similar to<br>each other in some respects. Lift is directly proportional to<br>BEP if Lift is calculated at p equal to the proportion of pos-<br>itives in the data set. This threshold also is the break-even<br>point where precision equals recall. BEP and Lift are sim-<br>ilar to the ordering metrics because the threshold depends<br>implicitly on the ordering, but also are similar to the thresh-<br>old metrics because neither is sensitive to the orderings on<br>either side of the threshold once that threshold has been<br>defined. Results presented later suggest that both Lift and<br>BEP are more similar to the ordering metrics than to the<br>threshold metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:489"><nobr><span class="ft4">The three probability metrics depend on the predicted val-</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:475"><nobr><span class="ft10">ues, not on how the values fall relative to a threshold or rela-<br>tive to each other. The probability metrics are uniquely min-<br>imized (in expectation) when the predicted value for each<br>case coincides with the true probability of that case being<br>positive. The probability metrics we consider are squared<br>error (RMS), cross entropy (MXE) and calibration (CAL).<br>CAL measures the calibration of a model: if a model predicts<br>0.85 for a large number of cases, about 85% of those cases<br>should prove to be positive if the model is well calibrated.<br>See Appendix A for details of how CAL is calculated.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">70</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63003.png" alt="background image">
+<DIV style="position:absolute;top:85;left:94"><nobr><span class="ft4">We also experiment with a new performance metric, SAR,</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:81"><nobr><span class="ft10">that combines squared error, accuracy, and ROC area into<br>one measure: SAR = (ACC + AU C + (1 - RM S))/3. SAR<br>behaves somewhat differently from ACC, AUC, and RMS<br>alone, and is a robust metric to use when the correct metric<br>is unknown. SAR is discussed further in Section 8.</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:81"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:112"><nobr><span class="ft3"><b>NORMALIZING THE SCORES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:94"><nobr><span class="ft4">Performance metrics such as accuracy or squared error</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:81"><nobr><span class="ft10">have range [0, 1], while others (lift, cross entropy) range from<br>0 to q where q depends on the data set. For some metrics<br>lower values indicate better performance. For others higher<br>values are better. Metrics such as ROC area have baseline<br>rates that are independent of the data, while others such as<br>accuracy have baseline rates that depend on the data. If<br>baseline accuracy is 0.98, an accuracy of 0.981 probably is<br>not good performance, yet on another problem, if the Bayes<br>optimal rate is 0.60, achieving an accuracy of 0.59 might be<br>excellent performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:94"><nobr><span class="ft4">In order to compare performance metrics in a meaningful</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:81"><nobr><span class="ft10">way, all the metrics need to be placed on a similar scale. One<br>way to do this is to scale the performances for each problem<br>and metric from 0 to 1, where 0 is poor performance, and 1<br>is good performance. For example, we might place baseline<br>performance at 0, and the Bayes optimal performance at 1.<br>Unfortunately, we cannot estimate the Bayes optimal rate<br>on real problems. Instead, we can use the performance of<br>the best observed model as a proxy for the Bayes optimal<br>performance. We calculate baseline rate as follows: predict<br>p for every case, where p is the percent of positives in the test<br>set. We normalize performances to the range [0, 1], where<br>0 is baseline and 1 represents best performance. If a model<br>performs worse than baseline, its normalized score will be<br>negative. See Table 1 for an example of normalized scores.<br>The disadvantage of normalized scores is that recovering the<br>raw performances requires knowing the performances that<br>define the top and bottom of the scale, and as new best<br>models are found the top of the scale changes.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:94"><nobr><span class="ft4">CAL, the metric we use to measure probability calibra-</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:81"><nobr><span class="ft10">tion, is unusual in that the baseline model that predicts p<br>for all cases, where p is the percent of positives in the test<br>set, has excellent calibration. (Because of this, measures like<br>CAL typically are not used alone, but are used in conjunc-<br>tion with other measures such as AUC to insure that only<br>models with good discrimination and good calibration are<br>selected. See Figure 1 for a picture of how unusual CAL's<br>error surface is compared with other metrics.) This creates a<br>problem when normalizing CAL scores because the baseline<br>model and Bayes optimal model have similar CAL scores.<br>This does not mean CAL is a poor metric ­ it is effective at<br>distinguishing poorly calibrated models from well calibrated<br>models. We address this problem later in the paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:81"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:112"><nobr><span class="ft3"><b>EXPERIMENTAL DESIGN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:94"><nobr><span class="ft4">The goal of this work is to analyze how the ten metrics</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft10">compare to each other. To do this we train many different<br>kinds of models on seven test problems, and calculate for<br>each test problem the performance of every model on the<br>ten metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:94"><nobr><span class="ft4">We train models using seven learning algorithms: Neu-</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:81"><nobr><span class="ft10">ral Nets (ANN), SVMs, Bagged Decision Trees (BAG-DT),<br>Boosted Decision Trees (BST-DT), Boosted Decision Stumps</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:518"><nobr><span class="ft4">Table 1: Accuracy on ADULT problem</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:482"><nobr><span class="ft14">model</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:629"><nobr><span class="ft14">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:745"><nobr><span class="ft14">norm score</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:482"><nobr><span class="ft14">bst-stmp</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:621"><nobr><span class="ft14">0.8556</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:761"><nobr><span class="ft14">1.0000</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:482"><nobr><span class="ft14">bag-dt</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:621"><nobr><span class="ft14">0.8534</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:761"><nobr><span class="ft14">0.9795</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:482"><nobr><span class="ft14">dt</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:621"><nobr><span class="ft14">0.8503</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:761"><nobr><span class="ft14">0.9494</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:482"><nobr><span class="ft14">svm</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:621"><nobr><span class="ft14">0.8480</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:761"><nobr><span class="ft14">0.9267</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:482"><nobr><span class="ft14">bst-dt</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:621"><nobr><span class="ft14">0.8464</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:761"><nobr><span class="ft14">0.9113</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:482"><nobr><span class="ft14">ann</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:621"><nobr><span class="ft14">0.8449</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:761"><nobr><span class="ft14">0.8974</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:482"><nobr><span class="ft14">knn</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:621"><nobr><span class="ft14">0.8320</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:761"><nobr><span class="ft14">0.7731</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:482"><nobr><span class="ft14">baseline</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:621"><nobr><span class="ft14">0.7518</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:761"><nobr><span class="ft14">0.0000</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:475"><nobr><span class="ft10">(BST-STMP), single Decision Trees (DT) and Memory Based<br>Learning (KNN). For each algorithm we train many variants<br>and many parameter settings. For example, we train ten<br>styles of decision trees, neural nets of different sizes, SVMs<br>using many different kernels, etc. A total of 2000 models are<br>trained and tested on each problem. See Appendix B for a<br>description of the parameter settings we use for each learn-<br>ing method. While this strategy won't create every possible<br>model, and won't create a uniform sample of the space of<br>possible models, we feel that this is an adequate sample of<br>the models that often will be trained in practice.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:489"><nobr><span class="ft4">For each problem, the 2000 models are trained on the same</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:475"><nobr><span class="ft10">train set of 4000 points. The performance of each model<br>is measured on the same large test set for each of the ten<br>performance metrics. In order put the performances on the<br>same scale across different metrics and different problems,<br>we transform the raw performance to normalized scores as<br>explained in Section 3. In total, across the seven problems,<br>we have 2000  7 = 14, 000 models and for each model we<br>have it's score on each of the 10 performances metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:475"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:506"><nobr><span class="ft3"><b>DATA SETS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:489"><nobr><span class="ft4">We compare the algorithms on seven binary classification</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:475"><nobr><span class="ft10">problems. ADULT, COVER TYPE and LETTER are from<br>UCI Repository [1]. ADULT is the only problem that has<br>nominal attributes. For ANNs, SVMs and KNNs we trans-<br>form nominal attributes to boolean. Each DT, BAG-DT,<br>BST-DT and BST-STMP model is trained twice, once with<br>the transformed attributes and once with the original at-<br>tributes. COVER TYPE has been converted to a binary<br>problem by treating the largest class as the positive and the<br>rest as negative. We converted LETTER to boolean in two<br>ways. LETTER.p1 treats the letter "O" as positive and the<br>remaining 25 letters as negative, yielding a very unbalanced<br>binary problem. LETTER.p2 uses letters A-M as positives<br>and the rest as negatives, yielding a well balanced problem.<br>HYPER SPECT is the IndianPine92 data set [4] where the<br>difficult class Soybean-mintill is the positive class. SLAC is<br>a problem from collaborators at the Stanford Linear Accel-<br>erator and MEDIS is a medical data set. The characteristics<br>of these data sets are summarized in Table 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:540"><nobr><span class="ft4">Table 2: Description of problems</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:489"><nobr><span class="ft14">problem</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:578"><nobr><span class="ft14">#attr</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:633"><nobr><span class="ft14">train size</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:708"><nobr><span class="ft14">test size</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:777"><nobr><span class="ft14">% pos.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:489"><nobr><span class="ft14">adult</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:578"><nobr><span class="ft14">14/104</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:718"><nobr><span class="ft14">35222</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:792"><nobr><span class="ft14">25%</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:489"><nobr><span class="ft14">cover type</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:591"><nobr><span class="ft14">54</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:718"><nobr><span class="ft14">25000</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:792"><nobr><span class="ft14">36%</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:489"><nobr><span class="ft14">letter.p1</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:591"><nobr><span class="ft14">16</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:718"><nobr><span class="ft14">14000</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:798"><nobr><span class="ft14">3%</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:489"><nobr><span class="ft14">letter.p2</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:591"><nobr><span class="ft14">16</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:718"><nobr><span class="ft14">14000</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:792"><nobr><span class="ft14">53%</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:489"><nobr><span class="ft14">medis</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:591"><nobr><span class="ft14">63</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:721"><nobr><span class="ft14">8199</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:792"><nobr><span class="ft14">11%</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:489"><nobr><span class="ft14">slac</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:591"><nobr><span class="ft14">59</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:718"><nobr><span class="ft14">25000</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:792"><nobr><span class="ft14">50%</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:489"><nobr><span class="ft14">hyper spect</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:587"><nobr><span class="ft14">200</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:650"><nobr><span class="ft14">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:721"><nobr><span class="ft14">4366</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:792"><nobr><span class="ft14">24%</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">71</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63004.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:112"><nobr><span class="ft3"><b>MDS IN METRIC SPACE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:94"><nobr><span class="ft4">Training 2000 models on each problem using seven learn-</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:81"><nobr><span class="ft10">ing algorithms gives us 14,000 models, each of which is eval-<br>uated on ten performance metrics. This gives us 14,000<br>sample points to compare for each performance metric. We<br>build a 10x14,000 table where lines represent the perfor-<br>mance metrics, columns represent the models, and each en-<br>try in the table is the score of the model on that metric.<br>For MDS, we treat each row in the table as the coordinate<br>of a point in a 14,000 dimension space. The distance be-<br>tween two metrics is calculated as the Euclidean distance<br>between the two corresponding points in this space. Be-<br>cause the coordinates are strongly correlated, there is no<br>curse-of-dimensionality problem with Euclidean distance in<br>this 14,000 dimensional space.</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:94"><nobr><span class="ft4">We are more interested in how the metrics compare to</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:81"><nobr><span class="ft10">each other when models have good performance than when<br>models have poor performance. Because of this, we delete<br>columns representing poorer performing models in order to<br>focus on the "interesting" part of the space where models<br>that have good performance lie. For the analyses reported<br>in this paper we delete models that perform below baseline<br>on any metric (except CAL).</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:94"><nobr><span class="ft4">Ten metrics permits 10  9/2 = 45 pairwise comparisons.</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:81"><nobr><span class="ft10">We calculate Euclidean distance between each pair of met-<br>rics in the sample space, and then perform multidimensional<br>scaling on these pairwise distances between metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:94"><nobr><span class="ft4">MDS is sensitive to how the performance metrics are scaled.</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:81"><nobr><span class="ft10">The normalized scores described in Section 3 yield well-<br>scaled performances suitable for MDS analysis for most met-<br>rics. Unfortunately, as discussed in Section 3, normalized<br>scores do not work well with CAL. Because of this, we per-<br>form MDS two ways. In the first, we use normalized scores,<br>but exclude the CAL metric. In the second, we include CAL,<br>but scale performances to mean 0.0 and standard deviation<br>1.0 instead of using normalized scores. Scaling by standard<br>deviation resolves the problem with CAL for MDS, but is<br>somewhat less intuitive because scores scaled by standard<br>deviation depend on the full distribution of models instead<br>of just the performances that fall at the top and bottom of<br>each scale.</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:94"><nobr><span class="ft4">Figure 2 shows the MDS stress as a function of the number</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:81"><nobr><span class="ft10">of dimensions in the MDS (when CAL is included). The<br>ten metrics appear to span an MDS space of about 3 to 5<br>dimensions. In this section we examine the 2-D MDS plots<br>in some detail.</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:94"><nobr><span class="ft4">Figure 3 shows two MDS plots for the metrics that result</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:81"><nobr><span class="ft10">when dimensionality is reduced to two dimensions. The plot<br>on the left is MDS using normalized scores when CAL is<br>excluded. The plot on the right is MDS using standard<br>deviation scaled scores when CAL is included.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:94"><nobr><span class="ft4">Both MDS plots show a similar pattern. The metrics ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:81"><nobr><span class="ft10">pear to form 4-5 somewhat distinct groups. In the upper<br>right hand corner is a group that includes AUC, APR, BEP,<br>LFT, and SAR. The other groups are RMS and MXE, ACC<br>(by itself, or possibly with FSC), FSC (by itself, or possibly<br>with ACC), and CAL (by itself). It is not surprising that<br>squared error and cross entropy form a cluster. Also, pre-<br>sumably because squared error tends to be better behaved<br>than cross entropy, RMS is closer to the other measures than<br>MXE. We are somewhat surprised that RMS is so centrally<br>located in the MDS plots. Perhaps this partially explains<br>why squared error has proved so useful in many applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:506"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:496"><nobr><span class="ft15">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:500"><nobr><span class="ft15">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:496"><nobr><span class="ft15">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:500"><nobr><span class="ft15">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:496"><nobr><span class="ft15">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:500"><nobr><span class="ft15">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:496"><nobr><span class="ft15">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:500"><nobr><span class="ft15">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:520"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:561"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:602"><nobr><span class="ft15">3</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:644"><nobr><span class="ft15">4</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:685"><nobr><span class="ft15">5</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:726"><nobr><span class="ft15">6</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:767"><nobr><span class="ft15">7</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:808"><nobr><span class="ft15">8</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:488"><nobr><span class="ft15">MDS Stress</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:623"><nobr><span class="ft15">Number of MDS Dimensions</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:487"><nobr><span class="ft4">Figure 2: MDS stress vs. number of dimensions</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:489"><nobr><span class="ft4">It is somewhat surprising that accuracy does not appear</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:475"><nobr><span class="ft10">to correlate strongly with any of the other metrics, except<br>possibly with FSC. ACC does not fall very close to other<br>metrics that use thresholds such as Lift and F-Score, even<br>though F-Score uses the same 0.5 threshold as accuracy in<br>our experiments. (The threshold for Lift is adjusted dynam-<br>ically so that 25% of the cases are predicted as positive.)<br>Accuracy is surprisingly close to RMS, and closer to RMS<br>than to MXE, again suggesting that part of the reason why<br>RMS has been so useful is because of its close relationship<br>to a metric such as ACC that has been so widely used.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:489"><nobr><span class="ft4">The most surprising pattern in the MDS plot that in-</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:475"><nobr><span class="ft10">cludes CAL is that CAL is distant from most other met-<br>rics. There appears to be an axis running from CAL at<br>one end to the ordering metrics such as AUC and APR<br>at the other end that forms the largest dimension in the<br>space. This is surprising because one way to achieve ex-<br>cellent ordering is to accurately predict true probabilities,<br>which is measured by the calibration metric. However, one<br>can achieve excellent AUC and APR using predicted values<br>that have extremely poor calibration, yet accurately predict<br>the relative ordering of the cases. The MDS plot suggests<br>that many models which achieve excellent ordering do so<br>without achieving good probabilistic calibration. Closer ex-<br>amination shows that some models such as boosted decision<br>trees yield remarkably good ordering, yet have extremely<br>poor calibration.</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:592"><nobr><span class="ft4">We believe maximum margin methods</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:475"><nobr><span class="ft10">such as boosting tradeoff reduced calibration for better mar-<br>gin. See Section 9 for further discussion of this issue. One<br>also can achieve good calibration, yet have poor AUC and<br>APR. For example, decision trees with few leaves may be<br>well calibrated, but the coarse set of values they predict do<br>not provide a basis for good ordering.</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:489"><nobr><span class="ft4">Figure 4 shows 2-D MDS plots for six of the seven test</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft10">problems. The seventh plot is similar and is omitted to<br>save space. (The omitted plot is one of the two LETTER<br>problems.) Although there are variations between the plots,<br>the 2-D MDS plots for the seven problems are remarkably<br>consistent given that these are different test problems. The<br>consistency between the seven MDS plots suggests that we<br>have an adequate sample size of models to reliably detect re-<br>lationships between the metrics. Metrics such as ACC, FSC,<br>and LFT seem to move around with respect to each other in<br>these plots. This may be because they have different sensi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">72</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:8px;font-family:Helvetica;color:#000080;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63005.png" alt="background image">
+<DIV style="position:absolute;top:239;left:172"><nobr><span class="ft16">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:186"><nobr><span class="ft16">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:382"><nobr><span class="ft16">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:405"><nobr><span class="ft16">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:330"><nobr><span class="ft16">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:347"><nobr><span class="ft16">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:239"><nobr><span class="ft16">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:277"><nobr><span class="ft16">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:357"><nobr><span class="ft16">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:78"><nobr><span class="ft16">Dim 2</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:97"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:97"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:97"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:97"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:97"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:97"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:97"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:97"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:257"><nobr><span class="ft16">Dim 1</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:123"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:164"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:205"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:246"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:289"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:331"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:372"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:413"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:645"><nobr><span class="ft16">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:591"><nobr><span class="ft16">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:797"><nobr><span class="ft16">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:789"><nobr><span class="ft16">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:762"><nobr><span class="ft16">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:723"><nobr><span class="ft16">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:640"><nobr><span class="ft16">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:680"><nobr><span class="ft16">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:527"><nobr><span class="ft16">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:719"><nobr><span class="ft16">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:466"><nobr><span class="ft16">Dim 2</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:486"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:486"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:486"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:486"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:486"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:486"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:486"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:486"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:645"><nobr><span class="ft16">Dim 1</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:506"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:548"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:590"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:633"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:677"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:719"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:762"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:804"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:133"><nobr><span class="ft4">Figure 3: 2D MDS plot using normalized scores (left) and standard deviation scaling (right).</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:81"><nobr><span class="ft10">tivities to the ratio of positives to negatives in the data sets.<br>For example, BEP is proprtional to LFT (and thus behaves<br>similarly) when the percentage of positives in the dataset<br>equals the fraction predicted above threshold (25% in this<br>paper). Other than this, we have not been able to correlate<br>differences we see in the individual plots with characteris-<br>tics of the problems that might explain those differences,<br>and currently believe that the MDS plots that combine all<br>seven problems in Figure 3 represents an accurate summary<br>of the relationships between metrics. Note that this does<br>not mean that the performance of the different learning al-<br>gorithms exhibits the same pattern on these test problems<br>(in fact they are very different), only that the relationships<br>between the ten metrics appear to be similar across the test<br>problems when all the learning algorithms are considered at<br>one time.</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:81"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:112"><nobr><span class="ft3"><b>CORRELATION ANALYSIS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:94"><nobr><span class="ft4">As with the MDS analysis in the previous section, we</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:81"><nobr><span class="ft10">used each of the ten performance metrics to measure the<br>performance of the 2000 models trained with the different<br>learning methods on each of the seven test problems. In<br>this section we use correlation analysis on these models to<br>compare metrics instead of MDS.</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:94"><nobr><span class="ft4">Again, to make the correlation analysis easier to inter-</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft10">pret, we first scale performances to the range [0, 1] so that<br>the best performance we observed with that metric on each<br>problem with any of the learning methods is performance<br>1, and baseline performance with that metric and data set<br>is performance 0. This eliminates the inverse correlation<br>between measures such as accuracy and squared error, and<br>normalizes the scale of each metric.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:94"><nobr><span class="ft4">Ten metrics permits 10  9/2 = 45 pairwise correlations.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:81"><nobr><span class="ft10">We do these comparisons using both linear correlation (ex-<br>cluding CAL) and rank correlation. The results from the<br>linear and rank correlation analyses are qualitatively sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:475"><nobr><span class="ft10">ilar. We present the results for non-parametric rank cor-<br>relation because rank correlation makes fewer assumptions<br>about the relationships between the metrics, and because<br>rank correlation is insensitive to how CAL is scaled.</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:489"><nobr><span class="ft4">Table 3 shows the rank correlation between all pairs of</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:475"><nobr><span class="ft10">metrics. Each entry in the table is the average rank cor-<br>relation across the seven test problems. The table is sym-<br>metric and contains only 45 unique pairwise comparisons.<br>We present the full matrix because this makes it easier to<br>scan some comparisons. The final column is the mean of<br>the rank correlations for each metric. This gives a rough<br>idea how correlated each metric is on average to all other<br>metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:489"><nobr><span class="ft4">Metrics with pairwise rank correlations near one behave</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:475"><nobr><span class="ft10">more similarly than those with smaller rank correlations. Ig-<br>noring the SAR metric which is discussed in the next section,<br>seven metric pairs have rank correlations above 0.90:</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:474"><nobr><span class="ft4">0.96: Lift to ROC Area</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:474"><nobr><span class="ft4">0.95: ROC Area to Average Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:474"><nobr><span class="ft4">0.93: Accuracy to Break-even Point</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:474"><nobr><span class="ft4">0.92: RMS to Cross-Entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:474"><nobr><span class="ft4">0.92: Break-Even Point to ROC Area</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:474"><nobr><span class="ft4">0.92: Break-Even Point to Average Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:474"><nobr><span class="ft4">0.91: Average Precision to Lift</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:489"><nobr><span class="ft4">We expected AUC and average precision to behave very</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:475"><nobr><span class="ft10">similarly and thus have high rank correlation. But we are<br>surprised to see that Lift has such high correlation to AUC.<br>Note that because Lift has high correlation to AUC, and<br>AUC has high correlation to average precision, it is not sur-<br>prising that Lift also has high correlation to average preci-<br>sion. As expected, break-even point is highly correlated with<br>the other two ordering metrics, AUC and average precision.<br>But the high correlation between accuracy and break-even</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">73</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:6px;font-family:Helvetica;color:#000080;}
+	.ft18{font-size:7px;font-family:Helvetica;color:#000080;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63006.png" alt="background image">
+<DIV style="position:absolute;top:144;left:279"><nobr><span class="ft17">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:178"><nobr><span class="ft17">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:365"><nobr><span class="ft17">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:364"><nobr><span class="ft17">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:410"><nobr><span class="ft17">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:326"><nobr><span class="ft17">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:254"><nobr><span class="ft17">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:291"><nobr><span class="ft17">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:132"><nobr><span class="ft17">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:304"><nobr><span class="ft17">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:96"><nobr><span class="ft18">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:96"><nobr><span class="ft18">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:96"><nobr><span class="ft18">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:96"><nobr><span class="ft18">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:96"><nobr><span class="ft18">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:96"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:96"><nobr><span class="ft18">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:96"><nobr><span class="ft18">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:234"><nobr><span class="ft17">COVER_TYPE</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:111"><nobr><span class="ft17">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:154"><nobr><span class="ft17">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:196"><nobr><span class="ft17">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:238"><nobr><span class="ft17">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:282"><nobr><span class="ft17">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:324"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:366"><nobr><span class="ft17">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:408"><nobr><span class="ft17">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:598"><nobr><span class="ft18">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:557"><nobr><span class="ft18">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:741"><nobr><span class="ft18">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:756"><nobr><span class="ft18">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:721"><nobr><span class="ft18">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:741"><nobr><span class="ft18">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:606"><nobr><span class="ft18">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:655"><nobr><span class="ft18">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:523"><nobr><span class="ft18">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:669"><nobr><span class="ft18">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:474"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:474"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:474"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:474"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:474"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:474"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:474"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:474"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:625"><nobr><span class="ft18">ADULT</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:479"><nobr><span class="ft18">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:521"><nobr><span class="ft18">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:562"><nobr><span class="ft18">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:604"><nobr><span class="ft18">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:647"><nobr><span class="ft18">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:688"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:730"><nobr><span class="ft18">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:771"><nobr><span class="ft18">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:268"><nobr><span class="ft18">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:226"><nobr><span class="ft18">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:409"><nobr><span class="ft18">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:392"><nobr><span class="ft18">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:324"><nobr><span class="ft18">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:306"><nobr><span class="ft18">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:233"><nobr><span class="ft18">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:235"><nobr><span class="ft18">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:119"><nobr><span class="ft18">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:314"><nobr><span class="ft18">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:97"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:97"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:97"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:97"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:97"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:97"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:97"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:97"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:237"><nobr><span class="ft18">LETTER.P1</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:118"><nobr><span class="ft18">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:156"><nobr><span class="ft18">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:194"><nobr><span class="ft18">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:233"><nobr><span class="ft18">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:273"><nobr><span class="ft18">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:311"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:349"><nobr><span class="ft18">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:388"><nobr><span class="ft18">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:653"><nobr><span class="ft18">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:592"><nobr><span class="ft18">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:698"><nobr><span class="ft18">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:742"><nobr><span class="ft18">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:728"><nobr><span class="ft18">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:695"><nobr><span class="ft18">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:652"><nobr><span class="ft18">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:681"><nobr><span class="ft18">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:513"><nobr><span class="ft18">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:679"><nobr><span class="ft18">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:475"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:475"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:475"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:475"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:475"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:475"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:475"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:475"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:603"><nobr><span class="ft18">HYPER_SPECT</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:501"><nobr><span class="ft18">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:538"><nobr><span class="ft18">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:576"><nobr><span class="ft18">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:614"><nobr><span class="ft18">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:653"><nobr><span class="ft18">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:691"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:728"><nobr><span class="ft18">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:766"><nobr><span class="ft18">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:167"><nobr><span class="ft18">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:160"><nobr><span class="ft18">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:408"><nobr><span class="ft18">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:414"><nobr><span class="ft18">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:342"><nobr><span class="ft18">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:330"><nobr><span class="ft18">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:236"><nobr><span class="ft18">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:257"><nobr><span class="ft18">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:178"><nobr><span class="ft18">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:371"><nobr><span class="ft18">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:97"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:97"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:97"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:97"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:97"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:97"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:97"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:97"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:249"><nobr><span class="ft18">MEDIS</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:116"><nobr><span class="ft18">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:156"><nobr><span class="ft18">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:195"><nobr><span class="ft18">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:235"><nobr><span class="ft18">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:276"><nobr><span class="ft18">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:316"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:356"><nobr><span class="ft18">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:396"><nobr><span class="ft18">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:688"><nobr><span class="ft17">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:576"><nobr><span class="ft17">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:727"><nobr><span class="ft17">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:725"><nobr><span class="ft17">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:757"><nobr><span class="ft17">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:735"><nobr><span class="ft17">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:631"><nobr><span class="ft17">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:593"><nobr><span class="ft17">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:564"><nobr><span class="ft17">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:683"><nobr><span class="ft17">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:474"><nobr><span class="ft16">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:474"><nobr><span class="ft16">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:474"><nobr><span class="ft16">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:474"><nobr><span class="ft16">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:474"><nobr><span class="ft16">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:474"><nobr><span class="ft16">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:474"><nobr><span class="ft16">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:474"><nobr><span class="ft16">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:629"><nobr><span class="ft17">SLAC</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:508"><nobr><span class="ft17">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:545"><nobr><span class="ft17">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:582"><nobr><span class="ft17">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:619"><nobr><span class="ft17">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:658"><nobr><span class="ft17">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:695"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:732"><nobr><span class="ft17">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:770"><nobr><span class="ft17">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1076;left:81"><nobr><span class="ft10">Figure 4: 2-D MDS plots for six of the seven test problems. The seventh problem yields a similar plot and<br>is omitted only to save space. The missing plot is for one of the LETTER problems.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">74</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:9px;font-family:Helvetica;color:#000085;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63007.png" alt="background image">
+<DIV style="position:absolute;top:95;left:276"><nobr><span class="ft4">Table 3: Average rank correlations between metrics</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:194"><nobr><span class="ft14">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:250"><nobr><span class="ft14">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:304"><nobr><span class="ft14">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:357"><nobr><span class="ft14">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:412"><nobr><span class="ft14">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:467"><nobr><span class="ft14">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:521"><nobr><span class="ft14">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:575"><nobr><span class="ft14">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:630"><nobr><span class="ft14">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:685"><nobr><span class="ft14">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:741"><nobr><span class="ft14">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:139"><nobr><span class="ft14">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:193"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:247"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:302"><nobr><span class="ft14">0.85</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:356"><nobr><span class="ft14">0.88</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:411"><nobr><span class="ft14">0.89</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:465"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:520"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:575"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:629"><nobr><span class="ft14">0.56</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:683"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:741"><nobr><span class="ft14">0.852</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:139"><nobr><span class="ft14">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:193"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:247"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:302"><nobr><span class="ft14">0.77</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:356"><nobr><span class="ft14">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:411"><nobr><span class="ft14">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:465"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:520"><nobr><span class="ft14">0.79</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:575"><nobr><span class="ft14">0.69</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:629"><nobr><span class="ft14">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:683"><nobr><span class="ft14">0.84</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:741"><nobr><span class="ft14">0.796</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:139"><nobr><span class="ft14">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:193"><nobr><span class="ft14">0.85</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:247"><nobr><span class="ft14">0.77</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:302"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:356"><nobr><span class="ft14">0.96</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:411"><nobr><span class="ft14">0.91</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:465"><nobr><span class="ft14">0.89</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:520"><nobr><span class="ft14">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:575"><nobr><span class="ft14">0.73</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:629"><nobr><span class="ft14">0.47</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:683"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:741"><nobr><span class="ft14">0.832</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:139"><nobr><span class="ft14">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:193"><nobr><span class="ft14">0.88</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:247"><nobr><span class="ft14">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:302"><nobr><span class="ft14">0.96</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:356"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:411"><nobr><span class="ft14">0.95</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:465"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:520"><nobr><span class="ft14">0.85</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:575"><nobr><span class="ft14">0.77</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:629"><nobr><span class="ft14">0.51</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:683"><nobr><span class="ft14">0.96</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:741"><nobr><span class="ft14">0.861</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:139"><nobr><span class="ft14">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:193"><nobr><span class="ft14">0.89</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:247"><nobr><span class="ft14">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:302"><nobr><span class="ft14">0.91</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:356"><nobr><span class="ft14">0.95</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:411"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:465"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:520"><nobr><span class="ft14">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:575"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:629"><nobr><span class="ft14">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:683"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:741"><nobr><span class="ft14">0.853</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:139"><nobr><span class="ft14">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:193"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:247"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:302"><nobr><span class="ft14">0.89</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:356"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:411"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:465"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:520"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:575"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:629"><nobr><span class="ft14">0.52</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:683"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:741"><nobr><span class="ft14">0.860</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:139"><nobr><span class="ft14">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:193"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:247"><nobr><span class="ft14">0.79</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:302"><nobr><span class="ft14">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:356"><nobr><span class="ft14">0.85</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:411"><nobr><span class="ft14">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:465"><nobr><span class="ft14">0.87</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:520"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:575"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:629"><nobr><span class="ft14">0.79</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:683"><nobr><span class="ft14">0.95</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:741"><nobr><span class="ft14">0.872</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:139"><nobr><span class="ft14">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:193"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:247"><nobr><span class="ft14">0.69</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:302"><nobr><span class="ft14">0.73</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:356"><nobr><span class="ft14">0.77</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:411"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:465"><nobr><span class="ft14">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:520"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:575"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:629"><nobr><span class="ft14">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:683"><nobr><span class="ft14">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:741"><nobr><span class="ft14">0.803</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:139"><nobr><span class="ft14">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:193"><nobr><span class="ft14">0.56</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:247"><nobr><span class="ft14">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:302"><nobr><span class="ft14">0.47</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:356"><nobr><span class="ft14">0.51</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:411"><nobr><span class="ft14">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:465"><nobr><span class="ft14">0.52</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:520"><nobr><span class="ft14">0.79</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:575"><nobr><span class="ft14">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:629"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:683"><nobr><span class="ft14">0.65</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:741"><nobr><span class="ft14">0.631</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:139"><nobr><span class="ft14">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:193"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:247"><nobr><span class="ft14">0.84</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:302"><nobr><span class="ft14">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:356"><nobr><span class="ft14">0.96</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:411"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:465"><nobr><span class="ft14">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:520"><nobr><span class="ft14">0.95</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:575"><nobr><span class="ft14">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:629"><nobr><span class="ft14">0.65</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:683"><nobr><span class="ft14">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:741"><nobr><span class="ft14">0.896</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft10">point is somewhat surprising and we currently do not know<br>how to explain this.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:94"><nobr><span class="ft4">The weakest correlations are all between the calibration</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:81"><nobr><span class="ft10">metric (CAL) and the other metrics. On average, CAL cor-<br>relates with the other metrics only about 0.63. We are sur-<br>prised how low the correlation is between probability cali-<br>bration and other metrics, and are currently looking at other<br>measures of calibration to see if this is true for all of them.</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:289"><nobr><span class="ft19">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:217"><nobr><span class="ft19">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:308"><nobr><span class="ft19">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:335"><nobr><span class="ft19">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:360"><nobr><span class="ft19">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:283"><nobr><span class="ft19">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:305"><nobr><span class="ft19">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:388"><nobr><span class="ft19">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:146"><nobr><span class="ft19">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:304"><nobr><span class="ft19">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:77"><nobr><span class="ft19">Dim 2</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:98"><nobr><span class="ft19">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:98"><nobr><span class="ft19">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:98"><nobr><span class="ft19">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:98"><nobr><span class="ft19">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:98"><nobr><span class="ft19">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:98"><nobr><span class="ft19">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:98"><nobr><span class="ft19">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:98"><nobr><span class="ft19">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:250"><nobr><span class="ft19">Dim 1</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:118"><nobr><span class="ft19">-2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:159"><nobr><span class="ft19">-1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:199"><nobr><span class="ft19">-1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:240"><nobr><span class="ft19">-0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:282"><nobr><span class="ft19">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:323"><nobr><span class="ft19">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:363"><nobr><span class="ft19">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:404"><nobr><span class="ft19">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:128"><nobr><span class="ft4">Figure 5: MDS using rank correlation</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:94"><nobr><span class="ft4">Figure 5 shows an MDS plot for the metrics when distance</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:81"><nobr><span class="ft10">between metrics is calculated as 1 - rank correlation, mak-<br>ing MDS insensitive to how the metrics are scaled. (Dis-<br>tances based on 1 - rank correlation do not respect the<br>triangle inequality so this is not a proper metric space.)<br>The overall pattern is similar to that observed in the MDS<br>plots in Figure 3. CAL is at one end of the space far from<br>the other metrics. Cross-entropy is closest to RMS, though<br>not as close as in the other plots. Cross-entropy and RMS<br>have high rank correlation, but because cross-entropy has<br>lower rank-correlation to other most metrics than RMS, it<br>is pushed far from RMS which is close to other metrics in<br>the MDS plot. APR and AUC are at the other end of the<br>space farthest from CAL. FSC is in the upper left side of<br>the space. ACC and RMS are near the center of the space.</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:475"><nobr><span class="ft3"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:506"><nobr><span class="ft3"><b>SAR: A GENERAL PURPOSE METRIC</b></span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:489"><nobr><span class="ft4">When applying supervised learning to data, a decision</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:475"><nobr><span class="ft10">must be made about what metric to train to and what met-<br>ric to use for model selection. Often the learning algorithm<br>dictates what metrics can be used for training, e.g. it is dif-<br>ficult to train a neural net for metrics other than RMS or<br>MXE. But there usually is much more freedom when select-<br>ing the metric to use for model selection, i.e. the metric used<br>to pick the best learning algorithm and the best parameters<br>for that algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:489"><nobr><span class="ft4">If the correct metric for the problem is known, model se-</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:475"><nobr><span class="ft10">lection probably should be done using that metric even if<br>the learning algorithm cannot be trained to it. What should<br>be done when the correct metric is not known? The MDS<br>plots and correlation analysis suggest that RMS is remark-<br>ably well correlated with the other measures, and thus might<br>serve as a good general purpose metric to use when a more<br>specific optimization criterion is not known.</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:489"><nobr><span class="ft4">We wondered if we could devise a new metric more cen-</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:475"><nobr><span class="ft10">trally located than RMS and with better correlation to the<br>other metrics. Rather than devise a completely new met-<br>ric, we tried averaging several of the well behaved metrics<br>into a new metric that might be more robust than each one<br>individually. SAR combines Squared error, Accuracy, and<br>ROC area into one measure: SAR = (ACC + AU C + (1 -<br>RM S))/3. We chose these metrics for SAR for three rea-<br>sons:</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:491"><nobr><span class="ft4">1. we wanted to select one metric from each metric group:</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:509"><nobr><span class="ft10">the threshold metrics, the ordering metrics, and the<br>probability metrics</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:491"><nobr><span class="ft4">2. ACC, AUC, and RMS seemed to be the most popular</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:509"><nobr><span class="ft4">metric from each of these groups, respectively</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:491"><nobr><span class="ft4">3. these three metrics are well correlated to the other</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:509"><nobr><span class="ft10">metrics in their groups, and in the MDS plots lie clos-<br>est to the other metrics in their groups</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:489"><nobr><span class="ft4">As can be seen from the MDS plots and in the tables,</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft10">SAR behaves differently from ACC, AUC, and RMS alone.<br>In Table 3 SAR has higher mean rank correlation to other<br>metrics than any other metric. In the MDS plots, SAR tends<br>to be more consistently centrally located than other metrics.<br>And in Table 4 it is the metric that best reflects the ordering<br>by mean performance of the seven learning methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:489"><nobr><span class="ft4">These results suggest that of the ten metrics we exam-</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:475"><nobr><span class="ft10">ined, SAR is the metric that on average is most correlated<br>with the other metrics, both separately, and in groups. SAR<br>is even more representative than RMS (though RMS also is</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">75</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63008.png" alt="background image">
+<DIV style="position:absolute;top:96;left:121"><nobr><span class="ft4">Table 4: Normalized scores for each learning algorithm by metric (average over seven problems)</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:116"><nobr><span class="ft14">model</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:194"><nobr><span class="ft14">acc</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:252"><nobr><span class="ft14">fsc</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:308"><nobr><span class="ft14">lft</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:364"><nobr><span class="ft14">auc</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:421"><nobr><span class="ft14">apr</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:478"><nobr><span class="ft14">bep</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:534"><nobr><span class="ft14">rms</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:590"><nobr><span class="ft14">mxe</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:648"><nobr><span class="ft14">cal</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:701"><nobr><span class="ft14">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:764"><nobr><span class="ft14">sar</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:116"><nobr><span class="ft14">ann</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:186"><nobr><span class="ft14">0.9399</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:243"><nobr><span class="ft14">0.9486</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:299"><nobr><span class="ft14">0.9623</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:356"><nobr><span class="ft14">0.9722</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:413"><nobr><span class="ft14">0.9538</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:470"><nobr><span class="ft14">0.9632</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:525"><nobr><span class="ft14">0.9043</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:583"><nobr><span class="ft14">0.9009</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:638"><nobr><span class="ft14">0.9963</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:698"><nobr><span class="ft14">0.9491</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:756"><nobr><span class="ft14">0.9516</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:116"><nobr><span class="ft14">svm</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:186"><nobr><span class="ft14">0.9010</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:241"><nobr><span class="ft14">0.9515</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:299"><nobr><span class="ft14">0.9642</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:356"><nobr><span class="ft14">0.9688</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:413"><nobr><span class="ft14">0.9523</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:470"><nobr><span class="ft14">0.9635</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:527"><nobr><span class="ft14">0.9024</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:583"><nobr><span class="ft14">0.9041</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:640"><nobr><span class="ft14">0.9881</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:698"><nobr><span class="ft14">0.9440</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:754"><nobr><span class="ft14">0.9524</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:116"><nobr><span class="ft14">bag-dt</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:186"><nobr><span class="ft14">0.8796</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:243"><nobr><span class="ft14">0.8986</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:299"><nobr><span class="ft14">0.9450</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:356"><nobr><span class="ft14">0.9765</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:413"><nobr><span class="ft14">0.9577</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:470"><nobr><span class="ft14">0.9464</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:527"><nobr><span class="ft14">0.8763</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:582"><nobr><span class="ft14">0.9087</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:640"><nobr><span class="ft14">0.9800</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:698"><nobr><span class="ft14">0.9299</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:756"><nobr><span class="ft14">0.9470</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:116"><nobr><span class="ft14">bst-dt</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:184"><nobr><span class="ft14">0.9506</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:243"><nobr><span class="ft14">0.9443</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:297"><nobr><span class="ft14">0.9843</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:354"><nobr><span class="ft14">0.9866</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:411"><nobr><span class="ft14">0.9779</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:468"><nobr><span class="ft14">0.9858</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:527"><nobr><span class="ft14">0.6400</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:583"><nobr><span class="ft14">0.6427</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:640"><nobr><span class="ft14">0.9399</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:698"><nobr><span class="ft14">0.8947</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:755"><nobr><span class="ft14">0.9171</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:116"><nobr><span class="ft14">knn</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:186"><nobr><span class="ft14">0.8127</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:243"><nobr><span class="ft14">0.9042</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:299"><nobr><span class="ft14">0.9248</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:356"><nobr><span class="ft14">0.9481</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:413"><nobr><span class="ft14">0.9052</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:470"><nobr><span class="ft14">0.9252</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:527"><nobr><span class="ft14">0.7954</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:583"><nobr><span class="ft14">0.7754</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:640"><nobr><span class="ft14">0.9871</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:698"><nobr><span class="ft14">0.8865</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:756"><nobr><span class="ft14">0.9012</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:116"><nobr><span class="ft14">dt</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:186"><nobr><span class="ft14">0.6737</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:243"><nobr><span class="ft14">0.8621</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:299"><nobr><span class="ft14">0.8393</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:356"><nobr><span class="ft14">0.8897</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:413"><nobr><span class="ft14">0.8169</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:470"><nobr><span class="ft14">0.8403</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:527"><nobr><span class="ft14">0.6292</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:584"><nobr><span class="ft14">0.6748</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:640"><nobr><span class="ft14">0.9731</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:698"><nobr><span class="ft14">0.7999</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:756"><nobr><span class="ft14">0.8160</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:116"><nobr><span class="ft14">bst-stmp</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:186"><nobr><span class="ft14">0.7929</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:243"><nobr><span class="ft14">0.8265</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:299"><nobr><span class="ft14">0.8721</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:356"><nobr><span class="ft14">0.9291</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:413"><nobr><span class="ft14">0.8799</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:470"><nobr><span class="ft14">0.8724</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:527"><nobr><span class="ft14">0.3181</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:583"><nobr><span class="ft14">0.3013</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:640"><nobr><span class="ft14">0.9477</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:698"><nobr><span class="ft14">0.7489</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:756"><nobr><span class="ft14">0.6966</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:81"><nobr><span class="ft10">very good). In an experiment where SAR was used for model<br>selection, SAR outperformed eight of the nine metrics in se-<br>lecting the models with the best overall, and tied with RMS.<br>We believe our results suggest that SAR is a robust combi-<br>nation of three popular metrics that may bey appropriate<br>when the correct metric to use is not known, though the<br>benefit of SAR over RMS is modest at best. Attempts to<br>make SAR better by optimizing the weights given to ACC,<br>AUC, and RMS in the SAR average did not significantly im-<br>prove SAR compared to equal weights for the three metrics.<br>We are very impressed at how well behaved RMS alone is<br>and are currently working to devise a better SAR-like metric<br>that yields more improvement over RMS alone.</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:81"><nobr><span class="ft3"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:112"><nobr><span class="ft3"><b>PERFORMANCES BY METRIC</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:94"><nobr><span class="ft4">Table 4 shows the normalized performance of each learn-</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:81"><nobr><span class="ft10">ing algorithm on the nine metrics. (CAL is scaled so that<br>the minimum observed CAL score is 0.0 and the maximum<br>observed CAL score is 1.0) For each test problem we find<br>the best parameter settings for each learning algorithm and<br>compute it's normalized score. Each entry in the table av-<br>erages these scores across the seven problems. The last two<br>columns are the mean normalized scores over the nine met-<br>rics, and the SAR performance. Higher scores indicate bet-<br>ter performance. The models in the table are ordered by<br>mean overall performance. We have written a separate pa-<br>per to compare the performance of the learning methods to<br>each other on these metrics, but there are a few interesting<br>relationships between learning algorithms and metrics that<br>are worth discussing in the context of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:94"><nobr><span class="ft4">Overall, the best performing models are neural nets, SVMs,</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:81"><nobr><span class="ft10">and bagged trees. Surprisingly, neural nets outperform all<br>other model types if one averages over the nine metrics.<br>ANNs appear to be excellent general purpose learning meth-<br>ods. This is not to say that ANNs are the best learning<br>algorithm ­ they only win on RMS and CAL, but because<br>they rarely perform poorly on any problem or metric, they<br>have excellent overall performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:94"><nobr><span class="ft4">The SVMs perform almost as well as ANNs. Note that</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft10">SVM predictions on [-, +] are not suitable for measures<br>like cross entropy, calibration, and squared error. SVMs do<br>well on these metrics because we use Platt's method [8] to<br>transform SVM predictions to calibrated probabilities. Like<br>neural nets, SVMs appear to be a safe, general purpose, high<br>performance learning method once their predictions have<br>been calibrated by a method such as Platt scaling.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:94"><nobr><span class="ft4">Although single decision trees perform poorly, bagged trees</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:81"><nobr><span class="ft10">perform nearly as well as neural nets and SVMs. Bagging<br>improves decision tree performance on all metrics, and yields<br>particularly large improvements on the probability metrics.<br>Like neural nets and SVMs, bagged trees appear to be a<br>safe, general purpose, high performance learning method.</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:489"><nobr><span class="ft4">Boosted trees outperform all other learning methods on</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:475"><nobr><span class="ft10">ACC, LFT, ROC, APR, and BEP. Boosting wins 2 of 3<br>threshold metrics and 3 of 3 rank metrics, but performs<br>poorly on the probability metrics: squared error, cross en-<br>tropy, and calibration. Maximum margin methods such as<br>boosted trees yield poorly calibrated probabilities. (SVMs<br>perform well on these because Platt scaling "undoes" the<br>maximum margin.) Overall, boosting wins 5 of the 6 met-<br>rics for which it is well suited, and would easily be the top<br>performing learning method if we consider only the 6 thresh-<br>old and ordering metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:489"><nobr><span class="ft4">The KNN methods were not competitive with the bet-</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:475"><nobr><span class="ft10">ter algorithms, but might done better with larger train sets.<br>Single decision trees also did not perform as well as most<br>other methods, probably because recursive partitioning runs<br>out of data quickly with 4k train sets, and because small<br>trees are not good at predicting probabilities [9]. We tested<br>many different kinds of decision trees, including smoothed<br>unpruned trees, and then picked the best, so the poor per-<br>formance of trees here is not due to any one tree type being<br>inferior, but because all of the many tree types we tested<br>did not perform as well as other methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:489"><nobr><span class="ft4">Interestingly, boosting stump models does not perform</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:475"><nobr><span class="ft10">as well as boosting full decision trees. Boosted stumps do<br>outperform single trees on 5 of the 6 threshold and rank<br>metrics. Their last-place ranking below decision trees is due<br>to their extremely poor performance on the three probability<br>measures.</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:475"><nobr><span class="ft3"><b>10.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:515"><nobr><span class="ft3"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:489"><nobr><span class="ft4">There is not a large literature comparing performance</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:475"><nobr><span class="ft10">metrics. The closest work to ours is by Flach [7]. In this<br>work Flach uses the ROC space to understand and compare<br>different metrics. He analyzes accuracy, precision, weighted<br>relative accuracy and several decision tree splitting criteria.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:489"><nobr><span class="ft4">The STATLOG project [6] performed a large scale empir-</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:475"><nobr><span class="ft10">ical evaluation of a number of learning algorithms in 1995.<br>STATLOG compared the performance of the different algo-<br>rithms, and also did an analysis of how the predictions made<br>by the algorithms compared to each other. STATLOG, how-<br>ever, did not compare performance using different metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:475"><nobr><span class="ft3"><b>11.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:515"><nobr><span class="ft3"><b>DISCUSSION AND CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:489"><nobr><span class="ft4">Our analysis allows us to draw a variety of conclusions</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:475"><nobr><span class="ft10">which we summarize here. If the goal is to maximize accu-<br>racy, but the model needs a continuous performance metric<br>(e.g. using backpropagation to train a neural net), it proba-<br>bly is better to train the model using squared error instead<br>of cross entropy because squared error sits closer to accuracy<br>in metric space. This result is surprising since cross entropy<br>is the theoretically preferred loss function for binary classifi-<br>cation. We suspect cross entropy is not as robust as squared</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">76</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:6px;font-family:Times;color:#000000;}
+	.ft21{font-size:-1px;font-family:Times;color:#000000;}
+	.ft22{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63009.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft10">error on real data sets because real data sometimes contains<br>class noise that cross entropy is very sensitive to.</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:94"><nobr><span class="ft4">Squared error is a remarkably robust performance metric</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft10">that has higher average correlation to the other metrics than<br>any other metric except SAR. Squared error appears to be<br>an excellent general purpose metric.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:94"><nobr><span class="ft4">Many models achieve excellent performance on the or-</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:81"><nobr><span class="ft10">dering metrics AUC, APR, and BEP without making pre-<br>dictions that yield good probabilities. For example, the k-<br>nearest neighbor models with the best ROC performance<br>use values of K that are so large that most of the predic-<br>tions are close to p, the fraction of positives in the data.<br>This yields predictions that are poor when viewed as proba-<br>bilities, yet small differences between these predicted values<br>are sufficient to provide for good ordering.</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:94"><nobr><span class="ft4">As expected, maximum margin methods such as boosting</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft10">and SVMs yield excellent performance on metrics such as ac-<br>curacy for which they are designed. Surprisingly, however,<br>the maximum margin methods also yield excellent perfor-<br>mance on the ordering metrics. We had not expected that<br>maximizing distances to decision boundaries would provide a<br>good basis for ordering cases that fall far from those bound-<br>aries.</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:94"><nobr><span class="ft4">Although boosted trees perform well on accuracy and ROC,</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:81"><nobr><span class="ft10">they perform poorly on probability metrics such as squared<br>error and cross entropy. This poor performance on prob-<br>ability metrics is a consequence of boosting being a max-<br>imum margin method. SVMs do not exhibit this problem<br>because we scale SVM predictions with Platt's method; Lin-<br>early scaling SVM predictions to [0, 1] does not work well.</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:94"><nobr><span class="ft4">Neural nets trained with backpropagation have excellent</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:81"><nobr><span class="ft10">overall performance because, unlike boosting, they perform<br>well on all metrics including the probability metrics RMS,<br>MXE, and CAL. We believe part of the reason why the neu-<br>ral nets perform so well is that they were trained with back-<br>propagation on squared error, and as we have seen squared<br>error is an excellent metric.</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:94"><nobr><span class="ft4">The three ordering metrics, AUC, APR, and BEP, cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:81"><nobr><span class="ft10">close in metric space and exhibit strong pairwise correla-<br>tions. These metrics clearly are similar to each other and<br>somewhat interchangeable. We originally grouped LFT with<br>the threshold metrics ACC and FSC, but the results suggest<br>that LFT behaves more like BEP, an ordering metric. We<br>now would group LFT with BEP in the ordering metrics<br>along with AUC and APR.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:94"><nobr><span class="ft4">The metric space for the ten metrics has three or more</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:81"><nobr><span class="ft10">significant dimensions. The ten metrics do not all measure<br>the same thing. Different performance metrics yield differ-<br>ent tradeoffs that are appropriate in different settings. No<br>one metric does it all, and the metric optimized to or used<br>for model selection does matter. The SAR metric that com-<br>bines accuracy, ROC area, and squared error appears to be<br>a good, general purpose metric, but RMS is so good that<br>SAR may not provide much benefit over using RMS alone.<br>We hope that additional research in this area will enable us<br>to design better metrics, and will shed more light on which<br>metrics are most appropriate to use in different settings.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:81"><nobr><span class="ft3"><b>12.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:121"><nobr><span class="ft3"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:94"><nobr><span class="ft4">Thanks to Geoff Crew and Alex Ksikes for help running</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:81"><nobr><span class="ft10">some of the experiments. Thanks to the creators of XGVIS<br>and XGOBI for the interactive MDS software used to gen-<br>erate the MDS plots. Thanks to collaborators at Stanford</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft10">Linear Accelerator for the SLAC data, and to Tony Gualtieri<br>at NASA Goddard for help with the Indian Pines data.</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:475"><nobr><span class="ft3"><b>13.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:515"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:482"><nobr><span class="ft4">[1] C. Blake and C. Merz. UCI repository of machine</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:503"><nobr><span class="ft4">learning databases, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:482"><nobr><span class="ft4">[2] M. DeGroot and S. Fienberg. The comparison and</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:503"><nobr><span class="ft10">evaluation of forecasters. Statistician, 32(1):12­22,<br>1982.</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:482"><nobr><span class="ft4">[3] P. Giudici. Applied Data Mining. John Wiley and</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:503"><nobr><span class="ft4">Sons, New York, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:482"><nobr><span class="ft4">[4] A. Gualtieri, S. R. Chettri, R. Cromp, and</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:503"><nobr><span class="ft10">L. Johnson. Support vector machine classifiers as<br>applied to aviris data. In Proc. Eighth JPL Airborne<br>Geoscience Workshop, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:482"><nobr><span class="ft4">[5] T. Joachims. Making large-scale svm learning</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:503"><nobr><span class="ft4">practical. In Advances in Kernel Methods, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:482"><nobr><span class="ft4">[6] R. King, C. Feng, and A. Shutherland. Statlog:</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:503"><nobr><span class="ft10">comparison of classification algorithms on large<br>real-world problems. Applied Artificial Intelligence,<br>9(3):259­287, May/June 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:482"><nobr><span class="ft4">[7] P.A.Flach. The geometry of roc space: understanding</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:503"><nobr><span class="ft10">machine learning metrics through roc isometrics. In<br>Proc. 20th International Conference on Machine<br>Learning (ICML'03), pages 194­201. AAAI Press,<br>January 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:482"><nobr><span class="ft4">[8] J. Platt. Probabilistic outputs for support vector</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:503"><nobr><span class="ft10">machines and comparison to regularized likelihood<br>methods. In A. Smola, P. Bartlett, B. Schoelkopf, and<br>D. Schuurmans, editors, Advances in Large Margin<br>Classifiers, pages 61­74, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:482"><nobr><span class="ft4">[9] F. Provost and P. Domingos. Tree induction for</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:503"><nobr><span class="ft10">probability-based rankings. Machine Learning, 52(3),<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft4">[10] F. J. Provost and T. Fawcett. Analysis and</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:503"><nobr><span class="ft10">visualization of classifier performance: Comparison<br>under imprecise class and cost distributions. In<br>Knowledge Discovery and Data Mining, pages 43­48,<br>1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:475"><nobr><span class="ft3"><b>APPENDIX</b></span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:475"><nobr><span class="ft3"><b>A.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:511"><nobr><span class="ft3"><b>PERFORMANCE METRICS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:482"><nobr><span class="ft4">accuracy: probably the most widely used performance met-</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:505"><nobr><span class="ft10">ric in Machine Learning. It is defined as the propor-<br>tion of correct predictions the classifier makes relative<br>to the size of the dataset. If a classifier has continuous<br>outputs (e.g. neural nets), a threshold is set and every-<br>thing above this threshold is predicted to be a positive.</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:482"><nobr><span class="ft4">root-mean-squared-error (RMSE): widely used in regres-</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:505"><nobr><span class="ft10">sion, it measures how much predictions deviate from<br>the true targets.</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:608"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:614"><nobr><span class="ft4">RMSE is defined as:</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:542"><nobr><span class="ft4">RM SE =</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:607"><nobr><span class="ft21"> </span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:624"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:621"><nobr><span class="ft4">N</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:639"><nobr><span class="ft21">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:658"><nobr><span class="ft4">(P red(C) - T rue(C))</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:791"><nobr><span class="ft20">2</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:816"><nobr><span class="ft4">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:482"><nobr><span class="ft4">mean cross entropy (MXE): is used in the probabilistic</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:505"><nobr><span class="ft4">setting when interested in predicting the probability</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:476"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:482"><nobr><span class="ft4">Root-mean-squared error is applicable to binary classifica-</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:475"><nobr><span class="ft22">tion settings where the classifier outputs predictions on [0, 1]<br>that are compared with the true target labels on {0, 1}.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">77</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:681"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="63010.png" alt="background image">
+<DIV style="position:absolute;top:85;left:110"><nobr><span class="ft10">that an example is positive (1). It can be proven that<br>in this setting minimizing the cross entropy gives the<br>maximum likelihood hypothesis. mean cross entropy is<br>defined as:</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:132"><nobr><span class="ft4">M XE =</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:199"><nobr><span class="ft4">-</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:213"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:211"><nobr><span class="ft20">N</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:226"><nobr><span class="ft21"> </span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:240"><nobr><span class="ft4">(T rue(C)  ln(P red(C)) +</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:199"><nobr><span class="ft4">(1 - T rue(C))  ln(1 - P red(C)))</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:422"><nobr><span class="ft4">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:110"><nobr><span class="ft10">(The assumptions are that P red(C)  [0, 1] and T rue(C) <br>{0, 1})</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:87"><nobr><span class="ft4">receiver operating characteristic (ROC): has it's roots in</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:110"><nobr><span class="ft10">WWII in the early days of radar where it was difficult<br>to distinguish between true positives and false posi-<br>tives. ROC is a plot of sensitivity vs. (1-specificity)<br>for all possible thresholds. Sensitivity is the defined as<br>P (P red = positive|T rue = positive) and is approxi-<br>mated by the fraction of true positives that are pre-<br>dicted as positive (this is the same as recall). Specificity<br>is P (P red = negative|T rue = negative). It is approx-<br>imated by the fraction of true negatives predicted as<br>negatives. AUC, the area under the ROC curve, is<br>used as a summary statistic. ROC has a number of<br>nice properties that make it more principled than sim-<br>ilar measures such as average precision. AUC is widely<br>used in fields such as medicine, and recently has become<br>more popular in the Machine Learning community.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:87"><nobr><span class="ft4">lift: often used in marketing analysis, Lift measures how</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:110"><nobr><span class="ft10">much better a classifier is at predicting positives than a<br>baseline classifier that randomly predicts positives (at<br>the same rate observed for positives in the data). The<br>definition is:</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:120"><nobr><span class="ft4">LIF T = %of true positives above the threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:196"><nobr><span class="ft4">%of dataset above the threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:422"><nobr><span class="ft4">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:110"><nobr><span class="ft10">Usually the threshold is set so that a fixed percentage<br>of the dataset is classified as positive. For example,<br>suppose a marketing agent wants to send advertising to<br>potential clients, but can only afford to send ads to 10%<br>of the population. A classifier is trained to predict how<br>likely a client is to respond to the advertisement, and<br>the ads are sent to the 10% of the population predicted<br>most likely to respond. A classifier with optimal lift<br>will get as many clients as possible that will respond to<br>the advertisement in this set.</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:87"><nobr><span class="ft4">precision and recall : These measures are widely used in</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:110"><nobr><span class="ft10">Information Retrieval. Precision is the fraction of ex-<br>amples predicted as positive that are actually positive.<br>Recall is the fraction of the true positives that are pre-<br>dicted as positives. These measures are trivially maxi-<br>mized by not predicting anything, or predicting every-<br>thing, respectively, as positive. Because of this these<br>measures often are used together. There are different<br>ways to combine these measures as described by the<br>next 4 metrics.</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:87"><nobr><span class="ft4">precision-recall F-score: for a given threshold, the F-score</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:110"><nobr><span class="ft10">is the harmonic mean of the precision and recall at that<br>threshold.</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:87"><nobr><span class="ft4">precision at a recall level: as the name suggests, set the</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:110"><nobr><span class="ft10">threshold such that you have a given recall and the<br>precision for this threshold is computed.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:87"><nobr><span class="ft4">precision-recall break-even point: is defined as the precision</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:110"><nobr><span class="ft10">at the point (threshold value) where precision and recall<br>are equal.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:482"><nobr><span class="ft4">average precision: usually is computed as the average of</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:505"><nobr><span class="ft4">the precisions at eleven evenly spaced recall levels.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:482"><nobr><span class="ft4">CAL is based on reliability diagrams [2]. It is calculated</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:505"><nobr><span class="ft10">as follows: order all cases by their predicted value, and<br>put cases 1-100 in the same bin. Calculate the per-<br>centage of these cases that are true positives. This<br>approximates the true probability that these cases are<br>positive. Then calculate the mean prediction for these<br>cases. The absolute value of the difference between the<br>observed frequency and the mean prediction is the cali-<br>bration error for this bin. Now take cases 2-101, 3-102,<br>.... and compute the errors in the same way for each of<br>these bins. CAL is the mean of these binned calibration<br>errors.</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:475"><nobr><span class="ft3"><b>B.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:510"><nobr><span class="ft3"><b>PARAMETER SETTINGS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:489"><nobr><span class="ft4">We use the following parameter settings and algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:475"><nobr><span class="ft10">variations for the seven learning methods:<br>KNN: we use 26 values of K ranging from K = 1 to<br>K = |trainset|. We use KNN with Euclidean distance and<br>Euclidean distance weighted by gain ratio. We also use dis-<br>tance weighted KNN, and locally weighted averaging. The<br>kernel widths for locally weighted averaging vary from 2</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:811"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:822"><nobr><span class="ft4">to</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:475"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:482"><nobr><span class="ft20">10</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:498"><nobr><span class="ft4">times the minimum distance between any two points in</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:475"><nobr><span class="ft10">the train set.<br>ANN: we train nets with gradient descent backprop and<br>vary the number of hidden units {1, 2, 4, 8, 32, 128} and<br>the momentum {0, 0.2, 0.5, 0.9}. We don't use validation<br>sets to do weight decay or early stopping. Instead, for each<br>performance metric, we examine the nets at many different<br>epochs.<br>DT: we vary the splitting criterion, pruning options, and<br>smoothing (Laplacian or Bayesian smoothing). We use all<br>of the tree models in Buntine's IND package: Bayes, ID3,<br>CART, CART0, C4, MML, and SMML. We also generate<br>trees of type C44 (C4 with no pruning), C44BS (C44 with<br>Bayesian smoothing), and MMLLS (MML with Laplacian<br>smoothing). See [9] for a description of C44.<br>BAG-DT: we bag at least 25 trees of each type. With<br>BST-DT we boost each tree type. Boosting can overfit,<br>so we consider boosted DTs after {2, 4, 8, 16, 32, 64, 128,<br>256, 512, 1024, 2048} steps of boosting. With BST-STMP<br>we use stumps (single level decision trees) with 5 different<br>splitting criteria, each boosted {2, 4, 8, 16, 32, 64, 128, 256,<br>512, 1024, 2048, 4096, 8192} steps.<br>SVMs: we use most kernels in SVMLight [5] {linear, poly-<br>nomial degree 2 &amp; 3, radial with width {0.001, 0.005, 0.01,<br>0.05, 0.1, 0.5, 1, 2}} and vary the regularization parameter<br>C by factors of ten from 10</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:650"><nobr><span class="ft20">-7</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:671"><nobr><span class="ft4">to 10</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:703"><nobr><span class="ft20">3</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:710"><nobr><span class="ft4">. The output range</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:475"><nobr><span class="ft10">of SVMs is [-, +] instead of [0, 1]. To make the SVM<br>predictions compatible with other models, we use Platt's<br>method to convert SVM outputs to probabilities by fitting<br>them to a sigmoid [8]. Without scaling, SVMs would have<br>poor RMS and it would not be possible to calculate MXE<br>and CAL.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:452"><nobr><span class="ft8">78</span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:80"><nobr><span class="ft9"><b>Research Track Paper</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

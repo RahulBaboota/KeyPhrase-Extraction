@@ -1,0 +1,959 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Microsoft Word - CGCML_0610_EGstyle.doc</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="harrism">
+<META name="date" content="2002-08-14T16:26:10+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:16px;font-family:Times;color:#000000;}
+	.ft2{font-size:7px;font-family:Times;color:#000000;}
+	.ft3{font-size:-1px;font-family:Times;color:#000000;}
+	.ft4{font-size:13px;font-family:Times;color:#000000;}
+	.ft5{font-size:22px;font-family:Times;color:#000000;}
+	.ft6{font-size:10px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Times;color:#000000;}
+	.ft9{font-size:10px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148001.png" alt="background image">
+<DIV style="position:absolute;top:116;left:453"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:263"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:453"><nobr><span class="ft5"> </span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:149"><nobr><span class="ft5">Physically-Based Visual Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:122"><nobr><span class="ft6"> </span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:221"><nobr><span class="ft7">Mark J. Harris </span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:329"><nobr><span class="ft7">Greg Coombe </span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:437"><nobr><span class="ft7">Thorsten Scheuermann </span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:599"><nobr><span class="ft7">Anselmo Lastra</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:684"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:215"><nobr><span class="ft0">Department of Computer Science, University of North Carolina, Chapel Hill, North Carolina, USA </span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:334"><nobr><span class="ft0">{harrism, coombe, scheuerm, lastra}@cs.unc.edu </span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:453"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:122"><nobr><span class="ft4">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:122"><nobr><span class="ft10">In this paper, we present a method for real-time visual simulation of diverse dynamic phenomena using programmable graphics <br>hardware.  The simulations we implement use an extension of cellular automata known as the coupled map lattice (CML).  CML <br>represents the state of a dynamic system as continuous values on a discrete lattice.  In our implementation we store the lattice <br>values in a texture, and use pixel-level programming to implement simple next-state computations on lattice nodes and their <br>neighbors.  We apply these computations successively to produce interactive visual simulations of convection, reaction-diffusion, <br>and boiling.  We have built an interactive framework for building and experimenting with CML simulations running on graphics <br>hardware, and have integrated them into interactive 3D graphics applications. </span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:122"><nobr><span class="ft0">Keywords:</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:187"><nobr><span class="ft0">Coupled Map Lattice; CML; Visual Simulation; Graphics Hardware; Reaction-Diffusion; Multipass Rendering.</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:122"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:122"><nobr><span class="ft4">1  Introduction </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:122"><nobr><span class="ft9">Interactive 3D graphics environments, such as games, virtual <br>environments, and training and flight simulators are <br>becoming increasingly visually realistic, in part due to the <br>power of graphics hardware.  However, these scenes often <br>lack rich dynamic phenomena, such as fluids, clouds, and <br>smoke, which are common to the real world.   </span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:139"><nobr><span class="ft6">A recent approach to the simulation of dynamic </span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:122"><nobr><span class="ft6">phenomena, the coupled map lattice </span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:320"><nobr><span class="ft0">[Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:394"><nobr><span class="ft6">, uses a </span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:122"><nobr><span class="ft10">set of simple local operations to model complex global <br>behavior. When implemented using computer graphics <br>hardware, coupled map lattices (CML) provide a simple, fast <br>and flexible method for the visual simulation of a wide <br>variety of dynamic systems and phenomena.   </span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:139"><nobr><span class="ft6">In this paper we will describe the implementation of </span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:122"><nobr><span class="ft9">CML systems with current graphics hardware, and <br>demonstrate the flexibility and performance of these systems <br>by presenting several fast interactive 2D and 3D visual <br>simulations.  Our CML boiling simulation runs at speeds <br>ranging from 8 iterations per second for a 128x128x128 <br>lattice to over 1700 iterations per second for a 64x64 lattice. </span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:139"><nobr><span class="ft6">Section 2 describes CML and other methods for </span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:122"><nobr><span class="ft9">simulating natural phenomena.  Section 3  details our <br>implementation of CML simulations on programmable <br>graphics hardware, and Section 4 describes the specific <br>simulations we have implemented.  In Section 5 we discuss <br>limitations of current hardware and investigate some <br>solutions.  Section 6 concludes. </span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:469"><nobr><span class="ft4">2  CML and Related Work </span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:469"><nobr><span class="ft9">The standard approach to simulating natural phenomena is to <br>solve equations that describe their global behavior.  For <br>example, multiple techniques have been applied to solving <br>the Navier-Stokes fluid equations </span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:649"><nobr><span class="ft0">[Fedkiw, et al. 2001;Foster </span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:469"><nobr><span class="ft0">and Metaxas 1997;Stam 1999]</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:633"><nobr><span class="ft6">.  While their results are </span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:469"><nobr><span class="ft9">typically numerically and visually accurate, many of these <br>simulations require too much computation (or small lattice <br>sizes) to be integrated into interactive graphics applications <br>such as games.  CML models, instead of solving for the <br>global behavior of a phenomenon, model the behavior by a <br>number of very simple local operations.  When aggregated, <br>these local operations produce a visually accurate <br>approximation to the desired global behavior. </span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:484"><nobr><span class="ft12">Figure 1: 3D coupled map lattice simulations running on<br>graphics hardware.  Left: Boiling.  Right: Reaction-<br>Diffusion. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">109</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148002.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:644"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:642"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:651"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:652"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:783"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:139"><nobr><span class="ft6">A coupled map lattice is a mapping of continuous </span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:122"><nobr><span class="ft10">dynamic state values to nodes on a lattice that interact (are <br>`coupled') with a set of other nodes in the lattice according <br>to specified rules.  Coupled map lattices were developed by <br>Kaneko for the purpose of studying spatio-temporal <br>dynamics and chaos </span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:229"><nobr><span class="ft0">[Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:302"><nobr><span class="ft6">.  Since their introduction, </span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:122"><nobr><span class="ft10">CML techniques have been used extensively in the fields of <br>physics and mathematics for the simulation of a variety of <br>phenomena, including boiling </span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:288"><nobr><span class="ft0">[Yanagita 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:370"><nobr><span class="ft6">, convection </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:122"><nobr><span class="ft0">[Yanagita and Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:268"><nobr><span class="ft6">, cloud formation </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:366"><nobr><span class="ft0">[Yanagita and </span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:122"><nobr><span class="ft0">Kaneko 1997]</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:191"><nobr><span class="ft6">, chemical reaction-diffusion </span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:342"><nobr><span class="ft0">[Kapral 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:410"><nobr><span class="ft6">, and </span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:122"><nobr><span class="ft6">the formation of sand ripples and dunes </span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:330"><nobr><span class="ft0">[Nishimori and Ouchi </span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:122"><nobr><span class="ft0">1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:150"><nobr><span class="ft6">.  CML techniques were recently introduced to the field </span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:122"><nobr><span class="ft10">of computer graphics for the purpose of cloud modeling and <br>animation </span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:183"><nobr><span class="ft0">[Miyazaki, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:312"><nobr><span class="ft6">.  Lattice Boltzmann </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:122"><nobr><span class="ft9">computation is a similar technique that has been used for <br>simulating fluids, particles, and other classes of phenomena </span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:122"><nobr><span class="ft0">[Qian, et al. 1996]</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:210"><nobr><span class="ft6">.  </span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:139"><nobr><span class="ft6">A CML is an extension of a cellular automaton (CA) </span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:122"><nobr><span class="ft0">[Toffoli and Margolus 1987;von Neumann 1966;Wolfram 1984]</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:436"><nobr><span class="ft6"> </span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:122"><nobr><span class="ft9">in which the discrete state values of CA cells are replaced <br>with continuous real values.  Like CA, CML are discrete in <br>space and time and are a versatile technique for modeling a <br>wide variety of phenomena.   Methods for animating cloud <br>formation using cellular automata were presented in </span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:122"><nobr><span class="ft0">[Dobashi, et al. 2000;Nagel and Raschke 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:355"><nobr><span class="ft6">.  Discrete-state </span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:122"><nobr><span class="ft9">automata typically require very large lattices in order to <br>simulate real phenomena, because the discrete states must be <br>filtered in order to compute real values.  By using <br>continuous-valued state, a CML is able to represent real <br>physical quantities at each of its nodes.  </span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:139"><nobr><span class="ft6">While a CML model can certainly be made both </span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:122"><nobr><span class="ft6">numerically and visually accurate </span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:326"><nobr><span class="ft0">[Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:405"><nobr><span class="ft6">, our </span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:122"><nobr><span class="ft9">implementation on graphics hardware introduces precision <br>constraints that make numerically accurate simulation <br>difficult.  Therefore, our goal is instead to implement <br>visually accurate simulation models on graphics hardware, in <br>the hope that continuing improvement in the speed and <br>precision of graphics hardware will allow numerically <br>accurate simulation in the near future. </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:486"><nobr><span class="ft6">The systems that have been found to be most amenable to </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:469"><nobr><span class="ft9">CML implementation are multidimensional initial-value <br>partial differential equations. These are the governing <br>equations for a wide range of phenomena from fluid <br>dynamics to reaction-diffusion. Based on a set of initial <br>conditions, the simulation evolves forward in time.  The only <br>requirement is that the equation must first be explicitly <br>discretized in space and time, which is a standard <br>requirement for conventional numerical simulation. This <br>flexibility means that the CML can serve as a model for a <br>wide class of dynamic systems. </span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:469"><nobr><span class="ft4">2.1 A CML Simulation Example  </span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:469"><nobr><span class="ft6">To illustrate CML, we describe the boiling simulation of </span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:469"><nobr><span class="ft0">[Yanagita 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:555"><nobr><span class="ft6">. The state of this simulation is the </span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:469"><nobr><span class="ft9">temperature of a liquid.  A heat plate warms the lower layer <br>of liquid, and temperature is diffused through the liquid. As <br>the temperature reaches a threshold, the phase changes and <br>"bubbles" of high temperature form. When phase changes <br>occur, newly formed bubbles absorb latent heat from the <br>liquid around them, and temperature differences cause them <br>to float upward under buoyant force.   </span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:486"><nobr><span class="ft6">Yanagita implements this global behavior using four local </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:469"><nobr><span class="ft9">CML operations; Diffusion, Phase change, Buoyancy, and <br>Latent heat.  Each of these operations can be written as a <br>simple equation. Figures 1, 2 and 7 (see color pate) show this <br>simulation running on graphics hardware, and Section 4.1 <br>gives details of our implementation. We will use this <br>simulation as an example throughout this paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:469"><nobr><span class="ft4">3  Hardware Implementation </span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:469"><nobr><span class="ft9">Graphics hardware is an efficient processor of images ­ it <br>can use texture images as input, and outputs images via <br>rendering.  Images ­ arrays of values ­ map well to state <br>values on a lattice.  Two-dimensional lattices can be <br>represented by 2D textures, and 3D lattices by 3D textures or <br>collections of 2D textures.  This natural correspondence, as <br>well as the programmability and performance of graphics <br>hardware, motivated our research. </span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:469"><nobr><span class="ft4">3.1 Why Graphics Hardware? </span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:469"><nobr><span class="ft9">Our primary reason to use graphics hardware is its speed at <br>imaging operations compared to a conventional CPU.  The <br>CML models we have implemented are very fast, making <br>them well suited to interactive applications (See Section 4.1). </span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:486"><nobr><span class="ft6">GPUs were designed as efficient coprocessors for </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:469"><nobr><span class="ft9">rendering and shading.  The programmability now available <br>in GPUs such as the NVIDIA GeForce 3 and 4 and the ATI <br>Radeon 8500 makes them useful coprocessors for more <br>diverse applications.  Since the time between new <br>generations of GPUs is currently much less than for CPUs, <br>faster coprocessors are available more often than faster <br>central processors.  GPU performance tracks rapid <br>improvements in semiconductor technology more closely <br>than CPU performance.  This is because CPUs are designed <br>for high performance on sequential operations, while GPUs <br>are optimized for the high parallelism of vertex and fragment <br>processing </span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:527"><nobr><span class="ft0">[Lindholm, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:640"><nobr><span class="ft6">.  Additional transistors can </span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:138"><nobr><span class="ft12">Figure 2: A sequence of stills (10 iterations apart) from a <br>2D boiling simulation running on graphics hardware. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">110</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:5px;font-family:Times;color:#000000;}
+	.ft14{font-size:12px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148003.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:263"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:122"><nobr><span class="ft10">therefore be used to greater effect in GPU architectures.  In <br>addition, programmable GPUs are inexpensive, readily <br>available, easily upgradeable, and compatible with multiple <br>operating systems and hardware architectures. </span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:139"><nobr><span class="ft6">More importantly, interactive computer graphics </span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:122"><nobr><span class="ft9">applications have many components vying for processing <br>time.  Often it is difficult to efficiently perform simulation, <br>rendering, and other computational tasks simultaneously <br>without a drop in performance.  Since our intent is visual <br>simulation, rendering is an essential part of any solution.  By <br>moving simulation onto the GPU that renders the results of a <br>simulation, we not only reduce computational load on the <br>main CPU, but also avoid the substantial bus traffic required <br>to transmit the results of a CPU simulation to the GPU for <br>rendering.  In this way, methods of dynamic simulation on <br>the GPU provide an additional tool for load balancing in <br>complex interactive applications. </span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:139"><nobr><span class="ft6">Graphics hardware also has disadvantages.  The main </span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:122"><nobr><span class="ft9">problems we have encountered are the difficulty of <br>programming the GPU and the lack of high precision <br>fragment operations and storage.  These problems are related <br>­ programming difficulty is increased by the effort required <br>to ensure that precision is conserved wherever possible.  </span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:139"><nobr><span class="ft6">These issues should disappear with time.  Higher-level </span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:122"><nobr><span class="ft9">shading languages have been introduced that make hardware <br>graphics programming easier </span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:275"><nobr><span class="ft0">[Peercy, et al. 2000;Proudfoot, et </span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:122"><nobr><span class="ft0">al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:166"><nobr><span class="ft6">.  The same or similar languages will be usable for </span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:122"><nobr><span class="ft10">programming simulations on graphics hardware.  We believe <br>that the precision of graphics hardware will continue to <br>increase, and with it the full power of programmability will <br>be realised. </span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:122"><nobr><span class="ft4">3.2 General-Purpose Computation </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:122"><nobr><span class="ft9">The use of computer graphics hardware for general-purpose <br>computation has been an area of active research for many <br>years, beginning on machines like the Ikonas </span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:357"><nobr><span class="ft0">[England 1978]</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:433"><nobr><span class="ft6">, </span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:122"><nobr><span class="ft6">the Pixel Machine </span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:228"><nobr><span class="ft0">[Potmesil and Hoffert 1989]</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:374"><nobr><span class="ft6"> and Pixel-</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:122"><nobr><span class="ft6">Planes 5 </span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:174"><nobr><span class="ft0">[Rhoades, et al. 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:287"><nobr><span class="ft6">.  The wide deployment of </span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:122"><nobr><span class="ft10">GPUs in the last several years has resulted in an increase in <br>experimental research with graphics hardware.  </span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:370"><nobr><span class="ft0">[Trendall and </span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:122"><nobr><span class="ft0">Steward 2000]</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:196"><nobr><span class="ft6"> gives a detailed summary of the types of </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:122"><nobr><span class="ft6">computation available on modern GPUs.   </span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:139"><nobr><span class="ft6">Within the realm of graphics applications, programmable </span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:122"><nobr><span class="ft9">graphics hardware has been used for procedural texturing <br>and shading </span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:195"><nobr><span class="ft0">[Olano and Lastra 1998; Peercy, et al. 2000; </span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:122"><nobr><span class="ft0">Proudfoot, et al. 2001; Rhoades, et al. 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:370"><nobr><span class="ft6">.  Graphics </span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:122"><nobr><span class="ft6">hardware has also been used for volume visualization </span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:122"><nobr><span class="ft0">[Cabral, et al. 1994]</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:219"><nobr><span class="ft6">.  Recently, methods for using current and </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:122"><nobr><span class="ft9">near-future GPUs for ray tracing computations have been <br>described in </span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:194"><nobr><span class="ft0">[Carr, et al. 2002]</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:291"><nobr><span class="ft6"> and </span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:323"><nobr><span class="ft0">[Purcell, et al. 2002]</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:433"><nobr><span class="ft6">, </span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:122"><nobr><span class="ft6">respectively. </span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:139"><nobr><span class="ft6">Other researchers have found ways to use graphics </span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:122"><nobr><span class="ft10">hardware for non-graphics applications.  The use of <br>rasterization hardware for robot motion planning is described <br>in </span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:136"><nobr><span class="ft0">[Lengyel, et al. 1990]</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:242"><nobr><span class="ft6">.  </span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:254"><nobr><span class="ft0">[Hoff, et al. 1999]</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:343"><nobr><span class="ft6"> describes the use </span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:122"><nobr><span class="ft6">of z-buffer techniques for the computation of Voronoi </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:469"><nobr><span class="ft6">diagrams.  The PixelFlow SIMD graphics computer </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:737"><nobr><span class="ft0">[Eyles, et </span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:469"><nobr><span class="ft0">al. 1997]</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:516"><nobr><span class="ft6"> was used to crack UNIX password encryption </span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:469"><nobr><span class="ft0">[Kedem and Ishihara 1999]</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:606"><nobr><span class="ft6">, and graphics hardware has been </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:469"><nobr><span class="ft6">used in the computation of artificial neural networks </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:753"><nobr><span class="ft0">[Bohn </span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:469"><nobr><span class="ft0">1998]</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:497"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:486"><nobr><span class="ft6">Our work uses CML to simulate dynamic phenomena that </span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:469"><nobr><span class="ft10">can be described by PDEs.  Related to this is the <br>visualization of flows described by PDEs, which has been <br>implemented using graphics hardware to accelerate line <br>integral convolution and Lagrangian-Eulerian advection </span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:469"><nobr><span class="ft0">[Heidrich, et al. 1999; Jobard, et al. 2001; Weiskopf, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:780"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:469"><nobr><span class="ft9">NVIDIA has demonstrated the Game of Life cellular <br>automata running on their GPUs, as well as a 2D physically-<br>based water simulation that operates much like our CML <br>simulations </span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:531"><nobr><span class="ft0">[NVIDIA 2001a;NVIDIA 2001b]</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:693"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:469"><nobr><span class="ft4">3.3 Common Operations </span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:469"><nobr><span class="ft10">A detailed description of the implementation of the specific <br>simulations that we have modeled using CML would require <br>more space than we have in this paper, so we will instead <br>describe a few common CML operations, followed by details <br>of their implementation.  Our goal in these descriptions is to <br>impart a feel for the kinds of operations that can be <br>performed using a graphics hardware implementation of a <br>CML model. </span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:469"><nobr><span class="ft4">3.3.1 Diffusion and the Laplacian </span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:469"><nobr><span class="ft9">The divergence of the gradient of a scalar function is called <br>the Laplacian </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:541"><nobr><span class="ft0">[Weisstein 1999]</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:624"><nobr><span class="ft6">: </span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:639"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:679"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:564"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:646"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:686"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:579"><nobr><span class="ft14">( , )</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:696"><nobr><span class="ft14">.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:643"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:683"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:568"><nobr><span class="ft14">T x y</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:638"><nobr><span class="ft14">x</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:679"><nobr><span class="ft14">y</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:630"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:670"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:553"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:616"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:657"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:631"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:671"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:702"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:469"><nobr><span class="ft10">The Laplacian is one of the most useful tools for working <br>with partial differential equations.  It is an isotropic measure <br>of the second spatial derivative of a scalar function.  <br>Intuitively, it can be used to detect regions of rapid change, <br>and for this reason it is commonly used for edge detection in <br>image processing.  The discretized form of this equation is: </span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:518"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:532"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:570"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:610"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:646"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:658"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:687"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:698"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:735"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:718"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:529"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:563"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:578"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:603"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:618"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:644"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:684"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:732"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:521"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:556"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:596"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:636"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:677"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:725"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:566"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:606"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:653"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:694"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:506"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:544"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:585"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:626"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:666"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:706"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:745"><nobr><span class="ft7">. </span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:486"><nobr><span class="ft6">The Laplacian is used in all of the CML simulations that </span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:469"><nobr><span class="ft9">we have implemented.  If the results of the application of a <br>Laplacian operator at a node T</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:627"><nobr><span class="ft15"><i>i,j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:633"><nobr><span class="ft6"> are scaled and then added to </span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:469"><nobr><span class="ft6">the value of T</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:540"><nobr><span class="ft15"><i>i,j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:546"><nobr><span class="ft6"> itself, the result is diffusion </span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:693"><nobr><span class="ft0">[Weisstein 1999]</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:775"><nobr><span class="ft6">: </span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:469"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:581"><nobr><span class="ft13">'</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:667"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:580"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:614"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:681"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:642"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:646"><nobr><span class="ft13">d</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:577"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:611"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:678"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:639"><nobr><span class="ft13">c</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:570"><nobr><span class="ft13">T</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:604"><nobr><span class="ft13">T</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:671"><nobr><span class="ft13">T</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:593"><nobr><span class="ft13">=</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:626"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:656"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:691"><nobr><span class="ft7">. (1) </span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:469"><nobr><span class="ft6">Here,  c</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:508"><nobr><span class="ft15"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:512"><nobr><span class="ft6"> is the coefficient of diffusion.  Application of this </span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:469"><nobr><span class="ft9">diffusion operation to a lattice state will cause the state to <br>diffuse through the lattice</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:600"><nobr><span class="ft15"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:605"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:469"><nobr><span class="ft4">3.3.2 Directional Forces </span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:469"><nobr><span class="ft9">Most dynamic simulations involve the application of force.  <br>Like all operations in a CML model, forces are applied via </span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:469"><nobr><span class="ft1">                                                 </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:469"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:473"><nobr><span class="ft0"> See Appendix A for details of our diffusion implementation. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">111</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:2px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148004.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:644"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:642"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:651"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:652"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:783"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:122"><nobr><span class="ft9">computations on the state of a node and its neighbors.  As an <br>example, we describe a buoyancy operator used in <br>convection and cloud formation simulations </span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:355"><nobr><span class="ft0">[Miyazaki, et al. </span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:122"><nobr><span class="ft0">2001;Yanagita and Kaneko 1993;Yanagita and Kaneko 1997]</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:419"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:139"><nobr><span class="ft6">This buoyancy operator uses temperature state T  to </span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:122"><nobr><span class="ft9">compute a buoyant velocity at a node and add it to the node's <br>vertical velocity state, v: </span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:122"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:194"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:229"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:286"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:322"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:362"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:255"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:263"><nobr><span class="ft14">[2</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:375"><nobr><span class="ft14">]</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:256"><nobr><span class="ft16"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:253"><nobr><span class="ft13">c</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:191"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:225"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:283"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:315"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:330"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:355"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:370"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:184"><nobr><span class="ft14">v</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:219"><nobr><span class="ft14">v</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:276"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:308"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:348"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:318"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:358"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:192"><nobr><span class="ft14"> =</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:240"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:297"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:337"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:383"><nobr><span class="ft7">. </span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:417"><nobr><span class="ft7">(2) </span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:122"><nobr><span class="ft10">Equation (2) expresses that a node is buoyed upward if its <br>horizontal neighbors are cooler than it is, and pushed <br>downward if they are warmer. The strength of the buoyancy <br>is controlled via the parameter c</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:286"><nobr><span class="ft15"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:290"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:122"><nobr><span class="ft4">3.3.3 Computation on Neighbors </span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:122"><nobr><span class="ft9">Sometimes an operation requires more complex computation <br>than the arithmetic of the simple buoyancy operation <br>described above.  The buoyancy operation of the boiling <br>simulation described in Section 2.1 must also account for <br>phase change, and is therefore more complicated: </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:392"><nobr><span class="ft6"> </span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:124"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:186"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:220"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:264"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:302"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:314"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:364"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:375"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:246"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:271"><nobr><span class="ft14">[ (</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:319"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:349"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:381"><nobr><span class="ft14">)],</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:224"><nobr><span class="ft14">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:261"><nobr><span class="ft14">tanh[ (</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:344"><nobr><span class="ft14">)].</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:183"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:217"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:261"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:299"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:361"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:339"><nobr><span class="ft13">c</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:176"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:210"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:253"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:292"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:354"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:229"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:308"><nobr><span class="ft14">T T</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:244"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:278"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:339"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:214"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:291"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:309"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:371"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:186"><nobr><span class="ft14"> =</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:232"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:327"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:249"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:321"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:397"><nobr><span class="ft7"> (3) </span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:122"><nobr><span class="ft6">In Equation (3), </span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:210"><nobr><span class="ft6">s is the buoyancy strength coefficient, and </span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:122"><nobr><span class="ft7"></span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:129"><nobr><span class="ft6">(T) is an approximation of density relative to temperature, </span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:122"><nobr><span class="ft9">T.  The hyperbolic tangent is used to simulate the rapid <br>change of density of a substance around the phase change <br>temperature,  T</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:200"><nobr><span class="ft15"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:204"><nobr><span class="ft6">.    A change in density of a lattice node </span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:122"><nobr><span class="ft10">relative to its vertical neighbors causes the temperature of the <br>node to be buoyed upward or downward.  The thing to notice <br>in this equation is that simple arithmetic will not suffice ­ the <br>hyperbolic tangent function must be applied to the <br>temperature at the neighbors above and below node (i,j).  We <br>will discuss how we can compute arbitrary functions using <br>dependent texturing in Section 3.4. </span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:122"><nobr><span class="ft4">3.4 State Representation and Storage </span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:122"><nobr><span class="ft9">Our goal is to maintain all state and operation of our <br>simulations in the GPU and its associated memory.  To this <br>end, we use the frame buffer like a register array to hold <br>transient state, and we use textures like main memory arrays <br>for state storage.  Since the frame buffer and textures are </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:469"><nobr><span class="ft10">typically limited to storage of 8-bit unsigned integers, state <br>values must be converted to this format before being written <br>to texture.   </span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:486"><nobr><span class="ft6">Texture storage can be used for both scalar and vector </span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:469"><nobr><span class="ft10">data.  Because of the four color channels used in image <br>generation,  two-, three-, or four-dimensional vectors can be <br>stored in each texel of an RGBA texture.  If scalar data are <br>needed, it is often advantageous to store more than one scalar <br>state in a single texture by using different color channels. In <br>our CML implementation of the Gray-Scott reaction-<br>diffusion system, for example, we store the concentrations of <br>both reactants in the same texture.  This is not only efficient <br>in storage but also in computation since operations that act <br>equivalently on both concentrations can be performed in <br>parallel.  </span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:486"><nobr><span class="ft6">Physical simulation also requires the use of signed values.  </span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:469"><nobr><span class="ft10">Most texture storage, however, uses unsigned fixed-point <br>values.  Although fragment-level programmability available <br>in current GPUs uses signed arithmetic internally, the <br>unsigned data stored in the textures must be biased and <br>scaled before and after processing </span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:646"><nobr><span class="ft0">[NVIDIA 2002]</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:723"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:469"><nobr><span class="ft4">3.5 Implementing CML Operations </span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:469"><nobr><span class="ft9">An iteration of a CML simulation consists of successive <br>application of simple operations on the lattice.  These <br>operations consist of three steps: setup the graphics hardware <br>rendering state, render a single quadrilateral fit to the view <br>port, and store the rendered results into a texture. We refer to <br>each of these setup-render-copy operations as a single pass.  <br>In practice, due to limited GPU resources (number of texture <br>units, number of register combiners, etc.), a CML operation <br>may span multiple passes.   </span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:486"><nobr><span class="ft6">The setup portion of a pass simply sets the state of the </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:469"><nobr><span class="ft9">hardware to correctly perform the rest of the pass.  To be <br>sure that the correct lattice nodes are sampled during the <br>pass, texels in the input textures must map directly to pixels <br>in the output of the graphics pipeline.  To ensure that this is <br>true, we set the view port to the resolution of the lattice, and <br>the view frustum to an orthographic view fit to the lattice so <br>that there is a one-to-one mapping between pixels in the <br>rendering buffer and texels in the texture to be updated. </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:486"><nobr><span class="ft6">The render-copy portion of each pass performs 4 </span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:469"><nobr><span class="ft9">suboperations:  Neighbor Sampling,  Computation on <br>Neighbors,  New State Computation, and State Update.  </span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:469"><nobr><span class="ft0">Figure </span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:508"><nobr><span class="ft6">3 illustrates the mapping of the suboperations to </span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:469"><nobr><span class="ft9">graphics hardware.  Neighbor sampling and Computation on <br>Neighbors are performed by the programmable texture <br>mapping hardware.  New State Computation performs <br>arithmetic on the results of the previous suboperations using <br>programmable texture blending.  Finally, State Update feeds <br>the results of one pass to the next by rendering or copying <br>the texture blending results to a texture.  </span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:486"><nobr><span class="ft6">Neighbor Sampling: Since state is stored in textures, </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:469"><nobr><span class="ft9">neighbor sampling  is performed by offsetting texture <br>coordinates toward the neighbors of the texel being updated.  <br>For example, to sample the four nearest neighbor nodes of </span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:144"><nobr><span class="ft12">Figure 3: Components of a CML operation map to <br>graphics hardware pipeline components. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">112</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148005.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:263"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:122"><nobr><span class="ft10">node (x,y), the texture coordinates at the corners of the <br>quadrilateral mentioned above are offset in the direction of <br>each neighbor by the width of a single texel. Texture <br>coordinate interpolation ensures that as rasterization <br>proceeds, every texel's neighbors will be correctly sampled.  <br>Note that beyond sampling just the nearest neighbors of a <br>node, weighted averages of nearby nodes can be computed <br>by exploiting the linear texture interpolation hardware <br>available in GPUs.  An example of this is our single-pass <br>implementation of 2D diffusion, described in Appendix A.  </span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:139"><nobr><span class="ft6">Care must be taken, though, since the precision used for </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:122"><nobr><span class="ft10">the interpolation coefficients is sometimes lower than the rest <br>of the texture pipeline. </span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:139"><nobr><span class="ft6">Computation on Neighbors: As described in Section </span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:122"><nobr><span class="ft10">3.3.3, many simulations compute complex functions of the <br>neighbors they sample.  In many cases, these functions can <br>be computed ahead of time and stored in a texture for use as <br>a lookup table.  The programmable texture shader <br>functionality of recent GPUs provides several dependent <br>texture addressing operations.  We have implemented table <br>lookups using the "DEPENDENT_GB_TEXTURE_ <br>2D_NV" texture shader of the GeForce 3.  This shader <br>provides memory indirect texture addressing ­ the green and <br>blue colors read from one texture unit are used as texture <br>coordinates for a lookup into a second texture unit.  By <br>binding the precomputed lookup table texture to the second <br>texture unit, we can implement arbitrary function operations <br>on the values of the nodes (Figure 4).   </span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:139"><nobr><span class="ft6">New State Computation: Once we have sampled the </span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:122"><nobr><span class="ft9">values of neighboring texels and optionally used them for <br>function table lookups, we need to compute the new state of <br>the lattice.  We use programmable hardware texture blending <br>to perform arithmetic operations including addition, <br>multiplication, and dot products.  On the GeForce 3 and 4, <br>we implement this using register combiners </span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:357"><nobr><span class="ft0">[NVIDIA 2002]</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:436"><nobr><span class="ft6">  </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:122"><nobr><span class="ft9">Register combiners take the output of texture shaders and <br>rasterization as input, and provide arithmetic operations, <br>user-defined constants, and temporary registers.  The result <br>of these computations is written to the frame buffer. </span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:139"><nobr><span class="ft6">State Update: Once the new state is computed, we must </span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:122"><nobr><span class="ft10">store it in a state texture.  In our current implementation, we <br>copy the newly-rendered frame buffer to a texture using the <br>glCopyTexSubImage2D() instruction in OpenGL.  Since all <br>simulation state is stored in textures, our technique avoids <br>large data transfers between the CPU and GPU during <br>simulation and rendering. </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:469"><nobr><span class="ft4">3.6 Numerical Range of CML Simulations </span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:469"><nobr><span class="ft9">The physically based nature of CML simulations means that <br>the ranges of state values for different simulations can vary <br>widely.  The graphics hardware we use to implement them, <br>on the other hand, operates only on fixed-point fragment <br>values in the range [0,1].  This means that we must <br>normalize the range of a simulation into [0,1] before it can be <br>implemented in graphics hardware. </span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:486"><nobr><span class="ft6">Because the hardware uses limited-precision fixed-point </span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:469"><nobr><span class="ft9">numbers, some simulations will be more robust to this <br>normalization than others.  The robustness of a simulation <br>depends on several factors.  Dynamic range is the ratio <br>between a simulation's largest absolute value and its smallest <br>non-zero absolute value.  If a simulation has a high dynamic <br>range, it may not be robust to normalization unless the <br>precision of computation is high enough to represent the <br>dynamic range.  We refer to a simulation's resolution as the <br>smallest absolute numerical difference that it must be able to <br>discern.  A simulation with a resolution finer than the <br>resolution of the numbers used in its computation will not be <br>robust.  Finally, as the arithmetic complexity of a simulation <br>increases, it will incur more roundoff error, which may <br>reduce its robustness when using low-precision arithmetic. </span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:486"><nobr><span class="ft6">For example, the boiling simulation (Section 4.1) has a </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:469"><nobr><span class="ft9">range of approximately [0,10], but its values do not get very <br>close to zero, so its dynamic range is less than ten.  Also, its <br>resolution is fairly coarse, since the event to which it is most <br>sensitive ­ phase change ­ is near the top of its range.  For <br>these reasons, boiling is fairly robust under normalization.  <br>Reaction-diffusion has a range of [0,1] so it does not require <br>normalization.  Its dynamic range, however, is on the order <br>of 10</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:497"><nobr><span class="ft15"><i>5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:501"><nobr><span class="ft6">, which is much higher than that of the 8-bit</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:736"><nobr><span class="ft15"><i> </i></span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:739"><nobr><span class="ft6">numbers </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:469"><nobr><span class="ft9">stored in textures.  Fortunately, by scaling the coefficients of <br>reaction-diffusion, we can reduce this dynamic range <br>somewhat to get interesting results.  However, as we <br>describe in Section 4.3, it suffers from precision errors (See <br>Section 5.1 for more discussion of precision issues).  As <br>more precision becomes available in graphics hardware, <br>normalization will become less of an issue.  When floating <br>point computation is made available, simulations can be run <br>within their natural ranges. </span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:469"><nobr><span class="ft4">4  Results </span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:469"><nobr><span class="ft9">We have designed and built an interactive framework, <br>"CMLlab", for constructing and experimenting with CML <br>simulations (Figure 5).  The user constructs a simulation <br>from a set of general purpose operations, such as diffusion <br>and advection, or special purpose operations designed for <br>specific simulations, such as the buoyancy operations <br>described in Section 3.3.  Each operation processes a set of <br>input textures and produces a single output texture.  The user <br>connects the outputs and inputs of the selected operations <br>into a directed acyclic graph.  An iteration of the simulation <br>consists of traversing the graph in depth-first fashion so that <br>each operation is performed in order.  The state textures <br>resulting from an iteration are used as input state for the next <br>iteration, and for displaying the simulated system.  The </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:133"><nobr><span class="ft12">Figure 4: Arbitrary function lookups are implemented<br>using dependent texturing in graphics hardware. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">113</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:15px;font-family:Times;color:#000000;}
+	.ft18{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148006.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:644"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:642"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:651"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:652"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:783"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:122"><nobr><span class="ft9">results of intermediate passes in a simulation iteration can be <br>displayed to the user in place of the result textures.  This is <br>useful for visually debugging the operation of a new <br>simulation. </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:139"><nobr><span class="ft6">While 2D simulations in our framework use only 2D </span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:122"><nobr><span class="ft9">textures for storage of lattice state, 3D simulations can be <br>implemented in two ways.  The obvious way is to use 3D <br>textures.  However, the poor performance of copying to 3D <br>textures in current driver implementations would make our <br>simulations run much slower. Instead, we implement 3D <br>simulations using a collection of 2D slices to represent the <br>3D volume.  This has disadvantages over using true 3D <br>textures.  For example, we must implement linear filtering <br>and texture boundary conditions (clamp or repeat) in <br>software, wheras 3D texture functionality provides these in <br>hardware.   </span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:139"><nobr><span class="ft6">It is worth noting that we trade optimal performance for </span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:122"><nobr><span class="ft9">flexibility in the CMLLab framework.  Because we want to <br>allow a variety of models to be built from a set of operations, <br>we often incur the expense of some extra texture copies in <br>order to keep operations separate.  Thus, our implementation <br>is not optimal ­ even faster rates are achievable on the same <br>hardware by sacrificing operator reuse. </span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:139"><nobr><span class="ft6">To demonstrate the utility of hardware CML simulation </span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:122"><nobr><span class="ft10">in interactive 3D graphics applications, we have integrated <br>the simulation system into a virtual environment built on a <br>3D game engine, "Wild Magic" </span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:290"><nobr><span class="ft0">[Eberly 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:358"><nobr><span class="ft6">.  Figure 7 (see </span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:122"><nobr><span class="ft9">color plate) is an image of a boiling witch's brew captured <br>from a real-time demo we built with the engine.  The demo <br>uses our 3D boiling simulation (Section 4.1) and runs at 45 <br>frames per second.  </span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:139"><nobr><span class="ft6">We will now describe three of the CML simulations that </span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:122"><nobr><span class="ft9">we have implemented.  The test computer we used is a PC <br>with a single 2.0 GHz Pentium 4 processor and 512 MB of <br>RAM.  Tests were performed on this machine with both an <br>NVIDIA GeForce 3 Ti 500 GPU with 64 MB of RAM, and <br>an NVIDIA GeForce 4 Ti 4600 GPU with 128 MB of RAM. </span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:469"><nobr><span class="ft4">4.1 Boiling </span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:469"><nobr><span class="ft9">We have implemented 2D and 3D boiling simulations as <br>described in </span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:544"><nobr><span class="ft0">[Yanagita 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:627"><nobr><span class="ft6">.  Rather than simulate all </span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:469"><nobr><span class="ft9">components of the boiling phenomenon (temperature, <br>pressure, velocity, phase of matter, etc.), their model <br>simulates only the temperature of the liquid as it boils.  The <br>simulation is composed of successive application of thermal <br>diffusion, bubble formation and buoyancy, latent heat <br>transfer.  Sections 3.3.1 and 3.3.3 described the first two of <br>these, and Section 2.1 gave an overview of the model.  For <br>details of the latent heat transfer computation, we refer the <br>reader to </span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:526"><nobr><span class="ft0">[Yanagita 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:609"><nobr><span class="ft6">.  Our implementation requires </span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:469"><nobr><span class="ft10">seven passes per iteration for the 2D simulation, and 9 passes <br>per slice for the 3D simulation.  Table 1 shows the <br>simulation speed for a range of resolutions.  For details of <br>our boiling simulation implementation, see </span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:692"><nobr><span class="ft0">[Harris 2002b]</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:762"><nobr><span class="ft6">.  </span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:469"><nobr><span class="ft4">4.2 Convection </span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:469"><nobr><span class="ft6">The Rayleigh-Bénard convection CML model of </span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:736"><nobr><span class="ft0">[Yanagita </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:469"><nobr><span class="ft0">and Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:566"><nobr><span class="ft6"> simulates convection using four CML </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:469"><nobr><span class="ft9">operations: buoyancy (described in 3.3.2), thermal diffusion, <br>temperature and velocity advection, and viscosity and <br>pressure effect.  The viscosity and pressure effect is <br>implemented as </span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:611"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:651"><nobr><span class="ft14">grad(div )</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:586"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:590"><nobr><span class="ft13">v</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:646"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:583"><nobr><span class="ft14">k</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:532"><nobr><span class="ft14">v</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:559"><nobr><span class="ft14">v</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:615"><nobr><span class="ft14">v k</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:703"><nobr><span class="ft14">v</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:539"><nobr><span class="ft14"> = +</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:599"><nobr><span class="ft14"> +</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:718"><nobr><span class="ft1">, </span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:469"><nobr><span class="ft6">where </span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:507"><nobr><span class="ft17"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:519"><nobr><span class="ft6">is the velocity, k</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:604"><nobr><span class="ft15"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:608"><nobr><span class="ft6"> is the viscosity ratio and k</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:747"><nobr><span class="ft15"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:751"><nobr><span class="ft6"> is the </span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:469"><nobr><span class="ft9">coefficient of the pressure effect.  The first two terms of this <br>equation account for diffusion of the velocity, and the last <br>term is the flow caused by the gradient of the mass flow <br>around the lattice </span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:562"><nobr><span class="ft0">[Miyazaki, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:672"><nobr><span class="ft6">.  See </span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:704"><nobr><span class="ft0">[Miyazaki, et al. </span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:469"><nobr><span class="ft0">2001;Yanagita and Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:640"><nobr><span class="ft6"> for details of the discrete </span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:469"><nobr><span class="ft6">implementation of this operation. </span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:486"><nobr><span class="ft6">The remaining operation is advection of temperature and </span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:469"><nobr><span class="ft6">velocity by the velocity field.  </span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:638"><nobr><span class="ft0">[Yanagita and Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:783"><nobr><span class="ft6"> </span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:469"><nobr><span class="ft10">implements this by distributing state from a node to its <br>neighbors according to the velocity at the node. In our <br>implementation, this was made difficult by the precision </span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:122"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:197"><nobr><span class="ft0">Iterations Per Second  </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:122"><nobr><span class="ft0">Resolution </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:197"><nobr><span class="ft0">Software  GeForce 3  GeForce 4  Speedup </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:158"><nobr><span class="ft0">64x64 </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:216"><nobr><span class="ft0">266.5 </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:271"><nobr><span class="ft0">1252.9  </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:333"><nobr><span class="ft0">1752.5 </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:387"><nobr><span class="ft0">4.7 / 6.6</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:146"><nobr><span class="ft0">128x128 </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:222"><nobr><span class="ft0">61.8 </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:277"><nobr><span class="ft0">679.0  </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:339"><nobr><span class="ft0">926.6  11.0 / 15.0</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:146"><nobr><span class="ft0">256x256 </span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:222"><nobr><span class="ft0">13.9 </span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:277"><nobr><span class="ft0">221.3 </span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:339"><nobr><span class="ft0">286.6  15.9 / 20.6</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:146"><nobr><span class="ft0">512x512 </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:228"><nobr><span class="ft0">3.3 </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:283"><nobr><span class="ft0">61.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:345"><nobr><span class="ft0">82.3  18.5 / 24.9</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:134"><nobr><span class="ft0">1024x1024 </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:234"><nobr><span class="ft0">.9 </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:283"><nobr><span class="ft0">15.5 </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:345"><nobr><span class="ft0">21.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:384"><nobr><span class="ft0">17.2 / 24</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:140"><nobr><span class="ft0">32x32x32 </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:222"><nobr><span class="ft0">25.5 </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:277"><nobr><span class="ft0">104.3 </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:339"><nobr><span class="ft0">145.8 </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:387"><nobr><span class="ft0">4.1 / 5.7</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:140"><nobr><span class="ft0">64x64x64 </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:228"><nobr><span class="ft0">3.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:283"><nobr><span class="ft0">37.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:345"><nobr><span class="ft0">61.8  11.6 / 19.3</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:122"><nobr><span class="ft0">128x128x128 </span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:234"><nobr><span class="ft0">.4 </span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:287"><nobr><span class="ft0">NA </span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:351"><nobr><span class="ft0">8.3  NA / 20.8</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:133"><nobr><span class="ft18">Table 1: A speed comparison of our hardware CML<br>boiling simulation to a software version.  The speedup<br>column gives the speedup for both GeForce 3 and 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:481"><nobr><span class="ft12">Figure 5: CMLlab, our interactive framework for building<br>and experimenting with CML simulations. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">114</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148007.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:263"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:122"><nobr><span class="ft9">limitations of the hardware, so we used a texture shader-<br>based advection operation instead.  This operation advects <br>state stored in a texture using the GL_OFFSET_TEXTURE_ <br>2D_NV dependent texture addressing mode of the GeForce 3 <br>and 4.  A description of this method can be found in </span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:122"><nobr><span class="ft0">[Weiskopf, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:238"><nobr><span class="ft6">.  Our 2D convection implementation </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:122"><nobr><span class="ft10">(Figure 8 in the color plate section) requires 10 passes per <br>iteration.  We have not implemented a 3D convection <br>simulation because GeForce 3 and 4 do not have a 3D <br>equivalent of the offset texture operation. </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:139"><nobr><span class="ft6">Due to the precision limitations of the graphics hardware, </span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:122"><nobr><span class="ft10">our implementation of convection did not behave exactly as <br>described by </span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:190"><nobr><span class="ft0">[Yanagita and Kaneko 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:330"><nobr><span class="ft6">.  We do observe the </span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:122"><nobr><span class="ft10">formation of convective rolls, but the motion of both the <br>temperature and velocity fields is quite turbulent.  We <br>believe that this is a result of low-precision arithmetic.   </span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:122"><nobr><span class="ft4">4.3 Reaction-Diffusion </span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:122"><nobr><span class="ft6">Reaction-Diffusion processes were proposed by </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:399"><nobr><span class="ft0">[Turing </span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:122"><nobr><span class="ft0">1952]</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:150"><nobr><span class="ft6"> and introduced to computer graphics by </span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:408"><nobr><span class="ft0">[Turk </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:122"><nobr><span class="ft0">1991;Witkin and Kass 1991]</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:266"><nobr><span class="ft6">. They are a well-studied model </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:122"><nobr><span class="ft10">for the interaction of chemical reactants, and are interesting <br>due to their complex and often chaotic behavior.  The <br>patterns that emerge are reminiscent of patterns occurring in <br>nature </span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:160"><nobr><span class="ft0">[Lee, et al. 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:252"><nobr><span class="ft6">. We implemented the Gray-Scott </span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:122"><nobr><span class="ft6">model, as described in </span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:240"><nobr><span class="ft0">[Pearson 1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:313"><nobr><span class="ft6">. This is a two-chemical </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:122"><nobr><span class="ft10">system defined by the initial value partial differential <br>equations: </span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:249"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:299"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:248"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:296"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:329"><nobr><span class="ft14">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:364"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:315"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:353"><nobr><span class="ft14">) ,</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:234"><nobr><span class="ft13">u</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:233"><nobr><span class="ft13">v</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:194"><nobr><span class="ft14">U</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:224"><nobr><span class="ft14">D</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:253"><nobr><span class="ft14">U UV</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:319"><nobr><span class="ft14">F</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:352"><nobr><span class="ft14">U</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:198"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:194"><nobr><span class="ft14">V</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:223"><nobr><span class="ft14">D</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:251"><nobr><span class="ft14">V UV</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:321"><nobr><span class="ft14">F k V</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:197"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:187"><nobr><span class="ft14"> =  -</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:307"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:342"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:191"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:187"><nobr><span class="ft14"> =  +</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:305"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:334"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:190"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:374"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:122"><nobr><span class="ft6">where  F, k, D</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:200"><nobr><span class="ft15"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:204"><nobr><span class="ft6">, and D</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:248"><nobr><span class="ft15"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:251"><nobr><span class="ft6">.  are parameters given in </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:394"><nobr><span class="ft0">[Pearson </span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:122"><nobr><span class="ft0">1993]</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:150"><nobr><span class="ft6">. We have implemented 2D and 3D versions of this </span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:122"><nobr><span class="ft9">process, as shown in Figure 5 (2D), and Figures 1 and 9 (3D, <br>on color plate).  We found reaction-diffusion relatively <br>simple to implement in our framework because we were able <br>to reuse our existing diffusion operator.  In 2D this </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:469"><nobr><span class="ft10">simulation requires two passes per iteration, and in 3D it <br>requires three passes per slice.  A 256x256 lattice runs at 400 <br>iterations per second in our interactive framework, and a <br>128x128x32 lattice runs at 60 iterations per second. </span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:486"><nobr><span class="ft6">The low precision of the GeForce 3 and 4 reduces the </span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:469"><nobr><span class="ft10">variety of patterns that our implementation of the Gray-Scott <br>model produces.  We have seen a variety of results, but much <br>less diversity than produced by a floating point <br>implementation.  As with convection, this appears to be <br>caused by the effects of low-precision arithmetic. </span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:469"><nobr><span class="ft4">5  Hardware Limitations </span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:469"><nobr><span class="ft9">While current GPUs make a good platform for CML <br>simulation, they are not without problems.  Some of these <br>problems are performance problems of the current <br>implementation, and may not be issues in the near future.  <br>NVIDIA has shown in the past that slow performance can <br>often be alleviated via optimization of the software drivers <br>that accompany the GPU.  Other limitations are more <br>fundamental. </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:486"><nobr><span class="ft6">Most of the implementation limitations that we </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:469"><nobr><span class="ft9">encountered were limitations that affected performance.  We <br>have found glCopyTexSubImage3D(), which copies the <br>frame buffer to a slice of a 3D texture, to be much slower (up <br>to three orders of magnitude) than glCopyTexSubImage2D() <br>for the same amount of data.  This prevented us from using <br>3D textures in our implementation.  Once this problem is <br>alleviated, we expect a 3D texture implementation to be <br>faster and easier to implement, since it will remove the need <br>to bind multiple textures to sample neighbors in the third <br>dimension.  Also, 3D textures provide hardware linear <br>interpolation and boundary conditions (periodic or fixed) in <br>all three dimensions.  With our slice-based implementation, <br>we must interpolate and handle boundary conditions in the <br>third dimension in software. </span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:486"><nobr><span class="ft6">The ability to render to texture will also provide a speed </span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:469"><nobr><span class="ft9">improvement, as we estimate that in a complex 3D <br>simulation, much of the processing time is spent copying <br>rendered data from the frame buffer to textures (typically one <br>copy per pass).  When using 3D textures, we will need the <br>ability to render to a slice of a 3D texture. </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:469"><nobr><span class="ft4">5.1 Precision </span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:486"><nobr><span class="ft6">The hardware limitation that causes the most problems to </span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:469"><nobr><span class="ft9">our implementation is precision.  The register combiners in <br>the GeForce 3 and 4 perform arithmetic using nine-bit signed <br>fixed-point values.  Without floating point, the programmer <br>must scale and bias values to maintain them in ranges that <br>maximize precision.  This is not only difficult, it is subject to <br>arithmetic error. Some simulations (such as boiling) handle <br>this error well, and behave as predicted by a floating point <br>implementation.  Others, such as our reaction-diffusion <br>implementation, are more sensitive to precision errors. </span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:486"><nobr><span class="ft6">We have done some analysis of the error introduced by </span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:469"><nobr><span class="ft9">low precision and experiments to determine how much <br>precision is needed (For full details, see </span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:679"><nobr><span class="ft0">[Harris 2002a]</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:750"><nobr><span class="ft6">).  We </span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:469"><nobr><span class="ft6">hypothesize that the diffusion operation is very susceptible to </span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:133"><nobr><span class="ft12">Figure 6: High-precision fragment computations in near<br>future graphics hardware will enable accurate simulation of<br>reaction-diffusion at hundreds of iterations per second. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">115</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148008.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:644"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:642"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:651"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:652"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:783"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:122"><nobr><span class="ft9">roundoff error, because in our experiments in CMLlab, <br>iterated application of a diffusion operator never fully <br>diffuses its input.  We derive the error induced by each <br>application of diffusion (in 2D) to a node (i,j) as </span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:325"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:282"><nobr><span class="ft14">3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:254"><nobr><span class="ft14">(3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:333"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:287"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:223"><nobr><span class="ft13">d</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:322"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:289"><nobr><span class="ft14">d</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:315"><nobr><span class="ft14">x</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:215"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:245"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:233"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:269"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:303"><nobr><span class="ft14">+</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:342"><nobr><span class="ft7">, </span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:122"><nobr><span class="ft6">where d is the diffusion coefficient, x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:313"><nobr><span class="ft15"><i>i,j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:319"><nobr><span class="ft6"> is the value at node (i, </span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:122"><nobr><span class="ft6">j), and </span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:161"><nobr><span class="ft7"></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:166"><nobr><span class="ft6"> is the amount of roundoff error in each arithmetic </span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:122"><nobr><span class="ft6">operation.  Since d and x</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:251"><nobr><span class="ft15"><i>i,j </i></span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:261"><nobr><span class="ft6">are in the range [0,1], this error is </span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:122"><nobr><span class="ft6">bounded above by </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:253"><nobr><span class="ft0">4.75</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:229"><nobr><span class="ft0">d</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:223"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:273"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:243"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:282"><nobr><span class="ft6">.  With 8 bits of precision, </span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:419"><nobr><span class="ft7"></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:424"><nobr><span class="ft6"> is </span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:122"><nobr><span class="ft6">at most 2</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:177"><nobr><span class="ft15"><i>-9</i></span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:184"><nobr><span class="ft6">.  This error is fairly large, meaning that a </span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:122"><nobr><span class="ft10">simulation that is sensitive to small numbers will quickly <br>diverge. </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:139"><nobr><span class="ft6">In an attempt to better understand the precision needs of </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:122"><nobr><span class="ft9">our more sensitive simulations, we implemented a software <br>version of our reaction-diffusion simulation with adjustable <br>fixed-point precision.  Through experimentation, we have <br>found that with 14 or more bits of fixed-point precision, the <br>behavior of this simulation is visually very similar to our <br>single-precision floating-point implementation.  Like the <br>floating-point version, a diverse variety of patterns grow, <br>evolve, and sometimes develop unstable formations that <br>never cease to change.  Figure 6 shows a variety of patterns <br>generated with this 14-bit fixed-point simulation. </span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:139"><nobr><span class="ft6">Graphics hardware manufacturers are quickly moving </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:122"><nobr><span class="ft9">toward higher-quality pixels.  This goal, along with <br>increasing programmability, makes high-precision <br>computation essential.  Higher precision, including floating-<br>point fragment values, will become a standard feature of <br>GPUs in the near future </span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:252"><nobr><span class="ft0">[Spitzer 2002]</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:322"><nobr><span class="ft6">.  With the increasing </span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:122"><nobr><span class="ft9">precision and programmability of GPUs, we believe that <br>CML methods for simulating natural phenomena using <br>graphics hardware will become very useful. </span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:122"><nobr><span class="ft4">6  Conclusions and Future Work </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:122"><nobr><span class="ft10">In this paper, we have described a method for simulating a <br>variety of dynamic phenomena using graphics hardware.  We <br>presented the coupled map lattice as a simple and flexible <br>simulation technique, and showed how CML operations map <br>to computer graphics hardware operations.  We have <br>described common CML operations and how they can be <br>implemented on programmable GPUs. </span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:139"><nobr><span class="ft6">Our hardware CML implementation shows a substantial </span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:122"><nobr><span class="ft9">speed increase (up to 25 times on a GeForce 4) over the same <br>simulations implemented to run on a Pentium 4 CPU.  <br>However, this comparison (and the speedup numbers in <br>Table 1) should be taken with a grain of salt.  While our <br>CPU-based CML simulator is an efficient, straightforward <br>implementation that obeys common cache coherence <br>principles, it is not highly optimized, and could be <br>accelerated by using vectorized CPU instructions.  Our <br>graphics hardware implementation is not highly optimized <br>either.  We sacrifice optimal speed for flexibility.  The CPU <br>version is also written to use single precision floats, while <br>the GPU version uses fixed-point numbers with much less </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:469"><nobr><span class="ft10">precision.  Nevertheless, we feel that it would be difficult, if <br>not impossible, to achieve a 25x speedup over our current <br>CPU implementation by optimizing the code and using lower <br>precision numbers.  A more careful comparison and <br>optimized simulations on both platforms would be useful in <br>the future. </span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:486"><nobr><span class="ft6">"CMLlab", our flexible framework for building CML </span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:469"><nobr><span class="ft10">models, allows a user to experiment with simulations <br>running on graphics processors.  We have described various <br>2D and 3D simulations that we have implemented in this <br>framework.  We have also integrated our CML framework <br>with a 3D game engine to demonstrate the use of 3D CML <br>models in interactive scenes and virtual environments.  In the <br>future, we would like to add more flexibility to CMLlab.  <br>Users currently cannot define new, custom operations <br>without writing C++ code.  It would be possible, however, to <br>provide generic, scriptable operators, since the user <br>microcode that runs on the GPU can be dynamically loaded. </span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:486"><nobr><span class="ft6">We have described the problems we encountered in </span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:469"><nobr><span class="ft10">implementing CML in graphics hardware, such as limited <br>precision and 3D texturing performance problems.  We <br>believe that these problems will be alleviated in near future <br>generations of graphics hardware.  With the continued <br>addition of more texture units, memory, precision, and more <br>flexible programmability, graphics hardware will become an <br>even more powerful platform for visual simulation.  Some <br>relatively simple extensions to current graphics hardware and <br>APIs would benefit CML and PDE simulation.  For example, <br>the ability to render to 3D textures could simplify and <br>accelerate each pass of our simulations.  One avenue for <br>future research is to increase parallelization of simulations on <br>graphics hardware.  Currently, it is difficult to add multiple <br>GPUs to a single computer because PCs have a single AGP <br>port.  If future PC hardware adds support for multiple GPUs, <br>powerful multiprocessor machines could be built with these <br>inexpensive processors. </span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:486"><nobr><span class="ft6">We plan to continue exploring the use of CML on current </span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:469"><nobr><span class="ft10">and future generations of graphics hardware.  We are <br>interested in porting our system to ATI Radeon hardware.  <br>The Radeon 8500 can sample more textures per pass and has <br>more programmable texture addressing than GeForce 3, <br>which could add power to CML simulations.  Also, our <br>current framework relies mostly on the power of the <br>fragment processing pipeline, and uses none of the power <br>available in the programmable vertex engine.  We could <br>greatly increase the complexity of simulations by taking <br>advantage of this.  Currently, this would incur additional cost <br>for feedback of the output of the fragment pipeline (through <br>the main memory) and back into the vertex pipeline, but <br>depending on the application, it may be worth the expense.  <br>GPU manufacturers could improve the performance of this <br>feedback by allowing textures in memory to be interpreted as <br>vertex meshes for processing by the vertex engine, thus <br>avoiding unneccessary transfers back to the host. </span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:486"><nobr><span class="ft6">We hope to implement the cloud simulation described by </span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:469"><nobr><span class="ft0">[Miyazaki, et al. 2001]</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:587"><nobr><span class="ft6"> in the near future, as well as other </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">116</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:8px;font-family:Times;color:#000000;}
+	.ft20{font-size:15px;font-family:Times;color:#000000;}
+	.ft21{font-size:10px;line-height:19px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148009.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:263"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:122"><nobr><span class="ft6">dynamic phenomena.  Also, since the boiling simulation of </span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:122"><nobr><span class="ft0">[Yanagita 1992]</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:205"><nobr><span class="ft6"> models only temperature, and disregards </span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:122"><nobr><span class="ft9">surface tension, the bubbles are not round.  We are interested <br>in extending this simulation to improve its realism.  We plan <br>to continue exploring the use of computer graphics hardware <br>for general computation.  As an example, the anisotropic <br>diffusion that can be performed on a GPU may be useful for <br>image-processing and computer vision applications. </span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:122"><nobr><span class="ft4">Acknowledgements </span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:122"><nobr><span class="ft9">The authors would like to thank Steve Molnar, John Spitzer <br>and the NVIDIA Developer Relations team for answering <br>many questions.  This work was supported in part by <br>NVIDIA Corporation, US NIH National Center for Research <br>Resources Grant Number P41 RR 02170, US Office of <br>Naval Research N00014-01-1-0061, US Department of <br>Energy ASCI program, and National Science Foundation <br>grants ACR-9876914 and IIS-0121293. </span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:122"><nobr><span class="ft4">A Implementation </span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:255"><nobr><span class="ft4">of </span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:272"><nobr><span class="ft4">Diffusion </span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:122"><nobr><span class="ft9">On GeForce 3 hardware, the diffusion operation can be <br>implemented more efficiently than the Laplacian operator <br>itself.  To do so, we rewrite Equation (1) as  </span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:160"><nobr><span class="ft13">'</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:159"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:229"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:282"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:318"><nobr><span class="ft13">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:351"><nobr><span class="ft13">, 1</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:386"><nobr><span class="ft13">, 1</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:229"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:291"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:332"><nobr><span class="ft13">( , )</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:233"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:182"><nobr><span class="ft4">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:215"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:266"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:401"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:253"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:213"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:240"><nobr><span class="ft4">[(1</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:278"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:349"><nobr><span class="ft4">],</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:213"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:328"><nobr><span class="ft16"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:256"><nobr><span class="ft13">d</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:157"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:209"><nobr><span class="ft13">d</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:226"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:276"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:289"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:312"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:325"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:348"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:384"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:272"><nobr><span class="ft13">d</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:289"><nobr><span class="ft13">i j</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:314"><nobr><span class="ft13">d n i j</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:226"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:250"><nobr><span class="ft4">c</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:150"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:203"><nobr><span class="ft4">c T</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:270"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:306"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:342"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:377"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:266"><nobr><span class="ft4">c T</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:308"><nobr><span class="ft4">c T</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:279"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:315"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:357"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:393"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:230"><nobr><span class="ft13">=</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:171"><nobr><span class="ft4">= -</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:239"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:296"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:332"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:368"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:201"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:256"><nobr><span class="ft4">-</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:301"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:223"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:409"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:122"><nobr><span class="ft6">where n</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:163"><nobr><span class="ft15"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:167"><nobr><span class="ft6">(x,y) represents the kth nearest neighbor of (x, y).  In </span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:122"><nobr><span class="ft9">this form, we see that the diffusion operator is the average of <br>four weighted sums of the center texel, T</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:357"><nobr><span class="ft15"><i>i,j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:363"><nobr><span class="ft6"> and its four </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:122"><nobr><span class="ft9">nearest neighbor texels.  These weighted sums are actually <br>linear interpolation computations, with c</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:330"><nobr><span class="ft15"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:334"><nobr><span class="ft6"> as the parameter of </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:122"><nobr><span class="ft9">interpolation.  This means that we can implement the <br>diffusion operation described by Equation 3 by enabling <br>linear texture filtering, and using texture coordinate offsets <br>of  c</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:144"><nobr><span class="ft15"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:148"><nobr><span class="ft6"> </span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:154"><nobr><span class="ft6">ÿ  w</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:171"><nobr><span class="ft15"><i>, </i></span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:177"><nobr><span class="ft6">where  w is the width of a texel as described in </span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:122"><nobr><span class="ft6">Section 3.5. </span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:122"><nobr><span class="ft4">References </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:122"><nobr><span class="ft9">[Bohn 1998] Bohn, C.-A. Kohonen Feature Mapping <br>Through Graphics Hardware. In Proceedings of 3rd Int. <br>Conference on Computational Intelligence and <br>Neurosciences 1998. 1998. <br>[Cabral, et al. 1994] Cabral, B., Cam, N. and Foran, J. <br>Accelerated Volume Rendering and Tomographic <br>Reconstruction Using Texture Mapping Hardware. In <br>Proceedings of Symposium on Volume Visualization  1994, <br>91-98. 1994. <br>[Carr, et al. 2002] Carr, N.A., Hall, J.D. and Hart, J.C. The <br>Ray Engine. In Proceedings of SIGGRAPH / Eurographics <br>Workshop on Graphics Hardware 2002. 2002. <br>[Dobashi, et al. 2000] Dobashi, Y., Kaneda, K., Yamashita, <br>H., Okita, T. and Nishita, T. A Simple, Efficient Method for <br>Realistic Animation of Clouds. In Proceedings of <br>SIGGRAPH  2000, ACM Press / ACM SIGGRAPH, 19-28. <br>2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:469"><nobr><span class="ft10">[Eberly 2001] Eberly, D.H. 3D Game Engine Design. <br>Morgan Kaufmann Publishers.  2001. <br>[England 1978] England, J.N. A system for interactive <br>modeling of physical curved surface objects. In Proceedings <br>of SIGGRAPH 78 1978, 336-340. 1978. <br>[Eyles, et al. 1997] Eyles, J., Molnar, S., Poulton, J., Greer, <br>T. and Lastra, A. PixelFlow: The Realization. In Proceedings <br>of 1997 SIGGRAPH / Eurographics Workshop on Graphics <br>Hardware 1997, ACM Press, 57-68. 1997. <br>[Fedkiw, et al. 2001] Fedkiw, R., Stam, J. and Jensen, H.W. <br>Visual Simulation of Smoke. In Proceedings of SIGGRAPH <br>2001, ACM Press / ACM SIGGRAPH. 2001. <br>[Foster and Metaxas 1997] Foster, N. and Metaxas, D. <br>Modeling the Motion of a Hot, Turbulent Gas. In <br>Proceedings of SIGGRAPH  1997, ACM Press / ACM <br>SIGGRAPH, 181-188. 1997. <br>[Harris 2002a] Harris, M.J. Analysis of Error in a CML <br>Diffusion Operation. University of North Carolina Technical <br>Report TR02-015. </span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:469"><nobr><span class="ft19">http://www.cs.unc.edu/~harrism/cml/dl/HarrisTR02-015.pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:723"><nobr><span class="ft6">. 2002a. </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:469"><nobr><span class="ft9">[Harris 2002b] Harris, M.J. Implementation of a CML <br>Boiling Simulation using Graphics Hardware. University of <br>North Carolina Technical Report TR02-016. </span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:469"><nobr><span class="ft19">http://www.cs.unc.edu/~harrism/cml/dl/HarrisTR02-016.pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:723"><nobr><span class="ft6">. 2002b. </span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:469"><nobr><span class="ft9">[Heidrich, et al. 1999] Heidrich, W., Westermann, R., Seidel, <br>H.-P. and Ertl, T. Applications of Pixel Textures in <br>Visualization and Realistic Image Synthesis. In Proceedings <br>of ACM Symposium on Interactive 3D Graphics 1999. 1999. <br>[Hoff, et al. 1999] Hoff, K.E.I., Culver, T., Keyser, J., Lin, <br>M. and Manocha, D. Fast Computation of Generalized <br>Voronoi Diagrams Using Graphics Hardware. In <br>Proceedings of SIGGRAPH 1999, ACM / ACM Press, 277-<br>286. 1999. <br>[Jobard, et al. 2001] Jobard, B., Erlebacher, G. and Hussaini, <br>M.Y. Lagrangian-Eulerian Advection for Unsteady Flow <br>Visualization. In Proceedings of IEEE Visualization  2001. <br>2001. <br>[Kaneko 1993] Kaneko, K. (ed.), Theory and applications of <br>coupled map lattices. Wiley, 1993. <br>[Kapral 1993] Kapral, R. Chemical Waves and Coupled Map <br>Lattices. in Kaneko, K. ed. Theory and Applications of <br>Coupled Map Lattices, Wiley, 135-168. 1993. <br>[Kedem and Ishihara 1999] Kedem, G. and Ishihara, Y. <br>Brute Force Attack on UNIX Passwords with SIMD <br>Computer. In Proceedings of The 8th USENIX Security <br>Symposium 1999. 1999. <br>[Lee, et al. 1993] Lee, K.J., McCormick, W.D., Ouyang, Q. <br>and Swinn, H.L. Pattern Formation by Interacting Chemical <br>Fronts. Science, 261. 192-194. 1993. <br>[Lengyel, et al. 1990] Lengyel, J., Reichert, M., Donald, B.R. <br>and Greenberg, D.P. Real-Time Robot Motion Planning <br>Using Rasterizing Computer Graphics Hardware. In <br>Proceedings of SIGGRAPH 1990, 327-335. 1990. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft20">117</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148010.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:644"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:642"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:651"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:652"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:783"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:122"><nobr><span class="ft9">[Lindholm, et al. 2001] Lindholm, E., Kilgard, M. and <br>Moreton, H. A User Programmable Vertex Engine. In <br>Proceedings of SIGGRAPH  2001, ACM Press / ACM <br>SIGGRAPH, 149-158. 2001. <br>[Miyazaki, et al. 2001] Miyazaki, R., Yoshida, S., Dobashi, <br>Y. and Nishita, T. A Method for Modeling Clouds Based on <br>Atmospheric Fluid Dynamics. In Proceedings of The Ninth <br>Pacific Conference on Computer Graphics and Applications <br>2001, IEEE Computer Society Press, 363-372. 2001. <br>[Nagel and Raschke 1992] Nagel, K. and Raschke, E. Self-<br>organizing criticality in cloud formation? Physica A, 182. <br>519-531. 1992. <br>[Nishimori and Ouchi 1993] Nishimori, H. and Ouchi, N. <br>Formation of Ripple Patterns and Dunes by Wind-Blown <br>Sand. Physical Review Letters, 71 1. 197-200. 1993. <br>[NVIDIA 2002] NVIDIA. NVIDIA OpenGL Extension <br>Specifications. </span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:122"><nobr><span class="ft19">http://developer.nvidia.com/view.asp?IO=nvidia_opengl_specs</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:388"><nobr><span class="ft6">. 2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:122"><nobr><span class="ft9">[NVIDIA 2001a] NVIDIA. NVIDIA OpenGL Game Of Life <br>Demo. </span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:159"><nobr><span class="ft19">http://developer.nvidia.com/view.asp?IO=ogl_gameoflife</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:401"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:122"><nobr><span class="ft9">2001a.  <br>[NVIDIA 2001b] NVIDIA. NVIDIA Procedural Texture <br>Physics Demo. </span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:122"><nobr><span class="ft19">http://developer.nvidia.com/view.asp?IO=ogl_dynamic_bumpreflection</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:424"><nobr><span class="ft6">. </span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:122"><nobr><span class="ft9">2001b.  <br>[Olano and Lastra 1998] Olano, M. and Lastra, A. A Shading <br>Language on Graphics Hardware: The PixelFlow Shading <br>System. In Proceedings of SIGGRAPH 1998, ACM / ACM <br>Press, 159-168. 1998. <br>[Pearson 1993] Pearson, J.E. Complex Patterns in a Simple <br>System. Science, 261. 189-192. 1993. <br>[Peercy, et al. 2000] Peercy, M.S., Olano, M., Airey, J. and <br>Ungar, P.J. Interactive Multi-Pass Programmable Shading. In <br>Proceedings of SIGGRAPH  2000, ACM Press / ACM <br>SIGGRAPH, 425-432. 2000. <br>[Potmesil and Hoffert 1989] Potmesil, M. and Hoffert, E.M. <br>The Pixel Machine: A Parallel Image Computer. In <br>Proceedings of SIGGRAPH 89 1989, ACM, 69-78. 1989. <br>[Proudfoot, et al. 2001] Proudfoot, K., Mark, W.R., <br>Tzvetkov, S. and Hanrahan, P. A Real-Time Procedural <br>Shading System for Programmable Graphics Hardware. In <br>Proceedings of SIGGRAPH  2001, ACM Press / ACM <br>SIGGRAPH, 159-170. 2001. <br>[Purcell, et al. 2002] Purcell, T.J., Buck, I., Mark, W.R. and <br>Hanrahan, P. Ray Tracing on Programmable Graphics <br>Hardware. In Proceedings of SIGGRAPH  2002, ACM / <br>ACM Press. 2002. <br>[Qian, et al. 1996] Qian, Y.H., Succi, S. and Orszag, S.A. <br>Recent Advances in Lattice Boltzmann Computing. in <br>Stauffer, D. ed. Annual Reviews of Computational Physics <br>III, World Scientific, 195-242. 1996. <br>[Rhoades, et al. 1992] Rhoades, J., Turk, G., Bell, A., State, <br>A., Neumann, U. and Varshney, A. Real-Time Procedural <br>Textures. In Proceedings of Symposium on Interactive 3D <br>Graphics 1992, ACM / ACM Press, 95-100. 1992. </span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:469"><nobr><span class="ft10">[Spitzer 2002] Spitzer, J. Shading and Game Development <br>(Presentation on NVIDIA Technology). IBM EDGE <br>Workshop. 2002.  <br>[Stam 1999] Stam, J. Stable Fluids. In Proceedings of <br>SIGGRAPH  1999, ACM Press / ACM SIGGRAPH, 121-<br>128. 1999. <br>[Toffoli and Margolus 1987] Toffoli, T. and Margolus, N. <br>Cellular Automata Machines. The MIT Press.  1987. <br>[Trendall and Steward 2000] Trendall, C. and Steward, A.J. <br>General Calculations using Graphics Hardware, with <br>Applications to Interactive Caustics. In Proceedings of <br>Eurogaphics Workshop on Rendering  2000, Springer, 287-<br>298. 2000. <br>[Turing 1952] Turing, A.M. The chemical basis of <br>morphogenesis. Transactions of the Royal Society of London, <br>B237. 37-72. 1952. <br>[Turk 1991] Turk, G. Generating Textures on Arbitrary <br>Surfaces Using Reaction-Diffusion. In Proceedings of <br>SIGGRAPH  1991, ACM Press / ACM SIGGRAPH, 289-<br>298. 1991. <br>[von Neumann 1966] von Neumann, J. Theory of Self-<br>Reproducing Automata. University of Illinois Press.  1966. <br>[Weiskopf, et al. 2001] Weiskopf, D., Hopf, M. and Ertl, T. <br>Hardware-Accelerated Visualization of Time-Varying 2D <br>and 3D Vector Fields by Texture Advection via <br>Programmable Per-Pixel Operations. In Proceedings of <br>Vision, Modeling, and Visualization 2001, 439-446. 2001. <br>[Weisstein 1999] Weisstein, E.W. CRC Concise <br>Encyclopedia of Mathematics. CRC Press.  1999. <br>[Witkin and Kass 1991] Witkin, A. and Kass, M. Reaction-<br>Diffusion Textures. In Proceedings of SIGGRAPH  1991, <br>ACM Press / ACM SIGGRAPH, 299-308. 1991. <br>[Wolfram 1984] Wolfram, S. Cellular automata as models of <br>complexity. Nature, 311. 419-424. 1984. <br>[Yanagita 1992] Yanagita, T. Phenomenology of boiling: A <br>coupled map lattice model. Chaos, 2 3. 343-350. 1992. <br>[Yanagita and Kaneko 1993] Yanagita, T. and Kaneko, K. <br>Coupled map lattice model for convection. Physics Letters A, <br>175. 415-420. 1993. <br>[Yanagita and Kaneko 1997] Yanagita, T. and Kaneko, K. <br>Modeling and Characterization of Cloud Dynamics. Physical <br>Review Letters, 78 22. 4297-4300. 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:676"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">118</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:11px;line-height:19px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="148011.png" alt="background image">
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft0">Harris, Coombe, Scheuermann, and Lastra / Simulation on Graphics Hardware </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:122"><nobr><span class="ft2">© </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:131"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:132"><nobr><span class="ft2">The Eurographics Association 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:263"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:122"><nobr><span class="ft22"> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:138"><nobr><span class="ft12">Figure 7: A CML boiling simulation running in an<br>interactive 3D environment (the steam is a particle<br>system).</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:178"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:245"><nobr><span class="ft0">Figure 9: A sequence from our 3D version of the Gray-Scott reaction-diffusion model. </span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:482"><nobr><span class="ft12">Figure 8: A CML convection simulation.  The left panel<br>shows temperature; the right panel shows 2D velocity<br>encoded in the blue and green color channels</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:698"><nobr><span class="ft7">. </span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:445"><nobr><span class="ft8">160</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

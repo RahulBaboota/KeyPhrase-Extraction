@@ -1,0 +1,1118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>sig-alternate.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2003-07-17T17:18:03+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:110"><nobr><span class="ft0"><b>Query Type Classification for Web Document Retrieval</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:242"><nobr><span class="ft1">In-Ho Kang</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:190"><nobr><span class="ft2">Division of Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:218"><nobr><span class="ft2">Department of EECS</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:266"><nobr><span class="ft2">KAIST</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:186"><nobr><span class="ft1">ihkang@csone.kaist.ac.kr</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:572"><nobr><span class="ft1">GilChang Kim</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:529"><nobr><span class="ft2">Division of Computer Science</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:557"><nobr><span class="ft2">Department of EECS</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:605"><nobr><span class="ft2">KAIST</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:543"><nobr><span class="ft1">gckim@cs.kaist.ac.kr</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft7">The heterogeneous Web exacerbates IR problems and short<br>user queries make them worse. The contents of web docu-<br>ments are not enough to find good answer documents. Link<br>information and URL information compensates for the in-<br>sufficiencies of content information. However, static com-<br>bination of multiple evidences may lower the retrieval per-<br>formance. We need different strategies to find target doc-<br>uments according to a query type.</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:311"><nobr><span class="ft3">We can classify user</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:81"><nobr><span class="ft7">queries as three categories, the topic relevance task, the<br>homepage finding task, and the service finding task. In this<br>paper, a user query classification scheme is proposed. This<br>scheme uses the difference of distribution, mutual informa-<br>tion, the usage rate as anchor texts, and the POS informa-<br>tion for the classification. After we classified a user query,<br>we apply different algorithms and information for the bet-<br>ter results. For the topic relevance task, we emphasize the<br>content information, on the other hand, for the homepage<br>finding task, we emphasize the Link information and the<br>URL information. We could get the best performance when<br>our proposed classification method with the OKAPI scoring<br>algorithm was used.</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:81"><nobr><span class="ft7">H.4.m [Information Systems Applications]: Miscella-<br>neous</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:81"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:81"><nobr><span class="ft3">Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:81"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft7">Combination of Multiple Evidences, Link Information, URL<br>Information, Query Classification</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft1">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:112"><nobr><span class="ft1">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>SIGIR'03, July 28­August 1, 2003, Toronto, Canada<br>Copyright 2003 ACM 1-58113-646-3/03/0007 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:489"><nobr><span class="ft3">The Web is rich with various sources of information. It</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:475"><nobr><span class="ft7">contains the contents of documents, web directories, multi-<br>media data, user profiles and so on. The massive and het-<br>erogeneous web document collections as well as the unpre-<br>dictable querying behaviors of typical web searchers exac-<br>erbate Information Retrieval (IR) problems. Retrieval ap-<br>proaches based on the single source of evidence suffer from<br>weakness that can hurt the retrieval performance in certain<br>situations [5]. For example, content-based IR approaches<br>have a difficulty in dealing with the diversity in vocabu-<br>lary and the quality of web documents, while link-based ap-<br>proaches can suffer from an incomplete or noisy link struc-<br>ture.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:516"><nobr><span class="ft3">Combining multiple evidences compensates for the</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:475"><nobr><span class="ft7">weakness of a single evidence [17]. Fusion IR studies have<br>repeatedly shown that combining multiple sources of evi-<br>dence can improve retrieval performance [5][17].</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:489"><nobr><span class="ft3">However, previous studies did not consider a user query</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:475"><nobr><span class="ft7">in combining evidences [5][7][10][17]. Not only documents in<br>the Web but also users' queries are diverse. For example, for<br>user query `Mutual Information' , if we count on link infor-<br>mation too highly, well-known site that has `mutual funds'<br>and `information' as index terms gets the higher rank. For<br>user query `Britney's Fan Club' , if we use content informa-<br>tion too highly, yahoo or lycos's web directory pages get the<br>higher rank, instead of the Britney's fan club site. Like these<br>examples, combining content information and link informa-<br>tion is not always good. We have to use different strategies<br>to meet the need of a user. User queries can be classified as<br>three categories according to their intent [4].</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:495"><nobr><span class="ft3">· topic relevance task (informational)</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:495"><nobr><span class="ft3">· homepage finding task (navigational)</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:495"><nobr><span class="ft3">· service finding task (transactional)</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft7">The topic relevance task is a traditional ad hoc retrieval task<br>where web documents are ranked by decreasing likelihood of<br>meeting the information need provided in a user query [8].<br>For example, `What is a prime factor?' or `prime factor' is<br>a query of the topic relevance task. The goal of this query is<br>finding the meaning of `prime factor'. The homepage find-<br>ing task is a known-item task where the goal is to find the<br>homepage (or site entry page) of the site described in a user<br>query. Users are interested in finding a certain site. For<br>example, `Where is the site of John Hopkins Medical Insti-<br>tutions?' or `John Hopkins Medical Institutions' is a query<br>of the homepage finding task. The goal of this query is find-<br>ing the entry page of `John Hopkins Medical Institutions'.<br>The service finding task is a task where the goal is to find</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">64</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+	.ft10{font-size:-1px;font-family:Times;color:#000000;}
+	.ft11{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">web documents that provide the service described in a user<br>query. For example, `Where can I buy concert tickets?' or<br>`buy concert tickets' is a query of the service finding task.<br>The goal of this query is finding documents where they can<br>buy concert tickets.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:94"><nobr><span class="ft3">Users may want different documents with the same query.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft7">We cannot always tell the class of a query clearly. But we can<br>tell most people want a certain kind of documents with this<br>query. In this paper, we calculate the probability that the<br>class of a user query is the topic relevance task or the home-<br>page finding task. Based on this probability, we combine<br>multiple evidences dynamically. In this paper, we consider<br>the topic relevance task and the homepage finding task only.<br>Because the proposed method is based on the difference of<br>databases, we can apply the same method to classify the<br>service finding task.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:94"><nobr><span class="ft3">In this paper, we present a user query classification method</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:81"><nobr><span class="ft7">and a combining method for each query type. In section 2,<br>we describe various types of information (Content, Link, and<br>URL information). Section 3 lists the differences of search<br>tasks and the properties of Content, Link, and URL infor-<br>mation. In section 4, we present the model of a query clas-<br>sification. In section 5, we experiment with our proposed<br>model. Conclusion is described in section 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:81"><nobr><span class="ft1">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:112"><nobr><span class="ft1">MULTIPLE SOURCES OF INFORMATION</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:94"><nobr><span class="ft3">In this section, we explain various sources of information</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:81"><nobr><span class="ft7">for the web document retrieval. There are three types of in-<br>formation, Content information, Link information, and URL<br>information.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:81"><nobr><span class="ft1">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:121"><nobr><span class="ft1">Content Information</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:94"><nobr><span class="ft3">There are multiple types of representations for a docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:81"><nobr><span class="ft7">ment. These representations typically contain titles, anchor<br>texts, and main body texts [5]. A title provides the main<br>idea and the brief explanation of a web document. An an-<br>chor text provides the description of linked web documents<br>and files. An anchor text often provides more accurate de-<br>scription of a web document than the document itself.</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:94"><nobr><span class="ft3">We usually use tf and df to calculate the relevance of a</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:81"><nobr><span class="ft7">given web documents [1]. tf is the raw frequency of a given<br>term inside a document. It provides one measure of how<br>well that term describes the document contents. df is the<br>number of documents in which the index term appears. The<br>motivation for using an inverse document frequency is that<br>terms that appear in many documents are not very useful<br>for distinguishing a relevant document from a non-relevant<br>one. There are various scoring algorithms that use tf and<br>df . These scoring algorithms include the normalization and<br>the combination of each factor, tf and df .</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:81"><nobr><span class="ft1">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:121"><nobr><span class="ft1">Link Information</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:94"><nobr><span class="ft3">A hyperlink in a web document is a kind of citation. The</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:81"><nobr><span class="ft7">essential idea is that if page u has a link to page v, then the<br>author of u is implicitly assigning some importance to page<br>v. Since we can represent the Web as a graph, we can use<br>graph theories to help us make a search engine that returns<br>the most important pages first. The PageRank or P R(A) of<br>a page A is given as follows [13].</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:96"><nobr><span class="ft3">P R(A)</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:151"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:176"><nobr><span class="ft3">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:191"><nobr><span class="ft3">- d) +</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:422"><nobr><span class="ft3">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:176"><nobr><span class="ft3">d(P R(T</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:223"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:229"><nobr><span class="ft3">)/C(T</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:266"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:272"><nobr><span class="ft3">) + . . . + P R(T</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:362"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:370"><nobr><span class="ft3">)/C(T</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:406"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:414"><nobr><span class="ft3">))</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">We assume page A has pages T</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:662"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:671"><nobr><span class="ft3">. . . T</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:697"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:709"><nobr><span class="ft3">that point to it. The</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft7">parameter d is a damping factor that can be set between 0<br>and 1. Also C(A) is defined as the number of links going out<br>of a page A. P R(A) can be calculated using a simple itera-<br>tive algorithm, and corresponds to the principal eigenvector<br>of the normalized link matrix of the Web [3].</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:475"><nobr><span class="ft1">2.3</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:516"><nobr><span class="ft1">URL Information</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:489"><nobr><span class="ft3">The URL string of a site entry page often contains the</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:475"><nobr><span class="ft7">name or acronym of the corresponding organization. There-<br>fore, an obvious way of exploiting URL information is trying<br>to match query terms and URL terms. Additionally, URLs<br>of site entry pages tend to be higher in a server's directory<br>tree than other web documents, i.e. the number of slashes<br>(`/') in an entry page URL tends to be relatively small.<br>Kraaij et al. suggested 4 types of URLs [16].</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:495"><nobr><span class="ft3">· root: a domain name</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:509"><nobr><span class="ft3">(e.g. http://trec.nist.gov)</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:495"><nobr><span class="ft3">· subroot: a domain name followed by a single directory</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:509"><nobr><span class="ft3">(e.g. http://trec.nist.gov/pubs/)</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:495"><nobr><span class="ft3">· path: a domain name followed by an arbitrarily deep</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:509"><nobr><span class="ft7">path<br>(e.g. http://trec.nist.gov/pubs/trec9/papers)</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:495"><nobr><span class="ft3">· file: anything ending in a filename other than `in-</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:509"><nobr><span class="ft7">dex.html'<br>(e.g. http://trec.nist.gov/pubs/trec9/t9proc.html)</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:475"><nobr><span class="ft7">Kraaij et al. estimated a prior probability (URLprior ) of<br>being an entry page on the basis of the URL type for all<br>URL types t (root, subroot, path, and file).</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:475"><nobr><span class="ft1">2.4</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:516"><nobr><span class="ft1">Combination of Information</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:489"><nobr><span class="ft3">We can combine results of each search engine or scores of</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:475"><nobr><span class="ft7">each measure to get better results. Croft proposed the IN-<br>QUERY retrieval system, based on the inference network,<br>to combine multiple evidences [5]. The inference network<br>model is a general model for combining information. It is<br>data-level fusion. The model is based on probabilistic updat-<br>ing of the values of nodes in the network, and many retrieval<br>techniques and information can be implemented by config-<br>uring the network properly.</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:489"><nobr><span class="ft3">Several researchers have experimented with linearly com-</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft3">bining the normalized relevance scores (s</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:734"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:738"><nobr><span class="ft3">) given to each</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:475"><nobr><span class="ft3">document [7][10][16].</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:574"><nobr><span class="ft3">score(d) =</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:651"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:665"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:674"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:679"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:685"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:690"><nobr><span class="ft3">(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:816"><nobr><span class="ft3">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:475"><nobr><span class="ft3">It requires training for the weight </span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:702"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:713"><nobr><span class="ft3">given to each input</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:475"><nobr><span class="ft7">system. For example, we can get a better result by combin-<br>ing content information and URL type information with the<br>following weight [16].</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:510"><nobr><span class="ft3">score(d) = 0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:599"><nobr><span class="ft3">× content + 0.3 × URLprior</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:816"><nobr><span class="ft3">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:475"><nobr><span class="ft1">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:506"><nobr><span class="ft11">TOPIC RELEVANCE TASK AND HOME-<br>PAGE FINDING TASK</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft3">In this section, we show properties of Content information,</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft7">Link information, and URL information in each search task.<br>Besides, we will propose the method for linearly combining<br>information for each task.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">65</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:94"><nobr><span class="ft3">We use TREC data collection, to show the differences of</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft7">each search task. We made a simple search engine that use<br>the variation of the OKAPI scoring function [15]. Given a<br>query Q, the scoring formula is:</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:104"><nobr><span class="ft3">score</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:150"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:174"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:178"><nobr><span class="ft9">(QD</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:215"><nobr><span class="ft12">d</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:221"><nobr><span class="ft9">)</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:228"><nobr><span class="ft3">T F</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:247"><nobr><span class="ft9">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:264"><nobr><span class="ft3">× IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:306"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:422"><nobr><span class="ft3">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:103"><nobr><span class="ft3">T F</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:122"><nobr><span class="ft9">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:150"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:174"><nobr><span class="ft3">0.4 + 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:229"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:317"><nobr><span class="ft3">tf</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:329"><nobr><span class="ft9">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:245"><nobr><span class="ft3">tf</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:257"><nobr><span class="ft9">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:274"><nobr><span class="ft3">+ 0.5 + 1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:343"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:367"><nobr><span class="ft9">doclen</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:399"><nobr><span class="ft12">d</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:359"><nobr><span class="ft9">avg doclen</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:422"><nobr><span class="ft3">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:104"><nobr><span class="ft3">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:131"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:150"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:174"><nobr><span class="ft3">log( N + 0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:215"><nobr><span class="ft3">df</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:226"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:248"><nobr><span class="ft3">)/log(N + 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:422"><nobr><span class="ft3">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:81"><nobr><span class="ft3">N is the number of documents in the collection. tf</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:388"><nobr><span class="ft9">d,t</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:406"><nobr><span class="ft3">is the</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:81"><nobr><span class="ft7">number of occurrences of an index term t in a document d,<br>and df</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:119"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:129"><nobr><span class="ft3">is the number of documents in which t occurs.</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:94"><nobr><span class="ft3">We use the data for the web track, the 10-gigabyte WT10g</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:81"><nobr><span class="ft7">collection [2], distributed by CSIRO [6]. We use TREC-2001<br>topic relevance task queries (topics 501-550) for the topic rel-<br>evance task, and 145 queries for the homepage finding task<br>[8]. For the homepage finding task, NIST found a homepage<br>within WT10g and then composed a query designed to lo-<br>cate it.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:94"><nobr><span class="ft3">We used the anchor text representation (Anchor) and the</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:81"><nobr><span class="ft7">common content text representation (Common) for index-<br>ing. Every document in the anchor text representation has<br>anchor texts and the title as content, and excludes a body<br>text. Consequently the anchor text representation has brief<br>or main explanations of a document. We used two other evi-<br>dences for a scoring function besides the OKAPI score. One<br>is URLprior for URL information and the other is PageR-<br>ank for Link information. We linearly interpolated Content<br>information (OKAPI score), URLprior, and PageRank. We<br>call this interpolation as CMB .</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:126"><nobr><span class="ft3">rel(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:175"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:199"><nobr><span class="ft3">0.65</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:227"><nobr><span class="ft3">× Content Information +</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:422"><nobr><span class="ft3">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:199"><nobr><span class="ft3">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:227"><nobr><span class="ft3">× URL Information +</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:199"><nobr><span class="ft3">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:220"><nobr><span class="ft3">× Link Information</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:94"><nobr><span class="ft3">We used `and' and `sum' operators for matching query</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:81"><nobr><span class="ft7">terms [1]. `and' operator means that the result document<br>has all query terms in it. `sum' operator means that a re-<br>sult document has at least one query term in it.</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:94"><nobr><span class="ft3">Table 1 shows the average precision of the topic relevance</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:81"><nobr><span class="ft7">task and the MRR of the homepage finding task [8]. The<br>first column in the table 1 means the method that we used<br>for indexing and scoring. For example, `Anchor and CMB'<br>means that we used the anchor text representation for in-<br>dexing, `and' operator for query matching, and the OKAPI<br>score, PageRank and URLprior for scoring.</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:364"><nobr><span class="ft3">The average</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:81"><nobr><span class="ft7">precision is defined as the average of the precision obtained<br>at the rank of each relevant document.</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:178"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:187"><nobr><span class="ft9">avg</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:209"><nobr><span class="ft3">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:226"><nobr><span class="ft3">|R|</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:248"><nobr><span class="ft9">d</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:254"><nobr><span class="ft9">R</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:274"><nobr><span class="ft3">R</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:284"><nobr><span class="ft9">r(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:281"><nobr><span class="ft3">r(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:422"><nobr><span class="ft3">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft3">R is the set of all relevant documents and R</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:368"><nobr><span class="ft9">r(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:404"><nobr><span class="ft3">is the</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:81"><nobr><span class="ft7">set of relevant documents with rank r(d) or better. MRR<br>(Mean Reciprocal Rank) is the main evaluation measure for<br>the homepage finding task. MRR is based on the rank of<br>the first correct document (answer</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:293"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:302"><nobr><span class="ft3">rank) according to the</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:475"><nobr><span class="ft7">Table 1: Topic Relevance Task vs. Homepage Find-<br>ing Task</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:665"><nobr><span class="ft3">Topic</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:721"><nobr><span class="ft3">Homepage</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:526"><nobr><span class="ft3">model</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:668"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:677"><nobr><span class="ft9">avg</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:733"><nobr><span class="ft3">MRR</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:526"><nobr><span class="ft3">Anchor and</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:666"><nobr><span class="ft3">0.031</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:734"><nobr><span class="ft3">0.297</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:526"><nobr><span class="ft3">Anchor and CMB</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:666"><nobr><span class="ft3">0.031</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:734"><nobr><span class="ft3">0.431</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:526"><nobr><span class="ft3">Anchor sum</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:666"><nobr><span class="ft3">0.034</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:734"><nobr><span class="ft3">0.351</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:526"><nobr><span class="ft3">Anchor sum CMB</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:666"><nobr><span class="ft3">0.034</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:734"><nobr><span class="ft3">0.583</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:526"><nobr><span class="ft3">Common and</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:666"><nobr><span class="ft3">0.131</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:734"><nobr><span class="ft3">0.294</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:526"><nobr><span class="ft3">Common and CMB</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:666"><nobr><span class="ft3">0.122</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:734"><nobr><span class="ft3">0.580</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:526"><nobr><span class="ft3">Common sum</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:664"><nobr><span class="ft3">0.182</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:734"><nobr><span class="ft3">0.355</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:526"><nobr><span class="ft3">Common sum CMB</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:666"><nobr><span class="ft3">0.169</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:732"><nobr><span class="ft3">0.673</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:526"><nobr><span class="ft3">MAX</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:666"><nobr><span class="ft3">0.226</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:734"><nobr><span class="ft3">0.774</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:526"><nobr><span class="ft3">AVG</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:666"><nobr><span class="ft3">0.145</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:734"><nobr><span class="ft3">0.432</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:475"><nobr><span class="ft3">following formula:</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:514"><nobr><span class="ft3">M RR =</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:595"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:570"><nobr><span class="ft3">#queries</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:631"><nobr><span class="ft9">#queries</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:646"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:650"><nobr><span class="ft9">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:720"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:682"><nobr><span class="ft3">answer</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:727"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:736"><nobr><span class="ft3">rank</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:816"><nobr><span class="ft3">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft7">M AX represents the best score of a search engine that sub-<br>mitted in TREC-2001. AV G represents the average score of<br>all search engines that submitted in TREC-2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:489"><nobr><span class="ft3">We got the better result with the common content text</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft7">representation than the anchor text representation in the<br>topic relevance task. A title and anchor texts do not have<br>enough information for the topic relevance task.</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:790"><nobr><span class="ft3">On the</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:475"><nobr><span class="ft7">other hand, we could get the similar performance with the<br>anchor text representation in the homepage finding task.</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:489"><nobr><span class="ft3">URL information and Link information are good for the</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:475"><nobr><span class="ft7">homepage finding task but bad for the topic relevance task.<br>In the topic relevance task, we lost our performance by com-<br>bining URL and Link information.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:489"><nobr><span class="ft3">The query of the topic relevance task usually consists of</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:475"><nobr><span class="ft7">main keywords that are relevant to some concept or the ex-<br>planation of what they want to know. However, we cannot<br>assume that other people use same expressions and keywords<br>to explain what a user wants to know. Therefore we could<br>not get a good result with `and' operator in the topic rele-<br>vance task. But on the other hand the query of the home-<br>page finding task consists of entity names or proper nouns.<br>Therefore we could have good results with `and' operator<br>when we can have a result document. However, the MRR<br>of `Anchor and CMB' is lower than that of `Common sum<br>CMB' in the homepage finding task. `Anchor and CMB'<br>method did not retrieve a document for 31 queries. To com-<br>pensate for this sparseness problem, we combined the re-<br>sults of `Anchor and CMB' and `Common sum CMB' . This<br>combined result showed 0.730 in the homepage finding task.<br>When we combined the results of `Anchor and ' and `Com-<br>mon sum' , it showed 0.173 in the topic relevance task. This<br>implies that the result documents with `and' operator are<br>good and useful in the homepage finding task.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:489"><nobr><span class="ft3">We can conclude that we need different retrieval strategies</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft7">according to the category of a query. We have to use the field<br>information (title, body, and anchor text) of each term, and<br>combine evidences dynamically to get good results. In the<br>topic relevance task, the body text of a document is good for<br>indexing, `sum' operator is good for query term matching,</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">66</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">and combining URL and Link information are useless. On<br>the other hand, in the homepage finding task, anchor texts<br>and titles are useful for indexing, `and' operator is also good<br>for query term matching, and URL and Link information<br>is useful. By combining results from main body text and<br>anchor texts and titles we can have the better performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:81"><nobr><span class="ft1">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:112"><nobr><span class="ft1">USER QUERY CLASSIFICATION</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:94"><nobr><span class="ft3">In this section, we present the method for making a lan-</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:81"><nobr><span class="ft3">guage model for a user query classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:81"><nobr><span class="ft1">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:121"><nobr><span class="ft1">Preparation for Language Model</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:94"><nobr><span class="ft3">We may use the question type of a query to classify the</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:81"><nobr><span class="ft7">category of a user query. For example, "What is a two elec-<br>trode vacuum tube?" is a query of the topic relevance task.<br>"Where is the site of SONY?" is a query of the homepage<br>finding task. We can assume the category of a query with an<br>interrogative pronoun and cue expressions (e.g. `the site of').<br>However, people do not provide natural language queries to<br>a search engine. They usually use keywords for their queries.<br>It is not easy to anticipate natural language queries. In this<br>paper, we assume that users provide only main keywords for<br>their queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:94"><nobr><span class="ft3">We define a query Q as the set of words.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:182"><nobr><span class="ft3">Q =</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:211"><nobr><span class="ft3">{w</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:228"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:234"><nobr><span class="ft3">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:250"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:256"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:297"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:305"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:415"><nobr><span class="ft3">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:94"><nobr><span class="ft3">To see the characteristics of each query class, we use two</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:81"><nobr><span class="ft7">query sets. For the topic relevance task, TREC-2000 topic<br>relevance task queries (topics 451-500) are used. For the<br>homepage finding task, queries for randomly selected 100<br>homepages</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:150"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:161"><nobr><span class="ft3">are used. We call them QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:356"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:364"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:417"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:81"><nobr><span class="ft3">QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:132"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:142"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:191"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:94"><nobr><span class="ft3">We divided WT10g into two sets, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:314"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:358"><nobr><span class="ft3">and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:405"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:444"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:81"><nobr><span class="ft7">If the URL type of a document is `root' type, we put this<br>document to DB</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:187"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:226"><nobr><span class="ft3">. Others are added to DB</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:395"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:436"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:81"><nobr><span class="ft7">According to the report of [16], our division method can<br>get site entry pages with 71.7% precision. Additionally we<br>put virtual documents into DB</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:270"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:314"><nobr><span class="ft3">with anchor texts. If</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:81"><nobr><span class="ft3">a linked document is in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:259"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:299"><nobr><span class="ft3">, then we make a vir-</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:81"><nobr><span class="ft7">tual document that consists of anchor texts and put it into<br>DB</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:103"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:142"><nobr><span class="ft3">. If a linked document is in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:342"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:382"><nobr><span class="ft3">, then we</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:81"><nobr><span class="ft7">add anchor texts to the original document. Usually a site en-<br>try page does not have many words. It is not an explanatory<br>document for some topic or concept, but the brief explana-<br>tion of a site. We can assume that site entry pages have the<br>different usage of words. If we find distinctive features for<br>site entry pages, then we can discriminate the category of a<br>given query.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:94"><nobr><span class="ft3">#DB</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:128"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:173"><nobr><span class="ft3">and #DB</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:234"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:278"><nobr><span class="ft3">mean the number of docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:81"><nobr><span class="ft3">ments in the DB</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:186"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:231"><nobr><span class="ft3">and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:281"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:326"><nobr><span class="ft3">respectively. How-</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:81"><nobr><span class="ft3">ever, most documents in the DB</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:277"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:320"><nobr><span class="ft3">have a short length,</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:81"><nobr><span class="ft7">we normalized the number of documents with the following<br>equation.</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:111"><nobr><span class="ft3">#DB</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:145"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:198"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:223"><nobr><span class="ft3"># of documents in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:369"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:415"><nobr><span class="ft3">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:112"><nobr><span class="ft3">#DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:146"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:198"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:223"><nobr><span class="ft3"># of documents in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:369"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:415"><nobr><span class="ft3">(12)</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:223"><nobr><span class="ft3">× avg doclength</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:321"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:235"><nobr><span class="ft3">avg doclength</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:320"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:81"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:88"><nobr><span class="ft3">available at http://www.ted.cmis.csiro.au/TRECWeb/Qrels/</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:475"><nobr><span class="ft1">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:516"><nobr><span class="ft1">Distribution of Query Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:489"><nobr><span class="ft3">`Earthquake' occurs more frequently in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:757"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:798"><nobr><span class="ft3">. But</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:475"><nobr><span class="ft7">`Hunt Memorial Library' shows the high relative frequency<br>in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:513"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:552"><nobr><span class="ft3">. General terms tend to have same distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:475"><nobr><span class="ft7">regardless of the database. If the difference of distribution<br>is larger than expected, this tells whether a given query is in<br>the topic relevance task class or the homepage finding task<br>class. We can calculate the occurrence ratio of a query with<br>the following equation [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:523"><nobr><span class="ft3">Dist(w</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:566"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:572"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:613"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:621"><nobr><span class="ft3">) = n × C(w</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:698"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:704"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:744"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:752"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:666"><nobr><span class="ft10">È</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:681"><nobr><span class="ft13">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:685"><nobr><span class="ft9">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:701"><nobr><span class="ft3">C(w</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:728"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:732"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:809"><nobr><span class="ft3">(13)</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:475"><nobr><span class="ft7">C(w) is the number of documents that have w as an index<br>term. df of w is used for C(w). C(w</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:689"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:696"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:736"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:744"><nobr><span class="ft3">) is the number</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:475"><nobr><span class="ft3">of documents that have all w</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:644"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:651"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:691"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:702"><nobr><span class="ft3">as index terms. To see</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:475"><nobr><span class="ft7">the distribution difference of a query, we use the following<br>ratio equation.</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:549"><nobr><span class="ft3">dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:576"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:600"><nobr><span class="ft3">(Q) = Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:670"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:709"><nobr><span class="ft3">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:642"><nobr><span class="ft3">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:669"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:709"><nobr><span class="ft3">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:809"><nobr><span class="ft3">(14)</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:489"><nobr><span class="ft3">If a query has only one term, we use the chi-square [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:475"><nobr><span class="ft3">We make a 2-by-2 table for the given word `w'.</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:630"><nobr><span class="ft3">word=w</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:697"><nobr><span class="ft3">word = w</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:552"><nobr><span class="ft3">DB</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:574"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:652"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:724"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:553"><nobr><span class="ft3">DB</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:575"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:653"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:724"><nobr><span class="ft3">d</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:489"><nobr><span class="ft3">a + b = #DB</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:573"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:618"><nobr><span class="ft3">and c + d = #DB</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:730"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:769"><nobr><span class="ft3">. `a' is the</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:475"><nobr><span class="ft3">frequency of the word `w' in the DB</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:706"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:752"><nobr><span class="ft3">and `c' is the</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:475"><nobr><span class="ft3">frequency of the word `w' in the DB</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:696"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:735"><nobr><span class="ft3">. The chi-square</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft7">value shows the dependence of the word `w' and DB. If the<br>chi-square value of the word `w' is high, then `w' is a special<br>term of DB</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:549"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:595"><nobr><span class="ft3">or DB</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:635"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:674"><nobr><span class="ft3">. We classify these words</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft7">that have a high chi-square value according to the df . If `w'<br>has a high df then the word `w' is the topic relevance task<br>query. Otherwise `w' is the homepage finding task query.<br>For example, `f ast' shows the high chi-square value, since<br>it is used a lot to modify proper names. However, one word<br>`f ast' is not the proper name. We classify a word that has a<br>high chi-square and a high df into the topic relevance task.<br>If the chi-square value of the word `w' is low, then `w' is a<br>general term.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:489"><nobr><span class="ft3">Fig.2 shows the results of dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:671"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:699"><nobr><span class="ft3">of queries that have at</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:475"><nobr><span class="ft3">least two query terms. The mean values of QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:778"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:786"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:835"><nobr><span class="ft3">'s</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft3">dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:502"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:532"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:612"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:621"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:670"><nobr><span class="ft3">'s dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:712"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:742"><nobr><span class="ft3">are 0.5138 and</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:475"><nobr><span class="ft3">1.1 respectively. As the value of dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:705"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:734"><nobr><span class="ft3">of a given query</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft7">is higher, we can have confidence that the query has special<br>terms. On the other hand, if the score of dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:764"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:793"><nobr><span class="ft3">is near</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:475"><nobr><span class="ft3">the mean value of QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:647"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:654"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:703"><nobr><span class="ft3">, it means the query</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft7">has general terms, not a special expression. We calculate<br>the possibility that a given query is in each class with the<br>mean value and the standard deviation. However, there are<br>queries that show high dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:643"><nobr><span class="ft9">DIST</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:679"><nobr><span class="ft3">in QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:747"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:755"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:804"><nobr><span class="ft3">. For</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft7">example, `Jenniffer Aniston' and `Chevrolet Trucks' showed<br>2.04 and 0.76 respectively. Usually proper names showed<br>high dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:533"><nobr><span class="ft9">DIST</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:569"><nobr><span class="ft3">values. If a proper name is frequently used</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft3">in the DB</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:536"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:575"><nobr><span class="ft3">, then we can think of it as the name of the</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft3">site.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:475"><nobr><span class="ft1">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:516"><nobr><span class="ft1">Mutual Information</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">There are two or more words that co-occur frequently.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">These words may have syntactic or semantic relations to</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">67</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:4px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft16{font-size:6px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft17{font-size:6px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft18{font-size:6px;line-height:-7px;font-family:Times;color:#000000;}
+	.ft19{font-size:6px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft20{font-size:6px;line-height:-6px;font-family:Times;color:#000000;}
+	.ft21{font-size:6px;line-height:-8px;font-family:Times;color:#000000;}
+	.ft22{font-size:4px;line-height:11px;font-family:Times;color:#000000;}
+	.ft23{font-size:4px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft24{font-size:4px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft25{font-size:4px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft26{font-size:4px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161005.png" alt="background image">
+<DIV style="position:absolute;top:82;left:103"><nobr><span class="ft3">if length(Q)=1 then</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:125"><nobr><span class="ft3">calculate the </span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:215"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:225"><nobr><span class="ft3">of Q</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:125"><nobr><span class="ft3">if </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:146"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:157"><nobr><span class="ft3">&gt; 18 then</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:146"><nobr><span class="ft3">if df of a query &gt; 65</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:168"><nobr><span class="ft3">the topic relevance task</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:146"><nobr><span class="ft3">else</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:168"><nobr><span class="ft3">the homepage finding task</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:125"><nobr><span class="ft3">else</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:146"><nobr><span class="ft3">the topic relevance task</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:103"><nobr><span class="ft3">else</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:125"><nobr><span class="ft7">calculate distributions of a query in each database<br>calculate dif f Dist(Q)<br>if dif f Dist(Q) &gt; </span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:146"><nobr><span class="ft3">the homepage finding task</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:125"><nobr><span class="ft3">else</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:146"><nobr><span class="ft3">unknown</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:81"><nobr><span class="ft7">Figure 1: The Algorithm of Distribution Difference<br>Method</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:115"><nobr><span class="ft12">0%</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:110"><nobr><span class="ft12">10%</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:110"><nobr><span class="ft12">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:110"><nobr><span class="ft12">30%</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:110"><nobr><span class="ft12">40%</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:110"><nobr><span class="ft12">50%</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:110"><nobr><span class="ft12">60%</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:110"><nobr><span class="ft12">70%</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:134"><nobr><span class="ft12">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:170"><nobr><span class="ft12">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:207"><nobr><span class="ft12">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:244"><nobr><span class="ft12">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:281"><nobr><span class="ft12">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:318"><nobr><span class="ft12">1.1</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:354"><nobr><span class="ft12">1.3</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:391"><nobr><span class="ft12">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:221"><nobr><span class="ft9">Ratio of Distribution Difference</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:101"><nobr><span class="ft16">P<br>e<br>r<br>c<br>e<br>n<br>t<br>a<br>g<br>e<br> o<br>f<br> <br>O<br>b<br>se<br>r<br>v<br>at<br>i<br>o<br>n<br>s</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:337"><nobr><span class="ft22">QUERY-TOPIC-TRAIN<br>QUERY-HOMEPAGE-TRAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:145"><nobr><span class="ft3">Figure 2: Distribution of Queries</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:81"><nobr><span class="ft7">each other. We say these words have some dependency. For<br>example, `tornadoes formed' shows similar dependency re-<br>gardless of the database. But `Fan Club' has a high depen-<br>dency in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:157"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:199"><nobr><span class="ft3">set. This means that `tornadoes formed'</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:81"><nobr><span class="ft7">is a general usage of words but `Fan Club' is a special usage<br>in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:119"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:158"><nobr><span class="ft3">. Therefore, the dependency of `Fan Club' can</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:81"><nobr><span class="ft7">be the key clue of guessing the category of a user query. If<br>the difference of dependency of each term is larger than ex-<br>pected, this tells whether a given query is the topic relevance<br>task or the homepage finding task. For two variables A and<br>B, we can calculate the dependency with mutual informa-<br>tion, I(A; B) [9]. We use the pointwise mutual information<br>I(x, y) to calculate the dependency of terms in a query [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:142"><nobr><span class="ft3">I(A; B)</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:201"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:225"><nobr><span class="ft3">H(A) + H(B)</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:313"><nobr><span class="ft3">- H(A, B)</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:201"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:228"><nobr><span class="ft9">a,b</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:248"><nobr><span class="ft3">p(a, b)log p(a, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:305"><nobr><span class="ft3">p(a)p(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:415"><nobr><span class="ft3">(15)</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:182"><nobr><span class="ft3">I(x, y) = log p(x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:259"><nobr><span class="ft3">p(x)p(y)</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:415"><nobr><span class="ft3">(16)</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">We extend pointwise mutual information for three vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">ables. We use the set theory to calculate the value of an</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:507"><nobr><span class="ft14">0%</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:507"><nobr><span class="ft14">5%</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:504"><nobr><span class="ft14">10%</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:504"><nobr><span class="ft14">15%</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:504"><nobr><span class="ft14">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:504"><nobr><span class="ft14">25%</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:504"><nobr><span class="ft14">30%</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:521"><nobr><span class="ft14">0.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:548"><nobr><span class="ft14">0.75 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:575"><nobr><span class="ft14">1.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:602"><nobr><span class="ft14">1.75 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:629"><nobr><span class="ft14">2.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:656"><nobr><span class="ft14">2.75 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:683"><nobr><span class="ft14">3.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:710"><nobr><span class="ft14">3.75 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:736"><nobr><span class="ft14">4.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:764"><nobr><span class="ft14">4.75 </span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:791"><nobr><span class="ft14">5.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:637"><nobr><span class="ft14">Ratio of MI Difference</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:497"><nobr><span class="ft25">P<br>e<br>r<br>c<br>e<br>n<br>t<br>a<br>g<br>e<br> <br>o<br>f<br> <br>O</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:497"><nobr><span class="ft23">b<br>s<br>e<br>r<br>v<br>a<br>t<br>i<br>o<br>n</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:728"><nobr><span class="ft26">QUERY-TOPIC-TRAIN<br>QUERY-HOMEPAGE-TRAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:512"><nobr><span class="ft3">Figure 3: Mutual Information of Queries</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:475"><nobr><span class="ft3">intersection part, like two variables problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:486"><nobr><span class="ft3">I(A; B; C)</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:562"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:586"><nobr><span class="ft3">H(A, B, C)</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:657"><nobr><span class="ft3">- H(A) - H(B) - H(C) +</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:586"><nobr><span class="ft3">I(A; B) + I(B; C) + I(C; A)</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:562"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:586"><nobr><span class="ft9">a,b,c</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:611"><nobr><span class="ft3">p(a, b, c)log p(a, b)p(b, c)p(c, a)</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:680"><nobr><span class="ft3">p(a, b, c)p(a)p(b)p(c) (17)</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:531"><nobr><span class="ft3">I(x, y, z) = log p(x, y)p(y, z)p(z, x)</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:622"><nobr><span class="ft3">p(x, y, z)p(x)p(y)p(z)</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:809"><nobr><span class="ft3">(18)</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:475"><nobr><span class="ft7">In principle, p(x, y) means the probability that x and y are<br>co-occurred in a specific distance [11]. Usually x and y are<br>consecutive words. Since the number of words and docu-<br>ments are so huge in IR domain, it is not easy to keep statis-<br>tics. Our measure assume that x and y are co-occurred in a<br>document. We use df of a given term to calculate the num-<br>ber of documents that contain a term. Like the distribution<br>difference measure, we use the ratio difference equation to<br>see the difference of MI. If pointwise mutual information is<br>below zero then we use zero.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:556"><nobr><span class="ft3">dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:582"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:600"><nobr><span class="ft3">(Q) = M I</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:663"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:703"><nobr><span class="ft3">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:642"><nobr><span class="ft3">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:663"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:703"><nobr><span class="ft3">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:809"><nobr><span class="ft3">(19)</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:489"><nobr><span class="ft3">Fig.3 shows the results of dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:680"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:698"><nobr><span class="ft3">. The mean values of</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft3">QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:527"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:535"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:584"><nobr><span class="ft3">'s dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:623"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:644"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:721"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:730"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:779"><nobr><span class="ft3">'s dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:818"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft7">are 1.9 and 2.7 respectively. For example, the topic rele-<br>vance task query `mexican food culture' showed 1.0, but the<br>homepage finding task query `Newave IFMO' showed 7.5.<br>QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:527"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:536"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:591"><nobr><span class="ft3">gets a slightly high standard deviation.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft3">It means that the query of QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:695"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:705"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:759"><nobr><span class="ft3">has different</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:475"><nobr><span class="ft3">MI in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:536"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:575"><nobr><span class="ft3">. As the value of dif f</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:709"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:732"><nobr><span class="ft3">is higher, we can</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft7">have confidence that the query has a special dependency.<br>We calculate the possibility that a given query is in each<br>class with the mean value and the standard deviation.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:475"><nobr><span class="ft1">4.4</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:516"><nobr><span class="ft1">Usage Rate as an Anchor Text</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:489"><nobr><span class="ft3">If query terms appear in titles and anchor texts frequently,</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:475"><nobr><span class="ft7">this tells the category of a given query is the homepage find-<br>ing task. Titles and anchor texts are usually entity names<br>or proper nouns, the usage rate shows the probability that<br>given terms are special terms.</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:545"><nobr><span class="ft3">use</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:566"><nobr><span class="ft9">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:604"><nobr><span class="ft3">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:620"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:626"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:667"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:674"><nobr><span class="ft3">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:828"><nobr><span class="ft3">(20)</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:519"><nobr><span class="ft3">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:529"><nobr><span class="ft9">SIT E AN CHOR</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:617"><nobr><span class="ft3">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:632"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:638"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:679"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:686"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:695"><nobr><span class="ft3">- C</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:719"><nobr><span class="ft9">SIT E</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:749"><nobr><span class="ft3">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:764"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:770"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:811"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:818"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:603"><nobr><span class="ft3">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:613"><nobr><span class="ft9">SIT E</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:643"><nobr><span class="ft3">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:658"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:665"><nobr><span class="ft3">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:681"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:687"><nobr><span class="ft3">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:727"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:735"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">68</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft3">C</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:91"><nobr><span class="ft9">SIT E</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:121"><nobr><span class="ft3">(w) means the number of site entry documents that</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft3">have w as an index term. C</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:262"><nobr><span class="ft9">SIT E AN CHOR</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:349"><nobr><span class="ft3">(w) means the</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:81"><nobr><span class="ft7">number of site entry documents and anchor texts that have<br>w as an index term.</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:81"><nobr><span class="ft1">4.5</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:121"><nobr><span class="ft1">POS information</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:94"><nobr><span class="ft3">Since the homepage finding task queries are proper names,</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft7">they do not usually contain a verb. However, some topic rel-<br>evance task queries include a verb to explain what he or she<br>wants to know. For example, `How are tornadoes formed?'<br>or briefly `tornadoes formed' contain a verb `formed'. If a<br>query has a verb except the `be' verb, then we classified it<br>into the topic relevance task.</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:81"><nobr><span class="ft1">4.6</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:121"><nobr><span class="ft1">Combination of Measures</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:94"><nobr><span class="ft3">The difference of distribution method can apply more</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft7">queries than the difference of MI. The usage rate as anchor<br>texts and the POS information show small coverage. How-<br>ever, four measures cover different queries. Therefore, we<br>can have more confidence and more coverage by combining<br>these measures. We use a different combination equation as<br>the number of query terms. If the query has 2 and 3 terms<br>in it, we use pointwise mutual information also.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:114"><nobr><span class="ft3">S(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:159"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:183"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:195"><nobr><span class="ft3">× diff</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:235"><nobr><span class="ft9">Dist</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:259"><nobr><span class="ft3">(Q) + </span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:309"><nobr><span class="ft3">× diff</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:349"><nobr><span class="ft9">M I</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:367"><nobr><span class="ft3">(Q) + (21)</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:183"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:194"><nobr><span class="ft3">× use</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:228"><nobr><span class="ft9">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:267"><nobr><span class="ft3">(Q) + </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:315"><nobr><span class="ft3">× P OS</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:359"><nobr><span class="ft9">inf o</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:383"><nobr><span class="ft3">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:94"><nobr><span class="ft3">We choose , , , and  with train data (QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:390"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:398"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:81"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:160"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:170"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:219"><nobr><span class="ft3">). If `S(Q)' score is not high or low</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:81"><nobr><span class="ft3">enough, then we make no decision.</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:81"><nobr><span class="ft1">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:112"><nobr><span class="ft1">EXPERIMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:94"><nobr><span class="ft3">In this section, we show the efficiency of a user query</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:81"><nobr><span class="ft3">classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:81"><nobr><span class="ft1">5.1</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:121"><nobr><span class="ft1">Query Classification</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:94"><nobr><span class="ft3">We used four query sets for experimenting our query clas-</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:81"><nobr><span class="ft3">sification method. QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:244"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:252"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:304"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:381"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:391"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:81"><nobr><span class="ft7">are used for training (TRAIN). TREC-2001 topic relevance<br>task queries (Topic 501-550) and TREC-2001 homepage find-<br>ing task queries (1-145) are used for testing (TEST). We call<br>two test sets as QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:228"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:236"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:282"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:360"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:369"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:410"><nobr><span class="ft3">. We</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:81"><nobr><span class="ft3">used WT10g for making a classification model.</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:94"><nobr><span class="ft3">We classified queries with our proposed method. If the</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:81"><nobr><span class="ft7">score `S(Q)' is high enough to tell that a given query is<br>in the topic relevance task or the homepage finding task<br>query, then we assigned the query type to it.</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:381"><nobr><span class="ft3">For other</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:81"><nobr><span class="ft7">cases, we did not classify a query category. Table 2 shows<br>the classification result of our proposed language model.</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:133"><nobr><span class="ft3">Table 2: Query Classification Result</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:111"><nobr><span class="ft3">QUERY</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:208"><nobr><span class="ft3">TRAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:337"><nobr><span class="ft3">TEST</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:111"><nobr><span class="ft3">Measure</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:177"><nobr><span class="ft3">Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:248"><nobr><span class="ft3">Recall</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:301"><nobr><span class="ft3">Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:372"><nobr><span class="ft3">Recall</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:121"><nobr><span class="ft3">Dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:187"><nobr><span class="ft3">77.3%</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:249"><nobr><span class="ft3">38.7%</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:311"><nobr><span class="ft3">82.1%</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:373"><nobr><span class="ft3">28.2%</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:127"><nobr><span class="ft3">MI</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:187"><nobr><span class="ft3">90.9%</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:249"><nobr><span class="ft3">20.0%</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:311"><nobr><span class="ft3">78.2%</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:373"><nobr><span class="ft3">29.9%</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:114"><nobr><span class="ft3">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:187"><nobr><span class="ft3">73.6%</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:249"><nobr><span class="ft3">35.3%</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:311"><nobr><span class="ft3">82.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:373"><nobr><span class="ft3">35.9%</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:122"><nobr><span class="ft3">POS</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:188"><nobr><span class="ft3">100%</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:252"><nobr><span class="ft3">9.3%</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:311"><nobr><span class="ft3">96.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:373"><nobr><span class="ft3">13.8%</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:127"><nobr><span class="ft3">All</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:187"><nobr><span class="ft3">81.1%</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:249"><nobr><span class="ft3">57.3%</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:311"><nobr><span class="ft3">91.7%</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:373"><nobr><span class="ft3">61.5%</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">By combining each measure, we could apply our method</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">to more queries and increase precision and recall. Our pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:475"><nobr><span class="ft7">Table 3: Average Precision of the Topic Relevance<br>Task</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:491"><nobr><span class="ft3">model</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:552"><nobr><span class="ft3">OKAPI</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:615"><nobr><span class="ft3">TF-IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:679"><nobr><span class="ft3">KL DIR</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:745"><nobr><span class="ft3">MIXFB KL D</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:489"><nobr><span class="ft3">Lemur</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:559"><nobr><span class="ft3">0.182</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:623"><nobr><span class="ft3">0.170</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:688"><nobr><span class="ft3">0.210</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:773"><nobr><span class="ft3">0.219</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:483"><nobr><span class="ft3">MLemur</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:559"><nobr><span class="ft3">0.169</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:623"><nobr><span class="ft3">0.159</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:688"><nobr><span class="ft3">0.200</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:773"><nobr><span class="ft3">0.209</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:494"><nobr><span class="ft3">Table 4: MRR of the Homepage Finding Task</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:491"><nobr><span class="ft3">model</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:552"><nobr><span class="ft3">OKAPI</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:615"><nobr><span class="ft3">TF-IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:679"><nobr><span class="ft3">KL DIR</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:745"><nobr><span class="ft3">MIXFB KL D</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:489"><nobr><span class="ft3">Lemur</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:559"><nobr><span class="ft3">0.355</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:623"><nobr><span class="ft3">0.340</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:688"><nobr><span class="ft3">0.181</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:773"><nobr><span class="ft3">0.144</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:483"><nobr><span class="ft3">MLemur</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:559"><nobr><span class="ft3">0.673</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:623"><nobr><span class="ft3">0.640</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:688"><nobr><span class="ft3">0.447</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:773"><nobr><span class="ft3">0.360</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:475"><nobr><span class="ft7">posed method shows the better result in the test set. This<br>is due to the characteristics of the query set. There are 7<br>queries that have a verb in QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:688"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:696"><nobr><span class="ft9">-T RAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:748"><nobr><span class="ft3">and 28 queries</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:475"><nobr><span class="ft3">in QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:543"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:550"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:591"><nobr><span class="ft3">. We can assume that the POS informa-</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:475"><nobr><span class="ft3">tion is good information.</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:489"><nobr><span class="ft3">The main reason of misclassification is wrong division of</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:475"><nobr><span class="ft7">WT10g. Since our method usually gives the high score to the<br>proper name, we need correct information to distinguish a<br>proper name from a site name. We tried to make DB</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:795"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:475"><nobr><span class="ft7">automatically. However, some root pages are not site entry<br>pages. We need a more sophisticated division method.</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:489"><nobr><span class="ft3">There is a case that a verb is in the homepage finding</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:475"><nobr><span class="ft7">task query. `Protect &amp; Preserve' is the homepage finding<br>task query but `protect' and `preserve' are verbs. However,<br>`Protect' and `Preserve' start with a capital letter. We can<br>correct wrong POS tags.</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:489"><nobr><span class="ft3">There are queries in QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:660"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:668"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:712"><nobr><span class="ft3">that look like queries</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:475"><nobr><span class="ft3">of QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:541"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:551"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:592"><nobr><span class="ft3">. For example, `Dodge Recalls' is used to</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:475"><nobr><span class="ft7">find documents that report on the recall of any dodge auto-<br>mobile products. But user may want to find the entry page<br>of `Dodge recall'. This is due to the use of main keywords<br>instead of a natural language query.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:489"><nobr><span class="ft3">There are 6 queries in QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:681"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:689"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:735"><nobr><span class="ft3">and 6 queries in</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:475"><nobr><span class="ft3">QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:527"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:536"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:583"><nobr><span class="ft3">that do not have a result document that</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:475"><nobr><span class="ft7">has all query terms in it. We could not use our method to<br>them. WT10g is not enough to extract probability informa-<br>tion for these two query sets. To make up this sparseness<br>problem, we need a different indexing terms extraction mod-<br>ule. We have to consider special parsing technique for URL<br>strings and acronyms in a document. Also we need a query<br>expansion technique to get a better result.</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:475"><nobr><span class="ft1">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:515"><nobr><span class="ft1">The Improvement of IR Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:489"><nobr><span class="ft3">We used the Lemur Toolkit [12] to make a general search</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft7">engine for the topic relevance task. The Lemur Toolkit is an<br>information retrieval toolkit designed with language model-<br>ing in mind. The Lemur Toolkit supports several retrieval<br>algorithms. These algorithms include a dot-product func-<br>tion using TF-IDF weighting algorithm, the Kullback-Leibler<br>(KL) divergence algorithm, the OKAPI retrieval algorithm,<br>the feedback retrieval algorithm and the mixture model of<br>Dirichlet smoothing, MIXFB KL D [14]. For the homepage<br>finding task, we add the URLprior probability of a URL<br>string to the Lemur Toolkit. Besides Link information, we<br>add the PageRank of a document. We normalized PageR-<br>ank values, so the max value is 100 and the min value is 0.<br>First we extracted top 1,000 results with the Lemur Toolkit.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">69</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161007.png" alt="background image">
+<DIV style="position:absolute;top:96;left:235"><nobr><span class="ft3">Table 5: The Retrieval Performance with Classification Method</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:388"><nobr><span class="ft3">OKAPI</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:507"><nobr><span class="ft3">TF-IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:608"><nobr><span class="ft3">MIXFB KL D</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:210"><nobr><span class="ft3">Measure</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:277"><nobr><span class="ft3">DEFAULT</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:358"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:420"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:479"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:540"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:600"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:661"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:221"><nobr><span class="ft3">Dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:287"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:365"><nobr><span class="ft3">0.178</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:426"><nobr><span class="ft3">0.469</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:486"><nobr><span class="ft3">0.168</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:546"><nobr><span class="ft3">0.447</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:606"><nobr><span class="ft3">0.216</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:667"><nobr><span class="ft3">0.226</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:221"><nobr><span class="ft3">Dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:288"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:365"><nobr><span class="ft3">0.174</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:426"><nobr><span class="ft3">0.666</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:486"><nobr><span class="ft3">0.164</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:546"><nobr><span class="ft3">0.633</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:606"><nobr><span class="ft3">0.212</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:667"><nobr><span class="ft3">0.359</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:227"><nobr><span class="ft3">MI</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:287"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:365"><nobr><span class="ft3">0.179</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:426"><nobr><span class="ft3">0.465</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:486"><nobr><span class="ft3">0.168</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:546"><nobr><span class="ft3">0.445</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:606"><nobr><span class="ft3">0.218</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:667"><nobr><span class="ft3">0.233</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:227"><nobr><span class="ft3">MI</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:288"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:365"><nobr><span class="ft3">0.169</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:426"><nobr><span class="ft3">0.673</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:486"><nobr><span class="ft3">0.159</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:546"><nobr><span class="ft3">0.640</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:606"><nobr><span class="ft3">0.209</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:667"><nobr><span class="ft3">0.360</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:214"><nobr><span class="ft3">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:287"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:365"><nobr><span class="ft3">0.176</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:426"><nobr><span class="ft3">0.513</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:486"><nobr><span class="ft3">0.165</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:546"><nobr><span class="ft3">0.489</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:606"><nobr><span class="ft3">0.215</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:667"><nobr><span class="ft3">0.232</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:214"><nobr><span class="ft3">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:288"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:365"><nobr><span class="ft3">0.169</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:426"><nobr><span class="ft3">0.666</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:486"><nobr><span class="ft3">0.159</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:546"><nobr><span class="ft3">0.633</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:606"><nobr><span class="ft3">0.209</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:667"><nobr><span class="ft3">0.359</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:222"><nobr><span class="ft3">POS</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:287"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:365"><nobr><span class="ft3">0.182</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:426"><nobr><span class="ft3">0.355</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:486"><nobr><span class="ft3">0.170</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:546"><nobr><span class="ft3">0.340</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:606"><nobr><span class="ft3">0.219</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:667"><nobr><span class="ft3">0.144</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:222"><nobr><span class="ft3">POS</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:288"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:365"><nobr><span class="ft3">0.173</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:426"><nobr><span class="ft3">0.673</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:486"><nobr><span class="ft3">0.163</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:546"><nobr><span class="ft3">0.640</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:606"><nobr><span class="ft3">0.212</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:667"><nobr><span class="ft3">0.354</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:227"><nobr><span class="ft3">All</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:287"><nobr><span class="ft3">TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:365"><nobr><span class="ft3">0.180</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:426"><nobr><span class="ft3">0.552</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:486"><nobr><span class="ft3">0.168</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:546"><nobr><span class="ft3">0.528</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:606"><nobr><span class="ft3">0.217</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:667"><nobr><span class="ft3">0.280</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:227"><nobr><span class="ft3">All</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:288"><nobr><span class="ft3">HOME</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:363"><nobr><span class="ft3">0.173</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:423"><nobr><span class="ft3">0.666</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:486"><nobr><span class="ft3">0.163</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:546"><nobr><span class="ft3">0.633</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:606"><nobr><span class="ft3">0.212</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:667"><nobr><span class="ft3">0.353</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:81"><nobr><span class="ft7">Then we combined URL information and Link information<br>to reorder results with the equation Eq. 7. We presented<br>top 1,000 documents as the answer in the topic relevance<br>task, and 100 documents in the homepage finding task. We<br>call this modified Toolkit as MLemur Toolkit.</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:94"><nobr><span class="ft3">Table 3 and 4 show results of the topic relevance task and</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:81"><nobr><span class="ft7">the homepage finding task that use the Lemur Toolkit and<br>the MLemur Toolkit. MIXFB KL D showed the good result<br>in the topic relevance task but showed the poor result in the<br>homepage finding task. We can say that a good information<br>retrieval algorithm for the topic relevance task is not always<br>good for the homepage finding task. We chose three algo-<br>rithms, the OKAPI , the TF-IDF , and the MIXFB KL D<br>that got the best and worst score in each task, for the test<br>of performance improvement by query type classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:94"><nobr><span class="ft3">Table 5 shows the change of performance. `DEFAULT'</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:81"><nobr><span class="ft7">means the default category for an unclassified query. Dig-<br>its in the TOPIC column and the HOME column are aver-<br>age precision and MRR respectively. From the result, the<br>OKAPI algorithm and the homepage finding task as a de-<br>fault class method shows the good performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:81"><nobr><span class="ft1">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:121"><nobr><span class="ft1">Discussion</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:94"><nobr><span class="ft3">To classify a query type, we need the document frequency</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft7">of a query term in each database. This lowers the system ef-<br>ficiency. However, we may create two databases as proposed<br>in this paper for indexing. We retrieve two result document<br>sets from each database and classify a query type at the same<br>time. And then according to the category of a query, merge<br>two results. From table 1, merging the results of the anchor<br>text representation and the common content representation<br>shows good performance. We need more work to unify the<br>query classification work and the document retrieval.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:94"><nobr><span class="ft3">In this paper, we proposed a user query classification</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft7">method for the topic relevance task and the homepage find-<br>ing task. The queries of the homepage finding task usually<br>consist of entity names or proper nouns. However queries of<br>the service finding task have verbs for the service definition.<br>For example, "Where can I buy concert tickets?" has `buy'<br>as the service definition. To find these cue expressions, we<br>need more sophisticated analysis of anchor texts. Since the<br>service in the Web is provided as a program, there is a trig-<br>ger button. Mostly these trigger buttons are explained by<br>anchor texts. We have to distinguish an entity name and an</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:475"><nobr><span class="ft7">action verb from anchor texts. We have to change measures<br>for the query classification from a word unit to entity and<br>action units.</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:489"><nobr><span class="ft3">User query classification can be applied to various areas.</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:475"><nobr><span class="ft7">MetaSearch is the search algorithm that combines results of<br>each search engine to get the better result [7]. [10] proposed<br>CombMNZ, Multiply by NonZeros, is better than other scor-<br>ing algorithm, CombSUM , Summed similarity over systems.<br>But if we consider the homepage finding task, we are in a<br>different situation.</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:489"><nobr><span class="ft3">Table 6 and 7 show the improvement of performance of</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:475"><nobr><span class="ft7">MetaSearch algorithms. We had an experiment with ran-<br>dom samplings of 2, 3, 4, and 5 engine results. The score is<br>the average improvement of 100 tests. CombMNZ was good<br>for the topic relevance task, but CombSUM was good for<br>the homepage finding task. It also tells, we need different<br>strategies for MetaSearch as the class of a query.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft7">Table 6: Performance of MetaSearch in the Topic<br>Relevance Task</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:534"><nobr><span class="ft3">engine #</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:625"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:672"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:718"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:763"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:528"><nobr><span class="ft3">CombSUM</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:611"><nobr><span class="ft3">-2.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:661"><nobr><span class="ft3">4.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:707"><nobr><span class="ft3">3.7%</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:752"><nobr><span class="ft3">4.8%</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:528"><nobr><span class="ft3">CombMNZ</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:611"><nobr><span class="ft3">-1.2%</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:661"><nobr><span class="ft3">5.7%</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:707"><nobr><span class="ft3">5.3%</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:752"><nobr><span class="ft3">5.8%</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft7">Table 7: Performance of Metasearch in the Home-<br>page Finding Task</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:527"><nobr><span class="ft3">engine #</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:618"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:668"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:718"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:768"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:521"><nobr><span class="ft3">CombSUM</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:604"><nobr><span class="ft3">-4.5%</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:657"><nobr><span class="ft3">0.7%</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:704"><nobr><span class="ft3">-0.9%</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:757"><nobr><span class="ft3">0.8%</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:521"><nobr><span class="ft3">CombMNZ</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:604"><nobr><span class="ft3">-6.0%</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:654"><nobr><span class="ft3">-0.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:704"><nobr><span class="ft3">-4.5%</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:754"><nobr><span class="ft3">-2.4%</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:475"><nobr><span class="ft1">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:507"><nobr><span class="ft1">CONCLUSIONS</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft3">We have various forms of resources in the Web, and conse-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft7">quently purposes of user queries are diverse. We can classify<br>user queries as three categories, the topic relevance task,<br>the homepage finding task, and the service finding task.<br>Search engines need different strategies to meet the pur-<br>pose of a user query. For example, URL information and<br>Link information are bad for the topic relevance task, but<br>on the other hand, they are good for the homepage find-<br>ing task. We made two representative databases, DB</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:795"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">70</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="161008.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft3">and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:131"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:171"><nobr><span class="ft3">, for each task. To make databases, we di-</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft7">vided text collection by the URL type of a web document.<br>If the URL of a document contains a host name only, then<br>we put it into DB</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:198"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:237"><nobr><span class="ft3">. Also we make a virtual docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft3">ment with an anchor text and put it into DB</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:355"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:394"><nobr><span class="ft3">. Other</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft3">documents are put into DB</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:251"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:291"><nobr><span class="ft3">. If given query's distri-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft3">butions in DB</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:168"><nobr><span class="ft9">HOM E</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:211"><nobr><span class="ft3">and DB</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:260"><nobr><span class="ft9">T OP IC</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:305"><nobr><span class="ft3">are different, then this</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft7">tells a given query is not a general word. Therefore, we<br>can assume the category of a given query is in the home-<br>page finding task. Likewise, the difference of dependency,<br>Mutual Information, and the usage rate as anchor texts tell<br>whether a given query is in the homepage finding task or<br>not. We tested the proposed classification method with two<br>query sets, QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:201"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:209"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:255"><nobr><span class="ft3">and QU ERY</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:333"><nobr><span class="ft9">H</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:343"><nobr><span class="ft9">-T EST</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:383"><nobr><span class="ft3">. The us-</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft7">age rate as anchor texts and the POS information show small<br>coverage. On the other hand, distribution difference and<br>dependency showed good precision and coverage. Also each<br>classifier applied to different queries. We could get the bet-<br>ter precision and recall by combining each classifier. We got<br>91.7% precision and 61.5% recall. After we classified the cat-<br>egory of a query, we used different information for a search<br>engine. For the topic relevance task, Content information<br>such as TFIDF is used. For the homepage finding task, Link<br>information and URL information besides content informa-<br>tion are used. We tested our dynamic combining method.<br>From the result, our classification method showed the best<br>result with the OKAPI scoring algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:81"><nobr><span class="ft1">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:112"><nobr><span class="ft1">ACKNOWLEDGMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:94"><nobr><span class="ft3">We would like to thank Jamie Callan for providing useful</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:81"><nobr><span class="ft3">experiment data and the Lemur toolkit.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:81"><nobr><span class="ft1">8.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:112"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:88"><nobr><span class="ft3">[1] R. Baeza-Yates and B. Ribeiro-Neto. Modern</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:109"><nobr><span class="ft3">Information Retrieval. ACM PRESS BOOKS, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:88"><nobr><span class="ft3">[2] P. Bailey, N. Craswell, and D. Hawking. Engineering a</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:109"><nobr><span class="ft7">multi-purpose test collection for web retrieval<br>experiments. Information Processing and<br>Management, to appear.</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:88"><nobr><span class="ft3">[3] S. Brin and L. Page. The anatomy of a large-scale</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:109"><nobr><span class="ft7">hypertextual Web search engine. Computer Networks<br>and ISDN Systems, 30(1-7):107­117, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:88"><nobr><span class="ft3">[4] A. Broder. A taxonomy of web search. SIGIR Forum,</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:109"><nobr><span class="ft3">36(2), 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:88"><nobr><span class="ft3">[5] W. B. Croft. Combining approaches to information</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:109"><nobr><span class="ft7">retrieval. In Advances in Information Retrieval:<br>Recent Research from the Center for Intelligent<br>Information Retrieval, pages 1­36. Kluwer Academic<br>Publishers, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft3">[6] CSIRO. Web research collections - trec web track.</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft3">www.ted.cmis.csiro.au /TRECWeb/, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:482"><nobr><span class="ft3">[7] E. Fox and J. Shaw. Combination of multiple searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:503"><nobr><span class="ft7">In Text REtrieval Conference (TREC-1), pages<br>243­252, 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:482"><nobr><span class="ft3">[8] D. Hawking and N. Craswell. Overview of the</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:503"><nobr><span class="ft7">trec-2001 web track. In Text REtrieval Conference<br>(TREC-10), pages 61­67, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:482"><nobr><span class="ft3">[9] E. Jaynes. Information theory and statistical</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:503"><nobr><span class="ft3">mechanics. Physics Review, 106(4):620­630, 1957.</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:475"><nobr><span class="ft3">[10] J. H. Lee. Analyses of multiple evidence combination.</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:503"><nobr><span class="ft7">In Proceedings of the 20th Annual International ACM<br>SIGIR Conference on Research and Development in<br>Information Retrieval, pages 267­276, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:475"><nobr><span class="ft3">[11] C. D. Manning and H. Schutze. Foundations of</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:503"><nobr><span class="ft7">Statistical Natural Language Processing. The MIT<br>Press, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:475"><nobr><span class="ft3">[12] P. Ogilvie and J. Callan. Experiments using the lemur</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:503"><nobr><span class="ft7">toolkit. In Text REtrieval Conference (TREC-10)<br>http://www-2.cs.cmu.edu/ lemur, pages 103­108, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:475"><nobr><span class="ft3">[13] L. Page, S. Brin, R. Motwani, and T. Winograd. The</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:503"><nobr><span class="ft7">pagerank citation ranking: Bringing order to the web.<br>Technical report, Stanford Digital Library<br>Technologies Project, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:475"><nobr><span class="ft3">[14] J. M. Ponte. Language models for relevance feedback.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:503"><nobr><span class="ft7">In W. B. Croft, editor, Advances in Information<br>Retrieval: Recent Research from the Center for<br>Intelligent Information Retrieval, pages 73­95. Kluwer<br>Academic Publishers, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:475"><nobr><span class="ft3">[15] S. E. Robertson, S. Walker, S. Jones,</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:503"><nobr><span class="ft7">M. Hancock-Beaulieu, and M. Gatford. Okapi at<br>trec-3. In Text REtrieval Conference (TREC-2), pages<br>109­126, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:475"><nobr><span class="ft3">[16] T. Westerveld, W. Kraaij, and D. Hiemstra.</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:503"><nobr><span class="ft7">Retrieving web pages using content, links, urls and<br>anchors. In Text REtrieval Conference (TREC-10),<br>pages 663­672, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:475"><nobr><span class="ft3">[17] K. Yang. Combining text and link-based retrieval</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:503"><nobr><span class="ft7">methods for web ir. In Text REtrieval Conference<br>(TREC-10), pages 609­618, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">71</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

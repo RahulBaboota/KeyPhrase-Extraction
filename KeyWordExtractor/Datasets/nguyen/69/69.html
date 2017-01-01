@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> Digital Asset Management Using A Native XML Database Implementation</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Shalaka Natu;  John Mendonca">
+<META name="keywords" content="Languages; Performance; Digital Asset Management; DAM; digital images; XML database">
+<META name="date" content="2003-10-09T14:19:57+00:00">
+<META name="subject" content="CITC4'03">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:11px;font-family:Times;color:#000000;}
+	.ft1{font-size:25px;font-family:Times;color:#000000;}
+	.ft2{font-size:16px;font-family:Times;color:#000000;}
+	.ft3{font-size:12px;font-family:Times;color:#000000;}
+	.ft4{font-size:10px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="69001.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:291"><nobr><span class="ft1"><b>Digital Asset Management  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:165"><nobr><span class="ft1"><b>Using A Native XML Database Implementation </b></span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:216"><nobr><span class="ft2">Shalaka Natu </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:351"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:405"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:459"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:513"><nobr><span class="ft2">           John Mendonca </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:135"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:216"><nobr><span class="ft3">Purdue University   </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:405"><nobr><span class="ft3">  </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:459"><nobr><span class="ft3">  </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:513"><nobr><span class="ft3">               Purdue University </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:209"><nobr><span class="ft3"> 401 N. Grant St. </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:351"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:405"><nobr><span class="ft3">   </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:459"><nobr><span class="ft3">   </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:513"><nobr><span class="ft3">              401 N. Grant St. </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:189"><nobr><span class="ft3"> West Lafayette, IN 47907 </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:405"><nobr><span class="ft3">         </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:459"><nobr><span class="ft3">      </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:513"><nobr><span class="ft3">        West Lafayette, IN 47907 </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:229"><nobr><span class="ft3">765-494-4545 </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:351"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:405"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:459"><nobr><span class="ft3">      </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:513"><nobr><span class="ft3">   </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:567"><nobr><span class="ft3">   765-496-6015 </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:168"><nobr><span class="ft2">   snatu@tech.purdue.edu </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:405"><nobr><span class="ft2">     </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:459"><nobr><span class="ft2">    </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:513"><nobr><span class="ft2">   jamendonca@tech.purdue.edu </span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:81"><nobr><span class="ft2">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:179"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft7">Digital Asset Management (DAM), the management of digital <br>content so that it can be cataloged, searched and re-purposed, is <br>extremely challenging for organizations that rely on image <br>handling and expect to gain business value from these assets. <br>Metadata plays a crucial role in their management, and XML, <br>with its inherent support for structural representation, is an ideal <br>technology for this. This paper analyzes the capabilities of a <br>native XML database solution via the development of a "proof of <br>concept" and describes implementation requirements, strategy, <br>and advantages and disadvantages of this solution. </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:81"><nobr><span class="ft2">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:352"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft7">H.2.8 [Database Management]: Database Applications ­ image <br>databases; and D.3.2 [Programming Languages]: Language <br>Classifications ­ extensible languages, XML. </span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:81"><nobr><span class="ft2">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:197"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:81"><nobr><span class="ft0">Languages, Performance </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:81"><nobr><span class="ft2">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:81"><nobr><span class="ft0">Digital Asset Management, DAM, digital images, XML database </span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:81"><nobr><span class="ft2">1. INTRODUCTION </span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:81"><nobr><span class="ft7">Digital asset creation and management evolved in the late 1990s. <br>Companies have created massive digital assets in the form of <br>images, video and audio files, streaming media, Power Point <br>templates, web pages, and PDF files containing engineering specs, <br>legal documents, internal memos and more. The World Wide Web <br>has drastically increased the need for digital information and its <br>exchange. Ille [8] identifies a digital asset as a strategic asset like <br>any other form of working capital, and states that its efficient <br>management is being increasingly recognized as a competitive <br>lever for companies all over the world.  <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:477"><nobr><span class="ft7">Development of the model for storing any form of digital object <br>into a structured format requires a deft combination of asset <br>analysis, strategic thinking, business planning and appropriate <br>technology. Companies can achieve early strategic advantage by <br>implementing management systems for digital assets that can be <br>repurposed or customized, providing process efficiencies in <br>collaborative work. Digital Asset Management (DAM) can deliver <br>competitive advantage for advertising agencies, technical or <br>engineering documentation departments, designers, producers and <br>others by reducing time spent locating creative assets.  </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:477"><nobr><span class="ft7">Enterprises often require reusing or sharing their digital assets. It <br>is indispensable to store content in an organized way to reuse or <br>process it for future needs. Global enterprises are facing the <br>daunting challenge of figuring out how best to address the <br>growing complexity of creating digital assets and managing the <br>flow of assets through a single infrastructure [11]. Exacerbating <br>the challenge is the fact that companies are creating a massive <br>volume of digital assets but are rarely examining their organized <br>storage and retrieval methods. </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:477"><nobr><span class="ft2">2.  SIGNIFICANCE OF THE PROBLEM </span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:477"><nobr><span class="ft7">DAM systems are still relatively new, but organizations have <br>started realizing the importance and need for digital asset <br>management. The Gartner Group affirms that only a limited <br>number of technically advanced commercial content providers use <br>DAM systems today to digitally construct, store and distribute <br>rich media content in single medium forms [7]. The systems also <br>have limited corporate use in advertising firms and marketing <br>departments. Gartner predicts that by 2005 more than 25% of all <br>the enterprises with commercial internet operations will use DAM <br>systems. By 2010, more than 45% of all the enterprises with <br>commercial internet operations will use DAM systems. </span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:477"><nobr><span class="ft7">Recently reported cases provide evidence that companies have <br>started investing in technology for DAM. For example, the Coca <br>Cola company has bought technology from IBM for its digital <br>advertisement archives, which contain 9,000 graphical images, <br>7,000 scanned documents and more than 25,000 corporate videos <br>and television advertisements [13]. The technology includes <br>search tools for retrieving, updating, managing and disseminating <br>historical records online, including the company's famous <br>marketing and advertising icons. </span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:477"><nobr><span class="ft7">Another case is that of the Shoah Foundation. Steven Spielberg <br>established the Shoah Foundation with the mission to videotape </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:87"><nobr><span class="ft8"> <br>Permission to make digital or hard copies of all or part of this work for <br>personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that <br>copies bear this notice and the full citation on the first page. To copy <br>otherwise, or republish, to post on servers or to redistribute to lists, <br>requires prior specific permission and/or a fee. <br>CITC4'03, October 16­18, 2003, Lafayette, Indiana, USA. <br>Copyright 2003 ACM 1-58113-770-2/03/0010...$5.00. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">237</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:11px;font-family:Symbol;color:#000000;}
+	.ft10{font-size:16px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="69002.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">and preserve the testimonies of the Holocaust survivors and <br>witnesses. The foundation has collected more than 50,000 <br>eyewitness testimonies in 57 countries and 32 languages [12]. The <br>challenge now is to manage, catalog and disseminate the video <br>and digital collection of testimonies of those survivors. These <br>digital assets of the Shoah Foundation are cataloged with lists of <br>keywords, text summaries describing the survivors, related <br>documentaries focusing on topics such as the ghettos or labor <br>camps they lived in, and past and present photos of them and their <br>families.  </span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:81"><nobr><span class="ft7">The following summarizes the major challenges that are faced <br>during any wide adoption of DAM. </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:101"><nobr><span class="ft7">Storage: One of the fundamental problems is physical <br>deterioration of storage devices that store digital information.  <br>Magnetic media are particularly subject to data loss and <br>errors. There is also the important question of hardware and <br>software obsolescence and the future availability of today's <br>technologies. </span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:101"><nobr><span class="ft7">Procedural Issues: Technical problems are further complicated <br>when resources to be preserved need to be transformed into <br>digital form. Digitization of paper analogs for access and <br>preservation is a time consuming and labor intensive task. <br>Beyond this technical problem, there is a host of financial, <br>legal, and policy problems. </span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:101"><nobr><span class="ft7">Security: Securing digital assets against misuse, theft, or <br>damage is an ongoing concern of organizations. </span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:101"><nobr><span class="ft7">Copyright: One of the major legal issues associated with <br>electronic assets is the actual scanning or digitizing of <br>materials. Copyright holders have the exclusive right to <br>reproduce, distribute, and display their work. Ferullo [3] <br>points out that digitizing and posting infringes on these <br>exclusive rights. </span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:101"><nobr><span class="ft7">Distribution: Digital assets will be utilized to the fullest only <br>when they can be distributed via proper communication <br>channels to the intended users.  </span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:101"><nobr><span class="ft7">Infrastructure: DAM requires a robust IT infrastructure to <br>support creation and distribution.  </span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:81"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:101"><nobr><span class="ft7">Human Factors: While the purpose of DAM is to provide <br>greater efficiency, getting users to adapt to the new <br>environment can be a challenge. This is an important issue <br>because many DAM solutions require a change in work <br>processes before the users see any benefits [6]. </span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:81"><nobr><span class="ft7">The requirement to manage and deliver digital assets is becoming <br>critical to almost all content-related applications, due to the <br>evolution of the Internet and growth of digital assets. Enterprises <br>need plans to benefit from the new world of rich, valuable digital <br>assets that will affect everything from their internal processes and <br>customer relations to their web site and telecommunications <br>infrastructures. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:81"><nobr><span class="ft10">3.  AN XML SOLUTION <br>3.1  Components of DAM </span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:81"><nobr><span class="ft7">Widespread use of rich media has spurred the growth of the DAM <br>market. Frost and Sullivan, a market analysis firm, claims the </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft7">average user in a media enterprise looks for a media file 83 times <br>a week and fails to find it 35% of the time [5]. Canto Software <br>research predicts that DAM solutions will drop that figure to 5% <br>[9]. With the growth of internet publication, document metadata is <br>increasingly important because it provides contextual information <br>about digital assets necessary for customization of the content. In <br>response, Adobe Systems plans to unveil new metadata <br>technology designed to ease the process of applying content to <br>multiple types of media. The XMP (Extensible Metadata <br>Platform) provides a framework for standardizing the creation and <br>processing of document metadata across publishing workflows, <br>according to Adobe officials [10].  </span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:477"><nobr><span class="ft7">A review by Doering [2] provides the insight into methods for <br>digital asset management. According to Doering, a DAM solution <br>must include the following critical features:  </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:497"><nobr><span class="ft7">Indexing: As content is generated and stored, it is indexed <br>according to various possible criteria. Metadata does not <br>merely describe by whom, when, and how a piece of content <br>was created; it can also be used to interpret and catalog the <br>content itself.  </span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:497"><nobr><span class="ft7">Rights Management: Includes handling rights to the content or <br>restricting the use of the content by the purchaser/end-user. <br>This might occur, for example, with corporate information or <br>licensed images from a third party incorporated into the <br>content. </span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:497"><nobr><span class="ft7">Reuse: With a viable DAM system in place, the internal <br>content developer can research and select appropriate content <br>for reuse in new content. This represents a significant savings <br>potential for the companies. </span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:497"><nobr><span class="ft7">Review: A final benefit of an online catalog with a DAM <br>system is the ability to review older content more easily. </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:477"><nobr><span class="ft2">3.2  The XML/Metadata Approach </span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:477"><nobr><span class="ft7">By incorporating a DAM system, a company gains both the <br>savings from reusing content as well as revenue from continued <br>sales of the same elements. According to Fontana [4], XML <br>databases serve in a complementary role to traditional databases <br>especially as XML becomes prevalent. Nearly 85% of large <br>corporations are expected to move all their web-based content to <br>XML over the next three years.  </span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:477"><nobr><span class="ft7">Fundamentally, two high-level approaches may be adopted for <br>implementing XML databases.   </span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:477"><nobr><span class="ft7">1)  XML-enabled database: In an XML-enabled database, the <br>documents are stored in constituent fragments. Here the XML <br>data is stored in object relational form and one can use an XML <br>SQL Utility (XSU) or SQL functions and packages to generate the <br>whole document from its object relational instances. </span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:477"><nobr><span class="ft7">2)  Native XML database: In a native XML database approach, <br>XML is not fragmented but rather is stored as a whole in the <br>native XML database. This means that documents are stored, <br>indexed, and retrieved in their original format, with all their <br>content, tags, attributes, entity references, and ordering preserved. <br>In this technique, the XML Database is designed to handle XML <br>in its native format, thereby speeding access to data by eliminating <br>the need to transform it into the rows and columns of a standard <br>relational database.   </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">238</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="69003.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">Biggs [1] suggests there are three principal reasons to implement <br>a native XML database: 1) enterprises today use a mix of data, <br>such as the data housed in object-oriented databases and <br>unstructured data that needs to be exchanged with partners (native <br>XML databases can leverage all of these disparate sources); 2) <br>XML databases can boost processing performance due to XML-<br>based transactions; and 3) digital assets described in the XML <br>format can be used by other applications. </span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:81"><nobr><span class="ft2">3.3  A Technique Using Native XML </span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft7">When developing a native XML solution, certain steps should be <br>followed:  </span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:81"><nobr><span class="ft0">1)  Identify the need for DAM </span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:81"><nobr><span class="ft7">2)  Know your assets: Identify various assets, define and <br>understand their use in the organization </span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:81"><nobr><span class="ft0">3)  Define search needs and key attributes of your assets </span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:81"><nobr><span class="ft7">4)  Capture the objects (digitized) and data about the objects <br>(metadata) </span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:81"><nobr><span class="ft7">5)  Process: Generate and store XML files associated with each <br>object </span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:81"><nobr><span class="ft7">The basis of this technique lies in creation and usage of semi-<br>structured metadata stored in an XML format to manage digital <br>assets efficiently. When the structure of the data is irregular and <br>implicitly given by the document itself, not by a global scheme, <br>they are often referred to as semi-structured data. The ability of an <br>XML to handle dynamic data provides leeway for the applications <br>to use semi-structured data to describe their digital assets. </span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:81"><nobr><span class="ft7">XML is becoming the de facto data exchange format for the Web. <br>The XML enclosing metadata can be either stored in the database <br>for future retrieval or be easily transferred over the Internet to any <br>other systems.  </span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft7">The Oracle 9i DBMS (used for the Proof of Concept) provides an <br>"XMLType" data type that can be used to store and query XML <br>data in the database. The XMLType has member functions one <br>can use to access, extract, and query the XML data using XPath <br>expressions, a standard developed by the World Wide Web <br>Consortium to traverse XML documents. </span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:81"><nobr><span class="ft2">3.4  Proof of Concept </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:81"><nobr><span class="ft7">This study analyzed existing approaches for non-text based digital <br>asset management and implemented a DAM solution by applying <br>a native XML Database technique. Meta-data of digital assets is <br>often semi-structured and the digital files are of varied types. <br>XML databases are most appropriate for managing diverse types <br>of semi-structured digital assets. </span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:108"><nobr><span class="ft0"> For this project, the Proof of Concept (POC) was developed </span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:81"><nobr><span class="ft7">using facilities and resources of the University's Digital <br>Enterprise Center (DEC) at the School of Technology. The <br>Product Lifecycle Management (PLM) lab at DEC creates, <br>simulates and shares digital information related to a company's <br>products, processes and resources. These digital assets encompass <br>graphical images, presentations, and video/audio clips of <br>manufacturing processes representing manufacturing models. A <br>digital asset produced in the PLM lab is the intellectual property <br>of the DEC and needs to be managed for future use or research. </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft7">Though the demonstration focused on the manufacturing process <br>models in the PLM lab, the XML Database technique can be <br>applied to any form of digital asset. </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:477"><nobr><span class="ft7">Since the potential file population is very vast and is of varied <br>types, the POC restricted the sampling to the following categories <br>of digital assets:  Audio files, Video files, Images, and Text based <br>files (presentation slides, Word documents, Acrobat files). The <br>POC confined the sample to a limited number of files describing <br>assembly line parts available from the PLM lab. </span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:477"><nobr><span class="ft7">Metadata was stored for each of the digital objects of the assembly <br>line. The global parameters and sub-parameters used to describe <br>the digital files included the following: File Name, Type (Image, <br>Audio, Video, Word etc), Author, Creation Date, General <br>Description, Keywords, and a Comment. A keyword search <br>capability was added for searching within these and other <br>parameters. </span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:477"><nobr><span class="ft7">The Proof of Concept application was developed to provide a <br>storage, search and retrieval facility to manage the digital assets of <br>the PLM lab using the School of Technology's software and <br>hardware resources. The application provides a web-based <br>interface for convenient management of the digital models and has  <br>an "n-tiered" architecture. The backend database is Oracle 9i with <br>native XML support. The web interface was developed using JSP <br>and the middle tier was incorporated using Java Servlets. Analysis <br>was conducted with the following steps: </span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:497"><nobr><span class="ft7">Various types of data (heterogeneous data) were collected for <br>demonstration purposes.  </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:497"><nobr><span class="ft7">The validity of metadata was checked before entering it into <br>the system.  </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:497"><nobr><span class="ft7">Upon validation, data was entered in the system (Oracle 9i <br>database) through the web-interface.  </span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:497"><nobr><span class="ft7">With the appropriate search parameters, the data entered could <br>be searched for and retrieved. Depending on the requirement, <br>this retrieved data could be viewed, reused or repurposed. </span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:477"><nobr><span class="ft9">· </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:497"><nobr><span class="ft7">Providing different search criteria tested consistency and <br>reliability in the retrieval of the asset.  </span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:477"><nobr><span class="ft7">The following technologies were used to develop the POC: <br>Apache Webserver 1.3; Apache JServ 1.1; JDK 1.1; Oracle 9i <br>(9.0.0.2); XML; Java, JSP, Servlets. Tools used for development <br>purposes included: ERwin database design software; Borland <br>Jbuilder; Microsoft Front Page; and Oracle Enterprise Manager. </span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:477"><nobr><span class="ft7">The POC was developed with a three-tier architecture as shown in <br>Figure 1. The first tier of the architecture presents an interface to <br>the user to facilitate access to digital files. The interface is web-<br>enabled and was developed using Java Server Pages. This tier <br>provides a user-friendly navigation through the site for managing <br>digital files, including screens for inserting, deleting and <br>searching on file data.   </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">239</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:7px;font-family:Times;color:#000000;}
+	.ft12{font-size:6px;font-family:Times;color:#7f7f7f;}
+	.ft13{font-size:6px;font-family:Times;color:#000000;}
+	.ft14{font-size:14px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;line-height:9px;font-family:Times;color:#7f7f7f;}
+	.ft16{font-size:6px;line-height:9px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="69004.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:195"><nobr><span class="ft11"><b>XML </b></span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:183"><nobr><span class="ft11"><b>Generation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:107"><nobr><span class="ft11"><b>Database</b></span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:108"><nobr><span class="ft15"><b>XML Files <br>(Metadata </b></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:108"><nobr><span class="ft15"><b>for Digital <br>Assets)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:105"><nobr><span class="ft16"><b>XML Files <br>(Metadata </b></span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:105"><nobr><span class="ft16"><b>for Digital <br>Assets)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:354"><nobr><span class="ft11"><b>User Interface</b></span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:252"><nobr><span class="ft11"><b>Web &amp; </b></span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:241"><nobr><span class="ft11"><b>Application </b></span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:254"><nobr><span class="ft11"><b>Server</b></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:236"><nobr><span class="ft11"><b>Digital </b></span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:220"><nobr><span class="ft11"><b>Asset Storage</b></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:269"><nobr><span class="ft11"><b>XML </b></span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:258"><nobr><span class="ft11"><b>Validation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:344"><nobr><span class="ft15"><b>Metadata <br>for <br>Digital </b></span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:344"><nobr><span class="ft12"><b>Assets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:341"><nobr><span class="ft16"><b>Metadata <br>for <br>Digital </b></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:341"><nobr><span class="ft13"><b>Assets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:412"><nobr><span class="ft15"><b>Digital <br>Asset</b></span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:409"><nobr><span class="ft16"><b>Digital <br>Asset</b></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:118"><nobr><span class="ft11"><b>Tier 3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:251"><nobr><span class="ft11"><b>Tier 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:369"><nobr><span class="ft11"><b>Tier 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:192"><nobr><span class="ft4">The POC Architecture</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:150"><nobr><span class="ft0">Figure 1: 3-Tier Architecture for POC </span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:81"><nobr><span class="ft17">The middle tier of the architecture consists of Servlets and Java <br>helper classes. Servlets direct the flow of the control and provide <br>database connectivity for the application. In addition, the business <br>logic is implemented in Servlets. Helper classes are used by <br>Servlets to create and manage user-defined Java objects. Servlets <br>and JSPs are deployed on an Apache Web server and Apache <br>Jserv.  <br> <br>The third tier of the architecture is the database layer itself. As <br>noted previously, the POC uses the XML capabilities of the <br>Oracle 9i database management system. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:81"><nobr><span class="ft2">4.  OBSERVATIONS AND EVALUATION </span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:81"><nobr><span class="ft2">4.1  The XML Database </span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft7">The XML database technique stores attributes of digital assets in <br>the database in the form of an XML file. While the XML resides <br>in the database system, digital assets might be files in a file system <br>or a BLOB in a relational database. This demonstration of the <br>technique stores digital assets in a file system.  </span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:108"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:81"><nobr><span class="ft7">XML databases provide some features that are analogous to <br>conventional text databases. Common to all native XML <br>databases are indexes, which allow the query engine to jump to a <br>particular point in an XML document. This gives such databases a <br>tremendous speed advantage when retrieving entire documents or <br>document fragments. This is because the database can perform a <br>single index lookup and retrieve the entire document or fragment <br>in a single read.  <br> <br>Normalizing data for an XML database is largely the same as <br>normalizing it for a relational database. The programmer needs to <br>design the documents so that no data is repeated. One difference <br>between native XML databases and relational databases is that <br>XML supports multi-valued properties while (most) relational <br>databases do not. This makes it possible to "normalize" data in a <br>native XML database in a way that is not possible in a relational <br>database. </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft2">4.2  Native XML vs. XML-Enabled </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:477"><nobr><span class="ft7">A native XML database defines a (logical) model for an XML <br>document -- as opposed to the data in that document -- and stores <br>and retrieves documents according to that model. A native XML <br>database has an XML document as its fundamental unit of <br>(logical) storage, just as a relational database has a row in a table <br>as its fundamental unit of (logical) storage. It is not required to <br>have any particular underlying physical storage model. For <br>example, it can be built on a relational, hierarchical, or object-<br>oriented database, or use a proprietary storage format such as <br>indexed, compressed files.  <br> <br>An XML-enabled database has an added XML mapping layer <br>provided either by the database vendor or a third party. This <br>mapping layer manages the storage and retrieval of XML data. <br>Data that is mapped into the database is mapped into application <br>specific formats and the original XML meta-data and structure <br>may be lost. Data retrieved as XML is NOT guaranteed to have <br>originated in XML form. Data manipulation may occur via either <br>XML specific technologies (e.g. XPath) or other database <br>technologies (e.g. SQL). The fundamental unit of storage in an <br>XML-enabled database is implementation dependent. The XML <br>solutions from Oracle and Microsoft, as well as many third party <br>tools, fall into this category. </span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:477"><nobr><span class="ft14"><i>4.2.1  Advantages of Native XML </i></span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:477"><nobr><span class="ft7">Native XML databases have several advantages over relational <br>databases. Since native XML databases do not have database <br>schemas, one can store similar documents with more than one <br>schema in the database at the same time. While one may still need <br>to redesign queries and convert the existing documents -- a non-<br>trivial process -- this may ease the transition process. <br> <br>XML databases make search within the XML documents very <br>efficient. If the data is parsed into Document Object Model <br>(DOM) format, XPATH can be used. XML database solutions <br>usually add a text indexing system so that query performance is <br>improved.  </span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:477"><nobr><span class="ft14"><i>4.2.2  Disadvantages of Native XML </i></span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:477"><nobr><span class="ft7">Currently, only a few native XML databases enforce referential <br>integrity. The reason for this is that most native XML databases <br>do not currently support linking mechanisms, so there are no <br>references for integrity checking. Therefore, applications that rely <br>on referential integrity mechanisms of databases must enforce <br>these constraints themselves for XML databases. In the future, <br>many native XML databases will probably support linking <br>mechanisms and referential integrity. <br> <br>Another disadvantage of XML databases is that while query <br>performance is better, update performance suffers. The reason is <br>that the index entries for a document must be deleted and new <br>entries created whenever a document is inserted or updated.  <br> <br>In general, an XML Database approach is better because it <br>supports the full power of XML. However, a major drawback is <br>performance degradation, as data must be constantly reparsed into <br>a DOM tree, wasting cycles and memory. Additionally, update <br>capabilities are weak, and finally, automated enforcement of </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">240</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="69005.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">integrity constraints needlessly places unreasonable burden upon <br>application programmers, increasing risks and costs. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:81"><nobr><span class="ft2">5. CONCLUSION </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:81"><nobr><span class="ft7">Digital Asset Management (DAM) is an evolving field with a <br>great potential. With the evolution of computers and the Internet, <br>companies have been creating an enormous volume of digital <br>content in various formats. Managing this content, so that it can <br>be cataloged, searched and re-purposed, is extremely challenging <br>for organizations. <br> <br>XML is a commonly used standard in internet applications. <br>Hence, representing the metadata of a digital content in an XML <br>format is, on the surface, a good design decision. XML, by its <br>very nature, provides for a complex, well-defined and yet <br>extensible structural representation of the metadata and <br>interoperability between various applications dealing with digital <br>assets. A major advantage of having XML natively in the database <br>is that one can perform the relational manipulation operations <br>such as insert, update, and delete on the whole or partial XML <br>and can also perform XML specific operations like XPATH <br>search and node modification using the power of SQL. This, and <br>other advantages give native XML databases an edge over <br>systems that don't use XML or that manage XML externally.  <br>   </span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:81"><nobr><span class="ft2">6. REFERENCES </span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:81"><nobr><span class="ft0">[1]  Biggs, M. (2001, December 3). Two ways to bring XML to </span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:108"><nobr><span class="ft0">your databases. InfoWorld, Framingham, 23 (49), 20. </span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:81"><nobr><span class="ft0">[2]  Doering, D.  (2001, August). Defining the DAM thing: how </span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:108"><nobr><span class="ft7">digital asset management works. Emedia Magazine, Wilton, <br>14(8), 28-32. Retrieved February 27, 2002, from <br>http://proquest.umi.com/pqdweb?Did=000000077222944&amp;F<br>mt=4&amp;Deli=1&amp;Mtd=1&amp;Idx=5&amp;Sid=12&amp;RQT=309 </span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:81"><nobr><span class="ft0">[3]  Ferullo, D. L. (2002). The challenge of e-reserves. Net </span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:108"><nobr><span class="ft0">Connect, 48 (8), 33-35.  </span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:81"><nobr><span class="ft0">[4]  Fontana, J. (2001, November 5). Upgraded database makes </span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:108"><nobr><span class="ft7">the most of XML. Network World, Framingham, 18 (45), 29. <br>Retrieved February 27, 2002, from <br>http://proquest.umi.com/pqdweb?Did=000000088274369&amp;F<br>mt=4&amp;Deli=1&amp;Mtd=1&amp;Idx=7&amp;Sid=3&amp;RQT=309 </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft0">[5]  Frost &amp; Sullivan.s (n.d.). U.S. Digital Asset Management </span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:504"><nobr><span class="ft7">Markets. Retrieved March 23, 2002, from <br>http://www.frost.com/prod/servlet/fcom?ActionName=Displa<br>yReport&amp;id=A192-01-00-00-<br>00&amp;ed=1&amp;fcmseq=1043213084248  </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:477"><nobr><span class="ft0">[6]  Garcia, K. (2001, November). Broadcasters starting to ease </span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:504"><nobr><span class="ft0">into digital workflow. TVB Europe, 10(11), 22-24. </span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:477"><nobr><span class="ft0">[7]  Gilbert, M., Landers, G., Latham, L. &amp; Lundy, J. (2001, </span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:504"><nobr><span class="ft7">November 26). What's cool, what's hot: content technology <br>hype cycle. Gartner Advisory. Retrieved February 9, 2002, <br>from <br>http://gartner.adpc.purdue.edu/rasdquest/RESEARCH/RAS/<br>102700/102760/102760.html </span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:477"><nobr><span class="ft0">[8]  Ille, C. (2001, February 26). Market definitions: digital </span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:504"><nobr><span class="ft7">document imaging. Gartner Group. Retrieved February 27, <br>2002, from <br>http://proquest.umi.com/pqdweb?Did=000000093522513&amp;F<br>mt=3&amp;Deli=1&amp;Mtd=1&amp;Idx=4&amp;Sid=3&amp;RQT=309 </span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:477"><nobr><span class="ft0">[9]  Martin, N. (2001, September).  DAM right! Artesia </span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:504"><nobr><span class="ft7">technologies focuses on digital asset management. EContent, <br>Wilton, 24(7), 60-62. </span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:477"><nobr><span class="ft0">[10] Moore, C. (2001, September 24). Adobe touts images. </span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:504"><nobr><span class="ft7">InfoWorld, Framingham, 23(39), 36. Retrieved February 27, <br>2002, from <br>http://proquest.umi.com/pqdweb?Did=000000081956628&amp;F<br>mt=3&amp;Deli=1&amp;Mtd=1&amp;Idx=2&amp;Sid=12&amp;RQT=309 </span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:477"><nobr><span class="ft0">[11] Moore, C.  (2001, September 24). Content management </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:504"><nobr><span class="ft7">plays role in cross-media publishing. Computer World. <br>Retrieved February 9, 2002, from <br>http://www.computerworld.com/storyba/0,4125,NAV47_ST<br>O64339,00.html  </span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:477"><nobr><span class="ft0">[12] Solomon, M. (2002, January 14). Managing the memories. </span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:504"><nobr><span class="ft7">Computer World. Retrieved April 16, 2002, from <br>http://www.computerworld.com/storyba/0,4125,NAV47_ST<br>O67304,00.html </span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:477"><nobr><span class="ft0">[13] Weiss, T. (2001, December 10). Coca-Cola ad legacy gets </span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:504"><nobr><span class="ft7">help from IBM. Computer World. Retrieved February 9, <br>2002, from <br>http://www.computerworld.com/storyba/0,4125,NAV47_ST<br>O66495,00.html</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:593"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:477"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:459"><nobr><span class="ft1"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">241</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

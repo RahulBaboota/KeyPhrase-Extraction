@@ -1,0 +1,1047 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="">
+<META name="keywords" content="">
+<META name="date" content="2004-11-08T20:11:04+00:00">
+<META name="subject" content="">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:923;height:1279;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;font-family:Times;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;font-family:Times;color:#000000;}
+	.ft10{font-size:16px;font-family:Courier;color:#000000;}
+	.ft11{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft12{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft14{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:17px;font-family:Times;color:#000000;}
+	.ft16{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="923" height="1279" src="81001.png" alt="background image">
+<DIV style="position:absolute;top:115;left:254"><nobr><span class="ft0"><b>Energy Management Schemes for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:234"><nobr><span class="ft0"><b>Memory-Resident Database Systems</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:139"><nobr><span class="ft1">Jayaprakash Pisharath, Alok Choudhary</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:145"><nobr><span class="ft2">Electrical &amp; Computer Engineering Department</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:221"><nobr><span class="ft2">Northwestern University</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:236"><nobr><span class="ft2">Evanston, IL 60208</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:145"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:152"><nobr><span class="ft1">jay, choudhar</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:257"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:264"><nobr><span class="ft1">@ece.northwestern.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:566"><nobr><span class="ft1">Mahmut Kandemir</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:503"><nobr><span class="ft2">Department of Comp. Sci. &amp; Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:541"><nobr><span class="ft2">Pennsylvania State University</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:553"><nobr><span class="ft2">University Park, PA 16802</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:545"><nobr><span class="ft1">kandemir@cse.psu.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:93"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:93"><nobr><span class="ft11">With the tremendous growth of system memories, memory-<br>resident databases are increasingly becoming important in various<br>domains. Newer memories provide a structured way of storing<br>data in multiple chips, with each chip having a bank of memory<br>modules. Current memory-resident databases are yet to take full<br>advantage of the banked storage system, which offers a lot of<br>room for performance and energy optimizations. In this paper,<br>we identify the implications of a banked memory environment<br>in supporting memory-resident databases, and propose hard-<br>ware (memory-directed) and software (query-directed) schemes<br>to reduce the energy consumption of queries executed on these<br>databases. Our results show that high-level query-directed schemes<br>(hosted in the query optimizer) better utilize the low-power modes<br>in reducing the energy consumption than the respective hardware<br>schemes (hosted in the memory controller), due to their complete<br>knowledge of query access patterns. We extend this further and<br>propose a query restructuring scheme and a multi-query opti-<br>mization. Queries are restructured and regrouped based on their<br>table access patterns to maximize the likelihood that data accesses<br>are clustered. This helps increase the inter-access idle times of<br>memory modules, which in turn enables a more effective control of<br>their energy behavior. This heuristic is eventually integrated with<br>our hardware optimizations to achieve maximum savings. Our<br>experimental results show that the memory energy reduces by 90%<br>if query restructuring method is applied along with basic energy<br>optimizations over the unoptimized version.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:356"><nobr><span class="ft5">The system-wide</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:93"><nobr><span class="ft5">performance impact of each scheme is also studied simultaneously.</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:93"><nobr><span class="ft4"><b>Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:93"><nobr><span class="ft11"><b><br></b>H.2.2 [Database Management]:Physical Design ­ <i>Access Methods<br></i>H.3.2 [Information Storage and Retrieval]: Information Storage<br>B.3.1 [Memory Structures]: Semiconductor Memories ­ <i>DRAM</i></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:93"><nobr><span class="ft4"><b>General Terms:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:188"><nobr><span class="ft5">Design, Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:93"><nobr><span class="ft6"><b>Keywords:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:163"><nobr><span class="ft5">database, DRAM, energy, hardware energy scheme,</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:93"><nobr><span class="ft11">power consumption, query-directed energy management, multi-<br>query optimization</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:93"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:125"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:107"><nobr><span class="ft5">Memory-resident databases (also called in-memory databases</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:93"><nobr><span class="ft11"><A href="81.html#10">[6]) </a>are emerging to be more significant due to the current era of<br>memory-intensive computing. These databases are used in a wide<br>range of systems ranging from real-time trading applications to IP<br>routing. With the growing complexities of embedded systems (like<br>real-time constraints), use of a commercially developed structured</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:93"><nobr><span class="ft14">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>CIKM'04, </i>November 8­13, 2004, Washington, DC, USA.<br>Copyright 2004 ACM 1-58113-874-1/04/0011 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1140;left:327"><nobr><span class="ft5">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1141;left:334"><nobr><span class="ft8">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:488"><nobr><span class="ft5">memory database is becoming very critical <A href="81.html#10">[5]</a>.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:770"><nobr><span class="ft5">Consequently,</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:488"><nobr><span class="ft11">device developers are turning to commercial databases, but ex-<br>isting embedded DBMS software has not provided the ideal fit.<br>Embedded databases emerged well over a decade ago to support<br>business systems, with features including complex caching logic<br>and abnormal termination recovery. But on a device, within a<br>set-top box or next-generation fax machine, for example, these<br>abilities are often unnecessary and cause the application to ex-<br>ceed available memory and CPU resources. In addition, current<br>in-memory database support does not consider embedded system<br>specific issues such as energy consumption.</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:501"><nobr><span class="ft5">Memory technology has grown tremendously over the years,</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:488"><nobr><span class="ft5">providing larger data storage space at a cheaper cost.</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:809"><nobr><span class="ft5">Recent</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:488"><nobr><span class="ft11">memory designs have more structured and partitioned layouts<br>in the form of multiple chips, each having <i>memory banks </i><A href="81.html#10">[30].<br></a>Banked memories are energy efficient by design, as per-access<br>energy consumption decreases with decreasing memory size (and<br>a memory bank is typically much smaller compared to a large<br>monolithic memory). In addition, these memory systems provide<br><i>low-power operating modes, </i>which can be used for reducing the<br>energy consumption of a bank when it is not being used.</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:830"><nobr><span class="ft5">An</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:488"><nobr><span class="ft11">important question regarding the use of these low-power modes<br>is when to transition to one once an idleness is detected. Another<br>important question is whether the application can be modified to<br>take better advantage of these low-power modes.</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:780"><nobr><span class="ft5">While these</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:488"><nobr><span class="ft11">questions are slowly being addressed in architecture, compiler, and<br>OS communities, to our knowledge, there has been no prior work<br>that examines the energy and performance behavior of databases<br>under a banked memory architecture. Considering increasingly<br>widespread use of banked memories, such a study can provide<br>us with valuable information regarding the behavior of databases<br>under these memories and potential modifications to DBMSs<br>for energy efficiency. Since such banked systems are also being<br>employed in high-end server systems, banked memory friendly<br>database strategies can also be useful in high-end environments to<br>help reduce energy consumption.</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:501"><nobr><span class="ft5">Our detailed energy characterization of a banked memory ar-</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:488"><nobr><span class="ft11">chitecture that runs a memory-resident DBMS showed that nearly<br>59% of overall energy (excluding input/output devices) in a typical<br>query execution is spent in the memory, making this component<br>an important target for optimization (see Figure <A href="81.html#2">1). </a>Moreover, for<br>any system, memory power and energy consumption have become<br>critical design parameters besides cost and performance. Based on<br>these observations, this paper evaluates the potential energy bene-<br>fits that memory-resident database queries can achieve by making<br>use of banked memory architectures supported with low-power op-<br>erating modes. Since each memory bank is capable of operating<br>independently, this opens up abundant avenues for energy and per-<br>formance optimizations.</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:501"><nobr><span class="ft5">In this paper, we focus on a banked memory architecture and</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:488"><nobr><span class="ft11">study potential energy benefits when database queries are executed.<br>Specifically, we focus on two important aspects of the problem:<br>· <i>Characterizing energy benefits of banked memories using hard-<br>ware and software techniques: </i>To see whether query execution can<br>make use of available low-power modes, we study both hardware<br>and software techniques. The hardware techniques detect the idle-<br>ness of memory banks and switch the inactive (idle) banks (during</span></nobr></DIV>
+<DIV style="position:absolute;top:1186;left:454"><nobr><span class="ft5">218</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:922;height:1273;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft18{font-size:4px;font-family:Helvetica;color:#221f1f;}
+	.ft19{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="922" height="1273" src="81002.png" alt="background image">
+<DIV style="position:absolute;top:146;left:374"><nobr><span class="ft17">Memory</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:381"><nobr><span class="ft17">59%</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:136"><nobr><span class="ft17">Cache</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:140"><nobr><span class="ft17">16%</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:147"><nobr><span class="ft17">ALU</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:146"><nobr><span class="ft17">14%</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:180"><nobr><span class="ft17">Bus</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:182"><nobr><span class="ft17">1%</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:214"><nobr><span class="ft17">Others</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:218"><nobr><span class="ft17">10%</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:93"><nobr><span class="ft12"><b>Figure 1: Breakup of the energy consumption for various sys-<br>tem components. The results are based on the average en-<br>ergy consumption of TPC-H benchmarks <A href="81.html#10">[35] </a>executed on a<br>memory-resident DBMS.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:93"><nobr><span class="ft11">query execution) to low-power operating modes. We also present<br>a query-based memory energy optimization strategy, wherein the<br>query plan is augmented by explicit bank turn-off/on instructions<br>that transition memory banks into appropriate operating modes dur-<br>ing the course of execution based on the query access pattern. We<br>experimentally evaluate all the proposed schemes and obtain en-<br>ergy consumptions using an energy simulator. Our experiments<br>using TPC-H queries <A href="81.html#10">[35] </a>and a set of queries suitable for hand-<br>held devices clearly indicate that both hardware-based and query-<br>directed strategies save significant memory energy.<br>· <i>Query restructuring for memory energy savings: </i>We propose a<br>query restructuring scheme and a multi-query optimization strategy<br>to further increase energy benefits coming from using low-power<br>operating modes. The idea behind these schemes is to increase<br>bank inter-access times so that more aggressive low-power modes<br>can be employed and a memory bank can stay in a low-power mode<br>longer once it is transitioned. Our experimental evaluation indi-<br>cates that this query restructuring strategy does not only reduce<br>energy consumption, but also helps improve overall performance<br>(execution cycles).</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:107"><nobr><span class="ft5">Apart from providing useful input for database designers, our re-</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:93"><nobr><span class="ft11">sults can also be used by hardware designers to tune the behavior<br>of low-power modes so that they handle query access patterns bet-<br>ter. Similar to the observation that creating a lightweight version<br>of a disk-based database will not serve as a suitable in-memory<br>database, our belief is that taking an in-memory database system<br>and using it on a banked architecture without any modification may<br>not generate the desired results. Therefore, the results presented in<br>this work also shed light on how database design and memory ar-<br>chitecture design interact with each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:107"><nobr><span class="ft5">The remainder of this paper is organized as follows. Section <A href="81.html#2">2</a></span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:93"><nobr><span class="ft11">presents related work. Section <A href="81.html#2">3 </a>elaborates on the memory database<br>that we built and also on the memory banking scheme that we em-<br>ploy for our experiments. Section <A href="81.html#3">4 </a>presents in detail the proposed<br>hardware and query-directed energy optimization techniques. The<br>results of our energy evaluation of these schemes are discussed in<br>Section <A href="81.html#5">5. </a>Our experiments also account for the performance over-<br>head incurred in supporting our schemes. Section <A href="81.html#7">6 </a>presents our<br>query restructuring and regrouping scheme, and Section <A href="81.html#8">7 </a>discusses<br>its energy/performance benefits within the context of our banked<br>memory architecture. Finally, Section <A href="81.html#10">8 </a>summarizes the results.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:93"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:125"><nobr><span class="ft4"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:107"><nobr><span class="ft5">In the past, memory has been redesigned, tuned or optimized</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:93"><nobr><span class="ft11">to suit emerging fields. Need for customized memory structures<br>and allocation strategies form the foundation for such studies.<br>Copeland et al proposed SafeRAM <A href="81.html#10">[11], </a>a modified DRAM model<br>for safely supporting memory-resident databases alike disk-based<br>systems, and for achieving good performance. In PicoDBMS <A href="81.html#10">[27],<br></a>Pucheral et al present techniques for scaling down a database to<br>a smart card. This work also investigates some of the constraints<br>involved in mapping a database to an embedded system, especially<br>memory constraints and the need for a structured data layout.<br>Anciaux et al <A href="81.html#10">[3] </a>explicitly model the lower bound of the memory<br>space that is needed for query execution. Their work focuses on<br>light weight devices like personal organizers, sensor networks, and<br>mobile computers. Boncz et al show how memory accesses form a<br>major bottleneck during database accesses <A href="81.html#10">[7]. </a>In their work, they<br>also suggest a few remedies to alleviate the memory bottleneck.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:107"><nobr><span class="ft5">An et al analyze the energy behavior of mobile devices when spa-</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:93"><nobr><span class="ft11">tial access methods are used for retrieving memory-resident data<br><A href="81.html#10">[2]. </a>They use a cycle accurate simulator to identify the pros and</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:658"><nobr><span class="ft18">text</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:675"><nobr><span class="ft18">Query Optimizer</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:744"><nobr><span class="ft18">Query Execution</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:757"><nobr><span class="ft18">Engine</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:756"><nobr><span class="ft18">Memory</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:753"><nobr><span class="ft18">Database</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:497"><nobr><span class="ft18">Queries</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:719"><nobr><span class="ft18">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:812"><nobr><span class="ft18">Results</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:666"><nobr><span class="ft18">Energy &amp; Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:679"><nobr><span class="ft18">Optimizations</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:673"><nobr><span class="ft18">(Using Cost Plan)</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:754"><nobr><span class="ft18">Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:749"><nobr><span class="ft18">Optimizations</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:745"><nobr><span class="ft18">Targeting DBMS</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:609"><nobr><span class="ft18">Rewrite System</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:554"><nobr><span class="ft18">Parser</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:641"><nobr><span class="ft18">System Catalog</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:581"><nobr><span class="ft6"><b>Figure 2: DBMS architecture.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:488"><nobr><span class="ft11">cons of various indexing schemes. In <A href="81.html#10">[1], </a>Alonso et al investi-<br>gate the possibility of increasing the effective battery life of mo-<br>bile computers by selecting energy efficient query plans through<br>the optimizer. Although the ultimate goal seems the same, their<br>cost plan and the optimization criterion are entirely different from<br>our scheme. Specifically, their emphasis is on a client-server model<br>optimizing the network throughput and overall energy consump-<br>tion. Gruenwald et al propose an energy-efficient transaction man-<br>agement system for real-time mobile databases in ad-hoc networks<br><A href="81.html#10">[16]. </a>They consider an environment of mobile hosts. In <A href="81.html#10">[22],<br></a>Madden et al propose TinyDB, an acquisitional query processor<br>for sensor networks. They provide SQL-like extensions to sensor<br>networks, and also propose acquisitional techniques that reduce the<br>power consumption of these networks. It should be noted that the<br>queries in such a mobile ad-hoc network or a sensor environment<br>is different from those in a typical DBMS. This has been shown<br>by Imielinksi et al in <A href="81.html#10">[19]. </a>In our model, we base our techniques<br>on a generic banked memory environment and support complex,<br>memory-intensive typical database operations. There are more op-<br>portunities for energy optimizations in generic memory databases,<br>which have not yet been studied completely. The approach pro-<br>posed in this paper is different from prior energy-aware database<br>related studies, as we focus on a banked memory architecture, and<br>use low-power operating modes to save energy.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:501"><nobr><span class="ft5">Gassner et al review some of the key query optimization tech-</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:488"><nobr><span class="ft11">niques required by industrial-strength commercial query optimiz-<br>ers, using the DB2 family of relational database products as ex-<br>amples <A href="81.html#10">[15]. </a>This paper provides insight into design of query cost<br>plans and optimization using various approaches. In <A href="81.html#10">[23], </a>Mane-<br>gold studies the performance bottlenecks at the memory hierar-<br>chy level and proposes a detailed cost plan for memory-resident<br>databases. Our cost plan and optimizer mimics the PostgreSQL<br>model <A href="81.html#10">[12, 14]. </a>We chose it due to its simple cost models and open<br>source availability.</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:501"><nobr><span class="ft5">A query restructuring algorithm is proposed by Hellerstein</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:488"><nobr><span class="ft5">in <A href="81.html#10">[18].</a></span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:546"><nobr><span class="ft5">This algorithm uses predicate migration to optimize</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:488"><nobr><span class="ft5">expensive data retrievals.</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:641"><nobr><span class="ft5">In <A href="81.html#10">[10], </a>Chaudhuri et al extend this</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:488"><nobr><span class="ft11">approach to study user-defined predicates and also guarantee an<br>optimal solution for the migration process. Sarawagi et al present<br>a query restructuring algorithm that reduces the access times of<br>data retrieval from tertiary databases <A href="81.html#10">[32]. </a>Monma et al develop<br>the series-parallel algorithm for reordering primitive database op-<br>erations <A href="81.html#10">[24]. </a>This algorithm optimizes an arbitrarily constrained<br>stream of primitive operations by isolating independent modules.<br>This work forms the basic motivation for our query restructuring<br>algorithm. However, our paper is different from all of the above<br>work in the sense that we reorder queries for reducing energy<br>consumption. Moreover, our database is memory-resident, with<br>the presence of banked memory that gives more freedom for<br>optimizations.</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:488"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:519"><nobr><span class="ft4"><b>SYSTEM ARCHITECTURE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:488"><nobr><span class="ft4"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:528"><nobr><span class="ft4"><b>DBMS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:501"><nobr><span class="ft5">For our work, we modified the PostgreSQL DMBS to work with</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:488"><nobr><span class="ft11">memory-resident data sets as its workload. The block diagram for<br>our setup is shown in Figure <A href="81.html#2">2. </a>The core components are derived<br>from PostgreSQL. The flow of our model is similar to PostgreSQL<br>except that the database is memory resident. A query is parsed for<br>syntax and then sent to the rewrite system. The rewrite system uses<br>the system catalog to generate the query tree, which is then sent to<br>the optimizer. The query optimizer derives the cost of the query in</span></nobr></DIV>
+<DIV style="position:absolute;top:1158;left:454"><nobr><span class="ft5">219</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:922;height:1267;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:5px;font-family:Helvetica;color:#221f1f;}
+	.ft21{font-size:5px;font-family:Helvetica;color:#221f1f;}
+	.ft22{font-size:8px;font-family:Times;color:#000000;}
+	.ft23{font-size:11px;font-family:Symbol;color:#000000;}
+	.ft24{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft25{font-size:6px;font-family:Helvetica;color:#000000;}
+	.ft26{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft27{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft28{font-size:11px;line-height:12px;font-family:Times;color:#000000;}
+	.ft29{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="922" height="1267" src="81003.png" alt="background image">
+<DIV style="position:absolute;top:135;left:132"><nobr><span class="ft20">Configuration</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:137"><nobr><span class="ft20">Registers</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:131"><nobr><span class="ft20">Self-Monitoring/</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:140"><nobr><span class="ft20">Prediction</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:140"><nobr><span class="ft20">Hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:142"><nobr><span class="ft21"><b>Memory</b></span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:139"><nobr><span class="ft21"><b>Controller</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:440"><nobr><span class="ft20">Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:95"><nobr><span class="ft20">To/From</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:101"><nobr><span class="ft20">CPU</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:224"><nobr><span class="ft20">Module</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:413"><nobr><span class="ft20">Memory Bus</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:158"><nobr><span class="ft6"><b>Figure 3: Banked memory architecture.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:93"><nobr><span class="ft11">multiple ways using the query tree and issues the best suited plan<br>to the query execution engine. We incorporate our software-based<br>techniques at the optimizer stage of the DBMS. These optimiza-<br>tions are based on the cost that is derived for each of the query plans<br>(the discussion pertaining to the modified cost model is deferred till<br>Section <A href="81.html#3">4). </a>Based on the final query execution plan, the execution<br>engine executes the query by using the database. The database is<br>entirely memory resident and the memory is organized in a banked<br>format (elaborated in the following section). The executor recur-<br>sively iterates the query plan and uses a per-tuple based strategy<br>(pipelined execution, and not bulk processing) to project the output<br>results. The proposed hardware optimizations are at the computer<br>architecture level of the system. Since the base DBMS model is<br>similar to PostgreSQL, we do not elaborate each component in de-<br>tail ( <A href="81.html#10">[26] </a>provides an elaborate discussion). Instead, we highlight<br>our contributions, and modifications to DBMS (shown in blue in<br>Figure <A href="81.html#2">2) </a>in the following sections. Overall, our strategies require<br>modification to the query optimizer, memory hardware, and system<br>software components.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:93"><nobr><span class="ft4"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:134"><nobr><span class="ft4"><b>Memory Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:107"><nobr><span class="ft5">We use a memory system that contains a memory array orga-</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:93"><nobr><span class="ft11">nized as banks (rows) and modules (columns), as is shown picto-<br>rially in Figure <A href="81.html#3">3 </a>for a 4 × 4 memory module array. Such banked<br>systems are already being used in high-end server systems <A href="81.html#10">[30] </a>as<br>well as low-end embedded systems <A href="81.html#10">[31]. </a>The proposed optimiza-<br>tions will, however, apply to most bank-organized memory sys-<br>tems. Accessing a word of data would require activating the cor-<br>responding modules of the shown architecture. Such an organiza-<br>tion allows one to put the unused banks into a low-power operating<br>mode. To keep the issue tractable, this paper bases the experimental<br>results on a sequential database environment and does not consider<br>a multiprocessing environment (like transaction processing which<br>requires highly complex properties to be satisfied). We assume in<br>our experiments that there is just one module in a bank; hence, in<br>the rest of our discussion, we use the terms "bank" and "module"<br>interchangeably.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:93"><nobr><span class="ft4"><b>3.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:134"><nobr><span class="ft4"><b>Operating Modes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:107"><nobr><span class="ft5">We assume the existence of five operating modes for a mem-</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:93"><nobr><span class="ft5">ory module: <i>active, standby, nap, power-down, </i>and <i>disabled</i></span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:443"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:449"><nobr><span class="ft5">.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:93"><nobr><span class="ft27">Each mode is characterized by its <i>energy consumption </i>and the<br>time that it takes to transition back to the active mode (termed<br><i>resynchronization time </i>or <i>resynchronization cost</i>). Typically, the<br>lower the energy consumption, the higher the resynchronization<br>time <A href="81.html#10">[30]. </a>Figure <A href="81.html#3">4 </a>shows possible transitions between the various<br>low-power modes (the dynamic energy</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:311"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:322"><nobr><span class="ft5">consumed in a cycle is</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:93"><nobr><span class="ft11">given for each node) in our model. The resynchronization times<br>in cycles (based on a cycle time of 3.3ns) are shown along the<br>arrows (we assume a negligible cost</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:295"><nobr><span class="ft23"></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:305"><nobr><span class="ft5">for transitioning to a lower</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:93"><nobr><span class="ft11">power mode). The energy and resynchronization values shown<br>in this figure have been obtained from the RDRAM memory data<br>sheet (512MB, 2.5V, 3.3ns cycle time, 8MB modules) <A href="81.html#10">[30]. </a>When<br>a module in standby, nap, or power-down mode is requested to<br>perform a memory transaction, it first goes to the active mode, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:94"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:100"><nobr><span class="ft5">Current DRAMs <A href="81.html#10">[30] </a>support up to six energy modes of operation</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:93"><nobr><span class="ft28">with a few of them supporting only two modes. One may choose to<br>vary the number of modes based on the target memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:94"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:100"><nobr><span class="ft5">We exclusively concentrate on dynamic power consumption that</span></nobr></DIV>
+<DIV style="position:absolute;top:1125;left:93"><nobr><span class="ft28">arises due to bit switching, and do not consider the static (leakage)<br>power consumption <A href="81.html#10">[28] </a>in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:641"><nobr><span class="ft24">Full Power</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:641"><nobr><span class="ft24">(2.063 nJ)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:514"><nobr><span class="ft24">Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:511"><nobr><span class="ft24">(0.743 nJ)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:607"><nobr><span class="ft24">Nap</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:595"><nobr><span class="ft24">(0.035 nJ)</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:699"><nobr><span class="ft24">Power</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:700"><nobr><span class="ft24">Down</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:691"><nobr><span class="ft24">(0.025 nJ)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:788"><nobr><span class="ft24">Disabled</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:794"><nobr><span class="ft24">(0 nJ)</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:560"><nobr><span class="ft25">1</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:603"><nobr><span class="ft25">16</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:711"><nobr><span class="ft25">9000</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:564"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:647"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:672"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:728"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:657"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:566"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:753"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:488"><nobr><span class="ft12"><b>Figure 4: Available operating modes and their resynchroniza-<br>tion costs.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:488"><nobr><span class="ft11">then performs the requested transaction. While one could employ<br>all possible transitions given in Figure <A href="81.html#3">4 </a>(and maybe more), our<br>query-directed approach only utilizes the transitions shown by<br>solid arrows. The runtime (hardware-based) approaches, on the<br>other hand, can exploit two additional transitions: from standby to<br>nap, and from nap to power-down.</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:488"><nobr><span class="ft4"><b>3.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:528"><nobr><span class="ft4"><b>System Support for Power Mode Setting</b></span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:501"><nobr><span class="ft5">Typically, several of the memory modules (that are shown in Fig-</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:488"><nobr><span class="ft13">ure <A href="81.html#3">3) </a>are controlled by a memory controller which interfaces with<br>the memory bus. For example, the operating mode setting could<br>be done by programming a specific control register in each mem-<br>ory module (as in RDRAM <A href="81.html#10">[30]). </a>Next is the issue of how the<br>memory controller can be told to transition the operating modes<br>of the individual modules. This is explored in two ways in this<br>paper: <i>hardware-directed approach </i>and <i>software-directed </i>(<i>query-<br>directed</i>) <i>approach.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:501"><nobr><span class="ft5">In the hardware-directed approach, there is a Self-Monitoring</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:488"><nobr><span class="ft11">and Prediction Hardware block (as shown in Figure <A href="81.html#3">3), </a>which<br>monitors all ongoing memory transactions. It contains some pre-<br>diction hardware (based on the hardware scheme) to estimate the<br>time until the next access to a memory bank and circuitry to ask the<br>memory controller to initiate mode transitions (limited amount of<br>such self-monitored power down is already present in current mem-<br>ory controllers, for example: Intel 82443BX and Intel 820 Chip<br>Sets).</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:501"><nobr><span class="ft5">In the query-directed approach, the DBMS explicitly requests</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:488"><nobr><span class="ft11">the memory controller to issue the control signals for a specific<br>module's mode transitions. We assume the availability of a set of<br>configuration registers in the memory controller (see Fig-<br>ure <A href="81.html#3">3) </a>that are mapped into the address space of the CPU (similar<br>to the registers in the memory controller in <A href="81.html#10">[20]). </a>These registers<br>are then made available to the user space (so that the DBMS appli-<br>cation can have a control) through operating system calls.</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:501"><nobr><span class="ft5">Regardless of which strategy is used, the main objective of em-</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:488"><nobr><span class="ft11">ploying such strategies is to reduce the energy consumption of a<br>query when some memory banks are idle during the query's ex-<br>ecution. That is, a typical query only accesses a small set of ta-<br>bles, which corresponds to a small number of banks. The remain-<br>ing memory banks can be placed into a low-power operating mode<br>to save memory energy. However, it is also important to select<br>the low-power mode to use carefully (when a bank idleness is de-<br>tected), as switching to a wrong mode either incurs significant per-<br>formance penalties (due to large resynchronization costs) or pre-<br>vents us from obtaining maximum potential energy benefits.</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:501"><nobr><span class="ft5">Note that energy optimization is our context can be performed</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:488"><nobr><span class="ft11">from two angles. First, suitable use of low-power operating modes<br>can reduce energy consumption of a given query execution. Sec-<br>ond, the query plan can be changed (if it is possible to do so) to fur-<br>ther increase energy benefits. In this work, we explore both these<br>angles.</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:488"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:519"><nobr><span class="ft4"><b>POWER MANAGEMENT SCHEMES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:501"><nobr><span class="ft5">In a banked architecture, the memory can be managed through</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:488"><nobr><span class="ft11">either of the following two approaches: (1) a runtime approach<br>wherein the hardware is in full control of operating mode transi-<br>tions; and (2) a query-directed scheme wherein explicit bank turn-<br>on/off instructions are inserted in the query execution plan to in-<br>voke mode transitions. One also has the option of using both the<br>approaches simultaneously (which we illustrate in later sections).</span></nobr></DIV>
+<DIV style="position:absolute;top:1158;left:452"><nobr><span class="ft5">220</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:921;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft30{font-size:2px;font-family:Helvetica;color:#000000;}
+	.ft31{font-size:14px;font-family:Times;color:#000000;}
+	.ft32{font-size:8px;font-family:Times;color:#000000;}
+	.ft33{font-size:14px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="921" height="1262" src="81004.png" alt="background image">
+<DIV style="position:absolute;top:104;left:255"><nobr><span class="ft17">Full Power</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:145"><nobr><span class="ft17">Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:272"><nobr><span class="ft17">Nap</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:379"><nobr><span class="ft17">Power</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:380"><nobr><span class="ft17">Down</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:208"><nobr><span class="ft17">idle</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:224"><nobr><span class="ft30">stanby</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:208"><nobr><span class="ft17">idle</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:224"><nobr><span class="ft30">nap</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:320"><nobr><span class="ft17">idle</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:336"><nobr><span class="ft30">down</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:126"><nobr><span class="ft17">resynch</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:163"><nobr><span class="ft30">stanby</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:286"><nobr><span class="ft17">resynch</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:323"><nobr><span class="ft30">nap</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:345"><nobr><span class="ft17">resynch</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:382"><nobr><span class="ft30">down</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:165"><nobr><span class="ft6"><b>Figure 5: Dynamic threshold scheme.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:93"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:134"><nobr><span class="ft4"><b>Hardware-Directed Schemes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:107"><nobr><span class="ft5">We explore two hardware-directed approaches that allow the</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:93"><nobr><span class="ft11">memory system to automatically transition the idle banks to an<br>energy conserving state. The problem then is to detect/predict<br>bank idleness and transition idle banks into appropriate low-power<br>modes.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:97"><nobr><span class="ft31"><i>4.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:147"><nobr><span class="ft31"><i>Static Standby Scheme</i></span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:107"><nobr><span class="ft5">The first approach is a per-access optimization. Most of the re-</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:93"><nobr><span class="ft11">cent DRAMs allow the chips to be put to standby mode immedi-<br>ately after each reference <A href="81.html#10">[30]. </a>After a read/write access, the mem-<br>ory module that gets accessed can be placed into the standby mode<br>in the following cycle. We refer to this scheme as the static standby<br>mode in the rest of our discussion. Note that, while this scheme is<br>not very difficult to implement, it may lead to frequent resynchro-<br>nizations, which can be very harmful as far as execution cycles are<br>concerned.</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:97"><nobr><span class="ft31"><i>4.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:147"><nobr><span class="ft31"><i>Dynamic Threshold Scheme</i></span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:107"><nobr><span class="ft5">Our second hardware-guided approach is based on runtime dy-</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:93"><nobr><span class="ft11">namics of the memory subsystem. The rationale behind this ap-<br>proach is that if a memory module has not been accessed in a while,<br>then it is not likely to be needed in the near future (that is, inter-<br>access times are predicted to be long). A threshold is used to de-<br>termine the idleness of a module after which it is transitioned to a<br>low-power mode. More specifically, we propose a scheme where<br>each memory module is put into a low-power state with its idle<br>cycles as the threshold for transition.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:107"><nobr><span class="ft5">The schematic of our dynamic threshold scheme is depicted in</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:93"><nobr><span class="ft5">Figure <A href="81.html#4">5. </a>After <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:210"><nobr><span class="ft32"><i>stndby</i></span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:245"><nobr><span class="ft5">cycles of idleness, the corresponding</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:93"><nobr><span class="ft11">module is put in the standby mode. Subsequently, if the module<br>is not referenced for another <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:271"><nobr><span class="ft32"><i>nap</i></span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:291"><nobr><span class="ft5">cycles, it is transitioned to the</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:93"><nobr><span class="ft11">nap mode. Finally, if the module is not referenced for a further<br><i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:115"><nobr><span class="ft32"><i>down</i></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:142"><nobr><span class="ft5">cycles, it is placed into the power-down mode. Whenever</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:93"><nobr><span class="ft11">the module is referenced, it is brought back into the active mode in-<br>curring the corresponding resynchronization costs (based on what<br>low-power mode it was in). It should be noted that even if a single<br>bank experiences a resynchronization cost, the other banks will also<br>incur the corresponding delay (to ensure correct execution). Imple-<br>menting the dynamic mechanism requires a set of counters (one for<br>each bank) that are decremented at each cycle, and set to a thresh-<br>old value whenever they expire or the module is accessed. A zero<br>detector for a counter initiates the memory controller to transmit<br>the instructions for mode transition to the memory modules.</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:93"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:134"><nobr><span class="ft4"><b>Software-Directed Scheme</b></span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:107"><nobr><span class="ft5">It is to be noted that a hardware-directed scheme works well</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:93"><nobr><span class="ft11">independent of the DBMS and the query optimizer used. This is<br>because the idleness predictors are attached to the memory banks<br>and monitor idleness from the perspective of banks. In contrast,<br>a query-directed scheme gives the task of enforcing mode transi-<br>tions to the query. This is possible because the query optimizer,<br>once it generates the execution plan, has a complete information<br>about the query access patterns (i.e., which tables will be accessed<br>and in what order, etc). Consequently, if the optimizer also knows<br>the <i>table-to-bank mappings, </i>it can have a very good idea about the<br>bank access patterns. Then, using this information, it can proac-<br>tively transition memory banks to different modes. In this section,<br>we elaborate on each step in the particular query-directed approach<br>that we implemented, which includes customized bank allocation,<br>query analysis, and insertion of bank turn-on/off (for explicit power<br>mode control) instructions.</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:492"><nobr><span class="ft31"><i>4.2.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:541"><nobr><span class="ft31"><i>Bank Allocation</i></span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:501"><nobr><span class="ft5">In the case of software-directed scheme, the table allocation is</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:488"><nobr><span class="ft11">handled by the DBMS. Specifically, the DBMS allocates the newly-<br>created tables to the banks, and keeps track of the table-to-bank<br>mappings. When a "create table" operation is issued, the DBMS<br>first checks for free space. If there is sufficient free space available<br>in a single bank, the table is allocated from that bank. If a bank is<br>not able to accommodate the entire table, the table is split across<br>multiple banks. Also, while creating a new table, the DBMS tries<br>to reuse the already occupied banks to the highest extent possible;<br>that is, it does not activate a new bank unless it is necessary. Note<br>that the unactivated (unused) banks ­ i.e., the banks that do not hold<br>any data ­ can remain in the disabled mode throughout the execu-<br>tion. However, it also tries not to split tables excessively. In more<br>detail, when it considers an already occupied bank for a new table<br>allocation, the table boundaries are checked first using the available<br>space in that bank. If a bank is more than two-thirds full with the<br>table data, the rest of the bank is padded with empty bits and the<br>new table is created using pages from a new bank. Otherwise, the<br>table is created beginning in the same bank. Irrespective of whether<br>the table is created on a new bank or not, the DBMS creates a new<br>table-to-bank mapping entry after each table creation.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:501"><nobr><span class="ft5">In hardware-directed schemes, we avoid these complexities in-</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:488"><nobr><span class="ft11">volved in bank allocation as we assume that there is absolutely no<br>software control. Consequently, in the hardware-directed schemes,<br>we use the <i>sequential first touch placement policy</i>. This policy al-<br>locates new pages sequentially in a single bank until it gets com-<br>pletely filled, before moving on to the next bank. Also, the table-<br>to-bank mapping is not stored within the DBMS since the mode<br>control mechanism is handled by the hardware.</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:492"><nobr><span class="ft31"><i>4.2.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:541"><nobr><span class="ft33"><i>Estimating Idleness and Selecting the<br>Appropriate Low-Power Mode</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:501"><nobr><span class="ft5">It should be emphasized that the main objective of our query-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:488"><nobr><span class="ft11">directed scheme is to identify bank idleness. As explained above,<br>in order to achieve this, it needs table-to-bank mapping. How-<br>ever, this is not sufficient as it also needs to know when each ta-<br>ble will be accessed and how long an access will take (i.e., the<br>query access pattern). To estimate this, we need to estimate the du-<br>ration of accesses to each table, which means estimating the time<br>taken by the database operations. Fortunately, the current DBMSs<br>already maintain such estimates for query optimization purposes<br><A href="81.html#10">[12, 15, 29, 33, 34]. </a>More specifically, given a query, the optimizer<br>looks at the query access pattern using the generated query plan.<br>The inter-access times are calculated using the query plan. A query<br>plan elucidates the operations within a query and also the order in<br>which these operations access the various tables in the database.<br>Even in current databases, the query plan generator estimates ac-<br>cess costs using query plans <A href="81.html#10">[12]. </a>We use the same access cost esti-<br>mation methodology. These access costs are measured in terms of<br>page (block) fetches. In our memory-resident database case, a page<br>is basically the block that is brought from memory to the cache. For<br>instance, the cost of sequential scan is defined as follows (taken<br>from <A href="81.html#10">[12]):</a></span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:558"><nobr><span class="ft7"><i>Cost</i></span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:583"><nobr><span class="ft32"><i>seq scan</i></span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:627"><nobr><span class="ft3">= <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:652"><nobr><span class="ft32"><i>blocks</i></span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:686"><nobr><span class="ft3">+ <i>CPU </i> <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:747"><nobr><span class="ft32"><i>tuples</i></span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:501"><nobr><span class="ft5">Here, <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:542"><nobr><span class="ft32"><i>blocks</i></span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:573"><nobr><span class="ft5">is the number of data blocks retrieved, <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:788"><nobr><span class="ft32"><i>tuples</i></span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:818"><nobr><span class="ft5">is the</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:488"><nobr><span class="ft11">number of output tuples, and <i>CPU </i>is the fudge factor that adjusts<br>the system tuple-read speed with the actual memory hierarchy data-<br>retrieval speed. Usually, optimizers use the above cost metric to<br>choose between multiple query plan options before issuing a query.<br>We attach a cost to each page (block) read/write operation to obtain<br>an estimate of the access cost (time) in terms of execution cycles.<br>For instance, the above scan operation is modified as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:560"><nobr><span class="ft7"><i>Cost</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:584"><nobr><span class="ft32"><i>block f etch</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:639"><nobr><span class="ft3">= <i>T cycles</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:518"><nobr><span class="ft7"><i>Cost</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:543"><nobr><span class="ft32"><i>seq scan</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:587"><nobr><span class="ft3">= <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:612"><nobr><span class="ft32"><i>blocks</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:642"><nobr><span class="ft3"> <i>T </i>+ <i>CPU </i> <i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:727"><nobr><span class="ft32"><i>tuples</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:757"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:769"><nobr><span class="ft32"><i>block</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:767"><nobr><span class="ft32"><i>tuples</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:797"><nobr><span class="ft3"> <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:501"><nobr><span class="ft5">In these expressions, <i>T </i>is the delay in cycles to fetch a block from</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:488"><nobr><span class="ft11">the memory. Thus, our cost plan is projected in terms of access<br>cycles. We extend this to other database operations like JOIN and<br>AGGREGATE based on the cost models defined in <A href="81.html#10">[14, 12].</a></span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:501"><nobr><span class="ft5">Given a query, we break down each operation within the plan (in-</span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:488"><nobr><span class="ft5">cluding sub-plans) and estimate the access cost (in cycles) for each</span></nobr></DIV>
+<DIV style="position:absolute;top:1156;left:452"><nobr><span class="ft5">221</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:921;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft34{font-size:6px;font-family:Helvetica;color:#0000ff;}
+	.ft35{font-size:8px;font-family:Helvetica;color:#000000;}
+	.ft36{font-size:6px;line-height:10px;font-family:Helvetica;color:#000000;}
+	.ft37{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="921" height="1262" src="81005.png" alt="background image">
+<DIV style="position:absolute;top:136;left:118"><nobr><span class="ft36">- &gt; scan  A (9000  cycles)<br>- &gt; aggregate (20 cycles)<br>        - &gt; scan  B (9000  cycles)<br>        - &gt; scan  A (9000  cycles)</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:316"><nobr><span class="ft36">- &gt; scan  A <br>- &gt; Put  A=ON<br>- &gt; aggregate <br>        - &gt; Put  B=OFF<br>        - &gt; scan  B<br>        - &gt; Put  B=ON<br>        - &gt; Put  A=OFF<br>        - &gt; scan  A<br>        - &gt; Put  A=ON<br>        (B is already OFF)</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:95"><nobr><span class="ft34"><b>P2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:124"><nobr><span class="ft34"><b>P1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:185"><nobr><span class="ft35">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:374"><nobr><span class="ft35">(ii)</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:93"><nobr><span class="ft12"><b>Figure 6: Example application of the query-directed scheme.<br>(i) The original execution plan. (b) The augmented execution<br>plan.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:93"><nobr><span class="ft11">primitive operation. Our objective in estimating the per-operation<br>time in cycles is to eventually identify the inter-access times of op-<br>erations in the query (and hence, to put the banks that hold unused<br>tables to low-power modes). There are table accesses associated<br>with each operation, and bank inter-access times depend on the ta-<br>ble inter-access times. A query has information of the tables that<br>it accesses. Thus, knowing the inter-access time for each operation<br>leads to the inter-access times for each table as well. A table is<br>mapped to certain banks, and the table-to-bank mapping is avail-<br>able in the query optimizer.</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:107"><nobr><span class="ft5">Consequently, if the table inter-access time is <i>T </i>, and the resyn-</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:93"><nobr><span class="ft5">chronization time is <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:212"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:222"><nobr><span class="ft5">(assuming less than <i>T </i>), then the optimizer</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:93"><nobr><span class="ft11">can transition the associated modules into a low-power mode (with<br>a unit time energy of <i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:227"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:233"><nobr><span class="ft5">) for the initial <i>T </i>- <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:364"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:375"><nobr><span class="ft5">period (which</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:93"><nobr><span class="ft5">would consume a total [<i>T </i>- <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:255"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:261"><nobr><span class="ft3">]<i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:274"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:283"><nobr><span class="ft5">energy), activate the module to</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:93"><nobr><span class="ft11">bring it back to the active mode at the end of this period following<br>which the module will resynchronize before it is accessed again<br>(consuming <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:168"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:174"><nobr><span class="ft7"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:182"><nobr><span class="ft32"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:192"><nobr><span class="ft5">energy during the transition assuming that <i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:433"><nobr><span class="ft32"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:443"><nobr><span class="ft5">is</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:93"><nobr><span class="ft11">the unit time energy for active mode as well as during the transition<br>period). As a result, the total energy consumption with this transi-<br>tioning is [<i>T </i>- <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:182"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:188"><nobr><span class="ft3">]<i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:200"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:212"><nobr><span class="ft3">+ <i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:235"><nobr><span class="ft32"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:240"><nobr><span class="ft7"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:249"><nobr><span class="ft32"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:258"><nobr><span class="ft7"><i>without any resynchronization over-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:93"><nobr><span class="ft7"><i>heads</i>, while the consumption would have been <i>T E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:378"><nobr><span class="ft32"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:388"><nobr><span class="ft5">if there had</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:93"><nobr><span class="ft11">been no transitioning (note that this calculation considers only the<br>idle period). The DBMS optimizer evaluates all possible choices<br>(low-power modes) based on corresponding per cycle energy costs<br>and resynchronization times, and table inter-access time to pick up<br>the best choice. Note that the DBMS can select different low power<br>modes for different idle periods of the same module depending on<br>the duration of each idle period. Specifically, we use the most en-<br>ergy saving low-power mode without increasing the original query<br>execution time (i.e., when the original idleness is over, the module<br>should be up in the active mode ready for the operation).</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:97"><nobr><span class="ft31"><i>4.2.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:147"><nobr><span class="ft31"><i>Inserting Bank-On/Off Instructions</i></span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:107"><nobr><span class="ft5">The last part of the software-directed scheme is to insert explicit</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:93"><nobr><span class="ft11">(operating) mode transitioning instructions in the final query execu-<br>tion plan. For this, we introduce place-markers (mapped to system<br>calls) which are interpreted at the low-level (interpreted later by<br>our memory controller, which actually sets the corresponding low-<br>power modes). This is done so that the query execution engine can<br>issue the query without much performance overhead, and with the<br>same transparency.</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:107"><nobr><span class="ft5">As an example, consider the following. Let tables A and B each</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:93"><nobr><span class="ft11">have 1000 records, each record being 64 bytes. Consider the query<br>plan depicted in Figure <A href="81.html#5">6(i), </a>taken from PostgreSQL. The query<br>plan reads from bottom to top (P2 follows P1). A scan of table<br>A is done first, followed by a scan of table B. The result of these<br>operations are then used by an aggregate operation. Another (inde-<br>pendent) scan operation on table A follows the aggregate operation.<br>The per step access costs are also shown. From the generated query<br>plan, it is evident that table A is not accessed between point P1 and<br>point P2. Once the results are extracted after the scan at point P1,<br>the banks that hold table A can be put to a low-power mode, and the<br>banks that hold table B can be activated for data extraction. This is<br>illustrated in Figure <A href="81.html#5">6(ii) </a>using place-markers for tables A and B.<br>Banks holding Table A are reactivated at point P2 (banks of Table<br>B remain off).</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:488"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:519"><nobr><span class="ft4"><b>EXPERIMENTAL</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:685"><nobr><span class="ft4"><b>EVALUATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:822"><nobr><span class="ft4"><b>OF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:519"><nobr><span class="ft37"><b>HARDWARE-DIRECTED AND QUERY-<br>DIRECTED SCHEMES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:501"><nobr><span class="ft5">In this section, we study the potential energy benefits of our hard-</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:488"><nobr><span class="ft11">ware and software-directed schemes. We first explain the exper-<br>imental setup that we used in our simulations. Then, the set of<br>queries that we used to study our schemes is introduced. After that,<br>we present energy consumption results. While we discuss the en-<br>ergy benefits of using our schemes, we also elaborate the overheads<br>associated with supporting each of our schemes.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:488"><nobr><span class="ft4"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:528"><nobr><span class="ft4"><b>Setup</b></span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:492"><nobr><span class="ft31"><i>5.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:541"><nobr><span class="ft31"><i>Simulation Environment</i></span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:501"><nobr><span class="ft5">As mentioned before, the query-directed schemes are imple-</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:488"><nobr><span class="ft11">mented in the query optimizer of the memory database model<br>elaborated in Section <A href="81.html#2">3.1. </a>We interface this DBMS to an enhanced<br>version of the SimpleScalar/Arm simulator <A href="81.html#10">[4] </a>to form a com-<br>plete database system.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:626"><nobr><span class="ft5">The intermediate interface (invoked by</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:488"><nobr><span class="ft11">DBMS) provides a set of operating system calls (on Linux kernel<br>2.4.25), which in turn invokes the SimpleScalar simulator. The<br>SimpleScalar simulator models a modern microprocessor with a<br>five-stage pipeline: fetch, decode, issue, write-back, and commit.<br>We implemented our hardware techniques within the framework of<br>the sim-outorder tool from the SimpleScalar suite, extended with<br>the ARM-ISA support <A href="81.html#10">[4]. </a>Specifically, we modeled a processor<br>architecture similar to that of Intel StrongARM SA-1100. The<br>modeled architecture has a 16KB direct-mapped instruction cache<br>and a 8KB direct-mapped data cache (each of 32 byte-length). We<br>also model a 32-entry full associative TLB with a 30-cycle miss<br>latency. The off-chip bus is 32 bit-wide. For estimating the power<br>consumption (and hence, the energy consumption), we use the<br>Wattch simulator from Princeton University <A href="81.html#10">[8].</a></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:501"><nobr><span class="ft5">Our banked memory model is based on <A href="81.html#10">[13,21], </a>as shown in Fig-</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:488"><nobr><span class="ft11">ure <A href="81.html#3">4. </a>We use values from Figure <A href="81.html#3">4 </a>for modeling the delay (transi-<br>tion cycles) in activation and resynchronization of various power-<br>states. Our simulations account for all performance and energy<br>overheads incurred by our schemes. In particular, the energy num-<br>bers we present include the energy spent in maintaining the idleness<br>predictors (in the hardware-directed scheme) and the energy spent<br>in maintaining the table-to-bank mappings (in the query-directed<br>scheme), and in fetching and executing the bank turn-on/off in-<br>structions (in the query-directed scheme). The predictors were im-<br>plemented using decrementing counters (equal to the number of<br>banks) and zero detector based on the discussion in Section <A href="81.html#4">4.1.<br></a>The predictors are synchronized with the system cycles to main-<br>tain consistency of operation, and to minimize the overheads. The<br>query optimizer maintains the table-bank mappings, which is mod-<br>eled as an array list for instant access. The bank turn-on/off in-<br>structions are executed by setting hardware registers, and hence,<br>these instructions are modeled as register operations using the ex-<br>isting instruction set architecture. We present two important statis-<br>tics in our experimental results. <i>Energy consumption </i>corresponds<br>to the energy consumed in the memory system (including the above<br>mentioned overheads). We also present statistics about the <i>perfor-<br>mance overhead </i>(i.e., <i>increase in execution cycles</i>) for each of our<br>schemes. This overhead includes the cycles spent in resynchro-<br>nization (penalty cycles are modeled based on values in Figure <A href="81.html#3">4)<br></a>as well as the cycles spent (in the CPU datapath) in fetching and ex-<br>ecuting the turn-on/off instructions (in the query-directed scheme).</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:492"><nobr><span class="ft31"><i>5.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:541"><nobr><span class="ft31"><i>Queries</i></span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:501"><nobr><span class="ft5">To evaluate our scheme for memory-resident databases, we</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:488"><nobr><span class="ft11">considered two classes of queries. The first class is a subset of<br>queries from the Transaction Processing Council (TPC-H) bench-<br>mark <A href="81.html#10">[35]. </a>TPC-H involves complex queries with a large amount of<br>data accesses. Operations in decision support benchmarks (TPC-D<br>evolved to TPC-H) have good spatial locality with abundant data<br>intensive operations <A href="81.html#10">[9]. </a>This assists us to perform a rigorous test<br>of our schemes. The top part of Table <A href="81.html#6">1 </a>gives details of the TPC-H<br>queries we used and the corresponding database parameters. The<br>selected operations represent a good mix and could be used to<br>build a variety of complicated queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:1156;left:452"><nobr><span class="ft5">222</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:920;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft38{font-size:9px;font-family:Times;color:#000000;}
+	.ft39{font-size:8px;line-height:-2px;font-family:Helvetica;color:#000000;}
+	.ft40{font-size:8px;line-height:-7px;font-family:Helvetica;color:#000000;}
+	.ft41{font-size:8px;line-height:-4px;font-family:Helvetica;color:#000000;}
+	.ft42{font-size:8px;line-height:-8px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="920" height="1262" src="81006.png" alt="background image">
+<DIV style="position:absolute;top:103;left:278"><nobr><span class="ft6"><b>Table 1: The two classes of queries considered for our experiments.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:104"><nobr><span class="ft6"><b>Source</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:271"><nobr><span class="ft6"><b>Query</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:364"><nobr><span class="ft6"><b>Description</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:606"><nobr><span class="ft6"><b>Tables</b></span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:104"><nobr><span class="ft5">TPC-H</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:271"><nobr><span class="ft5">Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:364"><nobr><span class="ft5">Simple query</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:606"><nobr><span class="ft11">PART, CUSTOMER, ORDERS, and<br>LINEITEM tables generated using<br>DBGEN with scale 1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:271"><nobr><span class="ft5">Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:364"><nobr><span class="ft5">Complex query involving JOIN</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:271"><nobr><span class="ft5">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:364"><nobr><span class="ft5">Complex query involving NEST</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:271"><nobr><span class="ft5">Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:364"><nobr><span class="ft5">Complex query involving JOIN and NEST</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:104"><nobr><span class="ft11">Queries targeting a simple<br>organizer</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:271"><nobr><span class="ft5">P1</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:364"><nobr><span class="ft5">Simple name and address lookup</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:606"><nobr><span class="ft11">ADDRESSBOOK populated with 1.3<br>million entries, 50% subset of FRIENDS<br>and 25% subset of COLLEAGUES</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:271"><nobr><span class="ft5">P2</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:364"><nobr><span class="ft5">Lookup in directory of friends</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:271"><nobr><span class="ft5">P3</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:364"><nobr><span class="ft11">Lookup in directory of colleagues and<br>friends</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:107"><nobr><span class="ft5">Memory-resident databases run queries that are different from</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:93"><nobr><span class="ft11">the typical database queries as seen in TPC-H. The second set of<br>queries that we consider are representative of applications that ex-<br>ecute on handheld devices. The typical operations that are per-<br>formed on an organizer were imitated on our setup (we name the<br>queries P1, P2, P3). The first query involves a simple address<br>lookup using a `NAME' as input. The SQL for query P1 is shown<br>on the left section of Table <A href="81.html#6">2. </a>Recent organizers <A href="81.html#10">[17, 25] </a>provide an<br>ordered view of the underlying addressbook database. For instance,<br>organizers provide the creation of folders. A "friends" folder can<br>be a collection of personnel with a tag set as "friend" in the ad-<br>dressbook. We defined folder as a restrained/customized view of<br>the same database (address book). Intuitively, query P2 strives to<br>do a lookup of friends living in a particular city. The "friends"<br>view and hence the query P2 is defined on the right section of Ta-<br>ble <A href="81.html#6">2. </a>Query P3 combines views (folders). For this we defined a<br>new folder called "colleagues". P3 aims to find friends and/or col-<br>leagues whose names start with an `a', living in a particular `CITY'.<br>Since P3 is very similar to P2 with some extra fields, we do not<br>present the SQL for P3. The intermediate tables and results during<br>query execution are also stored in the memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:97"><nobr><span class="ft31"><i>5.1.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:147"><nobr><span class="ft31"><i>Default Parameters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:107"><nobr><span class="ft5">For our experiments, we populate our database using the <i>DBGEN</i></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:93"><nobr><span class="ft11">software from TPC-H benchmark suite with a scale factor of 1.0.<br>Our organizer database is populated with 1.3 million records.</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:107"><nobr><span class="ft5">For dynamic threshold scheme, we use 10, 100 and 10,000 cycles</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:93"><nobr><span class="ft5">as <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:130"><nobr><span class="ft32"><i>stndby</i></span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:159"><nobr><span class="ft5">, <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:188"><nobr><span class="ft32"><i>nap</i></span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:206"><nobr><span class="ft5">, and <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:258"><nobr><span class="ft32"><i>down</i></span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:282"><nobr><span class="ft5">, respectively. For all schemes,</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:93"><nobr><span class="ft11">the banks are in power-down mode before their first access. On/Off<br>instructions are inserted based on the inter-access times of table.<br>We use the same cycles as in <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:279"><nobr><span class="ft32"><i>stndby</i></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:308"><nobr><span class="ft5">, <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:338"><nobr><span class="ft32"><i>nap</i></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:355"><nobr><span class="ft5">, and <i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:408"><nobr><span class="ft32"><i>down</i></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:436"><nobr><span class="ft5">for</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:93"><nobr><span class="ft11">inserting instructions. As an example, consider the inter-access (T)<br>of a table as 25 cycles, which lies between 10 (<i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:371"><nobr><span class="ft32"><i>stndby</i></span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:400"><nobr><span class="ft5">) and 100</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:93"><nobr><span class="ft5">(<i>idle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:119"><nobr><span class="ft32"><i>nap</i></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:137"><nobr><span class="ft5">) cycles. We insert an On/Off instruction at the beginning</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:93"><nobr><span class="ft11">of T to put a table to standby mode for 24 cycles, taking into con-<br>sideration the resynchronization period of 1 cycle as well. Similar<br>technique is applied for inter-access times that fall in between other<br>power modes.</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:107"><nobr><span class="ft5">A single page transfer time is needed for access cost calculation</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:93"><nobr><span class="ft11">in software-directed scheme. We derive this by executing the TPC-<br>H queries on the SimpleScalar simulator (with the SA-1100 model)<br>and by studying the cycle times for transferring a data block from<br>memory to the cache. For all experiments, the default configuration<br>is the 512MB RDRAM memory with 8MB banks. In the following<br>section, we study the energy implications of our hardware and soft-<br>ware schemes using this setup. We then present the performance<br>overheads.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:93"><nobr><span class="ft4"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:134"><nobr><span class="ft4"><b>Query Energy Evaluation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:107"><nobr><span class="ft5">Figure <A href="81.html#6">7 </a>shows the <i>normalized </i>memory energy consumption for</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:93"><nobr><span class="ft11">our hardware-directed schemes. While presenting our results, we<br>normalize all values with respect to the base case, which is the ver-<br>sion with <i>no </i>query optimizations. "Static Standby" in Figure <A href="81.html#6">7 </a>indi-<br>cates the static standby scheme. We see that, by simply putting the<br>modules to standby mode after each access, this scheme is able to<br>achieve an average 55% reduction in memory energy consumption<br>of TPC-H queries when compared to the unoptimized case. The<br>energy improvements are less pronounced in the case of handheld</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:566"><nobr><span class="ft6"><b>Table 2: SQL for organizer queries</b></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:496"><nobr><span class="ft38"><b>Query P1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:624"><nobr><span class="ft38"><b>Query P2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:496"><nobr><span class="ft8">SELECT</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:624"><nobr><span class="ft8">CREATE VIEW</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:505"><nobr><span class="ft8">a name,</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:633"><nobr><span class="ft8">friends AS</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:746"><nobr><span class="ft38"><b>P2:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:505"><nobr><span class="ft8">a address,</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:624"><nobr><span class="ft8">SELECT</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:749"><nobr><span class="ft8">SELECT</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:505"><nobr><span class="ft8">a city,</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:633"><nobr><span class="ft8">a name,</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:757"><nobr><span class="ft8">a address,</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:505"><nobr><span class="ft8">a office phone,</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:633"><nobr><span class="ft8">a address,</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:757"><nobr><span class="ft8">a home phone,</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:505"><nobr><span class="ft8">a home phone,</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:633"><nobr><span class="ft8">a city,</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:757"><nobr><span class="ft8">a mobile phone</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:505"><nobr><span class="ft8">a mobile phone,</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:633"><nobr><span class="ft8">a home phone,</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:749"><nobr><span class="ft8">FROM</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:505"><nobr><span class="ft8">a email,</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:633"><nobr><span class="ft8">a mobile phone</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:757"><nobr><span class="ft8">friends</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:505"><nobr><span class="ft8">a web,</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:624"><nobr><span class="ft8">FROM</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:749"><nobr><span class="ft8">WHERE</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:505"><nobr><span class="ft8">a specialnotes</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:633"><nobr><span class="ft8">addressbook</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:757"><nobr><span class="ft8">a city = `[CITY]'</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:496"><nobr><span class="ft8">FROM</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:624"><nobr><span class="ft8">WHERE</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:749"><nobr><span class="ft8">GROUP BY</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:505"><nobr><span class="ft8">addressbook</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:633"><nobr><span class="ft8">a tag = `[FRIEND]'</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:757"><nobr><span class="ft8">a name;</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:496"><nobr><span class="ft8">WHERE</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:624"><nobr><span class="ft8">GROUP BY</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:505"><nobr><span class="ft8">a name = '[NAME]';</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:633"><nobr><span class="ft8">a name;</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:488"><nobr><span class="ft11">queries (37% reduction on the average). This is mainly because<br>of the different number of tables manipulated by these two types<br>of queries. In the TPC-H case, multiple tables are scattered across<br>various banks and hence, there is a potential of placing more mem-<br>ory banks into low-power modes. In the case of handheld queries,<br>there is just one table scattered across multiple banks, which makes<br>putting modules to a low-power mode more difficult as modules are<br>tightly connected, as far as query access patterns are concerned. We<br>also observe from Figure <A href="81.html#6">7 </a>that the dynamic threshold scheme fur-<br>ther extends these improvements through its ability to put a bank<br>into any of the possible low-power modes. On an average, there is<br>a 60% (43%) energy improvement in TPC-H (handheld) queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:501"><nobr><span class="ft5">Figure <A href="81.html#6">7 </a>also shows the normalized energy behavior of our</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:488"><nobr><span class="ft11">query-directed scheme (denoted On/Off Instr). It is evident that<br>this scheme outperforms the best hardware-directed scheme (by<br>an average of 10%) in saving the memory energy consumption.<br>This is because of two main reasons. First, when a bank idleness is<br>estimated, the query-directed scheme has a very good idea about<br>its length (duration). Therefore, it has a potential of choosing the<br>most appropriate low-power mode for a given idleness. Second,<br>based on its idleness estimate, it can also preactivate the bank. This</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:528"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:520"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:520"><nobr><span class="ft24">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:520"><nobr><span class="ft24">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:520"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:520"><nobr><span class="ft24">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:520"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:520"><nobr><span class="ft24">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:556"><nobr><span class="ft24">Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:601"><nobr><span class="ft24">Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:645"><nobr><span class="ft24">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:688"><nobr><span class="ft24">Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:736"><nobr><span class="ft24">P1</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:781"><nobr><span class="ft24">P2</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:826"><nobr><span class="ft24">P3</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:512"><nobr><span class="ft35">No</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:512"><nobr><span class="ft40">r<br>m<br>aliz</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:512"><nobr><span class="ft35">ed E</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:512"><nobr><span class="ft41">n<br>er<br>g<br>y</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:564"><nobr><span class="ft24">Static Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:670"><nobr><span class="ft24">Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:795"><nobr><span class="ft24">On/Of f Instr</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:488"><nobr><span class="ft12"><b>Figure 7: Energy consumption of hardware and software-<br>directed modes. The values shown are normalized to the ver-<br>sion with no energy optimizations.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1177;left:451"><nobr><span class="ft5">223</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:919;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft43{font-size:7px;font-family:Helvetica;color:#000000;}
+	.ft44{font-size:11px;font-family:Times;color:#000000;}
+	.ft45{font-size:7px;line-height:-4px;font-family:Helvetica;color:#000000;}
+	.ft46{font-size:7px;line-height:-2px;font-family:Helvetica;color:#000000;}
+	.ft47{font-size:7px;line-height:-8px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="919" height="1262" src="81007.png" alt="background image">
+<DIV style="position:absolute;top:93;left:93"><nobr><span class="ft11">eliminates the time and energy that would otherwise have spent<br>in resynchronization. Consequently, the average memory energy<br>consumption of the query-directed scheme is just 32% of the unop-<br>timized version for TPC-H queries, and 44% in case of organizer<br>(handheld) queries [i.e., an additional 8% (13%) improvement over<br>the hardware schemes for TPC-H (handheld) queries].</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:93"><nobr><span class="ft4"><b>5.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:134"><nobr><span class="ft4"><b>Performance Overhead Analysis</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:107"><nobr><span class="ft5">Our techniques are very effective in reducing the memory energy</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:93"><nobr><span class="ft11">consumption. As mentioned earlier, transitions from the low-power<br>modes to the active mode come with an overhead of resynchroniza-<br>tion (in terms of both performance and energy). The energy values<br>reported in previous section take into consideration the extra energy<br>needed to activate the modules as well. In this part, we quantify<br>the basic performance overheads that are faced in supporting our<br>schemes.</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:107"><nobr><span class="ft5">Figure <A href="81.html#7">8 </a>shows the performance overheads for both the hardware</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:93"><nobr><span class="ft11">and software-directed schemes. The static standby scheme has the<br>maximum overhead, which is expected. This is especially the case<br>when queries generate frequent memory accesses. The memory is<br>brought down to the standby mode after each access, and is resyn-<br>chronized in another access that follows immediately. As a result,<br>the performance worsens as bad as 28% for the static standby case.<br>On the other hand, for the dynamic threshold scheme, the perfor-<br>mance overhead is slightly better since the banks are not blindly<br>put to a low-power mode after each access. This verifies our pre-<br>diction that when a module goes to low-power mode, it would ei-<br>ther remain for a while in that mode or may even be transitioned<br>into a lower power mode. The query-directed scheme has the least<br>overhead (&lt;2%). The main reason for this is the ability of pre-<br>activating a bank before it is actually accessed. Therefore, con-<br>sidering both performance and energy results, one may conclude<br>that the query-directed scheme is better than the hardware-directed<br>schemes. However, it is also to be noted that the query-directed<br>scheme requires access to the query optimizer. In comparison,<br>the hardware-based schemes can work with any query optimizer.<br>Therefore, they might be better candidates when it is not possi-<br>ble/profitable to modify the query plan.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:93"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:125"><nobr><span class="ft4"><b>QUERY RESTRUCTURING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:107"><nobr><span class="ft5">The approaches presented above mainly try to optimize energy</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:93"><nobr><span class="ft11">consumption without modifying the queries themselves (except<br>maybe for the query-directed scheme where we insert turn on/off<br>instructions in the query plan). In this section, we go one step<br>further, and demonstrate that even larger energy savings are possi-<br>ble if one has the flexibility of reorganizing query operations. We<br>show how this can be achieved in the context of both individual<br>queries and multiple queries (optimized simultaneously). Our main<br>objective in restructuring queries is to <i>increase </i>memory bank inter-<br>access times. Note that when bank inter-access time is increased,<br>we can either remain in a given low-power operating mode longer,<br>thereby feeling the potential impact of resynchronization less (i.e.,<br>amortizing the cost of resynchronization); or we can switch to<br>a more energy saving mode (as we now have a longer idleness),<br>which means more energy savings. We present different query<br>restructuring strategies for achieving this.</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:107"><nobr><span class="ft5">When considering a single query, the bank inter-access times can</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:93"><nobr><span class="ft11">be increased by re-ordering query operations. On the other hand,<br>the primary goal of the heuristic that targets at multiple-queries is<br>to cluster the usage of tables from multiple queries together, so<br>that the overall table accesses are localized. That is, assuming that<br>we have multiple queries to optimize, our objective is to interleave<br>these query executions in such a way that the reuse of individual<br>tables (or of table portions) is maximized. In other words, when<br>a table is accessed, we want to execute all other query operations<br>(potentially coming from different queries) to that table (one<br>after another), before we move to the next table. This also tends<br>to cluster accesses to the same bank, and tends to increase the<br>bank inter-access times (which is very important from an energy<br>perspective as explained above). In the following, we first study<br>intra-query restructuring and then inter-query restructuring. After<br>these two steps, bank turn-on/off instructions are inserted at the<br>relevant points, depending on the bank access patterns.</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:523"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:517"><nobr><span class="ft24">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:517"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:517"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:517"><nobr><span class="ft24">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:523"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:517"><nobr><span class="ft24">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:517"><nobr><span class="ft24">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:551"><nobr><span class="ft24">Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:595"><nobr><span class="ft24">Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:639"><nobr><span class="ft24">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:682"><nobr><span class="ft24">Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:729"><nobr><span class="ft24">P1</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:773"><nobr><span class="ft24">P2</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:817"><nobr><span class="ft24">P3</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:509"><nobr><span class="ft43">Norm</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:509"><nobr><span class="ft45">a<br>l<br>i<br>z<br>ed</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:509"><nobr><span class="ft46"> P<br>e<br>r<br>f<br>orm</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:509"><nobr><span class="ft45">a<br>n<br>c<br>e</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:563"><nobr><span class="ft24">Static Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:667"><nobr><span class="ft24">Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:787"><nobr><span class="ft24">On/Off  Instr</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:488"><nobr><span class="ft12"><b>Figure 8: The performance overhead involved in supporting<br>our schemes. There is an average overhead of 15%, 8%, and<br>2% for standby, dynamic and on/off schemes, respectively, over<br>the unoptimized version.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:488"><nobr><span class="ft44"><i><b>Step 1 (intra-query optimization):</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:678"><nobr><span class="ft7"><i>A query is first examined to see</i></span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:488"><nobr><span class="ft11"><i>if there are any potential reuse regions. If there are any reusable<br>regions, their accesses are grouped together.<br></i>We achieve this by examining the query execution plan. The query<br>plan is studied to see if there are any advantages in rearranging<br>the operations (primitives) in a query based on its table usage.<br>Operations that require the same (set of) table(s) are then grouped<br>together (i.e., they are scheduled to be executed one after another).<br>The detailed procedure is shown in Figure <A href="81.html#8">9. </a>Each operation in the<br>query plan is first scanned and placed into a <i>table group </i>based on<br>the table(s) that it accesses. Then, the operations are rearranged<br>in the query plan (taking into account the dependencies between<br>them) based on their corresponding table groups. For this, we look<br>at the query plan tree. The path from each leaf node to the root,<br>called <i>stream</i>, is investigated. The ultimate goal is to schedule<br>operations (<i>nodes </i>in the plan tree) based on their table groups.<br>We try to schedule operations within one table group (which is<br>currently active) before scheduling the operations from another<br>table group (which is not active) in an attempt to increase the bank<br>inter-access times. That is, a stream is traversed from bottom to<br>top, and each node within the stream is put to the schedule queue<br>(as they are encountered) based on its table group. It should be<br>emphasized that we preserve the original semantics of the oper-<br>ations (<i>constraints</i>) in the algorithm. This procedure is repeated<br>for each stream in the tree, and until all streams have the most<br>energy-efficient schedule based on their table accesses. At the end<br>of this step, an energy-aware schedule queue gets generated for the<br>considered query (saved in <i>schedule list</i>).</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:488"><nobr><span class="ft44"><i><b>Step 2 (inter-query optimization):</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:675"><nobr><span class="ft7"><i>Tables are examined to optimize</i></span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:488"><nobr><span class="ft11"><i>multiple queries simultaneously. For each table that is accessed,<br>all accesses arising from multiple queries to the particular table<br>are grouped together.<br></i>In this step, the <i>schedule list </i>from multiple queries are grouped<br>together. Each list is scanned to identify nodes that access a given<br>table. The nodes that access the same table are then scheduled to<br>execute together (without disturbing the dependency constraints).<br>In fact, the nodes from multiple queries are just grouped (com-<br>bined) not reordered. Thus, in this step, the constraint flow for<br>each <i>schedule list </i>(taken care of in Step 1) is automatically main-<br>tained. Additional conditional flow checks could be reinforced at<br>this stage if desired. Figure <A href="81.html#8">10 </a>shows the regrouping procedure.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:490"><nobr><span class="ft7"><i>f inal schedule list </i>stores the final consolidated schedule of oper-</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:488"><nobr><span class="ft5">ations from all the queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:488"><nobr><span class="ft44"><i><b>Step 3 (energy optimizations):</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:657"><nobr><span class="ft7"><i>Include energy optimizations by in-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:488"><nobr><span class="ft11"><i>serting On/Off instructions into the final schedule list.<br></i>In this step, the access costs are calculated for each operation in<br>the <i>f inal schedule list </i>as shown in Section <A href="81.html#4">4.2.2. </a>Each operation<br>is attached with an access cost, and the turn-on/off instructions are<br>inserted based on the table inter-access times. The methodology<br>used for adding these instructions to the <i>f inal schedule list </i>is the<br>same as in Section <A href="81.html#4">4.2.2, </a>and the on/off markers are placed as elab-<br>orated in Section <A href="81.html#5">4.2.3.</a></span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:501"><nobr><span class="ft5">As an example, consider two queries Q1 and Q2. Their original</span></nobr></DIV>
+<DIV style="position:absolute;top:1171;left:451"><nobr><span class="ft5">224</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:919;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft48{font-size:8px;font-family:Times;color:#000000;}
+	.ft49{font-size:8px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="919" height="1262" src="81008.png" alt="background image">
+<DIV style="position:absolute;top:88;left:93"><nobr><span class="ft49">table_group is a table-to-operations mapping list.<br>schedule_list stores the final schedule of operations.</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:93"><nobr><span class="ft48">/* identify the group to which an</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:99"><nobr><span class="ft48">* operation belongs */</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:93"><nobr><span class="ft48">operation_rearragement (){</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:99"><nobr><span class="ft48">for (each operation in query i) {</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:110"><nobr><span class="ft49">identify the table(s) in i;<br>for (each table j in i) {</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:121"><nobr><span class="ft48">add operation to table_group[j];</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:110"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:99"><nobr><span class="ft49">}<br>schedule_operations();</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:93"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:93"><nobr><span class="ft49">/* schedule operations */<br>schedule_operations() {</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:99"><nobr><span class="ft49">schedule_list = empty;<br>do {<br>for (each stream in query plan tree) {</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:110"><nobr><span class="ft49">start from leaf node;<br>for (each node in stream) {</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:121"><nobr><span class="ft49">identify its constraint nodes that follow;<br>/* the rest are independent nodes */<br>group(constraint nodes);<br>group(independent nodes);<br>check for new violations;<br>add new constraints if necessary;<br>save the schedule_list;<br>move up a node in the stream;</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:110"><nobr><span class="ft49">}<br>move to the next stream;</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:99"><nobr><span class="ft49">}<br>} until no more changes</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:93"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:93"><nobr><span class="ft49">/* group nodes */<br>group(node_list) {</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:99"><nobr><span class="ft49">if(node_list is constraint node list)<br>{</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:110"><nobr><span class="ft48">for (each node in node_list) {</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:121"><nobr><span class="ft49">lookup table_group of node;<br>add node to schedule_list based on table_group;<br>/* preserve the dependency order */<br>preserve flow of node_list in schedule_list;</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:110"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:99"><nobr><span class="ft49">}<br>else<br>{ /* set of independent nodes */</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:110"><nobr><span class="ft49">add node to schedule_list based on table_group;<br>/* no need to preserve constraint flow */<br>regroup to put all table_group nodes together;</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:99"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:93"><nobr><span class="ft12"><b>Figure 9: Reorganizing operations within a query to optimize<br>for energy (Step 1). The query tree is investigated from the<br>bottom to top for grouping operations based on their table ac-<br>cesses.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:93"><nobr><span class="ft48">group_multiple_queries {</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:104"><nobr><span class="ft48">for (each schedule_list) {</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:115"><nobr><span class="ft48">do {</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:127"><nobr><span class="ft49">pick an unscheduled node i in schedule_list;<br>/* i.e. pick a node without a &quot;complete&quot; tag */<br>for (other schedule_lists) {</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:132"><nobr><span class="ft48">if (node j has same table_group as node i) {</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:143"><nobr><span class="ft49">schedule node j after node i;<br>mark node j as &quot;complete&quot;;<br>/* with respect to multi-query schedule */</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:132"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:127"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:115"><nobr><span class="ft48">} until all node in schedule_list is &quot;complete&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:104"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:93"><nobr><span class="ft48">}</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:93"><nobr><span class="ft49">Towards the end of the procedure,<br>final_schedule_list stores the<br>entire list of &quot;complete&quot; schedule.</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:93"><nobr><span class="ft12"><b>Figure 10: Grouping schedule list from multiple queries (Step<br>2). Operations from multiple queries are grouped based on<br>their table accesses using their corresponding schedule lists.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:93"><nobr><span class="ft11">query plan is shown in Figure <A href="81.html#9">11(i). </a>Q1 is revised as the table ac-<br>cesses are optimizable. Figure <A href="81.html#9">11(ii) </a>shows the result after applying<br>Step 1. Step 2 results in the output depicted in Figure <A href="81.html#9">11(iii). </a>Fi-<br>nally, in Step 3, we insert on/off instructions in appropriate places<br>(see Figure <A href="81.html#9">11(i</a>v)).</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:488"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:519"><nobr><span class="ft4"><b>EXPERIMENTAL</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:685"><nobr><span class="ft4"><b>EVALUATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:822"><nobr><span class="ft4"><b>OF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:519"><nobr><span class="ft4"><b>QUERY RESTRUCTURING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:501"><nobr><span class="ft5">In this section, we evaluate our query restructuring approach</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:488"><nobr><span class="ft11">by extending our database and queries discussed in Section <A href="81.html#5">5.1.2.<br></a>As before, our focus is on memory energy consumption. We also<br>study the impact of the technique on the overall performance.<br>Towards the end, other alternative options are also elaborated.</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:488"><nobr><span class="ft4"><b>7.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:528"><nobr><span class="ft4"><b>Multi-Query Setup</b></span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:501"><nobr><span class="ft5">Since simultaneous processing of multiple queries is needed to</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:488"><nobr><span class="ft11">validate our approach, we considered a combination of queries,<br>which we term as <i>scenarios </i>in the rest of this paper. Among the<br>queries considered in Section <A href="81.html#5">5.1.2, </a>there can be multiple combi-<br>nations of queries that arrive sequentially, and that (which) are opti-<br>mizable using our technique. The various combination (scenarios)<br>of organizer queries and their naming schemes are shown in Ta-<br>ble <A href="81.html#8">3. </a>For instance, P12 indicates that P1 is sequentially processed<br>along with P2. The combination scenarios for TPC-H queries are<br>shown in Table <A href="81.html#8">4. </a>The combinations shown in these tables are the<br>prominent ones and the behavior of other combinations are very<br>similar to these, hence, they are not included in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:551"><nobr><span class="ft6"><b>Table 3: Scenarios for organizer queries.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:582"><nobr><span class="ft38"><b>Type</b></span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:687"><nobr><span class="ft38"><b>Legend</b></span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:741"><nobr><span class="ft38"><b>Combination</b></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:519"><nobr><span class="ft8">Two query combinations</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:696"><nobr><span class="ft8">P11</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:756"><nobr><span class="ft8">P1 + P1</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:696"><nobr><span class="ft8">P12</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:756"><nobr><span class="ft8">P1 + P2</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:696"><nobr><span class="ft8">P23</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:756"><nobr><span class="ft8">P2 + P3</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:519"><nobr><span class="ft8">Three query combination</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:693"><nobr><span class="ft8">P123</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:743"><nobr><span class="ft8">P1 + P2 + P3</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:557"><nobr><span class="ft6"><b>Table 4: Scenarios for TPC-H queries.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:564"><nobr><span class="ft38"><b>Type</b></span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:669"><nobr><span class="ft38"><b>Legend</b></span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:741"><nobr><span class="ft38"><b>Combination</b></span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:502"><nobr><span class="ft8">Two query combinations</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:679"><nobr><span class="ft8">S11</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:754"><nobr><span class="ft8">Q6 + Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:679"><nobr><span class="ft8">S12</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:754"><nobr><span class="ft8">Q6 + Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:679"><nobr><span class="ft8">S13</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:754"><nobr><span class="ft8">Q6 + Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:679"><nobr><span class="ft8">S14</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:751"><nobr><span class="ft8">Q6 + Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:679"><nobr><span class="ft8">S23</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:754"><nobr><span class="ft8">Q3 + Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:679"><nobr><span class="ft8">S24</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:751"><nobr><span class="ft8">Q3 + Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:679"><nobr><span class="ft8">S34</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:751"><nobr><span class="ft8">Q4 + Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:502"><nobr><span class="ft8">Three query combinations</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:676"><nobr><span class="ft8">S222</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:740"><nobr><span class="ft8">Q3 + Q3 + Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:676"><nobr><span class="ft8">S123</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:740"><nobr><span class="ft8">Q6 + Q3 + Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:502"><nobr><span class="ft8">Four query combinations</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:673"><nobr><span class="ft8">S1111</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:727"><nobr><span class="ft8">Q6 + Q6 + Q6 + Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:673"><nobr><span class="ft8">S1234</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:724"><nobr><span class="ft8">Q6 + Q3 + Q4 + Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:488"><nobr><span class="ft4"><b>7.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:528"><nobr><span class="ft4"><b>Query Energy Evaluation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:501"><nobr><span class="ft5">In this section, we evaluate the query energy of the various sce-</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:488"><nobr><span class="ft11">narios we presented in the previous section. We first study the im-<br>provements obtained from our query restructuring heuristic, and<br>further extend our study to combine query restructuring with vari-<br>ous hardware and software-directed schemes (of Section <A href="81.html#3">4) </a>meant<br>to improve the energy consumption.</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:501"><nobr><span class="ft5">Figure <A href="81.html#9">12 </a>shows the sole contribution of query restructuring</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:488"><nobr><span class="ft11">scheme in improving the energy consumption. The energy reduces<br>by an average 55% from the unoptimized version when our query<br>restructuring scheme is used. By just grouping similar accesses<br>(to ensure data reuse), query restructuring can achieve significant<br>reduction in the energy consumption of multiple queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:501"><nobr><span class="ft5">In order to identify the benefits coming solely from Step 1 (intra-</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:488"><nobr><span class="ft11">query optimization) in our query restructuring scheme, we also<br>combined Step 1 and Step 3, and compared it with our query-<br>directed scheme (studied in Section <A href="81.html#4">4.2 </a>-- which is simply Step<br>3 of our query restructuring). Figure <A href="81.html#9">13 </a>shows the results. There<br>is up to 19% improvement in energy when operations are shuffled<br>with a query based on their table usage.</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:501"><nobr><span class="ft5">When the query restructuring scheme is combined with</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:488"><nobr><span class="ft11">hardware-directed schemes, there is further improvement in<br>energy savings (Figure <A href="81.html#9">14). </a>The static standby scheme works only<br>for small queries that have a uniform access pattern, but when<br>complex queries are encountered, the dynamic runtime scheme<br>outperforms the static standby scheme due to its good prediction of</span></nobr></DIV>
+<DIV style="position:absolute;top:1165;left:449"><nobr><span class="ft5">225</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft50{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft51{font-size:3px;font-family:Helvetica;color:#000000;}
+	.ft52{font-size:4px;line-height:8px;font-family:Helvetica;color:#000000;}
+	.ft53{font-size:5px;line-height:-5px;font-family:Helvetica;color:#000000;}
+	.ft54{font-size:5px;line-height:-4px;font-family:Helvetica;color:#000000;}
+	.ft55{font-size:5px;line-height:-2px;font-family:Helvetica;color:#000000;}
+	.ft56{font-size:5px;line-height:-6px;font-family:Helvetica;color:#000000;}
+	.ft57{font-size:6px;line-height:-5px;font-family:Helvetica;color:#000000;}
+	.ft58{font-size:6px;line-height:-4px;font-family:Helvetica;color:#000000;}
+	.ft59{font-size:6px;line-height:-6px;font-family:Helvetica;color:#000000;}
+	.ft60{font-size:6px;line-height:-2px;font-family:Helvetica;color:#000000;}
+	.ft61{font-size:3px;line-height:-4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1262" src="81009.png" alt="background image">
+<DIV style="position:absolute;top:127;left:122"><nobr><span class="ft52">- &gt; function(A) (9000  cycles)<br>- &gt;  hash join<br>         - &gt;  scan  B  (9000 cycles)<br>         - &gt;  scan  A (9000  cycles)</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:192"><nobr><span class="ft50"><b>Q1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:122"><nobr><span class="ft52">- &gt;  aggregate (20 cycles)<br>         - &gt;  scan  B  (9000 cycles)<br>         - &gt;  scan  A (9000  cycles)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:186"><nobr><span class="ft50"><b>Q2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:302"><nobr><span class="ft52">- &gt;  hash join<br>         - &gt;  scan  B  (9000 cycles)<br>         - &gt;  function(A) (9000  cycles)<br>         - &gt;  scan  A (9000  cycles)</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:372"><nobr><span class="ft50"><b>Q1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:302"><nobr><span class="ft52">- &gt;  aggregate (20 cycles)<br>         - &gt;  scan  B  (9000 cycles)<br>         - &gt;  scan  A (9000  cycles)</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:372"><nobr><span class="ft50"><b>Q2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:154"><nobr><span class="ft50"><b>(i) Original Queries</b></span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:321"><nobr><span class="ft50"><b>(ii) After applying Step 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:484"><nobr><span class="ft52">- &gt; aggregate  (from Q2)<br>- &gt;  hash join  (from Q1)<br>         - &gt;  scan  B  (from Q2)<br>         - &gt;  scan  B  (from Q1)<br>         - &gt;  function(A)   (from Q1)<br>         - &gt;  scan  A (from Q2)<br>         - &gt;  scan  A (from Q1)</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:530"><nobr><span class="ft50"><b>Q1 + Q2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:502"><nobr><span class="ft50"><b>(iii) After applying Step 2 </b></span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:650"><nobr><span class="ft52">- &gt; aggregate  (from Q2)<br>- &gt; Put  B=OFF   (A is already OFF)<br>- &gt;  hash join  (from Q1)<br>         - &gt;  scan  B  (from Q2)<br>         - &gt;  scan  B  (from Q1)<br>         - &gt;  Put  B=ON<br>         - &gt;  Put  A=OFF<br>         - &gt;  function(A)   (from Q1)<br>         - &gt;  scan  A (from Q2)<br>         - &gt;  scan  A (from Q1)<br>         - &gt;  Put  A=ON<br>             (B is already OFF)</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:670"><nobr><span class="ft50"><b>(iv) After applying Step 3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:701"><nobr><span class="ft50"><b>Q1 + Q2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:225"><nobr><span class="ft6"><b>Figure 11: Example of query restructuring and regrouping based on energy behavior.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:93"><nobr><span class="ft11">the application behavior. This can be seen in Figure <A href="81.html#9">14, </a>where the<br>dynamic threshold scheme performs better in the TPC-H scenarios<br>than for the handheld query scenarios.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:331"><nobr><span class="ft5">The savings obtained</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:93"><nobr><span class="ft11">by putting a module into multiple low-power modes for longer<br>periods are more than the savings obtained by periodically putting<br>a module to just standby mode.</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:107"><nobr><span class="ft5">The software-directed schemes perform similar to dynamic the</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:93"><nobr><span class="ft11">runtime threshold strategy when combined with the query restruc-<br>turing algorithm. In Figure <A href="81.html#9">14, </a>the insertion of explicit turn-on/off<br>instructions improves the energy by an average 78%, when com-<br>pared to the unoptimized version. This result is comparable to<br>the improvements obtained using the dynamic threshold scheme.<br>In fact, the dynamic threshold scheme performs slightly better for<br>some TPC-H queries (e.g., S12, S13, and S14). This situation oc-<br>curs due to the following factor. When multiple queries are com-<br>bined using query restructuring, it becomes difficult to predict the<br>inter-access times since each query has a varying access pattern,<br>and combining random access patterns complicates the job of the<br>predictor (and requires a more sophisticated predictor). The run-<br>time schemes work at the hardware instruction level without any<br>knowledge of the DBMS application. But, this illustrates how a<br>simple software technique implemented at the query optimizer (by<br>just analyzing the high-level query structure) is able to achieve im-<br>provements as good as an equivalent but expensive hardware tech-<br>nique.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:107"><nobr><span class="ft5">As mentioned earlier in the paper, when queries are restruc-</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:93"><nobr><span class="ft5">tured and grouped, the memory access pattern changes.</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:431"><nobr><span class="ft5">The</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:93"><nobr><span class="ft11">bank turn-on/off instructions can be inserted only in prominent<br>"hot" and "cold" access regions, respectively. There are a few<br>modules, which is beyond the control of software. For instance,<br>we insert turn-on/off instructions based on tables. A given table<br>could be scattered across many modules. Our predictor estimates<br>the inter-access time for which the entire table needs to be put to<br>low-power mode. However, even during a table access, there are<br>regions (modules) that are hardly used. Dynamic runtime scheme<br>is extremely good in handling this situation by its ability to put<br>individual modules to a low-power state based on just that mod-<br>ule's access. This implies that the combination of hardware and<br>software schemes form the best strategy when query restructuring<br>is deployed.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:107"><nobr><span class="ft5">Figure <A href="81.html#9">14 </a>also shows the case when both dynamic runtime</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:93"><nobr><span class="ft5">scheme and the turn-on/off instructions are used in tandem after</span></nobr></DIV>
+<DIV style="position:absolute;top:1087;left:122"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:117"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:117"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:117"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:117"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:117"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:117"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:117"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:117"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:136"><nobr><span class="ft17">P11</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:157"><nobr><span class="ft17">P12</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:179"><nobr><span class="ft17">P23</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:198"><nobr><span class="ft17">P123</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:221"><nobr><span class="ft17">S11</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:243"><nobr><span class="ft17">S12</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:264"><nobr><span class="ft17">S13</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:285"><nobr><span class="ft17">S14</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:307"><nobr><span class="ft17">S23</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:328"><nobr><span class="ft17">S24</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:350"><nobr><span class="ft17">S34</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:369"><nobr><span class="ft17">S222 S123 S1111 S1234</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:111"><nobr><span class="ft54">N<br>o<br>r<br>m<br>al<br>i<br>z<br>ed</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:111"><nobr><span class="ft24"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:111"><nobr><span class="ft24">ner</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:111"><nobr><span class="ft24">gy</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:93"><nobr><span class="ft12"><b>Figure 12: Contribution of query restructuring towards energy<br>improvements. The energy values shown are normalized to the<br>version with no optimizations.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:488"><nobr><span class="ft11">query restructuring. The benefits obtained from such a hardware-<br>software interaction is prominent.</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:698"><nobr><span class="ft5">There is an average 90%</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:488"><nobr><span class="ft11">reduction in the memory energy consumption across the applica-<br>tions. In some cases, there is up to 95% improvement in the energy<br>consumption. These results clearly show that query restructuring<br>combined with the use of low-power operating modes can lead to<br>significant energy savings.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:488"><nobr><span class="ft4"><b>7.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:528"><nobr><span class="ft4"><b>Performance Overhead Analysis</b></span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:501"><nobr><span class="ft5">Query restructuring combined with the use of low-power modes</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:488"><nobr><span class="ft11">has an impact on the performance. In Figure <A href="81.html#10">15, </a>we present the<br>normalized system-wide performance of our query restructuring<br>scheme. It is evident that the performance improves by an average<br>of 48% when multiple queries are restructured and grouped. The<br>improvement in performance is mainly due to the improved local-<br>ity utilization in the memory hierarchy. That is, the data brought<br>to the cache by one query is reused by other queries (as a result<br>of restructuring). We do not present here detailed cache behavior<br>statistics due to lack of space.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:501"><nobr><span class="ft5">Figure <A href="81.html#10">16 </a>shows the normalized performance for the combina-</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:488"><nobr><span class="ft11">tion schemes as well. When static standby scheme is used with<br>query restructuring, the performance improvements obtained from<br>query restructuring gets negated by the resynchronization overhead<br>from the standby mode for each access. Thus, the performance</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:539"><nobr><span class="ft17">0%</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:539"><nobr><span class="ft17">2%</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:539"><nobr><span class="ft17">4%</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:539"><nobr><span class="ft17">6%</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:539"><nobr><span class="ft17">8%</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:535"><nobr><span class="ft17">10%</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:535"><nobr><span class="ft17">12%</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:535"><nobr><span class="ft17">14%</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:535"><nobr><span class="ft17">16%</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:535"><nobr><span class="ft17">18%</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:535"><nobr><span class="ft17">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:568"><nobr><span class="ft17">Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:605"><nobr><span class="ft17">Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:642"><nobr><span class="ft17">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:677"><nobr><span class="ft17">Q17</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:716"><nobr><span class="ft17">P1</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:753"><nobr><span class="ft17">P2</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:790"><nobr><span class="ft17">P3</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:529"><nobr><span class="ft58">E<br>n<br>erg</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:529"><nobr><span class="ft59">y<br> I<br>m<br>prov</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:529"><nobr><span class="ft60">e<br>m<br>e<br>n<br>t<br>s</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:488"><nobr><span class="ft12"><b>Figure 13: Benefits obtained by restructuring operations within<br>a query (contribution of Step 1).</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:508"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:504"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:504"><nobr><span class="ft24">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:504"><nobr><span class="ft24">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:504"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:504"><nobr><span class="ft24">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:504"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:522"><nobr><span class="ft24">P11</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:545"><nobr><span class="ft24">P12</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:568"><nobr><span class="ft24">P23</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:590"><nobr><span class="ft24">P123</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:614"><nobr><span class="ft24">S11</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:637"><nobr><span class="ft24">S12</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:660"><nobr><span class="ft24">S13</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:683"><nobr><span class="ft24">S14</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:706"><nobr><span class="ft24">S23</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:729"><nobr><span class="ft24">S24</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:752"><nobr><span class="ft24">S34</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:773"><nobr><span class="ft24">S222</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:797"><nobr><span class="ft24">S123</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:818"><nobr><span class="ft24">S1111</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:841"><nobr><span class="ft24">S1234</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:500"><nobr><span class="ft51">Norm</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:500"><nobr><span class="ft61">a<br>l<br>i<br>z<br>ed</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:500"><nobr><span class="ft51"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:500"><nobr><span class="ft61">n<br>erg</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:500"><nobr><span class="ft51">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:555"><nobr><span class="ft24">Restructuring + Static Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:713"><nobr><span class="ft24">Restructuring + Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:555"><nobr><span class="ft24">Restructuring + On/Off Instr</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:713"><nobr><span class="ft24">Restructuring + On/Off Instr + Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:488"><nobr><span class="ft12"><b>Figure 14: Energy consumption reduces significantly when<br>low-power modes are utilized along with query restructuring<br>scheme. Values shown are normalized to the unoptimized ver-<br>sion.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1144;left:528"><nobr><span class="ft6"><b>Best energy savings comes from a hybrid hardware-</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1158;left:488"><nobr><span class="ft6"><b>software scheme.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1170;left:449"><nobr><span class="ft5">226</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft62{font-size:3px;line-height:-2px;font-family:Helvetica;color:#000000;}
+	.ft63{font-size:8px;line-height:10px;font-family:Times;color:#000000;}
+	.ft64{font-size:8px;line-height:10px;font-family:Times;color:#000000;}
+	.ft65{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1262" src="81010.png" alt="background image">
+<DIV style="position:absolute;top:225;left:123"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:118"><nobr><span class="ft24">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:118"><nobr><span class="ft24">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:118"><nobr><span class="ft24">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:118"><nobr><span class="ft24">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:118"><nobr><span class="ft24">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:118"><nobr><span class="ft24">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:118"><nobr><span class="ft24">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:118"><nobr><span class="ft24">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:138"><nobr><span class="ft24">P11</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:160"><nobr><span class="ft24">P12</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:183"><nobr><span class="ft24">P23</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:205"><nobr><span class="ft24">P123</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:229"><nobr><span class="ft24">S12</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:252"><nobr><span class="ft24">S13</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:275"><nobr><span class="ft24">S14</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:297"><nobr><span class="ft24">S23</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:320"><nobr><span class="ft24">S24</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:343"><nobr><span class="ft24">S34</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:364"><nobr><span class="ft24">S222</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:387"><nobr><span class="ft24">S123 S1111 S1234</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:111"><nobr><span class="ft25">Norm</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:111"><nobr><span class="ft58">a<br>l<br>i<br>z<br>ed</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:111"><nobr><span class="ft25"> P</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:111"><nobr><span class="ft60">e<br>r<br>f<br>orm</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:111"><nobr><span class="ft58">a<br>nc</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:111"><nobr><span class="ft25">e</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:93"><nobr><span class="ft12"><b>Figure 15: Performance improvement obtained from basic<br>query restructuring over the unoptimized version.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:115"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:111"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:111"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:111"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:111"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:115"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:111"><nobr><span class="ft17">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:111"><nobr><span class="ft17">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:111"><nobr><span class="ft17">1.6</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:111"><nobr><span class="ft17">1.8</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:130"><nobr><span class="ft17">P11</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:154"><nobr><span class="ft17">P12</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:179"><nobr><span class="ft17">P23</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:202"><nobr><span class="ft17">P123</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:228"><nobr><span class="ft17">S12</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:252"><nobr><span class="ft17">S13</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:277"><nobr><span class="ft17">S14</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:301"><nobr><span class="ft17">S23</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:326"><nobr><span class="ft17">S24</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:350"><nobr><span class="ft17">S34</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:374"><nobr><span class="ft17">S222</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:398"><nobr><span class="ft17">S123</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:421"><nobr><span class="ft17">S1111</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:446"><nobr><span class="ft17">S1234</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:107"><nobr><span class="ft51">N</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:107"><nobr><span class="ft62">o<br>r<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:107"><nobr><span class="ft51">al</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:107"><nobr><span class="ft61">i<br>z<br>e<br>d<br> P</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:107"><nobr><span class="ft62">e<br>r<br>f<br>o<br>r<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:107"><nobr><span class="ft51">anc</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:107"><nobr><span class="ft51">e</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:160"><nobr><span class="ft17">Restructuring + Static Standby</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:327"><nobr><span class="ft17">Restructuring + Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:160"><nobr><span class="ft17">Restructuring + On/Off Instr</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:327"><nobr><span class="ft17">Restructuring + On/Off Instr + Dynamic Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:93"><nobr><span class="ft12"><b>Figure 16: Overall performance after applying energy opti-<br>mizations along with query restructuring. Values shown are<br>normalized to the unoptimized version.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:93"><nobr><span class="ft11">worsens in some cases by even 65% for complicated queries. How-<br>ever, overall, there is still a 10% performance improvement for all<br>applications on the average. The turn-on/off instructions have the<br>least performance overhead, and hence, preserve the performance<br>improvements obtained from query restructuring. From Figure <A href="81.html#10">16,<br></a>this combination shows a 47% improvement in performance (negat-<br>ing the improvements obtained from basic query restructuring by a<br>mere 1%). Dynamic runtime threshold on the other hand negates<br>the performance improvements from query restructuring by aver-<br>age 6%. Combining turn-on/off instructions with dynamic runtime<br>threshold shows an average performance improvement of 45% for<br>applications, which implies a 3% overhead addition from the low-<br>power schemes towards query restructuring. Thus, it is clear that<br>query restructuring with both turn-on/off instructions and runtime<br>threshold forms the best alternative from both energy consumption<br>and performance perspectives.</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:93"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:125"><nobr><span class="ft4"><b>CONCLUDING REMARKS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:107"><nobr><span class="ft5">This paper is an attempt to study the potential of employing</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:93"><nobr><span class="ft11">low-power operating modes to save memory energy during query<br>execution. We propose hardware-directed and software-directed<br>(query-directed) schemes that periodically transition the memory<br>to low-power modes in order to reduce the energy consumption<br>of memory-resident databases. Our experimental evaluations using<br>two sets of queries clearly demonstrate that query-directed schemes<br>perform better than hardware-directed schemes since the query op-<br>timizer knows the query access pattern prior to query execution,<br>and can make use of this information in selecting the most suitable<br>mode to use when idleness is detected. This scheme brings about<br>68% reduction in energy consumption. In addition, the query-<br>directed scheme can also preactivate memory banks before they are<br>actually needed to reduce potential performance penalty.</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:107"><nobr><span class="ft5">Our query restructuring scheme based on memory bank accesses</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:93"><nobr><span class="ft11">provides another scope for optimization. One can re-order opera-<br>tions within a query to increase bank inter-access times. It is also<br>possible to go beyond this, and consider the access patterns of mul-<br>tiple queries at the same time. Multiple queries are optimized based<br>on their table accesses, i.e., all accesses to a table are clustered as<br>much as possible. This scheme is able to put memory banks to low-<br>power operating modes for longer periods of time due to fewer table<br>activations. There is up to 90% improvement in energy and 45%</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:488"><nobr><span class="ft11">improvement in performance when queries are restructured and re-<br>grouped based on their table accesses. Overall, we can conclude<br>that a suitable combination of query restructuring and low-power<br>mode management can bring large energy benefits without hurting<br>performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:488"><nobr><span class="ft4"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:519"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:493"><nobr><span class="ft22">[1] R. Alonso and S. Ganguly. Query optimization for energy efficiency in mobile</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:512"><nobr><span class="ft63">environments. In <i>Proc. of the Fifth Workshop on Foundations of Models and<br>Languages for Data and Objects</i>, 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:493"><nobr><span class="ft22">[2] N. An, S. Gurumurthi, A. Sivasubramaniam, N. Vijaykrishnan, M. Kandemir,</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:512"><nobr><span class="ft64">and M.J. Irwin. Energy-performance trade-offs for spatial access methods on<br>memory-resident data. <i>The VLDB Journal</i>, 11(3):179­197, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:493"><nobr><span class="ft22">[3] N. Anciaux, L. Bouganim, and P. Pucheral. On finding a memory lower bound</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:512"><nobr><span class="ft64">for query evaluation in lightweight devices. Technical report, PRiSM -<br>Laboratoire de recherche en informatique, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:493"><nobr><span class="ft22">[4] T. M. Austin. The simplescalar/arm toolset. SimpleScalar LLC.</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:512"><nobr><span class="ft22">http://www.simplescalar.com/.</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:493"><nobr><span class="ft22">[5] Birdstep Technology. <i>Database Management In Real-time and Embedded</i></span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:512"><nobr><span class="ft32"><i>Systems - Technical White Paper</i>, 2003. http://www.birdstep.com/collaterals/.</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:493"><nobr><span class="ft65">[6] Bloor Research Ltd. <i>Main Memory Databases</i>, November 1999.<br>[7] P.A. Boncz, S. Manegold, and M.L. Kersten. Database architecture optimized</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:512"><nobr><span class="ft64">for the new bottleneck: Memory access. In <i>The VLDB Journal</i>, pages 54­65,<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:493"><nobr><span class="ft22">[8] D. Brooks, V. Tiwari, and M. Martonosi. Wattch: a framework for</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:512"><nobr><span class="ft63">architectural-level power analysis and optimizations. In <i>Proc. International<br>Symposium on Computer Architecture</i>, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:493"><nobr><span class="ft22">[9] Q. Cao, P. Trancoso, J.-L Larriba-Pey, J. Torrellas, R. Knighten, and Y. Won.</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:512"><nobr><span class="ft63">Detailed characterization of a quad pentium pro server running tpc-d. In <i>Proc.<br>of the International Conference on Computer Design</i>, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:488"><nobr><span class="ft22">[10] S. Chaudhuri and K. Shim. Optimization of queries with user-defined</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:512"><nobr><span class="ft22">predicates. <i>ACM Transactions on Database Systems</i>, 24(2):177­228, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:488"><nobr><span class="ft22">[11] G.P. Copeland, T. Keller, R. Krishnamurthy, and M. Smith. The case for safe</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:512"><nobr><span class="ft63">ram. In <i>Proc. of the Fifteenth International Conference on Very Large Data<br>Bases</i>, pages 327­335, 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:488"><nobr><span class="ft22">[12] Database Management System, The PostgreSQL Global Development Group.</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:512"><nobr><span class="ft32"><i>PostgreSQL 7.2</i>, 2001. http://www.postgresql.org/.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:488"><nobr><span class="ft22">[13] V. Delaluz, M. Kandemir, N. Vijaykrishnan, A. Sivasubramaniam, and M.J.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:512"><nobr><span class="ft63">Irwin. Dram energy management using software and hardware directed power<br>mode control. In <i>Proc. of the International Symposium on High-Performance<br>Computer Architecture</i>, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:488"><nobr><span class="ft22">[14] Z. Fong. The design and implementation of the postgres query optimizer.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:512"><nobr><span class="ft64">Technical report, University of California, Berkeley.<br>http://s2k-ftp.cs.berkeley.edu:8000/postgres/papers/.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:488"><nobr><span class="ft22">[15] P. Gassner, G.M. Lohman, K.B. Schiefer, and Y. Wang. Query optimization in</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:512"><nobr><span class="ft22">the ibm db2 family. <i>Data Engineering Bulletin</i>, 16(4):4­18, 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:488"><nobr><span class="ft22">[16] Le Gruenwald and S.M. Banik. Energy-efficient transaction management for</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:512"><nobr><span class="ft63">real-time mobile databases in ad-hoc network environments. In <i>Proc. of the<br>Second International Conference on Mobile Data Management</i>, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:488"><nobr><span class="ft22">[17] Handspring. <i>Handspring Organizers</i>, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:512"><nobr><span class="ft22">http://www.handspring.com/products/.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:488"><nobr><span class="ft22">[18] J.M. Hellerstein. Optimization techniques for queries with expensive methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:512"><nobr><span class="ft32"><i>ACM Transactions on Database Systems</i>, 23(2):113­157, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:488"><nobr><span class="ft22">[19] T. Imielinski, S. Viswanathan, and B.R. Badrinath. Energy efficient indexing on</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:512"><nobr><span class="ft22">air. In <i>Proc. of ACM SIGMOD Conference</i>, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:488"><nobr><span class="ft22">[20] Intel Corporation. <i>Intel 440BX AGPset: 82443BX Host Bridge/Controller Data</i></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:512"><nobr><span class="ft32"><i>Sheet</i>, April 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:488"><nobr><span class="ft22">[21] A.R. Lebeck, X. Fan, H. Zeng, and C.S. Ellis. Power aware page allocation. In</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:512"><nobr><span class="ft63"><i>Proc. of the International Conference on Architectural Support for<br>Programming Languages and Operating Systems</i>, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:488"><nobr><span class="ft22">[22] S. Madden, M.J. Franklin, J.M. Hellerstein, and W. Hong. The design of an</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:512"><nobr><span class="ft64">acquisitional query processor for sensor networks. In <i>Proc. of the ACM<br>SIGMOD International Conference on Management of Data</i>, pages 491­502.<br>ACM Press, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:488"><nobr><span class="ft22">[23] S. Manegold. <i>Understanding, Modeling, and Improving Main-Memory</i></span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:512"><nobr><span class="ft64"><i>Database Performance</i>. Ph.d. thesis, Universiteit van Amsterdam, Amsterdam,<br>The Netherlands, December 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:488"><nobr><span class="ft22">[24] C.L. Monma and J.B. Sidney. Sequencing with series-parallel precedence</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:512"><nobr><span class="ft22">constraints. <i>Mathematics of Operations Research</i>, 4:215­224, 1979.</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:488"><nobr><span class="ft65">[25] Palm Inc. <i>Palm Handhelds</i>, 2004. http://www.palm.com/products/.<br>[26] The PostgreSQL Global Development Group. <i>PostgreSQL 7.2 ­ Developers</i></span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:512"><nobr><span class="ft32"><i>Guide</i>, 2002. http://www.postgresql.org/docs/.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:488"><nobr><span class="ft22">[27] P. Pucheral, L. Bouganim, P. Valduriez, and C. Bobineau. Picodbms: Scaling</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:512"><nobr><span class="ft64">down database techniques for the smartcard. <i>The VLDB Journal</i>,<br>12(1):120­132, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:488"><nobr><span class="ft22">[28] J.M. Rabaey, A. Chandrakasan, and B. Nikolic. <i>Digital Integrated Circuits</i>.</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:512"><nobr><span class="ft22">Prentice Hall, second edition, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:488"><nobr><span class="ft22">[29] R. Ramakrishnan and J. Gehrke. <i>Database Management Systems</i>. McGraw-Hill</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:512"><nobr><span class="ft22">publishers, third edition, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:488"><nobr><span class="ft65">[30] Rambus Inc. <i>Rambus RDRAM 512MB Datasheet</i>, 2003.<br>[31] Samsung Microelectronics. <i>Mobile 512MB DRAM Chip Series</i>.</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:512"><nobr><span class="ft22">http://www.samsung.com/Products/Semiconductor/.</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:488"><nobr><span class="ft22">[32] S. Sarawagi and M. Stonebraker. Reordering query execution in tertiary</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:512"><nobr><span class="ft22">memory databases. In <i>The VLDB Journal</i>, pages 156­167, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:488"><nobr><span class="ft22">[33] A. Silberschatz, H.F. Korth, and S. Sudarshan. <i>Database System Concepts</i>.</span></nobr></DIV>
+<DIV style="position:absolute;top:1091;left:512"><nobr><span class="ft22">McGraw-Hill, fourth edition, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:488"><nobr><span class="ft22">[34] Sleepycat Software. <i>Berkeley DB V4.2</i>, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:1114;left:512"><nobr><span class="ft22">http://www.sleepycat.com/docs/index.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:488"><nobr><span class="ft22">[35] Transaction Processing Performance Council. <i>TPC-H Benchmark Revision</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:512"><nobr><span class="ft32"><i>2.0.0</i>, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1164;left:449"><nobr><span class="ft5">227</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

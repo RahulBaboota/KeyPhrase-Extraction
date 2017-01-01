@@ -1,0 +1,1149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\195</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-11-15T22:52:58+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;line-height:20px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195001.png" alt="background image">
+<DIV style="position:absolute;top:105;left:119"><nobr><span class="ft0"><b>Topic Transition Detection Using Hierarchical Hidden</b></span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:246"><nobr><span class="ft0"><b>Markov and Semi-Markov Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:126"><nobr><span class="ft1">Dinh Q. Phung, T.V. Duong, S.Venkatesh</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:202"><nobr><span class="ft2">Department of Computing</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:185"><nobr><span class="ft2">Curtin University of Technology</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:207"><nobr><span class="ft2">Perth, Western Australia</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:126"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:133"><nobr><span class="ft1">phungquo,duong,svetha</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:325"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:332"><nobr><span class="ft1">@cs.curtin.edu.au</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:578"><nobr><span class="ft1">Hung H. Bui</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:536"><nobr><span class="ft2">Artificial Intelligence Center</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:571"><nobr><span class="ft2">SRI International</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:532"><nobr><span class="ft2">Menlo Park, CA 94025, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:567"><nobr><span class="ft1">bui@ai.sri.com</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft7">In this paper we introduce a probabilistic framework to ex-<br>ploit hierarchy, structure sharing and duration information<br>for topic transition detection in videos. Our probabilistic de-<br>tection framework is a combination of a shot classification<br>step and a detection phase using hierarchical probabilistic<br>models. We consider two models in this paper: the extended<br>Hierarchical Hidden Markov Model (HHMM) and the Cox-<br>ian Switching Hidden semi-Markov Model (S-HSMM) be-<br>cause they allow the natural decomposition of semantics in<br>videos, including shared structures, to be modeled directly,<br>and thus enabling efficient inference and reducing the sam-<br>ple complexity in learning. Additionally, the S-HSMM al-<br>lows the duration information to be incorporated, conse-<br>quently the modeling of long-term dependencies in videos<br>is enriched through both hierarchical and duration model-<br>ing. Furthermore, the use of the Coxian distribution in the<br>S-HSMM makes it tractable to deal with long sequences in<br>video. Our experimentation of the proposed framework on<br>twelve educational and training videos shows that both mod-<br>els outperform the baseline cases (flat HMM and HSMM)<br>and performances reported in earlier work in topic detec-<br>tion. The superior performance of the S-HSMM over the<br>HHMM verifies our belief that duration information is an<br>important factor in video content modeling.</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft7">H.3.1 [Informa-<br>tion Storage and Retrieval]: Content Analysis and Indexing.</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft7">Algorithms, Management</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft7">Topic Transition Detection, Hierarchical Markov<br>(Semi-Markov) Models, Coxian, Educational Videos.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:81"><nobr><span class="ft1">1. INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:94"><nobr><span class="ft3">The ultimate goal of the video segmentation problem is to</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:81"><nobr><span class="ft7">characterize the temporal dynamics of the video whereby it<br>can be segmented into coherent units, possibly at different<br>levels of abstraction. Seeking abstract units to move beyond<br>the shots has thus been an active topic of much recent re-</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:81"><nobr><span class="ft9">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>MM'05, November 6­11, 2005, Singapore.<br>Copyright 2005 ACM 1-59593-044-2/05/0011 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:322"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:475"><nobr><span class="ft7">search. While the problem of shot transition is largely solved<br>at a satisfactory level [7], the `abstract units' or scene detec-<br>tion problem is much harder, partially due to the following<br>three challenges identified in [29]: (a) the variety in direc-<br>tional styles, (b) the semantic relationship of neighbouring<br>scenes, and (c) the knowledge of the viewer about the world.<br>While the last aspect is beyond the scope of this work, the<br>first two clearly imply that effective modeling of high-level<br>semantics requires the domain knowledge (directional style)<br>and the modeling of long-term, multiple-scale correlations<br>of the video dynamics (neighboring semantic relationship).</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:489"><nobr><span class="ft3">Modeling temporal correlations over a long period is gen-</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:475"><nobr><span class="ft7">erally a challenging problem. As we shall review in the<br>subsequent section, this problem is usually solved in a spe-<br>cific domain setting so that the expert knowledge about the<br>domain can be utilised. While organization of content in<br>generic videos (e.g., movies) is too diverse to be fully char-<br>acterized by statistical models, the hierarchy of semantic<br>structure in the class of education-oriented videos is more<br>defined, exposing strong temporal correlation in time, and<br>thus make it more desirable to probabilistic modeling. In<br>this paper, we concentrate on this video genre and develop<br>an effective framework to segment these videos into topi-<br>cally correlated units. This problem is an important step<br>to enable abstraction, summarization, and browsing of ed-<br>ucational content ­ a rich class of film genre that has an<br>increasing important role in building e-services for learning<br>and training.</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:489"><nobr><span class="ft3">Probabilistic modeling of temporal correlations in video</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:475"><nobr><span class="ft7">data is however a difficult problem. It is complicated be-<br>cause the underlying semantics naturally possess a hierar-<br>chical decomposition with possible existence of tight struc-<br>ture sharing between high-level semantics. In addition, the<br>typical duration for these structures usually varies for each<br>of its higher semantic. As an example, assisted narration ­ a<br>section that involves the narrator talking to the audience ­ is<br>usually used in both the introduction and in the main body<br>of a topic in an educational video. However while one, or<br>rarely two, shots of assisted narration (AN) are considered<br>sufficient for the introduction, the body typically requires<br>many AN shots. Thus it is important to exploit and fuse<br>hierarchical decomposition, structure sharing and duration<br>information in a unified framework to effectively address the<br>problem of topic transition detection.</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:489"><nobr><span class="ft3">The most widely used pobabilistic model is the hidden</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:475"><nobr><span class="ft7">Markov model (HMM). However, in many cases, the HMM<br>is unsuitable for video analysis since the strong Markov as-<br>sumption makes it too restrictive to capture correlations</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">11</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195002.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft7">over long periods. This limitation is usually overcome in the<br>literature by the use of a series of HMMs in a hierarchic man-<br>ner. The underlying problem in these approaches still is the<br>manual combination of HMMs at the higher levels which re-<br>sults in the excessive expense of preparing the training data<br>and, more importantly, the interaction across higher seman-<br>tic levels is not incorporated during model training. One<br>rigorous approach to overcome this limitation is the use of<br>the Hierarchical Hidden Markov Model (HHMM), first intro-<br>duced in [6] and later extended to handle structure sharing<br>in [3]. The sophisticated model in [3] allows natural hier-<br>archical organization of the videos, including any existing<br>structure sharing, to be modeled rigorously. Practically this<br>will result in computational savings and a reduction in sam-<br>ple complexity for learning. Given its advantages, we use<br>this model in this paper to model educational video content<br>for topic transition detection.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:94"><nobr><span class="ft3">It is natural to see that durative properties play an impor-</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:81"><nobr><span class="ft7">tant role in human perception. An excessively long lecture<br>would bore the students. As such, education-oriented videos<br>(e.g., news, documentaries, lectures, training videos, etc.)<br>exhibit strong duration information in their content. We<br>thus propose an alternative approach towards handling tem-<br>poral dependencies over long periods through the explicit<br>modeling of duration information captured in semi-Markov<br>models. In these models, a state is assumed to remain un-<br>changed for some duration of time before it transits to a<br>new state, and thus it addresses the violation of the strong<br>Markov assumption from having states whose duration dis-<br>tributions are non-geometric.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:94"><nobr><span class="ft3">Existing semi-Markov models commonly model duration</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:81"><nobr><span class="ft7">distributions as multinomials. Video data is however typ-<br>ically very long, thus making a multinomial semi-Markov<br>model unsuitable for video analysis since it would result in<br>both excessive computation and the number of parameters<br>required. Continuous modeling of duration does exist such<br>as in the use of the Gamma distribution, or more gener-<br>ally the exponential family, described in [12, 16] to provide<br>more compact parameterization. However, there are still<br>two limitations applied to these models for video analysis:<br>(a) learning these distributions requires numerical optimiza-<br>tion and the time complexity still depends on the maximum<br>duration length, and (b) no hierarchical modeling has been<br>attempted. Fortunately, in [5], a Switching Hidden Semi-<br>Markov Model (S-HSMM) is introduced in which the du-<br>ration is modeled as a discrete M -phase Coxian distribu-<br>tion. This model is particularly interesting for video analy-<br>sis since: (1) it can model hierarchical decomposition, and<br>(2) the Coxian duration modeling results in fast learning<br>and inference, the number of parameters is small and close-<br>formed estimation exists. Parameterizing long-term tempo-<br>ral correlations existing in video is thus enriched by both<br>the hierarchical architecture and the duration modeling at<br>the bottom level of the S-HSMM.</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:94"><nobr><span class="ft3">To model video content, we argue that it is beneficial to</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:81"><nobr><span class="ft7">exploit both the hierarchical organization of the videos, their<br>semantically shared substructures and typical durations of<br>important semantics. These aspects are all addressed in<br>this paper in a unified and coherent probabilistic frame-<br>work. We use the HHMM and the S-HSMM and propose<br>a two-phase architecture for detecting topical transition in<br>educational videos. In the first phase, shots are classified<br>into meaningful labels. Using classified shot labels, the sec-</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft7">ond phase trains a hierarchical probabilistic model (HHMM<br>or S-HSMM) which is then used at a later stage for segmen-<br>tation and annotation. Prior knowledge about the domain,<br>including shared structures, is incorporated into the topo-<br>logical structure during training.</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:489"><nobr><span class="ft3">Our cross-validation on a dataset including a mix of twelve</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:475"><nobr><span class="ft7">videos demonstrates promising results. The performances<br>from the baseline cases (HMM and HSMM) have shown<br>that they are too restrictive and unsuitable in our detec-<br>tion scheme, proving the validity of hierarchical modeling.<br>The performances of the hierarchical models, including the<br>HHMM and S-HSMM, are shown to surpass all results re-<br>ported in earlier work in topic detection [23, 20, 4]. The<br>superior performance of the S-HSMM over the HHMM has<br>also demonstrated our belief that duration information is<br>indeed an important element in the segmentation problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:489"><nobr><span class="ft3">Exploiting the hierarchy, structure sharing and duration</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:475"><nobr><span class="ft7">in a unified probabilistic framework, our contributions are<br>twofold: (1) we provide a coherent hierarchical probabilistic<br>framework for topic detection. Although the current report<br>concentrates on the educational genre, this framework can<br>clearly generalize to other genres such as news and docu-<br>mentaries, and (2) to our knowledge we are the first to in-<br>vestigate duration and hierarchical modeling for video seg-<br>mentation</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:536"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:547"><nobr><span class="ft3">in a unified framework.</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:489"><nobr><span class="ft3">The remainder of this paper is organized as follows. In</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:475"><nobr><span class="ft7">the next section, we provide related background to this work.<br>This is followed by a detailed section on the detection frame-<br>work including the description of the HHMM and S-HSMM.<br>We detail the shot classification phase in Section 4. Exper-<br>imental results are then reported in Section 5. Finally, the<br>conclusion follows in Section 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:475"><nobr><span class="ft1">2. RELATED BACKGROUND</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:489"><nobr><span class="ft3">Seeking high-level semantics to move beyond the shots has</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:475"><nobr><span class="ft7">been the central theme of much recent research. Attempts<br>towards this problem have resulted in a fast growing body<br>of work, and depending on the investigating domain, the ab-<br>stracting units appear under different names such as scene,<br>story, episode for motion pictures; topic, subtopic, macro<br>segments, story units for information-oriented videos (news,<br>documentaries, training and educational videos), or general<br>term like logical story units used in [8, 32]. Otherwise stated,<br>we shall the term `scene' in this section to mean all of the<br>aforementioned names.</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:489"><nobr><span class="ft3">Early attempts have targeted extracting scene-level con-</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:475"><nobr><span class="ft7">cepts in broadcast programs, in particular news videos (e.g., [9,<br>14, 26]). In these attempts, the semantic extraction prob-<br>lem is usually cast as the classification problem. The au-<br>thors in [26], for example, combine a number of visual and<br>aural low-level features together with shot syntax presented<br>in news videos to group shots into different narrative struc-<br>tures and label them as anchor-shot, voice-over, or inter-</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:476"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:482"><nobr><span class="ft3">Since topic change coincides with a shot transition, the shot</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft3">boundary provides crucial information in detecting topic</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:475"><nobr><span class="ft3">transitions, therefore the term `duration' in this work is cal-</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:475"><nobr><span class="ft3">culated in terms of the number of shots. This drastically</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:475"><nobr><span class="ft3">simplifies the modeling process. An alternative way of mod-</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:475"><nobr><span class="ft3">eling duration is to uniformly replicate a shot label based on</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:475"><nobr><span class="ft3">its length. However, doing this would require an extra mod-</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:475"><nobr><span class="ft3">eling of shot transition knowledge. In this work, we avoid</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft3">this complication and concentrate on duration information</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:475"><nobr><span class="ft3">based on the shot counts.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">12</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195003.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft7">view. Liu et al. [14] propose a video/audio fusion approach<br>to segment news reports from other categories in broadcast<br>programs with different types of classifiers (simple threshold<br>method, Gaussian mixture classifier, and support vector ma-<br>chine). Ide et al. [9] propose an automatic indexing scheme<br>for news video where shots are indexed based on the image<br>content and keywords into five categories: speech/report,<br>anchor, walking, gathering, and computer graphics. Cap-<br>tion text information is then used with classified shots to<br>build the indices.</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:94"><nobr><span class="ft3">Segmentation of the news story is the second major theme</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:81"><nobr><span class="ft7">explored in the broadcast domain. The common underlying<br>approach used in these works is the use of explicit `rules'<br>about the structure of news programs to locate the transi-<br>tions of a news story. Commonly accepted heuristics are for<br>example: a news story often starts and finishes with anchor-<br>person shots [31]; the start of a news story is usually coupled<br>with music [2]; or a relative long silence period is the indi-<br>cation of the boundary between two news stories [33]. More<br>complicated rules via temporal analysis are also exploited<br>such as the work of [37] which utilises detection results of<br>anchor-persons and captions to form a richer set of rules<br>(i.e., if the same text caption appears in two consecutive<br>anchor-person shots, then they belong to the same news<br>story). There is also a body of work which casts the seg-<br>mentation problem of news story in a HMM framework [10,<br>4]. The authors in [10], for example, propose the news seg-<br>mentation problem as problem of decoding the maximum<br>state sequence of a trained HMM whose transition matrix is<br>tailored by explicit rules about the news program. A some-<br>what similar approach to the work in this paper is [4] (whose<br>results came first in the TRECVID2003 story segmentation<br>benchmark). Shots in [4] are first classified into a set com-<br>mon labels in news (e.g., anchor, 2anchor, text-scene, etc.).<br>These labels are then input to a HMM for the segmentation<br>task. They report best performances of 74.9% recall and<br>80.2% precision for the TRECVID dataset. The work of [4]<br>however remains limited due to the flat structure HMM, and<br>it is not clear how the set of `transition' states were chosen.<br>In an effort to move beyond flat structure, the authors of [4]<br>have raised the need for high-order statistical techniques,<br>which will be addressed in this paper through the HHMM<br>and S-HSMM.</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:94"><nobr><span class="ft3">More recent approaches towards scene extraction have</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:81"><nobr><span class="ft7">shifted to motion pictures (e.g., [30, 34, 1, 31]). Detecting<br>scenes in motion pictures is in general a challenging prob-<br>lem and there are three main existing approaches as outlined<br>in [31]: temporal clustering-based, rule-based and memory-<br>based detection. In the clustering-based approach, shots are<br>grouped into scenes based on visual similarity and tempo-<br>ral closeness (e.g., [8, 13]). Scene breaks in the rule-based<br>detection approach are determined based on the semantic<br>and syntactic analysis of audiovisual characteristics and in<br>some cases further enhanced with more rigorous grammars<br>from film theory (e.g., [34, 1]). The authors in [30] propose a<br>memory-based scene detection framework. Visual shot simi-<br>larity in these works is determined based on the consistency<br>in color chromaticality, and the soundtrack is partitioned<br>into `audio scenes'. Visual and aural data are then fused<br>within a framework of memory and attention span model to<br>find likely scene breaks or singleton events. Further related<br>background on scene detection can be found in many good<br>surveys (e.g., [30, 28, 31]).</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:489"><nobr><span class="ft3">Existing HMM-based approaches towards modeling long-</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:475"><nobr><span class="ft7">term temporal dependencies typically use pre-segmented train-<br>ing data at multiple levels, and hierarchically train a pool<br>of HMMs, in which HMMs at the lower levels are used as<br>input to the HMMs at the upper levels. In principle, some<br>fundamental units are recognised by a sequence of HMMs,<br>and then likelihood values (or labels) obtained from these<br>HMMs are combined to form a hierarchy of HMMs</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:781"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:792"><nobr><span class="ft3">to cap-</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:475"><nobr><span class="ft7">ture the interactions at higher semantic levels (e.g., [11,<br>18]). Analysing sports videos, Kijak et al. [11] propose a<br>two-tiered classification of tennis videos using two layers<br>of HMMs. At the bottom level, four HMMs are used to<br>model four shot classes (`first missed serve',`rally', `replay',<br>and `break'). Each HMM is trained separately and subse-<br>quently topped up by another HMM at the top level which<br>represents the syntax of the tennis video with three states<br>of the game: `sets', `games', and `points'. Parameters for<br>the top HMM are, however, all manually specified. In [18],<br>a generic two-level hierarchy of HMMs is proposed to de-<br>tect recurrent events in movies and talk shows. Their idea<br>is to use an ergodic HMM at the top level, in which each<br>state is another (non-ergodic) sub-HMM representing a type<br>of signal stationary properties. For the case of movies, the<br>top HMM has six states, and each is in turn another three-<br>state non-ergodic HMM. The observations are modelled as<br>a mixture of Gaussians. After training, the authors claim<br>that interesting events can be detected such as `explosion',<br>`male speech', and so on. While being able to overcome the<br>limitation of the flat HMM in modeling long-term depen-<br>dencies, approaches that use HMMs at multiple levels still<br>suffer from two major problems: (1) pre-segmented and an-<br>notated data are needed at all levels for training, and (2)<br>in most existing work parameterization at higher levels has<br>to be manually specified. In many cases, preparing training<br>data at multiple levels is extremely tedious and at worst,<br>may not be possible. With respect to the second problem,<br>since each semantic level has to be modeled separately, the<br>underlying problem is that the interactions across semantic<br>layers are not modeled and thus do not contribute to the<br>learning process.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:489"><nobr><span class="ft3">One framework that integrates the semantics across lay-</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:475"><nobr><span class="ft7">ers is the Hierarchical Hidden Markov Model (HHMM) pro-<br>posed recently in [6]. The hierarchical HMM extends the<br>standard HMM in a hierarchic manner to allow each state<br>to be recursively generalised as another sub-HMM, and thus<br>enabling the ability to handle hierarchical modeling of com-<br>plex dynamic processes, in particular "the ability to infer<br>correlated observations over long periods in the observation<br>sequence via the higher levels of hierarchy" [6]. The original<br>motivation in [6] was to seek better modeling of different sto-<br>chastic levels and length scales presented in language (e.g.,<br>speech, handwriting, or text). However, the model intro-<br>duced in [6] considers only state hierarchies that have tree<br>structures, disallowing the sharing of substructures among<br>the high-level states. Recognizing this need, the authors<br>in [3] have extended the strict tree-form topology in the<br>original HHMMs of [6] and allowed it to be a general lattice<br>structure. The extension thus permits a state at any arbi-<br>trary level of the HHMMs to be shared by more than one<br>parental state at its higher level (i.e., resulting in a compact<br>form of parameter typing at multiple levels). This extended</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:476"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:482"><nobr><span class="ft3">Not to be confused with the Hierarchical HMMs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">13</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:7px;font-family:Helvetica;color:#000000;}
+	.ft12{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft13{font-size:2px;font-family:Helvetica;color:#000000;}
+	.ft14{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft15{font-size:4px;line-height:-3px;font-family:Helvetica;color:#000000;}
+	.ft16{font-size:4px;line-height:-4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195004.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft7">form is very attractive for video content modeling since it<br>allows the natural organization of the video content to be<br>modeled not only in terms of multiple scales but also in<br>terms of shared substructures existing in the decomposition.<br>Further details on the HHMM are provided in Section 3.1.</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:94"><nobr><span class="ft3">Early application of the HHMM for video analysis is found</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:81"><nobr><span class="ft7">in [36] and later extended in [35]. In these works, the au-<br>thors use the HHMM to detect the events of `play' and<br>`break' in soccer videos. For inference and learning, the<br>HHMM is `collapsed' into a flat HMM with a very large<br>product state space, which can then be used in conjunction<br>with the standard forward/backward passes as in a normal<br>HMM. Four methods are compared in [36] to detect `play'<br>and `break': (1) supervised HMMs, in which each category<br>is trained with a separate HMM, (2) supervised HHMMs,<br>in which bottom level HMMs are learned separately and<br>parameters for the upper levels are manually specified, (3)<br>unsupervised HHMMs without model adaptation, and (4)<br>supervised HHMMs with model adaptation. In (3) and (4),<br>two-level HHMMs are used. Their results have shown a very<br>close match between unsupervised and supervised methods<br>in which the completely unsupervised method with model<br>adaptation performs marginally better. These figures are<br>75.5%, 75.0%, 75.0% and 75.7% respectively for those four<br>methods. While presenting a novel contribution to the fea-<br>ture selection and model selection procedure, the application<br>of the HHMMs in this work is still limited both for learning<br>and for exploitation of the hierarchical structure. Flattening<br>a HHMM into a flat HMM as done in [36, 35] suffers from<br>many drawbacks as criticized in [17]: (a) it cannot provide<br>multi-scale interpretation, (b) it loses modularity since the<br>parameters for the flat HMM get constructed in a complex<br>manner, and (c) it may introduce more parameters, and<br>most importantly it does not have the ability to reuse para-<br>meters, in other words parameters for the shared sub-models<br>are not `tied' during the learning, but have to be replicated<br>and thus lose the inherent strength of hierarchical modeling.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:94"><nobr><span class="ft3">Being able to model shared structures, the extended HH-</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:81"><nobr><span class="ft7">MMs of [3] allows us to build more compact models, which<br>facilitates more efficient inference and reduces the sample<br>complexity in learning. This model is applied in [20] and [22]<br>for the problem of topic transition detection and video struc-<br>ture discovery respectively. The authors in [20] use a three-<br>level HHMM for the detection of topic transitions in edu-<br>cational videos. Differing from our experiments in this pa-<br>per, the HHMM in [20] is modified to operate directly with<br>continuous-valued observed data via the use of Gaussian<br>mixture models as the emission probabilities. Each shot-<br>based observed vector consists of seven features extracted<br>from visual and audio streams. They report a 77.3% recall<br>rate and 70.7% precision for the detection task. In another<br>application, with the help of prior knowledge about educa-<br>tional videos, a topology for a three-level HHMM is used<br>in [22] to automatically discover meaningful narrative units<br>in the educational genre. Their experiments have shown en-<br>couraging results in which many meaningful structures are<br>hierarchically discovered such as `on-screen narration with<br>texts', `expressive linkage', `expressive voice-over', etc. The<br>work of [22] is somewhat similar to that of [18] reviewed<br>earlier in this section, except the model in [22] allows more<br>domain knowledge to be encoded and the parameters are all<br>learned automatically.</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:475"><nobr><span class="ft1">3. THE PROBABILISTIC TOPIC</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:507"><nobr><span class="ft1">DETECTION FRAMEWORK</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:489"><nobr><span class="ft3">Our topic detection framework consists of two phases.</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:475"><nobr><span class="ft7">The first phase performs shot detection and low level feature<br>extraction and then classifies a shot in a meaningful label set<br>. This phase is described in Section 4. In the next phase,<br>we train a HHMM or S-HSMM over the alphabet space <br>from the training data and then use it in conjunction with<br>the Viterbi to perform segmentation and annotation. The<br>architecture of the framework is depicted in Figure-1.</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:597"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:676"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:756"><nobr><span class="ft15">F<br>E<br>A<br>T<br>U<br>R<br>E<br> </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:763"><nobr><span class="ft16">E<br>X<br>T<br>R<br>A<br>C<br>T<br>I<br>O<br>N</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:611"><nobr><span class="ft11">SHOT DETECTION AND </span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:625"><nobr><span class="ft11">CLASSIFICATION</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:524"><nobr><span class="ft12">Direct Narration</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:579"><nobr><span class="ft12">Assisted Narration</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:645"><nobr><span class="ft12">Voice-Over</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:690"><nobr><span class="ft12">Expressive Linkage Functional Linkage</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:486"><nobr><span class="ft13">M-phase Coxian</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:556"><nobr><span class="ft13">M-phase Coxian</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:625"><nobr><span class="ft13">M-phase Coxian</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:687"><nobr><span class="ft13">M-phase Coxian</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:751"><nobr><span class="ft13">M-phase Coxian</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:811"><nobr><span class="ft12">END</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:566"><nobr><span class="ft12">`Intro'</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:697"><nobr><span class="ft12">`main body'</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:497"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:570"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:634"><nobr><span class="ft11">3</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:698"><nobr><span class="ft11">4</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:758"><nobr><span class="ft11">5</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:612"><nobr><span class="ft14">Video &amp; Audio Signals</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:476"><nobr><span class="ft3">Figure 1: The architecture for topic detection framework.</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:489"><nobr><span class="ft3">The two-level HHMM and the S-HSMM (whose topol-</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:475"><nobr><span class="ft7">ogy is shown on the top of Figure-1) are special cases of<br>the hierarchical model with two layers. For the S-HSMM<br>(HHMM), the top layer is a Markov sequence of switching<br>variables, while the bottom layer is a sequence of concate-<br>nated HSMMs (HMMs) whose parameters are determined<br>by the switching variables at the top. Thus, the dynamics<br>and duration parameters of the HSMM (HMM) at the bot-<br>tom layer are not time invariant, but are `switched' from<br>time to time, similar to the way the linear Gaussian dy-<br>namics are switched in a switching Kalman filter. When<br>mapping to the topic modeling problem, the bottom layer<br>is used to capture `atomic' semantics such as voice-over, ex-<br>pressive linkage or assisted narration. Combinations of these<br>atomic semantics then form higher-level semantics, each of<br>which is represented by a hidden state at the top layer in<br>our model.</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:475"><nobr><span class="ft1">3.1 The Hierarchical HMM</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:489"><nobr><span class="ft3">With the assumed knowledge of the flat HMM (e.g., see [24]),</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:475"><nobr><span class="ft7">we shall now briefly describe the HHMMs. A hierarchical<br>HMM is formally defined by a three-turple , ,  : a topo-<br>logical structure  parameterized by  and an emission al-<br>phabet space . The topology  specifies the model depth<br>D, the state space S</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:609"><nobr><span class="ft10">d</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:622"><nobr><span class="ft3">available at each level d, and the</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:475"><nobr><span class="ft7">parent-children relationship between two consecutive levels.<br>For example, the two-level topology shown on the top of</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">14</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:5px;font-family:Times;color:#000000;}
+	.ft18{font-size:4px;font-family:Times;color:#000000;}
+	.ft19{font-size:3px;font-family:Times;color:#000000;}
+	.ft20{font-size:6px;font-family:Times;color:#000000;}
+	.ft21{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft22{font-size:6px;font-family:Times;color:#000000;}
+	.ft23{font-size:12px;font-family:Symbol;color:#000000;}
+	.ft24{font-size:4px;font-family:Times;color:#000000;}
+	.ft25{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft26{font-size:4px;font-family:Times;color:#000000;}
+	.ft27{font-size:3px;font-family:Times;color:#000000;}
+	.ft28{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft29{font-size:6px;line-height:9px;font-family:Times;color:#000000;}
+	.ft30{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+	.ft31{font-size:11px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195005.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft7">Figure-1 specifies the children set at the bottom level for<br>state 1 is {1, 2, 5} and for state 2 is {2, 3, 4}. Here, state 2<br>at the bottom level has been `shared' by both state 1 and<br>2 at the top level. Given , the parameter  of the HHMM<br>is specified in the following way. For d &lt; D, p  S</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:405"><nobr><span class="ft10">d</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:417"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:81"><nobr><span class="ft3">i, j  S</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:127"><nobr><span class="ft10">d+1</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:153"><nobr><span class="ft3">are the children of p: </span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:299"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:298"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:320"><nobr><span class="ft3">is the initial proba-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft3">bility of i given p; A</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:207"><nobr><span class="ft29">d,p<br>i,j</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:228"><nobr><span class="ft3">is the transition probability from i</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:81"><nobr><span class="ft3">to j given the parent p; and A</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:271"><nobr><span class="ft30">d,p<br>i,end</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:303"><nobr><span class="ft3">is the probability that</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:81"><nobr><span class="ft7">state i going to end-state (i.e., returns control to its parent)<br>given the parent is p. Finally, for each state i at the lowest<br>level D and an alphabet v  : B</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:293"><nobr><span class="ft10">v|i</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:312"><nobr><span class="ft3">is the emission prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:81"><nobr><span class="ft7">ability of observing v given the current state at the lowest<br>level is i. The whole parameter set is written compactly as:<br> = {, A, A</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:154"><nobr><span class="ft10">end</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:173"><nobr><span class="ft3">, B}, where:</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:148"><nobr><span class="ft3"> =</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:187"><nobr><span class="ft3">[</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:177"><nobr><span class="ft17">1d&lt;D</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:182"><nobr><span class="ft17">pSd</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:217"><nobr><span class="ft3">n</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:234"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:254"><nobr><span class="ft3">: 1 × M o ,</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:331"><nobr><span class="ft3">B : |S</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:367"><nobr><span class="ft10">d</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:374"><nobr><span class="ft3">| × ||</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:81"><nobr><span class="ft3">A =</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:121"><nobr><span class="ft3">[</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:111"><nobr><span class="ft17">1d&lt;D</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:116"><nobr><span class="ft17">pSd</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:151"><nobr><span class="ft3">nA</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:170"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:190"><nobr><span class="ft3">: M × M o , A</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:277"><nobr><span class="ft10">end</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:299"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:326"><nobr><span class="ft3">[</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:316"><nobr><span class="ft17">1d&lt;D</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:320"><nobr><span class="ft17">pSd</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:355"><nobr><span class="ft3">nA</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:375"><nobr><span class="ft30">d,p<br>end</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:397"><nobr><span class="ft3">: 1 × M o</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:81"><nobr><span class="ft31">where in each each M is implicitly meant the number of chil-<br>dren of p and |.| is the cardinality operator. Stochastic con-<br>straints require: P</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:200"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:207"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:215"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:215"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:237"><nobr><span class="ft3">= 1, P</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:280"><nobr><span class="ft10">v</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:289"><nobr><span class="ft3">B</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:300"><nobr><span class="ft10">v|i</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:319"><nobr><span class="ft3">= 1 and P</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:391"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:399"><nobr><span class="ft3">A</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:409"><nobr><span class="ft29">d,p<br>i,j</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:429"><nobr><span class="ft3">+</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:81"><nobr><span class="ft3">A</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:91"><nobr><span class="ft30">d,p<br>i,end</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:123"><nobr><span class="ft3">= 1. An intuitive way to view the set  is to con-</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:81"><nobr><span class="ft3">sider the subset {</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:198"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:214"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:230"><nobr><span class="ft10">d,p</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:246"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:263"><nobr><span class="ft30">d,p<br>end</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:281"><nobr><span class="ft3">} as the parameter of the</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:81"><nobr><span class="ft7">p-initiated Markov chain at level d. This chain is terminated<br>when one of the children i of p reaches the end-state with the<br>probability of A</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:174"><nobr><span class="ft30">d,p<br>i,end</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:201"><nobr><span class="ft3">. For inference and learning, the HHMM</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:81"><nobr><span class="ft7">is represented as a dynamic Bayesian network (DBN) and<br>can be learned by the Asymmetric Inside-Outside algorithm<br>in [3] or by the forward/backward passes in [17]. Figure-<br>3 shows on its left the DBN representation of the HHMM<br>with two levels, i.e., D = 2. We refer readers to [6, 17, 3]<br>for further information on the HHMMs.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:81"><nobr><span class="ft1">3.2 The Switching-Hidden Semi Markov Model</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:94"><nobr><span class="ft3">To provide an intuitive view to the S-HSMM, starting</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:81"><nobr><span class="ft7">from the description of the HHMMs from the previous sec-<br>tion, let us consider the case of a two-layer HHMM (D = 2)<br>defined as follows. The state space is divided into the set of<br>states at the top level Q</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:231"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:243"><nobr><span class="ft3">= S</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:268"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:279"><nobr><span class="ft3">= {1, . . . , |Q</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:354"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:361"><nobr><span class="ft3">|} and states</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:81"><nobr><span class="ft3">at the bottom level Q = S</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:246"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:258"><nobr><span class="ft3">= {1, . . . , |Q|}. This model is</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:81"><nobr><span class="ft3">parameterized by  = {</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:230"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:237"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:253"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:260"><nobr><span class="ft3">, , A, A</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:307"><nobr><span class="ft10">end</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:326"><nobr><span class="ft3">, B}.</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:94"><nobr><span class="ft3">At the top level, </span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:211"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:210"><nobr><span class="ft10">p</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:223"><nobr><span class="ft3">and A</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:261"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:261"><nobr><span class="ft10">pq</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:279"><nobr><span class="ft3">are respectively the initial</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:81"><nobr><span class="ft7">probability and the transition matrix of a Markov chain de-<br>fined over the state space Q</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:247"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:253"><nobr><span class="ft3">. For each p  Q</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:353"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:359"><nobr><span class="ft3">, ch(p)  Q is</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft7">used to denote the set of children of p. As in the case of the<br>extended HHMM in [3], it is possible that different parent<br>states may share common children, i.e., ch(p)  ch(q) =  for<br>p, q  Q</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:130"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:137"><nobr><span class="ft3">. A transition to p at the top level Markov chain</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:81"><nobr><span class="ft7">will initiate a sub-Markov chain at the lower level over the<br>state space ch(p) parameterized by {</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:309"><nobr><span class="ft10">p</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:316"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:332"><nobr><span class="ft10">p</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:339"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:355"><nobr><span class="ft30">p<br>end</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:374"><nobr><span class="ft3">} where </span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:433"><nobr><span class="ft10">q</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:433"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:81"><nobr><span class="ft3">and A</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:118"><nobr><span class="ft29">p<br>ij</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:132"><nobr><span class="ft3">are the initial and transition probabilities as in the</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft3">normal HMM setting, and A</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:252"><nobr><span class="ft30">p<br>i,end</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:282"><nobr><span class="ft3">is the probability that this</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:81"><nobr><span class="ft7">chain will terminate after a transition to i. At each time<br>point t, a discrete symbol y</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:248"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:258"><nobr><span class="ft3">  is generated with a prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:81"><nobr><span class="ft3">ability of B</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:153"><nobr><span class="ft10">v|i</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:173"><nobr><span class="ft3">where i is the current state at the bottom</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft7">level. In the description of this two-level HHMM, the dura-<br>tion d for which a bottom state i remains the same clearly<br>has a geometric distribution parameterized by its non-self-<br>transition probability (1 - A</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:254"><nobr><span class="ft29">p<br>ii</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:263"><nobr><span class="ft3">), i.e., d  Geom(1 - A</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:403"><nobr><span class="ft29">p<br>ii</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:412"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:489"><nobr><span class="ft3">In many cases, the geometric distributions are often too</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:475"><nobr><span class="ft7">restricted to model realistic data. The Switching Hidden<br>Semi-Markov Models (S-HSMMs) proposed in [5] overcomes<br>this restriction and allows the duration d of state i at the<br>bottom level to follow a more general discrete distribution<br>d  D</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:515"><nobr><span class="ft30">p,i<br>d</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:529"><nobr><span class="ft3">. More precisely, the p-initiated chain at the bot-</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:475"><nobr><span class="ft7">tom level is now a semi-Markov sequence parameterized by<br>{</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:491"><nobr><span class="ft10">p</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:490"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:497"><nobr><span class="ft3">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:514"><nobr><span class="ft29">p<br>ij</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:523"><nobr><span class="ft3">, D</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:541"><nobr><span class="ft30">p,i<br>d</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:555"><nobr><span class="ft3">} as opposed to the normal Markov chain in the</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:475"><nobr><span class="ft7">HHMM case. The authors in [5] consider two families of dis-<br>tributions for modeling the duration: the multinomial and<br>the Coxian. However for the multinomial case, the complex-<br>ity of the learning algorithm is proportional to the maximum<br>duration length, thus making it unsuitable for the problem<br>of modeling video data which is usually very long in nature.<br>Apart from the disadvantage of assuming a maximum du-<br>ration, our empirical testing on the multinomial case with<br>the maximum length of 50 has also shown that it is about<br>20 times slower than its Coxian counterpart reported in this<br>paper, thus making it impractical in our settings. We will<br>therefore omit the multinomial case and will consider exclu-<br>sively the Coxian parameterization in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:489"><nobr><span class="ft3">A discrete M -phase Coxian distribution Cox(µ; ), pa-</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:475"><nobr><span class="ft3">rameterized by µ = {µ</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:623"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:630"><nobr><span class="ft3">, . . . , µ</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:669"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:681"><nobr><span class="ft3">} (P</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:714"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:721"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:730"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:741"><nobr><span class="ft3">= 1) and  =</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:475"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:490"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:496"><nobr><span class="ft3">, . . . , </span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:535"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:547"><nobr><span class="ft3">}, is defined as a mixture of P</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:739"><nobr><span class="ft30">M<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:760"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:768"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:773"><nobr><span class="ft3">S</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:782"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:786"><nobr><span class="ft3"> where</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:475"><nobr><span class="ft3">S</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:484"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:507"><nobr><span class="ft3">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:524"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:531"><nobr><span class="ft3">+ . . . + X</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:586"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:599"><nobr><span class="ft3">), in which X</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:678"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:687"><nobr><span class="ft3">are independent random</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:475"><nobr><span class="ft3">variables having geometric distributions X</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:741"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:753"><nobr><span class="ft3"> Geom(</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:820"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:825"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:475"><nobr><span class="ft7">This distribution is a member of the phase-type distribu-<br>tion family and has the following very appealing interpreta-<br>tion. Let us construct a Markov chain with M + 1 states<br>numbered sequentially with the self transition parameter<br>A</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:486"><nobr><span class="ft10">ii</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:499"><nobr><span class="ft3">= 1 - </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:546"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:556"><nobr><span class="ft3">as shown in Figure-2. The first M states rep-</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:503"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:783"><nobr><span class="ft19">absorbing</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:790"><nobr><span class="ft19">state</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:566"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:723"><nobr><span class="ft18">M</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:695"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:692"><nobr><span class="ft21">-</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:683"><nobr><span class="ft22"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:675"><nobr><span class="ft23"></span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:588"><nobr><span class="ft20">2</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:580"><nobr><span class="ft23"></span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:746"><nobr><span class="ft22"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:738"><nobr><span class="ft23"></span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:516"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:510"><nobr><span class="ft25">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:736"><nobr><span class="ft26"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:729"><nobr><span class="ft25">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:581"><nobr><span class="ft27">2</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:574"><nobr><span class="ft28">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:523"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:517"><nobr><span class="ft25"></span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:490"><nobr><span class="ft3">Figure 2: The phase diagram of an M -phase Coxian.</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:475"><nobr><span class="ft7">resent M phases, while the last is the absorbing state which<br>acts like an end state. The duration of each individual state<br>(phase) i is X</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:562"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:573"><nobr><span class="ft3"> Geom(</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:638"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:643"><nobr><span class="ft3">). If we start from state i, the</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft7">duration of Markov chain before the end state reached is<br>S</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:484"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:492"><nobr><span class="ft3">= X</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:518"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:525"><nobr><span class="ft3">+ . . . + X</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:579"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:591"><nobr><span class="ft3">. Thus, Cox(µ, ) is indeed the distribu-</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft7">tion of the duration of this constructed Markov chain with µ<br>as the initial state (phase) distribution. The discrete Cox-<br>ian is much more flexible than the geometric distribution:<br>its probability mass function is no longer monotonically de-<br>creasing and it can have more than one mode.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft3">Using the Coxian distribution, the duration for the states</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:475"><nobr><span class="ft7">at the bottom level in the S-HSMM is modeled as follows.<br>For each p-initiated semi-Markov sequence, the duration of a<br>child state i is distributed according to D</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:717"><nobr><span class="ft30">p,i<br>d</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:734"><nobr><span class="ft3">= Cox(d; µ</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:801"><nobr><span class="ft10">p,i</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:815"><nobr><span class="ft3">, </span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:831"><nobr><span class="ft10">p,i</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:845"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft3">The parameter µ</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:585"><nobr><span class="ft10">p,i</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:607"><nobr><span class="ft3">and </span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:646"><nobr><span class="ft10">p,i</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:667"><nobr><span class="ft3">are M -dimensional vectors</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:475"><nobr><span class="ft7">where M is a fixed number representing the number of phases<br>in the discrete Coxian. It is easy to verify that for M = 1,<br>the model reduces identically to a two-layer HHMM.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">15</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft32{font-size:19px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195006.png" alt="background image">
+<DIV style="position:absolute;top:80;left:81"><nobr><span class="ft1">3.3 Inference and Learning in the S-HSMM</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:94"><nobr><span class="ft3">For inference and learning, the S-HSMM is represented as</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:81"><nobr><span class="ft7">a dynamic Bayesian network as shown in Figure-3 and then<br>forward/backward passes are applied to compute the filter-<br>ing and smoothing distributions required for EM learning.</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:404"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:406"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:320"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:296"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:300"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:379"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:383"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:385"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:280"><nobr><span class="ft10">m</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:287"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:364"><nobr><span class="ft10">m</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:371"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:373"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:295"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:299"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:379"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:383"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:385"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:366"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:371"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:373"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:287"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:292"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:398"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:401"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:404"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:316"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:320"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:117"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:121"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:201"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:205"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:207"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:116"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:120"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:201"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:205"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:207"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:188"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:192"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:194"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:109"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:113"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:141"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:225"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:227"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:138"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:141"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:222"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:226"><nobr><span class="ft19">t</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:228"><nobr><span class="ft19">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:81"><nobr><span class="ft7">Figure 3: Two-slice DBN representation of a two-level<br>HHMM (left) and the (Coxian) S-HSMM (right).</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:94"><nobr><span class="ft3">At each time-slice t, an amalgamated hidden state S</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:418"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:429"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:81"><nobr><span class="ft3">{z</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:94"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:99"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:111"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:116"><nobr><span class="ft3">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:130"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:135"><nobr><span class="ft3">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:147"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:152"><nobr><span class="ft3">, m</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:171"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:176"><nobr><span class="ft3">} together with the observation y</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:374"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:382"><nobr><span class="ft3">are main-</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:81"><nobr><span class="ft3">tained. The top level state is updated via z</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:360"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:372"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:406"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:417"><nobr><span class="ft3">is a</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:81"><nobr><span class="ft3">boolean-valued variable set to 1 when the z</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:343"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:348"><nobr><span class="ft3">-initiated semi-</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:81"><nobr><span class="ft3">Markov sequence ends at t. At the bottom level, x</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:395"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:406"><nobr><span class="ft3">is the</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:81"><nobr><span class="ft3">current child state in the z</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:248"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:253"><nobr><span class="ft3">-initiated chain, m</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:368"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:379"><nobr><span class="ft3">represents</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:81"><nobr><span class="ft3">the current phase of x</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:216"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:227"><nobr><span class="ft3">and e</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:260"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:270"><nobr><span class="ft3">is a boolean-valued variable</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:81"><nobr><span class="ft3">set to 1 when x</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:170"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:178"><nobr><span class="ft3">reaches the end of its duration. The forward</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:81"><nobr><span class="ft7">and backward procedures in the general DBN are then used<br>to compute the filtering distribution Pr(S</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:346"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:351"><nobr><span class="ft3">|y</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:362"><nobr><span class="ft10">1:t</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:376"><nobr><span class="ft3">) and two</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:81"><nobr><span class="ft3">smoothing distributions Pr(S</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:261"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:266"><nobr><span class="ft3">|y</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:277"><nobr><span class="ft10">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:294"><nobr><span class="ft3">) and Pr(S</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:364"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:369"><nobr><span class="ft3">, S</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:383"><nobr><span class="ft10">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:402"><nobr><span class="ft3">|y</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:413"><nobr><span class="ft10">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:430"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:81"><nobr><span class="ft7">With these smoothing distributions, it is sufficient to derive<br>all expected sufficient statistics required during EM learn-<br>ing. The overall complexity for the forward pass (and also<br>for the EM) is O(|Q|</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:211"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:217"><nobr><span class="ft3">|Q</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:232"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:238"><nobr><span class="ft3">|</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:242"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:248"><nobr><span class="ft3">M T ). Further information can</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:81"><nobr><span class="ft3">be found in [5].</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:81"><nobr><span class="ft1">3.4 Viterbi decoding for segmentation</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:94"><nobr><span class="ft3">To compute the best sequence state, that is to find:</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:173"><nobr><span class="ft3">S</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:183"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:182"><nobr><span class="ft10">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:203"><nobr><span class="ft3">= argmax</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:229"><nobr><span class="ft10">S</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:235"><nobr><span class="ft17">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:267"><nobr><span class="ft3">Pr(S</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:296"><nobr><span class="ft10">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:313"><nobr><span class="ft3">|y</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:324"><nobr><span class="ft10">1:T</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:341"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:81"><nobr><span class="ft7">Viterbi decoding algorithms for the HHMM and S-HSMM<br>are developed. These algorithms are similar to the one used<br>in the standard HMM outlined in [24] except we replace<br>the normal state in the HMM setting by our amalgamated<br>state S</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:125"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:137"><nobr><span class="ft3">which</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:197"><nobr><span class="ft3">{z</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:210"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:215"><nobr><span class="ft3">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:229"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:234"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:246"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:251"><nobr><span class="ft3">, m</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:269"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:274"><nobr><span class="ft3">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:287"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:292"><nobr><span class="ft3">} for the S-HSMM and</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:95"><nobr><span class="ft3">{z</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:109"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:114"><nobr><span class="ft3">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:128"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:133"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:144"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:149"><nobr><span class="ft3">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:162"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:167"><nobr><span class="ft3">} for the HHMM (cf. Figure-3).</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:81"><nobr><span class="ft1">4. SHOT-BASED SEMANTIC</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:112"><nobr><span class="ft1">CLASSIFICATION</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:94"><nobr><span class="ft3">In this section, we detail the first phase in the detection</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft7">framework. This includes the formulation of an alphabet<br>set  for shot labeling, low-level feature extraction and shot<br>classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:81"><nobr><span class="ft1">4.1 Shot labels set:</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:242"><nobr><span class="ft32"></span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:94"><nobr><span class="ft3">Existing work on the educational videos analysis (e.g., [21,</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:81"><nobr><span class="ft7">19]) has studied the nature of this genre carefully. As noted<br>in [21], the axiomatic distinction of the educational genre is</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft7">in its purpose of teaching and training; and as such a well-<br>crafted segment that moves viewers to actions or retains<br>a long-lasting message requires elaborative directing skills</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:824"><nobr><span class="ft10">3</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:830"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:475"><nobr><span class="ft7">Based on a narrative analysis used in the educational domain<br>and observed rules and conventions in the production of this<br>media, the authors in [21] propose a hierarchy of narrative<br>structures at the shot level as shown in Figure-4.</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:489"><nobr><span class="ft3">In this paper, we select the five most meaningful struc-</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:475"><nobr><span class="ft7">tures from this hierarchy for experimentation. This set <br>includes: direct-narration (DN), assisted-narration (AN),<br>voice-over (VO), expressive-linkage (EL), and functional-<br>linkage (FL). We shall now briefly describe these narratives.</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:489"><nobr><span class="ft3">Direct-narration (DN) and assisted-narration (AN) are re-</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:475"><nobr><span class="ft7">ferred to jointly as on-screen narration, which refer to the<br>segments with the appearance of the narrator. The pur-<br>pose of these sections is to speak to the viewers with the<br>voice of authority, and is commonly used to demarcate a<br>new topic or subtopic, to clarify a concept or to lead the<br>viewers through a procedure with examples. DN is a more<br>strict form of on-screen narration. It involves eye-to-eye<br>contact where the narrator speaks to the viewers directly.<br>An analogy from news video is the anchor-shot. AN refers<br>to parts of the video when a narrator appears in a more<br>diverse style, and the attention of the viewers is not neces-<br>sarily focused on him or her. Here, the purpose is not only<br>to talk to the viewers, but also to emphasize a message by<br>means of text captions and/or to convey an experience via<br>background scenes. A similar structure from news for AN<br>is the reporting shot. Assisted narration can be used both<br>in the introduction of a topic or in the main body, and thus<br>this structure should be shared</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:667"><nobr><span class="ft10">4</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:679"><nobr><span class="ft3">by both higher semantics</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:475"><nobr><span class="ft7">`introduction' and `main body'. As we see later, this knowl-<br>edge is explicitly modeled and incorporated in the design of<br>the topology for the S-HSMM. An important feature is that<br>although the semantics of AN is shared, the typical dura-<br>tions are different when it is used in the introduction or the<br>main body respectively. An AN section used to demarcate<br>a new topic usually contains only one, and sometimes two<br>shots, while an AN section used in the main body is typi-<br>cally long, spanning a number of shots. Conditioning on the<br>parent (i.e., introduction or main body), the typical dura-<br>tion distribution of the AN section is learned automatically<br>for each case by our model.</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:489"><nobr><span class="ft3">The voice-over (VO) structure is identified as sections</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:475"><nobr><span class="ft7">where the audiotrack is dominated by the voice of the nar-<br>rator, but without his or her appearance. The purpose of<br>these segments is to communicate with the viewers via the<br>narrator's voice. Additional pictorial illustration is usually<br>further shown in the visual channel.</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:489"><nobr><span class="ft3">Expressive linkage (EL) and Functional linkage (FL) be-</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:475"><nobr><span class="ft7">long to the same broader linkage group in the hierarchy in<br>Figure-4. The purpose of the linkage structure is to main-<br>tain the continuity of a story line but there is neither on-<br>screen nor voice-over narration involved. Functional linkage<br>contains transition shots encountered in switching from one<br>subject to the next. Usually, large superimposed text cap-<br>tions are used and the voice narration is completely stopped</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:476"><nobr><span class="ft10">3</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:482"><nobr><span class="ft3">We note that the two closest video genre to educational</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:475"><nobr><span class="ft3">videos is news and documentaries. In the description of what</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:475"><nobr><span class="ft3">follows on educational genre, we can spot several similarities</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:475"><nobr><span class="ft3">across these genre.</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:476"><nobr><span class="ft10">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:482"><nobr><span class="ft3">In terms of parameterization, it is a form of parameter ty-</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:475"><nobr><span class="ft3">ing.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">16</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft33{font-size:7px;font-family:Times;color:#000000;}
+	.ft34{font-size:14px;font-family:Times;color:#000000;}
+	.ft35{font-size:2px;font-family:Times;color:#000000;}
+	.ft36{font-size:7px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft37{font-size:7px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft38{font-size:7px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft39{font-size:7px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft40{font-size:7px;line-height:-7px;font-family:Times;color:#000000;}
+	.ft41{font-size:7px;line-height:-6px;font-family:Times;color:#000000;}
+	.ft42{font-size:6px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft43{font-size:6px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft44{font-size:7px;line-height:5px;font-family:Times;color:#000000;}
+	.ft45{font-size:7px;line-height:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195007.png" alt="background image">
+<DIV style="position:absolute;top:251;left:321"><nobr><span class="ft33">Linkage</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:314"><nobr><span class="ft33">Narration</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:172"><nobr><span class="ft33">On-screen</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:174"><nobr><span class="ft33">Narration</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:245"><nobr><span class="ft37">S<br>u<br>p<br>p<br>o<br>r<br>t<br>i<br>v<br>e</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:252"><nobr><span class="ft37">N<br>a<br>r<br>r<br>a<br>t<br>i<br>o<br>n</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:251"><nobr><span class="ft37">N<br>a<br>r<br>r<br>a<br>t<br>i<br>o<br>n</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:244"><nobr><span class="ft37">V<br>o<br>i<br>c<br>e<br>-<br>O<br>v<br>e<br>r</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:266"><nobr><span class="ft34">vo</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:208"><nobr><span class="ft4">educational videos</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:165"><nobr><span class="ft34">on</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:340"><nobr><span class="ft34">lk</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:373"><nobr><span class="ft33">f</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:376"><nobr><span class="ft35">u</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:377"><nobr><span class="ft33">lk</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:380"><nobr><span class="ft33">e</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:384"><nobr><span class="ft35">x</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:386"><nobr><span class="ft33">lk</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:418"><nobr><span class="ft10">Ex</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:416"><nobr><span class="ft10">pre</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:414"><nobr><span class="ft10">ssi</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:412"><nobr><span class="ft10">ve</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:410"><nobr><span class="ft10">Lin</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:408"><nobr><span class="ft10">kag</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:405"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:391"><nobr><span class="ft10">Fu</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:395"><nobr><span class="ft10">nct</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:399"><nobr><span class="ft10">ion</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:403"><nobr><span class="ft10">al</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:406"><nobr><span class="ft10">Lin</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:411"><nobr><span class="ft10">kag</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:415"><nobr><span class="ft10">e</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:263"><nobr><span class="ft34">sn</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:233"><nobr><span class="ft10">Supportive Narration</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:114"><nobr><span class="ft10">Di</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:113"><nobr><span class="ft42">r<br>ect</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:111"><nobr><span class="ft43">i<br>on</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:109"><nobr><span class="ft10">Na</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:108"><nobr><span class="ft42">r<br>rat</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:107"><nobr><span class="ft43">i<br>on</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:125"><nobr><span class="ft33">an</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:131"><nobr><span class="ft35">w</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:133"><nobr><span class="ft33">t</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:122"><nobr><span class="ft33">dn</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:145"><nobr><span class="ft33">a</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:144"><nobr><span class="ft33">n</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:143"><nobr><span class="ft35">w</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:142"><nobr><span class="ft33">s</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:229"><nobr><span class="ft10">vo</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:239"><nobr><span class="ft10">w. Texts/Scenes</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:312"><nobr><span class="ft10">vo w</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:328"><nobr><span class="ft10">ith Sc</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:346"><nobr><span class="ft10">enes</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:263"><nobr><span class="ft44">v<br>o<br>t<br>s</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:271"><nobr><span class="ft33">vo</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:282"><nobr><span class="ft35">w</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:285"><nobr><span class="ft33">s</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:222"><nobr><span class="ft33">vo</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:232"><nobr><span class="ft35">w</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:235"><nobr><span class="ft33">t</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:151"><nobr><span class="ft10">Ass</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:144"><nobr><span class="ft10">Na</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:139"><nobr><span class="ft10">rrw</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:132"><nobr><span class="ft10">.S</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:126"><nobr><span class="ft10">cen</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:120"><nobr><span class="ft10">es</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:104"><nobr><span class="ft10">As</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:107"><nobr><span class="ft10">sN</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:110"><nobr><span class="ft10">arr</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:115"><nobr><span class="ft10">w.</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:119"><nobr><span class="ft10">Te</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:122"><nobr><span class="ft10">xts</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:168"><nobr><span class="ft10">vo with Texts</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:81"><nobr><span class="ft7">Figure 4: The hierarchy of narrative structures in educa-<br>tional videos proposed in [21].</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:81"><nobr><span class="ft7">with possibly music played in the background. Expressive<br>linkage, on the other hand, is used to create `mood' for the<br>subject being presented. For example, in the video present-<br>ing the fire safety topic, there is a segment in which the<br>narration is completely stopped and then a sequence of pic-<br>tures of the house on fire is shown. These scenes obviously<br>do not give any direct instruction, rather they create a sense<br>of `mood' that helps the video to be more appealing and in-<br>teresting.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:81"><nobr><span class="ft1">4.2 Feature extraction and shot classification</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:94"><nobr><span class="ft3">The feature set and method for shot classification de-</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:81"><nobr><span class="ft7">scribed in [21] is employed in this paper. The feature set<br>is extracted from both visual and audio streams at the shot-<br>based level. From the image sequence, we choose to detect<br>the frontal faces to reflect the appearance of the narrator<br>using the CMU face detection algoritm [25]; and captioned<br>texts as one of the common means of conveying information<br>in educational videos using the algorithm described in [27].<br>In order to classify a shot into direct-narration, voice-over,<br>linkage, etc., further information is sought from the audio<br>stream. Audio features are computed as the percentage of<br>the following audio classes within a shot: vocal speech, mu-<br>sic, silence, and non-literal sound. A shot is then classified<br>into one of the elements of  = {DN, AN, V O, EL, F L} us-<br>ing the classification framework reported in [21]. Since we<br>claim no contribution at this stage, we shall refer readers<br>to [21] for full details on this classification scheme.</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:81"><nobr><span class="ft1">5. EXPERIMENTAL RESULTS</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:81"><nobr><span class="ft1">5.1 Data and Shot-based classification</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:94"><nobr><span class="ft3">Our dataset D consists of 12 educational and training</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft7">videos containing different types of subjects and presenta-<br>tional styles, and thus this constitutes a relatively noisy set<br>of data. We manually provide groundtruth for these videos<br>with topic transitions. In some cases, the groundtruth for</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft7">topic transitions comes directly from the hardcopy guide-<br>lines supplied by the producer.</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:489"><nobr><span class="ft3">At the pre-processing stage, Webflix [15] is used to per-</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:475"><nobr><span class="ft7">form shot transition detection and all detection errors are<br>corrected manually. Since our contribution from this paper<br>is at the semantic level, the latter step is to ensure an error<br>at the shot detection does not influence the performance of<br>the system at higher levels. Since educational videos mainly<br>contain cut and dissolve transitions, the shot detection accu-<br>racy is found to be very high with rare cases being erroneous.<br>Given shot indices, each video is processed as described in<br>Section 4, and then each shot S is labeled as one of the<br>elements of  = {DN, AN, V O, EL, F L}.</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:475"><nobr><span class="ft1">5.2 Model topology and parameterization</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:489"><nobr><span class="ft3">We will use four models in this experiments: the flat HMM</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:475"><nobr><span class="ft7">and HSMM (as the baseline cases), the HHMM and the S-<br>HSMM. For the flat HMM and HSMM, we range the number<br>of states from 2 to 5 with the observation space , where 2 is<br>intended to be the minimum number of states required (like<br>`intro' and `main body') and 5 is the number of alphabets<br>(i.e., in the relaxed way that the number of states equates to<br>the number of alphabets). The semi-Markov version HSMM<br>is further parameterized by 3-phase Coxian distributions as<br>the duration distributions of the states. The choice of M = 3<br>phases is hinted by the results reported in [5] where M = 3<br>has resulted in best performances.</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:489"><nobr><span class="ft3">For the HHMM and the S-HSMM, the topology shown in</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft7">the top of Figure-1 is used to construct the S-HSMM in this<br>experiment. This topology specifies Q</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:702"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:712"><nobr><span class="ft3">= 2 states at the top</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:475"><nobr><span class="ft7">level where state 1 and 2 correspond to the introduction and<br>the main body of the topic respectively. The Markov chain<br>at this level is similar to the flat HMM used in [4] for news<br>story segmentation</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:590"><nobr><span class="ft10">5</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:601"><nobr><span class="ft3">reviewed in Section 2. We incorporate</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:475"><nobr><span class="ft7">the assumed prior knowledge that a topic usually starts with<br>either direct-narration, assisted-narration or functional link-<br>age, thus state 1 has {1, 2, 5} as its children set. Similarly,<br>the main body can contain assisted-narration, voice-over or<br>expressive linkage, hence its children set is {2, 3, 4}. Here<br>state 2 (assisted narration) has been shared by both par-<br>ent state 1 (`intro') and 2 (`main body'). The bottom level<br>has 5 states corresponding to 5 shot labels. To map the<br>labels to the bottom states, we construct a diagonal-like B<br>observation matrix and fix it, i.e., we do not learn B. The<br>diagonal entries of B are set to 0.99 to relax the uncertainty<br>during the classification stage. The duration models in the<br>S-HSMM are used with M = 3 phases Coxian.</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:475"><nobr><span class="ft1">5.3 Detection Results</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:489"><nobr><span class="ft3">Given the dataset D, our evaluation employs a leave-one-</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:475"><nobr><span class="ft7">out strategy to ensure an objective cross-validation. We se-<br>quentially pick out a video V and use the remainder set<br>{D \ V } to train the model, and then use V for testing. In<br>the results that follow, this method is used for all cases in-<br>cluding the flat HMM, the flat HSMM, hierarchical HMM,<br>and the S-HSMM. A topic transition is detected when the in-<br>troduction state at the top level is reached during the Viterbi<br>decoding. Examples of Viterbi decoding with the S-HSMM<br>and HHMM are shown in Figure-5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:489"><nobr><span class="ft3">To measure the performance, in addition to the well-known</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:476"><nobr><span class="ft10">5</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:482"><nobr><span class="ft3">They called `transition' and `internal' states instead of `in-</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:475"><nobr><span class="ft3">troduction' and `main body'.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">17</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195008.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft7">recall (recall) and precision (prec) metrics, we include the<br>F-score (f-score) metric defined as:</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:81"><nobr><span class="ft3">f-score = 2 × recall × prec</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:175"><nobr><span class="ft3">recall + prec = 2 ×</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:313"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:344"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:325"><nobr><span class="ft3">recall +</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:403"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:391"><nobr><span class="ft3">prec</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:424"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:434"><nobr><span class="ft10">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft7">While the recall rate measures how well the system can re-<br>cover the true topic transitions, and high precision ensures<br>that it does not over-segment the video, the F-score shows<br>the overall performance of the system. In the ideal case<br>when recall=prec=100%, clearly f-score = 1, i.e., the<br>highest performance the system can achieve.</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:81"><nobr><span class="ft7">The baseline cases: flat HMM and HSMM<br>Since initialization is crucial during EM learning, we ap-<br>ply multiple random restart points when conducting the ex-<br>periments, including the uniform initialization. Although<br>several restarts were used, the flat HMM is found to yield<br>extremely poor results in all cases. Even when we train and<br>test on the same dataset, the flat HMM still produces poor<br>detection results, proving to be unsuitable in our topical<br>transition detection settings.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:94"><nobr><span class="ft3">The flat HSMM produces slightly better results than the</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:81"><nobr><span class="ft7">flat HMM, but still in all ten runs, the performance is still<br>very low (recall= 7.74% and prec= 48% in the best case).<br>The poor performance of the HMM and HSMM is of no<br>surprise, since their forms are too strict to model a rather<br>high concept - the `topic'. Furthermore, with the flat struc-<br>tures, they offer no mechanism to incorporate prior domain<br>knowledge such as those that we use in the topology of the<br>S-HSMM and HHMM. This clearly shows that hierarchical<br>models are much more suitable for video analysis than the<br>flat ones. Given the poor results in the flat structure cases,<br>we will omit the HMM and HSMM in the discussion of what<br>follows below.</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:81"><nobr><span class="ft7">Detection with the S-HSMM and HHMM<br>The recall rate, precision and F-score for representative runs<br>are reported in Table 1, in which the best performance are<br>highlighted in bold. The detection results for each individual<br>video for the best cases are shown in Table 2. With differ-<br>ent random restarting points, including the uniform initial-<br>ization, the performance of the HHMM ranges from poor<br>to very good (41.29%  83.23% for recall and 80.00% <br>84.47% for precision), whereas the S-HSMM consistently<br>yields good results (83.87%  84.52% for recall and 87.92% <br>88.51% for precision).</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:94"><nobr><span class="ft3">Since during training there is nothing exposed to the test-</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:81"><nobr><span class="ft7">ing examples, we also report (in the second part of Ta-<br>ble 1) the performances of the HHMM and S-HSMM in a<br>likelihood-based `best model selection' scheme. This scheme<br>works as follows. As in the leave-one-out strategy, let V be<br>a video selected from D, and N is the number of times we<br>train the model using the dataset {D \ V } (i.e., without<br>V ). Let </span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:141"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:146"><nobr><span class="ft3">(V ) and L</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:211"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:215"><nobr><span class="ft3">(V ) (i = 1 . . . N ) respectively be the</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:81"><nobr><span class="ft7">learned model and the likelihood (at convergence) obtained<br>for i-th run. We then use the model </span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:333"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:337"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:350"><nobr><span class="ft3">to test on the</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:81"><nobr><span class="ft3">unseen video V where i</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:227"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:238"><nobr><span class="ft3">= argmax</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:258"><nobr><span class="ft10">i=1...N</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:305"><nobr><span class="ft3">L</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:314"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:319"><nobr><span class="ft3">(V ). Simply speak-</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:81"><nobr><span class="ft7">ing, we sequentially `throw away' a video V , then select the<br>best model (i.e., highest likelihood) among all runs to test<br>on V . For the HHMM, the result stays the same as when<br>we choose the best performance based on the F-score. For<br>the S-HSMM, the recall stays the same, while the precision<br>slightly decreases from 88.51% to 87.92%. Nevertheless, the<br>S-HSMM is still superior to the HHMM.</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:621"><nobr><span class="ft3">recall (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:710"><nobr><span class="ft3">prec (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:784"><nobr><span class="ft3">f-score</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:520"><nobr><span class="ft3">results for best performance selection</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:555"><nobr><span class="ft3">Uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:642"><nobr><span class="ft3">42.58</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:723"><nobr><span class="ft3">81.48</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:793"><nobr><span class="ft3">0.559</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:555"><nobr><span class="ft3">Rand. 1</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:642"><nobr><span class="ft3">83.23</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:723"><nobr><span class="ft3">84.47</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:793"><nobr><span class="ft3">0.840</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:483"><nobr><span class="ft3">HHMM</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:555"><nobr><span class="ft3">Rand. 2</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:640"><nobr><span class="ft3">83.23</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:721"><nobr><span class="ft3">84.87</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:791"><nobr><span class="ft3">0.840</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:555"><nobr><span class="ft3">Rand. 3</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:642"><nobr><span class="ft3">83.23</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:723"><nobr><span class="ft3">84.87</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:793"><nobr><span class="ft3">0.840</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:555"><nobr><span class="ft3">Rand. 3</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:642"><nobr><span class="ft3">41.29</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:723"><nobr><span class="ft3">80.00</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:793"><nobr><span class="ft3">0.545</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:555"><nobr><span class="ft3">Rand. 4</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:642"><nobr><span class="ft3">83.87</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:723"><nobr><span class="ft3">83.87</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:793"><nobr><span class="ft3">0.839</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:555"><nobr><span class="ft3">Uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:642"><nobr><span class="ft3">84.52</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:723"><nobr><span class="ft3">87.92</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:793"><nobr><span class="ft3">0.862</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:555"><nobr><span class="ft3">Rand. 1</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:640"><nobr><span class="ft3">84.52</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:721"><nobr><span class="ft3">88.51</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:791"><nobr><span class="ft3">0.865</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:483"><nobr><span class="ft3">S-HSMM</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:555"><nobr><span class="ft3">Rand. 2</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:642"><nobr><span class="ft3">83.87</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:723"><nobr><span class="ft3">87.25</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:793"><nobr><span class="ft3">0.855</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:555"><nobr><span class="ft3">Rand. 3</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:642"><nobr><span class="ft3">84.52</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:723"><nobr><span class="ft3">88.51</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:793"><nobr><span class="ft3">0.865</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:555"><nobr><span class="ft3">Rand. 4</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:642"><nobr><span class="ft3">83.87</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:723"><nobr><span class="ft3">87.25</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:793"><nobr><span class="ft3">0.855</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:555"><nobr><span class="ft3">Rand. 5</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:642"><nobr><span class="ft3">84.52</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:723"><nobr><span class="ft3">88.51</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:793"><nobr><span class="ft3">0.865</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:544"><nobr><span class="ft3">results for best model selection</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:521"><nobr><span class="ft3">HHMM</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:642"><nobr><span class="ft3">83.23</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:723"><nobr><span class="ft3">84.87</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:793"><nobr><span class="ft3">0.840</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:516"><nobr><span class="ft3">S-HSMM</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:642"><nobr><span class="ft3">84.52</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:723"><nobr><span class="ft3">87.92</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:793"><nobr><span class="ft3">0.862</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:475"><nobr><span class="ft7">Table 1: Detection Performances for the S-HSMM and the<br>HHMM. Best performance for each case is highlighted in<br>bold (we note that best performances are attained in mul-<br>tiple cases and we select one of them to highlight).</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:475"><nobr><span class="ft7">Table 1 and 2 show that modeling with the S-HSMM re-<br>sults in better performances than the HHMM in both recall<br>and precision rates. And as a result, the F-score improves<br>from 0.840 to 0.865. While the recall rate improves only<br>slightly, the  4% improvement in the precision indicates<br>that the HHMM tends to over-segment the video more fre-<br>quently than the S-HSMM. This has confirmed our belief<br>that duration information is an important factor in our topic<br>transition detection settings. The semi-Markov modeling<br>has effectively overcome the limitation of the strict Markov<br>assumption of {future  past | present}</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:720"><nobr><span class="ft10">6</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:730"><nobr><span class="ft3">in the flat HMM,</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:475"><nobr><span class="ft7">allowing longer temporal dependency to be captured via the<br>duration of the state. Nevertheless, given a somewhat more<br>contained set of data used in this experiment, the results<br>from both the S-HSMM and HHMM are better than the pre-<br>vious detection results of news story reported in [4] (which<br>came first in TRECVIC2003 testbed) and the heuristics and<br>Bayesian approaches on topic detection in [23, 21]. These re-<br>sults do not only imply the advantages of the S-HSMM over<br>the HHMM, but also show the contribution of the HHMM<br>in its own right.</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:475"><nobr><span class="ft1">6. CONCLUSION</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:489"><nobr><span class="ft3">In this paper we explore the difficult problem of detecting</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:475"><nobr><span class="ft7">topic transitions through the use of two probabilistic mod-<br>els, the HHMM and the S-HSMM. Both allow the modeling<br>of hierarchy and the sharing of substructures within the hi-<br>erarchy, whilst the S-HSMM additionally allows the explicit<br>modeling of durative properties. Coupled with the use of the<br>Coxian model, we show how this unified framework performs<br>better than the baseline cases (the flat HMM and HSMM)<br>and previous results reported. In particular the use of the<br>S-HSMM demonstrates that the modeling of duration is a</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:476"><nobr><span class="ft10">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:482"><nobr><span class="ft3">i.e., the future is conditionally independent of the past</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:475"><nobr><span class="ft3">given the present.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">18</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195009.png" alt="background image">
+<DIV style="position:absolute;top:93;left:121"><nobr><span class="ft3">Video</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:228"><nobr><span class="ft3">TP</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:304"><nobr><span class="ft3">FP</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:365"><nobr><span class="ft3">Miss</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:424"><nobr><span class="ft3">GT</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:89"><nobr><span class="ft3">1 - "EESafety"</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:212"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:256"><nobr><span class="ft3">8</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:327"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:361"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:393"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:429"><nobr><span class="ft3">13</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:89"><nobr><span class="ft3">2 - "SSFall"</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:216"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:256"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:361"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:393"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:432"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:89"><nobr><span class="ft3">3 - "ElectS"</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:216"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:256"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:294"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:361"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:393"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:432"><nobr><span class="ft3">8</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:89"><nobr><span class="ft3">4 - "TrainHaz"</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:212"><nobr><span class="ft3">18</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:252"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:294"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:327"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:361"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:393"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:429"><nobr><span class="ft3">21</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:89"><nobr><span class="ft3">5 - "EyeS"</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:212"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:252"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:294"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:361"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:393"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:429"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:89"><nobr><span class="ft3">6 - "FootS"</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:212"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:252"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:361"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:393"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:429"><nobr><span class="ft3">11</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:89"><nobr><span class="ft3">7 - "HKeeping"</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:212"><nobr><span class="ft3">11</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:252"><nobr><span class="ft3">11</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:294"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:327"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:361"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:393"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:429"><nobr><span class="ft3">12</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:89"><nobr><span class="ft3">8 - "Maintn"</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:216"><nobr><span class="ft3">9</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:256"><nobr><span class="ft3">8</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:327"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:361"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:393"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:429"><nobr><span class="ft3">13</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:89"><nobr><span class="ft3">9 - "HandS"</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:216"><nobr><span class="ft3">9</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:256"><nobr><span class="ft3">9</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:361"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:393"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:429"><nobr><span class="ft3">10</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:89"><nobr><span class="ft3">10 - "SBurning"</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:212"><nobr><span class="ft3">19</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:252"><nobr><span class="ft3">19</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:327"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:361"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:393"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:429"><nobr><span class="ft3">21</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:89"><nobr><span class="ft3">11 - "HeadProt"</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:216"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:256"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:294"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:327"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:361"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:393"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:432"><nobr><span class="ft3">7</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:89"><nobr><span class="ft3">12 - "WeldingS"</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:212"><nobr><span class="ft3">19</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:252"><nobr><span class="ft3">19</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:294"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:327"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:361"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:393"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:429"><nobr><span class="ft3">23</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:135"><nobr><span class="ft3">Sum</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:207"><nobr><span class="ft3">131</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:247"><nobr><span class="ft3">129</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:290"><nobr><span class="ft3">17</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:322"><nobr><span class="ft3">23</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:357"><nobr><span class="ft3">24</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:389"><nobr><span class="ft3">26</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:424"><nobr><span class="ft3">155</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft7">Table 2: Detection results for each video in the best per-<br>formance cases of the S-HSMM and the HHMM (TP: True<br>Positive, FP: False Positive, GT: Ground-Truth).</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:81"><nobr><span class="ft3">powerful tool in the extraction of higher level semantics.</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:94"><nobr><span class="ft3">The results demonstrate the promise of the approach and</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:81"><nobr><span class="ft7">although the results are demonstrated with the educational<br>and training film genre, the method can easily be applied to<br>other genres. We believe that the promise of the approach<br>lies in its unified probabilistic handling of durative proper-<br>ties and shared hierarchical structure, allowing it to handle<br>long video sequences with inherent variability and compli-<br>cated semantics.</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:81"><nobr><span class="ft1">Acknowledgement</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft7">Hung Bui is supported by the Defense Advanced Research<br>Projects Agency (DARPA), through the Department of the<br>Interior, NBC, Acquisition Services Division, under Con-<br>tract No. NBCHD030010.</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:81"><nobr><span class="ft1">7. REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:88"><nobr><span class="ft3">[1] B. Adams, C. Dorai, and S. Venkatesh. Automated</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:109"><nobr><span class="ft7">film rhythm extraction for scene analysis. In IEEE<br>International Conference on Multimedia and Expo,<br>pages 1056­1059, Tokyo, Japan, August 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:88"><nobr><span class="ft3">[2] P. Aigrain, P. Jolly, and V. Longueville. Medium</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:109"><nobr><span class="ft7">knowledge-based macro-segmentation of video into<br>sequences. In M. Maybury, editor, Intelligent<br>Multimedia Information Retrieval, pages 159­174.<br>AAAI Press/MIT Press, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:88"><nobr><span class="ft3">[3] H. H. Bui, D. Q. Phung, and S. Venkatesh.</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:109"><nobr><span class="ft7">Hierarchical hidden markov models with general state<br>hierarchy. In D. L. McGuinness and G. Ferguson,<br>editors, Proceedings of the Nineteenth National<br>Conference on Artificial Intelligence, pages 324­329,<br>San Jose, California, USA, 2004. AAAI Press / The<br>MIT Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:88"><nobr><span class="ft3">[4] L. Chaisorn, T.-S. Chua, C.-H. Lee, and Q. Tian. A</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:109"><nobr><span class="ft7">hierarchical approach to story segmentation of large<br>broadcast news video corpus. In IEEE International<br>Conference on Multimedia and Expo, Taipei, Taiwan,<br>June 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:88"><nobr><span class="ft3">[5] T. V. Duong, H. H. Bui, D. Q. Phung, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:109"><nobr><span class="ft3">S. Venkatesh. Activity recognition and abnormality</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:503"><nobr><span class="ft7">detection with the Switching Hidden Semi-Markov<br>Model. In IEEE Int. Conf. on Computer Vision and<br>Pattern Recognition, volume 1, pages 838­845, San<br>Diego, 20-26 June 2005. IEEE Computer Society.</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:482"><nobr><span class="ft3">[6] S. Fine, Y. Singer, and N. Tishby. The hierarchical</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:503"><nobr><span class="ft7">hidden markov model: Analysis and applications.<br>Machine Learning, 32(1):41­62, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:482"><nobr><span class="ft3">[7] A. Hanjalic. Shot-boundary detection: Unraveled and</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:503"><nobr><span class="ft7">resolved? IEEE Transaction in Circuits and Systems<br>for Video Technology, 12(2):90­105, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:482"><nobr><span class="ft3">[8] A. Hanjalic, R. L. Lagendijk, and J. Biemond.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:503"><nobr><span class="ft7">Automated high-level movie segmentation for<br>advanced video retrieval systems. IEEE Transactions<br>in Circuits and Systems for Video Technology,<br>9(4):580­588, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:482"><nobr><span class="ft3">[9] I. Ide, K. Yamamoto, and H. Tanaka. Automatic video</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:503"><nobr><span class="ft7">indexing based on shot classification. In First<br>International Conference on Advanced Multimedia<br>Content Processing, pages 99­114, Osaka, Japan,<br>November 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:475"><nobr><span class="ft3">[10] U. Iurgel, R. Meermeier, S. Eickeler, and G. Rigoll.</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:503"><nobr><span class="ft7">New approaches to audio-visual segmentation of TV<br>news for automatic topic retrieval. In IEEE Int. Conf.<br>on Acoustics, Speech, and Signal Processing, volume 3,<br>pages 1397­1400, Salt Lake City, Utah, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:475"><nobr><span class="ft3">[11] E. Kijak, L. Oisel, and P. Gros. Hierarchical structure</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:503"><nobr><span class="ft7">analysis of sport videos using HMMs. In Int. Conf. on<br>Image Processing, volume 2, pages II­1025­8 vol.3,<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:475"><nobr><span class="ft3">[12] S. E. Levinson. Continuously variable duration hidden</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:503"><nobr><span class="ft7">markov models for automatic speech recognition.<br>Computer Speech and Language, 1(1):2945, March<br>1986.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:475"><nobr><span class="ft3">[13] T. Lin and H. J. Zhang. Automatic video scene</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:503"><nobr><span class="ft7">extraction by shot grouping. Pattern Recognition,<br>4:39­42, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:475"><nobr><span class="ft3">[14] Z. Liu and Q. Huang. Detecting news reporting using</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:503"><nobr><span class="ft7">audio/visual information. In International Conference<br>on Image Processing, pages 24­28, Kobe, Japan,<br>October 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:475"><nobr><span class="ft3">[15] Mediaware-Company. Mediaware solution webflix</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:503"><nobr><span class="ft7">professional V1.5.3, 1999.<br>http://www.mediaware.com.au/webflix.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:475"><nobr><span class="ft3">[16] C. D. Mitchell and L. H. Jamieson. Modeling duration</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:503"><nobr><span class="ft7">in a hidden markov model with the exponential<br>family. In Proc. of IEEE Int. Conf. on Acoustics,<br>Speech, and Signal Processing, pages II.331­II.334,<br>Minneapolis, Minnesota, April 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:475"><nobr><span class="ft3">[17] K. Murphy and M. Paskin. Linear-time inference in</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:503"><nobr><span class="ft7">hierarchical HMMs. In T. G. Dietterich, S. Becker,<br>and Z. Ghahramani, editors, Advances in Neural<br>Information Processing Systems, Cambridge, MA,<br>2001. MIT Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:475"><nobr><span class="ft3">[18] M. R. Naphade and T. S. Huang. Discovering</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:503"><nobr><span class="ft7">recurrent events in video using unsupervised methods.<br>In Int. Conf. om Image Processing, volume 2, pages<br>13­16, Rochester, NY, USA, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:475"><nobr><span class="ft3">[19] D. Q. Phung. Probabilistic and Film Grammar Based</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:503"><nobr><span class="ft7">Methods for Video Content Analysis. PhD thesis,<br>Curtin University of Technology, Australia, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:475"><nobr><span class="ft3">[20] D. Q. Phung, H. H. Bui, and S. Venkatesh. Content</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:503"><nobr><span class="ft3">structure discovery in educational videos with shared</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">19</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft46{font-size:10px;font-family:Times;color:#000000;}
+	.ft47{font-size:10px;line-height:21px;font-family:Times;color:#000000;}
+	.ft48{font-size:10px;line-height:20px;font-family:Times;color:#000000;}
+	.ft49{font-size:11px;line-height:9px;font-family:Times;color:#000000;}
+	.ft50{font-size:11px;line-height:4px;font-family:Times;color:#000000;}
+	.ft51{font-size:11px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="195010.png" alt="background image">
+<DIV style="position:absolute;top:140;left:178"><nobr><span class="ft46">2   2   2   2   1   1   2   2   2   2   2   2   1   1   1   2   2   2   2   2   1   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   1   1   1   1   2   2   2</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:178"><nobr><span class="ft47">4   4   4   4   5   2   3   3   3   3   3   2   5   2   1   3   3   3   3   3   5   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   5   2   5   1   3   3   3<br>1   1   2   3   3   3   2   2   2   2   3   3   3   3   3   2   2   2   2   3   3   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   3   3   3   3   3   2   2   2</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:176"><nobr><span class="ft46">2   2   2   1   2   1   2   2   2   2   2   1   2   1   1   2   2   2   2   1   1   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   1   2   2   2   1   2   2   2</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:177"><nobr><span class="ft46">2   2   2   1   1   1   2   2   2   2   1   1   1   1   1   2   2   2   2   1   1   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   1   1   1   1   1   2   2   2</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:388"><nobr><span class="ft34">Detected Topic Transitions</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:150"><nobr><span class="ft3">z</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:156"><nobr><span class="ft10">t </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:150"><nobr><span class="ft3">x</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:157"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:149"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:160"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:150"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:156"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:150"><nobr><span class="ft3">e</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:157"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:375"><nobr><span class="ft46">main body</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:338"><nobr><span class="ft46">intro</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:321"><nobr><span class="ft4">13</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:178"><nobr><span class="ft48">2   2   2   2   1   1   2   2   2   2   2   1   1   1   1   2   2   2   2   2   1   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   1   1   1   1   2   2   2<br>4   4   4   4   5   2   3   3   3   3   3   2   5   2   1   3   3   3   3   3   5   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   5   2   5   1   3   3   3</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:178"><nobr><span class="ft46">1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:177"><nobr><span class="ft46">1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:682"><nobr><span class="ft34">shot number</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:152"><nobr><span class="ft3">z</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:158"><nobr><span class="ft10">t </span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:153"><nobr><span class="ft3">x</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:160"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:154"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:160"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:153"><nobr><span class="ft3">e</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:161"><nobr><span class="ft10">t</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:755"><nobr><span class="ft51">S<br>-<br>H<br>S<br>M<br>M</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:755"><nobr><span class="ft51">H<br>H<br>M<br>M</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:646"><nobr><span class="ft4">39</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:369"><nobr><span class="ft34">Detected Topic Transitions</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:221"><nobr><span class="ft4">5</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:421"><nobr><span class="ft4">21</span></nobr></DIV>
+<DIV style="position:absolute;top:76;left:193"><nobr><span class="ft34">Ground-Truth</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:81"><nobr><span class="ft7">Figure 5: Example of Viterbi decoding for the S-HSMM and the HHMM for the first 45 shots of video `EESafety'. These<br>results should be read together with Figure-3 to see the semantics of the DBN structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:109"><nobr><span class="ft7">structures in the hierarchical HMMs. In Joint Int.<br>Workshop on Syntactic and Structural Pattern<br>Recognition, pages 1155­1163, Lisbon, Portugal,<br>August 18­20 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:81"><nobr><span class="ft3">[21] D. Q. Phung and S. Venkatesh. Structural unit</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:109"><nobr><span class="ft7">identification and segmentation of topical content in<br>educational videos. Technical report, Department of<br>Computing, Curtin University of Technology, 2005.<br>TR-May-2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:81"><nobr><span class="ft3">[22] D. Q. Phung, S. Venkatesh, and H. H. Bui.</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:109"><nobr><span class="ft7">Automatically learning structural units in educational<br>videos using the hierarchical HMMs. In International<br>Conference on Image Processing, Singapore, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:81"><nobr><span class="ft3">[23] D. Q. Phung, S. Venkatesh, and C. Dorai. High level</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:109"><nobr><span class="ft7">segmentation of instructional videos based on the<br>content density function. In ACM International<br>Conference on Multimedia, pages 295­298, Juan Les<br>Pins, France, 1-6 December 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:81"><nobr><span class="ft3">[24] L. R. Rabiner. A tutorial on hidden markov models</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:109"><nobr><span class="ft7">and selected applications in speech recognition. In<br>Procs. IEEE, volume 77, pages 257­286, February<br>1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:81"><nobr><span class="ft3">[25] H. A. Rowley, S. Baluja, and T. Kanade. Neutral</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:109"><nobr><span class="ft7">network-based face detection. IEEE Transactions on<br>Pattern Analysis and Machine Intelligence,<br>20(1):23­38, January 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft3">[26] K. Shearer, C. Dorai, and S. Venkatesh. Incorporating</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:109"><nobr><span class="ft7">domain knowlege with video and voice data analysis.<br>In Workshop on Multimedia Data Minning, Boston,<br>USA, August 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:81"><nobr><span class="ft3">[27] J.-C. Shim, C. Dorai, and R. Bolle. Automatic text</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:109"><nobr><span class="ft7">extraction from video for content-based annotation<br>and retrieval. In International Conference on Pattern<br>Recognition, volume 1, pages 618­620, Brisbane,<br>Australia, August 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:81"><nobr><span class="ft3">[28] C. G. Snoek and M. Worring. Multimodal video</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:503"><nobr><span class="ft7">indexing: A review of the state-of-the-art. Multimedia<br>Tools and Applications, 2004. In Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:475"><nobr><span class="ft3">[29] H. Sundaram. Segmentation, Structure Detection and</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:503"><nobr><span class="ft7">Summarization of Multimedia Sequences. PhD thesis,<br>Columbia University, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:475"><nobr><span class="ft3">[30] H. Sundaram and S.-F. Chang. Computable scenes</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:503"><nobr><span class="ft7">and structures in films. IEEE Transactions in<br>Multimedia, 4(4):482­491, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:475"><nobr><span class="ft3">[31] B. T. Truong. An Investigation into Structural and</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:503"><nobr><span class="ft7">Expressive Elements in Film. PhD thesis, Curtin<br>University of Technology, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:475"><nobr><span class="ft3">[32] J. Vendrig and M. Worring. Systematic evaluation of</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:503"><nobr><span class="ft7">logical story unit segmentation. IEEE Transactions on<br>Multimedia, 4(4):492­499, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:475"><nobr><span class="ft3">[33] C. Wang, Y. Wang, H. Liu, and Y. He. Automatic</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:503"><nobr><span class="ft7">story segmentation of news video based on<br>audio-visual features and text information. In Int.<br>Conf. on Machine Learning and Cybernetics,<br>volume 5, pages 3008­3011, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft3">[34] J. Wang, T.-S. Chua, and L. Chen. Cinematic-based</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:503"><nobr><span class="ft7">model for scene boundary detection. In The Eight<br>Conference on Multimedia Modeling, Amsterdam,<br>Netherland, 5-7 November 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:475"><nobr><span class="ft3">[35] L. Xie and S.-F. Chang. Unsupervised mining of</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:503"><nobr><span class="ft7">statistical temporal structures in video. In<br>A. Rosenfield, D. Doreman, and D. Dementhons,<br>editors, Video Mining. Kluwer Academic Publishers,<br>June 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:475"><nobr><span class="ft3">[36] L. Xie, S.-F. Chang, A. Divakaran, and H. Sun.</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:503"><nobr><span class="ft7">Learning hierarhical hidden markov models for<br>unsupervised structure discovery from video.<br>Technical report, Columbia University, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:475"><nobr><span class="ft3">[37] X. Zhu, L. Wu, X. Xue, X. Lu, and J. Fan. Automatic</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:503"><nobr><span class="ft7">scene detection in news program by integrating visual<br>feature and rules. In IEEE Pacific-Rim Conference on<br>Multimedia, pages 837­842, Beijing, China, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">20</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

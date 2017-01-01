@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>208.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2001-04-16T08:54:33+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Helvetica;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="46001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:95"><nobr><span class="ft0"><b>Breadth-First Search Crawling Yields High-Quality Pages</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:239"><nobr><span class="ft1">Marc Najork</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:170"><nobr><span class="ft2">Compaq Systems Research Center</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:226"><nobr><span class="ft2">130 Lytton Avenue</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:202"><nobr><span class="ft2">Palo Alto, CA 94301, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:180"><nobr><span class="ft1">marc.najork@compaq.com</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:564"><nobr><span class="ft1">Janet L. Wiener</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:509"><nobr><span class="ft2">Compaq Systems Research Center</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:565"><nobr><span class="ft2">130 Lytton Avenue</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:541"><nobr><span class="ft2">Palo Alto, CA 94301, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:518"><nobr><span class="ft1">janet.wiener@compaq.com</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft9">This paper examines the average page quality over time of<br>pages downloaded during a web crawl of 328 million unique<br>pages. We use the connectivity-based metric PageRank to<br>measure the quality of a page. We show that traversing the<br>web graph in breadth-first search order is a good crawling<br>strategy, as it tends to discover high-quality pages early on<br>in the crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:81"><nobr><span class="ft9">Crawling, crawl order, breadth-first search, page quality<br>metric, PageRank</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:94"><nobr><span class="ft4">According to a study released in October 2000, the di-</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft9">rectly accessible "surface web" consists of about 2.5 billion<br>pages, while the "deep web" (dynamically generated web<br>pages) consists of about 550 billion pages, 95% of which are<br>publicly accessible [9].</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:94"><nobr><span class="ft4">By comparison, the Google index released in June 2000</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:81"><nobr><span class="ft9">contained 560 million full-text-indexed pages [5]. In other<br>words, Google -- which, according to a recent measure-<br>ment [6], has the greatest coverage of all search engines --<br>covers only about 0.1% of the publicly accessible web, and<br>the other major search engines do even worse.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:94"><nobr><span class="ft4">Increasing the coverage of existing search engines by three</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft9">orders of magnitude would pose a number of technical chal-<br>lenges, both with respect to their ability to discover, down-<br>load, and index web pages, as well as their ability to serve<br>queries against an index of that size. (For query engines<br>based on inverted lists, the cost of serving a query is linear<br>to the size of the index.) Therefore, search engines should<br>attempt to download the best pages and include (only) them<br>in their index.</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:94"><nobr><span class="ft4">Cho, Garcia-Molina, and Page [4] suggested using connec-</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:81"><nobr><span class="ft9">tivity-based document quality metrics to direct a crawler to-<br>wards high-quality pages. They performed a series of crawls<br>over 179,000 pages in the stanford.edu domain and used</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:81"><nobr><span class="ft10">Copyright is held by the author/owner.<br><i>WWW10, </i>May 1-5, 2001, Hong Kong.<br>ACM 1-58113-348-0/01/0005.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft9">different ordering metrics -- breadth-first, backlink count,<br>PageRank [2], and random -- to direct the different crawls.<br>Under the breath-first ordering, pages are crawled in the or-<br>der they are discovered. Under the backlink ordering, the<br>pages with the highest number of known links to them are<br>crawled first. Under the PageRank ordering, pages with the<br>highest PageRank (a page quality metric described below)<br>are crawled first. Under the random ordering, the crawler<br>selects the next page to download at random from the set<br>of uncrawled pages. (For repeatability, these crawls were<br>"virtual"; that is, they were performed over a cached copy<br>of these 179,000 pages.) Cho et al. evaluated the effective-<br>ness of each ordering metric by examining how fast it led<br>the crawler to all the "hot" pages. In this context, a "hot"<br>page is a page with either a high number of links point-<br>ing to it, or a page with a high PageRank. They found<br>that using the PageRank metric to direct a crawler works<br>extremely well. However, they also discovered that perform-<br>ing the crawl in breadth-first order works almost as well, in<br>particular if "hot" pages are defined to be pages with high<br>PageRank.</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:489"><nobr><span class="ft4">This paper extends the results of Cho et al. regarding the</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:475"><nobr><span class="ft9">effectiveness of crawling in breadth-first search order, using<br>a much larger and more diverse data set. While Cho's work<br>was based on a crawl of 179,000 pages from the stanford.edu<br>domain, we performed a crawl of 328 million pages over the<br>entire web, covering more than 7 million distinct hosts. We<br>use connectivity-based page quality metrics, namely Brin<br>and Page's PageRank and variations of it, to measure the<br>quality of downloaded pages over the life of the crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:489"><nobr><span class="ft4">We find that not only does breadth-first search download</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:475"><nobr><span class="ft9">the hot pages first, but also that the average quality of the<br>pages decreased over the duration of the crawl. We also<br>suggest that our crawler's modifications to strict breadth-<br>first search -- made to increase the overall download rate<br>and to avoid overloading any given web server -- enhance<br>its likeliness of retrieving important pages first.</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:489"><nobr><span class="ft4">The remainder of this paper is structured as follows: Sec-</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:475"><nobr><span class="ft9">tion 2 reviews the PageRank metric we used to evaluate<br>the effectiveness of crawling in breadth-first search order.<br>Section 3 describes the tools we used to conduct our exper-<br>iments. Section 4 describes the experiments we performed,<br>and the results we obtained. Finally, section 5 offers con-<br>cluding remarks.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:475"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:506"><nobr><span class="ft3"><b>PAGERANK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft4">There are many conceivable metrics for judging the qual-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft4">ity of a web page: by analyzing its content, by measuring</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:447"><nobr><span class="ft8">114</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:6px;font-family:Times;color:#000000;}
+	.ft12{font-size:-1px;font-family:Times;color:#000000;}
+	.ft13{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="46002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">its popularity (that is, how often it is viewed), or by exam-<br>ining its connectivity (that is, by determining which other<br>pages link to this page, and vice versa). Metrics based on<br>connectivity have the advantages that they do not require<br>information that is not easily accessible (such as page pop-<br>ularity data), and that they are easy to compute, so they<br>scale well to even very large page collections.</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:378"><nobr><span class="ft4">They also</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft9">require retrieving only the links on each page, not the full<br>page contents. Storing the full page contents requires sev-<br>eral kilobytes per page, one to two orders of magnitude more<br>than just storing the links.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:94"><nobr><span class="ft4">PageRank is the connectivity-based page quality measure</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft9">suggested by Brin and Page [2]. It is a static measure; it is<br>designed to rank pages in the absence of any queries. That<br>is, PageRank computes the "global worth" of each page.<br>Intuitively, the PageRank measure of a page is similar to its<br>in-degree, which is a possible measure of the importance of<br>a page. The PageRank of a page is high if many pages with<br>a high PageRank contain links to it, and a page containing<br>few outgoing links contributes more weight to the pages it<br>links to than a page containing many outgoing links. The<br>PageRank of a page is expressed mathematically as follows.<br>Suppose there are T total pages on the web. We choose<br>a parameter d (explained below) such that 0 &lt; d &lt; 1; a<br>typical value of d might lie in the range 0.1 &lt; d &lt; 0.15.<br>Let pages p</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:153"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:159"><nobr><span class="ft4">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:173"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:179"><nobr><span class="ft4">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:219"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:232"><nobr><span class="ft4">link to page p. Let R(p</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:384"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:388"><nobr><span class="ft4">) be the</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:81"><nobr><span class="ft4">PageRank of p</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:169"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:178"><nobr><span class="ft4">and C(p</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:228"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:233"><nobr><span class="ft4">) be the number of links out of p</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:431"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:436"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft4">Then the PageRank R(p) of page p is defined to satisfy:</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:170"><nobr><span class="ft4">R(p) = d</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:218"><nobr><span class="ft4">T + (1 - d)</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:298"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:291"><nobr><span class="ft12">X</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:292"><nobr><span class="ft11">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:315"><nobr><span class="ft4">R(p</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:338"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:343"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:315"><nobr><span class="ft4">C(p</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:338"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:343"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:81"><nobr><span class="ft9">This equation defines R(p) uniquely, modulo a constant scal-<br>ing factor. If we scale R(p) so that the PageRanks of all<br>pages sum to 1, R(p) can be thought of as a probability<br>distribution over pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:94"><nobr><span class="ft4">The PageRank distribution has a simple interpretation in</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:81"><nobr><span class="ft9">terms of a random walk. Imagine a web surfer who wanders<br>the web. If the surfer visits page p, the random walk is in<br>state p. At each step, the web surfer either jumps to a page<br>on the web chosen uniformly at random, or the web surfer<br>follows a link chosen uniformly at random from those on<br>the current page. The former occurs with probability d, the<br>latter with probability 1</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:234"><nobr><span class="ft4">- d. The equilibrium probability</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:81"><nobr><span class="ft9">that such a surfer is at page p is simply R(p). An alternative<br>way to say this is that the average fraction of the steps that<br>a walk spends at page p is R(p) over sufficiently long walks.<br>This means that pages with high PageRank are more likely<br>to be visited than pages with low PageRank.</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:94"><nobr><span class="ft4">In our experiments, we set d =</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:290"><nobr><span class="ft13">1<br>7</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:301"><nobr><span class="ft4">= 0.14. We also modi-</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:81"><nobr><span class="ft9">fied PageRank slightly so that pages with no outgoing links<br>contribute their weight equally to all pages. That is, the<br>random surfer is equally likely to jump to any page from<br>a page with no outgoing links. We ran experiments using<br>both the original PageRank algorithm, which does not dis-<br>tinguish between links to pages on the same versus different<br>hosts, and a variant of PageRank which only considers links<br>to different hosts.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:81"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:112"><nobr><span class="ft3"><b>TOOLS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft4">We used two tools in conducting this research: Mercator</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">and the Connectivity Server 2, both developed at our lab.<br>We used Mercator to crawl the web, and the Connectivity</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">Server 2 to provide fast access to the link information down-<br>loaded from the crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft4">Mercator is an extensible, multithreaded, high-perform-</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft9">ance web crawler [7, 10]. It is written in Java and is highly<br>configurable. Its default download strategy is to perform<br>a breadth-first search of the web, with the following three<br>modifications:</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:491"><nobr><span class="ft4">1. It downloads multiple pages (typically 500) in parallel.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:509"><nobr><span class="ft9">This modification allows us to download about 10 mil-<br>lion pages a day; without it, we would download well<br>under 100,000 pages per day.</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:491"><nobr><span class="ft4">2. Only a single HTTP connection is opened to any given</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:509"><nobr><span class="ft4">web server at any given time.</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:709"><nobr><span class="ft4">This modification is</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:509"><nobr><span class="ft9">necessary due to the prevalence of relative URLs on the<br>web (about 80% of the links on an average web page<br>refer to the same host), which leads to a high degree<br>of host locality in the crawler's download queue. If<br>we were to download many pages from the same host<br>in parallel, we would overload or even crash that web<br>server.</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:491"><nobr><span class="ft4">3. If it took t seconds to download a document from a</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:509"><nobr><span class="ft9">given web server, then Mercator will wait for 10t sec-<br>onds before contacting that web server again. This<br>modification is not strictly necessary, but it further<br>eases the load our crawler places on individual servers<br>on the web. We found that this policy reduces the rate<br>of complaints we receive while crawling.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:489"><nobr><span class="ft4">For the experiments described below, we configured Mer-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft9">cator to extract all the links from each downloaded page<br>and save them to disk; for disk space reasons, we did not<br>retain the pages themselves. We conducted a crawl that at-<br>tempted to download 532 million pages over the course of 58<br>days (which we refer to as days 1 to 58 throughout the pa-<br>per). Of all those download attempts, 328 million returned<br>valid, unique HTML pages; the others resulted in TCP- and<br>DNS-errors, non-200 HTTP return codes, non-HTML doc-<br>uments, or duplicates. Mercator's download rate decreased<br>over the course of the crawl, due to increasing access times<br>to one of its disk-based data structures that keeps track of<br>which URLs have already been seen. The median download<br>day was 22; the mean download day was 24.5.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:489"><nobr><span class="ft4">The extracted links data was then loaded into the Connec-</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft9">tivity Server 2 (CS2) [11], a database for URLs and links.<br>A build of CS2 takes a web crawl as input and creates a<br>database representation of the web graph induced by the<br>pages in the crawl. A CS2 database consists of all URLs that<br>were crawled, extended with all URLs referenced at least<br>five times by the crawled pages. (Incorporating uncrawled<br>URLs with multiple links pointing to them ensured that we<br>did not ignore any popular URLs. Setting the threshold at<br>five incoming links reduced the set of uncrawled URLs by<br>over 90%, which enabled us to fit the database within the 16<br>GB of RAM available to us.) The CS2 database also con-<br>tains all links among those URLs and host information for<br>each URL. It maps each URL to all of its outgoing and its<br>incoming links. It is possible to get all the incoming links<br>for a given URL, or just the links from different hosts.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:489"><nobr><span class="ft4">CS2 stores links in both directions in, on average, 2.4</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft9">bytes per link (as compared to 8 bytes per link in the orig-<br>inal connectivity server (CS1) described in [1]). Like CS1,</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:447"><nobr><span class="ft8">115</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:8px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;font-family:Times;color:#000000;}
+	.ft16{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="46003.png" alt="background image">
+<DIV style="position:absolute;top:253;left:110"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:138"><nobr><span class="ft14">5</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:162"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:189"><nobr><span class="ft14">15</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:217"><nobr><span class="ft14">20</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:244"><nobr><span class="ft14">25</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:271"><nobr><span class="ft14">30</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:299"><nobr><span class="ft14">35</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:326"><nobr><span class="ft14">40</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:353"><nobr><span class="ft14">45</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:380"><nobr><span class="ft14">50</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:408"><nobr><span class="ft14">55</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:247"><nobr><span class="ft15"><b>Day of crawl</b></span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:102"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:102"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:102"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:102"><nobr><span class="ft14">6</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:102"><nobr><span class="ft14">8</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:96"><nobr><span class="ft15"><b>Average PageRank</b></span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:82"><nobr><span class="ft4">Figure 1: Average PageRank score by day of crawl</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:81"><nobr><span class="ft9">CS2 is designed to give high-performance access when run<br>on a machine with enough RAM to store the database in<br>memory. On the 667 MHz Compaq AlphaServer ES40 with<br>16 GB of RAM used in our experiments, it takes 70-80 ms<br>to convert a URL into an internal id or vice versa, and 0.1<br>ms/link to retrieve each incoming or outgoing link as an in-<br>ternal id. The database for our crawl of 328 million pages<br>contained 351 million URLs and 6.1 billion links. Therefore,<br>one iteration of PageRank ran in about 15 minutes.</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:81"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:112"><nobr><span class="ft16"><b>AVERAGE PAGE QUALITY OVER A<br>LONG CRAWL</b></span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:94"><nobr><span class="ft4">In this section, we report on our experiments. We imple-</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:81"><nobr><span class="ft9">mented PageRank and its variants over the CS2 interface,<br>and ran each algorithm for 100 iterations on the 6.1 billion<br>link database. (In all our experiments, the PageRank com-<br>putation converged within less than 100 iterations.)</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:94"><nobr><span class="ft4">Although the PageRank scores are conventionally normal-</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft9">ized to sum to 1 (making it easier to think of them as a<br>probability distribution), we normalized them to sum to the<br>number of nodes in the graph (351 million). This way, the<br>average page has a PageRank of 1, independent of the num-<br>ber of pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:94"><nobr><span class="ft4">Figure 1 shows the average PageRank of all pages down-</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft9">loaded on each day of the crawl. The average score for pages<br>crawled on the first day is 7.04, more than three times the av-<br>erage score of 2.07 for pages crawled on the second day. The<br>average score tapers from there down to 1.08 after the first<br>week, 0.84 after the second week, and 0.59 after the fourth<br>week. Clearly, we downloaded more high quality pages, i.e.,<br>pages with high PageRank, early in the crawl than later<br>on. We then decided to examine specifically when we had<br>crawled the highest ranked pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft4">We examined the pages with the top N PageRanks, for</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">increasing values of N from 1 to 328 million (all of the pages<br>downloaded). Figure 2 graphs the average day on which we<br>crawled the pages with the highest N scores. Note that the<br>horizontal axis shows the values of N on a log scale.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:94"><nobr><span class="ft4">All of the top 10 and 91 of the top 100 pages were crawled</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft9">on the first day. There are some anomalies in the graph<br>between N equals 100 and 300, where the average day fluc-<br>tuates between 2 and 3 (the second and third days of the<br>crawl). These anomalies are caused by 24 pages in the top<br>300 (8%) that were downloaded after the first week. Most of<br>those pages had a lot of local links (links from pages on the<br>same host), but not many remote links. In other words, the</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:508"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:542"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:577"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:611"><nobr><span class="ft14">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:646"><nobr><span class="ft14">10000 100000 1e+06</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:757"><nobr><span class="ft14">1e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:794"><nobr><span class="ft14">1e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:658"><nobr><span class="ft15"><b>top N</b></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:499"><nobr><span class="ft14">5</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:494"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:494"><nobr><span class="ft14">15</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:494"><nobr><span class="ft14">20</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:494"><nobr><span class="ft14">25</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:489"><nobr><span class="ft15"><b>Average day top N pages were crawled</b></span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:475"><nobr><span class="ft9">Figure 2: Average day on which the top N pages<br>were crawled</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:475"><nobr><span class="ft9">pages on the same host "endorse" each other, but few other<br>hosts endorse them. We address this phenomenon later in<br>the last experiment, shown in Figure 4. After N equals 400,<br>the curve steadily increases to day 24.5, the mean download<br>day of the entire crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:489"><nobr><span class="ft4">Our next experiment checks that pages with high Page-</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:475"><nobr><span class="ft9">Rank are not ranked high only because they were crawled<br>early. For example, a page whose outgoing links all point<br>to pages with links back to it might have an artificially high<br>PageRank if all of its outgoing links have been crawled, but<br>not too many other pages. For this experiment we ran the<br>PageRank algorithm on the graph induced by only the first<br>28 days of the crawl. This graph contains 217 million URLs<br>and 3.8 billion links between them. We then compared the<br>top ranked pages between the two data sets. We found that<br>of the top 1 million scoring pages, 96% were downloaded<br>during the first 4 weeks, and 76% of them were ranked in<br>the top 1 million pages in the 28 day data set. That is, it<br>was clear that those pages were important even before the<br>crawl had finished.</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:489"><nobr><span class="ft4">Figure 3 generalizes these statistics: for each value of N,</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft9">we plot the percentage of overlap between the top N scoring<br>pages in the 28 day crawl versus the 58 day crawl. Although<br>the top few pages are different, by the top 20 ranked pages<br>there is an 80% overlap. The overlap continues in the 60-<br>80% range through the extent of the entire 28 day data<br>set. This figure suggests that breadth-first search crawling<br>is fairly immune to the type of self-endorsement described<br>above: although the size of the graph induced by the full<br>crawl is about 60% larger than the graph induced by the 28<br>day crawl, the longer crawl replaced only about 25% of the<br>"hot" pages discovered during the first 28 days, irrespective<br>of the size of the "hot" set.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft4">Some connectivity-based metrics, such as Kleinberg's al-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:475"><nobr><span class="ft9">gorithm [8], consider only remote links, that is, links between<br>pages on different hosts. We noticed that some anomalies in<br>Figure 2 were due to a lot of local links, and decided to ex-<br>periment with a variant of the PageRank algorithm that only<br>propagates weights along remote links. This modification of<br>PageRank counts only links from different hosts as proper<br>endorsements of a page; links from the same host are viewed<br>as improper self-endorsement and therefore not counted.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft4">Figure 4 shows our results: the average PageRank for</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft9">pages downloaded on the first day is even higher than when<br>all links are considered. The average PageRank for the first<br>day is 12.1, while it's 1.8 on the second day and 1.0 on the</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:447"><nobr><span class="ft8">116</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="46004.png" alt="background image">
+<DIV style="position:absolute;top:252;left:115"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:151"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:186"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:221"><nobr><span class="ft14">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:257"><nobr><span class="ft14">10000</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:292"><nobr><span class="ft14">100000</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:332"><nobr><span class="ft14">1e+06</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:370"><nobr><span class="ft14">1e+07</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:408"><nobr><span class="ft14">1e+08</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:254"><nobr><span class="ft15"><b>top N pages</b></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:107"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:102"><nobr><span class="ft14">20</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:102"><nobr><span class="ft14">40</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:102"><nobr><span class="ft14">60</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:102"><nobr><span class="ft14">80</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:97"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:91"><nobr><span class="ft15"><b>% overlap between data sets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:81"><nobr><span class="ft9">Figure 3: The percent overlap between the top N<br>ranked pages in the first 28 vs all 58 days of the<br>crawl</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:81"><nobr><span class="ft9">fourth day. The average PageRank then declines gradually<br>down to 0.6 on the last day. Notice that the average Page-<br>Rank on the first day of crawling is higher than in Figure<br>1, and that the curve falls more sharply. This drop indi-<br>cates that our crawling strategy is not biased toward self-<br>endorsing hosts, as a crawler using the standard version of<br>PageRank would be. We believe that this lack of bias is due<br>in part to our crawler's politeness policies, which impose a<br>rate limit on its accesses to any particular host.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:94"><nobr><span class="ft4">There are some flaws with a metric based only on re-</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft9">mote links. For example, http://www.yahoo.com/ has a very<br>high PageRank score. However, it only has local outlinks,<br>so its weight gets evenly distributed over all pages in the<br>graph, rather than just to the other pages in Yahoo! to<br>which it points. Transitively, the pages on other hosts to<br>which Yahoo! links do not benefit from the high score of<br>http://www.yahoo.com/. In the future work section below,<br>we outline some ideas for remedying this problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:112"><nobr><span class="ft3"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:94"><nobr><span class="ft4">The experiments described in this paper demonstrate that</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft9">a crawler that downloads pages in breadth-first search order<br>discovers the highest quality pages during the early stages<br>of the crawl. As the crawl progresses, the quality of the<br>downloaded pages deteriorates. We speculate that breadth-<br>first search is a good crawling strategy because the most<br>important pages have many links to them from numerous<br>hosts, and those links will be found early, regardless of on<br>which host or page the crawl originates.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:94"><nobr><span class="ft4">Discovering high-quality pages early on in a crawl is de-</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft9">sirable for public web search engines such as AltaVista or<br>Google, given that none of these search engines is able to<br>crawl and index more than a fraction of the web.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:94"><nobr><span class="ft4">Our results have practical implications to search engine</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft9">companies. Although breadth-first search crawling seems to<br>be a very natural crawling strategy, not all of the crawlers<br>we are familiar with employ it. For example, the Internet<br>Archive crawler described in [3] does not perform a breadth-<br>first search of the entire web; instead, it picks 64 hosts at a<br>time and crawls these hosts in parallel. Each host is crawled<br>exhaustively; links that point to other hosts are saved to seed<br>subsequent crawls of those hosts. This crawling strategy has<br>no bias towards high-quality pages; if the hosts to be crawled<br>are picked in random order, the quality of downloaded pages<br>will be uniform throughout the crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:507"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:534"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:559"><nobr><span class="ft17">10</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:587"><nobr><span class="ft17">15</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:615"><nobr><span class="ft17">20</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:642"><nobr><span class="ft17">25</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:670"><nobr><span class="ft17">30</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:697"><nobr><span class="ft17">35</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:725"><nobr><span class="ft17">40</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:752"><nobr><span class="ft17">45</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:780"><nobr><span class="ft17">50</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:808"><nobr><span class="ft17">55</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:645"><nobr><span class="ft15"><b>Day of crawl</b></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:499"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:499"><nobr><span class="ft17">2</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:499"><nobr><span class="ft17">4</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:499"><nobr><span class="ft17">6</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:499"><nobr><span class="ft17">8</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:494"><nobr><span class="ft17">10</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:494"><nobr><span class="ft17">12</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:488"><nobr><span class="ft15"><b>Average PageRank (remote links only)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:475"><nobr><span class="ft4">Figure 4:</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:556"><nobr><span class="ft4">Average PageRank when only remote</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:475"><nobr><span class="ft4">links are considered</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:489"><nobr><span class="ft4">Similarly, the Scooter web crawler used until recently by</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:475"><nobr><span class="ft9">AltaVista downloaded pages in essentially random order.<br>(At this point, AltaVista is using Mercator.) This approach<br>made it easier to provide politeness guarantees -- essentially,<br>it spread the load imposed by the crawler evenly over all web<br>servers -- but as a result, the quality of the discovered pages<br>is uniform over the life of the crawl.</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:489"><nobr><span class="ft4">We cannot make any statements about other large-scale</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:475"><nobr><span class="ft4">web crawlers.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:572"><nobr><span class="ft4">Most search engine companies treat their</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:475"><nobr><span class="ft9">crawling strategy as a trade secret, and have not described<br>it in the literature.</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:489"><nobr><span class="ft4">Cho et al. [4] showed that using a connectivity-based or-</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:475"><nobr><span class="ft9">dering metric for downloads, such as PageRank, will steer<br>the crawler towards even higher-quality pages than using<br>breadth-first search. However, computing PageRank values<br>for several hundred million or more pages is an extremely<br>expensive computation. It took us over a day to compute<br>the PageRanks of our graph of 351 million pages, despite<br>the fact that we had the hardware resources to hold the en-<br>tire graph in memory! Using PageRank to steer a crawler<br>would require multiple such computations over larger and<br>larger graphs, in order to take newly discovered pages into<br>account, and is essentially infeasible in real time. On the<br>other hand, crawling in breadth-first search order provides<br>a fairly good bias towards high quality pages without the<br>computational cost. We believe that crawling in breadth-<br>first search order provides the better tradeoff.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:475"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:506"><nobr><span class="ft3"><b>FUTURE WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:489"><nobr><span class="ft4">There are two directions in which we would like to extend</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:475"><nobr><span class="ft9">this work. One direction is to try a variant of PageRank<br>which weighs links to pages on remote hosts differently than<br>links to other pages on the same host. From the experiment<br>that generated Figure 4 above, we learned that remote links<br>should count more than local links, but that weights should<br>be propagated along local links as well (e.g., to distribute the<br>weight of http://www.yahoo.com/ to the pages that Yahoo!<br>recommends). We suspect that some search engines already<br>use different weights for links, but there has been no formal<br>study of how to divide the weights among the links or even<br>whether the division should be static (e.g., remote links get<br>80% of the total weight) or proportional to the number of<br>total links (e.g., each remote link gets four times the weight<br>of each local link).</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:489"><nobr><span class="ft4">The other direction is to try different connectivity-based</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:447"><nobr><span class="ft8">117</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="46005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">metrics. While PageRank is the only connectivity measure<br>we know aimed at ranking all of the pages on the world wide<br>web, Kleinberg's algorithm [8] is another well-known connec-<br>tivity analysis algorithm targeted towards computing qual-<br>ity scores for pages. The algorithm computes two scores for<br>each document: a hub score and an authority score. Pages<br>with high authority scores are expected to have high-quality<br>content; the authority scores are similar in intent to Page-<br>Ranks. Kleinberg's algorithm is designed to rank the results<br>of a query to a search engine, and only considers a small set<br>of pages when it computes authority scores. However, we<br>believe that we can extend the algorithm to consider the<br>entire graph of the web.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:81"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:112"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:88"><nobr><span class="ft4">[1] K. Bharat, A. Broder, M. Henzinger, P. Kumar, and</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:109"><nobr><span class="ft9">S. Venkatasubramanian. The connectivity server: Fast<br>access to linkage information on the web. In<br>Proceedings of the 7th International World Wide Web<br>Conference, pages 469­477, Brisbane, Australia, April<br>1998. Elsevier Science.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:88"><nobr><span class="ft4">[2] S. Brin and L. Page. The anatomy of a large-scale</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:109"><nobr><span class="ft9">hypertextual web search engine. In Proceedings of the<br>7th International World Wide Web Conference, pages<br>107­117, Brisbane, Australia, April 1998. Elsevier<br>Science.</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:88"><nobr><span class="ft4">[3] M. Burner. Crawling towards eternity: Building an</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:109"><nobr><span class="ft9">archive of the world wide web. Web Techniques<br>Magazine, 2(5):37­40, May 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:88"><nobr><span class="ft4">[4] J. Cho, H. Garcia-Molina, and L. Page. Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:109"><nobr><span class="ft9">crawling through URL ordering. In Proceedings of the<br>7th International World Wide Web Conference, pages<br>161­172, Brisbane, Australia, April 1998. Elsevier<br>Science.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:88"><nobr><span class="ft4">[5] Google Inc. Press release: "Google launches world's</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:109"><nobr><span class="ft9">largest search engine." June 26, 2000. Available at<br>http://www.google.com/press/pressrel/pressrelease26.html</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:88"><nobr><span class="ft4">[6] M. Henzinger, A. Heydon, M. Mitzenmacher, and</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:109"><nobr><span class="ft9">M. Najork. On near-uniform URL sampling. In<br>Proceedings of the 9th International World Wide Web<br>Conference, pages 295­308, Amsterdam, Netherlands,<br>May 2000. Elsevier Science.</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:88"><nobr><span class="ft4">[7] A. Heydon and M. Najork. Mercator: A scalable,</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:109"><nobr><span class="ft9">extensible web crawler. World Wide Web,<br>2(4):219­229, Dec. 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft4">[8] J. Kleinberg. Authoritative sources in a hyperlinked</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft9">environment. In Proceedings of the 9th ACM-SIAM<br>Symposium on Discrete Algorithms, pages 668­677,<br>San Francisco, CA, Jan. 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:482"><nobr><span class="ft4">[9] P. Lyman, H. Varian, J. Dunn, A. Strygin, and</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft9">K. Swearingen. How much information? School of<br>Information Management and Systems, Univ. of<br>California at Berkeley, 2000. Available at<br>http://www.sims.berkeley.edu/how-much-info</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:475"><nobr><span class="ft4">[10] Mercator Home Page.</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:503"><nobr><span class="ft4">http://www.research.digital.com/SRC/mercator</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:475"><nobr><span class="ft4">[11] J. L. Wiener, R. Wickremesinghe, M. Burrows,</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:503"><nobr><span class="ft9">K. Randall, and R. Stata. Better link compression.<br>Manuscript in progress. Compaq Systems Research<br>Center, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:475"><nobr><span class="ft3"><b>VITAE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:595"><nobr><span class="ft9">Marc Najork is a senior member of<br>the research staff at Compaq Com-<br>puter Corporation's Systems Research<br>Center.</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:655"><nobr><span class="ft4">His current research focuses</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:595"><nobr><span class="ft9">on high-performance web crawling and<br>web characterization.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:739"><nobr><span class="ft4">He was a prin-</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:595"><nobr><span class="ft9">cipal contributor to Mercator, the web<br>crawler used by AltaVista. In the past,<br>he has worked on tools for web surf-<br>ing, 3D animation, information visual-<br>ization, algorithm animation, and visual<br>programming languages.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:761"><nobr><span class="ft4">He received</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:595"><nobr><span class="ft9">a Ph.D. in Computer Science from<br>the University of Illinois at Urbana-<br>Champaign in 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:595"><nobr><span class="ft9">Janet L. Wiener is a member of<br>the research staff at Compaq Com-<br>puter Corporation's Systems Research<br>Center.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:653"><nobr><span class="ft4">She currently focuses on de-</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:595"><nobr><span class="ft9">veloping algorithms to characterize the<br>web and tools (such as the Connec-<br>tivity Server) to support those algo-<br>rithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:655"><nobr><span class="ft4">Prior to joining Compaq in</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:595"><nobr><span class="ft9">1998, she was a research scientist at<br>Stanford University working on data<br>warehousing, heterogeneous data inte-<br>gration, and semi-structured data. She<br>received a Ph.D. from the University of<br>Wisconsin-Madison in 1995, and a B.A.<br>from Williams College in 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:447"><nobr><span class="ft8">118</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

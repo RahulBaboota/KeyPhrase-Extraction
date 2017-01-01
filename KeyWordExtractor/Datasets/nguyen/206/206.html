@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Microsoft Word - cama09-Ochoa.doc</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Rose">
+<META name="date" content="2006-11-29T12:33:09+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:25px;font-family:Times;color:#000000;}
+	.ft1{font-size:16px;font-family:Times;color:#000000;}
+	.ft2{font-size:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:8px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:114"><nobr><span class="ft0"><b>Use of Contextualized Attention Metadata for Ranking  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:216"><nobr><span class="ft0"><b>and Recommending Learning Objects </b></span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:217"><nobr><span class="ft1">Xavier Ochoa </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:143"><nobr><span class="ft2">Escuela Superior Politécnica del Litoral  </span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:181"><nobr><span class="ft2">Campus "Gustavo Galindo" </span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:206"><nobr><span class="ft2">Guayaquil, Ecuador </span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:221"><nobr><span class="ft2">+59342269773 </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:176"><nobr><span class="ft1">xavier@cti.espol.edu.ec </span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:608"><nobr><span class="ft1">Erik Duval </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:504"><nobr><span class="ft2">Computerwetenschappen Dept., KULeuven, </span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:575"><nobr><span class="ft2">Celestijnenlaan 200 A,  </span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:568"><nobr><span class="ft2">B-3001 Leuven, Belgium </span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:603"><nobr><span class="ft2">+3216327066 </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:540"><nobr><span class="ft1">Erik.Duval@cs.kuleuven.be </span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:648"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:179"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:81"><nobr><span class="ft8">The tools used to search and find Learning Objects in different <br>systems do not provide a meaningful and scalable way to rank or <br>recommend learning material.  This work propose and detail the <br>use of  Contextual Attention Metadata, gathered from the <br>different tools used in the lifecycle of the Learning Object, to <br>create ranking and recommending metrics to improve the user <br>experience.  Four types of metrics are detailed:  Link Analysis <br>Ranking, Similarity Recommendation, Personalized Ranking and <br>Contextual Recommendation. While designed for Learning <br>Objects, it is shown that these metrics could also be applied to <br>rank and recommend other types of reusable components like <br>software libraries. </span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:353"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:81"><nobr><span class="ft8">H.3.3 [Information Storage and Retrieval]: Information Search <br>and Retrieval ­ information filtering, relevance feedback.  </span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:81"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:198"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft8">Algorithms, Measurement, Design, Human Factors, <br>Standardization </span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:81"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:81"><nobr><span class="ft3">Learning Objects, Ranking, Recommending, Attention Metadata </span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:81"><nobr><span class="ft1">1.  INTRODUCTION </span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft8">One of the main reasons to capture and analyze the information <br>about the interaction between a user and a tool is to improve the <br>user experience.  For example, a online library system could <br>record the subject of the books that a client has bought before in <br>order to recommend him new books about a similar subject the <br>next time he/she logs in, saving him/her the hassle to search for <br>them [1].   A news web site could record the topic of the news <br>articles that a user normally read in order to filter out news that do <br>not interest such user [2].  A collaborative browser could use the <br>information recollected from the browsing patterns of a given <br>community to improve the rank of different pages on the searches </span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:477"><nobr><span class="ft8">of an individual user, member of that community [3].   The <br>generic name of Attention Metadata[4] has been applied to <br>describe the information about these interactions. </span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:477"><nobr><span class="ft8">When the information stored does not only contain the reference <br>to the user and the action that it performs, but also register when <br>the action took place, through which tool the action was <br>performed, what others thing was doing the user at the same time, <br>what is the profile of the user performing the action, to what <br>community he/she belongs, etc, it leads to an improved and more <br>useful form of record, called Contextualized Attention Metadata <br>[5] (CAM).  AttentionXML [6] and its extensions [5] are an effort <br>to standardize the way in which CAM is stored.    This <br>standardization will lead to the opportunity to share attention <br>records between different applications.  For example, a second <br>generation of an Attention-Sharing online library could know <br>which news topics the user is interested in and it could <br>recommend him/her books related to those topics.   </span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:477"><nobr><span class="ft8">The authors believe that one group of applications that could <br>greatly benefit from CAM information is the search and find of <br>Learning Objects.  These applications have suffered from an <br>under-par performance compared to similar applications in other <br>fields [7] [8].  The main reason for this is the lack of a meaningful <br>and scalable way to rank or recommend the objects to the users.  <br>Currently, two main methods are used to rank (not even <br>recommend) Learning Objects:  Manual Rating or Metadata <br>Content Rating.  In the first approach, Manual Rating, each <br>Learning Objects should be rated by a group of experts and/or the <br>user community.  For each search, the returned objects are ranked <br>based on their average rate.  While this is bound to provide <br>meaningful ordering, it does not scale.  For example MERLOT <br>use this approach, but only 10% of the total content of the <br>database has ever be rated [9].  The other approach, use only the <br>information contained in the metadata record to perform ranking <br>based on the similarity with the query terms.  The most common <br>method used for this is the TFIDF metric[10] that measure in a <br>Vector Space the distance between the query vector and the <br>vector composed from the text contained in the metadata record. <br>Given than TFIDF was designed to work over full text documents <br>and that metadata records contain very few textual descriptions <br>[11], normally the ordering is not meaningful for the user.  SILO <br>(Search and Indexing Learning Objects) tools from the <br>ARIADNE [12] repository use this approach.  CAM could be <br>used to generate a third approach, one in which the human <br>attention (meaningful) is processed to construct an automated <br>(scalable) rating and recommending procedure. </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:87"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:87"><nobr><span class="ft9">Permission to make digital or hard copies of all or part of this work for <br>personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that <br>copies bear this notice and the full citation on the first page. To copy <br>otherwise, or republish, to post on servers or to redistribute to lists, <br>requires prior specific permission and/or a fee. <br>CAMA'06, November 11, 2006, Arlington, Virginia, USA. <br>Copyright 2006 ACM 1-59593-524-X/06/0011...$5.00. </span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:87"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:456"><nobr><span class="ft7">9</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:16px;line-height:21px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:22px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206002.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft8">The following sections of this work describe in detail what <br>information should be stored in the CAM record of Learning <br>Object Applications (Section 2) and the mechanisms by which <br>such information could be used to generate rating and <br>recommending metrics (Section 3).   It is also discussed how these <br>mechanisms and metrics could be applied to related contexts <br>(Section 4) and which research questions need to be addressed in <br>further work (Section 5).  The work finalize with an overview of <br>related research (Section 6) </span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:81"><nobr><span class="ft10">2.  CAM FOR LEARNING OBJECTS <br>APPLICATIONS </span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:81"><nobr><span class="ft8">Users interact with a Learning Object through the object's whole <br>lifecycle.  CAM recorders capture and timestamp all those <br>interactions in order to provide the information needed to <br>calculate useful metrics to be used in a next generation breed of <br>learning object management tools.  According to the <br>AttentionXML extension proposed by Najjar et al at [5], these <br>interactions are stored inside an Action record.   This work will <br>briefly list the different Actions that should be recorded through <br>the Learning Object lifecycle.  The lifecycle phases are taken <br>from the enumeration done by Collins and Strijker in [13].  Also, <br>it is suggested which applications should generate the attention <br>records. <br>Creation:   In this phase the author creates or assembles the <br>learning object in its digital form using some sort of authoring <br>tool.  The Creating Action should be captured and it must include <br>the identity of the created object, its author(s), the authoring tool <br>used and the list of component-objects [14] reused through the <br>creation process.  This record should be created by the authoring <br>tool, for example Microsoft Power Point. <br>Labeling:   At this stage the author, an indexer or even an <br>automated system could add a metadata record that describes the <br>Learning Object.  The Labeling Action must include information <br>that identify the object, the labeler, the origin of the metadata <br>(Automated, Semi-Automated, Manual), the metadata format <br>used, the level of confidence of the information (how sure the <br>autor is that metadata values are correct) and a unique identifier <br>for the metadata record.  Normally this record should be also <br>created by the authoring tool at the end of the creation of the <br>objects, but could also be created by metadata editors as [15] or <br>automated metadata generators as [16]. <br>Offering:  At this stage the author or indexer inserts the object in <br>a repository or other system that allow the object to be shared <br>with others.  The Inserting Action must include the following <br>information:  Object Unique Identifier, Inserter, Tool Used and <br>Learning Object Unique Identifier inside the sharing tool.  This <br>record should be created by the sharing tool, being it a Learning <br>Object Repository or a Peer to Peer sharing application. <br>Selecting:  In this stage the user search, find and select Learning <br>Objects in the Sharing System.  Several Actions should be <br>captured during this phase. A Searching Action when a query is <br>performed to find relevant objects.  It must include information <br>that describe the query performed and the objects returned.  A <br>Recommending Action when the system suggests relevant objects <br>without the user performing a query.  It must contain information <br>a list of the object(s) recommended, the user action that trigger <br>the recommendation and the tool used to perform the </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft8">recommendation. A Browsing Action when the user reviews the <br>metadata or description of an object.  It must store information <br>that identifies the metadata record browsed and the time expend <br>in the review. Finally, A Selecting Action when the user chooses <br>an object by downloading it or accepting the recommendation.  It <br>must contain information that identifies the selected object.  All <br>this actions should also contain information about the user that <br>performs the action. These records should be generated by the <br>sharing or recommending tool. <br>Using:  This stage comprehends all the actions that the final user <br>(instructor or learner) performs with the learning object during its <br>normal utilization in a learning environment.  There are several <br>actions to be registered.  A Publicating Action when the instructor <br>inserts the object into a Course belonging to some kind of <br>Learning Management System.  It must contain information that <br>identifies the published object and the context (course, lesson) <br>where it was published.  A Sequencing Action when one or more <br>objects are included in an instructional design or sequenced <br>package.  It must contain information about the identification (in <br>an ordered form) of the integrated objects.  A Viewing Action, the <br>object is read or viewed by learners. It must contain information <br>about the time spent reviewing the material.  An Annotating <br>Action when the instructor or the learner add a comment or rate <br>the learning object.  It must include information about the <br>comment or the rate given and the identifier of the object.  All <br>these action should also store information about the user that <br>performs them.   Different tools should be in charge of the <br>generation of the attention records, a LMS for the Publishing <br>Action, a Learning Activity Management System [17] or SCORM <br>[18] Packager for the Sequencing Action, a Web browser or <br>document reader for the Viewing Action and a Rating or Review <br>system for the Annotating Action. </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:480"><nobr><span class="ft5">Lifecycle  </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:566"><nobr><span class="ft5">Actions </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:646"><nobr><span class="ft5">Main Information </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:782"><nobr><span class="ft5">Source </span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:477"><nobr><span class="ft5">Creation </span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:546"><nobr><span class="ft5">Creating </span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:640"><nobr><span class="ft5">author, components </span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:762"><nobr><span class="ft9">Authoring tool, <br>Components </span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:477"><nobr><span class="ft5">Labeling </span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:546"><nobr><span class="ft5">Labeling </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:640"><nobr><span class="ft9">metadata format, <br>origin, confidence </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:762"><nobr><span class="ft9">Authoring tool <br>or  Metadata <br>generator </span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:477"><nobr><span class="ft5">Offering </span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:546"><nobr><span class="ft5">Inserting </span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:640"><nobr><span class="ft5">inserter LOR </span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:789"><nobr><span class="ft5">or </span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:762"><nobr><span class="ft5">Sharing app. </span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:546"><nobr><span class="ft5">Searching </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:640"><nobr><span class="ft5">query, results </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:762"><nobr><span class="ft9">LOR's search <br>tool </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:546"><nobr><span class="ft5">Recommending </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:640"><nobr><span class="ft5">objects recommended </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:762"><nobr><span class="ft5">Recommender  </span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:546"><nobr><span class="ft5">Browsing </span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:640"><nobr><span class="ft5">Time LOR </span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:789"><nobr><span class="ft5">or </span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:762"><nobr><span class="ft5">Recommender </span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:477"><nobr><span class="ft5">Selecting </span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:546"><nobr><span class="ft5">Selecting </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:640"><nobr><span class="ft5">object identifier </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:762"><nobr><span class="ft9">LOR  or <br>Recommender </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:546"><nobr><span class="ft5">Publicating </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:640"><nobr><span class="ft5">LMS context </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:762"><nobr><span class="ft5">LMS </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:546"><nobr><span class="ft5">Sequencing </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:640"><nobr><span class="ft9">list of sequenced <br>objects </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:762"><nobr><span class="ft9">ID tool or <br>Packager </span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:546"><nobr><span class="ft5">Viewing </span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:640"><nobr><span class="ft5">Time, tool used </span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:762"><nobr><span class="ft9">Browser or <br>Reading app. </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:477"><nobr><span class="ft5">Using </span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:546"><nobr><span class="ft5">Annotating </span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:640"><nobr><span class="ft5">rate or review </span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:762"><nobr><span class="ft5">LMS </span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:477"><nobr><span class="ft5">Retaining </span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:546"><nobr><span class="ft5">Retaining </span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:640"><nobr><span class="ft9">decision to keep or <br>delete </span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:762"><nobr><span class="ft5">LMS </span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:505"><nobr><span class="ft3">Table 1. Proposed CAM information to be stored for </span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:571"><nobr><span class="ft3">Learning Object Applications </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">10</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:21px;font-family:Times;color:#000000;}
+	.ft13{font-size:7px;font-family:Times;color:#000000;}
+	.ft14{font-size:14px;font-family:Times;color:#000000;}
+	.ft15{font-size:10px;font-family:Times;color:#000000;}
+	.ft16{font-size:5px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206003.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft8">Retaining:  In this phase, the instructor check for the validity of <br>the learning object and decides if it is still useful or if it should be <br>replaced / updated.  The Retaining Action should contain <br>information that identifies the object and the decision taken (keep, <br>update, delete).  This attention record will normally be generated <br>by the LMS where the object has been published. <br>A summary of the Actions that CAM should record is presented <br>in Table 1.  Some of these CAM Actions (Creating, Inserting, <br>Selecting, Viewing) are already produced and stored in different <br>tools [5].  The others are easy to implement in existing tools <br>taking in account that most of them (LMS, Metadata Generators, <br>etc) already produce a log with the user's interactions.  In the next <br>section, metrics to exploit this Action records to improve tools to <br>search and find Learning Objects are proposed. </span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:81"><nobr><span class="ft10">3.  RANKING AND RECOMMENDING <br>METRICS USING CAM </span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:81"><nobr><span class="ft8">Several ranking and recommending metrics will be proposed.  <br>These metrics will use only two sources of information to be <br>calculated:  the first one is the Learning Object Metadata (LOM) <br>[19] record that describe each Learning Object; the second one is <br>the CAM Actions described in the previous section.   </span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:81"><nobr><span class="ft1">3.1  Link Analysis Based Ranking </span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:81"><nobr><span class="ft17">One of the most famous and successful ranking algorithms at the <br>present is PageRank [20].  PageRank use the information <br>contained in the network of links between web pages to calculate <br>the relative "importance" of a page.  It could be summarized as: a <br>page is important if it is linked by a high number of pages.  Also, <br>the importance increases if the pages linking to it have also a high <br>importance rank.  Unfortunately, this algorithm could not be <br>applied directly to Learning Objects.  While LOM records have a <br>linking field, it is rarely populated [11].  Also, LOM linking <br>reflect just a semantic relationship; it does not imply a "vote" for <br>that object as it is assumed for Web pages. <br>As an alternative to the explicit linking structure that the web <br>posses, CAM allow us to create an implicit linking between <br>Learning Objects and other entities related to them: Authors, <br>Users, Courses, Learners, etc.  For example: Creating Actions can <br>be converted into a link between an author and an object, <br>Selecting Actions can be converted into a link between a user and <br>an object, Publicating Actions can be converted into a link <br>between a course and an object and also between a user and the <br>same object.  Viewing Actions can be converter into a link <br>between a learner and an object. As result of this conversion of <br>CAM to links between different entities, a K-partite graph is <br>created (a graph with different partitions, where there are not links <br>between nodes of the same partition).  In this graph each type of <br>entity (Learning Object, User, Course, and Learner) is considered <br>a partition   Figure 1 present diagram of an example of such a <br>graph. <br>Once CAM information is represented as a graph, it is easy to use <br>basic graph algorithms to calculate ranking metrics.  Following <br>there are some metrics that could be developed this way: <br>· </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:108"><nobr><span class="ft8">Popularity Rank (PR): Using the information contained in <br>the Selecting Action (converted already in a 2-partite graph), <br>it is easy to obtain the number of times that an object has <br>been downloaded.  To calculate just count the number of <br>incident links that each Learning Object node has from nodes </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:504"><nobr><span class="ft8">in the User Partition.  This metric is a just a basic way to put <br>most downloaded objects first in the result list.  </span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:774"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:730"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:651"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:607"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:735"><nobr><span class="ft2">object</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:672"><nobr><span class="ft2">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:612"><nobr><span class="ft2">object</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:587"><nobr><span class="ft2">PR</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:660"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:783"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:683"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:816"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:512"><nobr><span class="ft3">Figure 1. K-Partite Graph representation of CAM </span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:504"><nobr><span class="ft8">Author-Corrected Popularity Rank (ACP): Combining <br>the Creating and Selecting Actions, it could be calculated <br>how popular an object is based on the number of downloads <br>and the popularity of the Author.  The first step is to create a <br>3-partite graph with Users, Objects and Author partitions. <br>Then the PopularityRank (PC) is calculated for all the <br>objects.  Next, the Author Popularity (AP) is calculated <br>adding the PC of all the Learning Objects nodes that are <br>linked to the author node.  Finally, the AP is multiplied by a <br>weighting factor and added to the also weighted PC. This <br>metrics enable new objects (that do not have any downloads) <br>from a well downloaded author, appear higher in the list. </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:578"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:566"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:585"><nobr><span class="ft13"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:660"><nobr><span class="ft13"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:622"><nobr><span class="ft2">object</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:597"><nobr><span class="ft2">PR</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:514"><nobr><span class="ft2">author</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:489"><nobr><span class="ft2">AP</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:664"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:617"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:557"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:509"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:672"><nobr><span class="ft3">; if object</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:724"><nobr><span class="ft13"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:726"><nobr><span class="ft3"> is linked to author</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:828"><nobr><span class="ft13"><i>  </i></span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:799"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:750"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:690"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:645"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:585"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:541"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:756"><nobr><span class="ft2">author</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:731"><nobr><span class="ft2">AP</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:651"><nobr><span class="ft2">object</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:626"><nobr><span class="ft2">PR</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:546"><nobr><span class="ft2">object</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:511"><nobr><span class="ft2">ACP</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:723"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:698"><nobr><span class="ft2">+</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:619"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:594"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:710"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:605"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:807"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:504"><nobr><span class="ft8">Weighted Popularity (WP): Selecting, Publicating and <br>Retaining Actions can be combined to generate a 2-partite <br>graph between Users and Learning Objects.  The links of this <br>graph will be weighted: if the link is made using the <br>Retaining information (inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:684"><nobr><span class="ft13"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:690"><nobr><span class="ft3">) it will have more weight </span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:504"><nobr><span class="ft8">as if the link was made using the Publication information <br>(inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:558"><nobr><span class="ft13"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:563"><nobr><span class="ft3">). In the same way, Publication links will weight </span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:504"><nobr><span class="ft3">more than Selection links (inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:700"><nobr><span class="ft13"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:705"><nobr><span class="ft3">).   The rationale behind </span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:504"><nobr><span class="ft8">this metric is that different actions mean different level of <br>"preference" for an object.  If the instructor has use the <br>object and she is happy with it to keep it for the next <br>semester is a stronger vote of support than just using it for <br>the first time or that just downloading it.  That difference of <br>importance is represented in the weight given to each kind of <br>link.   </span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:794"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:759"><nobr><span class="ft15">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:673"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:638"><nobr><span class="ft15">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:691"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:655"><nobr><span class="ft15">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:568"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:532"><nobr><span class="ft15">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:763"><nobr><span class="ft15">object</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:705"><nobr><span class="ft15">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:642"><nobr><span class="ft15">object</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:585"><nobr><span class="ft15">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:659"><nobr><span class="ft15">object</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:602"><nobr><span class="ft15">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:536"><nobr><span class="ft15">object</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:514"><nobr><span class="ft15">WP</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:752"><nobr><span class="ft16"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:631"><nobr><span class="ft16"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:649"><nobr><span class="ft16"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:698"><nobr><span class="ft15">·</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:680"><nobr><span class="ft15">+</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:577"><nobr><span class="ft15">·</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:557"><nobr><span class="ft15">+</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:697"><nobr><span class="ft15">+</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:595"><nobr><span class="ft15">·</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:575"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:689"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:567"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:584"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:801"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:618"><nobr><span class="ft3">with </span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:645"><nobr><span class="ft3"> &gt;  &gt;  </span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:636"><nobr><span class="ft3">O 1 </span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:635"><nobr><span class="ft3">O 2 </span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:635"><nobr><span class="ft3">O 3 </span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:534"><nobr><span class="ft3">C1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:534"><nobr><span class="ft3">C2</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:601"><nobr><span class="ft3">U1</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:687"><nobr><span class="ft3">U 2 </span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:738"><nobr><span class="ft3">A1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:738"><nobr><span class="ft3">A2</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:605"><nobr><span class="ft5">User Partition</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:684"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:477"><nobr><span class="ft5">Course Partition</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:724"><nobr><span class="ft5">Author Partition</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:597"><nobr><span class="ft5">Object Partition</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:686"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">11</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:12px;font-family:Times;color:#000000;}
+	.ft19{font-size:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206004.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:108"><nobr><span class="ft8">Rate of Reuse Rank (RRR): Using the Selecting Action (or <br>also the Publicating and Retaining Actions as in the previous <br>metric), the number of times that an object has been <br>downloaded during a given period of time P (last week, <br>month, year) can be calculated.  The 2-partite graph (Users <br>and Objects partitions) can be constructed but only taking in <br>account the Actions occurred in a given period of time.  For <br>example: if the last week is selected as P, This rank will <br>calculate how often the object has been downloaded <br>(inserted or retained) on the last 7 days.  This value could be <br>normalized using the age of the object, obtained from the <br>related Creation action.  This metric will help to rank higher <br>object that have been reused frequently and are relatively <br>new. </span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:267"><nobr><span class="ft18">)</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:225"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:283"><nobr><span class="ft18">)</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:241"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:165"><nobr><span class="ft18">)</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:123"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:230"><nobr><span class="ft18">object</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:203"><nobr><span class="ft18">age</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:246"><nobr><span class="ft18">object</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:186"><nobr><span class="ft18">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:128"><nobr><span class="ft18">object</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:95"><nobr><span class="ft18">RRR</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:174"><nobr><span class="ft18">=</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:292"><nobr><span class="ft3">; for links inside period P </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:108"><nobr><span class="ft8">Manual Rank (MR): Using the information that is stored in <br>the Annotation Action, the number of times that an object <br>has been positively (or negatively) rated or reviewed could <br>be considered to calculate a metric.  A 2-partite graph (Users <br>and Objects partitions) is created.  The procedure will weight <br>the link as 1 if it is a positive rate or review, -1 if it is a <br>negative rate or review. The actual value of the rate is only <br>used to evaluate if the rate is a positive or negative "vote", <br>because different users and system have different scales to <br>grade. The reviews can only be considered if their <br>positiveness or negativeness value is included in the <br>Annotation Action or could be automatically inferred from <br>the text.    </span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:419"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:382"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:287"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:249"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:155"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:118"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:386"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:303"><nobr><span class="ft3">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:254"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:173"><nobr><span class="ft3">inDegree</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:122"><nobr><span class="ft3">object</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:98"><nobr><span class="ft3">MR</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:353"><nobr><span class="ft16"><i>Negative</i></span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:222"><nobr><span class="ft16"><i>Positive</i></span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:294"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:163"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:426"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft8">These metrics can be calculated off-line because they are not user <br>or query specific.  They calculate an average importance or <br>relevance of the learning objects based in the agglutination of <br>attention information.  These metrics, and others that can be <br>developed afterwards, could be integrated in a final ranking <br>metric.  This Compound Popularity Metric (CP) can be calculated <br>as the weighted sum of the values of the individual metrics. For <br>example, Google integrates more than 100 of different simple <br>metrics in order to provide its results [21]. </span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:366"><nobr><span class="ft1">MR</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:308"><nobr><span class="ft1">RRR</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:257"><nobr><span class="ft1">WP</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:199"><nobr><span class="ft1">ACP</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:149"><nobr><span class="ft1">PR</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:97"><nobr><span class="ft1">CP</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:358"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:299"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:250"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:189"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:137"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:345"><nobr><span class="ft1">+</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:287"><nobr><span class="ft1">+</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:237"><nobr><span class="ft1">+</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:174"><nobr><span class="ft1">+</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:124"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:394"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:81"><nobr><span class="ft3">    The weighted coefficients (</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:247"><nobr><span class="ft3">, , etc) should be estimated (not </span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:81"><nobr><span class="ft8">trivial procedure) to provide an optimal result ordering.  Methods <br>to make these estimates are described in [22] and [23].  Also, <br>manual rates should be used carefully because the Annotation <br>Information is optional and could not exist for all the objects <br>involved in the calculation. </span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:81"><nobr><span class="ft1">3.2  Similarity Metrics for Recommendation </span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:81"><nobr><span class="ft8">One property of a 2-partite graph is that it can be folded over one <br>of its partitions, generating a normal graph with just one entity <br>and links between its nodes.  For example if we have a 2-partite <br>graph of Users that have download Learning Objects, we can fold <br>over the Learning Object partition and we will end up with a <br>graph where the Users are linked between them.  Each link mean <br>that those two users have download the same object at least once.  <br>This new graph could be used to calculate similarity between the <br>users based on the download patterns.  In Figure 2 we can see a </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft8">representation of the folding result.  The first part of the figure <br>represents a 2-partite graph with the User and Objects partitions.  <br>The graph shows that, for example, that User 5 had downloaded <br>Object 2 and Object 3 and User 1 had only downloaded Object 1.  <br>The second part of the figure illustrates the folded version of the <br>graph. In this new graph, the users have a link between them if <br>they linked to the same object in the unfolded graph. The more <br>objects the users have in common, the thicker the line.  For <br>example User 1 and User 4 are linked because they both have <br>downloaded Object 1.  User 2 and User 5 have a stronger links <br>because they both have downloaded Object 2 and Object 3.   This <br>technique is similar to the one applied in scientometrics to obtain <br>relations between different authors, based on the papers that have <br>co-authored[24].   </span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:490"><nobr><span class="ft15">U1</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:491"><nobr><span class="ft15">U2</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:491"><nobr><span class="ft15">U3</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:550"><nobr><span class="ft15">O1</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:550"><nobr><span class="ft15">O2</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:550"><nobr><span class="ft15">O3</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:613"><nobr><span class="ft15">U4</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:613"><nobr><span class="ft15">U5</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:612"><nobr><span class="ft15">U6</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:765"><nobr><span class="ft15">U1</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:746"><nobr><span class="ft15">U2</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:711"><nobr><span class="ft15">U3</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:699"><nobr><span class="ft15">U4</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:790"><nobr><span class="ft15">U6</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:809"><nobr><span class="ft15">U5</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:483"><nobr><span class="ft4">2-Partite Graph (User and Objects)</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:684"><nobr><span class="ft4">Folded Normal Graph (Users)</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:837"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:519"><nobr><span class="ft3">Figure 2.  Unfolded and Folded 2-Partite Graph </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:477"><nobr><span class="ft17">We present several similarity metrics that can be calculated using <br>the information contained in CAM Actions detailed in the <br>previous section. <br>· </span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:504"><nobr><span class="ft8">Object Similarity based on Number of Downloads:  <br>Create a 2-partite graph with the information of the Select <br>Actions (when a User download a Learning Object), and fold <br>over the User Partition.  A link between two Objects in the <br>final graph means that those objects have been downloaded <br>by the same user.  The strength of the similarity is number of <br>users that have downloaded both objects. </span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:504"><nobr><span class="ft8">Object Similarity based on Re-Use:  Create a 2-partite <br>graph with the information from the Publish Actions (when a <br>Learning Object is inserted into a Course), and fold over the <br>Course Partition.  A link between two Objects in the final <br>graph means that two objects have been inserted in the same <br>course.  The strength of the similarity is number of courses <br>that include both objects. </span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:504"><nobr><span class="ft8">Users similarity based on Downloads:  Create a 2-partite <br>graph with the information from the Select Actions, and fold <br>over the Object Partition. A link between two Users means <br>that they have downloaded the same object.  The strength of <br>the similarity is the number objects that the users have in <br>common.  </span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:504"><nobr><span class="ft8">Author similarity based on Re-Use of Components: The <br>Creation Action information could be use to identify re-use <br>of learning object components.  For example several authors <br>could use the same picture or diagram inside they <br>presentations.  As the Creation Action store information <br>about which existing components have been reused (see <br>Section 2), a 2-partite graph between Authors and <br>Components can be created and then folded over the </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">12</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:6px;font-family:Times;color:#000000;}
+	.ft21{font-size:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206005.png" alt="background image">
+<DIV style="position:absolute;top:109;left:108"><nobr><span class="ft8">Components partition.  The new graph will represent <br>relationship between different authors.  More components <br>those authors have used in common, the stronger their <br>similarity. </span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:81"><nobr><span class="ft8">The similarity metric obtained from the graph could be then <br>applied in recommendation tools.  For example: If a user finds an <br>object useful, a link to similar objects could be provided (similar <br>to what Amazon does with books [1]).  Also, the similarity <br>between users can be exploited to recommend Learning Objects <br>to a user, based on what other users that are in the same <br>community have recently download (similar to collaborative <br>browsing applications [3]).  To automatically extract the <br>communities from the graph, an algorithm like EdgeBetweeness <br>[25] can be applied.  The same procedure could be applied to the <br>Author Similarity graph.  The communities of authorship can be <br>automatically extracted from the graph. The author then can be <br>recommended with components that have been created by other <br>authors in the same authorship community.  <br>Beside recommendation systems for Learning Objects, these <br>similarity metrics could be considered as distance metrics.  The <br>distance metric can be used inside clustering algorithms to <br>automatically find groups of similar objects.  These clusters could <br>be used to improve the presentation of results of a search, much as <br>Vivisimo [26] does for Web Pages.  </span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:81"><nobr><span class="ft1">3.3  Personalized Ranking </span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:81"><nobr><span class="ft8">To be able to personalize the search result order for a given user, <br>the application should have a representation of such user in a <br>profile.  While this profile could be created explicitly by the user, <br>CAM information could help the application to learn it form the <br>user interaction with the tool.  For example, the information about <br>stored in the Select, Publish and Retain from a user could help us <br>to determine in which objects is he/she interested, and rank higher <br>objects that are similar to those. <br>This work proposes the creation of a fuzzy profile that could <br>easily account for the evolving and not fixed behavior of an <br>instructor downloading learning objects.  Instead of having a crisp <br>preference for one type of object, this profile will provide <br>different grades of likeness for several characteristics of the <br>learning object.  This profile is constructed with several Fields.  <br>The Fields could be a subset of the fields considered in the LOM <br>standard, especially the ones that use a vocabulary or represent a <br>classification. Each field will contain 2 or more fuzzy sets that <br>represent the values that the field could have (from the vocabulary <br>or the classification values).  A user could "prefer" in different <br>degrees 1 or more of the values of a Field.  The preference of the <br>user for each one of the values is calculated based on the number <br>of objects that the user have download before that contained that <br>value in the corresponding LOM field.   This fuzzy profile has <br>been derived from research done to produce automatic TV <br>recordings for PVRs [27] like TIVO.  <br>The fuzzy profile could be easily operationalized to provide a <br>personalized rank for Learning Objects.  First, each field should <br>have a weighting value (that express how important that field is).  <br>That value could be assigned by an expert or could be calculated <br>automatically for entropy of the distribution of the field values for <br>that user.  For example if a user downloads objects from a wide <br>variety of topics, the weight of topic as a good ranking <br>measurement is low.  Instead, if the user only downloads objects <br>in one language, the weight of that field should be high.  Second, </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft8">each LOM record from the result list is converted to a similar <br>representation, using the same fields and a preference value of 1.0 <br>for the value found in the metadata. Finally, the object <br>representation is operated with the profile in order to obtain how <br>well the object fits the preference of the user.  This operation is <br>described in the following equation: </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:845"><nobr><span class="ft20"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:755"><nobr><span class="ft20"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:536"><nobr><span class="ft20"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:582"><nobr><span class="ft20"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:705"><nobr><span class="ft20"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:626"><nobr><span class="ft20"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:558"><nobr><span class="ft20"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:811"><nobr><span class="ft18">value</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:765"><nobr><span class="ft18">object</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:723"><nobr><span class="ft18">Field</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:671"><nobr><span class="ft18">value</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:636"><nobr><span class="ft18">user</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:594"><nobr><span class="ft18">Field</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:615"><nobr><span class="ft18">user</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:572"><nobr><span class="ft18">object</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:551"><nobr><span class="ft18">nk</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:480"><nobr><span class="ft18">PersonalRa</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:803"><nobr><span class="ft18">).</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:760"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:663"><nobr><span class="ft18">).</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:631"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:642"><nobr><span class="ft18">)</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:609"><nobr><span class="ft18">,</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:566"><nobr><span class="ft18">(</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:712"><nobr><span class="ft18">·</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:565"><nobr><span class="ft18">·</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:651"><nobr><span class="ft18">=</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:530"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:575"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:547"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:477"><nobr><span class="ft8">For example, lets consider a user that have download 20 objects, <br>16 with topic Computer Sciences and 4 with topic Physics. Of <br>those 20, also, 12 are in English, 4 are in French, 4 are in Spanish.  <br>A fuzzy profile that represents that user could be expressed as: <br>U1 = {(0.8/ComputerScience + 0.2/Physics),  <br>           (0.6/English + 0.2/Spanish + 0.2/French)}  <br>The fields weighting terms are 0.9 for Topic and 0.6 for <br>Language.   Lets now considered 2 objects represented also as <br>fuzzy sets: <br>O1 = {(1.0/ComputerScience), (1.0/Spanish)} <br>O2 = {(1.0/Physics, 1.0/English)} <br>The calculated rank for both objects is: <br>O1 = 0.9*0.8 + 0.6*0.2 = 0.84  <br>O2 = 0.9*0.2 + 0.6*0.6 = 0.54   <br>O1 will be ranked higher than O2 as it is more similar to the user <br>profile. <br>The personalized calculation could be combined with the <br>popularity ranking described before to create a better ranking <br>algorithm, the same way as Google personalized Search mix the <br>standard Popularity measure with information from the user <br>profile to order the results. </span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:477"><nobr><span class="ft1">3.4  Contextual Recommending </span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:477"><nobr><span class="ft8">If the CAM is considered not only as a source for historic data, <br>but also as a continuous stream of contextualized attention <br>information, we can use very recent CAM (in the order of seconds <br>or minutes) to generate recommendations based on what the user <br>is focusing his/her attention at the moment.  For example, the <br>recommender system could use the information stored in the if the <br>user has inserted an object inside a Course in a Learning <br>Management System (LMS), the LMS will generate a CAM <br>record with contextual information about which object was <br>inserted and in which lesson of the course.  The recommending <br>system could use that information to present the user with similar <br>objects to the one inserted or others that have been used in similar <br>courses, based on the topic of the course or in similarity metrics <br>as the one explained in the Section 3.2. <br>The recommending system could also present objects that suit the <br>application that the user is using at a given moment, based on the <br>information about the object (LOM record).  For example, if the <br>user is working Microsoft Power Point authoring tool, <br>presentations, slides, small texts, images and diagrams will be <br>recommended.  If he/she is working with a SCORM Packager, <br>complete learning objects will be presented instead.    <br>Contextual recommending techniques have been tried before in <br>several fields [28] [29].  Blinkx [30] is an example of this kind of <br>applications.  It recommends web pages, videos and news based </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">13</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206006.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft8">on the present content of the screen of the user.  A similar <br>application could be developed in a LMS for example, where the <br>system could recommend to the instructor materials to add to each <br>lesson, or could recommend the learner with similar or <br>complementary materials to the one that the instructor has added <br>to the course. </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:81"><nobr><span class="ft1">4.  APPLICATION IN OTHER CONTEXTS </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:81"><nobr><span class="ft8">While the CAM based metrics proposed in this work were <br>designed for Learning Objects, they could be easily extended or <br>adapted to work for other kind of reusable components where <br>CAM could be collected.  For example, given the exponential <br>grow of open source software libraries that could be reused inside <br>software projects, programmers are sometimes overwhelmed with <br>the amount of available choices.  It makes sense to develop some <br>kind of ranking or recommending system that could help the <br>developers to select the right tools. <br>To construct the ranking application we can use the same methods <br>proposed for learning objects.  The k-partite graph used to <br>calculate the popularity metric could be constructed using the <br>metadata information about the library (who is the author of a <br>software library) and contextual attention information about how <br>and when the programmers interact with the library (which <br>programmers have download it, in which software project they <br>have been used).  Most of this information could be obtained from <br>open source project repositories like SourceFourge [31].  The <br>rationale behind the ranking would be:  A library that have been <br>downloaded more often / at a higher rate is more useful.  A library <br>produced by authors with highly useful libraries could also be <br>useful.  A library re-used in many projects is probable highly <br>useful.  This metrics are parallel to the ones described for learning <br>objects. <br>Recommending systems for software libraries could also be <br>constructed in a similar way to the ones proposed for learning <br>objects.  For example, we can fold the Libraries-Programmers 2-<br>partite graph over the Libraries Partition, creating a graph that <br>relate Programmers between them based on the Libraries that they <br>have downloaded/used.  Communities could be extracted form the <br>resulting graph and could be used for recommending a <br>programmer with new libraries that other members of his/her <br>community have used in their projects. <br>The precaution to have when applying this metrics to other <br>domains is the semantics of the relations that are created with the <br>graphs.  For example, if two learning objects are used in the same <br>course, those two learning objects must have something in <br>common (same topic for example), while if two libraries are used <br>inside the same project, that does not mean that the libraries are <br>related (you could use a database access library and graphical <br>interface library inside the same project). <br>Other contexts where CAM information could be exploited to <br>rank and recommend elements with a similar strategy as the one <br>presented in this work are music mixes (component songs or <br>loops) and news aggregators.  </span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:81"><nobr><span class="ft1">5.  FURTHER WORK </span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:81"><nobr><span class="ft8">This work is just an introduction to how CAM information could <br>be used to rank and recommend Learning Objects.  Several topics <br>should be solved before a big scale application that use the <br>metrics presented could be built: </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:504"><nobr><span class="ft8">Collection and Integration of the different CAM sources:  <br>While today exist several applications that generate CAM, <br>there is not an established multi-application CAM repository <br>that could be used to collect and integrate attention <br>information. </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:504"><nobr><span class="ft8">Combination of different ranking strategies:    When <br>different ranking strategies are combined, some weighting <br>coefficient must be applied.  The calculation of those <br>coefficients is not trivial and should be made using extensive <br>user feedback. </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:477"><nobr><span class="ft3">· </span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:504"><nobr><span class="ft8">Critical mass vs. Closed Community:  To be useful, the <br>metrics should be calculated over a significant amount of <br>CAM data.  But if we integrate data from different <br>communities to obtain a bigger amount of CAM (for <br>example attention from different LORs), there will probably <br>not exist common objects, users or courses that could be <br>used to generate relations between the communities.   </span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:477"><nobr><span class="ft1">6.  RELATED WORK </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:477"><nobr><span class="ft8">Broisin et al in [32] propose a framework to capture usage <br>information about Learning Object from different Learning <br>Management Systems and Repositories in order to analyze the <br>usage patterns of the users through a Management Application.  <br>The approach of this paper goes a step further, using the attention <br>information to calculate metrics that could be used to improve <br>existing tools.  Broisin's work also uses a simplified format of <br>attention (basically usage information) in a non-standard format, <br>limiting the possible use of the information by other systems, <br>because existing applications should be reprogrammed to produce <br>that format.  This work proposes the use of an extension of <br>AttentionXML standard to be able to capture the CAM from a <br>variety of systems that already produce it. <br>In a related area, digital libraries, Nicholson in [33] propose the <br>fusion of bibliometrics analysis with user-related data mining to <br>generate a new field of study, bibliomining.  His proposal could <br>be compared with the one presented in this work:  Using the <br>information about the book and the usage information generated <br>by the interaction of the users with the digital library system to <br>improve the user experience.  While Nicholson mentions several <br>ways in which the attention metadata could be used, he does not <br>detail any specific metric to improve digital library systems.  </span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:477"><nobr><span class="ft1">7.  CONCLUSIONS </span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:477"><nobr><span class="ft8">The current immaturity of the tools to search and find Learning <br>Objects could be overcome if CAM information is store through <br>the lifecycle of the Learning Object and used to compute metrics <br>for ranking and recommendation.  These metrics should generate <br>a meaningful and automated way in which Learning Object could <br>be ranked.  This work presented detailed methods to calculate <br>various metrics and propose several uses for those metrics. The <br>proposed calculations could also be applied to rank and <br>recommend other reusable components from which CAM could <br>be gathered, as it was shown for the case of open source software <br>libraries example. </span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:477"><nobr><span class="ft8">While the metrics are easy to calculate, and some initial data is <br>also present, more research is needed to be able to assemble a <br>large scale system that could gather the necessary amount of <br>CAM in order to render the calculations meaningful.    </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">14</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="206007.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft1">8.  REFERENCES </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:81"><nobr><span class="ft3">[1]  Linden, G.; Smith, B. and York, J. Amazon.com </span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:108"><nobr><span class="ft8">Recommendations: Item-to-Item Collaborative Filtering. <br>IEEE Internet Computing, 7, 1 (2003), 76-80. </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:81"><nobr><span class="ft3">[2]  Shepherd, M.; Watters, C. and Marath, A. Adaptive User </span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:108"><nobr><span class="ft8">Modeling for Filtering Electronic News. In Proceedings of <br>the 35th Annual Hawaii International Conference on System <br>Sciences, 2002. HICSS. (2002), 1180- 1188. </span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:81"><nobr><span class="ft3">[3]  James, S. Outfoxed Collaborative Browsing, </span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:108"><nobr><span class="ft3">http://www.getoutfoxed.com.  Retrieved on May, 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:81"><nobr><span class="ft3">[4]  Najjar, J., Meire, M. and Duval, E. Attention Metadata </span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:108"><nobr><span class="ft8">Management: Tracking the use of Learning Objects through <br>Attention.XML. In Proceedings of World Conference on <br>Educational Multimedia, Hypermedia and <br>Telecommunications. (2005). 1157-1161. </span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:81"><nobr><span class="ft3">[5]  Najjar, J., Wolpers, M. and Duval, E., Attention </span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:108"><nobr><span class="ft8">Metadata:Collection and Management", WWW2006 <br>workshop on Logging Traces of Web Activity, Edinburgh, <br>Scotland, (2006).  </span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:81"><nobr><span class="ft3">[6]  AttentionXML, AttentionXML specifications, </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:108"><nobr><span class="ft8">http://developers.technorati.com/wiki/attentionxml. <br>Retrieved on June, 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:81"><nobr><span class="ft3">[7]  Duval, E. and Hodgins, W., A LOM research agenda. In </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:108"><nobr><span class="ft8">Proceedings of WWW2003: Twelfth International World <br>Wide Web Conference, (2003), 659-667. </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:81"><nobr><span class="ft3">[8]  Ochoa, X. Learning Object Repositories are Useful, but are </span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:108"><nobr><span class="ft8">they Usable? In Proceedings of IADIS International <br>Conference Applied Computing. (2005), 138-144 </span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft3">[9]  Duval, E. LearnRank: the Real Quality Measure for </span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:108"><nobr><span class="ft8">Learning Materials. Policy and Innovation in Education - <br>Quality Criteria, (2005) </span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:81"><nobr><span class="ft3">[10] Aizawa, A. An information-theoretic perspective of tf­idf </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:108"><nobr><span class="ft8">measures. Information Processing and Management, 39, <br>(2003), 45-65. </span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:81"><nobr><span class="ft3">[11] ISO/IEC JTC1 SC36. International LOM Survey: Report. </span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:108"><nobr><span class="ft8">http://mdlet.jtc1sc36.org/doc/SC36_WG4_N0109.pdf <br>(2004). </span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:81"><nobr><span class="ft3">[12] Ariadne Foundation.  Ariadne Foundation. </span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:108"><nobr><span class="ft3">http://www.ariadne-eu.org (2005). </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:81"><nobr><span class="ft3">[13] Collis, B. and Strijker, A. Technology and Human Issues in </span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:108"><nobr><span class="ft8">Reusing Learning Objects. Journal of Interactive Media in <br>Education, 4, (2004). </span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:81"><nobr><span class="ft3">[14] Verbert, K. Jovanovic, J. Gasevic, D. and Duval, E. </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:108"><nobr><span class="ft8">Repurposing Learning Object Components. OTM 2005 <br>Workshop on Ontologies, Semantics and E-Learning, (2005). </span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:81"><nobr><span class="ft3">[15] IEEE-LOM Editor, http://www-i5.informatik.rwth-</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:108"><nobr><span class="ft8">aachen.de/i5new/staff/chatti/LOMEditor/index.html. <br>Retrieved June 2006.  </span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:81"><nobr><span class="ft3">[16] Cardinels, K., Meire, M., and Duval, E. Automating </span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:108"><nobr><span class="ft8">metadata generation: the simple indexing interface. In <br>Proceedings of the 14th WWW conference, (2005), 548-556 </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft3">[17] Dalziel, J. Implementing Learning Design: The Learning </span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:504"><nobr><span class="ft3">Activity Management System (LAMS), ASCILITE (2003) </span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:477"><nobr><span class="ft3">[18] ADL, SCORM Standard, http://www.adlnet.gov/index.cfm, </span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:504"><nobr><span class="ft3">Retrieved March, 2006 </span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:477"><nobr><span class="ft3">[19] IEEE. IEEE Standard for Learning Object Metadata. </span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:504"><nobr><span class="ft3">http://ltsc.ieee.org/doc/wg12/ (2002). </span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:477"><nobr><span class="ft3">[20] Page, L., Brin, S., Motwani, R. and Winograd, T. The </span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:504"><nobr><span class="ft8">PageRank Citation Ranking: Bringing order to the Web. <br>Technical Report, Computer Science Department, Stanford <br>University (1998) </span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:477"><nobr><span class="ft3">[21] Google Technology, http://www.google.com/technology/.  </span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:504"><nobr><span class="ft3">Retrieved, August 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:477"><nobr><span class="ft3">[22] Radlinski, F. and Joachims, T. Query Chains: Learning to </span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:504"><nobr><span class="ft8">Rank from Implicit Feedback, Proceedings of the ACM <br>Conference on Knowledge Discovery and Data Mining.  <br>(2005). </span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:477"><nobr><span class="ft3">[23] Fan, W., Gordon, M. and Pathak, P. A generic ranking </span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:504"><nobr><span class="ft8">function discovery framework by genetic programming for <br>information retrieval, Information Processing and <br>Management. 40 (2004) 587­602 </span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:477"><nobr><span class="ft3">[24] Nascimento, M., Sander, J. and Pound, J. Analysis of </span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:504"><nobr><span class="ft8">SIGMOD's co-authorship graph. ACM SIGMOD Record, <br>32, 3. (2003). 8-10 </span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:477"><nobr><span class="ft3">[25] Girvan, M. and Newman, M. Community structure in social </span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:504"><nobr><span class="ft3">and biological networks. Proc. Natl. Acad. Sci. 11. (2002). </span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:477"><nobr><span class="ft3">[26] Vivisimo Clustering Engine.  http://www.vivisimo.com. </span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:504"><nobr><span class="ft3">Retrieved August 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:477"><nobr><span class="ft3">[27] Pigeau, A.,  Raschia, G.,   Gelgon, M.,   Mouaddib, N.  and </span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:504"><nobr><span class="ft8">Saint-Paul, R. A fuzzy linguistic summarization technique <br>for TV recommender systems. The 12th IEEE International <br>Conference on Fuzzy Systems, 2003. FUZZ '03. 1 (2003) <br>743-748. </span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:477"><nobr><span class="ft3">[28] Google AdSense, https://www.google.com/adsense/.  </span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:504"><nobr><span class="ft3">Retrieved August 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:477"><nobr><span class="ft3">[29] Fan, W., Gordon, M. and Pathak, P. Incorporating contextual </span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:504"><nobr><span class="ft8">information in recommender systems using a <br>multidimensional approach.  Information Processing and <br>Management. 40, 4. (2004). 587-602. </span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:477"><nobr><span class="ft3">[30] Blinkx Contextual Search.  http://www.blinkx.com.  </span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:504"><nobr><span class="ft3">Retrieved August 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:477"><nobr><span class="ft3">[31] Sourceforge, Open Software Repository. </span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:504"><nobr><span class="ft3">http://www.sourceforge.net. Retrieved August 2006. </span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:477"><nobr><span class="ft3">[32] Broisin, J., Vidal, P. and Sibilla, M. A Management </span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:504"><nobr><span class="ft8">Framework Based On A Model Driven Approach For <br>Tracking User Activities In A Web-Based Learning <br>Environment. EDMEDIA, (2006) 896-903 </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:477"><nobr><span class="ft3">[33] Nicholson, S. The basis for bibliomining: Frameworks for </span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:504"><nobr><span class="ft8">bringing together sage-based data mining and bibliometrics <br>through data arehousing in digital library services. <br>Information Processing and Management. 42, 3 (2006). 785-<br>804.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:81"><nobr><span class="ft0"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">15</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

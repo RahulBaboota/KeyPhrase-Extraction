@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\162</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-08-23T12:26:16+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:25px;font-family:Times;color:#000000;}
+	.ft1{font-size:16px;font-family:Times;color:#000000;}
+	.ft2{font-size:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:8px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:13px;line-height:17px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:270"><nobr><span class="ft0"><b>Querying Bi-level Information </b></span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:117"><nobr><span class="ft1">Sudarshan Murthy </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:189"><nobr><span class="ft6"> <br>  <br>  <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:189"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:412"><nobr><span class="ft1">David Maier </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:298"><nobr><span class="ft2">Dept. of CSE, OGI School of Sc. &amp; Eng. at OHSU </span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:380"><nobr><span class="ft2">20000 NW Walker Road </span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:369"><nobr><span class="ft2">Beaverton, OR 97006, USA </span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:404"><nobr><span class="ft2">+1 503 748 7068 </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:325"><nobr><span class="ft1">smurthy, maier, lmd @cse.ogi.edu </span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:668"><nobr><span class="ft1">Lois Delcambre </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:729"><nobr><span class="ft6"> <br>  <br>  <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:729"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:207"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:459"><nobr><span class="ft1"> </span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:179"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:81"><nobr><span class="ft6">In our research on superimposed information management, <br>we have developed applications where information <br>elements in the superimposed layer serve to annotate, <br>comment, restructure, and combine selections from one or <br>more existing documents in the base layer. Base documents <br>tend to be unstructured or semi-structured (HTML pages, <br>Excel spreadsheets, and so on) with marks delimiting <br>selections. Selections in the base layer can be <br>programmatically accessed via marks to retrieve content <br>and context. The applications we have built to date allow <br>creation of new marks and new superimposed elements <br>(that use marks), but they have been browse-oriented and <br>tend to expose the line between superimposed and base <br>layers. Here, we present a new access capability, called bi-<br>level queries, that allows an application or user to query <br>over both layers as a whole. Bi-level queries provide an <br>alternative style of data integration where only relevant <br>portions of a base document are mediated (not the whole <br>document) and the superimposed layer can add information <br>not present in the base layer. We discuss our framework for <br>superimposed information management, an initial <br>implementation of a bi-level query system with an XML <br>Query interface, and suggest mechanisms to improve <br>scalability and performance. </span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:353"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:81"><nobr><span class="ft7">H.3.3 [Information Storage and Retrieval]: Information Search <br>and Retrieval---Information filtering, Retrieval models, H.2.5 <br>[Database Management]: Heterogeneous Databases. </span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:81"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:198"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:81"><nobr><span class="ft3">Management, Performance, Design. </span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:81"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:81"><nobr><span class="ft7">Bi-level queries, SPARCE, Superimposed information manage-<br>ment, Information integration. </span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:477"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:477"><nobr><span class="ft1">1.  INTRODUCTION </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:477"><nobr><span class="ft7">You are conducting background research for a paper you are <br>writing. You have found relevant information in a variety of <br>sources: HTML pages on the web, PDF documents on the web <br>and on your SIGMOD anthology of CDs, Excel spreadsheets and <br>Word documents from your past work in a related area, and so on. <br>You identify relevant portions of the documents and add <br>annotations with clarifications, questions, and conclusions. As <br>you collect information, you frequently reorganize the <br>information you have collected thus far (and your added <br>annotations) to reflect your perspective. You intentionally keep <br>your information structure loose so you can easily move things <br>around. When you have collected sufficient information, you <br>import it, along with your comments, in to a word-processor <br>document. As you write your paper in your word-processor, you <br>revisit your sources to see information in its context. Also, as you <br>write your paper you reorganize its contents, including the im-<br>ported information, to suit the flow. Occasionally, you search the <br>imported annotations, selections, and the context of the selections. <br>You mix some of the imported information with other information <br>in the paper and transform the mixture to suit presentation needs. </span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:477"><nobr><span class="ft7">Most researchers will be familiar with manual approaches to the <br>scenario we have just described. Providing computer support for <br>this scenario requires a toolset with the following capabilities: </span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:477"><nobr><span class="ft3">1.  Select portions of documents of many kinds (PDF, HTML, </span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:497"><nobr><span class="ft7">etc.) in many locations (web, CD, local file system, etc.), and <br>record the selections. </span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:477"><nobr><span class="ft3">2.  Create and associate annotations (of varying structure) with </span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:497"><nobr><span class="ft3">document selections. </span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:477"><nobr><span class="ft3">3.  Group and link document selections and annotations, </span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:497"><nobr><span class="ft7">reorganize them as needed, and possibly even maintain <br>multiple organizations. </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:477"><nobr><span class="ft3">4.  See a document selection in its context by opening the </span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:497"><nobr><span class="ft7">document and navigating to the selected region, or access the <br>context of a selection without launching its original document. </span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:477"><nobr><span class="ft3">5.  Place document selections and annotations in traditional docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:497"><nobr><span class="ft7">ments (such as the word-processor document that contains <br>your paper). </span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:477"><nobr><span class="ft3">6.  Search and transform a mixture of document selections, </span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:497"><nobr><span class="ft3">annotations, and other information. </span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:477"><nobr><span class="ft7">Systems that support some subset of these capabilities exist, but <br>no one system supports the complete set. It is hard to use a <br>collection of systems to get the full set of features because the <br>systems do not interoperate well. Some hypertext systems can </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:87"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:87"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for <br>personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that <br>copies bear this notice and the full citation on the first page. To copy <br>otherwise, or republish, to post on servers or to redistribute to lists, re-<br>quires prior specific permission and/or a fee. <br>Seventh International Workshop on the Web and Databases (WebDB <br>2004) June 17­18, 2004, Paris, France. <br>Copyright author/owner. </span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:455"><nobr><span class="ft1">7</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162002.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">create multiple organizations of the same information, but they <br>tend to lack in the types of source, granularity of information, or <br>the location of information consulted. For example, Dexter [6] <br>requires all information consulted to be stored in its proprietary <br>database. Compound document systems can address sub-<br>documents, but they tend to have many display constraints. For <br>example, OLE 2 [9] relies on original applications to render <br>information. Neither type of system supports querying a mixture <br>of document selections and annotations.  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:81"><nobr><span class="ft7">Superimposed information management is an alternative solution <br>for organizing heterogeneous in situ information, at document and <br>sub-document granularity. Superimposed information (such as <br>annotations) refers to data placed over existing information <br>sources (base information) to help organize, access, connect and <br>reuse information elements in those sources [8]. In our previous <br>work [12], we have described the Superimposed Pluggable <br>Architecture for Contexts and Excerpts (SPARCE), a middleware <br>for superimposed information management, and presented some <br>superimposed applications built using SPARCE. Together they <br>support Capabilities 1 through 4. In this paper, we show how <br>SPARCE can be used to support Capability 6. Details of support <br>for Capability 5 are outside the scope of this paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:81"><nobr><span class="ft7">Before we proceed with the details of how we support Capability <br>6, we introduce a superimposed application called RIDPad [12]. <br>Figure 1 shows a RIDPad document that contains information <br>selections and annotations related to the topic of information <br>integration. The document shown contains eight items: CLIO, <br>Definition, SchemaSQL, Related Systems, Goal, Model, Query <br>Optimizer, and Press.  These items are associated with six distinct <br>base documents of three kinds--PDF, Excel, and HTML. An item <br>has a name, a descriptive text, and a reference (called a mark) to a <br>selection in a base document. For example, the item labeled <br>`Goal' contains a mark into a PDF document. The boxes labeled <br>Schematic Heterogeneity and Garlic are groups. A group is a <br>named collection of items and other groups. A RIDPad document <br>is a collection of items and groups. </span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft7">RIDPad affords many operations for items and groups. A user can <br>create new items and groups, and move items between groups. <br>The user can also rename, resize, and change visual <br>characteristics such as color and font for items and groups. With <br>the mark associated with an item, the user can navigate to the base <br>layer if necessary, or examine the mark's properties and browse <br>context information (such as containing paragraph) from within <br>RIDPad via a reusable Context Browser we have built.  </span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:81"><nobr><span class="ft7">The operations RIDPAD affords are at the level of items and <br>groups. However, we have seen the need to query and manipulate <br>a RIDPad document and its base documents as a whole. For <br>example, possible queries over the RIDPad document in Figure 1 <br>include:  </span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:81"><nobr><span class="ft7">Q1: List base documents used in this RIDPad document.  <br>Q2: Show abstracts of papers related to Garlic.  <br>Q3: Create an HTML table of contents from the groups and items. </span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft7">Query Q1 examines the paths to base documents of marks associ-<br>ated with items in the RIDPad document. Q2 examines the <br>context of marks of items in the group labeled `Schematic <br>Heterogeneity.' Q3 transforms the contents of the RIDPad docu-<br>ment to another form (table of contents). In general, queries such </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft7">as these operate on both superimposed information and base <br>information. Consequently, we call them bi-level queries.  </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:789"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:567"><nobr><span class="ft3">Figure 1: A RIDPad document. </span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:477"><nobr><span class="ft7">There are many possible choices on how to present the contents of <br>superimposed documents (such as the RIDPad document in <br>Figure 1) and base documents for querying. We could make the <br>division between the superimposed and base documents obvious <br>and let the user explicitly follow marks from superimposed <br>information to base information. Instead, our approach is to <br>integrate a superimposed document's contents and related base <br>information to present a uniform representation of the integrated <br>information for querying.  </span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:477"><nobr><span class="ft7">The rest of this paper is organized as follows: Section 2 provides <br>an overview of SPARCE. Section 3 provides an overview of bi-<br>level query systems and describes a naïve implementation of a bi-<br>level query system along with some example bi-level queries. <br>Section 4 discusses some applications and implementation <br>alternatives for bi-level query systems. Section 5 briefly reviews <br>related work. Section 6 summarizes the paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:477"><nobr><span class="ft7">We use the RIDPad document in Figure 1 for all examples in this <br>paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:477"><nobr><span class="ft1">2.  SPARCE OVERVIEW </span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:477"><nobr><span class="ft7">The Superimposed Pluggable Architecture for Contexts and <br>Excerpts (SPARCE) facilitates management of marks and context <br>information in the setting of superimposed information <br>management [12]. A mark is an abstraction of a selection in a <br>base document. Several mark implementations exist, typically one <br>per base type (PDF, HTML, Excel, and so on). A mark <br>implementation chooses an addressing scheme appropriate for the <br>base type it supports. For example, an MS Word mark <br>implementation uses the starting and ending character index of a <br>text selection, whereas an MS Excel mark uses the row and <br>column names of the first and last cell in the selection. All mark <br>implementations provide a common interface to address base <br>information, regardless of base type or access protocol they </span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:455"><nobr><span class="ft1">8</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162003.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">support. A superimposed application can work uniformly with <br>any base type due to this common interface.  </span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft7">Context is information concerning a base-layer element. Presen-<br>tation information such as font name, containment information <br>such as enclosing paragraph and section, and placement <br>information such as line number are examples of context <br>information. An Excerpt is the content of a marked base-layer <br>element. (We treat an excerpt also as a context element.) Figure 2 <br>shows the PDF mark corresponding to the item `Goal' (of the <br>RIDPad document in Figure 1) activated. The highlighted portion <br>is the marked region. Table 1 shows some of the context elements <br>for this mark. </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:441"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:166"><nobr><span class="ft3">Figure 2: A PDF mark activated. </span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:81"><nobr><span class="ft7">Figure 3 shows the SPARCE architecture reference model. The <br>Mark Management module is responsible for operations on marks <br>(such as creating and storing marks). The Context Management <br>module retrieves context information. The Superimposed <br>Information Management module provides storage service to <br>superimposed applications. The Clipboard is used for inter-<br>process communication. </span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:124"><nobr><span class="ft3">Table 1: Some context elements of a PDF mark. </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:81"><nobr><span class="ft3">Element name </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:269"><nobr><span class="ft3">Value </span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:81"><nobr><span class="ft3">Excerpt </span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:269"><nobr><span class="ft7">provide applications and users <br>with ... Garlic system </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:81"><nobr><span class="ft3">Font name </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:269"><nobr><span class="ft3">Times New Roman </span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft3">Enclosing paragraph </span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:269"><nobr><span class="ft3">Loosely speaking, the goal ... </span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:81"><nobr><span class="ft3">Section Heading </span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:269"><nobr><span class="ft3">Garlic Overview </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:81"><nobr><span class="ft7">SPARCE uses mediators [13] called context agents to interact <br>with different base types. A context agent is responsible for re-<br>solving a mark and returning the set of context elements <br>appropriate to that mark. A context agent is different from me-<br>diators used in other systems because it only mediates portions of <br>base document a mark refers to. For example, if a mark refers to <br>the first three lines of a PDF document, the mark's context agent <br>mediates those three lines and other regions immediately around <br>the lines. A user could retrieve broader context information for <br>this mark, but the agent will not do so by default. </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:828"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:515"><nobr><span class="ft3">Figure 3: SPARCE architecture reference model. </span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:477"><nobr><span class="ft7">A superimposed application allows creation of information ele-<br>ments (such as annotations) associated with marks. It can use an <br>information model of its choice (SPARCE does not impose a <br>model) and the model may vary from one application to another. <br>For example, RIDPad uses a group-item model (simple nesting), <br>whereas the Schematics Browser, another application we have <br>built, uses an ER model [2, 12]. The superimposed model may be <br>different from any of the base models. A detailed description of <br>SPARCE is available in our previous work [12]. </span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:477"><nobr><span class="ft1">3.  BI-LEVEL QUERY SYSTEM </span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:477"><nobr><span class="ft7">A bi-level query system allows a superimposed application and its <br>user to query the superimposed information and base information <br>as a whole. User queries are in a language appropriate to the <br>superimposed model. For example, XQuery may be the query <br>language if the superimposed model is XML (or a model that can <br>be mapped to XML), whereas SQL may be the query language if <br>superimposed information is in the relational model. </span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:825"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:524"><nobr><span class="ft3">Figure 4: Overview of a bi-level query system. </span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:477"><nobr><span class="ft7">Figure 4 provides an overview of a bi-level query system. An oval <br>in the figure represents an information source. A rectangle <br>denotes a process that manipulates information. Arrows indicate <br>data flow. The query processor accepts three kinds of <br>information--superimposed, mark, and context. Model trans-<br>formers transform information from the three sources in to <br>model(s) appropriate for querying. One of these transformers, the <br>context transformer, is responsible for transforming context in-<br>formation. We restrict bi-level query systems to use only one <br>superimposed model at a time, for practical reasons. Choosing a <br>query language and the model for the result can be hard if <br>superimposed models are mixed. </span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:739"><nobr><span class="ft5">Base Info 1</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:742"><nobr><span class="ft5">Base Info n </span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:746"><nobr><span class="ft5">Context </span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:748"><nobr><span class="ft5">Agents </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:555"><nobr><span class="ft5">Model Transformers </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:651"><nobr><span class="ft5">Mark </span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:654"><nobr><span class="ft5">Info</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:511"><nobr><span class="ft5">Superimposed </span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:535"><nobr><span class="ft5">Info</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:589"><nobr><span class="ft5">Query </span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:580"><nobr><span class="ft5">Processor </span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:493"><nobr><span class="ft5">Superimposed </span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:501"><nobr><span class="ft5">Application </span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:493"><nobr><span class="ft5">Superimposed </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:500"><nobr><span class="ft5">Information </span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:496"><nobr><span class="ft5">Management </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:648"><nobr><span class="ft5">Mark </span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:630"><nobr><span class="ft5">Management </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:643"><nobr><span class="ft5">Context </span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:631"><nobr><span class="ft5">Management </span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:638"><nobr><span class="ft5">Clipboard </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:762"><nobr><span class="ft5">Base </span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:749"><nobr><span class="ft5">Application </span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:564"><nobr><span class="ft5">Result</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:515"><nobr><span class="ft5">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:455"><nobr><span class="ft1">9</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:11px;font-family:Courier;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162004.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft1">3.1  Implementation </span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:81"><nobr><span class="ft7">We have implemented a naïve bi-level query system for the XML <br>superimposed model. We have developed a transformer to convert <br>RIDPad information to XML. We have developed a context <br>transformer to convert context information to XML. We are able <br>to use mark information without any transformation since <br>SPARCE already represents that information in XML. User que-<br>ries can be in XPath, XSLT, and XQuery. We use Microsoft's <br>XML SDK 4.0 [10] and XQuery demo implementation [11] to <br>process queries.  </span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:81"><nobr><span class="ft7">We use three XML elements to represent RIDPad information in <br>XML--</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:124"><nobr><span class="ft9">&lt;RIDPadDocument&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:254"><nobr><span class="ft3"> for the document, </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:364"><nobr><span class="ft9">&lt;Group&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:420"><nobr><span class="ft3"> for </span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:81"><nobr><span class="ft3">a group, and </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:159"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:208"><nobr><span class="ft3"> for an item. For each RIDPad item, the </span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:81"><nobr><span class="ft3">system creates four children nodes in the corresponding </span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:393"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:441"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:81"><nobr><span class="ft7">element. These children nodes correspond to the mark, container <br>(base document where the mark is made), application, and <br>context. We currently transform the entire context of the mark. <br>The XML data is regenerated if the RIDPad document changes. </span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:465"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:103"><nobr><span class="ft3">Figure 5: Partial XML data from a RIDPad document. </span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft7">Figure 5 shows partial XML data generated from the RIDPad <br>document in Figure 1. It contains two </span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:292"><nobr><span class="ft9">&lt;Group&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:348"><nobr><span class="ft3"> elements (corre-</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:81"><nobr><span class="ft7">sponding to the two groups in Figure 1). The `Garlic' element <br>contains four </span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:158"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:206"><nobr><span class="ft3"> elements (one for each item in that group </span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:81"><nobr><span class="ft3">in Figure 1). There is also an </span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:245"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:294"><nobr><span class="ft3"> element for the group-less </span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:81"><nobr><span class="ft3">item CLIO. The </span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:172"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:220"><nobr><span class="ft3"> element for `Goal' is partially expanded </span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:81"><nobr><span class="ft3">to reveal the </span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:155"><nobr><span class="ft9">&lt;Mark&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:204"><nobr><span class="ft3">, &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:220"><nobr><span class="ft9">Container&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:301"><nobr><span class="ft3">, &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:316"><nobr><span class="ft9">Application&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:414"><nobr><span class="ft3">, and </span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:81"><nobr><span class="ft3">&lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:89"><nobr><span class="ft9">Context&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:153"><nobr><span class="ft3"> elements it contains. Contents of these elements are </span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:81"><nobr><span class="ft3">not shown. </span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:81"><nobr><span class="ft1">3.2  Example Bi-level Queries </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:81"><nobr><span class="ft7">We now provide bi-level query expressions for the queries Q1 to <br>Q3 listed in Section 1.  </span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:81"><nobr><span class="ft3">Q1: List base documents used in this RIDPad document. </span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:81"><nobr><span class="ft7">This query must retrieve the path to the base document of the <br>mark associated with each item in a RIDPad document. The <br>following XQuery expression does just that. The Location <br>element in the Container element contains the path to the <br>document corresponding to the mark associated with an item.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:414"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:81"><nobr><span class="ft9">&lt;Paths&gt; {FOR $l IN </span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:81"><nobr><span class="ft9">document(&quot;source&quot;)//Item/Container/Location </span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:81"><nobr><span class="ft9">RETURN &lt;Path&gt;{$l/text()}&lt;/Path&gt; </span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:81"><nobr><span class="ft9">} &lt;/Paths&gt; </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft3">Q2: Show abstracts of papers related to Garlic.  </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:477"><nobr><span class="ft7">This query must examine the context of items in the group labeled <br>`Garlic.' The following XPath expression suffices. This <br>expression returns the text of a context element whose name <br>attribute is `Abstract', but only for items in the required group. </span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:477"><nobr><span class="ft9">//Group[@name='Garlic']/Item/Context//Elemen</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:477"><nobr><span class="ft9">t[@name='Abstract']/text() </span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:477"><nobr><span class="ft3">Q3: Create an HTML table of contents from the groups and items. </span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:477"><nobr><span class="ft7">We use an XSLT style-sheet to generate a table of contents (TOC) <br>from a RIDPad document. Figure 6 shows the query in the left <br>panel and its results in the right panel. The right panel embeds an <br>instance of MS Internet Explorer. The result contains one list item <br>(HTML LI tag) for each group in the RIDPad document. There is <br>also one list sub-item (also an HTML LI tag) for each item in a <br>group. The group-less item CLIO is in the list titled `Other Items.' <br>A user can save the HTML results, and open it in any browser <br>outside our system. </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:837"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:487"><nobr><span class="ft3">Figure 6: RIDPAD document transformed to HTML TOC. </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:477"><nobr><span class="ft7">The HTML TOC in Figure 6 shows that each item has a hyperlink <br>(HTML A tag) attached to it. A hyperlink is constructed using a <br>custom URL naming scheme and handled using a custom handler. <br>Custom URLs are one means of implementing Capability 5 iden-<br>tified in Section 1.  </span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:477"><nobr><span class="ft1">4.  DISCUSSION </span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:477"><nobr><span class="ft7">The strength of the current implementation is that it retrieves <br>context information for only those parts of base documents that <br>the superimposed document refers to (via marks). Interestingly, <br>the same is also its weakness: it retrieves context information for <br>all parts of the base documents the superimposed document refers <br>to, regardless of whether executing a query requires those ele-<br>ments. For example, only Query Q2 looks at context information <br>(Q1 looks only at container information, Q3 looks at superim-<br>posed information and mark information). However, the XML <br>data generated includes context information for all queries. Gen-<br>erating data in this manner is both inefficient and unnecessary--<br>information may be replicated (different items may use the same <br>mark), and context information can be rather large (the size of the <br>complete context of a mark could exceed the size of its docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:451"><nobr><span class="ft1">10</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162005.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">ment), depending on what context elements a context agent <br>provides. It is possible to get the same results by separating <br>RIDPad data from the rest and joining the various information <br>sources. Doing so preserves the layers, and potentially reduces the <br>size of data generated. Also, it is possible to execute a query in-<br>crementally and only generate or transform data that qualifies in <br>each stage of execution.  </span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:81"><nobr><span class="ft7">Figure 7 gives an idea of the proposed change to the schema of <br>the XML data generated. Comparing with the Goal Item element <br>of Figure 5, we see that mark, container, application, and context <br>information are no longer nested inside the Item element. Instead, <br>an </span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:99"><nobr><span class="ft9">&lt;Item&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:148"><nobr><span class="ft3"> element has a new attribute called </span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:351"><nobr><span class="ft9">markID</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:400"><nobr><span class="ft3">. In the </span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:81"><nobr><span class="ft7">revised schema, the RIDPad data, mark, container, application, <br>and context information exist independently in separate <br>documents, with references linking them. With the revised <br>schema, no context information would be retrieved for Query Q1. <br>Context information would be retrieved only for items in the <br>`Schematic Heterogeneity' group when Q2 is executed. </span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:441"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:137"><nobr><span class="ft3">Figure 7: XML data in the revised schema. </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:81"><nobr><span class="ft7">Preserving the layers of data has some disadvantages. A major <br>disadvantage is that a user will need to use joins to connect data <br>across layers. Such queries tend to be error-prone, and writing <br>them can take too much time and effort. A solution would be to <br>allow a user to write bi-level queries as they currently do (against <br>a schema corresponding to the data in Figure 5), and have the <br>system rewrite the query to match the underlying XML schema <br>(as in Figure 7). That is, user queries would actually be expressed <br>against a view of the actual data. We are currently pursuing this <br>approach to bi-level querying. </span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:81"><nobr><span class="ft7">Our current approach of grabbing context information for all <br>marks could be helpful in some cases. For example, if a query <br>workload ends up retrieving context of all (or most) marks, the <br>current approach is similar to materializing views, and could lead <br>to faster overall query execution. </span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:81"><nobr><span class="ft7">The current implementation does not exploit relationships be-<br>tween superimposed information elements. For example, Figure 8 <br>shows the RIDPad document in Figure 1 enhanced with two rela-<br>tionships `Uses' and `Addresses' from the item CLIO. A user may <br>exploit these relationships, to pose richer queries and possibly <br>recall more information. For example, with the RIDPad document <br>in Figure 8, a user could now pose the following queries: What <br>system does CLIO use? How is CLIO related to SchemaSQL? </span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:81"><nobr><span class="ft7">Our initial use anticipated for bi-level queries was to query su-<br>perimposed and base information as a whole, but we have noticed <br>that superimposed application developers and users could use the </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:477"><nobr><span class="ft7">capability to construct and format (on demand) superimposed <br>information elements themselves. For example, a RIDPad item's <br>name may be a section heading. Such a representation of an item <br>could be expressed as the result of a query or a transformation. </span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:808"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:513"><nobr><span class="ft3">Figure 8: A RIDPad document with relationships. </span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:477"><nobr><span class="ft7">Bi-level queries could also be used for repurposing information. <br>For example, Query Q3 could be extended to include the contents <br>of items (instead of just names) and transform the entire RIDPad <br>document to HTML (like in Figure 6).  The HTML version can <br>then be published on the web. </span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:477"><nobr><span class="ft7">We have demonstrated bi-level queries using XML query <br>languages, but superimposed applications might benefit from <br>other query languages. The choice of the query language depends <br>largely on the superimposed information model (which in turn <br>depends on the task at hand). More than one query language may <br>be appropriate for some superimposed information models, in <br>some superimposed applications. For example, both CXPath [3] <br>and XQuery may be appropriate for some applications that use the <br>XML superimposed model. </span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:477"><nobr><span class="ft7">The base applications we have worked with so far do not <br>themselves have query capabilities. If access to context or a selec-<br>tion over context elements can be posed as a query in a base <br>application, we might benefit from applying distributed query-<br>processing techniques. Finally, the scope of a bi-level query is <br>currently the superimposed layer and the base information acces-<br>sible via the marks used. Some applications might benefit from <br>including marks generated automatically (for example, using IR <br>techniques) in the scope of a query. </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:477"><nobr><span class="ft1">5.  RELATED WORK </span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:477"><nobr><span class="ft7">SPARCE differs from mediated systems such as Garlic [4] and <br>MIX [1]. Sources are registered with SPARCE simply by the act <br>of mark creation in those sources. Unlike in Garlic there is no <br>need to register a source and define its schema. Unlike MIX, <br>SPARCE does not require a DTD for a source. </span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:451"><nobr><span class="ft1">11</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="162006.png" alt="background image">
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">METAXPath [5] allows a user to attach metadata to XML ele-<br>ments. It enhances XPath with an `up-shift' operator to navigate <br>from data to metadata (and metadata to meta-metadata, and so <br>on). A user can start at any level, but only cross between levels in <br>an upwards direction. In our system, it is possible to move both <br>upwards and downwards between levels. METAXPath is <br>designed to attach only metadata to data. A superimposed <br>information element can be used to represent metadata about a <br>base-layer element, but it has many other uses.  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:81"><nobr><span class="ft7">CXPath [3] is an XPath-like query language to query concepts, <br>not elements. The names used in query expressions are concept <br>names, not element names. In the CXPath model there is no <br>document root--all concepts are accessible from anywhere. For <br>example, the CXPath expression `/Item' and `Item' are equiva-<br>lent. They both return all Item elements when applied to the XML <br>data in Figure 5. The `/' used for navigation in XPath follows a <br>relationship (possibly named) in CXPath. For example, the ex-<br>pression "/Item/{Uses}Group" returns all groups that are related <br>to an item by the `Uses' relationship when applied to an XML <br>representation of the RIDPad in Figure 8. CXPath uses predefined <br>mappings to translate CXPath expressions to XPath expressions. <br>There is one mapping for each concept name and for each direc-<br>tion of every relationship of every XML source. In our system, <br>we intend to support multiple sources without predefined map-<br>pings, but we would like our query system to operate at a <br>conceptual level like CXPath does. </span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:81"><nobr><span class="ft7">As discussed in Section 4, preserving the layers of data, yet al-<br>lowing a user to express queries as if all data is in one layer <br>means queries are expressed against views. Information Manifold <br>[7] provides useful insight in to how heterogeneous source may be <br>queried via views. That system associates a capability record with <br>each source to describe its inputs, outputs, and selection capabili-<br>ties. We currently do not have such a notion in our system, but we <br>expect to consider source descriptions in the context of distributed <br>query processing mentioned in Section 4. </span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft1">6.  SUMMARY </span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:81"><nobr><span class="ft7">Our existing framework for superimposed applications supports <br>examination and manipulation of individual superimposed and <br>base information elements. More global ways to search and ma-<br>nipulate information become necessary as the size and number of <br>documents gets larger. A bi-level query system is a first step in <br>that direction. We have an initial implementation of a query <br>system, but still have a large space of design options to explore. </span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:81"><nobr><span class="ft1">7.  ACKNOWLEDGMENTS </span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:81"><nobr><span class="ft7">This work was supported in part by US NSF Grant IIS-0086002. <br>We thank all reviewers. </span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:81"><nobr><span class="ft1">8.  REFERENCES </span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft3">[1]  Baru, C., Gupta, A., Ludäscher, B., Marciano, R., </span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:108"><nobr><span class="ft3">Papakonstantinou, Y., Velikhov, P., and Chu, V. XML-</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:504"><nobr><span class="ft7">Based Information Mediation with MIX. In Proceedings of <br>the SIGMOD conference on Management of Data <br>(Philadelphia, June, 1999). ACM Press, New York, NY, <br>1999, 597-599. </span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:477"><nobr><span class="ft3">[2]  Bowers, S., Delcambre, L. and Maier, D. Superimposed </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:504"><nobr><span class="ft7">Schematics: Introducing E-R Structure for In-Situ <br>Information Selections. In Proceedings of ER 2002 <br>(Tampere, Finland, October 7-11, 2002). Springer LNCS <br>2503, 2002. 90­104. </span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:477"><nobr><span class="ft3">[3]  Camillo, S.D., Heuser, C.A., and Mello, R. Querying </span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:504"><nobr><span class="ft7">Heterogeneous XML Sources through a Conceptual Schema. <br>In Proceedings of ER 2003 (Chicago, October 13-16, 2003). <br>Springer LNCS 2813, 2003. 186­199. </span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:477"><nobr><span class="ft3">[4]  Carey, M.J., Haas, L.M., Schwarz, P.M., Arya, M., Cody, </span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:504"><nobr><span class="ft7">W.F., Fagin, R., Flickner, M., Luniewski, A.W., Niblack, <br>W., Petkovic, D., Thomas, J., Williams, J.H., and Wimmers, <br>E.L. Towards heterogeneous multimedia information <br>systems: The Garlic approach. IBM Technical Report RJ <br>9911, 1994. </span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:477"><nobr><span class="ft3">[5]  Dyreson, C.E., Bohlen, M.H., and Jensen, C.S. METAXPath. </span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:504"><nobr><span class="ft7">In Proceedings of the International Conference on Dublin <br>Core and Metadata Applications (Tokyo, Japan, October <br>2001). 2001, 17-23. </span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:477"><nobr><span class="ft3">[6]  Halasz, F.G., and Schwartz, F. The Dexter Hypertext </span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:504"><nobr><span class="ft7">Reference Model. Communications of the ACM, 37, 2, 30-<br>39. </span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:477"><nobr><span class="ft3">[7]  Levy, A.Y., Rajaraman, A., and Ordille, J.J. Querying </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:504"><nobr><span class="ft7">heterogeneous information sources using source descriptions. <br>In Proceedings of VLDB (Bombay, India 1996). 251-262. </span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:477"><nobr><span class="ft3">[8]  Maier, D., and Delcambre, L. Superimposed Information for </span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:504"><nobr><span class="ft7">the Internet. In Informal Proceedings of WebDB '99 <br>(Philadelphia, June 3-4, 1999). 1-9. </span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:477"><nobr><span class="ft3">[9]  Microsoft. COM: The Component Object Model </span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:504"><nobr><span class="ft3">Specification, Microsoft Corporation. 1995.  </span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:477"><nobr><span class="ft3">[10] Microsoft. MS XML 4.0 Software Development Kit. </span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:504"><nobr><span class="ft7">Microsoft Corporation. Available online at <br>http://msdn.microsoft.com/ </span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:477"><nobr><span class="ft3">[11] Microsoft. XQuery Demo. Microsoft Corporation. Available </span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:504"><nobr><span class="ft3">online at http://xqueryservices.com/ </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:477"><nobr><span class="ft3">[12] Murthy, S., Maier, D., Delcambre, L., and Bowers, S. </span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:504"><nobr><span class="ft7">Putting Integrated Information in Context: Superimposing <br>Conceptual Models with SPARCE. In Proceedings of the <br>First Asia-Pacific Conference of Conceptual Modeling <br>(Dunedin, New Zealand, Jan. 22, 2004). 71-80. </span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:477"><nobr><span class="ft3">[13] Wiederhold, G. Mediators in the architecture of future </span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:504"><nobr><span class="ft7">information systems. IEEE Computer, 25, 3 (March 1992). <br>38­49.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft0"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:451"><nobr><span class="ft1">12</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

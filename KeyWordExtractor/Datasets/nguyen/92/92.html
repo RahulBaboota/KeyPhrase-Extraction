@@ -1,0 +1,923 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\92</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2002-12-18T10:38:54+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:5px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Times;color:#000000;}
+	.ft2{font-size:16px;font-family:Times;color:#000000;}
+	.ft3{font-size:13px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;font-family:Times;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:25px;font-family:Times;color:#000000;}
+	.ft9{font-size:16px;font-family:Times;color:#000000;}
+	.ft10{font-size:7px;line-height:9px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft12{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92001.png" alt="background image">
+<DIV style="position:absolute;top:898;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:86"><nobr><span class="ft1">2550 Garcia Avenue, MTV18-212</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft10">Mountain View, CA 94043-1100<br>michael.deering@Eng.Sun.COM</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:215"><nobr><span class="ft1">(415) 336-3017</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:81"><nobr><span class="ft1">stephen.schlapp@Eng.Sun.COM</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:215"><nobr><span class="ft1">(415) 336-3818</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:81"><nobr><span class="ft1">mike.lavelle@Eng.Sun.COM</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:215"><nobr><span class="ft1">(415) 336-3103</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:94"><nobr><span class="ft2"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:81"><nobr><span class="ft11">FBRAM, a new form of dynamic random access memory that<br>greatly accelerates the rendering of Z-buffered primitives, is pre-<br>sented. Two key concepts make this acceleration possible. The first<br>is to convert the read-modify-write Z-buffer compare and RGB</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:433"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:81"><nobr><span class="ft11">blend into a single write only operation. The second is to support<br>two levels of rectangularly shaped pixel caches internal to the mem-<br>ory chip. The result is a 10 megabit part that, for 3D graphics, per-<br>forms read-modify-write cycles ten times faster than conventional<br>60 ns VRAMs. A four-way interleaved 100 MHz FBRAM frame<br>buffer can Z-buffer up to 400 million pixels per second. Working<br>FBRAM prototypes have been fabricated.</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:81"><nobr><span class="ft11"><b>CR Categories and Subject Descriptors:</b> I.3.1 [Computer Graph-<br>ics]: Hardware Architecture; I.3.3 [Computer Graphics]: Picture/<br>Image Generation <i>Display algorithms</i>; I.3.7 [Computer Graphics]:<br>Three Dimensional Graphics and Realism.</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:81"><nobr><span class="ft11"><b>Additional Keywords and Phrases:</b> 3D graphics hardware, ren-<br>dering, parallel graphics algorithms, dynamic memory, caching.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:81"><nobr><span class="ft2"><b>1 INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft11">One of the traditional bottlenecks of 3D graphics hardware has been<br>the rate at which pixels can be rendered into a frame buffer. Modern<br>interactive 3D graphics applications require rendering platforms<br>that can support 30 Hz animation of richly detailed 3D scenes. But<br>existing memory technologies cannot deliver the desired rendering<br>performance at desktop price points.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:81"><nobr><span class="ft11">The performance of hidden surface elimination algorithms has been<br>limited by the pixel fill rate of 2D projections of 3D primitives.<br>While a number of exotic architectures have been proposed to im-<br>prove rendering speed beyond that achievable with conventional<br>DRAM or VRAM, to date all commercially available workstation<br>3D accelerators have been based on these types of memory chips.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:477"><nobr><span class="ft11">This paper describes a new form of specialized memory, Frame<br>Buffer RAM (FBRAM). FBRAM increases the speed of Z-buffer<br>operations by an order of magnitude, and at a lower system cost<br>than conventional VRAM. This speedup is achieved through two<br>architectural changes: moving the Z compare and RGB</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:774"><nobr><span class="ft5"> blend op-</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:477"><nobr><span class="ft11">erations inside the memory chip, and using two levels of appropri-<br>ately shaped and interleaved on-chip pixel caches.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:477"><nobr><span class="ft2"><b>2 PREVIOUS WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:477"><nobr><span class="ft11">After the Z-buffer algorithm was invented [3], the first Z-buffered<br>hardware systems were built in the 1970's from conventional<br>DRAM memory chips. Over time, the density of DRAMs increased<br>exponentially, but without corresponding increases in I/O band-<br>width. Eventually, video output bandwidth requirements alone ex-<br>ceeded the total DRAM I/O bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:477"><nobr><span class="ft11">Introduced in the early 1980's, VRAM [18][20] solved the video<br>output bandwidth problem by adding a separate video port to a<br>DRAM. This allowed graphics frame buffers to continue to benefit<br>from improving bit densities, but did nothing directly to speed ren-<br>dering operations. More recently, rendering architectures have<br>bumped up against a new memory chip bandwidth limitation: faster<br>rendering engines have surpassed VRAM's input bandwidth. As a<br>result, recent generations of VRAM have been forced to increase<br>the width of their I/O busses just to keep up. For the last five years,<br>the pixel fill (i.e. write) rates of minimum chip count VRAM frame<br>buffers have increased by less than 30%.</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:477"><nobr><span class="ft11">Performance gains have mainly been achieved in commercially<br>available systems by brute force. Contemporary mid-range systems<br>have employed 10-way and 20-way interleaved VRAM designs<br>[1][14]. Recent high-end architectures have abandoned VRAM al-<br>together in favor of massively interleaved DRAM: as much as 120-<br>way interleaved DRAM frame buffers [2]. But such approaches do<br>not scale to cost effective machines.</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:477"><nobr><span class="ft11">More radical approaches to the problem of pixel fill have been ex-<br>plored by a number of researchers. The most notable of these is the<br>pixel-planes architecture [9][16], others include [7][8][11][4]. [12]<br>and [10] contain a good summary of these architectures. What these<br>architectures have in common is the avoidance of making the ren-<br>dering of every pixel an explicit event on external pins. In the limit,<br>only the geometry to be rendered need enter the chip(s), and the fi-<br>nal pixels for video output exit.</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:477"><nobr><span class="ft11">These research architectures excel at extremely fast Z-buffered fill of<br>large areas. They achieve this at the expense of high cost, out-of-order<br>rendering semantics, and various overflow exception cases. Many of<br>these architectures ([16][11][4]) require screen space pre-sorting of<br>primitives before rendering commences. As a consequence, intermedi-<br>ate geometry must be sorted and stored in large batches.</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:262"><nobr><span class="ft8"><b>FBRAM: A new Form of Memory</b></span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:301"><nobr><span class="ft8"><b>Optimized for 3D Graphics</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:247"><nobr><span class="ft9"><i>Michael F Deering, Stephen A Schlapp, Michael G Lavelle</i></span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:306"><nobr><span class="ft9"><i>Sun Microsystems Computer Corporation</i></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:607"><nobr><span class="ft1"></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:16px;font-family:Times;color:#000000;}
+	.ft14{font-size:13px;font-family:Times;color:#000000;}
+	.ft15{font-size:34px;font-family:Helvetica;color:#000000;}
+	.ft16{font-size:16px;font-family:Times;color:#000000;}
+	.ft17{font-size:16px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92002.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft11">Unfortunately, the benefits from the fast filling of large polygons<br>are rapidly diminishing with today's very finely tessellated objects.<br>That is, the triangles are getting smaller [6]. The number of pixels<br>filled per scene is not going up anywhere near as quickly as the total<br>number of polygons. As 3D hardware rendering systems are finally<br>approaching motion fusion rates (real time), additional improve-<br>ments in polygon rates are employed to add more fine detail, rather<br>than further increases in frame rates or depth complexity.</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:81"><nobr><span class="ft2"><b>3 Z-BUFFERING AND OTHER PIXEL PROCESSING OPERATIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:81"><nobr><span class="ft11">Fundamental to the Z-buffer hidden surface removal algorithm are<br>the steps of reading the Z-buffer's old Z value for the current pixel<br>being rendered, numerically comparing this value with the new one<br>just generated, and then, as an outcome of this compare operation,<br>either leaving the old Z (and RGB) frame buffer pixel values alone,<br>or replacing the old Z (and RGB) value with the new.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:81"><nobr><span class="ft11">With conventional memory chips, the Z data must traverse the data<br>pins twice: once to read out the old Z value, and then a second time to<br>write the new Z value if it wins the comparison. Additional time must<br>be allowed for the data pins to electrically "turn around" between<br>reading and writing. Thus the read-modify-write Z-buffer transaction<br>implemented using a straightforward read-turn-write-turn operation<br>is four times longer than a pure write transaction. Batching of reads<br>and writes (<i>n</i> reads, turn, <i>n</i> writes, turn) would reduce the read-mod-<br>ify-write cost to twice that of a pure write transaction for very large <i>n</i>,<br>but finely tessellated objects have very small values of <i>n</i>, and still suf-<br>fer a 3-4</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:125"><nobr><span class="ft5">× penalty.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:81"><nobr><span class="ft11">This is the first problem solved by FBRAM. Starting with a data<br>width of 32 bits per memory chip, FBRAM now makes it possible<br>for the Z comparison to be performed entirely <i>inside</i> the memory<br>chip. Only if the internal 32 bit numeric comparison succeeds does<br>the new Z value actually replace the old value. Thus the fundamen-<br>tal read-modify-write operation is converted to a pure write opera-<br>tion at the data pins.</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:81"><nobr><span class="ft11">Because more than 32-bits are needed to represent a double buff-<br>ered RGBZ pixel, some way of transmitting the results of the Z<br>comparison across multiple chips is required. The Z comparison re-<br>sult is communicated on a single external output signal pin of the<br>FBRAM containing the Z planes, instructing FBRAM chips con-<br>taining other planes of the frame buffer whether or not to write a<br>new value.</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:81"><nobr><span class="ft12">The Z-buffer operation is the most important of the general class of<br>read-modify-write operations used in rendering. Other important<br>conditional writes which must be communicated between<br>FBRAMs include window ID compare [1] and stenciling.</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:81"><nobr><span class="ft11">Compositing functions, rendering of transparent objects, and anti-<br>aliased lines require a blending operation, which adds a specified<br>fraction of the pixel RGB value just generated to a fraction of the<br>pixel RGB value already in the frame buffer. FBRAM provides four<br>8-bit 100 MHz multiplier-adders to convert the read-modify-write<br>blending operation into a pure write at the pins. These internal<br>blend operations can proceed in parallel with the Z and window ID<br>compare operations, supported by two 32-bit comparators. One of<br>the comparators supports magnitude tests (</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:309"><nobr><span class="ft5">&gt;, , &lt;, , =, ), the other</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft4">supports match tests (</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:197"><nobr><span class="ft5">=, ). Also, traditional boolean bit-operations</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:81"><nobr><span class="ft11">(for RasterOp) are supported inside the FBRAM. This collection of<br>processing units is referred to as the pixel ALU.</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:81"><nobr><span class="ft11">Converting read-modify-write operations into pure write opera-<br>tions at the data pins permits FBRAM to accept data at a 100 MHz<br>rate. To match this rate, the pixel ALU design is heavily pipelined,<br>and can process pixels at the rate of 100 million pixels per second.<br>Thus in a typical four-way interleaved frame buffer design the max-</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:477"><nobr><span class="ft12">imum theoretical Z-buffered pixel fill rate of an FBRAM based sys-<br>tem is 400 mega pixels per second. By contrast, comparable frame<br>buffers constructed with VRAM achieve peak rates of 33-66 mega<br>pixels per second [5][14].</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:477"><nobr><span class="ft11">Now that pixels are arriving and being processed on-chip at<br>100 MHz, we next consider the details of storing data.</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:477"><nobr><span class="ft2"><b>4 DRAM FUNDAMENTALS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:477"><nobr><span class="ft11">Dynamic memory chips achieve their impressive densities (and<br>lower costs) by employing only a single transistor per bit of storage.<br>These storage cells are organized into pages; typically there are sev-<br>eral thousand cells per page. Typical DRAM arrays have hundreds<br>or thousands of pages. Per bit sense amplifiers are provided which<br>can access an entire page of the array within 120 ns. These sense<br>amplifiers retain the last data accessed; thus they function as a sev-<br>eral thousand bit page buffer. The limited number of external I/O<br>pins can perform either a read or a write on a small subset of the<br>page buffer at a higher rate, typically every 40 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:477"><nobr><span class="ft11">FBRAM starts with these standard DRAM components, and adds a<br>multiported high speed SRAM and pixel ALU. All of this is orga-<br>nized within a caching hierarchy, optimized for graphics access pat-<br>terns, to address the bandwidth mismatch between the high speed<br>pins and the slow DRAM cells.</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:477"><nobr><span class="ft2"><b>5 PIXEL CACHING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:477"><nobr><span class="ft11">The cache system design goal for FBRAM is to match the 100 MHz<br>read-modify-write rate of the pixel ALU with the 8 MHz rate of the<br>DRAM cells. Figure 1 illustrates this cache design challenge.</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:477"><nobr><span class="ft11">Caches have long been used with general purpose processors; even<br>a small cache can be very effective [17]. But caches have been<br>much less used with graphics rendering systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:477"><nobr><span class="ft11">The data reference patterns of general purpose processors exhibit<br>both <i>temporal</i> and <i>spatial</i> locality of reference. Temporal locality is<br>exhibited when multiple references are made to the same data with-<br>in a short period of time. Spatial locality is exhibited when multiple<br>references within a small address range are made within a short pe-<br>riod of time. Caches also reduce the overall load on the memory bus<br>by grouping several memory accesses into a single, more efficient<br>block access.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:477"><nobr><span class="ft11">Graphics hardware rendering does <i>not</i> exhibit much temporal local-<br>ity, but <i>does</i> exhibit spatial locality with a vengeance. Raster ren-<br>dering algorithms for polygons and vectors are a rich source of spa-<br>tial locality.</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:477"><nobr><span class="ft11">Although the bandwidth available inside a dynamic memory chip is<br>orders of magnitude greater than that available at the pins, this in-</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:562"><nobr><span class="ft13">Dynamic</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:564"><nobr><span class="ft13">Memory</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:580"><nobr><span class="ft14">ALU</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:584"><nobr><span class="ft15"><b>?</b></span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:649"><nobr><span class="ft14">32-bits @ 100MHz</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:649"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:661"><nobr><span class="ft16">×</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:670"><nobr><span class="ft14"> 32-bits @ 100MHz</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:649"><nobr><span class="ft14">10,240-bits @ 8MHz</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:482"><nobr><span class="ft4">Figure 1. Bandwidth mismatch between pixel ALU and DRAM.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:740"><nobr><span class="ft17"><b>FBRAM</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:19px;font-family:Times;color:#000000;}
+	.ft19{font-size:10px;font-family:Times;color:#000000;}
+	.ft20{font-size:10px;font-family:Helvetica;color:#000000;}
+	.ft21{font-size:22px;font-family:Helvetica;color:#000000;}
+	.ft22{font-size:19px;font-family:Times;color:#000000;}
+	.ft23{font-size:10px;line-height:12px;font-family:Times;color:#000000;}
+	.ft24{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92003.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft11">ternal bandwidth is out of reach for architectures in which the pixel<br>cache is external to the memory chips. Others have recognized the<br>potential of applying caching to Z-buffered rendering [13], but they<br>were constrained to building their caches off chip. Such architec-<br>tures can at best approach the rendering rate constrained by the<br>memory pin bandwidth. As a result, these caching systems offer lit-<br>tle or no performance gain over SIMD or MIMD interleaved pixel<br>rendering.</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:81"><nobr><span class="ft11">With FBRAM, by contrast, the pixel caches are <i>internal</i> to the indi-<br>vidual memory chips. Indeed, as will be seen, <i>two</i> levels of internal<br>caches are employed to manage the data flow. The miss rates are<br>minimized by using rectangular shaped caches. The miss costs are<br>reduced by using wide and fast internal busses, augmented by an<br>aggressive predictive pre-fetch algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:81"><nobr><span class="ft11">Each successive stage from the pins to the DRAM cells has slower<br>bus rates, but FBRAM compensates for this with wider busses. Be-<br>cause the bus width increases faster than the bus rate decreases,<br>their product (bus bandwidth) increases, making caching a practical<br>solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:81"><nobr><span class="ft2"><b>6 FBRAM INTERNAL ARCHITECTURE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:81"><nobr><span class="ft11">Modern semiconductor production facilities are optimized for a<br>certain silicon die area and fabrication process for a given genera-<br>tion of technology. FBRAM consists of 10 megabits of DRAM, a<br>video buffer, a small cache, and a graphics processor, all imple-<br>mented in standard DRAM process technology. The result is a die<br>size similar to a 16 megabit DRAM. A 10 megabit FBRAM is<br>320</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:101"><nobr><span class="ft5">×1024×32 in size; four FBRAMs exactly form a standard</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:81"><nobr><span class="ft4">1280</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:108"><nobr><span class="ft5">×1024×32 frame buffer.</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:81"><nobr><span class="ft4">Figure</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:116"><nobr><span class="ft5"> 2 is an internal block diagram of a single FBRAM [15]. The</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:81"><nobr><span class="ft11">DRAM storage is broken up into four banks, referred to as banks<br>A,B,C, and D. Each bank contains 256 pages of 320 words (32 bits<br>per word). Each bank is accessed through a sense amplifier page<br>buffer capable of holding an entire 320 word page (10,240 bits).<br>Banks can be accessed at a read-modify-write cycle time of 120 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft11">Video output pixels can be copied from the page buffer to one of<br>two ping-pong video buffers, and shifted out to the display.</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft11">FBRAM has a fast triple-ported SRAM register file. This register<br>file is organized as eight blocks of eight 32-bit words. Capable of<br>cycling at 100 MHz, two of the ports (one read, one write) of the<br>register file allow 10 ns throughput for pipelined 32-bit read-modi-</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:260"><nobr><span class="ft14">DRAM Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:293"><nobr><span class="ft18"><b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:268"><nobr><span class="ft19">Video Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:119"><nobr><span class="ft19">Video Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:111"><nobr><span class="ft14">DRAM Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:144"><nobr><span class="ft18"><b>A</b></span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:111"><nobr><span class="ft14">DRAM Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:142"><nobr><span class="ft18"><b>C</b></span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:260"><nobr><span class="ft14">DRAM Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:292"><nobr><span class="ft18"><b>D</b></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:198"><nobr><span class="ft14">SRAM</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:209"><nobr><span class="ft20">2Kb</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:281"><nobr><span class="ft19">ALU</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:235"><nobr><span class="ft20">256</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:160"><nobr><span class="ft20">640</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:160"><nobr><span class="ft20">640</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:309"><nobr><span class="ft20">640</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:309"><nobr><span class="ft20">640</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:361"><nobr><span class="ft20">16</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:349"><nobr><span class="ft20">32</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:399"><nobr><span class="ft20">Video</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:399"><nobr><span class="ft20">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:219"><nobr><span class="ft19">Global Bus</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:258"><nobr><span class="ft20">32</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:258"><nobr><span class="ft20">32</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:392"><nobr><span class="ft20">Render</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:392"><nobr><span class="ft20">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:104"><nobr><span class="ft19">Page Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:290"><nobr><span class="ft19">Page Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:290"><nobr><span class="ft19">Page Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:104"><nobr><span class="ft19">Page Buffer</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:167"><nobr><span class="ft20">2.5Mb</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:171"><nobr><span class="ft20">10Kb</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:173"><nobr><span class="ft20">10Kb</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:250"><nobr><span class="ft20">10Kb</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:250"><nobr><span class="ft20">10Kb</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:249"><nobr><span class="ft20">2.5Mb</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:168"><nobr><span class="ft20">2.5Mb</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:251"><nobr><span class="ft20">2.5Mb</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:96"><nobr><span class="ft21"><b>FBRAM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:104"><nobr><span class="ft5">Figure 2. Internal block diagram of a single FBRAM.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:477"><nobr><span class="ft4">fy-write ALU operations: Z-buffer compare, RGB</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:746"><nobr><span class="ft5"> blend, or bool-</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:477"><nobr><span class="ft11">ean-operations. The third port allows parallel transfer of an entire<br>block (8 words) to or from a page buffer at a 20 ns cycle time via a<br>256-bit "Global Bus".</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:477"><nobr><span class="ft11">FBRAM has two independent sets of control and address lines: one<br>for the two ALU ports of the SRAM register file; the other for op-<br>erations involving a DRAM bank. This allows DRAM operations<br>to proceed in parallel with SRAM operations. The cache control<br>logic was intentionally left off-chip, to permit maximum flexibility<br>and also to keep multiple chips in lock step.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:477"><nobr><span class="ft2"><b>7 FBRAM AS CACHE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:477"><nobr><span class="ft11">Internally, the SRAM register file is a level one pixel cache (L1$),<br>containing eight blocks. Each block is a 2 wide by 4 high rectangle<br>of (32-bit) pixels. The cache set associativity is determined external<br>to the FBRAM, permitting fully associative mapping. The L1$ uses<br>a write back policy; multiple data writes to each L1$ block are ac-<br>cumulated for later transfer to the L2$.</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:477"><nobr><span class="ft11">Taken together, the four sense amplifier page buffers constitute a<br>level two pixel cache (L2$). The L2$ is direct mapped; each page<br>buffer is mapped to one of the pages of its corresponding DRAM<br>bank. Each L2$ entry contains one page of 320 32-bit words shaped<br>as a 20 wide by 16 high rectangle of pixels. The L2$ uses a write<br>through policy; data written into a L2$ entry goes immediately into<br>its DRAM bank as well.</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:477"><nobr><span class="ft4">The Global Bus connects the L1$ to the L2$. A 2</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:738"><nobr><span class="ft5">×4 pixel block can</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:477"><nobr><span class="ft4">be transferred between the L1$ and L2$ in 20 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:477"><nobr><span class="ft11">Four parallel "sense amplifier buses" connect the four L2$ entries<br>to the four DRAM banks. A new 20</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:673"><nobr><span class="ft5">×16 pixel DRAM page can be</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:477"><nobr><span class="ft11">read into a given L2$ entry from its DRAM bank as often as every<br>120 ns. Reads to different L2$ entries can be launched every 40 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:477"><nobr><span class="ft2"><b>8 FOUR WAY INTERLEAVED FBRAM FRAME BUFFER</b></span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:477"><nobr><span class="ft11">The previous sections described a single FBRAM chip. But to fully<br>appreciate FBRAM's organization, it is best viewed in one of its<br>natural environments: a four way horizontally interleaved three<br>chip deep 1280</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:559"><nobr><span class="ft5">×1024×96-bit double buffered RGB Z frame buffer.</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:477"><nobr><span class="ft11">Figure 3 shows the chip organization of such a frame buffer, with<br>two support blocks (render controller and video output). Figure 4 is<br>a <i>logical</i> block diagram considering all 12 chips as one system. The</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:526"><nobr><span class="ft23">rgb<br> A</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:526"><nobr><span class="ft23">rgb<br> B</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:527"><nobr><span class="ft19"> Z</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:607"><nobr><span class="ft23">rgb<br> A</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:607"><nobr><span class="ft23">rgb<br> B</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:608"><nobr><span class="ft19"> Z</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:688"><nobr><span class="ft23">rgb<br> A</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:688"><nobr><span class="ft23">rgb<br> B</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:689"><nobr><span class="ft19"> Z</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:769"><nobr><span class="ft23">rgb<br> A</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:769"><nobr><span class="ft23">rgb<br> B</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:770"><nobr><span class="ft19"> Z</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:568"><nobr><span class="ft22">Rendering Controller</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:594"><nobr><span class="ft22">Video Output</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:487"><nobr><span class="ft24">Figure 3. A four-way interleaved frame buffer system composed<br>of 12 FBRAMs (1280</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:606"><nobr><span class="ft5">×1024, double buffered 32-bit RGB plus</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:487"><nobr><span class="ft4">32-bit Z).</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft25{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft26{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92004.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft11">discussions of the operations of FBRAM to follow are all based on<br>considering all 12 memory chips as one memory system.</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:81"><nobr><span class="ft11">Horizontally interleaving four FBRAMs quadruples the number of<br>data pins; now four RGBZ pixels can be Z-buffered, blended, and<br>written simultaneously. This interleaving also quadruples the size<br>of the caches and busses in the horizontal dimension. Thus the L1$<br>can now be thought of as eight cache blocks, each 8 pixels wide by<br>4 pixels high. Taken together, the individual Global Buses in the 12<br>chips can transfer an 8</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:200"><nobr><span class="ft5">×4 pixel block between the L1$ and L2$. The</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:81"><nobr><span class="ft11">four L2$ entries are now 80 pixels wide by 16 pixels high (see Fig-<br>ure 4).</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:81"><nobr><span class="ft11">All three levels of this memory hierarchy operate concurrently.<br>When the addressed pixels are present in the L1$, the four way in-<br>terleaved FBRAMs can process 4 pixels every 10 ns. On occasion,<br>the L1$ will not contain the desired pixels (an "L1$ miss"), incur-<br>ring a 40 ns penalty ("L1$ miss cost"): 20 ns to fetch the missing<br>block from the L2$ for rendering, 20 ns to write the block back to<br>the L2$ upon completion. Even less often, the L2$ will not contain<br>the block of pixels needed by the L1$ (an "L2$ miss"), incurring a<br>40-120 ns penalty ("L2$ miss cost") depending upon the schedul-<br>ing status of the DRAM bank.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:81"><nobr><span class="ft11">This example four way interleaved frame buffer will be assumed<br>for the remainder of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:81"><nobr><span class="ft2"><b>9 RECTANGULAR CACHES REDUCE MISS RATE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:81"><nobr><span class="ft11">The organization so far shows pixels moving between fast, narrow<br>data paths to slow, wide ones. As can be seen in Figure 4, there is<br>sufficient bandwidth between all stages to, in theory, keep up with<br>the incoming rendered pixels, <i>so long as the right blocks and pages<br>are flowing</i>. We endeavor to achieve this through aggressive pre-<br>fetching of rectangular pixel regions.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:229"><nobr><span class="ft14">Level 2 Cache</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:243"><nobr><span class="ft13">DRAM</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:251"><nobr><span class="ft13">Bank</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:146"><nobr><span class="ft14">Level 1 Cache</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:165"><nobr><span class="ft14">ALU(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:298"><nobr><span class="ft26">read-modify-write<br>4</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:305"><nobr><span class="ft5">×1 pixels@10 ns =</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:298"><nobr><span class="ft4">800 Mpixels/second</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:298"><nobr><span class="ft26">read or write<br>8</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:305"><nobr><span class="ft5">×4 pixels@20 ns =</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:298"><nobr><span class="ft4">1600 Mpixels/second</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:298"><nobr><span class="ft26">write-modify-read<br>80</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:312"><nobr><span class="ft5">×16 pixels@120 ns =</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:298"><nobr><span class="ft26">10600 Mpixels/second<br>            per bank;<br>            Can overlap<br>            banks @40 ns =<br>            32 Gpixels/second</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:201"><nobr><span class="ft14">Global Bus</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:109"><nobr><span class="ft24">Figure 4. A<i> logical</i> representation of a four-way horizontally<br>interleaved frame buffer composed of 12 FBRAMs.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:298"><nobr><span class="ft26">write (or read)<br>4</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:305"><nobr><span class="ft5">×1 pixels@10 ns =</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:298"><nobr><span class="ft4">400 Mpixels/second</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:152"><nobr><span class="ft19">8 wide</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:187"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:195"><nobr><span class="ft19"> 4 high</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:171"><nobr><span class="ft19">8 block</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:228"><nobr><span class="ft19">80 wide</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:269"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:280"><nobr><span class="ft19">16 high</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:233"><nobr><span class="ft19">1 page per bank</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:477"><nobr><span class="ft11">Locality of reference in graphics rendering systems tends to be to<br>neighboring pixels in 2D. Because of this, graphics architects have<br>long desired fast access to square regions [19]. Unfortunately, the<br>standard VRAM page and video shift register dimensions result in<br>efficient access only to long narrow horizontal regions. FBRAM<br>solves this problem by making both caches as square as possible.</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:477"><nobr><span class="ft4">Because the L1$ blocks are 8</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:643"><nobr><span class="ft5">×4 pixels, thin line rendering algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:477"><nobr><span class="ft11">rithms tend to pass through four to eight pixels per L1$ block, re-<br>sulting in a L1$ miss every fourth to eighth pixel (a "miss rate" of<br>1/4 to 1/8). Parallel area rendering algorithms can aim to utilize all<br>32 pixels in a block, approaching a miss rate of 1/32.</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:477"><nobr><span class="ft4">Similarly, because the L2$ blocks are 80</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:695"><nobr><span class="ft5">×16 pixels, L2$ miss rates</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:477"><nobr><span class="ft11">are on the order of 1/16 to 1/80 for thin lines, and asymptotically ap-<br>proach 1/1280 for large areas.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:477"><nobr><span class="ft11">These simplistic miss rate approximations ignore fragmentation ef-<br>fects: lines may end part way through a block or page, polygon edg-<br>es usually cover only a fraction of a block or page. In addition, frag-<br>mentation reduces the effective pin bandwidth, as not all four hori-<br>zontally interleaved pixels ("quads") can be used every cycle.</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:477"><nobr><span class="ft11">FBRAM's block and page dimensions were selected to minimize<br>the effects of fragmentation. Table 1 displays the average number</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:477"><nobr><span class="ft11">of L1$ blocks (<b>B</b>), and L2$ pages (<b>P</b>) <i>touched</i> when rendering var-<br>ious sizes of thin lines and right isosceles triangles (averaged over<br>all orientations and positions), for a range of alternative cache as-<br>pect ratios. The white columns indicate FBRAM's dimensions.<br>Note that smaller primitives consume more blocks and pages <i>per<br>rendered pixel</i>, due to fragmentation effects. Although the table im-<br>plies that a page size of 40</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:621"><nobr><span class="ft5">×32 is better than 80×16, practical limi-</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:477"><nobr><span class="ft12">tations of video output overhead (ignored in this table, and to be dis-<br>cussed in section 13), dictated choosing 80</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:708"><nobr><span class="ft5">×16.</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:477"><nobr><span class="ft2"><b>10 OPERATING THE FRAME BUFFER</b></span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:477"><nobr><span class="ft11">For non-cached rendering architectures, theoretical maximum per-<br>formance rates can be derived from statistics similar to Table 1.<br>This is pessimistic for cached architectures such as FBRAM. Be-<br>cause of spatial locality, later primitives (neighboring triangles of a<br>strip) will often "re-touch" a block or page before it is evicted from<br>the cache, requiring fewer block and page <i>transfers</i>. Additional<br>simulations were performed to obtain the quad, page, and block<br>transfer rates. The left half of Table 2 shows the results for<br>FBRAM's chosen dimensions.</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:477"><nobr><span class="ft11">Equation 1 can be used to determine the upper bound on the number<br>of primitives rendered per second using FBRAM. The performance</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:587"><nobr><span class="ft19">Average Pages/Prim</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:729"><nobr><span class="ft19">Average Blocks/Prim</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:555"><nobr><span class="ft19">320</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:573"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:580"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:598"><nobr><span class="ft19">160</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:616"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:624"><nobr><span class="ft19">8</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:642"><nobr><span class="ft19">80</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:654"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:661"><nobr><span class="ft19">16</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:685"><nobr><span class="ft19">40</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:697"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:705"><nobr><span class="ft19">32</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:729"><nobr><span class="ft19">32</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:741"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:749"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:769"><nobr><span class="ft19">16</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:781"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:788"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:810"><nobr><span class="ft19">8</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:816"><nobr><span class="ft5">×</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:823"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:490"><nobr><span class="ft19">10 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:560"><nobr><span class="ft19">2.61</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:603"><nobr><span class="ft19">1.84</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:647"><nobr><span class="ft19">1.48</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:690"><nobr><span class="ft19">1.36</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:732"><nobr><span class="ft19">7.57</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:771"><nobr><span class="ft19">4.58</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:809"><nobr><span class="ft19">3.38</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:490"><nobr><span class="ft19">20 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:560"><nobr><span class="ft19">4.21</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:603"><nobr><span class="ft19">2.68</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:647"><nobr><span class="ft19">1.97</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:690"><nobr><span class="ft19">1.71</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:732"><nobr><span class="ft19">14.1</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:771"><nobr><span class="ft19">8.15</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:809"><nobr><span class="ft19">5.76</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:490"><nobr><span class="ft19">50 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:560"><nobr><span class="ft19">9.02</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:603"><nobr><span class="ft19">5.20</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:647"><nobr><span class="ft19">3.42</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:690"><nobr><span class="ft19">2.78</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:732"><nobr><span class="ft19">33.8</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:771"><nobr><span class="ft19">18.9</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:809"><nobr><span class="ft19">12.9</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:484"><nobr><span class="ft19">100 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:560"><nobr><span class="ft19">17.1</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:603"><nobr><span class="ft19">9.42</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:647"><nobr><span class="ft19">5.85</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:690"><nobr><span class="ft19">4.57</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:732"><nobr><span class="ft19">66.6</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:771"><nobr><span class="ft19">36.8</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:809"><nobr><span class="ft19">24.9</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:495"><nobr><span class="ft19">25 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:560"><nobr><span class="ft19">2.96</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:603"><nobr><span class="ft19">2.02</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:647"><nobr><span class="ft19">1.60</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:690"><nobr><span class="ft19">1.46</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:732"><nobr><span class="ft19">9.75</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:771"><nobr><span class="ft19">6.12</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:809"><nobr><span class="ft19">4.68</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:495"><nobr><span class="ft19">50 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:560"><nobr><span class="ft19">3.80</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:603"><nobr><span class="ft19">2.45</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:647"><nobr><span class="ft19">1.89</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:690"><nobr><span class="ft19">1.67</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:732"><nobr><span class="ft19">13.8</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:771"><nobr><span class="ft19">8.72</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:809"><nobr><span class="ft19">6.67</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:489"><nobr><span class="ft19">100 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:560"><nobr><span class="ft19">4.97</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:603"><nobr><span class="ft19">3.05</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:647"><nobr><span class="ft19">2.24</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:690"><nobr><span class="ft19">1.94</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:732"><nobr><span class="ft19">20.0</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:771"><nobr><span class="ft19">12.8</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:809"><nobr><span class="ft19">9.89</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:483"><nobr><span class="ft19">1000 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:560"><nobr><span class="ft19">14.2</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:603"><nobr><span class="ft19">8.05</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:647"><nobr><span class="ft19">5.41</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:690"><nobr><span class="ft19">4.49</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:732"><nobr><span class="ft19">82.5</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:771"><nobr><span class="ft19">59.6</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:809"><nobr><span class="ft19">50.5</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:504"><nobr><span class="ft5">Table</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:550"><nobr><span class="ft5">1 Average number of Pages or Blocks touched</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:568"><nobr><span class="ft5">per primitive</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft27{font-size:8px;font-family:Times;color:#000000;}
+	.ft28{font-size:8px;font-family:Times;color:#000000;}
+	.ft29{font-size:25px;font-family:Times;color:#000000;}
+	.ft30{font-size:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92005.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft11">is set by the slowest of the three data paths (quads at the pins and<br>ALU, blocks on the global bus, pages to DRAM):</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:425"><nobr><span class="ft4">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:81"><nobr><span class="ft11">where the denominators <b>Q</b>, <b>B</b>, and <b>P</b> are obtained from the left half<br>of Table 2, and the numerators R</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:268"><nobr><span class="ft27"><b>Q</b></span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:276"><nobr><span class="ft4">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:293"><nobr><span class="ft28">B</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:301"><nobr><span class="ft4">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:318"><nobr><span class="ft28">P</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:324"><nobr><span class="ft4"> are the bus rates for</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:81"><nobr><span class="ft4">quads, blocks and pages. Referring again to Figure 4, R</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:374"><nobr><span class="ft28">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:382"><nobr><span class="ft4"> is 100 mil-</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:81"><nobr><span class="ft4">lion quads/sec through the ALU (4 pixels/quad), R</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:360"><nobr><span class="ft28">B</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:367"><nobr><span class="ft4"> is 25 million</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:81"><nobr><span class="ft11">blocks/sec (40 ns per block, one 20 ns prefetch read plus one 20 ns<br>writeback) and R</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:174"><nobr><span class="ft28">P</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:180"><nobr><span class="ft4"> is 8.3 million pages/sec (120 ns per page).</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:81"><nobr><span class="ft11">The right half of Table 2 gives the three terms of Equation 1. The<br>white columns indicate the performance limit (the minimum of the<br>three for each case).</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:81"><nobr><span class="ft11">Equation 1 assumes that whenever the L1$ is about to miss, the render-<br>ing controller has already brought the proper block in from the L2$ into<br>the L1$. Similarly, whenever the L2$ is about to miss, the rendering<br>controller has already brought the proper page in from the DRAM bank<br>into the L2$. To achieve such clairvoyance, the controller must know<br>which pages and blocks to prefetch or write back. The FBRAM philos-<br>ophy assumes that the rendering controller queues up the pixel opera-<br>tions external to the FBRAMs, and snoops this write queue to predict<br>which pages and blocks will be needed soon. These needed pages and<br>blocks are prefetched using the DRAM operation pins, while the<br>SRAM operation pins are used to render pixels into the L1$ at the same<br>time. Cycle accurate simulation of such architectures have shown this<br>technique to be quite effective.</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:81"><nobr><span class="ft11">Although pages can only be fetched to one L2$ entry every 120 ns,<br>it is possible to fetch pages to <i>different</i> L2$ entries every 40 ns. To<br>reduce the prefetching latency, banks A, B, C and D are interleaved<br>in display space horizontally and vertically, as shown in Figure 5,<br>ensuring that no two pages from the same bank are adjacent hori-<br>zontally, vertically, or diagonally. This enables pre-fetching any<br>neighboring page while rendering into the current page.</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:81"><nobr><span class="ft11">As an example, while pixels of vector b in Figure 5 are being ren-<br>dered into page 0 of bank A, the pre-fetch of page 0 of bank C can<br>be in progress. Usually the pre-fetch from C can be started early<br>enough to avoid idle cycles between the last pixel in page 0 of bank<br>A and the first pixel in page 0 of bank C.</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:81"><nobr><span class="ft11">The key idea is that even for vertical vectors, such as vector d, we<br>can pre-fetch pages of pixels ahead of the rendering as fast as the<br>rendering can cross a page. Even though vector c rapidly crosses<br>three pages, they can still be fetched at a 40ns rate because they are</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:238"><nobr><span class="ft19">Average</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:228"><nobr><span class="ft19">Misses/Prim</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:317"><nobr><span class="ft19">Million Prim/sec</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:184"><nobr><span class="ft6"><b>Q</b></span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:194"><nobr><span class="ft19">uad</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:224"><nobr><span class="ft6"><b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:233"><nobr><span class="ft19">lock</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:266"><nobr><span class="ft6"><b>P</b></span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:275"><nobr><span class="ft19">age</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:304"><nobr><span class="ft6"><b>Q</b></span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:315"><nobr><span class="ft19">uad</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:308"><nobr><span class="ft19">Perf</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:344"><nobr><span class="ft6"><b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:353"><nobr><span class="ft19">lock</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:349"><nobr><span class="ft19">Perf</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:386"><nobr><span class="ft6"><b>P</b></span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:394"><nobr><span class="ft19">age</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:388"><nobr><span class="ft19">Perf</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:118"><nobr><span class="ft19">10 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:187"><nobr><span class="ft19">8.75</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:228"><nobr><span class="ft19">2.35</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:265"><nobr><span class="ft19">0.478</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:308"><nobr><span class="ft19">11.4</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:348"><nobr><span class="ft19">10.6</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:388"><nobr><span class="ft19">17.4</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:118"><nobr><span class="ft19">20 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:187"><nobr><span class="ft19">16.4</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:228"><nobr><span class="ft19">4.71</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:265"><nobr><span class="ft19">0.955</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:308"><nobr><span class="ft19">6.10</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:348"><nobr><span class="ft19">5.31</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:388"><nobr><span class="ft19">8.72</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:118"><nobr><span class="ft19">50 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:187"><nobr><span class="ft19">38.9</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:228"><nobr><span class="ft19">11.8</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:268"><nobr><span class="ft19">2.40</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:308"><nobr><span class="ft19">2.57</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:348"><nobr><span class="ft19">2.12</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:388"><nobr><span class="ft19">3.47</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:112"><nobr><span class="ft19">100 Pix Vec</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:187"><nobr><span class="ft19">76.7</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:228"><nobr><span class="ft19">23.4</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:268"><nobr><span class="ft19">4.83</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:308"><nobr><span class="ft19">1.30</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:348"><nobr><span class="ft19">1.07</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:388"><nobr><span class="ft19">1.72</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:123"><nobr><span class="ft19">25 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:187"><nobr><span class="ft19">11.6</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:228"><nobr><span class="ft19">1.70</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:265"><nobr><span class="ft19">0.308</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:308"><nobr><span class="ft19">8.62</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:348"><nobr><span class="ft19">14.7</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:388"><nobr><span class="ft19">27.0</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:123"><nobr><span class="ft19">50 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:187"><nobr><span class="ft19">20.2</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:228"><nobr><span class="ft19">3.04</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:265"><nobr><span class="ft19">0.422</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:308"><nobr><span class="ft19">4.95</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:348"><nobr><span class="ft19">8.22</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:388"><nobr><span class="ft19">19.7</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:117"><nobr><span class="ft19">100 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:187"><nobr><span class="ft19">36.1</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:228"><nobr><span class="ft19">6.54</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:265"><nobr><span class="ft19">0.605</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:308"><nobr><span class="ft19">2.77</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:348"><nobr><span class="ft19">3.82</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:388"><nobr><span class="ft19">13.8</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:111"><nobr><span class="ft19">1000 Pix Tri</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:187"><nobr><span class="ft19">286.</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:228"><nobr><span class="ft19">46.7</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:268"><nobr><span class="ft19">4.37</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:305"><nobr><span class="ft19">0.350</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:345"><nobr><span class="ft19">0.535</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:388"><nobr><span class="ft19">1.91</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:132"><nobr><span class="ft5">Table</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:179"><nobr><span class="ft5">2 FBRAM Performance Limits</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:156"><nobr><span class="ft4">primitives/sec</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:253"><nobr><span class="ft4">min R</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:290"><nobr><span class="ft28">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:284"><nobr><span class="ft4">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:280"><nobr><span class="ft4">------- R</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:314"><nobr><span class="ft28">B</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:309"><nobr><span class="ft4">B</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:305"><nobr><span class="ft4">------- R</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:338"><nobr><span class="ft28">P</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:332"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:329"><nobr><span class="ft4">------</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:298"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:322"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:276"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:344"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:239"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:477"><nobr><span class="ft11">from three different banks. Appendix A gives a detailed cycle by<br>cycle example of rendering a 10 pixel vector.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:477"><nobr><span class="ft11">When vectors are chained (vector e), the last pixel of one segment<br>and the first pixel of the next segment will almost always be in the<br>same bank and page. Even when segments are isolated, the proba-<br>bility is 75% that the last pixel of one segment and first pixel of next<br>segment will be in different banks, thus enabling overlapping of<br>DRAM bank fetches to L2$.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:477"><nobr><span class="ft2"><b>11 PIXEL RECTANGLE FILL OPERATINGS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:477"><nobr><span class="ft11">As fast as the FBRAM pixel write rate is, it is still valuable to pro-<br>vide optimizations for the special case of large rectangle fill. These<br>specifically include clearing to a constant value or to a repeating<br>pattern. Fast clearing of the RGBZ planes is required to achieve<br>high frame rates during double buffered animation.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:477"><nobr><span class="ft11">FBRAM provides two levels of acceleration for rectangle filling of<br>constant data. Both are obtained by bypassing the bandwidth bottle-<br>necks shown in Figure 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:477"><nobr><span class="ft4">In the first method, once an 8</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:634"><nobr><span class="ft5">×4 L1$ block has been initialized to a</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:477"><nobr><span class="ft11">constant color or pattern, the entire block can be copied repeatedly<br>to different blocks within the L2$ at global bus transfer rates. This<br>feature taps the full bandwidth of the global bus, bypassing the pin/<br>ALU bandwidth bottleneck. Thus regions can be filled at a 4</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:798"><nobr><span class="ft5">× high-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:477"><nobr><span class="ft11">er rate (1.6 billion pixels per second, for a four-way interleaved<br>frame buffer).</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:477"><nobr><span class="ft11">The second method bypasses both the pin/ALU and the Global Bus<br>bottlenecks, effectively writing 1,280 pixels in one DRAM page cy-<br>cle. First, the method described in the previous paragraph is used to<br>initialize all four pages of the L2$, then these page buffers are rap-<br>idly copied to their DRAM banks at a rate of 40 ns per page. Thus<br>for large areas, clearing to a constant color or screen aligned pattern<br>can proceed at a peak rate of 32 billion pixels per second (0.25 ter-<br>abytes/sec), assuming a four-way interleaved design.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:477"><nobr><span class="ft2"><b>12 WINDOW SYSTEM SUPPORT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:477"><nobr><span class="ft11">The most important feature of FBRAM for window system support<br>is simply its high bandwidth; however two window system specific<br>optimizations are also included.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:477"><nobr><span class="ft11">Full read-modify-write cycles require two Global Bus transactions:<br>a prefetching read from the L2$, and copyback write to the L2$.<br>Most window system operations do not require read-modify-write<br>cycles when rendering text and simple 2D graphics. For such write-</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:508"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:501"><nobr><span class="ft5">16</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:501"><nobr><span class="ft5">32</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:501"><nobr><span class="ft5">48</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:501"><nobr><span class="ft5">64</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:524"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:632"><nobr><span class="ft5">80</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:567"><nobr><span class="ft20">A:0</span></nobr></DIV>
+<DIV style="position:absolute;top:80;left:584"><nobr><span class="ft29"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:477"><nobr><span class="ft29"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:738"><nobr><span class="ft5">160</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:501"><nobr><span class="ft5">80</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:501"><nobr><span class="ft5">96</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:567"><nobr><span class="ft20">C:0</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:567"><nobr><span class="ft20">A:8</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:567"><nobr><span class="ft20">C:8</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:676"><nobr><span class="ft20">B:0</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:675"><nobr><span class="ft20">D:0</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:676"><nobr><span class="ft20">B:8</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:675"><nobr><span class="ft20">D:8</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:531"><nobr><span class="ft30"><b>a</b></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:602"><nobr><span class="ft30"><b>b</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:704"><nobr><span class="ft30"><b>c</b></span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:755"><nobr><span class="ft30"><b>d</b></span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:595"><nobr><span class="ft30"><b>e</b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:529"><nobr><span class="ft30"><b>f</b></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:651"><nobr><span class="ft30"><b>g</b></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:564"><nobr><span class="ft20">A:16</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:564"><nobr><span class="ft20">C:16</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:564"><nobr><span class="ft20">A:24</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:564"><nobr><span class="ft20">C:24</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:672"><nobr><span class="ft20">B:16</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:672"><nobr><span class="ft20">D:16</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:672"><nobr><span class="ft20">B:24</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:672"><nobr><span class="ft20">D:24</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:495"><nobr><span class="ft5">112</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:719"><nobr><span class="ft30"><b>h</b></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:785"><nobr><span class="ft20">A:1</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:784"><nobr><span class="ft20">C:1</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:785"><nobr><span class="ft20">A:9</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:784"><nobr><span class="ft20">C:9</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:781"><nobr><span class="ft20">A:17</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:781"><nobr><span class="ft20">C:17</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:781"><nobr><span class="ft20">A:25</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:781"><nobr><span class="ft20">C:25</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:479"><nobr><span class="ft4">Figure 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:531"><nobr><span class="ft5">The upper left corner of the frame buffer, showing</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:530"><nobr><span class="ft5">pages 0-255, and example primitives a-h.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:531"><nobr><span class="ft5">vertically and horizontally interleaved banks A-D,</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92006.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft11">only operations, the number of Global Bus transactions can be cut<br>in half, improving performance. This is accomplished by skipping<br>the pre-fetching read of a new block from the L2$ to L1$.</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:81"><nobr><span class="ft11">Vertical scrolling is another frequent window system operation ac-<br>celerated by FBRAM. This operation is accelerated by performing<br>the copy internal to the FBRAM. This results in a pixel scroll rate<br>of up to 400 million pixels per second.</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:81"><nobr><span class="ft2"><b>13 VIDEO OUTPUT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:81"><nobr><span class="ft11">VRAM solved the display refresh bandwidth problem by adding a<br>second port, but at significant cost in die area. FBRAM also provides<br>a second port for video (see Figure 2), but at a smaller area penalty.</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:81"><nobr><span class="ft11">Like VRAM, FBRAM has a pair of ping-pong video buffers, but<br>unlike VRAM, they are much smaller in size: 80 pixels each for a<br>four-way interleaved FBRAM frame buffer vs. 1,280 pixels each<br>for a five-way interleaved VRAM frame buffer. These smaller buff-<br>ers save silicon and enable a rectangular mapping of pages to the<br>display, but at the price of more frequent video buffer loads.</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:81"><nobr><span class="ft11">The FBRAM video buffers are loaded directly from the DRAM<br>bank page buffers (L2$, 80</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:226"><nobr><span class="ft5">×16 pixels), selecting one of the 16 scan</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:81"><nobr><span class="ft11">lines in the page buffer. The cost of loading a video buffer in both<br>FBRAM and VRAM is typically 120-200 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:81"><nobr><span class="ft11">To estimate an upper bound for FBRAM video refresh overhead for<br>a 1280</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:119"><nobr><span class="ft5">×1024 76Hz non-interlaced video display, assume that all</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:81"><nobr><span class="ft11">rendering operations cease during the 200 ns video buffer load in-<br>terval. During each frame, a grand total of 3.28 ms<br>(200 ns</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:121"><nobr><span class="ft5">·1280·1024 pixels / 80 pixels) of video buffer loads are</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:81"><nobr><span class="ft11">needed for video refresh. Thus 76 Hz video refresh overhead could<br>theoretically take away as much as 25% of rendering performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:81"><nobr><span class="ft11">The actual video overhead is only 5-10% for several reasons. First,<br>the pixel ALU can still access its side of the L1$ during video re-<br>fresh, because video transfers access the L2$. Second, although one<br>of the four banks is affected by video refresh, global bus transfers<br>to the other three banks can still take place. Finally, it is usually pos-<br>sible to schedule video transfers so that they do not conflict with<br>rendering, reducing the buffer load cost from 200 to 120 ns.</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:81"><nobr><span class="ft11">For high frame rate displays, the raster pattern of FBRAM video<br>output refresh automatically accomplishes DRAM cell refresh, im-<br>posing no additional DRAM refresh tax.</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:81"><nobr><span class="ft2"><b>14 FBRAM PERFORMANCE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:81"><nobr><span class="ft11">The model developed in section 10 gave theoretical upper bounds<br>on the performance of a four-way interleaved FBRAM system. But<br>to quantify the performance obtainable by any real system built<br>with FBRAM, a number of other factors must be considered.</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:81"><nobr><span class="ft12">First, a 10% derating of the section 10 model should be applied to<br>account for the additional overhead due to video and content refresh<br>described in section 13.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:81"><nobr><span class="ft11">The sophistication of the cache prediction and scheduling algorithm<br>implemented will also affect performance. Equation 1 assumed that<br>the cache controller achieves complete overlap between the three<br>data paths; this is not always possible. More detailed simulations<br>show that aggressive controllers can achieve 75% (before video<br>tax) of the performance results in table 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:81"><nobr><span class="ft11">Taking all of these effects into account, simulations of buildable<br>four-way interleaved FBRAM systems show sustained rates of 3.3<br>million 50 pixel Z-buffered triangles per second, and 7 million 10<br>pixel non-antialiased Z-buffered vectors per second. FBRAM sys-<br>tems with higher external interleave factor can sustain performanc-<br>es in the tens of millions of small triangles per second range.</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:477"><nobr><span class="ft11">All of our simulations assume that the rest of the graphics system<br>can keep up with the FBRAM, delivering four RGB</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:753"><nobr><span class="ft5">Z pixels every</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:477"><nobr><span class="ft11">10 ns. While this is a formidable challenge, pixel interpolation and<br>vertex floating point processing ASICs are on a rapidly improving<br>performance curve, and should be able to sustain the desired rates.</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:477"><nobr><span class="ft11">FBRAM performance can be appreciated by comparing it with the<br>pixel fill rate of the next generation Pixel Planes rasterizing chips<br>[16], although FBRAM does not directly perform the triangle ras-<br>terization function. The pixel fill rate for a single FBRAM chip is<br>only a factor of four less than the peak (256 pixel rectangle) fill rate<br>of a single Pixel Planes chip, but has 400 times more storage capac-<br>ity.</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:477"><nobr><span class="ft11">Next let us contrast the read-modify-write performance of FBRAM<br>to a 60 ns VRAM. Assuming no batching, VRAM page mode re-<br>quires in excess of 125 ns to do what FBRAM does in 10 ns; a<br>12.5</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:501"><nobr><span class="ft5">× speed difference.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:477"><nobr><span class="ft11">Batching VRAM reads and writes to minimize bus-turns, as de-<br>scribed in section 3, does not help as much as one might think. Typ-<br>ical VRAM configurations have very few scan lines per page,<br>which causes fragmentation of primitives, limiting batch sizes. Ta-<br>ble 1 shows that for a 320</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:614"><nobr><span class="ft5">×4 page shape, a 50 pixel triangle touches</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:477"><nobr><span class="ft11">3.8 pages, averaging 13 pixels per page. For a five way interleaved<br>frame buffer, an average of only 2.6 pixels can be batched per chip.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:477"><nobr><span class="ft2"><b>15 OTHER DRAM FFSHOOTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:477"><nobr><span class="ft11">A veritable alphabet soup of new forms of DRAM are at various stages<br>of development by several manufactures: CDRAM, DRAM, FBRAM,<br>RAMBUS, SDRAM, SGRAM, SVRAM, VRAM, and WRAM. For<br>3D graphics, FBRAM is distinguished as the only technology to direct-<br>ly support Z-buffering, alpha blending, and ROPs. Only FBRAM con-<br>verts read-modify-write operations into pure write operations; this<br>alone accounts for a 3-4</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:598"><nobr><span class="ft5">× performance advantage at similar clock rates.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:477"><nobr><span class="ft11">Other than CDRAM, only FBRAM has two levels of cache, and effi-<br>cient support of rectangular cache blocks. It is beyond the scope of this<br>paper to derive precise comparative 3D rendering performance for all<br>these RAMs, but FBRAM appears to be several times faster than any<br>of these alternatives.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:477"><nobr><span class="ft2"><b>16 FUTURES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:477"><nobr><span class="ft11">The demand for faster polygon rendering rates shows no sign of<br>abating for some time to come. However, as was observed at the<br>end of section 2, the number of pixels filled per scene is not going<br>up anywhere near as rapidly. Future increases in pixel resolution,<br>frame rate, and/or depth complexity are likely to be modest.</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:477"><nobr><span class="ft11">Future predictions of where technology is going are at best approx-<br>imations, and their use should be limited to understanding trends.<br>With these caveats in mind, Figure 6 explores trends in polygon<br>rendering rate demand vs. memory technologies over the next sev-<br>eral years. The figure shows the projected pixel fill rate (including<br>fragmentation effects) demanded as the polygon rate increases over<br>time (from the data in [6]). It also displays the expected delivered<br>pixel fill rates of <i>minimum chip count</i> frame buffers implemented<br>using FBRAM and VRAM technologies (extrapolating from Equa-<br>tion 1 and from the systems described in [14][5]). The demand<br>curve is above that achievable inexpensively with conventional<br>VRAM or DRAM, but well within the range of a minimum chip<br>count FBRAM system.</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:477"><nobr><span class="ft11">The trend curve for FBRAM has a steeper slope because, unlike<br>VRAM, FBRAM effectively decouples pixel rendering rates from<br>the inherently slower DRAM single transistor access rates. This<br>will allow future versions of FBRAM to follow the more rapidly in-</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft31{font-size:12px;font-family:Times;color:#000000;}
+	.ft32{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92007.png" alt="background image">
+<DIV style="position:absolute;top:397;left:81"><nobr><span class="ft11">creasing SRAM performance trends. FBRAM still benefits from<br>the inherently lower cost per bit of DRAM technology.</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:81"><nobr><span class="ft11">The "excess" pixel fill rate shown for FBRAM in Figure 6 com-<br>bined with FBRAM's high bit density will permit cost-effective,<br>one pass, full scene antialiasing using super-sampled frame buffers.</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:115"><nobr><span class="ft2"><b>17 CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:81"><nobr><span class="ft11">In the past, the bandwidth demands of video output led to the cre-<br>ation of VRAM to overcome DRAM's limitations. In recent years,<br>the demands of faster and faster rendering have exceeded VRAM's<br>bandwidth. This led to the creation of FBRAM, a new form of ran-<br>dom access memory optimized for Z-buffer based 3D graphics ren-<br>dering and window system support. A ten fold increase in Z-buff-<br>ered rendering performance for minimum chip count systems is<br>achieved over conventional VRAM and DRAM. Given statistics on<br>the pixel fill requirements of the next two generations of 3D graph-<br>ics accelerators, FBRAM may remove the pixel fill bottleneck from<br>3D accelerator architectures for the rest of this century.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:94"><nobr><span class="ft2"><b>ACKNOWLEDGEMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:81"><nobr><span class="ft11">FBRAM is a joint development between SMCC and Mitsubishi<br>Electric Corporation. The authors would like to acknowledge the<br>efforts of the entire Mitsubishi team, and in particular K. Inoue, H.<br>Nakamura, K. Ishihara, Charles Hart, Julie Lin, and Mark Perry.</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:81"><nobr><span class="ft11">On the Sun side, the authors would like to thank Mary Whitton, Scott<br>Nelson, Dave Kehlet, and Ralph Nichols, as well as all the other en-<br>gineers who reviewed drafts of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:94"><nobr><span class="ft2"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft6"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:108"><nobr><span class="ft11"><b>Akeley, Kurt and T. Jermoluk.</b> High-Performance Polygon<br>Rendering, Proceedings of SIGGRAPH '88 (Atlanta, GA, Aug<br>1-5, 1988). In <i>Computer Graphics</i> 22, 4 (July 1988), 239-246.</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:81"><nobr><span class="ft6"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:108"><nobr><span class="ft11"><b>Akeley, Kurt.</b> Reality Engine Graphics. Proceedings of SIG-<br>GRAPH `93 (Anaheim, California, August 1-6, 1993). In<br><i>Computer Graphics</i>, Annual Conference Series, 1993, 109-<br>116.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft6"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:108"><nobr><span class="ft11"><b>Catmull, E. </b><i>A Subdivision Algorithm for Computer Display of<br>Curved Surfaces</i>, Ph.D. Thesis, Report UTEC-CSc-74-133,<br>Computer Science Dept., University of Utah, Salt Lake City,<br>UT, Dec. 1974.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:89"><nobr><span class="ft24">Figure 6. Pixel fill rate needed to match anticipated triangle fill<br>rate demand compared with anticipated delivered pixel fill rate<br>delivered by minimum chip count FBRAM and VRAM systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:158"><nobr><span class="ft31">1993</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:316"><nobr><span class="ft31">2001</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:240"><nobr><span class="ft31">Year</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:115"><nobr><span class="ft31">10B</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:123"><nobr><span class="ft31">1B</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:104"><nobr><span class="ft31">100M</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:112"><nobr><span class="ft31">10M</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:222"><nobr><span class="ft31">10M</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:273"><nobr><span class="ft31">100M</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:340"><nobr><span class="ft31">1B</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:176"><nobr><span class="ft31">1M</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:211"><nobr><span class="ft31">Triangles/sec</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:358"><nobr><span class="ft31">VRAM</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:358"><nobr><span class="ft31">Demand</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:358"><nobr><span class="ft31">FBRAM</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:80"><nobr><span class="ft31">Pixels/sec</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:477"><nobr><span class="ft6"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:504"><nobr><span class="ft25"><b>Deering, Michael, S. Winner, B. Schediwy, C. Duffy and N.<br>Hunt.</b> The Triangle Processor and Normal Vector Shader: A<br>VLSI system for High Performance Graphics. Proceedings of<br>SIGGRAPH '88 (Atlanta, GA, Aug 1-5, 1988). In <i>Computer<br>Graphics</i> 22, 4 (July 1988), 21-30.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:477"><nobr><span class="ft6"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:504"><nobr><span class="ft25"><b>Deering, Michael, and S. Nelson.</b> Leo: A System for Cost Ef-<br>fective Shaded 3D Graphics. Proceedings of SIGGRAPH `93<br>(Anaheim, California, August 1-6, 1993). In <i>Computer<br>Graphics</i>, Annual Conference Series, 1993, 101-108.</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:477"><nobr><span class="ft6"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:504"><nobr><span class="ft11"><b>Deering, Michael.</b> Data Complexity for Virtual Reality:<br>Where do all the Triangles Go? Proceedings of IEEE VRAIS<br>`93 (Seattle, WA, Sept. 18-22, 1993). 357-363.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:477"><nobr><span class="ft6"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:504"><nobr><span class="ft11"><b>Demetrescu, S. </b><i>A VLSI-Based Real-Time Hidden-Surface<br>Elimination Display System</i>, Master's Thesis, Dept. of Com-<br>puter Science, California Institute of Technology, Pasadena<br>CA, May 1980.</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:477"><nobr><span class="ft6"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:504"><nobr><span class="ft11"><b>Demetrescu, S.</b> High Speed Image Rasterization Using Scan<br>Line Access Memories. Proceedings of 1985 Chapel Hill Con-<br>ference on VLSI, pages 221-243. Computer Science Press,<br>1985.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:477"><nobr><span class="ft6"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:504"><nobr><span class="ft11"><b>Fuchs, Henry, and J. Poulton.</b> Pixel Planes: A VLSI-Orient-<br>ed Design for a Raster Graphics Engine. In <i>VLSI Design</i>, 2,3<br>(3rd quarter 1981), 20-28.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:477"><nobr><span class="ft6"><b>10. Foley, James, A. van Dam, S. Feiner and J Hughes.</b> Com-</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:504"><nobr><span class="ft11">puter Graphics: Principles and Practice, 2nd ed., Addison-<br>Wesley, 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:477"><nobr><span class="ft6"><b>11. Gharachorloo, Nader, S. Gupta, E. Hokenek, P. Bala-</b></span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:504"><nobr><span class="ft11"><b>subramanina, B. Bogholtz, C. Mathieu, and C. Zoulas.<br></b>Subnanosecond Rendering with Million Transistor Chips.<br>Proceedings of SIGGRAPH '88 (Boston, MA, July 31, Aug 4,<br>1989). In <i>Computer Graphics</i> 22, 4 (Aug. 1988), 41-49.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:477"><nobr><span class="ft6"><b>12. Gharachorloo, Nader, S. Gupta, R. Sproull, and I. Suther-</b></span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:504"><nobr><span class="ft11"><b>land.</b> A Characterization of Ten Rasterization Techniques.<br>Proceedings of SIGGRAPH '89 (Boston, MA, July 31, Aug 4,<br>1989). In <i>Computer Graphics</i> 23, 3 (July 1989), 355-368.</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:477"><nobr><span class="ft6"><b>13. Goris, A., B. Fredrickson, and H. Baeverstad.</b> A Config-</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:504"><nobr><span class="ft25">urable Pixel Cache for Fast Image Generation. In <i>IEEE CG&amp;A<br></i>7,3 (March 1987), pages 24-32, 1987.</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:477"><nobr><span class="ft6"><b>14. Harrell, Chandlee, and F. Fouladi.</b> Graphics Rendering Ar-</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:504"><nobr><span class="ft11">chitecture for a High Performance Desktop Workstation. Pro-<br>ceedings of SIGGRAPH `93 (Anaheim, California, August 1-<br>6, 1993). In <i>Computer Graphics</i>, Annual Conference Series,<br>1993, 93-100.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:477"><nobr><span class="ft6"><b>15</b>. M5M410092 FBRAM Specification. Mitsubishi Electric,</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:504"><nobr><span class="ft4">1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:477"><nobr><span class="ft6"><b>16. Molnar, Steven, J. Eyles, J. Poulton.</b> PixelFlow: High-Speed</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:504"><nobr><span class="ft25">Rendering Using Image Composition. Proceedings of SIG-<br>GRAPH '92 (Chicago, IL, July 26-31, 1992). In <i>Computer<br>Graphics</i> 26, 2 (July 1992), 231-240.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:477"><nobr><span class="ft6"><b>17</b>. <b>Patterson, David, and J. Hennessy.</b> Computer Architecture:</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:504"><nobr><span class="ft11">a Quantitative Approach, Morgan Kaufmann Publishers, Inc.,<br>1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:477"><nobr><span class="ft6"><b>18. Pinkham, R., M. Novak, and K. Guttag.</b> Video RAM Excels</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:504"><nobr><span class="ft11">at Fast Graphics. In <i>Electronic Design</i> 31,17, Aug. 18, 1983,<br>161-182.</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:477"><nobr><span class="ft6"><b>19. Sproull, Robert, I. Sutherland, and S. Gupta.</b> The 8 by 8</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:504"><nobr><span class="ft11">Display. In <i>ACM Transactions on Graphics</i> 2, 1 (Jan 1983),<br>35-56.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:477"><nobr><span class="ft6"><b>20. Whitton, Mary.</b> Memory Design for Raster Graphics Dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:504"><nobr><span class="ft4">plays. In <i>IEEE CG&amp;A</i> 4,3 (March 1984), 48-65, 1984.</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft33{font-size:14px;font-family:Times;color:#000000;}
+	.ft34{font-size:10px;font-family:Times;color:#000000;}
+	.ft35{font-size:11px;font-family:Helvetica;color:#000000;}
+	.ft36{font-size:14px;font-family:Times;color:#000000;}
+	.ft37{font-size:8px;font-family:Times;color:#000000;}
+	.ft38{font-size:10px;font-family:Times;color:#000000;}
+	.ft39{font-size:10px;line-height:13px;font-family:Helvetica;color:#000000;}
+	.ft40{font-size:10px;line-height:12px;font-family:Helvetica;color:#000000;}
+	.ft41{font-size:10px;line-height:14px;font-family:Helvetica;color:#000000;}
+	.ft42{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+	.ft43{font-size:8px;line-height:13px;font-family:Times;color:#000000;}
+	.ft44{font-size:8px;line-height:15px;font-family:Times;color:#000000;}
+	.ft45{font-size:10px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="92008.png" alt="background image">
+<DIV style="position:absolute;top:80;left:81"><nobr><span class="ft33"><b>APPENDIX A: Rendering a 10 pixel Vector</b></span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft11">This appendix demonstrates the detailed steps involved in schedul-<br>ing FBRAM rendering, using the 10 pixel long, one pixel wide ver-<br>tical Z-buffered vector shown in Figure 7. This figure shows the</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:81"><nobr><span class="ft11">memory hierarchy elements touched by the vector at three levels of<br>detail: the coarsest (left most) shows banks (A..D) and pages<br>(0..255), the intermediate detail (middle) shows blocks in the L2$,<br>and the finest (right most) shows pixel quads.</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:81"><nobr><span class="ft11">The example vertical vector starts at x=1, y=10, and ends at y=19.<br>Table 3 gives the bank, page, L2$ block, and quad for each pixel in<br>the vector. Note the spatial locality of pixels.</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:81"><nobr><span class="ft11">Table 4 below shows the schedule of commands and data issued to<br>the FBRAM, and the resulting internal activities. Note that inde-<br>pendent controls are available, and permit parallel L1$ and L2$ ac-<br>tivities. The following abbreviations are used in Table 4:</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:113"><nobr><span class="ft4">L1$[n]: Block n of the L1$.</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:113"><nobr><span class="ft4">L2$[n]: Block n of the L2$.</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:113"><nobr><span class="ft4">ACP: Access page (DRAM to L2$ transfer).</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:150"><nobr><span class="ft39">A:17<br>C:17<br>A:25<br>C:25<br>A:33</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:204"><nobr><span class="ft34">0</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:204"><nobr><span class="ft34">4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:204"><nobr><span class="ft34">8</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:198"><nobr><span class="ft34">12</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:198"><nobr><span class="ft34">16</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:198"><nobr><span class="ft34">20</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:198"><nobr><span class="ft34">24</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:217"><nobr><span class="ft34">0</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:245"><nobr><span class="ft34">4</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:271"><nobr><span class="ft34">8</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:293"><nobr><span class="ft34">12</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:239"><nobr><span class="ft35">0</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:239"><nobr><span class="ft35">1</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:239"><nobr><span class="ft35">2</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:239"><nobr><span class="ft35">3</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:293"><nobr><span class="ft35">4</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:293"><nobr><span class="ft35">5</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:293"><nobr><span class="ft35">6</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:293"><nobr><span class="ft35">7</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:239"><nobr><span class="ft35">0</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:239"><nobr><span class="ft35">1</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:293"><nobr><span class="ft35">4</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:293"><nobr><span class="ft35">5</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:100"><nobr><span class="ft20">A:0</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:90"><nobr><span class="ft4">Figure 7. A 10 pixel vector near the upper</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:374"><nobr><span class="ft39">0<br>2<br>4<br>6<br>0<br>2<br>4<br>6<br>0<br>2<br>4<br>6<br>0<br>2<br>4<br>6</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:423"><nobr><span class="ft39">1<br>3<br>5<br>7<br>1<br>3<br>5<br>7<br>1<br>3<br>5<br>7<br>1<br>3<br>5<br>7</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:100"><nobr><span class="ft20">C:0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:126"><nobr><span class="ft39">B:0<br>D:0</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:100"><nobr><span class="ft39">A:8<br>C:8</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:126"><nobr><span class="ft39">B:8<br>D:8</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:97"><nobr><span class="ft39">A:16<br>C:16</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:122"><nobr><span class="ft39">B:16<br>D:16</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:97"><nobr><span class="ft39">A:24<br>C:24</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:122"><nobr><span class="ft39">B:24<br>D:24</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:97"><nobr><span class="ft20">A:32B:32</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:153"><nobr><span class="ft39">A:1<br>C:1<br>A:9<br>C:9</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:101"><nobr><span class="ft4">Bank:Page</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:236"><nobr><span class="ft36">Block</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:378"><nobr><span class="ft13">Quad</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:342"><nobr><span class="ft34">0</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:397"><nobr><span class="ft34">4</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:325"><nobr><span class="ft34">8</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:319"><nobr><span class="ft34">12</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:319"><nobr><span class="ft34">16</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:319"><nobr><span class="ft34">20</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:95"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:121"><nobr><span class="ft37">80</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:148"><nobr><span class="ft37">160</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:86"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:81"><nobr><span class="ft44">16<br>32<br>48<br>64<br>80<br>96</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:90"><nobr><span class="ft4">left corner of the screen, at 3 levels of detail.</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:509"><nobr><span class="ft4">RDB: Read block (L2$</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:638"><nobr><span class="ft34"></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:653"><nobr><span class="ft4">L1$ transfer).</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:509"><nobr><span class="ft4">MWB: Masked write block (L1$</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:690"><nobr><span class="ft34"></span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:702"><nobr><span class="ft4"> L2$ transfer).</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:509"><nobr><span class="ft4">PRE: Precharge bank (free L2$ entry).</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:509"><nobr><span class="ft4">read x: Read pixel x from L1$ to ALU.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:509"><nobr><span class="ft4">write x: Write pixel x from ALU to L1$.</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:477"><nobr><span class="ft11">We follow the first pixel at (1, 10) through the cache hierarchy. The<br>pixel's page (page 0 of bank A) is transferred to the L2$ entry A in<br>cycles 1 to 4 (notice that the next 5 pixels are transferred too). The<br>pixel's block is then transferred from L2$ entry A to L1$[0] in cy-<br>cles 5 and 6 (the next pixel is transferred too). The pixel is read from<br>the L1$[0] to the pipelined ALU in cycle 7. The old and new pixels<br>are merged (Z-buffered, blended) during cycles 8 to 11. The result-<br>ing pixel is written back to the L1$[0] in cycle 12. The pixel's block<br>is transferred from the L1$[0] back to the L2$ entry A (and DRAM<br>page 0 of bank A) in cycles 14 and 15.</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:477"><nobr><span class="ft11">The second pixel at (1,11) hits in both L1$ and L2$, and can follow<br>one cycle behind the first pixel, arriving back in the L1$ in cycle 13.<br>The pixel at (1,12) misses in the L1$, but hits in the L2$, requiring<br>an RDB from L2$ entry A to L1$[1]. The pixel at (1,16) misses in<br>both caches, requiring a L2$ access of bank C, and followed by a<br>transfer from L2$ entry C to L1$[2]. All the other pixels hit in both<br>caches, and are scheduled like the second pixel.</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:502"><nobr><span class="ft27"><b>X</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:528"><nobr><span class="ft27"><b>Y</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:556"><nobr><span class="ft27"><b>Bank</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:603"><nobr><span class="ft27"><b>Page</b></span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:651"><nobr><span class="ft27"><b>L2$</b></span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:647"><nobr><span class="ft27"><b>Block</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:693"><nobr><span class="ft27"><b>Quad</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:743"><nobr><span class="ft27"><b>L2$</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:789"><nobr><span class="ft27"><b>L1$</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:526"><nobr><span class="ft19">10</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:563"><nobr><span class="ft19">A</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:611"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:657"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:703"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:741"><nobr><span class="ft19">miss</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:787"><nobr><span class="ft19">miss</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:526"><nobr><span class="ft19">11</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:703"><nobr><span class="ft19">6</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:526"><nobr><span class="ft19">12</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:657"><nobr><span class="ft19">3</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:703"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:787"><nobr><span class="ft19">miss</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:526"><nobr><span class="ft19">13</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:703"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:526"><nobr><span class="ft19">14</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:703"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:526"><nobr><span class="ft19">15</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:703"><nobr><span class="ft19">6</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:526"><nobr><span class="ft19">16</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:564"><nobr><span class="ft19">C</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:611"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:657"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:703"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:741"><nobr><span class="ft19">miss</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:787"><nobr><span class="ft19">miss</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:526"><nobr><span class="ft19">17</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:703"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:526"><nobr><span class="ft19">18</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:703"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:503"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:526"><nobr><span class="ft19">19</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:703"><nobr><span class="ft19">6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:746"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:792"><nobr><span class="ft19">hit</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:520"><nobr><span class="ft5">Table</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:566"><nobr><span class="ft5">3 Bank, Page, L2$ Block, and Quad for each</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:585"><nobr><span class="ft5">pixel in the vector</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:176"><nobr><span class="ft14">Table 4. Schedule of operations for rendering a 10 pixel vector</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:160"><nobr><span class="ft45">Merge data with Quad 4 of L1$[0]<br>Merge data with Quad 6 of L1$[0]<br>Merge data with Quad 0 of L1$[1]<br>Merge data with Quad 2 of L1$[1]<br>Merge data with Quad 4 of L1$[1]<br>Merge data with Quad 6 of L1$[1]<br>Merge data with Quad 0 of L1$[2]<br>Merge data with Quad 2 of L1$[2]<br>Merge data with Quad 4 of L1$[2]<br>Merge data with Quad 6 of L1$[2]</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:342"><nobr><span class="ft19">Access Page 0 of Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:342"><nobr><span class="ft19">Access Page 0 of Bank C</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:342"><nobr><span class="ft19">L2$[2] of Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:431"><nobr><span class="ft34"> L1$[0]</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:342"><nobr><span class="ft19">L2$[0] of Bank C</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:431"><nobr><span class="ft34"> L1$[2]</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:342"><nobr><span class="ft19">L2$[3] of Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:431"><nobr><span class="ft34"> L1$[1]</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:342"><nobr><span class="ft19">L2$[2] of Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:431"><nobr><span class="ft34"> L1$[0]</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:342"><nobr><span class="ft19">L2$[3] of Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:431"><nobr><span class="ft34"> L1$[1]</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:342"><nobr><span class="ft19">L2$[0] of Bank C</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:431"><nobr><span class="ft34"> L1$[2]</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:342"><nobr><span class="ft19">Precharge Bank A</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:129"><nobr><span class="ft19">23</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:129"><nobr><span class="ft19">22</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:129"><nobr><span class="ft19">21</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:129"><nobr><span class="ft19">20</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:129"><nobr><span class="ft19">19</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:129"><nobr><span class="ft19">18</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:129"><nobr><span class="ft19">17</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:129"><nobr><span class="ft19">16</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:129"><nobr><span class="ft19">15</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:129"><nobr><span class="ft19">14</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:129"><nobr><span class="ft19">13</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:129"><nobr><span class="ft19">12</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:129"><nobr><span class="ft19">11</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:129"><nobr><span class="ft19">10</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:135"><nobr><span class="ft19">9</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:135"><nobr><span class="ft19">8</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:135"><nobr><span class="ft19">7</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:135"><nobr><span class="ft19">6</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:135"><nobr><span class="ft19">5</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:135"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:135"><nobr><span class="ft19">3</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:135"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:135"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:508"><nobr><span class="ft19">ACP</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:562"><nobr><span class="ft19">ACP</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:509"><nobr><span class="ft19">PRE</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:507"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:507"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:561"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:505"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:505"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:559"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:615"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:656"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:696"><nobr><span class="ft19">RDB</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:613"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:653"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:694"><nobr><span class="ft19">MWB</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:653"><nobr><span class="ft45">read 0<br>read 2<br>read 4<br>read 6</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:613"><nobr><span class="ft45">read 4<br>read 6</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:694"><nobr><span class="ft45">read 0<br>read 2<br>read 4<br>read 6</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:611"><nobr><span class="ft45">write 4<br>write 6</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:651"><nobr><span class="ft45">write 4<br>write 6</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:692"><nobr><span class="ft45">write 4<br>write 6</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:692"><nobr><span class="ft45">write 0<br>write 2</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:651"><nobr><span class="ft45">write 0<br>write 2</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:179"><nobr><span class="ft38"><b>L1$ Command and Data</b></span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:380"><nobr><span class="ft38"><b>L2$ Command</b></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:518"><nobr><span class="ft38"><b>L2$ Activities</b></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:665"><nobr><span class="ft38"><b>L1$  Activities</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:515"><nobr><span class="ft38"><b>A</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:569"><nobr><span class="ft38"><b>C</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:543"><nobr><span class="ft38"><b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:596"><nobr><span class="ft38"><b>D</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:733"><nobr><span class="ft38"><b>3 4 5 6 7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:625"><nobr><span class="ft38"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:665"><nobr><span class="ft38"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:706"><nobr><span class="ft38"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:602"><nobr><span class="ft38"><b>Internal Activities</b></span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:240"><nobr><span class="ft38"><b>Commands and Data to FBRAM</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

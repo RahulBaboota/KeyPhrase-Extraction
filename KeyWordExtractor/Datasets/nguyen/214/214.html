@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\214</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-05-30T16:45:17+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:11px;font-family:Helvetica;color:#000000;}
+	.ft8{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:116"><nobr><span class="ft0"><b>WebKhoj: Indian language IR from Multiple Character</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:389"><nobr><span class="ft0"><b>Encodings</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:180"><nobr><span class="ft1">Prasad Pingali</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:159"><nobr><span class="ft2">Language Technologies</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:181"><nobr><span class="ft2">Research Centre</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:187"><nobr><span class="ft2">IIIT, Hyderabad</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:222"><nobr><span class="ft2">India</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:177"><nobr><span class="ft1">pvvpr@iiit.ac.in</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:362"><nobr><span class="ft1">Jagadeesh Jagarlamudi</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:378"><nobr><span class="ft2">Language Technologies</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:401"><nobr><span class="ft2">Research Centre</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:407"><nobr><span class="ft2">IIIT, Hyderabad</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:441"><nobr><span class="ft2">India</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:356"><nobr><span class="ft1">j jagdeesh@research.iiit.ac.in</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:609"><nobr><span class="ft1">Vasudeva Varma</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:598"><nobr><span class="ft2">Language Technologies</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:620"><nobr><span class="ft2">Research Centre</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:626"><nobr><span class="ft2">IIIT, Hyderabad</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:660"><nobr><span class="ft2">India</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:629"><nobr><span class="ft1">vv@iiit.ac.in</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:81"><nobr><span class="ft8">Today web search engines provide the easiest way to reach<br>information on the web. In this scenario, more than 95%<br>of Indian language content on the web is not searchable<br>due to multiple encodings of web pages. Most of these en-<br>codings are proprietary and hence need some kind of stan-<br>dardization for making the content accessible via a search<br>engine. In this paper we present a search engine called We-<br>bKhoj which is capable of searching multi-script and multi-<br>encoded Indian language content on the web. We describe<br>a language focused crawler and the transcoding processes<br>involved to achieve accessibility of Indian langauge content.<br>In the end we report some of the experiments that were con-<br>ducted along with results on Indian language web content.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:81"><nobr><span class="ft8">H.3.3 [Information Search and Retrieval]: Information<br>filtering, Selection process; H.3.1 [Content Analysis and<br>Indexing]: Linguistic processing</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft4">Standardization, Languages</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:81"><nobr><span class="ft4">Indian languages, web search, non-standard encodings</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:94"><nobr><span class="ft4">India is a multi-language, multi-script country with 22 of-</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:81"><nobr><span class="ft8">ficial languages and 11 written script forms. About a billion<br>people in India use these languages as their first language.<br>English, the most common technical language, is the lingua<br>franca of commerce, government, and the court system, but<br>is not widely understood beyond the middle class and those<br>who can afford formal, foreign-language education. Not only</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft5">Copyright is held by the International World Wide Web Conference</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft5">Committee (IW3C2). Distribution of these papers is limited to classroom</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:81"><nobr><span class="ft5">use, and personal use by others.</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:81"><nobr><span class="ft5">WWW2006, May 23­26, 2006, Edinburgh, Scotland.</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:81"><nobr><span class="ft5">ACM 1-59593-323-9/06/0005</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:81"><nobr><span class="ft5">.</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:475"><nobr><span class="ft8">is there a large societal gap between the rich and poor, but<br>that gap appears to be widening due the dominance of En-<br>glish in the society. About 5% of the population (usually the<br>educated class) can understand English as their second lan-<br>guage. Hindi is spoken by about 30% [5] of the population,<br>but it is concentrated in urban areas and north-central In-<br>dia, and is still not only foreign but often unpopular in many<br>other regions. Computability of Indian languages could help<br>bridge the societal gaps in education, economy and health-<br>care. However the research and development, availability<br>of standards, support from operating systems and applica-<br>tions in these directions moved very slow due to language<br>heterogeneity.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:489"><nobr><span class="ft4">Today this phenomenon can also be observed on the world</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:475"><nobr><span class="ft8">wide web. The percentage of Indian language content is<br>very less compared to the official languages of United Na-<br>tions [7]. Even within the available content, majority is not<br>searchable and hence not reachable due to multiple encod-<br>ings used while authoring such websites. Web publishers of<br>such content were hesitant to use any available standards<br>such as Unicode due to very delayed support from operat-<br>ing systems and browsers in rendering Indic scripts. Even<br>today Hindi is rendered properly only on Windows XP and<br>beyond. Linux has very little support for these languages.<br>Indian languages had barely any support till Windows 2000<br>operating system. This creates a major bottleneck for web<br>publishers in these languages to get viewership.</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:489"><nobr><span class="ft4">Despite all these issues, we found considerable amount of</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:475"><nobr><span class="ft8">content being published on the web. However such content<br>gets unnoticed or gets very less viewership since most of such<br>content is not accessible through search engines due to non-<br>standard encodings being rendered using proprietary fonts.</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:489"><nobr><span class="ft4">This paper is organized into seven sections. In the next</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:475"><nobr><span class="ft8">sub-section we give an introduction to characters, glyphs<br>and fonts in order to appreciate the complexity involved in<br>rendering complex scripts. We then introduce to the com-<br>plexity of Indic scripts in the sub-section 1.2. In Section 2 we<br>make the problem statement and explain an implementation<br>to solve this problem in Section 3. We report some experi-<br>ments and results in Section 4, followed by a conclusion in<br>Section 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:475"><nobr><span class="ft3"><b>1.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:515"><nobr><span class="ft3"><b>Fonts, characters and glyphs</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:489"><nobr><span class="ft4">In the history of mankind the act of writing has always</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:475"><nobr><span class="ft8">been considered as an activity producing visual results, namely<br>text. The computer has brought a more abstract layer to</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">801</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214002.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft8">it, by storing and transmitting textual data. The atomic<br>unit of this abstract representation of text, as defined in<br>the Unicode standard [8], is called a character. And indeed,<br>characters prove to be useful for obtaining alternative (non-<br>visual) representations of text such as Braille, speech syn-<br>thesis, etc. The visual representation of a character is called<br>a glyph [8]. Displaying textual contents, whether on screen<br>or on paper, involves translating characters into glyphs, a<br>non-trivial operation for many writing systems. Going in<br>the opposite direction (from glyphs to characters) is known<br>as OCR when done by a machine, or as reading when done<br>by a human [8]. The technology trend over the last few years<br>has been to use characters for most of the text processing<br>and to limit glyph issues to the last stage, namely rendering.<br>At that level, character to glyph translation is handled by<br>increasingly "intelligent" (cf. OpenType and AAT technolo-<br>gies) fonts and font encodings. Unicode is an effort in this<br>direction. At the same time, restoring the original charac-<br>ter stream from a rendered electronic document output for<br>operations such as searching, indexing, or copy-pasting, no<br>general solution exists in today's popular document formats<br>yet. Despite the problems involved, web authors tend to use<br>proprietary encodings due to the complex characteristics of<br>Indic scripts as described in the following section.</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:81"><nobr><span class="ft3"><b>1.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:121"><nobr><span class="ft3"><b>Characteristics of Indic Scripts</b></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:94"><nobr><span class="ft4">Indic scripts are phonetic in nature. There are vowels and</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:81"><nobr><span class="ft8">consonant symbols. The consonants become a syllable after<br>the addition of a vowel sound to it. Further to compound<br>the problem there are `compound syllables' also referred as<br>ligatures. For instance, if we consider `tri' in `triangle', there<br>are three letters corresponding to three sounds `ta', `ra', `yi'.<br>But in the case of Indic Scripts the three are built together<br>to make a single compound consonant having a non-linear<br>structure unlike Latin based languages.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:94"><nobr><span class="ft4">The main problem with display of Indic scripts is deal-</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:81"><nobr><span class="ft8">ing with their non-linear structures. Glyphs have variable<br>widths and have positional attributes. Vowel signs can be<br>attached to the top, bottom, left and right sides of the base<br>consonant. Vowel signs may also combine with consonants<br>to form independent glyphs. Consonants frequently combine<br>with each other to form complex conjunct glyphs. Although<br>the encoding encapsulates only the basic alphabetic charac-<br>ters, the number of glyphs and their combinations required<br>for the exhaustive rendering of these scripts can be quite<br>large [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:94"><nobr><span class="ft4">Since the character to glyph mappings have to be achieved</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:81"><nobr><span class="ft8">using a 256 character address space, web authors come up<br>with an intelligent way of representing all the characters in<br>the language using some 256 glyphs. Most of these glyphs<br>do not have any semantic significance in the language by<br>themselves. However when displayed together using some<br>positional parameters, they achieve human readable charac-<br>ters. This situation makes the Indian language web content<br>inaccessible for machine processing.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:112"><nobr><span class="ft3"><b>PROBLEM STATEMENT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:94"><nobr><span class="ft4">Many information seekers use a search engine to begin</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:81"><nobr><span class="ft8">their Web activity. In this case, users submit a query, typi-<br>cally a list of keywords, and receive a list of Web pages that<br>may be relevant, typically pages that contain the keywords.</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:94"><nobr><span class="ft4">Today though considerable amount of content is avail-</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:81"><nobr><span class="ft4">able in Indian languages, users are unable to search such</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft8">content. Because Indian language websites rely on unique<br>encodings or proprietary extensions of existing standard en-<br>codings [11]. This plurality of encodings creates a prob-<br>lem for information retrieval to function as desired. Also<br>many research groups in information retrieval and natural<br>language processing feel the need to collect corpora in these<br>languages from the web in the same way they obtain corpora<br>for other languages [14], [7], [1], [10]. Therefore in order to<br>search or process Indian language websites, we should be<br>able to transliterate all the encodings into one standard en-<br>coding and accept the user's queries in the same encoding<br>and build the search index.</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:489"><nobr><span class="ft4">This task involves many steps. First step is to be able</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:475"><nobr><span class="ft8">to identify the various encodings in Indian languages on the<br>web. Since these encodings are non-standard, there is no one<br>comprehensive list of such possible encodings. Therefore<br>we need to somehow identify all such encodings and also<br>be able to classify these encodings into the existing types.<br>Second step is to build a transliteration mapping for the<br>given encoding into a standard encoding which is UTF-8<br>and hence convert any page into a standard and index it.<br>Third step is to be able to accept user's queries in the same<br>standard as that of the transliterated documents which is<br>UTF-8.</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:475"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:506"><nobr><span class="ft3"><b>WEBKHOJ ARCHITECTURE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:489"><nobr><span class="ft4">In this paper we report a search engine called WebKhoj</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:475"><nobr><span class="ft8">which can search web pages in the top 10 Indian languages<br>according to the number of native speakers. WebKhoj cur-<br>rently supports Hindi, Telugu, Tamil, Malayalam, Marathi,<br>Kannada, Bengali, Punjabi, Gujarati and Oriya. Before we<br>describe the architecture of WebKhoj, it is useful to under-<br>stand how a Web search engine is typically put together and<br>then see its extensions for our task.</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:475"><nobr><span class="ft3"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:515"><nobr><span class="ft3"><b>General web search engine</b></span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:489"><nobr><span class="ft4">Figure 1 shows a general web search engine schematically</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:475"><nobr><span class="ft8">[2]. The major modules of a web search engine are a Crawler,<br>an Indexer, a Query Engine and a Ranking Engine. Every<br>engine relies on a crawler module to provide the grist for<br>its operation (shown on the left in Figure 1). Crawlers are<br>small programs that browse the Web on the search engine's<br>behalf, similar to how a human user follows links to reach<br>different pages. The programs are given a starting set of<br>URLs whose pages they retrieve from the Web. The crawler<br>extracts URLs appearing in the retrieved pages and give this<br>information to the crawler control module. This module de-<br>termines what links to visit next and feeds these links back<br>to the crawler. (Some of the functionality of the crawler<br>control module may be implemented by the crawlers them-<br>selves.) The crawlers also pass the retrieved pages into a<br>page repository. Crawlers continue visiting the Web until<br>local resources, such as storage, are exhausted. The indexer<br>module extracts all the words from each page and records<br>the URL where each word occurred. The result is a gener-<br>ally very large "lookup table" that can provide all the URLs<br>that point to pages where a given word occurs (the text in-<br>dex in Figure 1). The table is of course limited to the pages<br>that were covered in the crawling process. As mentioned<br>earlier, text indexing of the Web poses special difficulties,<br>due to its size and its rapid rate of change. In addition to<br>these quantitative challenges, the Web calls for some special,<br>less common, kinds of indexes. For example, the indexing</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">802</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214003.png" alt="background image">
+<DIV style="position:absolute;top:398;left:285"><nobr><span class="ft4">Figure 1: General web search engine architecture</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:81"><nobr><span class="ft8">module may also create a structure index, which reflects the<br>links between pages. Such indexes would not be appropri-<br>ate for traditional text collections that do not contain links.<br>The collection analysis module is responsible for creating a<br>variety of other indexes. During a crawling and indexing<br>run, search engines must store the pages they retrieve from<br>the Web. The page repository in Figure 1 represents this<br>possibly temporary collection. Search engines sometimes<br>maintain a cache of the pages they have visited beyond the<br>time required to build the index. This cache allows them<br>to serve out result pages very quickly, in addition to pro-<br>viding basic search facilities. Some systems, such as the<br>Internet Archive, have aimed to maintain a very large num-<br>ber of pages for permanent archival purposes. Storage at<br>such a scale again requires special consideration. The query<br>engine module is responsible for receiving and filling search<br>requests from users. The engine relies heavily on the in-<br>dexes, and sometimes on the page repository. Due to the<br>Web's size and the fact that users typically only enter one<br>or two keywords, result sets are usually very large. Hence<br>the ranking module has the task of sorting the results such<br>that results near the top are the most likely to be what the<br>user is looking for. In the rest of this section we describe the<br>additional modules that were used in a general web search<br>engine to make it work for Indian languages.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:81"><nobr><span class="ft3"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:121"><nobr><span class="ft3"><b>Language focused crawling</b></span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft4">Since our goal is to be able to search web sites of specific</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:81"><nobr><span class="ft8">languages, we are looking for a relatively narrow segment of<br>the web. Crawlers that fetch pages related to a particular<br>topic of interest are called topic focused crawlers [6]. While<br>our crawler is very similar to the one mentioned in [6], we<br>use a language identification module instead of a classifier<br>and hence call it as language focused crawling. The language<br>identification module returns the name of the language for a<br>given web page. This module is aware of all the proprietary<br>encodings and also uses a bag of words to recognize unknown<br>encodings from meta-tag information that might be found<br>in an HTML page. In many cases web pages contain more<br>than one language, especially one of the languages being</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:475"><nobr><span class="ft8">English. This happens since many of the website organzi-<br>ation information such as menu items, or disclaimers and<br>other such formatting information. In some websites such<br>as blogs or forums majority of the content might be En-<br>glish, with Indian language content being a minority. The<br>language identifier module returns a language only if the<br>number of words in a web page are above a given threshold<br>value.</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:475"><nobr><span class="ft3"><b>3.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:515"><nobr><span class="ft3"><b>Transcoding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:489"><nobr><span class="ft4">Since Indian language content is being published in mul-</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft8">tiple encodings on the web, transliteration of encodings to<br>a popular standard such as Unicode [15] is needed. In order<br>to transliterate a non-UTF-8 encoding into UTF-8 which is<br>a Unicode based encoding one has to come up with byte<br>sequence mappings between source and target encodings.<br>Such mappings are rarely one to one mappings, and involve<br>many to one, one to many and many to many mappings of<br>byte sequences. As it was explained in the beginning of this<br>paper, a sequence of bytes represent a sequence of glyphs<br>of a font, which in turn could render a single character or<br>a ligature in the Indic script. Ideally mappings are to be<br>created to all the unique characters in the language, which<br>could be a large number in the order of tens of thousands.<br>Since it would be tedious to list out all the characters and<br>ligatures, we make use of the large number of documents<br>collected by the crawler to come up with a semi-automatic<br>process of generating mappings.</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:489"><nobr><span class="ft4">We use a simple heuristic to identify the potential charac-</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:475"><nobr><span class="ft8">ter boundaries from byte sequences. First the text from the<br>collected web pages is divided into words using a suitable<br>word tokenizer. Then the algorithm lists all the possible<br>word beginning bytes in both the source and target font en-<br>codings. Now each word is scanned from left to right until<br>one such byte occurs in the word. Whenever a valid word<br>beginner occurs in the word, we tokenize at that point, and<br>the byte sequence till that point is treated as a potential<br>character. For example in a given encoding if all the pos-<br>sible word beginning bytes are `a', `b' and `c', a new word<br>`cars' is tokenized as `c', `ars', since neither `r' nor `s' are</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">803</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+	.ft10{font-size:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214004.png" alt="background image">
+<DIV style="position:absolute;top:317;left:263"><nobr><span class="ft4">Figure 2: Transcoding from Jagran encoding to UTF-8</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:81"><nobr><span class="ft8">valid word beginners. The byte sequences thus obtained by<br>segmentation are potential characters or ligatures in that<br>language.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:94"><nobr><span class="ft4">Once such segmentation is done, the frequency of such</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:81"><nobr><span class="ft8">byte sequences (or potential characters) is calculated. It was<br>found from our experiments that the ranks based on the nor-<br>malized frequency of such potential characters is highly cor-<br>related (we present more details in our experiments section).<br>Therefore we use this algorithm to come up initial suggested<br>mappings for transcoding, and then the user would manu-<br>ally correct any errors by going through the font mappings<br>as shown in the Figure 2. The transcoding tool sorts the<br>potential characters according to their ranks, so that the<br>user would find the equivalent match in the target encoding<br>among the top few possibilities. Also since the mappings<br>are ordered based on the normalized frequency found in the<br>corpus, mapping source and target bytes in this order en-<br>sures optimal precision that can be obtained from a set of<br>mappings.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:94"><nobr><span class="ft4">Once such transcoder mappings are generated for all pos-</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:81"><nobr><span class="ft8">sible encodings in Indian languages, a transcoding module<br>is called during indexing of the web documents. If a web<br>document is encoded in an encoding other than UTF-8,<br>the transcoder module is called to transliterate the encod-<br>ing of the given web page into UTF-8 standard. In order<br>to do this, the HTML page is parsed to obtain its docu-<br>ment object model (DOM) using the JTidy utility</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:382"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:388"><nobr><span class="ft4">. All the</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:81"><nobr><span class="ft8">nodes of type "font" are extracted from the DOM and the<br>font encoding is checked against a known set of encodings<br>on the web. Based on the font encoding, the appropriate<br>transcoder mappings are used to transliterate the relevant<br>text into UTF-8. One word is transcoded at a time. In order<br>to transcode, the maximum byte sequence available in the<br>mapping table is used to transliterate the encodings and the<br>process is repeated to the remaining substring of the word.<br>This transliterated document is then sent to the indexer to<br>build the inverted index.</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:81"><nobr><span class="ft3"><b>3.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:121"><nobr><span class="ft3"><b>Retrieval Algorithm</b></span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:94"><nobr><span class="ft4">The score of query q for document d is defined in terms</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:81"><nobr><span class="ft4">of TFIDF [13] metric as shown below:</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:112"><nobr><span class="ft4">score</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:145"><nobr><span class="ft4">(q, d) = c(q, d).q</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:240"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:248"><nobr><span class="ft4">(q).(</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:280"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:275"><nobr><span class="ft9">t in q</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:307"><nobr><span class="ft4">tf</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:320"><nobr><span class="ft4">(t in d).idf (t))</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:88"><nobr><span class="ft4">JTidy is a Java implementation of Dave Raggett's HTML</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:81"><nobr><span class="ft4">tidy. JTidy can be found at http://jtidy.sourceforge.net</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:479"><nobr><span class="ft10"><i>3.4.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:529"><nobr><span class="ft10"><i>tf (term frequency)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:489"><nobr><span class="ft4">`tf' (also known as term frequency) is a score factor based</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:475"><nobr><span class="ft8">on a term or phrase's frequency in a document. Terms and<br>phrases repeated in a document indicate the topic of the<br>document, so implementations of this score usually return<br>larger values when frequency is large, and smaller values<br>when frequency is small.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:479"><nobr><span class="ft10"><i>3.4.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:529"><nobr><span class="ft10"><i>idf (inverse document frequency)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:489"><nobr><span class="ft4">`idf' is a score factor based on a term's document fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:475"><nobr><span class="ft8">quency (the number of documents which contain the term).<br>Terms that occur in fewer documents are better discrimi-<br>nators of topic, so implemenations of this method usually<br>return larger values for rare terms, and smaller values for<br>common terms.</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:479"><nobr><span class="ft10"><i>3.4.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:529"><nobr><span class="ft10"><i>c (coverage of query terms)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:489"><nobr><span class="ft4">`c' is a score factor based on the fraction of all query</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:475"><nobr><span class="ft8">terms that a document contains. This value is multiplied<br>into scores. The presence of a large portion of the query<br>terms indicates a better match with the query, so impleme-<br>nations of this function usually return larger values when the<br>ratio between these parameters is large and smaller values<br>when the ratio between them is small.</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:479"><nobr><span class="ft10"><i>3.4.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:529"><nobr><span class="ft4">q</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:535"><nobr><span class="ft9">n</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:547"><nobr><span class="ft10"><i>(query normalization)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:489"><nobr><span class="ft4">This is the normalization value for a query given the sum</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:475"><nobr><span class="ft8">of the squared weights of each of the query terms. This value<br>is then multiplied into the weight of each query term.</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:489"><nobr><span class="ft4">This does not affect ranking, but rather just attempts to</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:475"><nobr><span class="ft4">make scores from different queries comparable.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:475"><nobr><span class="ft3"><b>3.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:515"><nobr><span class="ft3"><b>User Interface</b></span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft4">Currently there is no easy means to key-in UTF-8 queries</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:475"><nobr><span class="ft8">to the search engine using the normal keyboard. So We-<br>bKhoj is provided with a soft keyboard which displays the<br>UTF-8 character set of the language on the screen. The<br>layout of the keys is very similar to the Keylekh layout [9].<br>We also tried providing a roman to local language transliter-<br>ation keyboard which dynamically renders Indian language<br>text when its phonetic equivalent is typed using roman char-<br>acters. We had student volunteers from a near by village to<br>try out the keyboards. However, we found that the stu-<br>dents who are taught in the local language in schools are<br>not comfortable with English symbols. Also within the lo-<br>cal language, the way symbols are taught in schools is much</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">804</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214005.png" alt="background image">
+<DIV style="position:absolute;top:525;left:206"><nobr><span class="ft4">Figure 3: Hindi soft keyboard user interface for WebKhoj search engine</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:219"><nobr><span class="ft4">Figure 4: Search results being displayed for a Hindi query in UTF-8</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">805</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214006.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft8">different from the way UTF-8 characters need to be typed<br>in. However, with some training these students were able to<br>adapt to the soft keyboard.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft4">Currently soft keyboards for 10 Indian languages are pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:81"><nobr><span class="ft8">vided in the searching interface. One language is shown to<br>the user at any given instance. The user can change the<br>keyboard to a different language by clicking on the desired<br>language hyperlink displayed on the interface as shown in<br>Figure 3. After thus framing the query, the user can search<br>for the web documents, and the results are ranked and dis-<br>played much like Google as shown in Figure 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:81"><nobr><span class="ft3"><b>3.6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:121"><nobr><span class="ft3"><b>Word spelling normalization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:94"><nobr><span class="ft4">Indian language words face standardization issues in spelling,</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:81"><nobr><span class="ft8">thereby resulting in multiple spelling variants for the same<br>word. For example we found widely used spelling variations<br>for the hindi word `angrezi' as shown below</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:94"><nobr><span class="ft4">The major reasons for this phenomenon can be attributed</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:81"><nobr><span class="ft8">to unavailability of proper website authoring tools equipped<br>with spell checkers for Indian languages and multiple di-<br>alects of spoken language, transliteration of proper names<br>and words borrowed from foreign languages whose spellings<br>are not standardized. While we have to handle Indian lan-<br>guage words with spelling variations and errors, we also<br>showed that a considerable percentage of foreign language<br>words mainly English have entered into Indian language us-<br>age which cannot be ignored. While such words are being<br>frequently used by people, there is no standardization in<br>spelling for such words thereby resulting in huge variations<br>due to transliteration. Given such variations in spelling it<br>becomes difficult for web Information Retrieval applications<br>built for Indian languages, since finding relevant documents<br>would require more than performing an exact string match.<br>It was shown that normalization rules for specific languages<br>work best with spelling normalization problems. We make<br>use of a set of rules [12] to normalize the words before index-<br>ing them or looking them up from the index. These rules<br>are language specific and we describe the rules for Hindi in<br>the next sub-sections. We achieve normalization of word<br>spellings by mapping the alphabet of the given language L<br>into another alphabet L where L  L. We use the following<br>rules to achieve such a normalized mapping.</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:85"><nobr><span class="ft10"><i>3.6.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:134"><nobr><span class="ft10"><i>Mapping</i></span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:198"><nobr><span class="ft4">chandrabindu</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:284"><nobr><span class="ft10"><i>to</i></span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:301"><nobr><span class="ft4">bindu</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:94"><nobr><span class="ft4">Often people tend to use chandrabindu (a half-moon with</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:81"><nobr><span class="ft8">a dot) and bindu (a dot on top of alphabet) interchangeably.<br>Lots of confusion exists in common language usage on which<br>to use when. In order to equate all such words we convert all<br>occurrences of chandrabindu to bindu, which would equate<br>all the words shown below.</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:85"><nobr><span class="ft10"><i>3.6.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:134"><nobr><span class="ft4">nukta</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:173"><nobr><span class="ft10"><i>deletion</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:94"><nobr><span class="ft4">Unicode contains 10 consonant characters with nukta (a</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:81"><nobr><span class="ft4">dot under consonant) and one nukta character itself. We</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft4">delete all</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:534"><nobr><span class="ft4">occurrences of nukta character and replace all con-</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:475"><nobr><span class="ft8">sonants with nuktas with their corresponding consonant char-<br>acter. This would equate words like the ones shown below.</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:479"><nobr><span class="ft10"><i>3.6.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:529"><nobr><span class="ft4">halanth</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:578"><nobr><span class="ft10"><i>deletion</i></span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:489"><nobr><span class="ft4">Hindi and many other Indian languages face the prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:475"><nobr><span class="ft8">lems of 'schwa' (the default vowel 'a' that occurs with every<br>consonant) deletion. Lots of spelling variations occur due to<br>'schwa' deletion. In order to normalize such words we delete<br>all the halanth characters in the given word before making<br>a string match. This operation would normalize words as<br>shown in the example below.</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:479"><nobr><span class="ft10"><i>3.6.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:529"><nobr><span class="ft10"><i>vowel shortening</i></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:489"><nobr><span class="ft4">Many times in written script people use shorter vowels in-</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:475"><nobr><span class="ft8">stead of longer ones or vice versa. Therefore in our applica-<br>tion we convert all the longer vowels to their corresponding<br>shorter ones. Using this feature we can normalize words as<br>shown in this example.</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:479"><nobr><span class="ft10"><i>3.6.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:529"><nobr><span class="ft4">chandra</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:581"><nobr><span class="ft10"><i>deletion</i></span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:489"><nobr><span class="ft4">'chandra' (half-moon) is used for vowel rounding. Usually</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:475"><nobr><span class="ft8">words borrowed from English at times require vowel round-<br>ing operation. For example the word "documentary". But<br>this character is used inconsistently many times. Therefore<br>deleting such a character would normalize the words where<br>vowel rounding has been used.</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:489"><nobr><span class="ft4">These rules were compared with many approximate string</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:475"><nobr><span class="ft8">matching algorithms are were found to result in a better f-<br>measure [12].</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:475"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:507"><nobr><span class="ft3"><b>EXPERIMENTS AND DISCUSSION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:489"><nobr><span class="ft4">We report here some experiments that were conducted</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:475"><nobr><span class="ft8">in transcoding the proprietary encodings and present some<br>statistics from our language focused crawl about the Indian<br>language web.</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:489"><nobr><span class="ft4">The transcoding tool was designed to generate mappings</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:475"><nobr><span class="ft8">between two encodings in a semi-automatic fashion. In or-<br>der to achieve this the tool automatically gives some map-<br>ping suggestions based on the rank correlation of the two<br>encodings in question. We found that the byte sequences<br>from two encodings of same language correlate very well, by<br>looking at the Spearman's rank correlation coefficient. In-<br>tuitively this phenomenon can be understood as the conver-<br>gence of unique lexicon from two encodings from sufficiently<br>large corpus, since they both belong to the same language.<br>To find the amount of correlation, we experimented with<br>two different encodings from Hindi. We ran the charac-<br>ter segmentation algorithm and computed the normalized<br>frequencies as mentioned above and ranked the character<br>sequences in both the encodings from a corpus of 2,000 doc-<br>uments from each of these encodings. We manually marked</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">806</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214007.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft8">the corresponding frequency based rank positions of a given<br>character or a ligature from these encodings and calculated<br>the Spearman's rank correlation coefficient. We then plot-<br>ted a graph with the Spearman's correlation coefficient on<br>y-axis and the number of mappings on x-axis as shown in<br>Figure 5. We observed that the rank correlation is 100% for<br>the first 25 mappings that were automatically generated,<br>and are close to 90% for the first 200 mappings which can<br>achieve a transcoding precision of above 90%.</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:121"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:116"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:116"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:116"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:116"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:121"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:128"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:154"><nobr><span class="ft11"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:182"><nobr><span class="ft11"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:210"><nobr><span class="ft11"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:238"><nobr><span class="ft11"> 80</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:265"><nobr><span class="ft11"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:293"><nobr><span class="ft11"> 120</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:321"><nobr><span class="ft11"> 140</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:349"><nobr><span class="ft11"> 160</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:377"><nobr><span class="ft11"> 180</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:405"><nobr><span class="ft11"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:106"><nobr><span class="ft11">Rank Correlation coefficient</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:233"><nobr><span class="ft11">Number of byte sequences</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:205"><nobr><span class="ft11">Rank Correlation of byte sequence frequencies</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:316"><nobr><span class="ft11">&quot;Spearman Correlation&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:81"><nobr><span class="ft8">Figure 5: Spearman's rank correlation for number of<br>byte sequences between Jagran and Webdunia font<br>encodings</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:94"><nobr><span class="ft4">Since these byte sequences are an ordered set, ordered</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:81"><nobr><span class="ft8">by their normalized frequency, the precision of translitera-<br>tion obtained by providing mappings between encodings in<br>the order provided in the ordered set is optimal. We have<br>observed that with about 2,000 encoding mappings for each<br>encoding on average once can achieve around 99% precision.<br>However this number also depends on the language com-<br>plexity. For instance, the number of encodings required in<br>Telugu transliteration is more than the number of encodings<br>required in Hindi to obtain the same amount of precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:94"><nobr><span class="ft4">We now report some of our experiments on the Indian lan-</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft8">guage focused crawling. We ran a daily crawl for 6 months<br>period. Our crawler was focused to fetch content in the<br>top 10 spoken languages in India, namely Hindi, Telugu,<br>Tamil, Bengali, Marathi, Gujarati, Kannada, Malayalam,<br>Oriya and Punjabi. In another experiment, in order to find<br>the effectiveness of language focused crawling, we executed<br>the crawler in two modes with a set of 100 seed URLs which<br>constitute popular Indian based web portals, news sites and<br>home pages of people of Indian origin. In the first mode<br>it was executed without language focus restriction using a<br>pure FIFO crawl queue while the second mode was with lan-<br>guage focus restriction using a priority queue from which the<br>crawler fetched the next crawl URL. We plotted the number<br>of relevant pages fetched in the first 50,000 URLs in both the<br>runs as shown in the Figure 6. The relevance of the fetched<br>pages was calculated by checking the encoding on that page.<br>It can be clearly seen that language focus restriction on the<br>crawler helps in downloading more relevant pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:94"><nobr><span class="ft4">From the 6 month crawl, about half a million unique doc-</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:81"><nobr><span class="ft8">uments were collected from all the languages. Unique web<br>pages were picked after eliminating approximate duplicate<br>pages using shingling technique [4]. These half a million<br>pages were distributed across the 10 languages as shown</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft8">in the Figure 7. Figure 8 shows the population of people<br>speaking the various Indian languages [3]. It can be ob-<br>served that even within India there is a divide in the web<br>publishing activity in various languages. For instance it can<br>be observed that the content is actively getting published in<br>south Indian languages like Telugu, Tamil and Malayalam<br>when compared to the northern languages such as Marathi,<br>Gujarati, Oriya, Bengali and Punjabi. Hindi has the ma-<br>jority of content published on the web but Hindi is also the<br>language spoken by majority of Indian population.</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:489"><nobr><span class="ft4">It can be seen from Figure 10 that a very few websites</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:475"><nobr><span class="ft8">publish content using a global standard such as Unicode.<br>This explains the reason for most of the Indian language<br>not being indexed or searchable by the present day popular<br>web search engines. On the other hand it can be seen from<br>Figure 9 and Figure 11 that the number of unique encodings<br>found on the web for these languages is almost equivalent<br>to the number of websites. This observation suggests that<br>every web publisher is coming up with their own proprietary<br>encodings to publish web content. We did not consider the<br>websites that publish using images in this study, but our<br>preliminary study suggests that there are a large number of<br>websites that publish content as images as well.</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:482"><nobr><span class="ft4">Figure 6: Crawl with and without language focus</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:475"><nobr><span class="ft8">Figure 7: Languages on x-axis and number of unique<br>web pages on y-axis</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">807</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214008.png" alt="background image">
+<DIV style="position:absolute;top:317;left:81"><nobr><span class="ft8">Figure 8: Languages on x-axis and number of native<br>speakers on y-axis</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:81"><nobr><span class="ft8">Figure 9: Languages on x-axis and number of en-<br>codings found on web including UTF-8 on y-axis</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:81"><nobr><span class="ft8">Figure 10: Languages on x-axis and number of UTF-<br>8 websites on y-axis</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:112"><nobr><span class="ft3"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:94"><nobr><span class="ft4">In this paper we discussed the importance of being able</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:81"><nobr><span class="ft8">to search the Indian language web content and presented a<br>web search engine which takes the UTF-8 queries from a<br>soft keyboard and capable of searching 10 most spoken In-<br>dian languages' web pages encoded in multiple encodings.<br>We presented a language focussed crawler which can fetch<br>web pages of specific languages and also the distribution of</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:475"><nobr><span class="ft8">Figure 11: Languages on x-axis and number of web-<br>sites (web servers) on y-axis</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:475"><nobr><span class="ft8">the Indian language content on web based on the pages that<br>were crawled. This distribution clearly shows the need for<br>processes and algorithms to transcode non-Unicode encod-<br>ings to Unicode. Hence we have discussed a semi-automatic<br>algorithm to generate the mappings between different en-<br>codings. This shows that transcoding of proprietary encod-<br>ings into a standard encoding makes Indian language web<br>content accessible through search engines.</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:506"><nobr><span class="ft3"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:489"><nobr><span class="ft4">We would like to thank the Department of Science and</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:475"><nobr><span class="ft8">Technology, Ministry of Communications and IT, Govern-<br>ment of India for funding this project.</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:475"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:506"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:482"><nobr><span class="ft4">[1] J. Allan, J. Aslam, N. Belkin, C. Buckley, J. Callan,</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:503"><nobr><span class="ft8">B. Croft, S. Dumais, N. Fuhr, D. Harman, D. J.<br>Harper, D. Hiemstra, T. Hofmann, E. Hovy,<br>W. Kraaij, J. Lafferty, V. Lavrenko, D. Lewis,<br>L. Liddy, R. Manmatha, A. McCallum, J. Ponte,<br>J. Prager, D. Radev, P. Resnik, S. Robertson,<br>R. Rosenfeld, S. Roukos, M. Sanderson, R. Schwartz,<br>A. Singhal, A. Smeaton, H. Turtle, E. Voorhees,<br>R. Weischedel, J. Xu, and C. Zhai. Challenges in<br>Information Retrieval and Language Modeling:<br>Report of a Workshop held at the Center for<br>Intelligent Information Retrieval, University of<br>Massachusetts Amherst, September 2002. SIGIR<br>Forum, 37(1):31­47, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:482"><nobr><span class="ft4">[2] A. Arasu, J. Cho, H. Garcia-Molina, A. Paepcke, and</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:503"><nobr><span class="ft8">S. Raghavan. Searching the Web. ACM Trans. Inter.<br>Tech., 1(1):2­43, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:482"><nobr><span class="ft4">[3] G. B. 14th ed. Ethnologue: Languages of the World.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:503"><nobr><span class="ft4">SIL International, Dallas, TX, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:482"><nobr><span class="ft4">[4] S. Brin, J. Davis, and H. Garcia-Molina. Copy</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:503"><nobr><span class="ft8">Detection Mechanisms for Digital Documents. In<br>SIGMOD '95: Proceedings of the 1995 ACM SIGMOD<br>International Conference on Management of Data,<br>pages 398­409, New York, NY, USA, 1995. ACM<br>Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:482"><nobr><span class="ft4">[5] G. E. Burkhart, S. E. Goodman, A. Mehta, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:503"><nobr><span class="ft8">L. Press. The Internet in India: Better times ahead?<br>Commun. ACM, 41(11):21­26, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">808</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="214009.png" alt="background image">
+<DIV style="position:absolute;top:85;left:88"><nobr><span class="ft4">[6] S. Chakrabarti, K. Punera, and M. Subramanyam.</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:109"><nobr><span class="ft8">Accelerated Focused Crawling through Online<br>Relevance Feedback. In WWW '02: Proceedings of the<br>11th International Conference on World Wide Web,<br>pages 148­159, New York, NY, USA, 2002. ACM<br>Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:88"><nobr><span class="ft4">[7] F. Gey, N. Kando, and C. Peters. Cross Language</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:109"><nobr><span class="ft8">Information Retrieval: A Research Roadmap. SIGIR<br>Forum, 36(2):72­80, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:88"><nobr><span class="ft4">[8] Y. Haralambous and G. Bella. Injecting Information</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:109"><nobr><span class="ft8">into Atomic Units of Text. In DocEng '05:<br>Proceedings of the 2005 ACM Symposium on<br>Document Engineering, pages 134­142, New York,<br>NY, USA, 2005. ACM Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:88"><nobr><span class="ft4">[9] A. Joshi, A. Ganu, A. Chand, V. Parmar, and</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:109"><nobr><span class="ft8">G. Mathur. Keylekh: a Keyboard for Text Entry in<br>Indic Scripts. In CHI '04: CHI '04 Extended Abstracts<br>on Human Factors in Computing Systems, pages<br>928­942, New York, NY, USA, 2004. ACM Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:81"><nobr><span class="ft4">[10] L. S. Larkey, M. E. Connell, and N. Abduljaleel. Hindi</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:109"><nobr><span class="ft8">CLIR in thirty days. ACM Transactions on Asian<br>Language Information Processing (TALIP),<br>2(2):130­142, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:475"><nobr><span class="ft4">[11] D. P. Madalli. Unicode for Multilingual</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:503"><nobr><span class="ft8">Representation in Digital Libraries from the Indian<br>Perspective. In JCDL '02: Proceedings of the 2nd<br>ACM/IEEE-CS Joint Conference on Digital Libraries,<br>pages 398­398, New York, NY, USA, 2002. ACM<br>Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:475"><nobr><span class="ft4">[12] P. Pingali and V. Varma. Word Normalization in</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:503"><nobr><span class="ft8">Indian Languages. In ICON05: Proceedings of the<br>2005 International Conference on Natural Language<br>Processing, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:475"><nobr><span class="ft4">[13] G. Salton and C. Buckley. Term-weighting Approaches</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:503"><nobr><span class="ft8">in Automatic Text Retrieval. Information Process.<br>Management, 24(5):513­523, 1988.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:475"><nobr><span class="ft4">[14] S. Strassel, M. Maxwell, and C. Cieri. Linguistic</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:503"><nobr><span class="ft8">Resource Creation for Research and Technology<br>Development: A Recent Experiment. ACM<br>Transactions on Asian Language Information<br>Processing (TALIP), 2(2):101­117, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:475"><nobr><span class="ft4">[15] F. Yergeau. UTF-8, a transformation format of ISO</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:503"><nobr><span class="ft4">10646. RFC Editor, United States, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft7">809</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

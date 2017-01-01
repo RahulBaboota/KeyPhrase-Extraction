@@ -1,0 +1,775 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\7</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2003-10-28T09:43:02+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:11px;font-family:Times;color:#000000;}
+	.ft1{font-size:21px;font-family:Times;color:#000000;}
+	.ft2{font-size:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft5{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft6{font-size:12px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7001.png" alt="background image">
+<DIV style="position:absolute;top:84;left:551"><nobr><span class="ft0">Mobile Networks and Applications 9, 9­20, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:427"><nobr><span class="ft0"> 2004 Kluwer Academic Publishers. Manufactured in The Netherlands.</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:109"><nobr><span class="ft1"><b>A Fair and Traffic Dependent Scheduling Algorithm for Bluetooth</b></span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:387"><nobr><span class="ft1"><b>Scatternets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:390"><nobr><span class="ft2">ROHIT KAPOOR</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:321"><nobr><span class="ft3"><i>University of California, Los Angeles (UCLA), USA</i></span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:377"><nobr><span class="ft2">ANDREA ZANELLA</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:381"><nobr><span class="ft3"><i>University of Padova, Italy</i></span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:393"><nobr><span class="ft2">MARIO GERLA</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:321"><nobr><span class="ft3"><i>University of California, Los Angeles (UCLA), USA</i></span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft2">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft4"The Bluetooth specification defines the notion of interconnected piconets, called scatternets, but does not define the actual<br>mechanisms and algorithms necessary to set up and maintain them. The operation of a scatternet requires some Bluetooth units to be inter-<br>piconet units (gateways), which need to time-division multiplex their presence among their piconets. This requires a scatternet-scheduling<br>algorithm that can schedule the presence of these units in an efficient manner. In this paper, we propose a distributed scatternet-scheduling<br>scheme that is implemented using the HOLD mode of Bluetooth and adapts to non-uniform and changing traffic. Another attribute of the<br>scheme is that it results in fair allocation of bandwidth to each Bluetooth unit. This scheme provides an integrated solution for both intra-<br>and inter-piconet scheduling, i.e., for polling of slaves and scheduling of gateways.</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:72"><nobr><span class="ft0">Keywords: Bluetooth, scatternet, scheduling, fairness</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:72"><nobr><span class="ft2">1. Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:72"><nobr><span class="ft5">The Bluetooth [10] technology was developed as a replace-<br>ment of cables between electronic devices and this is perhaps<br>its most obvious use. But, it is the ability of Bluetooth de-<br>vices to form small networks called piconets that opens up a<br>whole new arena for applications where information may be<br>exchanged seamlessly among the devices in the piconet. Typ-<br>ically, such a network, referred to as a PAN (Personal Area<br>Network), consists of a mobile phone, laptop, palmtop, head-<br>set, and other electronic devices that a person carries around<br>in his every day life. The PAN may, from time to time, also<br>include devices that are not carried along with the user, e.g.,<br>an access point for Internet access or sensors located in a<br>room. Moreover, devices from other PANs can also be in-<br>terconnected to enable sharing of information.</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:90"><nobr><span class="ft2">The networking capabilities of Bluetooth can be further</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:72"><nobr><span class="ft5">enhanced by interconnecting piconets to form scatternets.<br>This requires that some units be present in more than one pi-<br>conet. These units, called gateways, need to time-division<br>their presence among the piconets. An important issue with<br>the gateways is that their presence in different piconets needs<br>to be scheduled in an efficient manner. Moreover, since the<br>gateway cannot receive information from more than one pi-<br>conet at a time, there is a need to co-ordinate the presence of<br>masters and gateways.</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:90"><nobr><span class="ft2">Some previous work has looked at scheduling in a piconet</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:72"><nobr><span class="ft5">[2,5] and also in a scatternet. In [4], the authors define a<br>Rendezvous-Point based architecture for scheduling in a scat-<br>ternet, which results in the gateway spending a fixed fraction<br>of its time in each piconet. Such a fixed time-division of the</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:455"><nobr><span class="ft6">gateway may clearly be inefficient since traffic is dynamic.<br>In [9], the authors propose the Pseudo-Random Coordinated<br>Scatternet Scheduling (PCSS) scheme in which Bluetooth<br>nodes assign meeting points with their peers. The sequence<br>of meeting points follows a pseudo-random process that leads<br>to unique meeting points for different peers of a node. The<br>intensity of these meeting points may be increased or de-<br>creased according to the traffic intensity. This work presents<br>performance results for various cases. In [11], a scatternet-<br>scheduling algorithm based on the concept of a switch table,<br>which can be dynamically adjusted based on traffic load, is<br>presented. In [1], the authors present a credit-based schedul-<br>ing scheme based on the SNIFF mode of Bluetooth, where<br>credits may be reallocated to cater to changing traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:473"><nobr><span class="ft2">Our scheduling scheme addresses the issues of fairness and</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:455"><nobr><span class="ft6">utilization of bandwidth. Since Bluetooth is a low-bandwidth<br>environment, it is important that bandwidth should be effi-<br>ciently utilized. Also, since a low bandwidth can easily lead<br>to starvation of flows, another metric we focus on is fairness.<br>We propose a distributed scatternet-scheduling algorithm that<br>is implemented using the HOLD mode [10] of Bluetooth<br>and adapts to non-uniform and changing traffic. This algo-<br>rithm provides an integrated solution for both intra- and inter-<br>piconet scheduling, i.e., for polling of slaves and scheduling<br>of gateways. The algorithm leads to a high bandwidth utiliza-<br>tion and results in a fair division of (a) the piconet bandwidth<br>between the slaves of a piconet and (b) the gateway presence<br>among different piconets.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:473"><nobr><span class="ft2">In section 2, we discuss the Bluetooth technology. In</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:455"><nobr><span class="ft2">section 3, we present a definition of fairness in the context</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft7{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7002.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">10</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:72"><nobr><span class="ft3"><i>Figure 1. Gateway may be viewed as a virtual master and masters as virtual</i></span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:239"><nobr><span class="ft3"><i>slaves.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:72"><nobr><span class="ft5">of Bluetooth scatternets, which takes into account intra- and<br>inter-piconet max-min fairness. Section 4 describes the al-<br>gorithm and proves its fairness property. Section 5 presents<br>simulation results and section 6 presents the conclusions.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:72"><nobr><span class="ft2">2. Bluetooth technology</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:72"><nobr><span class="ft5">The Bluetooth system [3] operates in the worldwide un-<br>licensed 2.4 GHz Industrial­Scientific­Medical (ISM) fre-<br>quency band. To make the link robust to interference, it uses<br>a Frequency Hopping (FH) technique with 79 radio carriers.<br>It allows a raw data transmission rate of 1 Mbit/s.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:90"><nobr><span class="ft2">Two or more Bluetooth units sharing the same channel</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:72"><nobr><span class="ft5">form a piconet. Each piconet consists of a master unit and<br>up to seven active slave units. The master unit polls the slave<br>units according to a polling algorithm and a slave is only al-<br>lowed to transmit after the master has polled it. The piconet<br>capacity is thus, shared among the slave units according to the<br>polling algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:90"><nobr><span class="ft2">Furthermore, two or more piconets can be interconnected,</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:72"><nobr><span class="ft5">forming a scatternet. This requires a unit, called an inter-<br>piconet unit (gateway), to be a part of more than one piconet.<br>Such a unit can simultaneously be a slave member of multi-<br>ple piconets, but a master in only one, and can transmit and<br>receive data in only one piconet at a time; so participation in<br>multiple piconets has to be on a time-division multiplex ba-<br>sis. The time of the gateway is, thus, also shared among the<br>piconets it belongs to. In this work, we assume that the gate-<br>way can only be a slave in its piconets. If a gateway were<br>to be a master in a piconet, it would lead to the stoppage of<br>all transmission in the piconet when the gateway visits some<br>other piconet. Thus, we believe that the use of the gateway as<br>a slave is the most efficient method of scatternetting.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:72"><nobr><span class="ft2">3. Fair allocation of bandwidth</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:72"><nobr><span class="ft5">As introduced in the previous section, units belonging to a<br>piconet share the piconet capacity according to the polling<br>algorithm used by the master. In an analogous manner, gate-<br>ways in a scatternet divide their time among their different<br>piconets, according to the "master-listening" algorithm they<br>use. It can be noted that there is a duality in this architec-<br>ture. On the one hand, a master divides its capacity among<br>the units of its piconet by using a polling algorithm. On the</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft6">other hand, a gateway shares its capacity among the piconets<br>it belongs to, on the basis of a scheduling algorithm it uses<br>for listening to the masters. The gateway, can, then be viewed<br>as a "virtual master" and its masters can be viewed as "virtual<br>slaves" forming a "virtual piconet", in which the polling cycle<br>is, actually, the "listening cycle" of the gateway. A graphical<br>interpretation of this duality is given in figure 1, in which the<br>solid line shows the actual piconets, and the dotted line shows<br>the virtual piconet.</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:473"><nobr><span class="ft2">Due to this duality, we design our scheduling scheme such</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:455"><nobr><span class="ft5">that the same scheduling algorithm is used for fair sharing of<br>both (a) the piconet capacity among slaves and (b) the gate-<br>way time among piconets.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:473"><nobr><span class="ft2">We now give a definition of max-min fairness [7]. We then</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:455"><nobr><span class="ft5">go on to define max-min fairness in the context of Bluetooth<br>scatternets, by considering (a) intra-piconet fairness, i.e., fair-<br>ness in division of piconet bandwidth among slaves (both<br>gateway and non-gateway) of a piconet and (b) inter-piconet<br>fairness, i.e., fairness in division of the gateway's presence<br>among its piconets. We first define a `feasible' rate distribu-<br>tion since this is used in the definition of max-min fairness.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:455"><nobr><span class="ft6">Definition 1 (Feasible). A rate distribution is feasible if rates<br>are non-negative, the aggregate rate is not greater than one,<br>and no unit receives a higher rate than required.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:455"><nobr><span class="ft2">Definition 2 (Max-min fairness). An allocation of rates </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:810"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:816"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:455"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:463"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:470"><nobr><span class="ft2">, . . . , </span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:512"><nobr><span class="ft3"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:522"><nobr><span class="ft2">among s units is max-min fair if it is feasible, and</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:455"><nobr><span class="ft2">for each unit i, </span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:553"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:561"><nobr><span class="ft2">cannot be increased (while maintaining fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:455"><nobr><span class="ft2">sibility) without decreasing </span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:628"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:638"><nobr><span class="ft2">for some other unit j for which</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:455"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:463"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:490"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:498"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:503"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:473"><nobr><span class="ft2">The distribution of max-min fair rates depends upon the</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:455"><nobr><span class="ft5">set of rate demands (traffic generated) of the units. In the<br>following subsections, we discuss factors that determine the<br>max-min "fair share" of a slave (gateway or non-gateway).<br>We call these factors the Piconet Presence Fraction and the<br>Scatternet Presence Fraction and show how they may be used<br>to calculate the "fair share" for a slave in a scatternet.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:455"><nobr><span class="ft2">3.1. Piconet presence fraction</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:455"><nobr><span class="ft5">Consider a piconet consisting of gateway and non-gateway<br>slaves in which the master has complete knowledge of the rate<br>demands of all slaves (an ideal master). Using this knowl-<br>edge, the master polls the slaves in a max-min fair man-<br>ner such that each slave gets its "fair share" of the master's<br>polling. We refer to the "fair share" received by a slave as the<br>"piconet presence fraction" (PPF) of the slave. The gateway<br>has a PPF for each piconet it belongs to.</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:473"><nobr><span class="ft2">Consider the piconets shown in figures 2(a) and 2(b), each</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:455"><nobr><span class="ft5">consisting of one gateway and two slaves, with the traffic rates<br>of each slave as shown. In figure 2(a) (Piconet I), the PPF of<br>each non-gateway slave is 0.2, while the PPF of the gateway<br>is 0.6. In figure 2(b) (Piconet II), the PPFs of the slaves are<br>0.2 and 0.4, while the PPF of the gateway is 0.4.</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7003.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">A FAIR AND TRAFFIC DEPENDENT SCHEDULING</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:811"><nobr><span class="ft7">11</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:74"><nobr><span class="ft3"><i>Figure 2. Piconets with traffic rates between master and each slave shownn.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:72"><nobr><span class="ft2">3.2. Scatternet presence fraction</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:72"><nobr><span class="ft5">A gateway will, in general, be a slave in multiple piconets and<br>may have different amounts of traffic to exchange with each<br>piconet. Consider an ideal gateway that has complete knowl-<br>edge of the rate demands of all its masters. The gateway can<br>then divide its presence among its piconets in a max-min fair<br>manner, giving each piconet a "fair share" of its presence. We<br>call this fair share the "scatternet presence fraction" (SPF) of<br>the gateway for the piconet. The importance of the SPF is that<br>a fair division of the gateway's presence among its piconets<br>can be achieved based on the SPF.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:90"><nobr><span class="ft2">Consider the piconets of figure 2 again, but the gateway of</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:72"><nobr><span class="ft5">each of the piconets now connects them to form a scatternet,<br>as shown in figure 3. The traffic requirements are the same as<br>shown in figure 2. The SPF of the gateway is 0.5 in Piconet I<br>and 0.5 in Piconet II.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:72"><nobr><span class="ft2">3.3. Fair share</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:72"><nobr><span class="ft5">We see that for a gateway to be fair, there are two kinds of<br>fairness it has to achieve: that dictated by the PPFs, which<br>achieves fairness between the gateway and the other slaves of<br>a piconet, and that of the SPFs, which distributes the presence<br>of the gateway between its piconets in a fair manner. Both<br>these kinds of fairness may not always be completely achiev-<br>able and this can lead to a change in the values of PPF and<br>SPF, as we now discuss.</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:90"><nobr><span class="ft2">We observe that an ideal master (as in section 3.1) does</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:72"><nobr><span class="ft5">not give a gateway more than the PPF of its polling. Thus,<br>if the SPF of a gateway is greater than its PPF for a piconet,<br>the gateway spends a fraction of its time equal to the PPF<br>in the piconet. The gateway cannot stay for a fraction equal<br>to its SPF in the piconet since it is limited by its PPF. Thus,<br>the extra scatternet presence fraction (the difference of the<br>SPF and the PPF) is redistributed in a fair manner among<br>the gateway's other piconets for which the SPF is less than<br>the PPF. This may increase the SPF of the gateway in the<br>other piconets. In other words, the gateway behaves as if<br>its SPF in a particular piconet is reduced to the PPF and<br>thus, its SPF in the other piconets increases. We refer to this<br>changed SPF as the "updated SPF" of the gateway in a pi-<br>conet.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:90"><nobr><span class="ft2">Similarly, an ideal gateway does not stay a fraction of time</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:72"><nobr><span class="ft2">more than the SPF in a piconet. Thus, if the PPF of the gate-</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:621"><nobr><span class="ft3"><i>Table 1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:469"><nobr><span class="ft3"><i>Calculation of fair share of the gateway in the two piconets of figure 3.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:635"><nobr><span class="ft3"><i>Piconet I</i></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:774"><nobr><span class="ft3"><i>Piconet II</i></span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:455"><nobr><span class="ft3"><i>Actual traffic rate</i></span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:650"><nobr><span class="ft3"><i>0.7</i></span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:790"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:455"><nobr><span class="ft3"><i>PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:650"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:790"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:455"><nobr><span class="ft3"><i>SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:650"><nobr><span class="ft3"><i>0.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:790"><nobr><span class="ft3"><i>0.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:455"><nobr><span class="ft3"><i>Updated PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:650"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:790"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:455"><nobr><span class="ft3"><i>Updated SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:650"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:790"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:455"><nobr><span class="ft3"><i>Fair share</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:649"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:790"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:455"><nobr><span class="ft3"><i>Figure 3. Gateway shared between two piconets; traffic rates between slaves</i></span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:576"><nobr><span class="ft3"><i>and the master are shown.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:455"><nobr><span class="ft5">way in the piconet is greater than the SPF, the gateway spends<br>a fraction of time equal to the SPF in the piconet. The remain-<br>ing PPF of the gateway (the difference of the PPF and the<br>SPF) is redistributed in a fair manner among the other slaves<br>of the piconet (if this other slave is a gateway, it is redistrib-<br>uted to it if its SPF is greater than its PPF in the piconet). This<br>may increase the PPF of these slaves. We refer to this changed<br>PPF as the "updated PPF" of the slave in the piconet. In case<br>there is no such redistribution, the updated PPF is equal to the<br>PPF and the updated SPF is equal to the SPF.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:473"><nobr><span class="ft2">The fair share can now be calculated from the "updated</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:455"><nobr><span class="ft5">PPF" and the "updated SPF" as the minimum of these two<br>quantities. Note that all these quantities ­ PPF, SPF, updated<br>PPF, updated SPF and fair share­are dependent on the traffic.<br>Any change in traffic demand of a unit may lead to a change<br>in some of these quantities. We explain the calculation of the<br>fair share using some examples.</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:473"><nobr><span class="ft2">An example is given in table 1, which shows the actual traf-</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:455"><nobr><span class="ft5">fic rate, PPF, SPF, Updated PPF, Updated SPF and fair share<br>of the gateway in the two piconets of figure 3. In Piconet II,<br>the gateway has a PPF of 0.4, which is less than the SPF. In<br>Piconet I, the gateway has a PPF of 0.6 and an SPF of 0.5.<br>Thus, the extra scatternet presence fraction of the gateway in<br>Piconet II (the difference between the SPF and the PPF) is<br>given to Piconet I, which has a higher traffic rate than may<br>be allowed by the SPF. This is reflected in the "updated SPF"<br>values. Thus, the "fair share" of the gateway in Piconet I is<br>0.6 and in Piconet II is 0.4. The fair shares of the non-gateway<br>slaves are equal to their PPF.</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:473"><nobr><span class="ft2">As another example, consider the scatternet consisting of</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:455"><nobr><span class="ft5">5 piconets with the traffic rates shown as in figure 4. As shown<br>in table 2, gateway G2 has a PPF of 0.5 and an SPF of 0.4 in<br>Piconet B. Thus, the "updated PPF" of G2 in Piconet B is 0.4.<br>The extra PPF (</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:549"><nobr><span class="ft2">= PPF - SPF) is added to the PPF of gateway</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft8{font-size:12px;line-height:26px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7004.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">12</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:160"><nobr><span class="ft3"><i>Figure 4. Scatternet with two gateways.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:237"><nobr><span class="ft3"><i>Table 2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:75"><nobr><span class="ft3"><i>Calculation of fair share of the gateways G1 and G2 in the scatternet of</i></span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:235"><nobr><span class="ft3"><i>figure 4.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:72"><nobr><span class="ft3"><i>Gateway G1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:203"><nobr><span class="ft3"><i>Piconet A</i></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:297"><nobr><span class="ft3"><i>Piconet B</i></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:391"><nobr><span class="ft3"><i>Piconet C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:72"><nobr><span class="ft3"><i>Actual traffic rate</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:216"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:310"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:72"><nobr><span class="ft3"><i>PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:216"><nobr><span class="ft3"><i>0.25</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:310"><nobr><span class="ft3"><i>0.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:72"><nobr><span class="ft3"><i>SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:216"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:310"><nobr><span class="ft3"><i>0.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:72"><nobr><span class="ft3"><i>Updated PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:216"><nobr><span class="ft3"><i>0.25</i></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:310"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:72"><nobr><span class="ft3"><i>Updated SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:216"><nobr><span class="ft3"><i>0.25</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:310"><nobr><span class="ft3"><i>0.65</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:72"><nobr><span class="ft3"><i>Fair share</i></span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:216"><nobr><span class="ft3"><i>0.25</i></span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:310"><nobr><span class="ft3"><i>0.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:407"><nobr><span class="ft3"><i>0.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:72"><nobr><span class="ft3"><i>Gateway G2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:203"><nobr><span class="ft3"><i>Piconet B</i></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:297"><nobr><span class="ft3"><i>Piconet D</i></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:391"><nobr><span class="ft3"><i>Piconet E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:72"><nobr><span class="ft3"><i>Actual traffic rate</i></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:219"><nobr><span class="ft3"><i>0.7</i></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:72"><nobr><span class="ft3"><i>PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:219"><nobr><span class="ft3"><i>0.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:72"><nobr><span class="ft3"><i>SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:219"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:72"><nobr><span class="ft3"><i>Updated PPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:219"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:72"><nobr><span class="ft3"><i>Updated SPF</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:219"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:72"><nobr><span class="ft3"><i>Fair share</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:219"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:313"><nobr><span class="ft3"><i>0.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:407"><nobr><span class="ft3"><i>0.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:72"><nobr><span class="ft5">G1 in Piconet B. The "updated PPF" of G1 in Piconet B is,<br>thus, 0.6.</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:90"><nobr><span class="ft2">Also, gateway G1 has a PPF of 0.25 and an SPF of 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:72"><nobr><span class="ft5">in Piconet A. Thus, the "updated SPF" of G1 in Piconet A is<br>0.25. The extra SPF (</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:199"><nobr><span class="ft2">= SPF-PPF) is added to the SPF of G1</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:72"><nobr><span class="ft5">in Piconet B. The "updated SPF" of G1 in Piconet B, is thus,<br>equal to 0.65. The fair shares can now be easily calculated.</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:90"><nobr><span class="ft2">A division of the master's polling and the gateway's pres-</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:72"><nobr><span class="ft5">ence based on PPF and SPF as described in this section takes<br>into account the traffic demands of the slaves and the gate-<br>ways and leads to fairness in the scatternet. In the next sec-<br>tion, we introduce and describe an algorithm that aims to<br>achieve such a fair distribution of bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:72"><nobr><span class="ft2">4. Description of algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:72"><nobr><span class="ft5">We first explain how the algorithm works in the case of a sin-<br>gle piconet with no gateway. We then extend the algorithm<br>to the case of a scatternet and explain how the coordination<br>between the master and the gateways is achieved. We then<br>prove the fairness of the algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:72"><nobr><span class="ft2">4.1. Single piconet with no gateways</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:72"><nobr><span class="ft5">The polling algorithm is based on the master estimating the<br>traffic rate between each slave and itself. This traffic rate is<br>the sum of the traffic rates from the master to a slave and in</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft5">the reverse direction. We assume, in order to simplify the ex-<br>planation of the algorithm, that traffic flows only from slaves<br>to master; masters generate no traffic to slaves. The same al-<br>gorithm also applies with little change when traffic flows in<br>both directions (explained later).</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:473"><nobr><span class="ft2">The master uses a Round Robin polling scheme, with the</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:455"><nobr><span class="ft5">modification that a slave is skipped if it does not belong to the<br>"active list" of the master. The slaves are moved in and out<br>of the active list on the basis of two variables that the master<br>maintains for each slave. These two variables are:</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:460"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:476"><nobr><span class="ft2">­ estimate of the rate of traffic generated by the slave;</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:460"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:476"><nobr><span class="ft2">­ estimate of the queue length of the slave.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:473"><nobr><span class="ft2">When a slave is polled, the master­slave pair gets a chance</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:455"><nobr><span class="ft5">to exchange a maximum amount of data in each direction,<br>denoted by M. After each such polling phase, the master up-<br>dates the values of N and r in the following manner:</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:473"><nobr><span class="ft2">For the slave just polled:</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:519"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:535"><nobr><span class="ft2">= N + r - x,</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:804"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:525"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:535"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:550"><nobr><span class="ft8"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:564"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:583"><nobr><span class="ft2">+ (1 - ) xT ,</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:704"><nobr><span class="ft2">x &lt; M</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:747"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:564"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:583"><nobr><span class="ft2">+ (1 - ) xT + , x = M.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:804"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:455"><nobr><span class="ft2">For other slaves:</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:597"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:614"><nobr><span class="ft2">= N + r,</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:804"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:455"><nobr><span class="ft6">where  is the time elapsed since the last update, x is the<br>amount of data exchanged during the poll phase, T is the total<br>time elapsed since the last poll of the same slave,  is a para-<br>meter used to smooth the rate estimation and  is a parameter<br>used to probe for more bandwidth. Note that x is the actual<br>amount of data exchanged, which may be less than or equal<br>to M, depending upon the number of packets in the slave's<br>queue. Since N is an estimate of the slave's queue length and<br>r</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:467"><nobr><span class="ft2">is an estimate of the rate at which traffic is generated, N is</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:455"><nobr><span class="ft5">increased at the rate of r (as in equations (1) and (3)). Also,<br>when a slave is polled, N is decreased by the amount of data<br>exchanged ((equation 1)).</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:473"><nobr><span class="ft2">After updating these values, the master determines the</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:455"><nobr><span class="ft6">changes to be made to the active list. A slave is added or<br>deleted from the active list depending upon whether its value<br>of N is greater or smaller than a "threshold". The value of<br>this threshold is the minimum amount of data that the master<br>would like the slave to have in order to poll it. We choose<br>a value equal to a multiple of a DH5 packet for the thresh-<br>old since this packet incurs least overhead (the selection of<br>the value of the threshold is discussed further in the next sub-<br>section). Thus, a slave is present in the active list if the mas-<br>ter's estimate of the value of N for the slave is greater than the<br>threshold. This makes the simple Round Robin polling strat-<br>egy adaptive to traffic and enables it to utilize bandwidth ef-<br>ficiently, even when slaves have different rates of traffic. The<br>maximum amount of data that can be exchanged at each poll,<br>M</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:470"><nobr><span class="ft2">, is also set equal to the threshold. Note that if the amount</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:455"><nobr><span class="ft5">of data, x, in the slave's queue is less than the threshold, the<br>polling of the slave ends after this data has been exchanged.</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:12px;line-height:27px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7005.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">A FAIR AND TRAFFIC DEPENDENT SCHEDULING</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:811"><nobr><span class="ft7">13</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:90"><nobr><span class="ft2">If the value of N is less than the threshold for all the slaves,</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:72"><nobr><span class="ft5">then the slave whose value of N is estimated to take the small-<br>est time to reach the threshold is polled, i.e., the slave for<br>which the value of (Threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:255"><nobr><span class="ft2">- N)/r is the smallest.</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:90"><nobr><span class="ft2">The master now goes to the next slave according to the</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:72"><nobr><span class="ft5">Round Robin ordering of slaves. If the slave is present in the<br>active list, it is polled. Else, the procedure is repeated for the<br>next slave in the Round Robin ordering.</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:90"><nobr><span class="ft2">Also, note that if the amount of data sent by the slave x</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:72"><nobr><span class="ft5">is equal to M, r is increased by a small amount, . This is<br>basically an attempt by the slave to probe for more bandwidth<br>if it is able to send data at the present rate. The usefulness<br>of this increase is evident in the proof of fairness in the next<br>section. The value of  chosen is 0.15 and that of  is 0.65.<br>We also discuss the rationale behind choosing these values in<br>the proof of fairness.</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:90"><nobr><span class="ft2">If traffic flows in both directions, i.e., from the slaves to</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft5">the master and in the reverse direction, x is the average of<br>the amount of data exchanged in the two directions, r refers<br>to the average of the rate-estimations of the two directions<br>and N refers to the average of the queue length estimates of<br>the two directions. Also, if the number of packets in either<br>direction is less than the threshold, the polling of the slave<br>continues till in both directions, (a) there is no more data to<br>send or (b) amount of data equal to the threshold has been<br>exchanged.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:90"><nobr><span class="ft2">The initial value of N is set to the threshold (to ensure that</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:72"><nobr><span class="ft5">slaves get polled at the beginning) and that of r is set to 0.25<br>(as a reasonable value). Note that the algorithm converges to<br>the fair share, but a careful selection of initial values makes<br>the initial convergence faster.</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:90"><nobr><span class="ft2">Another advantage of such a scheme is that it may allow</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:72"><nobr><span class="ft5">the master to go into a power-saving mode if it realizes that no<br>slave has sufficient packets to send, i.e., if N is smaller than<br>the threshold for all slaves. Though we do not explore this<br>option in this paper, it may be useful since Bluetooth devices<br>are expected to work in power-constrained environments.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:90"><nobr><span class="ft2">To improve the algorithm, we add a heuristic to it. The</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:72"><nobr><span class="ft5">maximum number of polling cycles that a slave is not polled<br>is bounded. If a slave generates a large burst of data occa-<br>sionally and then does not generate any data for a long time,<br>the value of r for the slave may be very low. This may cause<br>the value of N for the slave to be lower than the threshold<br>for a long time. By limiting the maximum number of cycles<br>missed by the slave, we make sure that such a behavior of the<br>slave does not lead to its starvation. In the experiments, this<br>value is taken to be equal to 5 cycles. We now explain how<br>the above algorithm works in a scatternet.</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:72"><nobr><span class="ft2">4.2. Scatternet</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:72"><nobr><span class="ft2">Scheduling of gateways using Rendezvous Points.</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:397"><nobr><span class="ft2">Before</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:72"><nobr><span class="ft5">describing how the algorithm works in a scatternet, we briefly<br>discuss the notion of Rendezvous Points (RPs) described<br>in [4]. A RP is a slot at which a master and a gateway have<br>agreed to meet, i.e., at this slot, the master will poll the gate-<br>way and the gateway will listen to the master. In [4], RPs are</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft5">implemented using the SNIFF mode of Bluetooth, but we im-<br>plement RPs using the HOLD mode [10]. In the HOLD mode,<br>the slave does not have to listen to the master for a certain time<br>period and may use this time to visit other piconets. Prior to<br>entering the HOLD mode, the master and the slave agree on<br>the time duration the slave remains in the HOLD mode. We<br>implement our algorithm using RPs as described below.</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:473"><nobr><span class="ft2">The working of the algorithm in a scatternet is very similar</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:455"><nobr><span class="ft6">to its operation in a piconet. The master continues to poll the<br>non-gateway slaves in the same manner as described in the<br>previous section with the modification that a gateway is polled<br>at a Rendezvous Point. Each RP is a slot at which a particular<br>gateway is polled and a master has different RPs for each of its<br>gateways. These RPs are always unique (i.e., a master cannot<br>have the same RP with more than one gateway). Since the<br>gateway must be polled at the RP, this has implications in the<br>polling of the other slaves (discussed later). Once a gateway<br>has been polled, the master continues with the polling of the<br>other slaves in the same manner as described in the previous<br>section, i.e., it checks its active list to see if the next slave in<br>the polling cycle is to be polled and so on.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:473"><nobr><span class="ft2">In order to divide its time among different piconets in a</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:455"><nobr><span class="ft5">fair manner, the gateway performs similar calculations as de-<br>scribed in the earlier section for the master. The gateway<br>maintains values of N and r for each piconet it belongs to and<br>these values are updated each time a gateway is polled (i.e.,<br>at each RP). Thus, the calculations performed by a gateway at<br>each RP are:</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:473"><nobr><span class="ft2">For the piconet in which the gateway was just polled:</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:519"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:535"><nobr><span class="ft2">= N + r - x,</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:804"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:525"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:535"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:550"><nobr><span class="ft9"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:550"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:564"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:583"><nobr><span class="ft2">+ (1 - ) xT ,</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:704"><nobr><span class="ft2">x &lt; M</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:747"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:564"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:583"><nobr><span class="ft2">+ (1 - ) xT + , x = M.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:804"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:455"><nobr><span class="ft2">For other piconets:</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:597"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:614"><nobr><span class="ft2">= N + r,</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:804"><nobr><span class="ft2">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:455"><nobr><span class="ft6">where  is the time elapsed since the last update, x is the<br>amount of data exchanged during the poll phase, T is the to-<br>tal time elapsed since the gateway was polled in the same pi-<br>conet, and  and  are as defined earlier.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:473"><nobr><span class="ft2">Moreover, at each RP, the gateway and the master negoti-</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:455"><nobr><span class="ft5">ate the next RP between them. The assignment of this next<br>RP takes into account the fairness between (a) the gateway<br>and other slaves in a piconet and (b) the presence of the gate-<br>way in different piconets. Also, we again employ a heuristic<br>that improves the algorithm. When the next RP is being nego-<br>tiated, we keep a bound on the maximum value this can take.<br>This prevents a piconet from not being visited by a gateway<br>for a long time. The maximum value of this next RP used in<br>our experiments is 400 slots.</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:473"><nobr><span class="ft2">We now see how the master and the gateway use the in-</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:455"><nobr><span class="ft5">formation that they have to achieve fairness in the scatternet.<br>When a gateway is polled at a RP, the gateway and the master<br>do the following.</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7006.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">14</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:76"><nobr><span class="ft2">(i) Gateway. The gateway calculates the number of slots,</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:98"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:109"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:141"><nobr><span class="ft2">after which N for the piconet will become greater</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:98"><nobr><span class="ft2">than the threshold; N</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:227"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:261"><nobr><span class="ft2">= (threshold - N)/r, where</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:98"><nobr><span class="ft6">threshold is as explained in the previous section, N and<br>r</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:110"><nobr><span class="ft2">are values maintained by the gateway for the piconet.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:98"><nobr><span class="ft5">The gateway makes use of this value and does not visit<br>a piconet till its estimate of N for the piconet becomes<br>greater than the threshold. This is similar to the algo-<br>rithm used by the master in which a slave is not polled till<br>the master's estimate of N for the slave becomes greater<br>than the threshold. Thus, the gateway tries to divide its<br>time between the piconets in a fair manner, i.e., accord-<br>ing to the SPFs. Note that N</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:274"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:307"><nobr><span class="ft2">may be negative if N</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:98"><nobr><span class="ft2">is greater than the threshold. Also, N</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:326"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:360"><nobr><span class="ft2">is allowed to</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:98"><nobr><span class="ft5">have a maximum value of 400.<br>Moreover, each time a gateway visits a piconet, it knows<br>the RPs for the other piconets it belongs to (except right<br>at the beginning or when the gateway is added to another<br>piconet).</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:72"><nobr><span class="ft2">(ii) Master. The master calculates the number of slots after</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:98"><nobr><span class="ft5">which the gateway can be polled such that the fairness<br>with other slaves is maintained. It adopts the following<br>procedure to achieve this:<br>It maintains a counter, num_slots (which is initialized<br>to 0) and checks the value of N for each slave, in a cyclic<br>order, starting from the slave after the current gateway in<br>the cyclic order to the slave before the current gateway.<br>The master checks if the value of N for the slave will be<br>greater than the threshold after num_slots slots. If this<br>condition is true, num_slots is incremented by twice the<br>value of the threshold. After incrementing num_slots, the<br>master also checks to see if it has a RP with any gate-<br>way whose value is equal to num_slots and increments<br>num_slots by twice the value of the threshold if this is<br>true. This ensures that the master has a unique RP for<br>each of its gateways. Note that num_slots is incremented<br>by twice the value of the threshold since the master ex-<br>pects to exchange threshold slots of data with a slave in<br>each direction.<br>The master uses the above procedure to estimate the num-<br>ber of slaves who will have their value of N greater than<br>the threshold when the master polls the slaves in their<br>cyclic order starting from the gateway just polled. The<br>value of num_slots determines the number of slots which<br>the master expects to use in polling the other slaves in<br>one cycle before polling the gateway again and is thus,<br>used by the master to maintain fairness between the gate-<br>way and the other slaves in the piconet. Again, note that<br>num_slots is allowed to have a maximum value of 400.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:90"><nobr><span class="ft2">The master and the gateway now exchange the informa-</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:72"><nobr><span class="ft5">tion they have to calculate their next RP. This exchange takes<br>place using the LMP_hold_req PDU of the LMP (Link Man-<br>ager Protocol) layer. This PDU carries a hold instant and a<br>hold time, which are used to specify the instant at which the<br>hold will become effective and the hold time, respectively.<br>When the master is sending a packet to a gateway, the value</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft5">of num_slots can be sent after hold instant and hold time in<br>the packet. The master also sends the values of its RPs with<br>its other gateways in the packet. Similarly, the gateway sends<br>the master the values of its RPs with other piconets and the<br>value of N</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:522"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:555"><nobr><span class="ft2">also in an LMP_hold_req PDU. The master</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:455"><nobr><span class="ft5">now knows all the RPs of the gateway; similarly, the gateway<br>knows all the RPs of the master.</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:473"><nobr><span class="ft2">Note that the above information exchange requires a min-</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:455"><nobr><span class="ft5">imal change in the Bluetooth specifications that the contents<br>of the LMP_hold_req PDU need to be enhanced. This PDU is<br>1-slot in length; thus, some bandwidth of the master is wasted<br>in sending these PDUs. This wasted bandwidth can be re-<br>duced by increasing the value of threshold, i.e., the maximum<br>data that a slave and a master may exchange in each direc-<br>tion during one poll of the slave. On the other hand, a large<br>value of the threshold will lead to larger delays for packets.<br>Thus, we have a tradeoff here. We choose a threshold value<br>equal to three times a DH5 packet. The effect of this wasted<br>bandwidth can be seen in the experiments section where the<br>piconet capacity used is slightly less than 1. Note that we<br>pay a small price here to get perfect coordination between the<br>master and the gateway and also to get a high degree of fair-<br>ness in the system, as the experiments later demonstrate.</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:473"><nobr><span class="ft2">Now, the master and the gateway both have complete in-</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:455"><nobr><span class="ft5">formation. So, each of them calculates the next RP in the<br>following manner:</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:473"><nobr><span class="ft2">They take the maximum value out of num_slots and N</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:793"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:455"><nobr><span class="ft5">and as long as this value is the same as one of the RPs (note<br>that all relevant RPs are known to both the master and the<br>gateway), the value is incremented by 2</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:692"><nobr><span class="ft2">· threshold. The value</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:455"><nobr><span class="ft5">at the end of this small procedure is the next RP between the<br>gateway and the master. Since this value takes into account<br>both N</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:498"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:532"><nobr><span class="ft2">and num_slots, it incorporates both the fairness</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:455"><nobr><span class="ft2">of the master's polling and the gateway's presence.</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:473"><nobr><span class="ft2">Note that the value of num_slots calculated by the master is</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:455"><nobr><span class="ft5">just an estimate (the master assumes that each slave included<br>in the calculation of num_slots will exchange threshold slots<br>of data with the master in each direction, but this may not be<br>true). Thus, the master may have polled all the slaves that had<br>to be polled before the RP of the gateway (according to the<br>estimate in the calculation of num_slots) and still be left with<br>some slots before the RP. In this case, the master just contin-<br>ues polling the slaves in their cyclic order and polls the gate-<br>way when the time for the RP arrives. Note that this means<br>that the master may have to force a slave to send a packet<br>smaller than a certain length. For example, if two slots are<br>left for the RP, then the master will send a 1-slot packet and<br>ask the slave being polled to do the same. Note that the Blue-<br>tooth header has 4 bits to represent the packet type and these<br>can represent 16 packet types. For ACL links, 10 (7 data,<br>3 control packets) of the packet types are defined. We use 2<br>of the remaining bit sequences to send packets that force the<br>slave to send packets smaller than or equal to a certain length.<br>This is shown in table 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:473"><nobr><span class="ft2">From table 3, we see that this procedure is adopted if the</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:455"><nobr><span class="ft5">number of slots left for the RP is less than 10 (if the number<br>of slots left for the RP is greater than or equal to 10, then the</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7007.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">A FAIR AND TRAFFIC DEPENDENT SCHEDULING</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:811"><nobr><span class="ft7">15</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:237"><nobr><span class="ft3"><i>Table 3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:86"><nobr><span class="ft3"><i>Procedure adopted by the master if slots left for the RP is less than 10.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:72"><nobr><span class="ft3"><i>Slots left for RP</i></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:230"><nobr><span class="ft3"><i>Maximum</i></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:374"><nobr><span class="ft3"><i>Maximum</i></span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:216"><nobr><span class="ft3"><i>length of packet</i></span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:361"><nobr><span class="ft3"><i>length of packet</i></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:220"><nobr><span class="ft3"><i>sent by master</i></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:368"><nobr><span class="ft3"><i>sent by slave</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:108"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:252"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:396"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:108"><nobr><span class="ft3"><i>4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:252"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:396"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:108"><nobr><span class="ft3"><i>6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:252"><nobr><span class="ft3"><i>3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:396"><nobr><span class="ft3"><i>3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:108"><nobr><span class="ft3"><i>8</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:252"><nobr><span class="ft3"><i>3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:396"><nobr><span class="ft3"><i>3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:72"><nobr><span class="ft5">slave's packet length does not have to be restricted). Thus,<br>if the slots left for the RP is 2, the master can send a packet<br>of maximum length</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:197"><nobr><span class="ft2">= 1 and the gateway can send a packet</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:72"><nobr><span class="ft2">of maximum length</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:196"><nobr><span class="ft2">= 1 and so on. Note that for reasons of</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:72"><nobr><span class="ft5">fairness, the maximum packet length for the master and the<br>gateway is the same. Since the master needs to restrict the<br>maximum length of the gateway's packet to either 1 or 3 (as<br>shown in table 3), we need 2 packet types to achieve this. This<br>procedure effectively suspends the polling of a slave to honor<br>a RP with a gateway. The polling of the slave continues after<br>the gateway has been polled.</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:90"><nobr><span class="ft2">In addition, a gateway may lose a slot in switching from</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:72"><nobr><span class="ft5">one piconet to another. This loss is unavoidable since piconets<br>are in general, not synchronized in time. In the experiments in<br>the paper, we set the value of the threshold to three times the<br>payload of a DH5 packet, which can give a switching loss of<br>about 3% at heavy loads (every 2</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:268"><nobr><span class="ft2">·threshold slots, the gateway</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:72"><nobr><span class="ft5">loses about one slot in switching). At light loads, this switch-<br>ing loss does not lead to inefficiency since the sum of the fair<br>shares of the gateway in all its piconets is less than 1 and even<br>after the switching loss, the gateway is able to obtain its fair<br>share. The simulations in the next section do not take this<br>switching loss into account and thus, the bandwidth received<br>by the gateway under heavy loads will be a little smaller than<br>the one shown in the results.</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:72"><nobr><span class="ft2">4.3. Proof of fairness</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:72"><nobr><span class="ft5">We now prove that the above algorithm leads to a max-min<br>fair distribution of the bandwidth of a scatternet among units.<br>We start by proving this in the case of a piconet. In the next<br>step, we will extend the proof to the general case of a scatter-<br>net.</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:72"><nobr><span class="ft5">4.3.1. Fairness in a piconet<br>Let us introduce the following notation:</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:76"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:85"><nobr><span class="ft2">: number of slave units in the piconet;</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:76"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:84"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:89"><nobr><span class="ft2">: rate-demand of the ith unit;</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:76"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:84"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:89"><nobr><span class="ft2">: rate achieved by the ith unit;</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:76"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:82"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:87"><nobr><span class="ft2">: rate-estimation of the ith unit (as defined in equa-</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:101"><nobr><span class="ft2">tion (2)),</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:72"><nobr><span class="ft2">where </span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:120"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:129"><nobr><span class="ft2">and r</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:160"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:168"><nobr><span class="ft2">are average values.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:90"><nobr><span class="ft2">Slave unit i is referred to as "satisfied", if it achieves it rate</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:72"><nobr><span class="ft2">demand, i.e., </span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:164"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1104;left:177"><nobr><span class="ft2">= g</span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:203"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:208"><nobr><span class="ft2">; else, the slave unit is referred to as</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:72"><nobr><span class="ft2">"unsatisfied". Also, in the proof that follows, "slot" refers to</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft5">"Bluetooth slot"; "unit" and "slave unit" may be used inter-<br>changeably.</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:473"><nobr><span class="ft2">If there is one slave unit in a piconet, then it will always get</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:455"><nobr><span class="ft5">polled and hence, the algorithm is fair. We prove the fairness<br>when there are two or more slave units.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:473"><nobr><span class="ft2">We first make the following observations:</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:455"><nobr><span class="ft2">(a) If a unit has a rate-estimation, r</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:709"><nobr><span class="ft2">0.25, it will never</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:480"><nobr><span class="ft2">achieve a lesser rate than any other unit.</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:473"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:485"><nobr><span class="ft2">is an estimation of the average number of slots of traf-</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:455"><nobr><span class="ft5">fic that a master­slave pair will generate per slot in each di-<br>rection. Thus, a rate of 0.25 means that a master­slave pair<br>generates, on the average, "threshold" slots of traffic in each<br>direction in every 4</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:579"><nobr><span class="ft2">· threshold slots. Suppose a piconet has</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:455"><nobr><span class="ft2">two slaves, and the first has a rate-estimation, r</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:761"><nobr><span class="ft2">0.25, then</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:455"><nobr><span class="ft2">the first slave will be polled at least once in every 4</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:759"><nobr><span class="ft2">· threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:455"><nobr><span class="ft5">slots, i.e., will get on the average at least threshold polling<br>slots out of every 2</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:571"><nobr><span class="ft2">· threshold, regardless of the r of the other</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:455"><nobr><span class="ft5">slave (since N increases at the rate of r, N will increase by<br>at least 0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:534"><nobr><span class="ft2">· 4 · threshold = threshold; thus, the slave will</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:455"><nobr><span class="ft2">enter into the "active list" in 4</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:640"><nobr><span class="ft2">· threshold slots). Thus, it will</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:455"><nobr><span class="ft5">never achieve a lesser rate than another unit. It is easy to see<br>that this property would be true if there were more than two<br>slaves (two slaves is the worst case).</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:455"><nobr><span class="ft2">(b) For </span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:531"><nobr><span class="ft2">0.1 and </span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:608"><nobr><span class="ft2">0.6, an unsatisfied slave will tend to</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:480"><nobr><span class="ft2">a rate-estimation of at least 0.25.</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:473"><nobr><span class="ft2">For an unsatisfied slave, the second part of equation (2)</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:455"><nobr><span class="ft2">(when x</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:510"><nobr><span class="ft2">= M) is always used for updating the rate. Thus, if</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:455"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:461"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:470"><nobr><span class="ft2">is the ith rate-estimation:</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:548"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:553"><nobr><span class="ft3"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:559"><nobr><span class="ft3"><i>+1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:579"><nobr><span class="ft2">= r</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:610"><nobr><span class="ft3"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:620"><nobr><span class="ft2">+ (1 - ) M</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:683"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:691"><nobr><span class="ft3"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:703"><nobr><span class="ft2">+ .</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:473"><nobr><span class="ft2">This leads to (as n becomes very large):</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:505"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:516"><nobr><span class="ft2">= (1 - )M</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:600"><nobr><span class="ft3"><i></i></span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:595"><nobr><span class="ft3"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:601"><nobr><span class="ft3"><i>=0</i></span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:620"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:629"><nobr><span class="ft3"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:635"><nobr><span class="ft3"><i>-k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:628"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:636"><nobr><span class="ft3"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:656"><nobr><span class="ft2">+ </span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:673"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:684"><nobr><span class="ft2">- </span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:745"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:731"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:742"><nobr><span class="ft2">-  .</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:473"><nobr><span class="ft2">Thus, for </span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:567"><nobr><span class="ft2">0.1 and </span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:651"><nobr><span class="ft2">0.6, for any value of T , the</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:455"><nobr><span class="ft2">value of r tends to at least 0.25.</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:455"><nobr><span class="ft2">(c) As long as there is an unsatisfied unit, the utilization of</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:480"><nobr><span class="ft2">the system capacity is 1 (for </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:678"><nobr><span class="ft2">0.15 and </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:763"><nobr><span class="ft2">0.65).</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:473"><nobr><span class="ft2">Consider a piconet consisting of seven slave units, in</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:455"><nobr><span class="ft2">which the first unit, unit</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:607"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:619"><nobr><span class="ft2">is unsatisfied. From (a) and (b),</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:455"><nobr><span class="ft2">unit</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:479"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:489"><nobr><span class="ft2">will never achieve a lesser rate than any other unit; this</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:455"><nobr><span class="ft5">means that it will be polled at least once for each time the<br>other slaves are polled. The value of T (as in equation (2)) for<br>unit</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:479"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:489"><nobr><span class="ft2">is thus, at most, 14</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:608"><nobr><span class="ft2">· threshold. For this value of T and</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:455"><nobr><span class="ft2">for </span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:490"><nobr><span class="ft2">= 0.15 and  = 0.65, r for unit</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:688"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:699"><nobr><span class="ft2">tends to at least 0.5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:455"><nobr><span class="ft2">A value of r</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:532"><nobr><span class="ft2">= 0.5 for a slave unit means that it can be polled</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:455"><nobr><span class="ft5">all the time (since N increases at the rate of r, N will increase<br>by at least 0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:543"><nobr><span class="ft2">· 2 · threshold = threshold; thus, the slave will</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:455"><nobr><span class="ft2">enter into the "active list" in 2</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:640"><nobr><span class="ft2">· threshold slots, which is also</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:455"><nobr><span class="ft5">the time of its polling). Thus, the system capacity is totally<br>utilized. If there were less than 7 slave units, the value of T<br>would be smaller (than 14</span></nobr></DIV>
+<DIV style="position:absolute;top:1105;left:615"><nobr><span class="ft2">· threshold), and r would tend to a</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:455"><nobr><span class="ft2">higher value (than 0.5).</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7008.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">16</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:90"><nobr><span class="ft2">We choose values of  and  to satisfy the above proper-</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:72"><nobr><span class="ft2">ties, i.e., </span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:137"><nobr><span class="ft2">= 0.15 and  = 0.65.</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:90"><nobr><span class="ft2">The following statements hold.</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:76"><nobr><span class="ft2">(i) Units with the same rate-demand achieve the same aver-</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:98"><nobr><span class="ft2">age rate:</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:191"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:199"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:208"><nobr><span class="ft2">= g</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:232"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:258"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:300"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:309"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:333"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:340"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:72"><nobr><span class="ft5">We prove this by contradiction. Suppose there are two units,<br>unit</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:95"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:108"><nobr><span class="ft2">and unit</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:158"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:171"><nobr><span class="ft2">with rate demands g</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:299"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:311"><nobr><span class="ft2">and g</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:346"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:353"><nobr><span class="ft2">, respectively,</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:72"><nobr><span class="ft2">such that g</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:138"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:150"><nobr><span class="ft2">= g</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:174"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:181"><nobr><span class="ft2">. Also, suppose one unit achieves a higher</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:72"><nobr><span class="ft2">average rate than the other, </span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:244"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:255"><nobr><span class="ft2">&gt; </span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:279"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:285"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:90"><nobr><span class="ft2">Now, unit</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:150"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:161"><nobr><span class="ft2">does not achieve its rate-demand (since </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:413"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:426"><nobr><span class="ft2">&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:72"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:80"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:86"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:92"><nobr><span class="ft2">. Unit</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:131"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:143"><nobr><span class="ft2">may or may not achieve its rate demand. From</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:72"><nobr><span class="ft2">property (b), unit</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:174"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:184"><nobr><span class="ft2">will always tend to a value at least equal to</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:72"><nobr><span class="ft5">0.25, since it is an unsatisfied slave. Using property (a), this<br>implies that </span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:153"><nobr><span class="ft3"><i>2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:163"><nobr><span class="ft2">cannot be less than </span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:287"><nobr><span class="ft3"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:293"><nobr><span class="ft2">. This is a contradiction.</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:72"><nobr><span class="ft2">(ii) Units with a higher rate-demand achieve an average rate</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:98"><nobr><span class="ft5">at least equal to that achieved by units with a lower rate-<br>demand:</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:191"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:199"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:208"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:232"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:258"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:300"><nobr><span class="ft3"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:325"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:333"><nobr><span class="ft3"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:340"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:72"><nobr><span class="ft5">This can be proved by contradiction in the same manner as in<br>part (i).</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:90"><nobr><span class="ft2">Now, without loss of generality, let us partition the slave</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:72"><nobr><span class="ft5">units into two sets, S1 and S2, in such a way that units in S1<br>are satisfied, while units in S2 are not.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:76"><nobr><span class="ft2">· If the set S2 is empty, than all the units achieve their rate-</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:91"><nobr><span class="ft2">demand and the system is fair.</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:76"><nobr><span class="ft2">· If the set S2 is not empty, then using statements (i) and (ii),</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:91"><nobr><span class="ft5">all units share the bandwidth in a fair manner. Moreover,<br>since S2 contains at least one unit, the total system capac-<br>ity is utilized. Hence, it is not possible to increase the rate<br>of a unit in S2 without decreasing the rate of some other<br>unit.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:72"><nobr><span class="ft5">4.3.2. Fairness in a scatternet<br>The proof of fairness for a scatternet follows trivially from<br>that for a piconet. We make the following two observations:</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:90"><nobr><span class="ft2">(1) The gateway visits a piconet only after the estimation</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:72"><nobr><span class="ft5">of N for the piconet becomes greater than the threshold (it<br>calculates N</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:148"><nobr><span class="ft3"><i>thresh</i></span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:182"><nobr><span class="ft2">while determining the next RP). In other</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:72"><nobr><span class="ft5">words, the "virtual master" (gateway) does not poll (visit) its<br>"virtual slave" (master) till the estimate of N becomes greater<br>than the threshold. This is similar to the algorithm used by<br>the master to poll the slaves in which a slave is not polled till<br>its estimate of N becomes greater than the threshold. Thus,<br>the gateway divides its presence among its piconets in a fair<br>manner, i.e., according to the SPF. Note that if the PPF for<br>a gateway in a piconet is less than its SPF, the master does<br>not poll the gateway for more than the PPF. Thus, the appar-<br>ent rate demand and SPF for the gateway in the piconet are<br>reduced. This may increase the SPF of the gateway in other<br>piconets. In this case, the gateway divides its presence ac-<br>cording to the updated SPFs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:90"><nobr><span class="ft2">(2) While calculating the next RP for a gateway, the mas-</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:72"><nobr><span class="ft2">ter calculates the num_slots value which estimates the num-</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft5">ber of slaves in one polling cycle (starting from the slave after<br>the gateway in the polling cycle) who will have their values<br>of N greater than the threshold at the estimated time of their<br>poll. This achieves fairness between the gateway and the non-<br>gateway slaves. Also, the master continues to use the same<br>algorithm for polling non-gateway slaves in a scatternet as<br>described for a piconet in section 4.1. This maintains fairness<br>between non-gateway slaves, i.e., the division is done accord-<br>ing to the PPFs (or the updated PPFs).</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:455"><nobr><span class="ft2">4.4. Overhead/limitations of the algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:455"><nobr><span class="ft5">The rate calculations will lead to a higher load on the system.<br>Also, the algorithm does not take into account SCO links. We<br>believe (and as has been shown in [6]) that ACL links are<br>capable of carrying voice with small delays. The controlled<br>channel access in Bluetooth can ensure good support of voice<br>using ACL links. Also, scheduling in a scatternet where SCO<br>links are allowed may not be feasible. Since SCO links re-<br>quire a periodic reservation of two slots every two, four or<br>six slots, meeting the demands of such a link with a gateway<br>may be impossible when the gateway is visiting some other<br>piconet.</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:455"><nobr><span class="ft2">5. Experiments and results</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:455"><nobr><span class="ft5">In this section, we present simulation results, which show that<br>the algorithm satisfies the fairness criteria described earlier.<br>We start with simple topologies that illustrate the behavior of<br>the algorithm and then show that it also works well in more<br>complex topologies. There are three topologies that the exper-<br>iments focus on and these demonstrate the behavior of the al-<br>gorithm ­ a topology with (a) a gateway belonging to two pi-<br>conets, (b) a gateway belonging to three piconets and (c) a pi-<br>conet having two gateways. The experiments also show the<br>adaptivity of the algorithm, i.e., how quickly the algorithm<br>adapts to changing traffic demands of slaves.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:473"><nobr><span class="ft2">In the experiments, we specify the "rate of a slave", which</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:455"><nobr><span class="ft5">refers to the sum of the rates at which a slave generates data<br>for a master (i.e., the rate demand of a slave) and the mas-<br>ter generates data for the slave. Moreover, unless mentioned<br>otherwise, we assume that the traffic rate from a slave to a<br>master is equal to that from the master to the slave. Thus, a<br>slave having a rate of 0.4 means that the slave generates data<br>at the rate of 0.2 Bluetooth slots per slot and the master also<br>has a rate demand of 0.2 towards the slave. As we show in the<br>section on asymmetric traffic, the algorithm works well even<br>if these two rates are not the same.</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:473"><nobr><span class="ft2">The simulation environment used in our experiments is</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:455"><nobr><span class="ft5">NS-2 [8]. We have augmented NS-2 with the Bluetooth<br>model. The simulator models the Bluetooth baseband, LMP<br>and L2CAP layers and enables the creation of piconets and<br>scatternets. The model contains most of the standard features<br>of Bluetooth like Frequency Hopping, Multi-Slot Packets,<br>Fast ARQ (Automatic Retransmission Query). Note that as<br>mentioned earlier, in our simulator, the switching loss asso-<br>ciated with the gateway moving from one piconet to another</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7009.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">A FAIR AND TRAFFIC DEPENDENT SCHEDULING</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:811"><nobr><span class="ft7">17</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:184"><nobr><span class="ft3"><i>Figure 5. Example scatternet.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:72"><nobr><span class="ft5">is not taken into account. This effect can lead to the gate-<br>way losing up to 3% of slots at heavy loads. The experiment<br>results are thus, a slight overestimate.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:90"><nobr><span class="ft2">In the experiments, all traffic generated is CBR. Each ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:72"><nobr><span class="ft5">periment is run for a system time of 32 sec. In the experi-<br>ments, the term "slave" refers to a non-gateway slave; a gate-<br>way slave is referred to as "gateway". Also, in experiments<br>where the PPF and the SPF values (and not the updated PPF<br>and the updated SPF) are shown, the PPF and the updated PPF<br>are equal and the SPF and the updated SPF are also equal. In<br>the graphs, "BW" in the index stands for bandwidth, "GW"<br>stands for gateway.</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:72"><nobr><span class="ft2">5.1. Single gateway in two piconets</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:72"><nobr><span class="ft5">We first consider the simple topology shown in figure 5,<br>which consists of two piconets, numbered I and II, connected<br>by a single gateway. We consider various cases by changing<br>the traffic and the number of slaves in the piconets.</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:72"><nobr><span class="ft5">Experiment 1. Adaptation between gateway and<br>non-gateway slave traffic<br>Each piconet has one non-gateway slave that generates very<br>high traffic, with rate equal to 1, to the master. The gateway<br>has equal traffic to both masters. We vary the gateway traffic<br>to show the fair sharing of the piconet bandwidth between the<br>gateway and the slave. We show the results for one piconet<br>since the two piconets are exactly symmetric.</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:90"><nobr><span class="ft2">Figure 6(a) shows the sharing of bandwidth between the</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:72"><nobr><span class="ft5">gateway and slave for different values of gateway traffic. It<br>also shows the fair share of the slave and the total fraction<br>of the bandwidth obtained by the gateway and the slave in<br>the piconet. It can be seen that the slave obtains a bandwidth<br>equal to its fair share for different values of gateway traffic.<br>Moreover, the sum of the bandwidths obtained by the slave<br>and the gateway is nearly equal to 1. The reason for this to<br>be slightly less than 1 is that some of the piconet capacity is<br>used in sending LMP_hold_req PDUs of the LMP layer.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:90"><nobr><span class="ft2">In figure 6(b), the comparison of the fraction of the band-</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:72"><nobr><span class="ft5">width obtained by the gateway to its SPF (PPF and SPF are<br>equal) is shown. Figure 6(b) shows that the gateway gets al-<br>most equal to its fair share of the bandwidth for all values<br>of traffic. Again, the reason that the gateway obtains slightly<br>less than its fair share is because some of the slots are used<br>for LMP PDUs. This also explains why the gateway obtains<br>slightly less than the slave in figure 6(a).</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:455"><nobr><span class="ft3"><i>Figure 6. (a) Sharing of bandwidth between gateway and slave. (b) Compar-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:489"><nobr><span class="ft3"><i>ison of fraction of bandwidth obtained to SPF for the gateway.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:455"><nobr><span class="ft5">Experiment 2. Different traffic to piconets<br>The same topology as in the previous case, but each slave has<br>a traffic rate of 0.3 to the master. The gateway has a fixed traf-<br>fic rate of 0.2 to the master of Piconet I and variable traffic to<br>the other master. The PPF and SPF of the gateway in the first<br>piconet are, thus, both equal to 0.2. The traffic in Piconet I<br>does not change and the gateway and the slave get a constant<br>fraction of 0.2 and 0.3 of the piconet bandwidth, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:473"><nobr><span class="ft2">Figure 7(a) shows the sharing of bandwidth between the</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:455"><nobr><span class="ft5">gateway and slave for different values of gateway traffic,<br>while figure 7(b) shows the comparison of the fraction of the<br>bandwidth obtained by the gateway in Piconet II to its SPF<br>and PPF. From the graphs, we can see that when the gate-<br>way has different traffic to piconets, it divides its presence<br>among the piconets according to the traffic offered and in a<br>fair manner (again, the gateway obtains slightly less than its<br>fair share due to the LMP PDUs). Also, the gateway makes<br>use of the lower traffic offered by the slave in Piconet II to<br>obtain a higher share of the bandwidth in Piconet II.</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:455"><nobr><span class="ft5">Experiment 3. Different number of slaves<br>Piconet I has 3 slaves, while the number of slaves in Piconet II<br>is variable. Each slave generates traffic to the master at the<br>rate of 0.2. The gateway has a traffic rate of 0.3 to Piconet I<br>and 0.8 to Piconet II. The PPF and SPF of the gateway in<br>Piconet I are, thus, 0.2 and 0.3, respectively. In Piconet II, the<br>value of PPF changes depending upon the number of slaves.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:473"><nobr><span class="ft2">In Piconet I, the slaves get a bandwidth fraction of 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:455"><nobr><span class="ft2">and the gateway gets 0.3. Figure 8(a) shows the sharing</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7010.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">18</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:72"><nobr><span class="ft10"><i>Figure 7. (a) Sharing of bandwidth between gateway and slave in Piconet II.<br>(b) Comparison of fraction of bandwidth obtained by the gateway to SPF and</i></span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:212"><nobr><span class="ft3"><i>PPF in Piconet II.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:72"><nobr><span class="ft6">of bandwidth between the gateway and each slave in Pi-<br>conet II. Figure 8(b) shows the comparison of the fraction<br>of the bandwidth obtained by the gateway in Piconet II to the<br>SPF and PPF. The gateway receives a fraction of the band-<br>width almost equal to its fair share. Also, as the number of<br>slaves increases, the fraction of the bandwidth received by<br>the gateway (and each slave) reduces in a fair manner.</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:72"><nobr><span class="ft5">Experiment 4. Asymmetric traffic<br>We now consider a case where the traffic rates from Master<br>to Slave and Slave to Master are different (asymmetric traf-<br>fic). We consider the same topology as in experiment 2 of the<br>current section, with the non-gateway slaves having the same<br>rate as in experiment 2. The gateway has a fixed traffic rate of<br>0.2 to the master of Piconet I and variable traffic to the other<br>master. The variable traffic is such that traffic from Master<br>to Slave has a rate of 0.1 and traffic from Slave to Master<br>varies.</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:90"><nobr><span class="ft2">Figure 9 shows the comparison of bandwidth fraction ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:72"><nobr><span class="ft5">tained by the gateway in this experiment versus that obtained<br>by the gateway in experiment 2 in Piconet II for different val-<br>ues of gateway traffic (which is the sum of master to gateway<br>and gateway to master traffic rates). We see that the fraction<br>is slightly lower than the fraction obtained in experiment 2.<br>Asymmetric traffic leads to wastage of slots, since an empty<br>slot is returned in one direction where there is no data to send.<br>It can be seen though, that the gateway still behaves in an ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:455"><nobr><span class="ft10"><i>Figure 8. (a) Sharing of bandwidth between gateway and slave in Piconet II.<br>(b) Comparison of fraction of bandwidth obtained by the gateway to SPF and</i></span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:596"><nobr><span class="ft3"><i>PPF in Piconet II.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:455"><nobr><span class="ft3"><i>Figure 9. Comparison of fraction of bandwidth obtained by gateway in this</i></span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:517"><nobr><span class="ft3"><i>experiment with that in experiment 2 in Piconet II.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:455"><nobr><span class="ft5">proximately fair manner. All other bandwidth fractions for<br>slaves and the gateway are the same as in experiment 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:455"><nobr><span class="ft2">5.2. Single gateway shared between three piconets</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:455"><nobr><span class="ft5">We now consider a topology, where a gateway is shared be-<br>tween 3 piconets, numbered I, II and III. Piconet I has 5, Pi-<br>conet II has 1 and Piconet III has 4 slaves. Each slave has<br>a traffic rate of 0.2. The gateway has a traffic rate of 0.2 to<br>Piconet I, 0.3 to Piconet III and a variable rate to Piconet II.<br>All traffic is symmetric (same from master to slave and from<br>slave to master).</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7011.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">A FAIR AND TRAFFIC DEPENDENT SCHEDULING</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:811"><nobr><span class="ft7">19</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:81"><nobr><span class="ft3"><i>Figure 10. Bandwidth fraction received by gateway in the three piconets.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:159"><nobr><span class="ft3"><i>Figure 11. Example scatternet topology.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:90"><nobr><span class="ft2">Figure 10 shows the fraction of bandwidth obtained by the</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:72"><nobr><span class="ft5">gateway in each piconet with increasing gateway traffic rate to<br>Piconet II. It also shows the PPF and the Updated SPF of the<br>gateway in Piconet II. We do not show the fair shares of the<br>gateway in Piconet I and III since they are constant (0.16 and<br>0.2, respectively). It can be seen that the gateway manages<br>to get close to its fair share in the 3 piconets. The slaves in<br>Piconet I get a bandwidth fraction of 0.16 and the slaves in<br>Piconet II and III get a bandwidth fraction of 0.2 (all these are<br>equal to their fair shares).</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:72"><nobr><span class="ft2">5.3. Piconet with two gateways</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:72"><nobr><span class="ft5">We now show the working of the algorithm in a piconet hav-<br>ing 2 gateways, as shown in figure 11. Piconets I, II and III<br>have 6, 2 and 4 non-gateway slaves, respectively. There are<br>two gateways, GW 1 between Piconets I and II; and GW 2 be-<br>tween Piconets II and III. All slaves have a traffic rate of 0.2.<br>GW 1 has a traffic rate of 0.2 in Piconet I and 0.5 in Piconet II.<br>GW 2 has a traffic rate of 0.2 in Piconet III. We vary the traf-<br>fic rate of GW 2 in Piconet II and show the fair sharing of<br>bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:90"><nobr><span class="ft2">Figure 12 shows the fraction of bandwidth obtained by</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:72"><nobr><span class="ft5">GW 1 and GW 2 in Piconet II compared to their fair shares.<br>The x-axis denotes GW 2 traffic in Piconet II. It can be seen<br>that the bandwidth fractions obtained are very close to the<br>fair value. The non-gateway slaves of Piconet II receive a<br>bandwidth fraction of 0.2, which is equal to their fair share<br>(not shown in the figure). The bandwidth fraction received by<br>slaves in Piconets I and III does not change for different val-<br>ues of GW2 traffic in Piconet II. The fair share of each slave<br>(including the gateway) in Piconet I is 0.14 and in Piconet III</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:455"><nobr><span class="ft3"><i>Figure 12. Fraction of bandwidth and fair share of GW1 and GW2 in Pi-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:618"><nobr><span class="ft3"><i>conet II.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:477"><nobr><span class="ft3"><i>Figure 13. Actual rate estimation of the gateway and its ideal value.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:455"><nobr><span class="ft5">is 0.2; the bandwidth fraction received by each slave is very<br>close to these fair shares.</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:455"><nobr><span class="ft2">5.4. Adaptivity to changing traffic demands</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:455"><nobr><span class="ft5">We now show how quickly the algorithm is able to adapt to<br>changing traffic. We again consider the scenario of experi-<br>ment 1 of section 5.1, consisting of two piconets, each hav-<br>ing a non-gateway slave, connected by a single gateway. The<br>non-gateway slaves have a traffic rate of 1; the gateway has<br>equal traffic to both the masters. We vary the traffic rate of<br>the gateway as time progresses: for the first 2.5 seconds, the<br>gateway's rate is 0.1, for the next 2.5 seconds, it is 0.5 and for<br>the remaining time, it is 0.3.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:473"><nobr><span class="ft2">Figure 13 shows the actual rate estimation of the gateway</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:455"><nobr><span class="ft5">(and its ideal value) versus time. It can be seen that the rate<br>estimation adapts very quickly to the new rate. For example,<br>when the rate changes from 0.1 to 0.5, the rate estimation<br>reaches a value of 0.45 in about half a second after 2.5 sec.<br>Thus, the algorithm adapts to quickly changing traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:455"><nobr><span class="ft2">6. Conclusions</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:455"><nobr><span class="ft5">This paper proposed a distributed scatternet-scheduling algo-<br>rithm that adapts to non-uniform and changing traffic. This</span></nobr></DIV>
+</DIV>
+<!-- Page 12 -->
+<a name="12"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="7012.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft7">20</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:731"><nobr><span class="ft7">R. KAPOOR ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft5">algorithm provides an integrated solution for both intra- and<br>inter-piconet scheduling and can be implemented using the<br>HOLD mode of Bluetooth. Through analysis and simulations,<br>we showed that the algorithm is traffic-adaptive and results in<br>a fair allocation of bandwidth to units. We explained earlier<br>that the algorithm may allow a unit to go into a power-saving<br>mode.</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:90"><nobr><span class="ft2">In future, we would like to explore this option, which also</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:72"><nobr><span class="ft5">assumes importance since Bluetooth devices will most likely<br>operate in a power-constrained environment. As future work,<br>we would also like to evaluate the performance of TCP and<br>other kinds of traffic on our algorithm. We are also working<br>towards interfacing the algorithm with requirements of higher<br>layers. In this respect, we are working towards providing QoS<br>support using the algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:72"><nobr><span class="ft2">References</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:78"><nobr><span class="ft3"><i>[1] S. Baatz, M. Frank, C. Kehl, P. Martini and C. Scholz, Adaptive scat-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:99"><nobr><span class="ft10"><i>ternet support for Bluetooth using sniff mode, in: Proc. of IEEE LCN<br>(2001).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:78"><nobr><span class="ft3"><i>[2] A. Das, A. Ghose, A. Razdan, H. Saran and R. Shorey, Enhancing per-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:99"><nobr><span class="ft10"><i>formance of asynchronous data traffic over the Bluetooth wireless ad-<br>hoc network, in: Proc. of IEEE INFOCOM'2001 (2001).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:78"><nobr><span class="ft3"><i>[3] J. Haartsen, BLUETOOTH ­ the universal radio interface for ad hoc</i></span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:99"><nobr><span class="ft3"><i>wireless connectivity, Ericsson Review 3 (1998) 110­117.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:78"><nobr><span class="ft3"><i>[4] P. Johansson, M. Kazantzidis, R. Kapoor and M. Gerla, Bluetooth ­ an</i></span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:99"><nobr><span class="ft10"><i>enabler for personal area networking, IEEE Network Magazine, Wire-<br>less Personal Area Network (September 2001).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:78"><nobr><span class="ft3"><i>[5] M. Kalia, D. Bansal and R. Shorey, MAC scheduling and SAR policies</i></span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:99"><nobr><span class="ft10"><i>for Bluetooth: A master driven TDD pico-cellular wireless system, in:<br>Proc. of 6th IEEE International Workshop on Mobile Multimedia Com-<br>munications (MOMUC) (1999).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:78"><nobr><span class="ft3"><i>[6] R. Kapoor, L. Chen, Y. Lee and M. Gerla, Bluetooth: carrying voice</i></span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:99"><nobr><span class="ft3"><i>over ACL links, in: Proc. of MWCN (2002).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:78"><nobr><span class="ft3"><i>[7] A. Mayer, Y. Ofek and M. Yung, Approximating max-min fair rates via</i></span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:99"><nobr><span class="ft10"><i>distributed local scheduling with partial information, in: Proc. of IEEE<br>INFOCOM (1996).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:78"><nobr><span class="ft10"><i>[8] NS-2 simulator, http://www.isi.edu/nsnam/ns/<br>[9] A. Racz, G. Miklos, F. Kubinszky and A. Valko, A pseudo-random</i></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:99"><nobr><span class="ft10"><i>coordinated scheduling algorithm for Bluetooth scatternets, in: Proc.<br>of MobiHoc (2001).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:72"><nobr><span class="ft3"><i>[10] Specifications of the Bluetooth System ­ core, Vol. 1, v. 1.1, www.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:99"><nobr><span class="ft3"><i>Bluetooth.com</i></span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:72"><nobr><span class="ft3"><i>[11] W. Zhang and G. Cao, A flexible scatternet-wide scheduling algorithm</i></span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:99"><nobr><span class="ft3"><i>for Bluetooth networks, in: Proc. of IEEE IPCCC (2002).</i></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:570"><nobr><span class="ft10"><i>Rohit Kapoor received his Bachelor degree in com-<br>puter science in 1999 from the University of Roor-<br>kee, India. He is currently a Ph.D. candidate at the<br>University of California, Los Angeles (UCLA). His<br>research focuses on Bluetooth-based personal area<br>networks. He is a member of the Network Research<br>Lab at UCLA.<br>E-mail: rohitk@cs.ucla.edu</i></span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:570"><nobr><span class="ft10"><i>Andrea Zanella received the Ph.D. degree in tele-<br>communication engineering from the University of<br>Padova, Italy, in 2002.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:697"><nobr><span class="ft3"><i>Prior to that he received</i></span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:570"><nobr><span class="ft10"><i>the Dr. Ing. degree (comparable to Master degree)<br>in computer engineering in 1998, still from the Uni-<br>versity of Padova. He spent nine months, in 2001, as<br>post-doc researcher at the Department of Computer<br>Science of the University of California, Los Ange-<br>les (UCLA), where he was engaged in research on<br>Wireless Networks and Wireless Access to Internet</i></span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:455"><nobr><span class="ft10"><i>under the supervision of Prof. Mario Gerla. Currently, he is a research fellow<br>in the Department of Information Engineering of the University of Padova,<br>Italy. His research interests are mainly focused on topics related to wireless<br>and mobile networking. In particular, in the last period, he has been working<br>on the performance aspects of wireless personal area networks based on the<br>Bluetooth standard.<br>E-mail: zanella@dei.unipd.it</i></span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:570"><nobr><span class="ft10"><i>Mario Gerla is a professor in the Computer Science<br>Department at UCLA. He received his graduate de-<br>gree in engineering from the Politecnico di Milano<br>in 1966, and his M.S. and Ph.D. degrees in engi-<br>neering from UCLA in 1970 and 1973, respectively.<br>He joined the faculty of the UCLA Computer Sci-<br>ence Department in 1977. His current research is<br>in the area of analysis, design and control of com-<br>munication networks. Ongoing projects include the<br>design and evaluation of QoS routing and multicast</i></span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:455"><nobr><span class="ft10"><i>algorithms for IP domains, the design and evaluation of all-optical network<br>topologies and access protocols, the design of wireless mobile, multimedia<br>networks for mobile computing applications, and the development of mea-<br>surement methods and tools for evaluating the performance of high-speed<br>networks and applications.<br>E-mail: gerla@cs.ucla.edu</i></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

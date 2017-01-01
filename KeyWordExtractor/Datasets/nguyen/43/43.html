@@ -1,0 +1,758 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Microsoft Word - p3101-Richardson.doc</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="mattri">
+<META name="date" content="2006-05-30T16:45:06+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:25px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:16px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:16px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Helvetica;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;font-family:Symbol;color:#000000;}
+	.ft9{font-size:11px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:10px;font-family:Times;color:#000000;}
+	.ft11{font-size:10px;font-family:Times;color:#000000;}
+	.ft12{font-size:16px;font-family:Courier;color:#000000;}
+	.ft13{font-size:16px;line-height:25px;font-family:Helvetica;color:#000000;}
+	.ft14{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft16{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43001.png" alt="background image">
+<DIV style="position:absolute;top:87;left:98"><nobr><span class="ft0"><b>Beyond PageRank: Machine Learning for Static Ranking </b></span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:125"><nobr><span class="ft1">Matthew Richardson </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:144"><nobr><span class="ft2">Microsoft Research </span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:145"><nobr><span class="ft2">One Microsoft Way </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:137"><nobr><span class="ft2">Redmond, WA 98052 </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:147"><nobr><span class="ft2">+1 (425) 722-3325 </span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:119"><nobr><span class="ft1">mattri@microsoft.com </span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:405"><nobr><span class="ft1">Amit Prakash </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:443"><nobr><span class="ft2">MSN </span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:397"><nobr><span class="ft2">One Microsoft Way </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:389"><nobr><span class="ft2">Redmond, WA 98052 </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:399"><nobr><span class="ft2">+1 (425) 705-6015 </span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:371"><nobr><span class="ft1">amitp@microsoft.com </span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:678"><nobr><span class="ft1">Eric Brill </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:648"><nobr><span class="ft2">Microsoft Research </span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:649"><nobr><span class="ft2">One Microsoft Way </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:641"><nobr><span class="ft2">Redmond, WA 98052 </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:651"><nobr><span class="ft2">+1 (425) 705-4992 </span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:631"><nobr><span class="ft1">brill@microsoft.com </span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:711"><nobr><span class="ft13"> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:179"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:81"><nobr><span class="ft14">Since  the  publication  of  Brin  and  Page's  paper  on  PageRank, <br>many in the Web community have depended on PageRank for the <br>static  (query-independent)  ordering  of  Web  pages.  We  show  that <br>we can significantly outperform PageRank using features that are <br>independent  of  the  link  structure  of  the  Web.  We  gain  a  further <br>boost  in  accuracy  by  using  data  on  the  frequency  at  which  users <br>visit  Web  pages.  We  use  RankNet,  a  ranking  machine  learning <br>algorithm,  to  combine  these  and  other  static  features  based  on <br>anchor  text  and  domain  characteristics.  The  resulting  model <br>achieves  a  static  ranking  pairwise  accuracy  of  67.3%  (vs.  56.7% <br>for PageRank or 50% for random). </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:352"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:81"><nobr><span class="ft15">I.2.6  [<b>Artificial  Intelligence</b>]:  Learning.  H.3.3  [<b>Information <br>Storage and Retrieval</b></span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:206"><nobr><span class="ft4">]: Information Search and Retrieval. </span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:197"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:81"><nobr><span class="ft4">Algorithms, Measurement, Performance, Experimentation. </span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:81"><nobr><span class="ft3"><b>Keywords </b></span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:81"><nobr><span class="ft4">Static ranking, search engines, PageRank, RankNet, relevance </span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:95"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:105"><nobr><span class="ft3"><b>INTRODUCTION </b></span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft14">Over  the  past  decade,  the  Web  has  grown  exponentially  in  size. <br>Unfortunately,  this  growth  has  not  been  isolated  to  good-quality <br>pages.  The  number  of  incorrect,  spamming,  and  malicious  (e.g., <br>phishing) sites has also grown rapidly. The sheer number of both <br>good and bad pages on the Web has led to an increasing reliance <br>on  search  engines  for  the  discovery  of  useful  information.  Users <br>rely  on  search  engines  not  only  to  return  pages  related  to  their <br>search  query,  but  also  to  separate  the  good  from  the  bad,  and <br>order results so that the best pages are suggested first.  </span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft14">To  date,  most  work  on  Web  page  ranking  has  focused  on <br>improving the ordering of the results returned to the user (query-<br>dependent ranking, or <i>dynamic ranking</i>). However, having a good <br>query-independent  ranking  (<i>static  ranking</i>)  is  also  crucially <br>important  for  a  search  engine.  A  good  static  ranking  algorithm <br>provides numerous benefits: </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:507"><nobr><span class="ft8">·</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:514"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:524"><nobr><span class="ft5"><b>Relevance</b></span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:582"><nobr><span class="ft4">:  The  static  rank  of  a  page  provides  a  general </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:524"><nobr><span class="ft14">indicator  to  the  overall  quality  of  the  page.  This  is  a <br>useful input to the dynamic ranking algorithm. </span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:507"><nobr><span class="ft8">·</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:514"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:524"><nobr><span class="ft5"><b>Efficiency</b></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:582"><nobr><span class="ft4">:  Typically,  the  search  engine's  index  is </span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:524"><nobr><span class="ft14">ordered by static rank. By traversing the index from high-<br>quality  to  low-quality  pages,  the  dynamic  ranker  may <br>abort  the  search  when  it  determines  that  no  later  page <br>will  have  as  high  of  a  dynamic  rank  as  those  already <br>found.  The  more  accurate  the  static  rank,  the  better  this <br>early-stopping  ability,  and  hence  the  quicker  the  search <br>engine may respond to queries. </span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:507"><nobr><span class="ft8">·</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:514"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:524"><nobr><span class="ft5"><b>Crawl Priority</b></span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:610"><nobr><span class="ft4">: The Web grows and changes as quickly </span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:524"><nobr><span class="ft14">as search engines can crawl it. Search engines need a way <br>to prioritize their crawl--to determine which pages to re-<br>crawl,  how  frequently,  and  how  often  to  seek  out  new <br>pages.  Among  other  factors,  the  static  rank  of  a  page  is <br>used  to  determine  this  prioritization.  A better static rank <br>thus provides the engine with a higher quality, more up-<br>to-date index. </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:477"><nobr><span class="ft14">Google  is  often  regarded  as  the  first  commercially  successful <br>search  engine.  Their  ranking  was  originally  based  on  the <br>PageRank  algorithm  [5][27].  Due  to  this  (and  possibly  due  to <br>Google's  promotion  of  PageRank  to  the  public),  PageRank  is <br>widely regarded as the best method for the static ranking of Web <br>pages. </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:477"><nobr><span class="ft14">Though  PageRank  has  historically been thought to perform quite <br>well,  there  has  yet  been  little  academic  evidence  to  support  this <br>claim.  Even  worse,  there  has  recently  been  work  showing  that <br>PageRank may not perform any better than other simple measures <br>on  certain  tasks.  Upstill  et  al.  have  found  that  for  the  task  of <br>finding home pages, the number of pages linking to a page and the <br>type of URL were as, or more, effective than PageRank [32]. They <br>found  similar  results  for  the  task  of  finding  high  quality <br>companies  [31].  PageRank  has  also  been  used  in  systems  for <br>TREC's  "very  large  collection"  and  "Web  track"  competitions, <br>but with much less success than had been expected [17]. Finally, <br>Amento  et  al.  [1]  found  that simple features, such as the number <br>of pages on a site, performed as well as PageRank. </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:477"><nobr><span class="ft14">Despite  these,  the  general  belief  remains  among  many,  both <br>academic  and  in  the  public,  that  PageRank  is  an  essential  factor <br>for a good static rank. Failing this, it is still assumed that using the <br>link structure is crucial, in the form of the number of inlinks or the <br>amount of anchor text. </span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:477"><nobr><span class="ft14">In this paper, we show there are a number of simple url- or page- <br>based  features  that  significantly  outperform  PageRank  (for  the <br>purposes  of  statically  ranking  Web  pages)  despite  ignoring  the </span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:84"><nobr><span class="ft16"> <br>Copyright  is  held  by  the  International  World  Wide  Web  Conference <br>Committee  (IW3C2).  Distribution  of  these  papers  is  limited  to <br>classroom use, and personal use by others. <br><i>WWW 2006, </i>May 23­26, 2006, Edinburgh, Scotland. <br>ACM 1-59593-323-9/06/0005. </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">707</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:12px;font-family:Times;color:#000000;}
+	.ft18{font-size:19px;font-family:Times;color:#000000;}
+	.ft19{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft20{font-size:12px;font-family:Symbol;color:#000000;}
+	.ft21{font-size:3px;font-family:Times;color:#000000;}
+	.ft22{font-size:6px;font-family:Times;color:#000000;}
+	.ft23{font-size:12px;font-family:Times;color:#000000;}
+	.ft24{font-size:6px;font-family:Times;color:#000000;}
+	.ft25{font-size:12px;font-family:Times;color:#000000;}
+	.ft26{font-size:13px;font-family:Symbol;color:#000000;}
+	.ft27{font-size:7px;font-family:Times;color:#000000;}
+	.ft28{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43002.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">structure  of the Web. We combine these and other static features <br>using  machine  learning  to  achieve  a  ranking  system  that  is <br>significantly  better  than  PageRank  (in  pairwise  agreement  with <br>human labels). </span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:81"><nobr><span class="ft14">A  machine  learning  approach  for  static  ranking  has  other <br>advantages  besides  the  quality  of  the  ranking.  Because  the <br>measure consists of many features, it is harder for malicious users <br>to  manipulate  it  (i.e.,  to  raise  their  page's  static  rank  to  an <br>undeserved level through questionable techniques, also known as <br>Web  spamming).  This  is  particularly  true  if  the  feature  set  is  not <br>known. In contrast, a single measure like PageRank can be easier <br>to  manipulate  because  spammers  need  only  concentrate  on  one <br>goal:  how  to  cause  more  pages  to  point  to  their  page.  With  an <br>algorithm  that  learns,  a  feature  that  becomes  unusable  due  to <br>spammer  manipulation  will  simply  be  reduced  or  removed  from <br>the  final  computation  of  rank.  This  flexibility  allows  a  ranking <br>system to rapidly react to new spamming techniques. </span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:81"><nobr><span class="ft14">A machine learning approach to static ranking is also able to take <br>advantage  of  any  advances  in  the  machine  learning  field.  For <br>example,  recent  work  on  adversarial  classification  [12]  suggests <br>that  it  may  be  possible  to  explicitly  model  the  Web  page <br>spammer's (the adversary) actions, adjusting the ranking model in <br>advance  of  the  spammer's  attempts  to  circumvent  it.  Another <br>example  is  the  elimination  of  outliers  in  constructing  the  model, <br>which  helps  reduce  the  effect  that  unique  sites  may  have  on  the <br>overall  quality  of  the  static  rank.  By  moving  static  ranking  to  a <br>machine  learning  framework,  we  not  only  gain  in  accuracy,  but <br>also  gain  in  the  ability  to  react  to  spammer's  actions,  to  rapidly <br>add  new  features  to  the  ranking  algorithm,  and  to  leverage <br>advances in the rapidly growing field of machine learning. </span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:81"><nobr><span class="ft14">Finally,  we  believe  there  will  be  significant  advantages  to  using <br>this  technique  for  other  domains,  such  as  searching  a  local  hard <br>drive  or  a  corporation's  intranet.  These  are  domains  where  the <br>link  structure  is  particularly weak (or non-existent), but there are <br>other domain-specific features that could be just as powerful. For <br>example, the author of an intranet page and his/her position in the <br>organization  (e.g.,  CEO,  manager,  or  developer)  could  provide <br>significant  clues  as  to  the  importance  of  that  page.  A  machine <br>learning approach thus allows rapid development of a good static <br>algorithm in new domains. </span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:81"><nobr><span class="ft14">This  paper's  contribution  is  a  systematic  study  of  static  features, <br>including PageRank, for the purposes of (statically) ranking Web <br>pages. Previous studies on PageRank typically used subsets of the <br>Web that are significantly smaller (e.g., the TREC VLC2 corpus, <br>used  by  many,  contains  only  19  million  pages).  Also,  the <br>performance  of  PageRank  and  other  static  features  has  typically <br>been  evaluated  in  the  context  of  a  complete  system  for  dynamic <br>ranking, or for other tasks such as question answering. In contrast, <br>we  explore  the  use  of  PageRank  and  other features for the direct <br>task of statically ranking Web pages. </span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:81"><nobr><span class="ft14">We first briefly describe the PageRank algorithm. In Section 3 we <br>introduce  RankNet,  the  machine  learning  technique  used  to <br>combine  static  features  into  a  final  ranking.  Section  4  describes <br>the  static  features.  The  heart  of  the  paper  is  in  Section  5,  which <br>presents  our  experiments  and  results.  We  conclude  with  a <br>discussion of related and future work. </span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:95"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:105"><nobr><span class="ft3"><b>PAGERANK </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:81"><nobr><span class="ft14">The  basic  idea  behind  PageRank  is  simple:  a  link  from  a  Web <br>page  to  another  can  be  seen  as  an  endorsement  of  that  page.  In </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:477"><nobr><span class="ft14">general, links are made by people. As such, they are indicative of <br>the  quality  of  the  pages  to  which  they  point  ­  when  creating  a <br>page, an author presumably chooses to link to pages deemed to be <br>of  good  quality.  We  can  take  advantage  of  this  linkage <br>information  to  order  Web  pages  according  to  their  perceived <br>quality. </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:477"><nobr><span class="ft28">Imagine  a  Web  surfer  who  jumps  from  Web  page  to  Web  page, <br>choosing  with  uniform  probability  which  link  to  follow  at  each <br>step.  In  order  to  reduce  the  effect  of  dead-ends  or endless cycles <br>the  surfer  will  occasionally  jump  to  a  random  page  with  some <br>small  probability </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:579"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:588"><nobr><span class="ft4">,  or  when  on  a  page  with  no  out-links.  If </span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:477"><nobr><span class="ft14">averaged  over  a  sufficient  number  of  steps,  the  probability  the <br>surfer is on page <i>j</i> at some point in time is given by the formula: </span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:477"><nobr><span class="ft17"> </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:684"><nobr><span class="ft18"></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:684"><nobr><span class="ft19"></span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:662"><nobr><span class="ft20">+</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:633"><nobr><span class="ft20">-</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:608"><nobr><span class="ft20">=</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:696"><nobr><span class="ft21"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:682"><nobr><span class="ft22"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:715"><nobr><span class="ft22"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:716"><nobr><span class="ft23"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:702"><nobr><span class="ft23"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:634"><nobr><span class="ft23"><i>N</i></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:595"><nobr><span class="ft23"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:578"><nobr><span class="ft23"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:690"><nobr><span class="ft24"><b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:708"><nobr><span class="ft25"><b>F</b></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:721"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:711"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:653"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:624"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:620"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:600"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:587"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:672"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:643"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:730"><nobr><span class="ft17"> </span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:792"><nobr><span class="ft17">(1) </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:477"><nobr><span class="ft17"> </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:477"><nobr><span class="ft4">Where <b>F</b></span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:525"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:527"><nobr><span class="ft4"> is the set of pages that page <i>i</i> links to, and <b>B</b></span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:769"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:772"><nobr><span class="ft4"> is the set of </span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:477"><nobr><span class="ft14">pages that link to page <i>j</i>. The PageRank score for node <i>j</i> is defined <br>as this probability: <i>PR(j)</i>=<i>P(j)</i>. Because equation (1) is recursive, <br>it must be iteratively evaluated until <i>P(j)</i> converges (typically, the <br>initial distribution for <i>P(j)</i> is uniform). The intuition is, because a <br>random  surfer  would  end  up  at  the  page  more  frequently,  it  is <br>likely  a  better  page.  An  alternative  view  for  equation  (1)  is  that <br>each  page  is  assigned  a  quality,  <i>P(j)</i>.  A  page  "gives"  an  equal <br>share of its quality to each page it points to.  </span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:477"><nobr><span class="ft14">PageRank  is  computationally  expensive.  Our  collection  of  5 <br>billion pages contains approximately 370 billion links. Computing <br>PageRank  requires  iterating  over  these  billions  of  links  multiple <br>times  (until  convergence).  It  requires  large  amounts  of  memory <br>(or  very  smart  caching  schemes  that  slow  the  computation  down <br>even  further),  and  if  spread  across  multiple  machines,  requires <br>significant communication between them. Though much work has <br>been  done  on  optimizing  the  PageRank  computation  (see  e.g., <br>[25]  and  [6]),  it  remains  a  relatively  slow,  computationally <br>expensive property to compute. </span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:477"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:490"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:501"><nobr><span class="ft3"><b>RANKNET </b></span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:477"><nobr><span class="ft28">Much work in machine learning has been done on the problems of <br>classification and regression. Let <b>X=</b>{<b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:689"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:692"><nobr><span class="ft4">} be a collection of feature </span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:477"><nobr><span class="ft28">vectors  (typically,  a  feature  is  any  real  valued  number),  and <br><b>Y</b></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:487"><nobr><span class="ft4">={<i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:507"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:509"><nobr><span class="ft4">} be a collection of associated classes, where <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:770"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:772"><nobr><span class="ft4"> is the class </span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:477"><nobr><span class="ft4">of  the  object  described  by  feature  vector  <b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:726"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:729"><nobr><span class="ft4">.  The  classification </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:477"><nobr><span class="ft4">problem is to learn a function <i>f</i> that maps <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:716"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:719"><nobr><span class="ft4">=<i>f</i>(<b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:741"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:744"><nobr><span class="ft4">), for all <i>i</i>. When </span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:477"><nobr><span class="ft7"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:483"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:485"><nobr><span class="ft4"> is real-valued as well, this is called regression. </span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:477"><nobr><span class="ft4">Static  ranking  can  be  seen  as  a  regression  problem.  If  we  let  <b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:835"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:837"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:477"><nobr><span class="ft4">represent  features  of  page  <i>i</i>,  and  <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:667"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:670"><nobr><span class="ft4">  be  a  value  (say,  the  rank)  for </span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:477"><nobr><span class="ft14">each page, we could learn a regression function that mapped each <br>page's  features  to  their  rank.  However,  this  over-constrains  the <br>problem we wish to solve. All we really care about is the order of <br>the pages, not the actual value assigned to them. </span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:477"><nobr><span class="ft14">Recent  work  on  this  <i>ranking</i>  problem  [7][13][18]  directly <br>attempts  to  optimize  the  ordering  of  the  objects,  rather  than  the <br>value assigned to them. For these, let <b>Z</b>={&lt;<i>i</i>,<i>j</i>&gt;} be a collection of <br>pairs of items, where item <i>i</i> should be assigned a higher value than <br>item  <i>j</i>.  The  goal  of  the  ranking  problem,  then,  is  to  learn  a <br>function <i>f</i> such that,  </span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:724"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:706"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:677"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:660"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:645"><nobr><span class="ft17">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:604"><nobr><span class="ft17">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:720"><nobr><span class="ft22"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:673"><nobr><span class="ft22"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:699"><nobr><span class="ft23"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:653"><nobr><span class="ft23"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:612"><nobr><span class="ft23"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:599"><nobr><span class="ft23"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:712"><nobr><span class="ft25"><b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:665"><nobr><span class="ft25"><b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:635"><nobr><span class="ft25"><b>Z</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:685"><nobr><span class="ft20">&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:623"><nobr><span class="ft20"></span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:585"><nobr><span class="ft20"></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:731"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">708</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43003.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">Note that, as with learning a regression function, the result of this <br>process  is  a  function  (<i>f</i>)  that  maps  feature  vectors  to  real  values. <br>This  function  can  still  be  applied  anywhere  that  a  regression-<br>learned  function  could  be  applied.  The  only  difference  is  the <br>technique  used  to  learn  the  function.  By  directly  optimizing  the <br>ordering of objects, these methods are able to learn a function that <br>does a better job of ranking than do regression techniques. </span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:81"><nobr><span class="ft14">We  used  RankNet  [7],  one  of  the  aforementioned  techniques  for <br>learning  ranking  functions,  to  learn  our  static  rank  function. <br>RankNet  is  a  straightforward  modification  to  the  standard  neural <br>network  back-prop  algorithm.  As  with  back-prop,  RankNet <br>attempts  to  minimize  the  value  of  a  cost  function  by  adjusting <br>each  weight  in  the  network  according  to  the  gradient  of  the  cost <br>function with respect to that weight. The difference is that, while a <br>typical  neural  network  cost  function  is  based  on  the  difference <br>between  the  network  output  and  the  desired  output, the RankNet <br>cost function is based on the difference between a pair of network <br>outputs.  That  is,  for  each  pair  of  feature  vectors  &lt;<i>i</i>,<i>j</i>&gt;  in  the <br>training  set,  RankNet  computes  the  network  outputs  <i>o</i></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:394"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:396"><nobr><span class="ft4">  and  <i>o</i></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:435"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:438"><nobr><span class="ft4">. </span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:81"><nobr><span class="ft14">Since  vector  <i>i</i>  is  supposed  to  be  ranked  higher  than  vector  <i>j</i>,  the <br>larger is <i>o</i></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:135"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:138"><nobr><span class="ft4">-<i>o</i></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:149"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:151"><nobr><span class="ft4">, the larger the cost.  </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:81"><nobr><span class="ft28">RankNet  also  allows  the  pairs  in  <b>Z</b>  to  be  weighted  with  a <br>confidence  (posed  as  the  probability  that  the  pair  satisfies  the <br>ordering induced by the ranking function). In this paper, we used <br>a  probability  of  one  for  all  pairs.  In  the  next  section,  we  will <br>discuss the features used in our feature vectors, <b>x</b></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:347"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:349"><nobr><span class="ft4">. </span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:95"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:105"><nobr><span class="ft3"><b>FEATURES </b></span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:81"><nobr><span class="ft14">To  apply  RankNet  (or  other  machine  learning  techniques)  to  the <br>ranking problem, we needed to extract a set of features from each <br>page.  We  divided  our  feature  set  into  four,  mutually  exclusive, <br>categories: page-level (<i>Page</i>), domain-level (<i>Domain</i>), anchor text <br>and  inlinks  (<i>Anchor</i>),  and  popularity  (<i>Popularity</i>).  We  also <br>optionally  used  the  PageRank  of  a  page  as  a  feature.  Below,  we <br>describe each of these feature categories in more detail. </span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:81"><nobr><span class="ft5"><b>PageRank </b></span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:95"><nobr><span class="ft14">We  computed  PageRank  on  a  Web  graph  of  5  billion  crawled <br>pages  (and  20  billion  known  URLs  linked  to  by  these  pages). <br>This  represents  a  significant  portion  of  the  Web,  and  is <br>approximately  the  same  number  of  pages  as  are  used  by <br>Google, Yahoo, and MSN for their search engines.  </span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:95"><nobr><span class="ft14">Because  PageRank  is  a  graph-based  algorithm,  it  is  important <br>that it be run on as large a subset of the Web as possible. Most <br>previous studies on PageRank used subsets of the Web that are <br>significantly  smaller  (e.g.  the  TREC  VLC2  corpus,  used  by <br>many, contains only 19 million pages) </span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:95"><nobr><span class="ft4">We computed PageRank using the standard value of 0.85 for </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:427"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:435"><nobr><span class="ft4">. </span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:81"><nobr><span class="ft5"><b>Popularity </b></span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:95"><nobr><span class="ft14">Another feature we used is the actual popularity of a Web page, <br>measured  as  the  number  of  times  that  it  has  been  visited  by <br>users  over  some  period  of  time.  We  have  access  to  such  data <br>from users who have installed the MSN toolbar and have opted <br>to  provide  it  to  MSN.  The  data  is  aggregated  into  a  count, for <br>each Web page, of the number of users who viewed that page. </span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:95"><nobr><span class="ft14">Though  popularity  data  is  generally  unavailable,  there  are  two <br>other sources for it. The first is from proxy logs. For example, a <br>university that requires its students to use a proxy has a record <br>of  all  the  pages  they  have  visited  while  on  campus. <br>Unfortunately, proxy data is quite biased and relatively small. </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:490"><nobr><span class="ft14">Another source, internal to search engines, are records of which <br>results their users clicked on. Such data was used by the search <br>engine  "Direct  Hit",  and  has  recently  been  explored  for <br>dynamic  ranking  purposes  [20].  An  advantage  of  the  toolbar <br>data  over  this  is  that  it  contains  information  about  URL  visits <br>that are not just the result of a search. </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:490"><nobr><span class="ft14">The raw popularity is processed into a number of features such <br>as  the  number  of  times  a  page  was  viewed  and  the  number  of <br>times  any  page  in  the  domain  was  viewed.  More  details  are <br>provided in section 5.5.  </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:477"><nobr><span class="ft5"><b>Anchor text and inlinks </b></span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:490"><nobr><span class="ft14">These  features  are  based  on  the  information  associated  with <br>links  <i>to</i>  the  page  in  question.  It  includes  features  such  as  the <br>total  amount  of  text  in  links  pointing  to  the  page  ("anchor <br>text"), the number of unique words in that text, etc. </span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:477"><nobr><span class="ft5"><b>Page  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:490"><nobr><span class="ft14">This category consists of features which may be determined by <br>looking  at  the  page  (and  its  URL)  alone.  We  used  only  eight, <br>simple  features  such  as  the  number  of  words  in  the  body,  the <br>frequency of the most common term, etc. </span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:477"><nobr><span class="ft5"><b>Domain </b></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:490"><nobr><span class="ft14">This  category  contains  features  that  are  computed  as  averages <br>across  all  pages  in  the  domain.  For  example,  the  average <br>number of outlinks on any page and the average PageRank. </span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:477"><nobr><span class="ft14">Many of these features have been used by others for ranking Web <br>pages,  particularly  the  anchor  and  page  features.  As  mentioned, <br>the  evaluation  is  typically  for  dynamic  ranking,  and  we  wish  to <br>evaluate  the  use  of  them  for  static  ranking.  Also,  to  our <br>knowledge,  this  is  the  first  study  on  the  use  of  actual  page <br>visitation popularity for static ranking. The closest similar work is <br>on  using  click-through  behavior  (that  is,  which  search  engine <br>results  the  users  click  on)  to  affect  dynamic  ranking  (see  e.g., <br>[20]). </span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:477"><nobr><span class="ft14">Because we use a wide variety of features to come up with a static <br>ranking,  we  refer  to  this  as  <i>fRank</i>  (for  feature-based  ranking). <br>fRank  uses  RankNet  and  the  set  of  features  described  in  this <br>section  to  learn  a  ranking  function  for  Web  pages.  Unless <br>otherwise specified, fRank was trained with all of the features. </span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:477"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:490"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:501"><nobr><span class="ft3"><b>EXPERIMENTS  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:477"><nobr><span class="ft14">In  this  section,  we  will  demonstrate  that  we  can  out  perform <br>PageRank  by  applying  machine  learning  to  a  straightforward  set <br>of  features.  Before  the  results,  we  first  discuss  the  data,  the <br>performance metric, and the training method. </span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:477"><nobr><span class="ft3"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:499"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:510"><nobr><span class="ft3"><b>Data </b></span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:477"><nobr><span class="ft14">In  order  to  evaluate  the  quality  of  a  static  ranking,  we  needed  a <br>"gold  standard"  defining  the  correct  ordering  for  a  set  of  pages. <br>For this, we employed a dataset which contains human judgments <br>for  28000  queries.  For  each  query,  a  number  of  results  are <br>manually  assigned  a  rating,  from  0  to  4,  by  human  judges.  The <br>rating  is  meant  to  be  a  measure  of  how  relevant  the  result  is  for <br>the query, where 0 means "poor" and 4 means "excellent". There <br>are  approximately  500k  judgments  in  all,  or  an  average  of  18 <br>ratings per query. </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:477"><nobr><span class="ft14">The  queries  are  selected  by  randomly  choosing  queries  from <br>among  those  issued  to  the  MSN  search  engine.  The  probability <br>that a query is selected is proportional to its frequency among all </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">709</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft29{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43004.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">of the queries. As a result, common queries are more likely to be <br>judged  than  uncommon  queries.  As  an  example  of  how  diverse <br>the  queries  are,  the  first  four  queries  in  the training set are "chef <br>schools",  "chicagoland  speedway",  "eagles  fan  club",  and <br>"Turkish  culture".  The  documents  selected  for  judging  are  those <br>that  we  expected  would,  on  average,  be  reasonably  relevant  (for <br>example,  the  top  ten  documents  returned  by  MSN's  search <br>engine).  This  provides  significantly  more  information  than <br>randomly  selecting  documents  on  the  Web,  the  vast  majority  of <br>which would be irrelevant to a given query.  </span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:81"><nobr><span class="ft14">Because  of  this  process,  the  judged  pages  tend  to  be  of  higher <br>quality  than  the  average  page  on  the  Web,  and  tend  to  be  pages <br>that will be returned for common search queries. This bias is good <br>when  evaluating  the  quality  of  static  ranking  for  the  purposes  of <br>index ordering and returning relevant documents. This is because <br>the  most  important  portion  of  the  index  to  be  well-ordered  and <br>relevant  is  the  portion  that  is  frequently  returned  for  search <br>queries. Because of this bias, however, the results in this paper are <br>not  applicable  to  crawl  prioritization.  In  order  to  obtain <br>experimental  results  on  crawl  prioritization,  we  would  need <br>ratings on a random sample of Web pages. </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:81"><nobr><span class="ft14">To  convert  the  data  from  query-dependent  to  query-independent, <br>we  simply  removed  the  query,  taking  the  maximum  over <br>judgments  for  a  URL  that  appears  in  more  than  one  query.  The <br>reasoning behind this is that a page that is relevant for some query <br>and  irrelevant  for  another  is  probably  a  decent  page  and  should <br>have  a  high  static  rank.  Because  we  evaluated  the  pages  on <br>queries that occur frequently, our data indicates the correct index <br>ordering,  and  assigns  high  value  to  pages  that  are  likely  to  be <br>relevant to a common query. </span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:81"><nobr><span class="ft14">We randomly assigned queries to a training, validation, or test set, <br>such  that  they  contained  84%,  8%,  and  8%  of  the  queries, <br>respectively. Each set contains all of the ratings for a given query, <br>and  no  query  appears  in  more  than  one  set.  The  training  set  was <br>used  to  train  fRank.  The  validation  set  was  used  to  select  the <br>model that had the highest performance. The test set was used for <br>the final results. </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:81"><nobr><span class="ft14">This  data  gives  us  a  query-independent  ordering  of  pages.  The <br>goal  for  a  static  ranking  algorithm  will  be  to  reproduce  this <br>ordering  as  closely  as  possible.  In  the  next  section,  we  describe <br>the measure we used to evaluate this. </span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:81"><nobr><span class="ft3"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:114"><nobr><span class="ft3"><b>Measure </b></span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:81"><nobr><span class="ft14">We  chose  to  use  <i>pairwise  accuracy</i>  to  evaluate  the  quality  of  a <br>static  ranking.  The  pairwise  accuracy  is  the  fraction  of  time  that <br>the ranking algorithm and human judges agree on the ordering of <br>a pair of Web pages. </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft14">If  S(<i>x</i>)  is  the  static  ranking  assigned  to  page  <i>x</i>,  and  H(<i>x</i>)  is  the <br>human  judgment  of  relevance  for  x,  then  consider  the  following <br>sets: </span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:222"><nobr><span class="ft17">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:208"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:176"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:163"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:144"><nobr><span class="ft17">:</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:128"><nobr><span class="ft17">,</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:114"><nobr><span class="ft17">{</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:215"><nobr><span class="ft23"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:196"><nobr><span class="ft23"><i>H</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:169"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:151"><nobr><span class="ft23"><i>H</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:135"><nobr><span class="ft23"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:121"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:184"><nobr><span class="ft20">&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:104"><nobr><span class="ft20">=</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:95"><nobr><span class="ft24"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:83"><nobr><span class="ft25"><b>H</b></span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:235"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:254"><nobr><span class="ft4">and </span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:424"><nobr><span class="ft17">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:410"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:383"><nobr><span class="ft17">)</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:370"><nobr><span class="ft17">(</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:354"><nobr><span class="ft17">:</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:338"><nobr><span class="ft17">,</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:325"><nobr><span class="ft17">{</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:417"><nobr><span class="ft23"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:402"><nobr><span class="ft23"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:376"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:361"><nobr><span class="ft23"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:345"><nobr><span class="ft23"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:332"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:391"><nobr><span class="ft20">&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:315"><nobr><span class="ft20">=</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:305"><nobr><span class="ft24"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:297"><nobr><span class="ft25"><b>S</b></span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:438"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:81"><nobr><span class="ft4">The  pairwise  accuracy  is  the  portion  of  <b>H</b></span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:314"><nobr><span class="ft29"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:319"><nobr><span class="ft4"> that is also contained </span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:81"><nobr><span class="ft4">in <b>S</b></span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:103"><nobr><span class="ft29"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:108"><nobr><span class="ft4">: </span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:323"><nobr><span class="ft24"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:338"><nobr><span class="ft24"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:308"><nobr><span class="ft24"><b>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:311"><nobr><span class="ft25"><b>H</b></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:329"><nobr><span class="ft25"><b>S</b></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:296"><nobr><span class="ft25"><b>H</b></span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:316"><nobr><span class="ft20"></span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:282"><nobr><span class="ft20">=</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:226"><nobr><span class="ft17">accuracy</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:223"><nobr><span class="ft17"> </span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:175"><nobr><span class="ft17">pairwise</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:349"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:81"><nobr><span class="ft14">This  measure  was  chosen  for  two  reasons.  First,  the  discrete <br>human judgments provide only a partial ordering over Web pages, </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:477"><nobr><span class="ft14">making it difficult to apply a measure such as the Spearman rank <br>order correlation coefficient (in the pairwise accuracy measure,  a <br>pair of documents with the same human judgment does not affect <br>the  score).  Second,  the  pairwise  accuracy  has  an  intuitive <br>meaning:  it  is  the  fraction  of  pairs  of  documents  that,  when  the <br>humans  claim  one  is  better  than  the  other,  the  static  rank <br>algorithm orders them correctly. </span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:477"><nobr><span class="ft3"><b>5.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:499"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:510"><nobr><span class="ft3"><b>Method </b></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:477"><nobr><span class="ft14">We  trained  fRank  (a  RankNet  based  neural  network)  using  the <br>following parameters. We used a fully connected 2 layer network. <br>The hidden layer had 10 hidden nodes. The input weights to this <br>layer  were  all  initialized  to  be  zero.  The  output  "layer"  (just  a <br>single  node)  weights  were  initialized  using  a  uniform  random <br>distribution in the range [-0.1, 0.1]. We used <i>tanh</i> as the transfer <br>function from the inputs to the hidden layer, and a linear function <br>from  the  hidden  layer  to  the  output.  The  cost  function  is  the <br>pairwise cross entropy cost function as discussed in section 3. </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:477"><nobr><span class="ft14">The features in the training set were normalized to have zero mean <br>and  unit  standard  deviation.  The  same  linear  transformation  was <br>then applied to the features in the validation and test sets.  </span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:477"><nobr><span class="ft14">For training, we presented the network with 5 million pairings of <br>pages,  where  one  page  had  a  higher  rating  than  the  other.  The <br>pairings  were  chosen  uniformly  at  random  (with  replacement) <br>from all possible pairings. When forming the pairs, we ignored the <br>magnitude of the difference between the ratings (the rating spread) <br>for  the  two  URLs.  Hence,  the  weight  for  each  pair  was  constant <br>(one),  and  the  probability  of  a  pair  being  selected  was <br>independent of its rating spread. </span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:477"><nobr><span class="ft14">We  trained  the  network  for  30  epochs.  On  each  epoch,  the <br>training pairs were randomly shuffled. The initial training rate was <br>0.001. At each epoch, we checked the error on the training set. If <br>the error had increased, then we decreased the training rate, under <br>the  hypothesis  that  the  network  had  probably  overshot.  The <br>training rate at each epoch was thus set to: </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:599"><nobr><span class="ft4">Training rate = </span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:706"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:696"><nobr><span class="ft20">+</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:686"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:694"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:715"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:477"><nobr><span class="ft4">Where </span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:518"><nobr><span class="ft20"></span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:525"><nobr><span class="ft4">  is  the  initial  rate  (0.001),  and </span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:700"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:706"><nobr><span class="ft4">  is  the  number  of  times </span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:477"><nobr><span class="ft14">the  training  set  error  has  increased.  After  each  epoch,  we <br>measured the performance of the neural network on the validation <br>set,  using  1  million  pairs  (chosen  randomly  with  replacement). <br>The network with the highest pairwise accuracy on the validation <br>set  was  selected,  and  then  tested  on  the  test  set.  We  report  the <br>pairwise  accuracy  on  the  test  set,  calculated  using  all  possible <br>pairs. </span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:477"><nobr><span class="ft14">These parameters were determined and fixed before the static rank <br>experiments  in  this  paper.  In  particular,  the  choice  of  initial <br>training  rate,  number  of  epochs,  and  training  rate  decay  function <br>were taken directly from Burges et al [7]. </span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:477"><nobr><span class="ft14">Though  we  had  the  option  of  preprocessing  any  of  the  features <br>before  they  were  input  to  the  neural  network,  we  refrained  from <br>doing so on most of them. The only exception was the popularity <br>features.  As  with  most  Web  phenomenon,  we  found  that  the <br>distribution  of  site  popularity  is  Zipfian.  To  reduce  the  dynamic <br>range,  and  hopefully  make  the  feature  more  useful, we presented <br>the  network  with  both  the  unpreprocessed,  as  well  as  the <br>logarithm,  of  the  popularity  features  (As  with  the  others,  the <br>logarithmic  feature  values  were  also  normalized  to  have  zero <br>mean and unit standard deviation). </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">710</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft30{font-size:11px;font-family:Times;color:#000000;}
+	.ft31{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft32{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43005.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">Applying fRank to a document is computationally efficient, taking <br>time  that  is  only  linear in the number of input features; it is thus <br>within a constant factor of other simple machine learning methods <br>such as naïve Bayes. In our experiments, computing the fRank for <br>all  five  billion  Web  pages  was  approximately  100  times  faster <br>than computing the PageRank for the same set. </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft3"><b>5.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:114"><nobr><span class="ft3"><b>Results </b></span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:81"><nobr><span class="ft14">As Table 1 shows, fRank significantly outperforms PageRank for <br>the purposes of static ranking. With a pairwise accuracy of 67.4%, <br>fRank  more  than  doubles  the  accuracy  of  PageRank  (relative  to <br>the baseline of 50%, which is the accuracy that would be achieved <br>by  a  random  ordering  of  Web  pages).  Note  that  one  of  fRank's <br>input features is the PageRank of the page, so we would expect it <br>to  perform  no  worse  than  PageRank.  The  significant  increase  in <br>accuracy  implies  that  the  other  features  (anchor,  popularity,  etc.) <br>do in fact contain useful information regarding the overall quality <br>of a page. </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:198"><nobr><span class="ft5"><b>Table 1: Basic Results </b></span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:186"><nobr><span class="ft7"><i>Technique </i></span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:278"><nobr><span class="ft7"><i>Accuracy (%) </i></span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:170"><nobr><span class="ft4">None (Baseline) </span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:300"><nobr><span class="ft4">50.00 </span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:187"><nobr><span class="ft4">PageRank </span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:300"><nobr><span class="ft4">56.70 </span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:198"><nobr><span class="ft4">fRank </span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:300"><nobr><span class="ft5"><b>67.43 </b></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:81"><nobr><span class="ft28">There  are  a  number  of  decisions  that  go  into  the  computation  of <br>PageRank, such as how to deal with pages that have no outlinks, <br>the  choice  of </span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:162"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:170"><nobr><span class="ft4">,  numeric  precision,  convergence  threshold,  etc. </span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:81"><nobr><span class="ft14">We  were  able  to  obtain  a  computation  of  PageRank  from  a <br>completely  independent  implementation  (provided  by  Marc <br>Najork)  that  varied  somewhat  in  these  parameters.  It  achieved  a <br>pairwise accuracy of 56.52%, nearly identical to that obtained by <br>our  implementation.  We  thus  concluded  that  the  quality  of  the <br>PageRank  is  not  sensitive  to  these  minor variations in algorithm, <br>nor  was  PageRank's  low  accuracy  due  to  problems  with  our <br>implementation of it. </span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:81"><nobr><span class="ft14">We  also  wanted  to  find  how  well  each  feature  set performed. To <br>answer  this,  for  each  feature  set,  we  trained  and  tested  fRank <br>using  only  that  set  of  features.  The  results are shown in Table 2. <br>As can be seen, <i>every single feature set individually outperformed <br>PageRank</i>  on  this  test.  Perhaps  the  most  interesting  result  is  that <br>the Page-level features had the highest performance out of all the <br>feature  sets.  This  is  surprising  because  these  are  features  that  do <br>not depend on the overall graph structure of the Web, nor even on <br>what pages point to a given page. This is contrary to the common <br>belief  that  the  Web  graph  structure  is  the  key  to  finding  a  good <br>static ranking of Web pages. </span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:138"><nobr><span class="ft5"><b>Table 2: Results for individual feature sets. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:182"><nobr><span class="ft7"><i>Feature Set </i></span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:278"><nobr><span class="ft7"><i>Accuracy (%) </i></span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:187"><nobr><span class="ft4">PageRank </span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:300"><nobr><span class="ft4">56.70 </span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:186"><nobr><span class="ft4">Popularity </span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:300"><nobr><span class="ft4">60.82 </span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:194"><nobr><span class="ft4">Anchor </span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:300"><nobr><span class="ft4">59.09 </span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:201"><nobr><span class="ft4">Page </span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:300"><nobr><span class="ft5"><b>63.93 </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:192"><nobr><span class="ft4">Domain </span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:300"><nobr><span class="ft4">59.03 </span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:179"><nobr><span class="ft5"><b>All Features </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:300"><nobr><span class="ft5"><b>67.43 </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:477"><nobr><span class="ft14">Because  we  are  using  a  two-layer neural network, the features in <br>the  learned  network  can  interact  with  each  other  in  interesting, <br>nonlinear  ways.  This  means  that  a  particular  feature  that  appears <br>to  have  little  value  in  isolation  could  actually  be  very  important <br>when  used  in  combination  with  other  features.  To  measure  the <br>final  contribution  of  a  feature  set,  in  the  context  of  all  the  other <br>features,  we  performed  an  ablation study. That is, for each set of <br>features, we trained a network to contain all of the features <i>except</i> <br>that  set.  We  then  compared  the  performance  of  the  resulting <br>network to the performance of the network with all of the features. <br>Table 3 shows the results of this experiment, where the "decrease <br>in  accuracy"  is  the  difference  in  pairwise  accuracy  between  the <br>network  trained  with all of the features, and the network missing <br>the given feature set. </span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:477"><nobr><span class="ft32"><b>Table  3:  Ablation  study.  Shown  is  the  decrease  in  accuracy <br>when  we  train  a  network  that  has  all  <i>but</i>  the  given  set  of <br>features.  The  last  line  is  shows  the  effect  of  removing  the <br>anchor,  PageRank,  and  domain  features,  hence  a  model <br>containing no network or link-based information whatsoever. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:578"><nobr><span class="ft7"><i>Feature Set </i></span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:719"><nobr><span class="ft7"><i>Decrease in </i></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:726"><nobr><span class="ft7"><i>Accuracy </i></span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:582"><nobr><span class="ft4">PageRank </span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:739"><nobr><span class="ft4">0.18 </span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:581"><nobr><span class="ft4">Popularity </span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:739"><nobr><span class="ft4">0.78 </span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:589"><nobr><span class="ft4">Anchor </span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:739"><nobr><span class="ft4">0.47 </span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:597"><nobr><span class="ft4">Page </span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:739"><nobr><span class="ft5"><b>5.42 </b></span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:588"><nobr><span class="ft4">Domain </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:528"><nobr><span class="ft4">Anchor, PageRank &amp; Domain </span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:739"><nobr><span class="ft14">0.10 <br>0.60 </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:477"><nobr><span class="ft14">The results of the ablation study are consistent with the individual <br>feature set study. Both show that the most important feature set is <br>the  Page-level  feature  set,  and  the  second  most  important  is  the <br>popularity feature set. </span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:477"><nobr><span class="ft14">Finally,  we  wished  to  see  how  the  performance  of  fRank <br>improved  as  we  added  features;  we  wanted  to  find  at  what  point <br>adding  more  feature  sets  became  relatively  useless.  Beginning <br>with no features, we greedily added the feature set that improved <br>performance  the  most.  The  results  are  shown  in  Table  4.  For <br>example,  the  fourth  line  of  the  table  shows  that  fRank  using  the <br>page,  popularity,  and  anchor  features  outperformed  any  network <br>that used the page, popularity, and some other feature set, and that <br>the performance of this network was 67.25%. </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:477"><nobr><span class="ft10"> </span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:477"><nobr><span class="ft32"><b>Table 4: fRank performance as feature sets are added. At each <br>row, the feature set that gave the greatest increase in accuracy <br>was  added  to  the  list  of  features  (i.e.,  we  conducted  a  greedy <br>search over feature sets). </b></span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:578"><nobr><span class="ft7"><i>Feature Set </i></span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:674"><nobr><span class="ft7"><i>Accuracy (%) </i></span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:595"><nobr><span class="ft4">None </span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:696"><nobr><span class="ft4">50.00 </span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:593"><nobr><span class="ft4">+Page  </span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:696"><nobr><span class="ft4">63.93 </span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:578"><nobr><span class="ft4">+Popularity </span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:696"><nobr><span class="ft4">66.83 </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:586"><nobr><span class="ft4">+Anchor </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:696"><nobr><span class="ft4">67.25 </span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:579"><nobr><span class="ft4">+PageRank </span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:696"><nobr><span class="ft4">67.31 </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:584"><nobr><span class="ft4">+Domain </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:696"><nobr><span class="ft4">67.43 </span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">711</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43006.png" alt="background image">
+<DIV style="position:absolute;top:314;left:81"><nobr><span class="ft14">Finally,  we  present  a  qualitative  comparison  of  PageRank  vs. <br>fRank. In Table 5 are the top ten URLs returned for PageRank and <br>for  fRank.  PageRank's  results  are  heavily  weighted  towards <br>technology sites. It contains two QuickTime URLs (Apple's video <br>playback  software),  as  well  as  Internet  Explorer  and  FireFox <br>URLs  (both  of  which  are  Web  browsers).  fRank,  on  the  other <br>hand,  contains  more  consumer-oriented  sites  such  as  American <br>Express, Target, Dell, etc. PageRank's bias toward technology can <br>be  explained  through  two  processes.  First,  there  are  many  pages <br>with "buttons" at the bottom suggesting that the site is optimized <br>for  Internet  Explorer,  or  that  the  visitor needs QuickTime. These <br>generally  link  back  to,  in  these  examples,  the  Internet  Explorer <br>and  QuickTime  download  sites.  Consequently,  PageRank  ranks <br>those  pages  highly.  Though  these  pages  are  important,  they  are <br>not  as  important  as  it  may  seem  by  looking  at  the  link  structure <br>alone. One fix for this is to add information about the link to the <br>PageRank computation, such as the size of the text, whether it was <br>at the bottom of the page, etc. </span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:81"><nobr><span class="ft14">The other bias comes from the fact that the population of Web site <br>authors  is  different  than  the  population  of  Web  users.  Web <br>authors tend to be technologically-oriented, and thus their linking <br>behavior  reflects  those  interests.  fRank,  by  knowing  the  actual <br>visitation popularity of a site (the popularity feature set), is able to <br>eliminate  some  of  that  bias.  It  has  the  ability  to  depend  more  on <br>where  actual  Web  users  visit  rather  than  where  the  Web  site <br>authors have linked. </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:81"><nobr><span class="ft14">The results confirm that fRank outperforms PageRank in pairwise <br>accuracy.  The  two  most  important  feature  sets  are  the  <i>page</i>  and <br><i>popularity</i>  features.  This  is  surprising,  as  the  page  features <br>consisted  only  of  a  few  (8)  simple  features.  Further  experiments <br>found  that,  of  the  page  features,  those  based  on  the  text  of  the <br>page  (as  opposed  to  the  URL)  performed  the  best.  In  the  next <br>section, we explore the popularity feature in more detail. </span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:81"><nobr><span class="ft3"><b>5.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:114"><nobr><span class="ft3"><b>Popularity Data </b></span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:81"><nobr><span class="ft14">As  mentioned  in  section  4,  our  popularity  data  came  from  MSN <br>toolbar  users.  For  privacy  reasons,  we  had  access  only  to  an <br>aggregate count of, for each URL, how many times it was visited </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:477"><nobr><span class="ft14">by  any  toolbar  user.  This  limited  the  possible  features  we  could <br>derive  from  this  data.  For  possible  extensions,  see  section  6.3, <br>future work. </span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:477"><nobr><span class="ft14">For each URL in our train and test sets, we provided a feature to <br>fRank which was how many times it had been visited by a toolbar <br>user.  However,  this  feature  was  quite  noisy  and  sparse, <br>particularly  for  URLs  with  query  parameters  (e.g.,  http://search-<br>.msn.com/results.aspx?q=machine+learning&amp;form=QBHP).  One <br>solution  was  to  provide  an  additional  feature  which  was  the <br>number  of  times  any  URL  at  the  given  domain  was  visited  by  a <br>toolbar  user.  Adding  this  feature  dramatically  improved  the <br>performance of fRank. </span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:477"><nobr><span class="ft14">We  took  this  one  step  further  and  used  the  built-in  hierarchical <br>structure of URLs to construct many levels of backoff between the <br>full URL and the domain. We did this by using the set of features <br>shown in Table 6. </span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:477"><nobr><span class="ft32"><b>Table  6:  URL  functions  used  to  compute  the  Popularity <br>feature set.  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:489"><nobr><span class="ft7"><i>Function </i></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:571"><nobr><span class="ft7"><i>Example </i></span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:489"><nobr><span class="ft4">Exact URL </span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:571"><nobr><span class="ft4">cnn.com/2005/tech/wikipedia.html?v=mobile </span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:489"><nobr><span class="ft4">No Params </span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:571"><nobr><span class="ft4">cnn.com/2005/tech/wikipedia.html </span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:489"><nobr><span class="ft4">Page </span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:571"><nobr><span class="ft4">wikipedia.html </span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:489"><nobr><span class="ft4">URL-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:571"><nobr><span class="ft4">cnn.com/2005/tech </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:489"><nobr><span class="ft4">URL-2 </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:571"><nobr><span class="ft4">cnn.com/2005 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:489"><nobr><span class="ft4">... </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:571"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:489"><nobr><span class="ft4">Domain </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:571"><nobr><span class="ft4">cnn.com </span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:489"><nobr><span class="ft4">Domain+1 </span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:571"><nobr><span class="ft4">cnn.com/2005 </span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:489"><nobr><span class="ft4">... </span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:571"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:477"><nobr><span class="ft14">Each  URL  was  assigned  one  feature  for  each  function  shown  in <br>the table. The value of the feature was the count of the number of <br>times a toolbar user visited a URL, where the function applied to <br>that  URL  matches  the  function  applied  to  the  URL  in  question. <br>For  example,  a  user's  visit  to  <i>cnn.com/2005/sports.html</i>  would <br>increment  the  <i>Domain</i>  and  <i>Domain+1</i>    features  for    the  URL <br><i>cnn.com/2005/tech/wikipedia.html</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:477"><nobr><span class="ft14">As  seen  in  Table  7,  adding  the  domain  counts  significantly <br>improved  the  quality  of  the  popularity  feature,  and  adding  the <br>numerous  backoff  functions  listed  in  Table  6  improved  the <br>accuracy even further. </span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:481"><nobr><span class="ft5"><b>Table 7: Effect of adding backoff to the popularity feature set </b></span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:585"><nobr><span class="ft7"><i>Features </i></span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:718"><nobr><span class="ft7"><i>Accuracy (%) </i></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:579"><nobr><span class="ft4">URL count </span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:739"><nobr><span class="ft4">58.15 </span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:542"><nobr><span class="ft4">URL and Domain counts </span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:739"><nobr><span class="ft4">59.31 </span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:525"><nobr><span class="ft4">All backoff functions (Table 6) </span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:739"><nobr><span class="ft4">60.82 </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:94"><nobr><span class="ft5"><b>Table 5: Top ten URLs for PageRank vs. fRank </b></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:153"><nobr><span class="ft7"><i>PageRank </i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:341"><nobr><span class="ft7"><i>fRank </i></span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:94"><nobr><span class="ft4">google.com </span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:284"><nobr><span class="ft4">google.com </span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:94"><nobr><span class="ft4">apple.com/quicktime/download </span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:284"><nobr><span class="ft4">yahoo.com </span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:94"><nobr><span class="ft4">amazon.com </span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:284"><nobr><span class="ft4">americanexpress.com </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:94"><nobr><span class="ft4">yahoo.com </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:284"><nobr><span class="ft4">hp.com </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:94"><nobr><span class="ft4">microsoft.com/windows/ie </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:284"><nobr><span class="ft4">target.com </span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:94"><nobr><span class="ft4">apple.com/quicktime </span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:284"><nobr><span class="ft4">bestbuy.com </span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:94"><nobr><span class="ft4">mapquest.com </span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:284"><nobr><span class="ft4">dell.com </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:94"><nobr><span class="ft4">ebay.com </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:284"><nobr><span class="ft4">autotrader.com </span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:94"><nobr><span class="ft4">mozilla.org/products/firefox </span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:284"><nobr><span class="ft4">dogpile.com </span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:94"><nobr><span class="ft4">ftc.gov </span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:284"><nobr><span class="ft4">bankofamerica.com </span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:94"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">712</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft33{font-size:9px;font-family:Helvetica;color:#000000;}
+	.ft34{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft35{font-size:9px;font-family:Helvetica;color:#000000;}
+	.ft36{font-size:9px;line-height:-7px;font-family:Helvetica;color:#000000;}
+	.ft37{font-size:9px;line-height:-6px;font-family:Helvetica;color:#000000;}
+	.ft38{font-size:9px;line-height:-3px;font-family:Helvetica;color:#000000;}
+	.ft39{font-size:9px;line-height:-4px;font-family:Helvetica;color:#000000;}
+	.ft40{font-size:9px;line-height:-9px;font-family:Helvetica;color:#000000;}
+	.ft41{font-size:9px;line-height:-8px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43007.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">Backing  off  to  subsets  of  the  URL  is  one  technique  for  dealing <br>with  the  sparsity  of  data.  It  is  also  informative  to  see  how  the <br>performance  of  fRank  depends  on  the  amount  of  popularity  data <br>that  we  have  collected.  In  Figure  1  we  show  the  performance  of <br>fRank  trained with only the popularity feature set vs. the amount <br>of  data  we  have  for  the  popularity  feature  set.  Each  day,  we <br>receive additional popularity data, and as can be seen in the plot, <br>this  increases  the  performance  of  fRank.  The  relation  is <br>logarithmic:  doubling  the  amount  of  popularity  data  provides  a <br>constant improvement in pairwise accuracy. </span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:81"><nobr><span class="ft14">In summary, we have found that the popularity features provide a <br>useful  boost  to  the  overall  fRank  accuracy.  Gathering  more <br>popularity  data,  as  well  as  employing  simple  backoff  strategies, <br>improve this boost even further. </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:81"><nobr><span class="ft3"><b>5.6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:114"><nobr><span class="ft3"><b>Summary of Results </b></span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:81"><nobr><span class="ft14">The  experiments  provide  a  number  of  conclusions.  First,  fRank <br>performs  significantly  better  than  PageRank,  even  without  any <br>information  about  the  Web  graph.  Second,  the  page  level  and <br>popularity  features  were  the  most  significant  contributors  to <br>pairwise  accuracy.  Third,  by  collecting  more  popularity  data,  we <br>can continue to improve fRank's performance. </span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:81"><nobr><span class="ft14">The popularity data provides two benefits to fRank. First, we see <br>that  qualitatively,  fRank's  ordering  of  Web  pages  has  a  more <br>favorable  bias  than  PageRank's.  fRank's  ordering  seems  to <br>correspond  to  what  Web  users,  rather  than  Web  page  authors, <br>prefer.  Second,  the  popularity  data  is  more  timely  than <br>PageRank's  link  information.  The  toolbar  provides  information <br>about  which  Web  pages  people  find  interesting  right  now, <br>whereas links are added to pages more slowly, as authors find the <br>time and interest. </span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:81"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:95"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:105"><nobr><span class="ft3"><b>RELATED AND FUTURE WORK </b></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:81"><nobr><span class="ft3"><b>6.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:114"><nobr><span class="ft3"><b>Improvements to PageRank </b></span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:81"><nobr><span class="ft14">Since  the  original  PageRank  paper,  there  has  been  work  on <br>improving  it.  Much  of  that  work  centers  on  speeding  up  and <br>parallelizing the computation [15][25]. </span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:81"><nobr><span class="ft14">One  recognized  problem  with  PageRank  is  that  of  <i>topic  drift</i>:  A <br>page  about  "dogs"  will  have  high  PageRank  if  it  is  linked  to  by <br>many  pages  that  themselves  have  high  rank,  regardless  of  their <br>topic.  In  contrast,  a  search  engine  user  looking  for  good  pages <br>about dogs would likely prefer to find pages that are pointed to by <br>many  pages  that  are  themselves  about dogs. Hence, a link that is <br>"on  topic"  should  have  higher  weight  than  a  link  that  is  not. <br>Richardson  and  Domingos's  Query  Dependent  PageRank  [29] <br>and  Haveliwala's  Topic-Sensitive  PageRank  [16]  are  two <br>approaches that tackle this problem. </span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:81"><nobr><span class="ft28">Other  variations  to  PageRank  include  differently  weighting  links <br>for  inter-  vs.  intra-domain  links,  adding  a  backwards  step  to  the <br>random  surfer  to  simulate  the  "back"  button  on  most  browsers <br>[24]  and  modifying  the  jump  probability  (</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:321"><nobr><span class="ft8"></span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:329"><nobr><span class="ft4">)  [3].  See  Langville </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:81"><nobr><span class="ft14">and  Meyer  [23]  for  a  good  survey  of  these,  and  other <br>modifications to PageRank. </span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:81"><nobr><span class="ft3"><b>6.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:114"><nobr><span class="ft3"><b>Other related work </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:81"><nobr><span class="ft14">PageRank is not the only link analysis algorithm used for ranking <br>Web  pages.  The  most  well-known  other  is  HITS  [22],  which  is <br>used  by  the  Teoma  search  engine  [30].  HITS  produces  a  list  of <br><i>hubs</i>  and  <i>authorities</i>,  where  hubs  are  pages  that  point  to  many </span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:477"><nobr><span class="ft14">authority  pages,  and  authorities  are  pages  that  are  pointed  to  by <br>many  hubs.  Previous  work  has  shown  HITS  to  perform <br>comparably to PageRank [1]. </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:477"><nobr><span class="ft14">One  field  of  interest  is  that  of  static  index  pruning  (see  e.g., <br>Carmel et al. [8]). Static index pruning methods reduce the size of <br>the  search  engine's  index  by  removing  documents  that  are <br>unlikely to be returned by a search query. The pruning is typically <br>done  based  on  the  frequency  of  query  terms.  Similarly,  Pandey <br>and  Olston  [28]  suggest  crawling  pages  frequently  if  they  are <br>likely to incorrectly appear (or not appear) as a result of a search. <br>Similar  methods  could  be  incorporated  into  the  static  rank  (e.g., <br>how many frequent queries contain words found on this page). </span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:477"><nobr><span class="ft14">Others have investigated the effect that PageRank has on the Web <br>at large [9]. They argue that pages with high PageRank are more <br>likely to be found by Web users, thus more likely to be linked to, <br>and  thus  more  likely  to  maintain  a  higher  PageRank  than  other <br>pages. The same may occur for the popularity data. If we increase <br>the  ranking  for  popular  pages,  they  are  more  likely  to  be  clicked <br>on,  thus  further  increasing  their  popularity. Cho et al. [10] argue <br>that  a  more  appropriate  measure  of  Web  page  quality  would <br>depend on not only the current link structure of the Web, but also <br>on  the  change  in  that  link  structure.  The  same  technique  may  be <br>applicable  to  popularity  data:  the  change  in  popularity  of  a  page <br>may be more informative than the absolute popularity. </span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:477"><nobr><span class="ft14">One  interesting  related  work  is  that  of  Ivory  and  Hearst  [19]. <br>Their goal was to build a model of Web sites that are considered <br>high  quality  from  the  perspective  of  "content,  structure  and <br>navigation,  visual  design,  functionality,  interactivity,  and  overall <br>experience".  They  used  over  100  page  level  features,  as  well  as <br>features  encompassing  the  performance  and  structure  of  the  site. <br>This  let  them  qualitatively  describe  the  qualities  of  a  page  that <br>make  it  appear  attractive  (e.g.,  rare  use  of  italics, at least 9 point <br>font,  ...),  and  (in  later  work)  to  build  a  system  that  assists  novel <br>Web  page  authors  in  creating  quality  pages  by  evaluating  it <br>according to these features. The primary differences between this <br>work  and  ours  are  the  goal  (discovering  what  constitutes  a  good <br>Web  page  vs.  ordering  Web  pages  for  the  purposes  of  Web <br>search), the size of the study (they used a dataset of less than 6000 <br>pages vs. our set of 468,000), and our comparison with PageRank. </span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:646"><nobr><span class="ft33">y = 0.577Ln(x) + 58.283</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:677"><nobr><span class="ft33">R</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:685"><nobr><span class="ft34">2</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:690"><nobr><span class="ft33"> = 0.9822</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:516"><nobr><span class="ft33">58</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:507"><nobr><span class="ft33">58.5</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:516"><nobr><span class="ft33">59</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:507"><nobr><span class="ft33">59.5</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:516"><nobr><span class="ft33">60</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:507"><nobr><span class="ft33">60.5</span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:516"><nobr><span class="ft33">61</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:536"><nobr><span class="ft33">1</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:666"><nobr><span class="ft33">10</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:797"><nobr><span class="ft33">100</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:614"><nobr><span class="ft35"><b>Days of Toolbar Data</b></span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:496"><nobr><span class="ft37"><b>P<br>a<br>i<br>r<br>w<br>i<br>s<br>e<br> <br>A<br>c<br>c<br>u<br>r<br>a<br>c<br>y</b></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:832"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:476"><nobr><span class="ft32"><b>Figure 1: Relation between the amount of popularity data and <br>the performance of the popularity feature set. Note the x-axis <br>is a logarithmic scale. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">713</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft42{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43008.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft14">Nevertheless,  their  work  provides  insights  to  additional  useful <br>static features that we could incorporate into fRank in the future. </span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:81"><nobr><span class="ft14">Recent work on incorporating novel features into dynamic ranking <br>includes  that  by  Joachims  et  al.  [21],  who  investigate  the  use  of <br>implicit  feedback from users, in the form of which search engine <br>results  are  clicked  on.  Craswell  et  al.  [11]  present  a  method  for <br>determining the best transformation to apply to query independent <br>features  (such  as  those  used  in  this  paper)  for  the  purposes  of <br>improving dynamic ranking. Other work, such as Boyan et al. [4] <br>and  Bartell  et  al.  [2]  apply  machine  learning  for  the  purposes  of <br>improving  the  overall  relevance  of  a  search  engine  (i.e.,  the <br>dynamic  ranking).  They  do  not  apply  their  techniques  to  the <br>problem of static ranking. </span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:81"><nobr><span class="ft3"><b>6.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:104"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:114"><nobr><span class="ft3"><b>Future work </b></span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:81"><nobr><span class="ft14">There are many ways in which we would like to extend this work. <br>First, fRank uses only a small number of features. We believe we <br>could achieve even more significant results with more features. In <br>particular  the  existence,  or  lack  thereof,  of  certain  words  could <br>prove  very  significant  (for  instance,  "under  construction" <br>probably  signifies  a  low  quality  page).  Other  features  could <br>include  the  number  of  images  on  a  page,  size  of  those  images, <br>number  of  layout  elements  (tables,  divs,  and  spans),  use  of  style <br>sheets,  conforming  to  W3C  standards  (like  XHTML  1.0  Strict), <br>background color of a page, etc.  </span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:81"><nobr><span class="ft14">Many pages are generated dynamically, the contents of which may <br>depend  on  parameters  in  the  URL,  the  time  of  day,  the  user <br>visiting  the  site,  or  other  variables.  For  such  pages,  it  may  be <br>useful  to  apply  the  techniques  found  in  [26]  to  form  a  static <br>approximation  for  the  purposes  of  extracting  features.  The <br>resulting grammar describing the page could itself be a source of <br>additional features describing the complexity of the page, such as <br>how  many  non-terminal  nodes  it  has,  the  depth  of  the  grammar <br>tree, etc. </span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:81"><nobr><span class="ft14">fRank  allows  one  to  specify  a  confidence  in  each  pairing  of <br>documents.  In  the  future,  we  will  experiment  with  probabilities <br>that  depend  on  the  difference  in  human  judgments  between  the <br>two items in the pair. For example, a pair of documents where one <br>was rated 4 and the other 0 should have a higher confidence than <br>a pair of documents rated 3 and 2. </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:81"><nobr><span class="ft14">The  experiments  in  this  paper  are  biased  toward  pages  that  have <br>higher  than  average  quality.  Also,  fRank  with  all  of  the  features <br>can  only  be  applied  to  pages  that  have  already  been  crawled. <br>Thus, fRank is primarily useful for index ordering and improving <br>relevance,  not  for  directing  the  crawl.  We  would  like  to <br>investigate a machine learning approach for crawl prioritization as <br>well.  It  may  be  that  a  combination  of  methods  is  best:  for <br>example,  using  PageRank  to  select  the  best  5  billion  of  the  20 <br>billion pages on the Web, then using fRank to order the index and <br>affect search relevancy. </span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:81"><nobr><span class="ft14">Another  interesting  direction  for  exploration  is  to  incorporate <br>fRank  and  page-level  features  directly  into  the  PageRank <br>computation  itself.  Work  on  biasing  the  PageRank  jump  vector <br>[16], and transition matrix [29], have demonstrated the feasibility <br>and  advantages  of  such  an  approach.  There  is  reason  to  believe <br>that a direct application of [29], using the fRank of a page for its <br>"relevance", could lead to an improved overall static rank. </span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:81"><nobr><span class="ft14">Finally, the popularity data can be used in other interesting ways. <br>The  general  surfing  and  searching  habits  of  Web  users  varies  by <br>time  of  day.  Activity  in  the  morning,  daytime,  and  evening  are </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:477"><nobr><span class="ft14">often  quite  different  (e.g.,  reading  the  news,  solving  problems, <br>and  accessing  entertainment,  respectively).  We  can  gain  insight <br>into  these  differences  by  using  the  popularity  data,  divided  into <br>segments  of the day. When a query is issued, we would then use <br>the popularity data matching the time of query in order to do the <br>ranking of Web pages. We also plan to explore popularity features <br>that use more than just the counts of how often a page was visited. <br>For example, how long users tended to dwell on a page, did they <br>leave the page by clicking a link or by hitting the back button, etc. <br>Fox et al. did a study that showed that features such as this can be <br>valuable  for  the  purposes  of  dynamic  ranking  [14].  Finally,  the <br>popularity data could be used as the label rather than as a feature. <br>Using  fRank  in  this  way  to  predict  the  popularity  of  a  page  may <br>useful  for  the  tasks  of  relevance,  efficiency,  and  crawl  priority. <br>There  is  also  significantly  more  popularity  data  than  human <br>labeled data, potentially enabling more complex machine learning <br>methods, and significantly more features. </span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:477"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:490"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:501"><nobr><span class="ft3"><b>CONCLUSIONS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:477"><nobr><span class="ft14">A  good  static  ranking  is  an  important  component  for  today's <br>search  engines  and  information  retrieval  systems.  We  have <br>demonstrated  that  PageRank  does  not  provide  a  very  good  static <br>ranking;  there  are  many  simple  features  that  individually  out <br>perform  PageRank.  By  combining  many  static  features,  fRank <br>achieves  a  ranking  that  has  a  significantly  higher  pairwise <br>accuracy than PageRank alone. A qualitative evaluation of the top <br>documents  shows  that  fRank  is  less  technology-biased  than <br>PageRank; by using popularity data, it is biased toward pages that <br>Web  users,  rather  than  Web  authors,  visit.  The  machine  learning <br>component of fRank gives it the additional benefit of being more <br>robust  against  spammers,  and  allows  it  to  leverage  further <br>developments in the machine learning community in areas such as <br>adversarial  classification.  We  have  only  begun  to  explore  the <br>options,  and  believe  that  significant  strides  can  be  made  in  the <br>area  of  static  ranking  by  further  experimentation  with  additional <br>features,  other  machine  learning  techniques,  and  additional <br>sources of data. </span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:477"><nobr><span class="ft3"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:490"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:501"><nobr><span class="ft3"><b>ACKNOWLEDGMENTS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:477"><nobr><span class="ft14">Thank  you  to  Marc  Najork  for  providing  us  with  additional <br>PageRank computations and to Timo Burkard for assistance with <br>the  popularity  data.  Many  thanks  to  Chris  Burges  for  providing <br>code and significant support in using training RankNets. Also, we <br>thank  Susan  Dumais  and  Nick  Craswell  for  their  edits  and <br>suggestions. </span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:477"><nobr><span class="ft3"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:490"><nobr><span class="ft6"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:501"><nobr><span class="ft3"><b>REFERENCES </b></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:477"><nobr><span class="ft17">[1]</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:495"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:504"><nobr><span class="ft14">B. Amento, L. Terveen, and W. Hill. Does "authority" mean <br>quality? Predicting expert quality ratings of Web documents. <br>In Proceedings of the 23</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:637"><nobr><span class="ft42">rd</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:644"><nobr><span class="ft4"> Annual International ACM SIGIR </span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:504"><nobr><span class="ft14">Conference on Research and Development in Information <br>Retrieval, 2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:477"><nobr><span class="ft17">[2]</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:495"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:504"><nobr><span class="ft14">B. Bartell, G. Cottrell, and R. Belew. Automatic combination <br>of multiple ranked retrieval systems. In Proceedings of the <br>17th Annual International ACM SIGIR Conference on <br>Research and Development in Information Retrieval, 1994. </span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:477"><nobr><span class="ft17">[3]</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:495"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:504"><nobr><span class="ft14">P. Boldi, M. Santini, and S. Vigna. PageRank as a function <br>of the damping factor. In Proceedings of the International <br>World Wide Web Conference, May 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">714</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="43009.png" alt="background image">
+<DIV style="position:absolute;top:85;left:81"><nobr><span class="ft17">[4]</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:108"><nobr><span class="ft14">J. Boyan, D. Freitag, and T. Joachims. A machine learning <br>architecture for optimizing web search engines. In AAAI <br>Workshop on Internet Based Information Systems, August <br>1996. </span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:81"><nobr><span class="ft17">[5]</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:108"><nobr><span class="ft14">S. Brin and L. Page. The anatomy of a large-scale <br>hypertextual web search engine. In Proceedings of the <br>Seventh International Wide Web Conference, Brisbane, <br>Australia, 1998. Elsevier. </span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:81"><nobr><span class="ft17">[6]</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:108"><nobr><span class="ft14">A. Broder, R. Lempel, F. Maghoul, and J. Pederson. <br>Efficient PageRank approximation via graph aggregation. In <br>Proceedings of the International World Wide Web <br>Conference, May 2004. </span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:81"><nobr><span class="ft17">[7]</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:108"><nobr><span class="ft14">C. Burges, T. Shaked, E. Renshaw, A. Lazier, M. Deeds, N. <br>Hamilton, G. Hullender. Learning to rank using gradient <br>descent. In Proceedings of the 22</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:288"><nobr><span class="ft42">nd</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:297"><nobr><span class="ft4"> International Conference </span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:108"><nobr><span class="ft4">on Machine Learning, Bonn, Germany, 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:81"><nobr><span class="ft17">[8]</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:108"><nobr><span class="ft14">D. Carmel, D. Cohen, R. Fagin, E. Farchi, M. Herscovici, Y. <br>S. Maarek, and A. Soffer. Static index pruning for <br>information retrieval systems. In Proceedings of the 24th <br>Annual International ACM SIGIR Conference on Research <br>and Development in Information Retrieval, pages 43-50, <br>New Orleans, Louisiana, USA, September 2001. </span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:81"><nobr><span class="ft17">[9]</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:99"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:108"><nobr><span class="ft14">J. Cho and S. Roy. Impact of search engines on page <br>popularity. In Proceedings of the International World Wide <br>Web Conference, May 2004. </span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:81"><nobr><span class="ft17">[10]</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:108"><nobr><span class="ft14">J. Cho, S. Roy, R. Adams. Page Quality: In search of an <br>unbiased web ranking. In Proceedings of the ACM SIGMOD <br>2005 Conference. Baltimore, Maryland. June 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft17">[11]</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:108"><nobr><span class="ft14">N. Craswell, S. Robertson, H. Zaragoza, and M. Taylor. <br>Relevance weighting for query independent evidence. In <br>Proceedings of the 28</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:226"><nobr><span class="ft42">th</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:233"><nobr><span class="ft4"> Annual Conference on Research and </span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:108"><nobr><span class="ft14">Development in Information Retrieval (SIGIR), August, <br>2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:81"><nobr><span class="ft17">[12]</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:108"><nobr><span class="ft14">N. Dalvi, P. Domingos, Mausam, S. Sanghai, D. Verma. <br>Adversarial Classification. In Proceedings of the Tenth <br>International Conference on Knowledge Discovery and Data <br>Mining (pp. 99-108), Seattle, WA, 2004. </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft17">[13]</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:108"><nobr><span class="ft14">O. Dekel, C. Manning, and Y. Singer. Log-linear models for <br>label-ranking. In Advances in Neural Information Processing <br>Systems 16. Cambridge, MA: MIT Press, 2003. </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:81"><nobr><span class="ft17">[14]</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:108"><nobr><span class="ft14">S. Fox, K S. Fox, K. Karnawat, M. Mydland, S. T. Dumais <br>and T. White (2005).  Evaluating implicit measures to <br>improve the search experiences. In the ACM Transactions on <br>Information Systems, 23(2), pp. 147-168. April 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft17">[15]</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:108"><nobr><span class="ft14">T. Haveliwala. Efficient computation of PageRank. Stanford <br>University Technical Report, 1999. </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:81"><nobr><span class="ft17">[16]</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:108"><nobr><span class="ft14">T. Haveliwala. Topic-sensitive PageRank. In Proceedings of <br>the International World Wide Web Conference, May 2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft17">[17]</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:106"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:108"><nobr><span class="ft14">D. Hawking and N. Craswell. Very large scale retrieval and <br>Web search. In D. Harman and E. Voorhees (eds), The <br>TREC Book. MIT Press. </span></nobr></DIV>
+<DIV style="position:absolute;top:85;left:477"><nobr><span class="ft17">[18]</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:504"><nobr><span class="ft14">R. Herbrich, T. Graepel, and K. Obermayer. Support vector <br>learning for ordinal regression. In Proceedings of the Ninth <br>International Conference on Artificial Neural Networks, pp. <br>97-102. 1999. </span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:477"><nobr><span class="ft17">[19]</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:504"><nobr><span class="ft14">M. Ivory and M. Hearst. Statistical profiles of highly-rated <br>Web sites. In Proceedings of the ACM SIGCHI Conference <br>on Human Factors in Computing Systems, 2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:477"><nobr><span class="ft17">[20]</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:504"><nobr><span class="ft14">T. Joachims. Optimizing search engines using clickthrough <br>data. In Proceedings of the ACM Conference on Knowledge <br>Discovery and Data Mining (KDD), 2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:477"><nobr><span class="ft17">[21]</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:504"><nobr><span class="ft14">T. Joachims, L. Granka, B. Pang, H. Hembrooke, and G. <br>Gay. Accurately Interpreting Clickthrough Data as Implicit <br>Feedback. In Proceedings of the Conference on Research and <br>Development in Information Retrieval (SIGIR), 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:477"><nobr><span class="ft17">[22]</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:504"><nobr><span class="ft14">J. Kleinberg. Authoritative sources in a hyperlinked <br>environment. Journal of the ACM 46:5, pp. 604-32. 1999. </span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:477"><nobr><span class="ft17">[23]</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:504"><nobr><span class="ft14">A. Langville and C. Meyer. Deeper inside PageRank. <br>Internet Mathematics 1(3):335-380, 2004. </span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:477"><nobr><span class="ft17">[24]</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:504"><nobr><span class="ft14">F. Matthieu and M. Bouklit. The effect of the back button in <br>a random walk: application for PageRank. In Alternate track <br>papers and posters of the Thirteenth International World <br>Wide Web Conference, 2004. </span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:477"><nobr><span class="ft17">[25]</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:504"><nobr><span class="ft14">F. McSherry. A uniform approach to accelerated PageRank <br>computation. In Proceedings of the International World <br>Wide Web Conference, May 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:477"><nobr><span class="ft17">[26]</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:504"><nobr><span class="ft14">Y. Minamide. Static approximation of dynamically generated <br>Web pages. In Proceedings of the International World Wide <br>Web Conference, May 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:477"><nobr><span class="ft17">[27]</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:504"><nobr><span class="ft14">L. Page, S. Brin, R. Motwani, and T. Winograd. The <br>PageRank citation ranking: Bringing order to the web. <br>Technical report, Stanford University, Stanford, CA, 1998. </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:477"><nobr><span class="ft17">[28]</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:504"><nobr><span class="ft14">S. Pandey and C. Olston. User-centric Web crawling. In <br>Proceedings of the International World Wide Web <br>Conference, May 2005. </span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:477"><nobr><span class="ft17">[29]</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:504"><nobr><span class="ft14">M. Richardson and P. Domingos. The intelligent surfer: <br>probabilistic combination of link and content information in <br>PageRank. In Advances in Neural Information Processing <br>Systems 14, pp. 1441-1448. Cambridge, MA: MIT Press, <br>2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:477"><nobr><span class="ft17">[30]</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:504"><nobr><span class="ft14">C. Sherman. Teoma vs. Google, Round 2. Available from <br>World Wide Web (http://dc.internet.com/news/article.php/ <br>1002061), 2002. </span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:477"><nobr><span class="ft17">[31]</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:504"><nobr><span class="ft14">T. Upstill, N. Craswell, and D. Hawking. Predicting fame <br>and fortune: PageRank or indegree?. In the Eighth <br>Australasian Document Computing Symposium. 2003. </span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:477"><nobr><span class="ft17">[32]</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:502"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:504"><nobr><span class="ft14">T. Upstill, N. Craswell, and D. Hawking. Query-independent <br>evidence in home page finding. In ACM Transactions on <br>Information Systems. 2003. </span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:477"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:447"><nobr><span class="ft9">715</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

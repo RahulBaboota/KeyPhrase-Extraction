@@ -1,0 +1,1351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\189</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-07-25T20:31:33+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:6px;font-family:Times;color:#000000;}
+	.ft3{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:15px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:174"><nobr><span class="ft0"><b>The Maximum Entropy Method for Analyzing</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:335"><nobr><span class="ft0"><b>Retrieval Measures</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:275"><nobr><span class="ft1">Javed A. Aslam</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:399"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:399"><nobr><span class="ft1">, Emine Yilmaz, Virgiliu Pavlu</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:306"><nobr><span class="ft3">College of Computer and Information Science</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:379"><nobr><span class="ft3">Northeastern University</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:352"><nobr><span class="ft3">360 Huntington Ave, #202 WVH</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:396"><nobr><span class="ft3">Boston, MA 02115</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:340"><nobr><span class="ft4">{</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:347"><nobr><span class="ft1">jaa,emine,vip</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:453"><nobr><span class="ft4">}</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:460"><nobr><span class="ft1">@ccs.neu.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:81"><nobr><span class="ft5"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:81"><nobr><span class="ft10">We present a model, based on the maximum entropy method,<br>for analyzing various measures of retrieval performance such<br>as average precision, R-precision, and precision-at-cutoffs.<br>Our methodology treats the value of such a measure as a<br>constraint on the distribution of relevant documents in an<br>unknown list, and the maximum entropy distribution can<br>be determined subject to these constraints. For good mea-<br>sures of overall performance (such as average precision), the<br>resulting maximum entropy distributions are highly corre-<br>lated with actual distributions of relevant documents in lists<br>as demonstrated through TREC data; for poor measures of<br>overall performance, the correlation is weaker. As such, the<br>maximum entropy method can be used to quantify the over-<br>all quality of a retrieval measure. Furthermore, for good<br>measures of overall performance (such as average precision),<br>we show that the corresponding maximum entropy distribu-<br>tions can be used to accurately infer precision-recall curves<br>and the values of other measures of performance, and we<br>demonstrate that the quality of these inferences far exceeds<br>that predicted by simple retrieval measure correlation, as<br>demonstrated through TREC data.</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft5"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft10">H.3.4 [Information Storage and Retrieval]: Systems<br>and Software ­ Performance evaluation</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:81"><nobr><span class="ft5"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft4">Theory, Measurement, Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft5"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:81"><nobr><span class="ft4">Evaluation, Maximum Entropy, Average Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:81"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:88"><nobr><span class="ft4">We gratefully acknowledge the support provided by NSF</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:81"><nobr><span class="ft4">grant CCF-0418390.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft11">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>SIGIR'05, </i>August 15­19, 2005, Salvador, Brazil.<br>Copyright 2005 ACM 1-59593-034-5/05/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft6">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:475"><nobr><span class="ft5"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:507"><nobr><span class="ft5"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:489"><nobr><span class="ft4">The efficacy of retrieval systems is evaluated by a num-</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:475"><nobr><span class="ft10">ber of performance measures such as average precision, R-<br>precision, and precisions at standard cutoffs. Broadly speak-<br>ing, these measures can be classified as either system-oriented<br>measures of overall performance (e.g., average precision and<br>R-precision) or user-oriented measures of specific perfor-<br>mance (e.g., precision-at-cutoff 10) [3, 12, 5]. Different mea-<br>sures evaluate different aspects of retrieval performance, and<br>much thought and analysis has been devoted to analyzing<br>the quality of various different performance measures [10, 2,<br>17].</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:489"><nobr><span class="ft4">We consider the problem of analyzing the quality of vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:475"><nobr><span class="ft10">ous measures of retrieval performance and propose a model<br>based on the maximum entropy method for evaluating the<br>quality of a performance measure. While measures such as<br>average precision at relevant documents, R-precision, and<br>11pt average precision are known to be good measures of<br>overall performance, other measures such as precisions at<br>specific cutoffs are not. Our goal in this work is to develop<br>a model within which one can numerically assess the overall<br>quality of a given measure based on the reduction in un-<br>certainty of a system's performance one gains by learning<br>the value of the measure. As such, our evaluation model<br>is primarily concerned with assessing the relative merits of<br>system-oriented measures, but it can be applied to other<br>classes of measures as well.</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:489"><nobr><span class="ft4">We begin with the premise that the quality of a list of</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:475"><nobr><span class="ft10">documents retrieved in response to a given query is strictly<br>a function of the sequence of relevant and non-relevant docu-<br>ments retrieved within that list (as well as R, the total num-<br>ber of relevant documents for the given query). Most stan-<br>dard measures of retrieval performance satisfy this premise.<br>Our thesis is then that given the assessed value of a "good"<br>overall measure of performance, one's uncertainty about the<br>sequence of relevant and non-relevant documents in an un-<br>known list should be greatly reduced. Suppose, for exam-<br>ple, one were told that a list of 1,000 documents retrieved in<br>response to a query with 200 total relevant documents con-<br>tained 100 relevant documents. What could one reasonably<br>infer about the sequence of relevant and non-relevant doc-<br>uments in the unknown list? From this information alone,<br>one could only reasonably conclude that the likelihood of<br>seeing a relevant document at any rank level is uniformly<br>1/10. Now suppose that one were additionally told that the<br>average precision of the list was 0.4 (the maximum possi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">27</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">ble in this circumstance is 0.5). Now one could reasonably<br>conclude that the likelihood of seeing relevant documents at<br>low numerical ranks is much greater than the likelihood of<br>seeing relevant documents at high numerical ranks. One's<br>uncertainty about the sequence of relevant and non-relevant<br>documents in the unknown list is greatly reduced as a conse-<br>quence of the strong constraint that such an average preci-<br>sion places on lists in this situation. Thus, average precision<br>is highly informative. On the other hand, suppose that one<br>were instead told that the precision of the documents in<br>the rank range [100, 110] was 0.4. One's uncertainty about<br>the sequence of relevant and non-relevant documents in the<br>unknown list is not appreciably reduced as a consequence<br>of the relatively weak constraint that such a measurement<br>places on lists. Thus, precision in the range [100, 110] is not<br>a highly informative measure. In what follows, we develop<br>a model within which one can quantify how informative a<br>measure is.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:94"><nobr><span class="ft4">We consider two questions: (1) What can reasonably be</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft10">inferred about an unknown list given the value of a mea-<br>surement taken over this list? (2) How accurately do these<br>inferences reflect reality? We argue that the former question<br>is properly answered by considering the maximum entropy<br>distributions subject to the measured value as a constraint,<br>and we demonstrate that such maximum entropy models<br>corresponding to good overall measures of performance such<br>as average precision yield accurate inferences about under-<br>lying lists seen in practice (as demonstrated through TREC<br>data).</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:94"><nobr><span class="ft4">More specifically, we develop a framework based on the</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:81"><nobr><span class="ft10">maximum entropy method which allows one to infer the<br>most "reasonable" model for the sequence of relevant and<br>non-relevant documents in a list given a measured constraint.<br>From this model, we show how one can infer the most "rea-<br>sonable" model for the unknown list's entire precision-recall<br>curve. We demonstrate through the use of TREC data that<br>for "good" overall measures of performance (such as average<br>precision), these inferred precision-recall curves are accurate<br>approximations of actual precision-recall curves; however,<br>for "poor" overall measures of performance, these inferred<br>precision-recall curves do not accurately approximate actual<br>precision-recall curves. Thus, maximum entropy modeling<br>can be used to quantify the quality of a measure of overall<br>performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:94"><nobr><span class="ft4">We further demonstrate through the use of TREC data</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:81"><nobr><span class="ft10">that the maximum entropy models corresponding to "good"<br>measures of overall performance can be used to make ac-<br>curate predictions of other measurements. While it is well<br>known that "good" overall measures such as average preci-<br>sion are well correlated with other measures of performance,<br>and thus average precision could be used to reasonably pre-<br>dict other measures of performance, we demonstrate that<br>the maximum entropy models corresponding to average pre-<br>cision yield inferences of other measures even more highly<br>correlated with their actual values, thus validating both av-<br>erage precision and maximum entropy modeling.</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:94"><nobr><span class="ft4">In the sections that follow, we first describe the maxi-</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:81"><nobr><span class="ft10">mum entropy method and discuss how maximum entropy<br>modeling can be used to analyze measures of retrieval per-<br>formance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:153"><nobr><span class="ft4">We then describe the results of applying our</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:81"><nobr><span class="ft10">methodology using TREC data, and we conclude with a<br>summary and future work.</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft5"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:507"><nobr><span class="ft5"><b>THE MAXIMUM ENTROPY METHOD</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:489"><nobr><span class="ft4">The concept of entropy as a measure of information was</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:475"><nobr><span class="ft10">first introduced by Shannon [20], and the Principle of Max-<br>imum Entropy was introduced by Jaynes [7, 8, 9]. Since its<br>introduction, the Maximum Entropy Method has been ap-<br>plied in many areas of science and technology [21] including<br>natural language processing [1], ambiguity resolution [18],<br>text classification [14], machine learning [15, 16], and infor-<br>mation retrieval [6, 11], to name but a few examples. In<br>what follows, we introduce the maximum entropy method<br>through a classic example, and we then describe how the<br>maximum entropy method can be used to evaluate measures<br>of retrieval performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:489"><nobr><span class="ft4">Suppose you are given an unknown and possibly biased</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:475"><nobr><span class="ft10">six-sided die and were asked the probability of obtaining any<br>particular die face in a given roll. What would your answer<br>be? This problem is under-constrained and the most seem-<br>ingly "reasonable" answer is a uniform distribution over all<br>faces. Suppose now you are also given the information that<br>the average die roll is 3.5. The most seemingly "reasonable"<br>answer is still a uniform distribution. What if you are told<br>that the average die roll is 4.5? There are many distribu-<br>tions over the faces such that the average die roll is 4.5; how<br>can you find the most seemingly "reasonable" distribution?<br>Finally, what would your answer be if you were told that<br>the average die roll is 5.5? Clearly, the belief in getting a<br>6 increases as the expected value of the die rolls increases.<br>But there are many distributions satisfying this constraint;<br>which distribution would you choose?</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:489"><nobr><span class="ft4">The "Maximum Entropy Method" (MEM) dictates the</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:475"><nobr><span class="ft10">most "reasonable" distribution satisfying the given constraints.<br>The "Principle of Maximal Ignorance" forms the intuition<br>behind the MEM; it states that one should choose the dis-<br>tribution which is least predictable (most random) subject<br>to the given constraints. Jaynes and others have derived nu-<br>merous entropy concentration theorems which show that the<br>vast majority of all empirical frequency distributions (e.g.,<br>those corresponding to sequences of die rolls) satisfying the<br>given constraints have associated empirical probabilities and<br>entropies very close to those probabilities satisfying the con-<br>straints whose associated entropy is maximal [7].</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:489"><nobr><span class="ft4">Thus, the MEM dictates the most random distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:475"><nobr><span class="ft10">satisfying the given constraints, using the entropy of the<br>probability distribution as a measure of randomness. The<br>entropy of a probability distribution p = {p</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:742"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:748"><nobr><span class="ft4">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:761"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:767"><nobr><span class="ft4">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:805"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:813"><nobr><span class="ft4">} is</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:475"><nobr><span class="ft10">a measure of the uncertainty (randomness) inherent in the<br>distribution and is defined as follows</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:591"><nobr><span class="ft4">H(p) = -</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:659"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:653"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:654"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:675"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:682"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:689"><nobr><span class="ft4">lg p</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:709"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:714"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:475"><nobr><span class="ft10">Thus, maximum entropy distributions are probability dis-<br>tributions making no additional assumptions apart from the<br>given constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft4">In addition to its mathematical justification, the MEM</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft10">tends to produce solutions one often sees in nature. For<br>example, it is known that given the temperature of a gas, the<br>actual distribution of velocities in the gas is the maximum<br>entropy distribution under the temperature constraint.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft4">We can apply the MEM to our die problem as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft12">Let the probability distribution over the die faces be p =<br>{p</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:489"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:495"><nobr><span class="ft4">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:533"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:539"><nobr><span class="ft4">}. Mathematically, finding the maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft4">distribution over die faces such that the expected die roll is</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">28</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:1px;font-family:Times;color:#000000;}
+	.ft14{font-size:2px;font-family:Times;color:#000000;}
+	.ft15{font-size:5px;font-family:Times;color:#000000;}
+	.ft16{font-size:15px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189003.png" alt="background image">
+<DIV style="position:absolute;top:212;left:179"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:204"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:229"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:254"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:279"><nobr><span class="ft13">5</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:304"><nobr><span class="ft13">6</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:152"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:149"><nobr><span class="ft13">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:149"><nobr><span class="ft13">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:149"><nobr><span class="ft13">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:149"><nobr><span class="ft13">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:149"><nobr><span class="ft13">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:149"><nobr><span class="ft13">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:149"><nobr><span class="ft13">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:149"><nobr><span class="ft13">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:149"><nobr><span class="ft13">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:152"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:234"><nobr><span class="ft14">die face</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:146"><nobr><span class="ft14">probability</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:400"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:425"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:450"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:500"><nobr><span class="ft13">5</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:525"><nobr><span class="ft13">6</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:373"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:370"><nobr><span class="ft13">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:370"><nobr><span class="ft13">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:370"><nobr><span class="ft13">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:370"><nobr><span class="ft13">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:370"><nobr><span class="ft13">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:370"><nobr><span class="ft13">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:370"><nobr><span class="ft13">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:370"><nobr><span class="ft13">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:370"><nobr><span class="ft13">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:373"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:456"><nobr><span class="ft14">die face</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:367"><nobr><span class="ft14">probability</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:621"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:646"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:671"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:696"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:721"><nobr><span class="ft13">5</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:747"><nobr><span class="ft13">6</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:594"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:591"><nobr><span class="ft13">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:591"><nobr><span class="ft13">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:591"><nobr><span class="ft13">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:591"><nobr><span class="ft13">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:591"><nobr><span class="ft13">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:591"><nobr><span class="ft13">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:591"><nobr><span class="ft13">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:591"><nobr><span class="ft13">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:591"><nobr><span class="ft13">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:594"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:677"><nobr><span class="ft14">die face</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:589"><nobr><span class="ft14">probability</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:113"><nobr><span class="ft4">Figure 1: Maximum entropy die distributions with mean die rolls of 3.5, 4.5, and 5.5, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:81"><nobr><span class="ft4">d corresponds to the following optimization problem:</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:81"><nobr><span class="ft4">Maximize: H(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:81"><nobr><span class="ft4">Subject to:</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:97"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:121"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:116"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:114"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:134"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:141"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:150"><nobr><span class="ft4">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:97"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:121"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:116"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:114"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:134"><nobr><span class="ft4">i · p</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:156"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:165"><nobr><span class="ft4">= d</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:81"><nobr><span class="ft10">The first constraint ensures that the solution forms a distri-<br>bution over the die faces, and the second constraint ensures<br>that this distribution has the appropriate expectation. This<br>is a constrained optimization problem which can be solved<br>using the method of Lagrange multipliers. Figure 1 shows<br>three different maximum entropy distributions over the die<br>faces such that the expected die roll is 3.5, 4.5, and 5.5,<br>respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:81"><nobr><span class="ft5"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:121"><nobr><span class="ft16"><b>Application of the Maximum Entropy<br>Method to Analyzing Retrieval Measures</b></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:94"><nobr><span class="ft4">Suppose that you were given a list of length N correspond-</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:81"><nobr><span class="ft10">ing to the output of a retrieval system for a given query,<br>and suppose that you were asked to predict the probabil-<br>ity of seeing any one of the 2</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:255"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:270"><nobr><span class="ft4">possible patterns of relevant</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:81"><nobr><span class="ft10">documents in that list. In the absence of any information<br>about the query, any performance information for the sys-<br>tem, or any a priori modeling of the behavior of retrieval<br>systems, the most "reasonable" answer you could give would<br>be that all lists of length N are equally likely. Suppose now<br>that you are also given the information that the expected<br>number of relevant documents over all lists of length N is<br>R</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:91"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:107"><nobr><span class="ft4">. Your "reasonable" answer might then be a uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:81"><nobr><span class="ft4">distribution over all `</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:218"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:211"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:220"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:235"><nobr><span class="ft4">´ different possible lists with R</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:424"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft10">relevant documents. But what if apart from the constraint<br>on the number of relevant documents retrieved, you were<br>also given the constraint that the expected value of aver-<br>age precision is ap? If the average precision value is high,<br>then of all the `</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:191"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:184"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:193"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:208"><nobr><span class="ft4">´ lists with R</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:295"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:317"><nobr><span class="ft4">relevant documents,</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft10">the lists in which the relevant documents are retrieved at<br>low numerical ranks should have higher probabilities. But<br>how can you determine the most "reasonable" such distribu-<br>tion? The maximum entropy method essentially dictates the<br>most reasonable distribution as a solution to the following<br>constrained optimization problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft4">Let p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:140"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:147"><nobr><span class="ft4">, ..., r</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:177"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:187"><nobr><span class="ft4">) be a probability distribution over the</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft10">relevances associated with document lists of length N , let<br>rel(r</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:110"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:116"><nobr><span class="ft4">, ..., r</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:146"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:156"><nobr><span class="ft4">) be the number of relevant documents in a list,</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft4">and let ap(r</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:152"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:158"><nobr><span class="ft4">, ..., r</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:188"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:198"><nobr><span class="ft4">) be the average precision of a list. Then</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft10">the maximum entropy method can be mathematically for-<br>mulated as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:475"><nobr><span class="ft4">Maximize: H(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:475"><nobr><span class="ft4">Subject to:</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:491"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:523"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:509"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:514"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:520"><nobr><span class="ft2">,...,r</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:542"><nobr><span class="ft15">N</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:554"><nobr><span class="ft4">p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:573"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:579"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:616"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:626"><nobr><span class="ft4">) = 1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:491"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:523"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:509"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:514"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:520"><nobr><span class="ft2">,...,r</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:542"><nobr><span class="ft15">N</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:554"><nobr><span class="ft4">ap(r</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:580"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:586"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:623"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:633"><nobr><span class="ft4">) · p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:667"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:674"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:711"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:721"><nobr><span class="ft4">) = ap</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:491"><nobr><span class="ft4">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:523"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:509"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:514"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:520"><nobr><span class="ft2">,...,r</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:542"><nobr><span class="ft15">N</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:554"><nobr><span class="ft4">rel(r</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:583"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:589"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:626"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:637"><nobr><span class="ft4">) · p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:670"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:677"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:714"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:724"><nobr><span class="ft4">) = R</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:758"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:475"><nobr><span class="ft10">Note that the solution to this optimization problem is a<br>distribution over possible lists, where this distribution ef-<br>fectively gives one's a posteriori belief in any list given the<br>measured constraint.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:489"><nobr><span class="ft4">The previous problem can be formulated in a slightly dif-</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:475"><nobr><span class="ft10">ferent manner yielding another interpretation of the problem<br>and a mathematical solution. Suppose that you were given<br>a list of length N corresponding to output of a retrieval sys-<br>tem for a given a query, and suppose that you were asked<br>to predict the probability of seeing a relevant document at<br>some rank. Since there are no constraints, all possible lists<br>of length N are equally likely, and hence the probability of<br>seeing a relevant document at any rank is 1/2. Suppose now<br>that you are also given the information that the expected<br>number of relevant documents over all lists of length N is<br>R</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:486"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:501"><nobr><span class="ft4">. The most natural answer would be a R</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:748"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:764"><nobr><span class="ft4">/N uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:475"><nobr><span class="ft4">probability for each rank.</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:648"><nobr><span class="ft4">Finally, suppose that you are</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:475"><nobr><span class="ft10">given the additional constraint that the expected average<br>precision is ap. Under the assumption that our distribu-<br>tion over lists is a product distribution (this is effectively<br>a fairly standard independence assumption), we may solve<br>this problem as follows. Let</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:544"><nobr><span class="ft4">p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:562"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:569"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:606"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:616"><nobr><span class="ft4">) = p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:658"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:665"><nobr><span class="ft4">) · p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:699"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:705"><nobr><span class="ft4">) · · · p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:749"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:760"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:475"><nobr><span class="ft4">where p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:533"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:538"><nobr><span class="ft4">) is the probability that the document at rank i is</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:475"><nobr><span class="ft10">relevant. We can then solve the problem of calculating the<br>probability of seeing a relevant document at any rank using<br>the MEM. For notational convenience, we will refer to this<br>product distribution as the probability-at-rank distribution<br>and the probability of seeing a relevant document at rank i,<br>p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:494"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:499"><nobr><span class="ft4">), as p</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:536"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:541"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:489"><nobr><span class="ft4">Standard results from information theory [4] dictate that</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:475"><nobr><span class="ft4">if p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:506"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:513"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:550"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:560"><nobr><span class="ft4">) is a product distribution, then</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:566"><nobr><span class="ft4">H(p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:603"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:609"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:646"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:656"><nobr><span class="ft4">)) =</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:691"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:686"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:687"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:708"><nobr><span class="ft4">H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:733"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:737"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:475"><nobr><span class="ft4">where H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:540"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:545"><nobr><span class="ft4">) is the binary entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:540"><nobr><span class="ft4">H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:565"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:569"><nobr><span class="ft4">) = -p</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:611"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:618"><nobr><span class="ft4">lg p</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:638"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:646"><nobr><span class="ft4">- (1 - p</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:696"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:701"><nobr><span class="ft4">) lg(1 - p</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:755"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:760"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft10">Furthermore, it can be shown that given a product distribu-<br>tion p(r</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:522"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:528"><nobr><span class="ft4">, . . . , r</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:565"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:576"><nobr><span class="ft4">) over the relevances associated with docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">29</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:3px;font-family:Helvetica;color:#000000;}
+	.ft18{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft19{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189004.png" alt="background image">
+<DIV style="position:absolute;top:102;left:119"><nobr><span class="ft4">Maximize: P</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:202"><nobr><span class="ft19">N<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:223"><nobr><span class="ft4">H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:248"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:252"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:119"><nobr><span class="ft4">Subject to:</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:135"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:156"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:154"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:171"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:168"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:167"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:185"><nobr><span class="ft4">`</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:193"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:198"><nobr><span class="ft15">i</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:196"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:205"><nobr><span class="ft4">`1 +</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:235"><nobr><span class="ft2">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:237"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:235"><nobr><span class="ft2">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:256"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:263"><nobr><span class="ft2">j</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:269"><nobr><span class="ft4">´´ = ap</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:135"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:157"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:154"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:152"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:173"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:180"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:188"><nobr><span class="ft4">= R</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:213"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:114"><nobr><span class="ft10">Figure 2: Maximum entropy<br>setup for average precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:359"><nobr><span class="ft4">Maximize: P</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:442"><nobr><span class="ft19">N<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:463"><nobr><span class="ft4">H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:488"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:492"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:359"><nobr><span class="ft4">Subject to:</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:375"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:396"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:394"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:411"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:408"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:407"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:427"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:434"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:442"><nobr><span class="ft4">= rp</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:375"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:397"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:394"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:393"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:413"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:420"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:428"><nobr><span class="ft4">= R</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:453"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:354"><nobr><span class="ft10">Figure 3: Maximum entropy<br>setup for R-precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:599"><nobr><span class="ft4">Maximize: P</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:682"><nobr><span class="ft19">N<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:703"><nobr><span class="ft4">H(p</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:728"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:732"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:599"><nobr><span class="ft4">Subject to:</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:615"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:635"><nobr><span class="ft19">1<br>k</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:650"><nobr><span class="ft2">k</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:646"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:645"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:665"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:672"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:680"><nobr><span class="ft4">= PC (k)</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:615"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:637"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:634"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:633"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:653"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:660"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:668"><nobr><span class="ft4">= R</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:693"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:594"><nobr><span class="ft10">Figure 4: Maximum entropy<br>setup for precision-at-cutoff.</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft10">ment lists of length N , the expected value of average preci-<br>sion is</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:181"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:179"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:199"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:194"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:195"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:216"><nobr><span class="ft4">  p</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:236"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:232"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:245"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:256"><nobr><span class="ft4">1 +</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:280"><nobr><span class="ft2">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:279"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:280"><nobr><span class="ft2">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:302"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:309"><nobr><span class="ft2">j</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:315"><nobr><span class="ft4">!!</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:339"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:422"><nobr><span class="ft4">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:81"><nobr><span class="ft10">(The derivation of this formula is omitted due to space con-<br>straints.) Furthermore, since p</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:268"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:278"><nobr><span class="ft4">is the probability of seeing</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:81"><nobr><span class="ft10">a relevant document at rank i, the expected number of rel-<br>evant documents retrieved until rank N is P</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:355"><nobr><span class="ft19">N<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:375"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:382"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:387"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:94"><nobr><span class="ft4">Now, if one were given some list of length N , one were told</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:81"><nobr><span class="ft4">that the expected number of relevant documents is R</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:395"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:411"><nobr><span class="ft4">, one</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:81"><nobr><span class="ft10">were further informed that the expected average precision is<br>ap, and one were asked the probability of seeing a relevant<br>document at any rank under the independence assumption<br>stated, one could apply the MEM as shown in Figure 2.<br>Note that one now solves for the maximum entropy product<br>distribution over lists, which is equivalent to a maximum en-<br>tropy probability-at-rank distribution. Applying the same<br>ideas to R-precision and precision-at-cutoff k, one obtains<br>analogous formulations as shown in Figures 3 and 4, respec-<br>tively.</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:94"><nobr><span class="ft4">All of these formulations are constrained optimization prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:81"><nobr><span class="ft10">lems, and the method of Lagrange multipliers can be used<br>to find an analytical solution, in principle. When analyti-<br>cal solutions cannot be determined, numerical optimization<br>methods can be employed. The maximum entropy distri-<br>butions for R-precision and precision-at-cutoff k can be ob-<br>tained analytically using the method of Lagrange multipli-<br>ers. However, numerical optimization methods are required<br>to determine the maximum entropy distribution for aver-<br>age precision. In Figure 5, examples of maximum entropy<br>probability-at-rank curves corresponding to the measures<br>average precision, R-precision, and precision-at-cutoff 10 for<br>a run in TREC8 can be seen. Note that the probability-<br>at-rank curves are step functions for the precision-at-cutoff<br>and R-precision constraints; this is as expected since, for<br>example, given a precision-at-cutoff 10 of 0.3, one can only<br>reasonably conclude a uniform probability of 0.3 for seeing<br>a relevant document at any of the first 10 ranks.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:407"><nobr><span class="ft4">Note,</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:81"><nobr><span class="ft10">however, that the probability-at-rank curve corresponding<br>to average precision is smooth and strictly decreasing.</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:94"><nobr><span class="ft4">Using the maximum entropy probability-at-rank distribu-</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:81"><nobr><span class="ft10">tion of a list, we can infer the maximum entropy precision-<br>recall curve for the list. Given a probability-at-rank distri-<br>bution p, the number of relevant documents retrieved un-<br>til rank i is REL(i) = P</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:242"><nobr><span class="ft19">i<br>j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:264"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:271"><nobr><span class="ft2">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:277"><nobr><span class="ft4">. Therefore, the precision</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:81"><nobr><span class="ft10">and recall at rank i are PC (i) = REL(i)/i and REC (i) =<br>REL(i)/R. Hence, using the maximum entropy probability-</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:552"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:570"><nobr><span class="ft17">100</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:592"><nobr><span class="ft17">200</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:613"><nobr><span class="ft17">300</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:634"><nobr><span class="ft17">400</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:656"><nobr><span class="ft17">500</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:677"><nobr><span class="ft17">600</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:699"><nobr><span class="ft17">700</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:720"><nobr><span class="ft17">800</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:741"><nobr><span class="ft17">900</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:761"><nobr><span class="ft17">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:549"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:545"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:545"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:545"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:545"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:545"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:545"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:545"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:545"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:545"><nobr><span class="ft17">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:549"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:655"><nobr><span class="ft17">rank</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:542"><nobr><span class="ft17">probability</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:587"><nobr><span class="ft18">TREC8 System fub99a Query 435 AP = 0.1433</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:717"><nobr><span class="ft17">ap maxent dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:717"><nobr><span class="ft17">rp maxent dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:717"><nobr><span class="ft17">pc-10 maxent dist.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:504"><nobr><span class="ft4">Figure 5: Probability-at-rank distributions.</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:475"><nobr><span class="ft10">at-rank distribution for each measure, we can generate the<br>maximum entropy precision-recall curve of the list. If a mea-<br>sure provides a great deal of information about the under-<br>lying list, then the maximum entropy precision-recall curve<br>should approximate the precision-recall curve of the actual<br>list.</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:512"><nobr><span class="ft4">However, if a measure is not particularly informa-</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:475"><nobr><span class="ft10">tive, then the maximum entropy precision-recall curve need<br>not approximate the actual precision-recall curve. There-<br>fore, noting how closely the maximum entropy precision-<br>recall curve corresponding to a measure approximates the<br>precision-recall curve of the actual list, we can calculate how<br>much information a measure contains about the actual list,<br>and hence how "informative" a measure is. Thus, we have a<br>methodology for evaluating the evaluation measures them-<br>selves.</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:489"><nobr><span class="ft4">Using the maximum entropy precision-recall curve of a</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:475"><nobr><span class="ft10">measure, we can also predict the values of other measures.<br>For example, using the maximum entropy precision-recall<br>curve corresponding to average precision, we can predict<br>the precision-at-cutoff 10. For highly informative measures,<br>these predictions should be very close to reality. Hence, we<br>have a second way of evaluating evaluation measures.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:475"><nobr><span class="ft5"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:507"><nobr><span class="ft5"><b>EXPERIMENTAL RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:489"><nobr><span class="ft4">We tested the performance of the evaluation measures av-</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft10">erage precision, R-precision, and precision-at-cutoffs 5, 10,<br>15, 20, 30, 100, 200, 500 and 1000 using data from TRECs<br>3, 5, 6, 7, 8 and 9. For any TREC and any query, we chose<br>those systems whose number of relevant documents retrieved<br>was at least 10 in order to have a sufficient number of points<br>on the precision-recall curve. We then calculated the maxi-<br>mum entropy precision-recall curve subject to the given mea-<br>sured constraint, as described above. The maximum entropy<br>precision-recall curve corresponding to an average precision</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">30</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">constraint cannot be determined analytically; therefore, we<br>used numerical optimization</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:251"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:262"><nobr><span class="ft4">to find the maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:81"><nobr><span class="ft4">distribution corresponding to average precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft4">We shall refer to the execution of a retrieval system on</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft10">a particular query as a run. Figure 6 shows examples of<br>maximum entropy precision-recall curves corresponding to<br>average precision, R-precision, and precision-at-cutoff 10 for<br>three different runs, together with the actual precision-recall<br>curves. We focused on these three measures since they are<br>perhaps the most commonly cited measures in IR. We also<br>provide results for precision-at-cutoff 100 in later plots and<br>detailed results for all measures in a later table. As can be<br>seen in Figure 6, using average precision as a constraint, one<br>can generate the actual precision-recall curve of a run with<br>relatively high accuracy.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:94"><nobr><span class="ft4">In order to quantify how good an evaluation measure is</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft10">in generating the precision-recall curve of an actual list,<br>we consider two different error measures: the root mean<br>squared error (RMS) and the mean absolute error (MAE).<br>Let {</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:121"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:127"><nobr><span class="ft4">, </span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:141"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:147"><nobr><span class="ft4">, . . . , </span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:186"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:194"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:210"><nobr><span class="ft4">} be the precisions at the recall levels</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:81"><nobr><span class="ft4">{1/R, 2/R, . . . , R</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:184"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:199"><nobr><span class="ft4">/R} where R</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:282"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:304"><nobr><span class="ft4">is the number of rele-</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:81"><nobr><span class="ft10">vant documents retrieved by a system and R is the number of<br>documents relevant to the query, and let {m</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:339"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:346"><nobr><span class="ft4">, m</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:364"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:370"><nobr><span class="ft4">, . . . , m</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:413"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:421"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:437"><nobr><span class="ft4">}</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:81"><nobr><span class="ft10">be the estimated precisions at the corresponding recall lev-<br>els for a maximum entropy distribution corresponding to a<br>measure. Then the MAE and RMS errors are calculated as<br>follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:159"><nobr><span class="ft4">RMS</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:205"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:229"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:229"><nobr><span class="ft4">u</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:229"><nobr><span class="ft4">u</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:229"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:255"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:245"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:256"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:276"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:284"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:277"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:278"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:299"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:312"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:320"><nobr><span class="ft4">- m</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:346"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:351"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:356"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:158"><nobr><span class="ft4">MAE</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:205"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:240"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:231"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:241"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:261"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:269"><nobr><span class="ft15">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:263"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:264"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:287"><nobr><span class="ft4">|</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:299"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:306"><nobr><span class="ft4">- m</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:332"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:337"><nobr><span class="ft4">|</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:81"><nobr><span class="ft4">The points after recall R</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:231"><nobr><span class="ft2">ret</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:247"><nobr><span class="ft4">/R on the precision-recall curve</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:81"><nobr><span class="ft10">are not considered in the evaluation of the MAE and RMS<br>errors since, by TREC convention, the precisions at these<br>recall levels are assumed to be 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:94"><nobr><span class="ft4">In order to evaluate how good a measure is at inferring</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft10">actual precision-recall curves, we calculated the MAE and<br>RMS errors of the maximum entropy precision-recall curves<br>corresponding to the measures in question, averaged over all<br>runs for each TREC. Figure 7 shows how the MAE and RMS<br>errors for average precision, R-precision, precision-at-cutoff<br>10, and precision-at-cutoff 100 compare with each other for<br>each TREC. The MAE and RMS errors follow the same<br>pattern over all TRECs. Both errors are consistently and<br>significantly lower for average precision than for the other<br>measures in question, while the errors for R-precision are<br>consistently lower than for precision-at-cutoffs 10 and 100.</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:94"><nobr><span class="ft4">Table 1 shows the actual values of the RMS errors for all</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:81"><nobr><span class="ft10">measures over all TRECs. In our experiments, MAE and<br>RMS errors follow a very similar pattern, and we therefore<br>omit MAE results due to space considerations. From this<br>table, it can be seen that average precision has consistently<br>lower RMS errors when compared to the other measures.<br>The penultimate column of the table shows the average RMS<br>errors per measure averaged over all TRECs. On average,<br>R-precision has the second lowest RMS error after average<br>precision, and precision-at-cutoff 30 is the third best mea-<br>sure in terms of RMS error. The last column of the table</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:88"><nobr><span class="ft4">We used the TOMLAB Optimization Environment for</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft4">Matlab.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft10">shows the percent increase in the average RMS error of a<br>measure when compared to the RMS error of average preci-<br>sion. As can be seen, the average RMS errors for the other<br>measures are substantially greater than the average RMS<br>error for average precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:489"><nobr><span class="ft4">We now consider a second method for evaluating how in-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:475"><nobr><span class="ft10">formative a measure is. A highly informative measure should<br>properly reduce one's uncertainty about the distribution of<br>relevant and non-relevant documents in a list; thus, in our<br>maximum entropy formulation, the probability-at-rank dis-<br>tribution should closely correspond to the pattern of rele-<br>vant and non-relevant documents present in the list. One<br>should then be able to accurately predict the values of other<br>measures from this probability-at-rank distribution.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:489"><nobr><span class="ft4">Given a probability-at-rank distribution p</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:737"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:743"><nobr><span class="ft4">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:756"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:763"><nobr><span class="ft4">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:800"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:811"><nobr><span class="ft4">, we</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:475"><nobr><span class="ft10">can predict average precision, R-precision and precision-at-<br>cutoff k values as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:495"><nobr><span class="ft4">· ap = 1</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:543"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:563"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:558"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:559"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:580"><nobr><span class="ft4">  p</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:600"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:596"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:609"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:620"><nobr><span class="ft4">1 +</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:644"><nobr><span class="ft2">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:644"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:644"><nobr><span class="ft2">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:666"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:673"><nobr><span class="ft2">j</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:679"><nobr><span class="ft4">!!</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:495"><nobr><span class="ft4">· rp = 1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:543"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:563"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:557"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:558"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:580"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:586"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:495"><nobr><span class="ft4">· PC (k) = 1</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:569"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:587"><nobr><span class="ft2">k</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:580"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:581"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:603"><nobr><span class="ft4">p</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:609"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:475"><nobr><span class="ft10">The plots in the top row of Figures 8 and 9 show how average<br>precision is actually correlated with R-precision, precision-<br>at-cutoff 10, and precision-at-cutoff 100 for TRECs 6 and 8,<br>respectively. Each point in the plot corresponds to a sys-<br>tem and the values of the measures are averaged over all<br>queries. Using these plots as a baseline for comparison, the<br>plots in the bottom row of the figures show the correlation<br>between the actual measures and the measures predicted<br>using the average precision maximum entropy probability-<br>at-rank distribution. Consider predicting precision-at-cutoff<br>10 values using the average precision maximum entropy dis-<br>tributions in TREC 6. Without applying the maximum en-<br>tropy method, Figure 8 shows that the two measures are<br>correlated with a Kendall's  value of 0.671. However, the<br>precision-at-cutoff 10 values inferred from the average pre-<br>cision maximum entropy distribution have a Kendall's <br>value of 0.871 when compared to actual precisions-at-cutoff<br>10. Hence, the predicted precision-at-cutoff 10 and actual<br>precision-at-cutoff 10 values are much more correlated than<br>the actual average precision and actual precision-at-cutoff 10<br>values. Using a similar approach for predicting R-precision<br>and precision-at-cutoff 100, it can be seen in Figures 8 and 9<br>that the measured values predicted by using average preci-<br>sion maximum entropy distributions are highly correlated<br>with actual measured values.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:489"><nobr><span class="ft4">We conducted similar experiments using the maximum</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft10">entropy distributions corresponding to other measures, but<br>since these measures are less informative, we obtained much<br>smaller increases (and sometimes even decreases) in inferred<br>correlations. (These results are omitted due to space con-<br>siderations.) Table 2 summarizes the correlation improve-<br>ments possible using the maximum entropy distribution cor-<br>responding to average precision. The row labeled </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:784"><nobr><span class="ft2">act</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:805"><nobr><span class="ft4">gives</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft10">the actual Kendall's  correlation between average precision<br>and the measure in the corresponding column.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:781"><nobr><span class="ft4">The row</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft4">labeled </span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:530"><nobr><span class="ft2">inf</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:552"><nobr><span class="ft4">gives the Kendall's  correlation between the</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">31</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:2px;font-family:Helvetica;color:#000000;}
+	.ft21{font-size:3px;line-height:8px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189006.png" alt="background image">
+<DIV style="position:absolute;top:226;left:154"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:170"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:187"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:205"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:222"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:240"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:257"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:274"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:292"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:309"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:328"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:152"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:149"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:149"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:149"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:149"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:149"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:149"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:149"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:149"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:149"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:152"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:237"><nobr><span class="ft20">recall</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:146"><nobr><span class="ft20">precision</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:185"><nobr><span class="ft17">TREC8 System fub99a Query 435 AP = 0.1433</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:278"><nobr><span class="ft20">actual prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:278"><nobr><span class="ft20">ap maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:278"><nobr><span class="ft20">rp maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:278"><nobr><span class="ft20">pc-10 maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:376"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:391"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:409"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:426"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:443"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:461"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:478"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:495"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:513"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:530"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:549"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:374"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:370"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:370"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:370"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:370"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:370"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:370"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:370"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:370"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:370"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:374"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:458"><nobr><span class="ft20">recall</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:367"><nobr><span class="ft20">precision</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:401"><nobr><span class="ft17">TREC8 System MITSLStd Query 404 AP = 0.2305</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:498"><nobr><span class="ft20">actual prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:498"><nobr><span class="ft20">ap maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:498"><nobr><span class="ft20">rp maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:498"><nobr><span class="ft20">pc-10 maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:597"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:613"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:630"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:647"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:665"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:682"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:699"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:717"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:734"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:751"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:770"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:595"><nobr><span class="ft20">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:591"><nobr><span class="ft20">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:591"><nobr><span class="ft20">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:591"><nobr><span class="ft20">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:591"><nobr><span class="ft20">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:591"><nobr><span class="ft20">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:591"><nobr><span class="ft20">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:591"><nobr><span class="ft20">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:591"><nobr><span class="ft20">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:591"><nobr><span class="ft20">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:595"><nobr><span class="ft20">1</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:679"><nobr><span class="ft20">recall</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:589"><nobr><span class="ft20">precision</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:626"><nobr><span class="ft17">TREC8 System pir9At0 Query 446 AP = 0.4754</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:719"><nobr><span class="ft20">actual prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:719"><nobr><span class="ft20">ap maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:719"><nobr><span class="ft20">rp maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:719"><nobr><span class="ft20">pc-10 maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:108"><nobr><span class="ft4">Figure 6: Inferred precision-recall curves and actual precision-recall curve for three runs in TREC8.</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:154"><nobr><span class="ft17">TREC3</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:208"><nobr><span class="ft17">TREC5</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:262"><nobr><span class="ft17">TREC6</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:316"><nobr><span class="ft17">TREC7</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:369"><nobr><span class="ft17">TREC8</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:423"><nobr><span class="ft17">TREC9</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:151"><nobr><span class="ft17">0.08</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:154"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:151"><nobr><span class="ft17">0.12</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:151"><nobr><span class="ft17">0.14</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:151"><nobr><span class="ft17">0.16</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:151"><nobr><span class="ft17">0.18</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:154"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:151"><nobr><span class="ft17">0.22</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:147"><nobr><span class="ft18">Mean Absolute Error</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:361"><nobr><span class="ft21">ap maxent prec-recall<br>rp maxent prec-recall<br>pc-10 maxent prec-recall<br>pc-100 maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:488"><nobr><span class="ft17">TREC3</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:541"><nobr><span class="ft17">TREC5</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:595"><nobr><span class="ft17">TREC6</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:649"><nobr><span class="ft17">TREC7</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:702"><nobr><span class="ft17">TREC8</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:756"><nobr><span class="ft17">TREC9</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:488"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:484"><nobr><span class="ft17">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:488"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:484"><nobr><span class="ft17">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:480"><nobr><span class="ft18">RMS Error</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:695"><nobr><span class="ft21">ap maxent prec-recall<br>rp maxent prec-recall<br>pc-10 maxent prec-recall<br>pc-100 maxent prec-recall</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:164"><nobr><span class="ft4">Figure 7: MAE and RMS errors for inferred precision-recall curves over all TRECs.</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:242"><nobr><span class="ft4">TREC3</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:305"><nobr><span class="ft4">TREC5</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:368"><nobr><span class="ft4">TREC6</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:430"><nobr><span class="ft4">TREC7</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:493"><nobr><span class="ft4">TREC8</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:555"><nobr><span class="ft4">TREC9</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:618"><nobr><span class="ft4">AVERAGE</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:703"><nobr><span class="ft4">%INC</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:175"><nobr><span class="ft4">AP</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:246"><nobr><span class="ft4">0.1185</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:309"><nobr><span class="ft4">0.1220</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:372"><nobr><span class="ft4">0.1191</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:434"><nobr><span class="ft4">0.1299</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:497"><nobr><span class="ft4">0.1390</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:559"><nobr><span class="ft4">0.1505</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:633"><nobr><span class="ft4">0.1298</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:729"><nobr><span class="ft4">-</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:175"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:246"><nobr><span class="ft4">0.1767</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:309"><nobr><span class="ft4">0.1711</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:372"><nobr><span class="ft4">0.1877</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:434"><nobr><span class="ft4">0.2016</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:497"><nobr><span class="ft4">0.1878</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:559"><nobr><span class="ft4">0.1630</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:633"><nobr><span class="ft4">0.1813</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:715"><nobr><span class="ft4">39.7</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:175"><nobr><span class="ft4">PC-5</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:246"><nobr><span class="ft4">0.2724</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:309"><nobr><span class="ft4">0.2242</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:372"><nobr><span class="ft4">0.2451</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:434"><nobr><span class="ft4">0.2639</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:497"><nobr><span class="ft4">0.2651</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:559"><nobr><span class="ft4">0.2029</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:633"><nobr><span class="ft4">0.2456</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:715"><nobr><span class="ft4">89.2</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:175"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:246"><nobr><span class="ft4">0.2474</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:309"><nobr><span class="ft4">0.2029</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:372"><nobr><span class="ft4">0.2183</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:434"><nobr><span class="ft4">0.2321</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:497"><nobr><span class="ft4">0.2318</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:559"><nobr><span class="ft4">0.1851</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:633"><nobr><span class="ft4">0.2196</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:715"><nobr><span class="ft4">69.1</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:175"><nobr><span class="ft4">PC-15</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:246"><nobr><span class="ft4">0.2320</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:309"><nobr><span class="ft4">0.1890</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:372"><nobr><span class="ft4">0.2063</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:434"><nobr><span class="ft4">0.2132</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:497"><nobr><span class="ft4">0.2137</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:559"><nobr><span class="ft4">0.1747</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:633"><nobr><span class="ft4">0.2048</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:715"><nobr><span class="ft4">57.8</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:175"><nobr><span class="ft4">PC-20</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:246"><nobr><span class="ft4">0.2210</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:309"><nobr><span class="ft4">0.1806</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:372"><nobr><span class="ft4">0.2005</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:434"><nobr><span class="ft4">0.2020</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:497"><nobr><span class="ft4">0.2068</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:559"><nobr><span class="ft4">0.1701</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:633"><nobr><span class="ft4">0.1968</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:715"><nobr><span class="ft4">51.6</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:175"><nobr><span class="ft4">PC-30</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:246"><nobr><span class="ft4">0.2051</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:309"><nobr><span class="ft4">0.1711</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:372"><nobr><span class="ft4">0.1950</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:434"><nobr><span class="ft4">0.1946</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:497"><nobr><span class="ft4">0.2032</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:559"><nobr><span class="ft4">0.1694</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:633"><nobr><span class="ft4">0.1897</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:715"><nobr><span class="ft4">46.1</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:175"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:246"><nobr><span class="ft4">0.1787</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:309"><nobr><span class="ft4">0.1777</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:372"><nobr><span class="ft4">0.2084</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:434"><nobr><span class="ft4">0.2239</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:497"><nobr><span class="ft4">0.2222</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:559"><nobr><span class="ft4">0.1849</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:633"><nobr><span class="ft4">0.1993</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:715"><nobr><span class="ft4">53.5</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:175"><nobr><span class="ft4">PC-200</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:246"><nobr><span class="ft4">0.1976</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:309"><nobr><span class="ft4">0.2053</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:372"><nobr><span class="ft4">0.2435</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:434"><nobr><span class="ft4">0.2576</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:497"><nobr><span class="ft4">0.2548</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:559"><nobr><span class="ft4">0.2057</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:633"><nobr><span class="ft4">0.2274</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:715"><nobr><span class="ft4">75.2</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:175"><nobr><span class="ft4">PC-500</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:246"><nobr><span class="ft4">0.2641</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:309"><nobr><span class="ft4">0.2488</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:372"><nobr><span class="ft4">0.2884</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:434"><nobr><span class="ft4">0.3042</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:497"><nobr><span class="ft4">0.3027</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:559"><nobr><span class="ft4">0.2400</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:633"><nobr><span class="ft4">0.2747</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:708"><nobr><span class="ft4">111.6</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:175"><nobr><span class="ft4">PC-1000</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:246"><nobr><span class="ft4">0.3164</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:309"><nobr><span class="ft4">0.2763</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:372"><nobr><span class="ft4">0.3134</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:434"><nobr><span class="ft4">0.3313</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:497"><nobr><span class="ft4">0.3323</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:559"><nobr><span class="ft4">0.2608</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:633"><nobr><span class="ft4">0.3051</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:708"><nobr><span class="ft4">135.0</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:307"><nobr><span class="ft4">Table 1: RMS error values for each TREC.</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:295"><nobr><span class="ft4">TREC3</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:457"><nobr><span class="ft4">TREC5</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:620"><nobr><span class="ft4">TREC6</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:251"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:293"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:346"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:413"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:455"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:509"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:576"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:617"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:671"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:198"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:205"><nobr><span class="ft2">act</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:245"><nobr><span class="ft4">0.921</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:296"><nobr><span class="ft4">0.815</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:353"><nobr><span class="ft4">0.833</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:407"><nobr><span class="ft4">0.939</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:458"><nobr><span class="ft4">0.762</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:516"><nobr><span class="ft4">0.868</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:570"><nobr><span class="ft4">0.913</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:621"><nobr><span class="ft4">0.671</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:678"><nobr><span class="ft4">0.807</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:198"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:205"><nobr><span class="ft2">inf</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:245"><nobr><span class="ft4">0.941</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:296"><nobr><span class="ft4">0.863</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:353"><nobr><span class="ft4">0.954</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:407"><nobr><span class="ft4">0.948</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:458"><nobr><span class="ft4">0.870</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:516"><nobr><span class="ft4">0.941</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:570"><nobr><span class="ft4">0.927</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:621"><nobr><span class="ft4">0.871</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:678"><nobr><span class="ft4">0.955</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:198"><nobr><span class="ft4">%Inc</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:252"><nobr><span class="ft4">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:303"><nobr><span class="ft4">5.9</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:357"><nobr><span class="ft4">14.5</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:414"><nobr><span class="ft4">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:462"><nobr><span class="ft4">14.2</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:522"><nobr><span class="ft4">8.4</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:577"><nobr><span class="ft4">1.5</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:624"><nobr><span class="ft4">29.8</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:681"><nobr><span class="ft4">18.3</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:295"><nobr><span class="ft4">TREC7</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:457"><nobr><span class="ft4">TREC8</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:620"><nobr><span class="ft4">TREC9</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:251"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:293"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:346"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:413"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:455"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:509"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:576"><nobr><span class="ft4">RP</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:617"><nobr><span class="ft4">PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:671"><nobr><span class="ft4">PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:198"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:205"><nobr><span class="ft2">act</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:245"><nobr><span class="ft4">0.917</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:296"><nobr><span class="ft4">0.745</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:353"><nobr><span class="ft4">0.891</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:407"><nobr><span class="ft4">0.925</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:458"><nobr><span class="ft4">0.818</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:516"><nobr><span class="ft4">0.873</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:570"><nobr><span class="ft4">0.903</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:621"><nobr><span class="ft4">0.622</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:678"><nobr><span class="ft4">0.836</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:198"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:205"><nobr><span class="ft2">inf</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:245"><nobr><span class="ft4">0.934</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:296"><nobr><span class="ft4">0.877</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:353"><nobr><span class="ft4">0.926</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:407"><nobr><span class="ft4">0.932</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:458"><nobr><span class="ft4">0.859</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:516"><nobr><span class="ft4">0.944</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:570"><nobr><span class="ft4">0.908</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:621"><nobr><span class="ft4">0.757</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:678"><nobr><span class="ft4">0.881</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:198"><nobr><span class="ft4">%Inc</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:252"><nobr><span class="ft4">1.9</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:299"><nobr><span class="ft4">17.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:360"><nobr><span class="ft4">3.9</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:414"><nobr><span class="ft4">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:465"><nobr><span class="ft4">5.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:522"><nobr><span class="ft4">8.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:577"><nobr><span class="ft4">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:624"><nobr><span class="ft4">21.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:685"><nobr><span class="ft4">5.4</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:195"><nobr><span class="ft4">Table 2: Kendall's  correlations and percent improvements for all TRECs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">32</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:3px;font-family:Times;color:#000000;}
+	.ft23{font-size:4px;font-family:Times;color:#000000;}
+	.ft24{font-size:4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189007.png" alt="background image">
+<DIV style="position:absolute;top:233;left:151"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:176"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:204"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:232"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:259"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:287"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:148"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:141"><nobr><span class="ft22">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:144"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:141"><nobr><span class="ft22">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:144"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:141"><nobr><span class="ft22">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:144"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:141"><nobr><span class="ft22">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:144"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:141"><nobr><span class="ft22">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:144"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:209"><nobr><span class="ft22">Actual RP</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:138"><nobr><span class="ft22">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:174"><nobr><span class="ft23">TREC 6 Actual RP vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:169"><nobr><span class="ft22">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:190"><nobr><span class="ft22"> = 0.913</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:391"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:416"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:444"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:472"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:499"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:529"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:388"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:384"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:384"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:384"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:384"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:384"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:384"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:384"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:384"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:384"><nobr><span class="ft17">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:388"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:445"><nobr><span class="ft17">Actual PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:381"><nobr><span class="ft17">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:408"><nobr><span class="ft24">TREC 6 Actual PC-10 vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:409"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:430"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:432"><nobr><span class="ft17"> = 0.671</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:631"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:657"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:684"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:712"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:739"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:767"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:628"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:621"><nobr><span class="ft17">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:624"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:621"><nobr><span class="ft17">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:624"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:621"><nobr><span class="ft17">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:624"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:621"><nobr><span class="ft17">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:624"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:621"><nobr><span class="ft17">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:624"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:683"><nobr><span class="ft17">Actual PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:618"><nobr><span class="ft17">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:646"><nobr><span class="ft24">TREC 6 Actual PC-100 vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:649"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:670"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:673"><nobr><span class="ft17"> = 0.807</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:151"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:176"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:204"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:232"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:259"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:287"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:148"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:141"><nobr><span class="ft22">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:144"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:141"><nobr><span class="ft22">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:144"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:141"><nobr><span class="ft22">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:144"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:141"><nobr><span class="ft22">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:144"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:141"><nobr><span class="ft22">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:144"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:209"><nobr><span class="ft22">Actual RP</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:138"><nobr><span class="ft22">Inferred RP</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:171"><nobr><span class="ft23">TREC 6 Actual RP vs Inferred RP</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:169"><nobr><span class="ft22">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:190"><nobr><span class="ft22"> = 0.927</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:391"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:416"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:444"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:472"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:499"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:529"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:388"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:384"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:384"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:384"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:384"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:384"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:384"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:384"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:384"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:384"><nobr><span class="ft17">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:388"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:445"><nobr><span class="ft17">Actual PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:381"><nobr><span class="ft17">Inferred PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:400"><nobr><span class="ft24">TREC 6 Actual PC-10 vs Inferred PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:409"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:430"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:432"><nobr><span class="ft17"> = 0.871</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:631"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:657"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:684"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:712"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:739"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:767"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:628"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:621"><nobr><span class="ft17">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:624"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:621"><nobr><span class="ft17">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:624"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:621"><nobr><span class="ft17">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:624"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:621"><nobr><span class="ft17">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:624"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:621"><nobr><span class="ft17">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:624"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:683"><nobr><span class="ft17">Actual PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:618"><nobr><span class="ft17">Inferred PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:636"><nobr><span class="ft24">TREC 6 Actual PC-100 vs Inferred PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:649"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:670"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:673"><nobr><span class="ft17"> = 0.955</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:298"><nobr><span class="ft4">Figure 8: Correlation improvements, TREC6.</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:81"><nobr><span class="ft10">measure inferred from the maximum entropy distribution<br>corresponding to average precision and the measure in the<br>corresponding column. The row labeled %Inc gives the per-<br>cent increase in correlation due to maximum entropy mod-<br>eling. As can be seen, maximum entropy modeling yields<br>great improvements in the predictions of precision-at-cutoff<br>values. The improvements in predicting R-precision are no-<br>ticeably smaller, though this is largely due to the fact that<br>average precision and R-precision are quite correlated to be-<br>gin with.</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft5"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:112"><nobr><span class="ft5"><b>CONCLUSIONS AND FUTURE WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:94"><nobr><span class="ft4">We have described a methodology for analyzing measures</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:81"><nobr><span class="ft10">of retrieval performance based on the maximum entropy<br>method, and we have demonstrated that the maximum en-<br>tropy models corresponding to "good" measures of overall<br>performance such as average precision accurately reflect un-<br>derlying retrieval performance (as measured by precision-<br>recall curves) and can be used to accurately predict the val-<br>ues of other measures of performance, well beyond the levels<br>dictated by simple correlations.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:94"><nobr><span class="ft4">The maximum entropy method can be used to analyze</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft10">other measures of retrieval performance, and we are presently<br>conducting such studies. More interestingly, the maximum<br>entropy method could perhaps be used to help develop and<br>gain insight into potential new measures of retrieval perfor-<br>mance. Finally, the predictive quality of maximum entropy<br>models corresponding to average precision suggest that if<br>one were to estimate some measure of performance using an<br>incomplete judgment set, that measure should be average<br>precision--from the maximum entropy model correspond-<br>ing to that measure alone, one could accurately infer other<br>measures of performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:94"><nobr><span class="ft4">Note that the concept of a "good" measure depends on</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft10">the purpose of evaluation. In this paper, we evaluate mea-<br>sures based on how much information they provide about<br>the overall performance of a system (a system-oriented eval-</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:475"><nobr><span class="ft10">uation). However, in different contexts, different measures<br>may be more valuable and useful, such as precision-at-cutoff<br>10 in web search (a user-oriented evaluation). R-precision<br>and average precision are system-oriented measures, whereas<br>precision-at-cutoff k is typically a user-oriented measure.<br>Another important conclusion of our work is that one can ac-<br>curately infer user-oriented measures from system-oriented<br>measures, but the opposite is not true.</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:489"><nobr><span class="ft4">Apart from evaluating the information captured by a sin-</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:475"><nobr><span class="ft10">gle measure, we could use the MEM to evaluate the informa-<br>tion contained in combinations of measures. How much does<br>knowing the value of precision-at-cutoff 10 increase one's<br>knowledge of a system's performance beyond simply know-<br>ing the system's average precision? Which is more infor-<br>mative: knowing R-precision and precision-at-cutoff 30, or<br>knowing average precision and precision-at-cutoff 100? Such<br>questions can be answered, in principle, using the MEM.<br>Adding the values of one or more measures simply adds one<br>or more constraints to the maximum entropy model, and<br>one can then assess the informativeness of the combination.<br>Note that TREC reports many different measures. Using<br>the MEM, one might reasonably be able to conclude which<br>are the most informative combinations of measures.</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:475"><nobr><span class="ft5"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:507"><nobr><span class="ft5"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:482"><nobr><span class="ft4">[1] A. L. Berger, V. D. Pietra, and S. D. Pietra. A</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:503"><nobr><span class="ft10">maximum entropy approach to natural language<br>processing. Comput. Linguist., 22:39­71, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:482"><nobr><span class="ft4">[2] C. Buckley and E. Voorhees. Evaluating evaluation</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:503"><nobr><span class="ft10">measure stability. In SIGIR '00: Proceedings of the<br>23rd annual international ACM SIGIR conference on<br>Research and development in information retrieval,<br>pages 33­40. ACM Press, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:482"><nobr><span class="ft4">[3] W. S. Cooper. On selecting a measure of retrieval</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:503"><nobr><span class="ft10">effectiveness. part i. In Readings in information<br>retrieval, pages 191­204. Morgan Kaufmann<br>Publishers Inc., 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">33</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="189008.png" alt="background image">
+<DIV style="position:absolute;top:233;left:151"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:176"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:204"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:232"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:259"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:287"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:148"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:141"><nobr><span class="ft22">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:144"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:141"><nobr><span class="ft22">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:144"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:141"><nobr><span class="ft22">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:144"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:141"><nobr><span class="ft22">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:144"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:141"><nobr><span class="ft22">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:144"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:209"><nobr><span class="ft22">Actual RP</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:138"><nobr><span class="ft22">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:174"><nobr><span class="ft23">TREC 8 Actual RP vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:169"><nobr><span class="ft22">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:190"><nobr><span class="ft22"> = 0.925</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:391"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:416"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:444"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:472"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:499"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:529"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:388"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:384"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:384"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:384"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:384"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:384"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:384"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:384"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:384"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:384"><nobr><span class="ft17">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:388"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:445"><nobr><span class="ft17">Actual PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:381"><nobr><span class="ft17">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:408"><nobr><span class="ft24">TREC 8 Actual PC-10 vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:409"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:430"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:432"><nobr><span class="ft17"> = 0.818</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:631"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:657"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:684"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:712"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:739"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:767"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:628"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:621"><nobr><span class="ft17">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:624"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:621"><nobr><span class="ft17">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:624"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:621"><nobr><span class="ft17">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:624"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:621"><nobr><span class="ft17">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:624"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:621"><nobr><span class="ft17">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:624"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:683"><nobr><span class="ft17">Actual PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:618"><nobr><span class="ft17">Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:646"><nobr><span class="ft24">TREC 8 Actual PC-100 vs Actual AP</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:649"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:670"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:673"><nobr><span class="ft17"> = 0.873</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:151"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:176"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:204"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:232"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:259"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:287"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:148"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:141"><nobr><span class="ft22">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:144"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:141"><nobr><span class="ft22">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:144"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:141"><nobr><span class="ft22">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:144"><nobr><span class="ft22">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:141"><nobr><span class="ft22">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:144"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:141"><nobr><span class="ft22">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:144"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:209"><nobr><span class="ft22">Actual RP</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:138"><nobr><span class="ft22">Inferred RP</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:171"><nobr><span class="ft23">TREC 8 Actual RP vs Inferred RP</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:169"><nobr><span class="ft22">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:190"><nobr><span class="ft22"> = 0.932</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:391"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:416"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:444"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:472"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:499"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:529"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:388"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:384"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:384"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:384"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:384"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:384"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:384"><nobr><span class="ft17">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:384"><nobr><span class="ft17">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:384"><nobr><span class="ft17">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:384"><nobr><span class="ft17">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:388"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:445"><nobr><span class="ft17">Actual PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:381"><nobr><span class="ft17">Inferred PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:400"><nobr><span class="ft24">TREC 8 Actual PC-10 vs Inferred PC-10</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:409"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:430"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:432"><nobr><span class="ft17"> = 0.859</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:631"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:657"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:684"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:712"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:739"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:767"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:628"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:621"><nobr><span class="ft17">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:624"><nobr><span class="ft17">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:621"><nobr><span class="ft17">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:624"><nobr><span class="ft17">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:621"><nobr><span class="ft17">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:624"><nobr><span class="ft17">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:621"><nobr><span class="ft17">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:624"><nobr><span class="ft17">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:621"><nobr><span class="ft17">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:624"><nobr><span class="ft17">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:683"><nobr><span class="ft17">Actual PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:618"><nobr><span class="ft17">Inferred PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:636"><nobr><span class="ft24">TREC 8 Actual PC-100 vs Inferred PC-100</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:649"><nobr><span class="ft17">Kendall's </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:670"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:673"><nobr><span class="ft17"> = 0.944</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:298"><nobr><span class="ft4">Figure 9: Correlation improvements, TREC8.</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:88"><nobr><span class="ft4">[4] T. M. Cover and J. Thomas. Elements of Information</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:109"><nobr><span class="ft4">Theory. John Wiley &amp; sons, 1991.</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:88"><nobr><span class="ft4">[5] B. Dervin and M. S. Nilan. Information needs and use.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:109"><nobr><span class="ft10">In Annual Review of Information Science and<br>Technology, volume 21, pages 3­33, 1986.</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:88"><nobr><span class="ft4">[6] W. R. Greiff and J. Ponte. The maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:109"><nobr><span class="ft10">approach and probabilistic ir models. ACM Trans. Inf.<br>Syst., 18(3):246­287, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:88"><nobr><span class="ft4">[7] E. Jaynes. On the rationale of maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:109"><nobr><span class="ft10">methods. In Proc.IEEE, volume 70, pages 939­952,<br>1982.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:88"><nobr><span class="ft4">[8] E. T. Jaynes. Information theory and statistical</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:109"><nobr><span class="ft10">mechanics: Part i. Physical Review 106, pages<br>620­630, 1957a.</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:88"><nobr><span class="ft4">[9] E. T. Jaynes. Information theory and statistical</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:109"><nobr><span class="ft10">mechanics: Part ii. Physical Review 108, page 171,<br>1957b.</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:81"><nobr><span class="ft4">[10] Y. Kagolovsky and J. R. Moehr. Current status of the</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:109"><nobr><span class="ft10">evaluation of information retrieval. J. Med. Syst.,<br>27(5):409­424, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:81"><nobr><span class="ft4">[11] P. B. Kantor and J. Lee. The maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:109"><nobr><span class="ft10">principle in information retrieval. In SIGIR '86:<br>Proceedings of the 9th annual international ACM<br>SIGIR conference on Research and development in<br>information retrieval, pages 269­274. ACM Press,<br>1986.</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:81"><nobr><span class="ft4">[12] D. D. Lewis. Evaluating and optimizing autonomous</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:109"><nobr><span class="ft10">text classification systems. In SIGIR '95: Proceedings<br>of the 18th annual international ACM SIGIR<br>conference on Research and development in<br>information retrieval, pages 246­254. ACM Press,<br>1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:81"><nobr><span class="ft4">[13] R. M. Losee. When information retrieval measures</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:109"><nobr><span class="ft10">agree about the relative quality of document rankings.<br>J. Am. Soc. Inf. Sci., 51(9):834­840, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:81"><nobr><span class="ft4">[14] K. Nigam, J. Lafferty, and A. McCallum. Using</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:109"><nobr><span class="ft4">maximum entropy for text classification. In IJCAI-99</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:503"><nobr><span class="ft10">Workshop on Machine Learning for Information<br>Filtering, pages 61­67, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:475"><nobr><span class="ft4">[15] D. Pavlov, A. Popescul, D. M. Pennock, and L. H.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:503"><nobr><span class="ft10">Ungar. Mixtures of conditional maximum entropy<br>models. In T. Fawcett and N. Mishra, editors, ICML,<br>pages 584­591. AAAI Press, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:475"><nobr><span class="ft4">[16] S. J. Phillips, M. Dudik, and R. E. Schapire. A</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:503"><nobr><span class="ft10">maximum entropy approach to species distribution<br>modeling. In ICML '04: Twenty-first international<br>conference on Machine learning, New York, NY, USA,<br>2004. ACM Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft4">[17] V. Raghavan, P. Bollmann, and G. S. Jung. A critical</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:503"><nobr><span class="ft10">investigation of recall and precision as measures of<br>retrieval system performance. ACM Trans. Inf. Syst.,<br>7(3):205­229, 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:475"><nobr><span class="ft4">[18] A. Ratnaparkhi and M. P. Marcus. Maximum entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:503"><nobr><span class="ft10">models for natural language ambiguity resolution,<br>1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:475"><nobr><span class="ft4">[19] T. Saracevic. Evaluation of evaluation in information</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:503"><nobr><span class="ft10">retrieval. In SIGIR '95: Proceedings of the 18th<br>annual international ACM SIGIR conference on<br>Research and development in information retrieval,<br>pages 138­146. ACM Press, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:475"><nobr><span class="ft4">[20] C. E. Shannon. A mathematical theory of</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:503"><nobr><span class="ft10">communication. The Bell System Technical Journal<br>27, pages 379­423 &amp; 623­656, 1948.</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:475"><nobr><span class="ft4">[21] N. Wu. The Maximum Entropy Method. Springer, New</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:503"><nobr><span class="ft4">York, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft9">34</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

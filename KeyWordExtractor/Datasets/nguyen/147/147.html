@@ -1,0 +1,1109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>main2.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-07-11T09:02:43+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:8px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft12{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:92"><nobr><span class="ft0"><b>Performance Enhancing Proxy for Interactive 3G Network</b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:407"><nobr><span class="ft0"><b>Gaming</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:249"><nobr><span class="ft1">Gene Cheung, Takashi Sakamoto, Michael Sweeney</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:337"><nobr><span class="ft2">Hewlett-Packard Laboratories Japan</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:364"><nobr><span class="ft2">Hewlett-Packard Japan, Ltd.</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:334"><nobr><span class="ft2">3-8-13, Takaido-higashi, Suginami-ku</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:380"><nobr><span class="ft2">Tokyo, 168-0072 Japan</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:157"><nobr><span class="ft1">gene-cs.cheung@hp.com, takashi.sakamoto@hp.com, msweeney@hp.com</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:81"><nobr><span class="ft10">Unlike non-time-critical applications like email and file trans-<br>fer, network games demand timely data delivery to maintain<br>the seemingly interactive presence of players in the virtual<br>game world.</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:169"><nobr><span class="ft4">Yet the inherently large transmission delay</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:81"><nobr><span class="ft10">mean and variance of 3G cellular links make on-time game<br>data delivery difficult. Further complicating the timely game<br>data delivery problem is the frequent packet drops at these<br>links due to inter-symbol interference, fading and shadow-<br>ing at the physical layer. In this paper, we propose a proxy<br>architecture that enhances the timeliness and reliability of<br>data delivery of interactive games over 3G wireless networks.<br>In particular, a performance enhancing proxy is designed to<br>optimize a new time-critical data type -- variable-deadline<br>data, where the utility of a datum is inversely proportional<br>to the time required to deliver it. We show how a carefully<br>designed and configured proxy can noticeably improve the<br>delivery of network game data.</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft10">C.2 [Computer-Communication Networks]: Network<br>Architecture and Design--Wireless communication</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:81"><nobr><span class="ft4">Algorithms, Performance, Design</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:81"><nobr><span class="ft4">Wireless Networks, Network Gaming</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:94"><nobr><span class="ft4">While network gaming has long been projected to be an</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:81"><nobr><span class="ft10">application of massive economic growth, as seen in the recent<br>explosive development on the wired Internet in South Ko-<br>rea and Japan, deployment of similar network games on 3G</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft11">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>IWCMC'06 </i>July 3­6, 2006, Vancouver, British Columbia, Canada.<br>Copyright 2006 ACM 1-59593-306-9/06/0007 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:316"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:323"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:698"><nobr><span class="ft12">Radio<br>Access<br>Network</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:749"><nobr><span class="ft7">BS</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:491"><nobr><span class="ft7">IMS</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:805"><nobr><span class="ft7">UE</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:520"><nobr><span class="ft7">WING</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:538"><nobr><span class="ft12">Game<br>Server</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:489"><nobr><span class="ft7">Network</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:489"><nobr><span class="ft7">IP</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:641"><nobr><span class="ft7">3G Wireless Network</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:487"><nobr><span class="ft7">PSTN/ISDN/</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:497"><nobr><span class="ft7">CSPDN</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:616"><nobr><span class="ft7">Core</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:612"><nobr><span class="ft7">Packet</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:608"><nobr><span class="ft7">Network</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:509"><nobr><span class="ft4">Figure 1: WING in 3G Wireless Network</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft10">wireless networks continues to be slow and difficult. One rea-<br>son is that unlike their wired counterparts, wireless links are<br>notoriously prone to errors due to channel fading, shadowing<br>and inter-symbol interference. While 3G wireless networks,<br>such as High Speed Downlink Packet Access (HSDPA) of<br>3rd Generation Partnership Project (3GPP) Release 5 (R5)<br>[1] and CDMA 1x EvDO of 3GPP2 [5], combat wireless<br>link failures at the MAC and physical layer with an elabo-<br>rate system of channel coding, retransmission, modulation<br>and spreading, with resulting packet loss rate being reduced<br>to negligible 1 to 2%, the detrimental side-effect to network<br>gaming is the large and often unpredictable transmission de-<br>lay mean and variance [15]. Such large and variable delays<br>greatly reduce the necessary interactivity of network game<br>players and deteriorate the overall gaming experience.</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:489"><nobr><span class="ft4">In a separate development, a new 3G network element</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft10">called IP Multimedia Subsystem (IMS) [3] has been intro-<br>duced in 3GPP specifications R5 and later, as shown in Fig-<br>ure 1. The Session Initiation Protocol (SIP)-based IMS pro-<br>vides a multitude of multimedia services: from establishing<br>connections from the legacy telephone networks to the new<br>IP core network using Voice over IP (VoIP), to delivering<br>streaming services such as video as a value-added service<br>to mobile users (UE). Strategically located as a pseudo-<br>gateway to the private and heavily provisioned 3G networks,<br>it is foreseeable that IMS will continue to enlarge and enrich<br>its set of multimedia services in future wireless networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:489"><nobr><span class="ft4">In this paper, we propose a performance enhancing proxy</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft10">(PEP) called (W)ireless (I)nteractive (N)etwork (G)aming<br>Proxy (WING) to improve the timely delivery of network<br>game data in 3G wireless networks. WING is located in-<br>side IMS as an application service on top of the myriad of</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">207</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:6px;font-family:Times;color:#000000;}
+	.ft14{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+	.ft15{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">services that IMS already provides. In a nutshell, WING im-<br>proves the delivery of game data from the game server to 3G<br>wireless game players</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:209"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:220"><nobr><span class="ft4">using the following three techniques.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft10">First, by virtue of locating at the intersection of the private<br>wireless network and the open Internet, connection from the<br>game server to the wireless game player can be strategi-<br>cally split; for the server-WING connection, only the statis-<br>tically stable and fast round-trip time (RTT) and low wired-<br>network-only packet loss rate (PLR) are used for congestion<br>control, resulting in a steady yet TCP-friendly server-WING<br>connection. Second, by configuring parameters in the radio<br>link layer (RLC) specifically for gaming during session setup,<br>excessive RLC retransmissions are avoided, and timeliness<br>of game data is improved at the controlled expense of in-<br>creased packet losses.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:226"><nobr><span class="ft4">Finally, by constructing small but</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:81"><nobr><span class="ft10">error-resilient packets that contain location data, packets<br>can be transmitted in fewer MAC-layer protocol data units<br>(PDU) and hence further reduces delay.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:94"><nobr><span class="ft4">The paper is organized as follows. Related work is pre-</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:81"><nobr><span class="ft10">sented in Section 2. We overview the 3G wireless system in<br>focus, HSDPA of 3GPP R5, in Section 3. Note that because<br>similar link and MAC layer transport optimizations that<br>chiefly affect delay mean and variance are also employed in<br>other 3G networks, our proposed WING can conceivably be<br>applied to other wireless networks such as CDMA 1x EvDO<br>of 3GPP2. We discuss the design of WING in details in<br>Section 4. Finally, experimental results and conclusion are<br>provided in Section 5 and 6, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:112"><nobr><span class="ft3"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:94"><nobr><span class="ft4">We divide the discussion on the large volume of related</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:81"><nobr><span class="ft10">work into two section. Section 2.1 discusses related research<br>on wireless transport optimization.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:311"><nobr><span class="ft4">Section 2.2 discusses</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft4">related research in transport of network game data.</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:81"><nobr><span class="ft3"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:121"><nobr><span class="ft3"><b>Wireless Transport Optimization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:94"><nobr><span class="ft4">We note that proxy-based transport optimization for last-</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:81"><nobr><span class="ft10">hop wireless networks has a long history, with the majority<br>of the research [4, 15] focusing on optimization of TCP over<br>last-hop wireless networks. In particular, [15] showed that<br>while 3G network packet losses can indeed be successfully<br>overcome by using ample link layer retransmissions, the re-<br>sulting large RTT mean and variance may severely affect the<br>performance of a TCP-like congestion avoidance rate control<br>that is based on end-to-end observable statistics of RTT and<br>PLR. The limiting rate constraint and undesirable fluctua-<br>tions can be alleviated using a proxy with split-connection<br>-- a theme we develop in Section 4.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:94"><nobr><span class="ft4">Recently, efforts on proxy design have shifted to delay-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft10">sensitive multimedia transport [18, 13, 8, 9], though all of<br>them focused exclusively on streaming media, while we fo-<br>cus on network gaming. Note that due to cited complexity<br>reason, a competing end-to-end approach for rate control<br>that does not rely on an intermediate proxy is popular as<br>well [17, 6]. However, we chose the proxy-based approach<br>and will juxtapose its advantages in Section 4.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:81"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:88"><nobr><span class="ft4">While peer-to-peer model for interactive network games</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:81"><nobr><span class="ft14">is also possible, we assume the more common server-client<br>model where the game server maintains and disseminates all<br>game states in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:475"><nobr><span class="ft3"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:515"><nobr><span class="ft3"><b>Transport of Network Game Data</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:489"><nobr><span class="ft4">In [3], a general gaming platform for IMS that provides</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:475"><nobr><span class="ft10">network services needed for network gaming such as session<br>setup and registration is proposed to ease deployment over<br>3G networks. Our work is orthogonal to [3] since we focus<br>only on the efficient transport of game data.</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:489"><nobr><span class="ft4">An early work on gaming protocol is [10], which defined</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:475"><nobr><span class="ft10">a Game Transport Protocol (GTP) for massive multi-player<br>on-line games (MMPOGs) over the Internet. Our proposed<br>gaming proxy WING differs in the following respects: i) we<br>design WING specifically for lossy, bandwidth-limited net-<br>works, hence focusing on design of network-optimized dif-<br>ferential coding to produce small but loss-resilient packets;<br>and, ii) we tailor WING for HSDPA of 3G wireless networks,<br>optimizing performance by intelligently configuring param-<br>eters of the RLC layer.</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:489"><nobr><span class="ft4">The most similar related work is [12], which proposed an</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:475"><nobr><span class="ft10">end-to-end adaptive FEC and dynamic packetization algo-<br>rithm to combat packet losses due to wireless link failures<br>and reduce packet sizes. Unlike [12], our approach is proxy-<br>based, and we tailor our gaming optimization exclusively for<br>3G networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:475"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:506"><nobr><span class="ft3"><b>OVERVIEW OF UMTS RELEASE 5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:489"><nobr><span class="ft4">HSDPA of UMTS Release 5, also known as 3.5G, improves</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:475"><nobr><span class="ft10">upon Release 4 with numerous lower-layer optimizations.<br>First, a shared channel is periodically scheduled to users<br>in the cell with good observable network conditions to take<br>advantage of user diversity during fading without sacrificing<br>fairness. Second, an elaborate MAC-layer scheme chooses an<br>appropriate combination of FEC, hybrid ARQ, modulation<br>and spreading based on client observable network state. In<br>this section, we instead focus on the RLC layer, where the<br>user has limited control over behavior using configuration of<br>parameters during session setup.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:489"><nobr><span class="ft4">The Radio Link control (RLC) layer [1] buffers upper layer</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:475"><nobr><span class="ft10">service data units (SDU) on a per-session basis -- IP packets<br>in this case, and segments each SDU into smaller protocol<br>data units (PDU) of size S</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:642"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:675"><nobr><span class="ft4">and await transmission at</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:475"><nobr><span class="ft10">lower layers. There are three transmission modes: transpar-<br>ent mode (TM), unacknowledged mode (UM) and acknowl-<br>edged mode (AM). Only AM performs link-layer retrans-<br>missions if transmission in the lower layer fails. For error<br>resiliency, we focus only on AM. In particular, we look at<br>how SDUs are discarded in the RLC layer: using a method<br>of retransmission-based discard (RBD), an SDU can be dis-<br>carded before successful transmission. In a nutshell, an SDU<br>is discarded if a predefined maximum number of retransmis-<br>sions B has been reached before successful transmission of<br>a PDU belonging to the SDU. We will investigate how the<br>value B can be selected to trade off error resiliency with<br>delay in Section 4.3.</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:475"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:506"><nobr><span class="ft15"><b>WING FOR WIRELESS INTERACTIVE<br>NETWORK GAMING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:489"><nobr><span class="ft4">Before we discuss the three optimizations of our proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft10">gaming proxy WING in details in Section 4.2, 4.3 and 4.4,<br>we first define a new type of transport data called variable<br>deadline data in Section 4.1 -- a consequence of a prediction<br>procedure used at a network game client to predict locations<br>of other game players in the virtual game world.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">208</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:6px;font-family:Helvetica;color:#000000;}
+	.ft17{font-size:5px;font-family:Times;color:#000000;}
+	.ft18{font-size:14px;font-family:Times;color:#000000;}
+	.ft19{font-size:6px;line-height:9px;font-family:Helvetica;color:#000000;}
+	.ft20{font-size:6px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147003.png" alt="background image">
+<DIV style="position:absolute;top:225;left:82"><nobr><span class="ft16">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:111"><nobr><span class="ft16">100</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:144"><nobr><span class="ft16">200</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:177"><nobr><span class="ft16">300</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:210"><nobr><span class="ft16">400</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:243"><nobr><span class="ft16">500</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:79"><nobr><span class="ft16">1</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:79"><nobr><span class="ft16">2</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:79"><nobr><span class="ft16">3</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:79"><nobr><span class="ft16">4</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:79"><nobr><span class="ft16">5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:79"><nobr><span class="ft16">6</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:147"><nobr><span class="ft16">delay in ms</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:75"><nobr><span class="ft16">distortion</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:98"><nobr><span class="ft16">distortion vs. delay for dead-reckoning</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:107"><nobr><span class="ft19">random walk<br>weighted random walk</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:276"><nobr><span class="ft16">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:305"><nobr><span class="ft16">100</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:338"><nobr><span class="ft16">200</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:371"><nobr><span class="ft16">300</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:404"><nobr><span class="ft16">400</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:437"><nobr><span class="ft16">500</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:266"><nobr><span class="ft16">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:266"><nobr><span class="ft16">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:266"><nobr><span class="ft16">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:266"><nobr><span class="ft16">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:272"><nobr><span class="ft16">1</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:340"><nobr><span class="ft16">delay in ms</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:262"><nobr><span class="ft16">utility</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:299"><nobr><span class="ft16">utility vs. delay for dead-reckoning</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:360"><nobr><span class="ft19">random walk<br>weighted random walk</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:69"><nobr><span class="ft4">a) distortion vs. delay</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:262"><nobr><span class="ft4">b) utility vs. delay</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:123"><nobr><span class="ft4">Figure 2: Examples of Dead-Reckoning</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:81"><nobr><span class="ft3"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:121"><nobr><span class="ft3"><b>Variable Deadline Data Delivery</b></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:94"><nobr><span class="ft4">Unlike media streaming applications where a data unit</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:81"><nobr><span class="ft10">containing media data is fully consumed if it is correctly de-<br>livered by a playback deadline and useless otherwise [9], the<br>usefulness (utility) of a game datum is inversely proportional<br>to the time it requires to deliver it. This relationship be-<br>tween utility and transmission delay is the behavioral result<br>of a commonly used game view reconstruction procedure at<br>a game client called dead-reckoning [2]. It works as follows.<br>To maintain time-synchronized virtual world views among<br>game players at time t</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:220"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:226"><nobr><span class="ft4">, a player P</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:299"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:314"><nobr><span class="ft4">predicts the location</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:82"><nobr><span class="ft4">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:81"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:87"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:91"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:102"><nobr><span class="ft4">of another player P</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:219"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:233"><nobr><span class="ft4">and draws it in P</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:338"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:347"><nobr><span class="ft4">'s virtual world</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:81"><nobr><span class="ft4">at time t</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:136"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:142"><nobr><span class="ft4">, extrapolating from previously received location</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:81"><nobr><span class="ft4">updates of P</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:159"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:174"><nobr><span class="ft4">in the past, </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:258"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:265"><nobr><span class="ft4">,  &lt; t</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:305"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:311"><nobr><span class="ft4">. When location up-</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:81"><nobr><span class="ft4">date </span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:116"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:121"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:131"><nobr><span class="ft4">arrives at P</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:199"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:211"><nobr><span class="ft4">from P</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:251"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:264"><nobr><span class="ft4">at a later time t</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:357"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:363"><nobr><span class="ft4">, P</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:380"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:392"><nobr><span class="ft4">updates</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:81"><nobr><span class="ft4">its record of P</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:168"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:178"><nobr><span class="ft4">'s locations with (t</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:293"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:300"><nobr><span class="ft4">, </span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:312"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:316"><nobr><span class="ft17">0</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:323"><nobr><span class="ft4">), in order to make</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:81"><nobr><span class="ft4">an accurate prediction of (t</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:246"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:252"><nobr><span class="ft4">, ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:258"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:264"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:268"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:275"><nobr><span class="ft4">) for display in P</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:376"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:385"><nobr><span class="ft4">'s virtual</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:81"><nobr><span class="ft4">world at time t</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:174"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:180"><nobr><span class="ft4">. Regardless of what prediction method is</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:81"><nobr><span class="ft10">used at the client, it is clear that a smaller transmission de-<br>lay will in general induce a smaller prediction error. We term<br>this type of data with inversely proportional relationship be-<br>tween quantifiable utility and delay variable deadline data.<br>We next show examples of how such utility-delay curve u(d)<br>can be derived in practice given a player movement model<br>and a prediction method.</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:85"><nobr><span class="ft18"><i>4.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:134"><nobr><span class="ft18"><i>Examples of Dead-Reckoning</i></span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:94"><nobr><span class="ft4">We first consider two simple movement models that model</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:81"><nobr><span class="ft10">a game player in two-dimensional space (x, y). The first is<br>random walk, where for each time increment t, probability<br>mass function (pmf) of random variable of x-coordinate x</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:431"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:81"><nobr><span class="ft4">p(x</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:101"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:106"><nobr><span class="ft4">), is defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:181"><nobr><span class="ft4">p(x</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:201"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:224"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:246"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:255"><nobr><span class="ft4">+ 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:294"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:318"><nobr><span class="ft4">1/3</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:205"><nobr><span class="ft4">p(x</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:225"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:248"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:270"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:275"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:294"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:318"><nobr><span class="ft4">1/3</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:181"><nobr><span class="ft4">p(x</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:201"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:224"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:246"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:255"><nobr><span class="ft4">- 1) = 1/3</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:422"><nobr><span class="ft4">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:94"><nobr><span class="ft4">Random variable of y-coordinate y</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:301"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:310"><nobr><span class="ft4">is calculated similarly</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:81"><nobr><span class="ft4">and is independent of x</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:224"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:228"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:94"><nobr><span class="ft4">The second movement model is weighted random walk,</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:81"><nobr><span class="ft4">whose pmf is defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:112"><nobr><span class="ft4">p (x</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:134"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:157"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:179"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:188"><nobr><span class="ft4">+ ((x</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:220"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:228"><nobr><span class="ft4">- x</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:250"><nobr><span class="ft13">t-1</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:272"><nobr><span class="ft4">+ 1) mod 2))</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:363"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:388"><nobr><span class="ft4">1/6</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:187"><nobr><span class="ft4">p (x</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:210"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:233"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:255"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:263"><nobr><span class="ft4">+ (x</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:290"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:298"><nobr><span class="ft4">- x</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:320"><nobr><span class="ft13">t-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:339"><nobr><span class="ft4">))</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:363"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:388"><nobr><span class="ft4">2/3</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:112"><nobr><span class="ft4">p (x</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:134"><nobr><span class="ft13">t+1</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:157"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:179"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:188"><nobr><span class="ft4">+ ((x</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:220"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:228"><nobr><span class="ft4">- x</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:250"><nobr><span class="ft13">t-1</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:272"><nobr><span class="ft4">- 1) mod 2)) = 1/6 (2)</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft10">In words, the player continues the same movement as done<br>in the previous instant with probability 2/3, and changes</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft10">to one of two other movements each with probability 1/6.<br>Random variable y-coordinate y</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:669"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:679"><nobr><span class="ft4">is calculated similarly.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft4">We defined a simple prediction method called 0th-order</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft4">prediction as follows: each unknown x</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:707"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:717"><nobr><span class="ft4">is simply set to the</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft4">most recently updated x</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:622"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:629"><nobr><span class="ft4">. Using each of the two movement</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:475"><nobr><span class="ft10">models in combination with the prediction method, we con-<br>structed distortion-delay curves experimentally as shown in<br>Figure 2a. As seen, 0th-order prediction is a better match to<br>random walk than weighted random walk, inducing a smaller<br>distortion for all delay values. Utility u(d) -- shown in Fig-<br>ure 2b­ is simply the reciprocal of distortion. Having de-<br>rived u(d) gives us a quantifiable metric on which we can<br>objectively evaluate game data transport systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:475"><nobr><span class="ft3"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:515"><nobr><span class="ft3"><b>Proxy-based Congestion Control</b></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:489"><nobr><span class="ft4">We argue that by locating WING between the open wired</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:475"><nobr><span class="ft10">Internet and the provisioned wireless networks to conduct<br>split-connection data transfer, stable TCP-friendly conges-<br>tion control can be maintained on top of UDP in the wired<br>server-WING connection. Traditional congestion control al-<br>gorithms like TCP-friendly Rate Control (TFRC) [11] space<br>outgoing packets with interval T</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:667"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:681"><nobr><span class="ft4">as a function of estimated</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft4">packet loss rate (PLR)</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:625"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:636"><nobr><span class="ft4">, RTT mean m</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:729"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:745"><nobr><span class="ft4">and RTT vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:475"><nobr><span class="ft4">ance </span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:515"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:515"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:530"><nobr><span class="ft4">due to wired network congestion:</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:480"><nobr><span class="ft4">T</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:488"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:502"><nobr><span class="ft4">= m</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:529"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:540"><nobr><span class="ft4">p2</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:566"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:577"><nobr><span class="ft4">/3 + 3(m</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:632"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:646"><nobr><span class="ft4">+ 4</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:675"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:675"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:685"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:696"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:710"><nobr><span class="ft4">`1 + 32</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:759"><nobr><span class="ft20">2<br>cc</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:770"><nobr><span class="ft4">´ p3</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:805"><nobr><span class="ft13">cc</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:816"><nobr><span class="ft4">/8</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:816"><nobr><span class="ft4">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:489"><nobr><span class="ft4">Past end-to-end efforts [17, 6] have focused on method-</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:475"><nobr><span class="ft10">ologies to distinguish wired network congestion losses from<br>wireless link losses, in order to avoid unnecessary rate re-<br>duction due to erroneous perception of wireless losses as<br>network congestion. Split connection offers the same effect<br>regarding PLR by completely shielding sender from packet<br>losses due to wireless link failures. Moreover, by performing<br>TFRC (3) in the server-WING connection using only stable<br>wired network statistics, split connection shields the server-<br>WING connection from large rate fluctuations due to large<br>RTT variance in the last-hop 3G link as shown in [15]. For<br>this reason, [15] showed experimentally that indeed proxy-<br>based split-connection congestion control performs better<br>than end-to-end counterparts, even in negligible wireless loss<br>environments.</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:489"><nobr><span class="ft4">Lastly, we note that split connection can benefit from a</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:475"><nobr><span class="ft10">rate-mismatch environment [8, 9], where the available band-<br>width R</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:525"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:536"><nobr><span class="ft4">in the server-WING connection is larger than the</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:475"><nobr><span class="ft4">available bandwidth R</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:612"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:623"><nobr><span class="ft4">in the WING-client connection. In</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:475"><nobr><span class="ft4">such case, the surplus bandwidth R</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:694"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:704"><nobr><span class="ft4">- R</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:728"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:740"><nobr><span class="ft4">can b e used for</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:475"><nobr><span class="ft10">redundancy packets like forward-error correction (FEC) or<br>retransmission to lower PLR in the server-WING connec-<br>tion. We refer interested readers to [8, 9] for further details.</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:475"><nobr><span class="ft3"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:515"><nobr><span class="ft3"><b>Optimizing RLC Configuration</b></span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:489"><nobr><span class="ft4">Given utility-delay function u(d) in Section 4.1, we opti-</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:475"><nobr><span class="ft10">mize configuration of RLC to maximize utility. More pre-<br>cisely, we pick the value of maximum retransmission limit B<br>-- inducing expected SDU loss rate l</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:697"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:708"><nobr><span class="ft4">and delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:777"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:784"><nobr><span class="ft4">, so that</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:475"><nobr><span class="ft4">the expected utility (1</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:613"><nobr><span class="ft4">- l</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:632"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:638"><nobr><span class="ft4">)u(d</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:664"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:671"><nobr><span class="ft4">) is maximized.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:489"><nobr><span class="ft4">We assume a known average SDU size S</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:741"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:766"><nobr><span class="ft4">, PDU loss</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:475"><nobr><span class="ft4">rate</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:510"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:537"><nobr><span class="ft4">, and probability density function (pdf) of PDU</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:475"><nobr><span class="ft4">transmission delay () with mean m</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:716"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:730"><nobr><span class="ft4">and variance </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:823"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:823"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:830"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:475"><nobr><span class="ft4">First, the expected number of PDUs fragmented from an</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:475"><nobr><span class="ft4">SDU is N =</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:560"><nobr><span class="ft4">l</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:570"><nobr><span class="ft13">S</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:577"><nobr><span class="ft17">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:569"><nobr><span class="ft13">S</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:576"><nobr><span class="ft17">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:603"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:610"><nobr><span class="ft4">. For a given B, the expected SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">209</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:12px;font-family:Times;color:#000000;}
+	.ft22{font-size:12px;font-family:Times;color:#000000;}
+	.ft23{font-size:10px;font-family:Times;color:#000000;}
+	.ft24{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft4">loss rate l</span></nobr></DIV>
+<DIV style="position:absolute;top:89;left:140"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:170"><nobr><span class="ft4">can b e written simply:</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:162"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:171"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:212"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:241"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:236"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:237"><nobr><span class="ft13">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:264"><nobr><span class="ft13">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:264"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:291"><nobr><span class="ft4">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:306"><nobr><span class="ft4">-</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:325"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:352"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:422"><nobr><span class="ft4">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:168"><nobr><span class="ft4">l</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:172"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:212"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:236"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:246"><nobr><span class="ft4">- P</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:270"><nobr><span class="ft13">N</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:268"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:422"><nobr><span class="ft4">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:81"><nobr><span class="ft4">where P</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:131"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:163"><nobr><span class="ft4">is the probability that a PDU is successfully</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:81"><nobr><span class="ft4">delivered given B.</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:94"><nobr><span class="ft4">The delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:168"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:200"><nobr><span class="ft4">experienced by a successfully delivered</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:81"><nobr><span class="ft4">SDU is the sum of queuing delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:303"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:335"><nobr><span class="ft4">and transmission</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:81"><nobr><span class="ft4">delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:125"><nobr><span class="ft20">t<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:150"><nobr><span class="ft4">. Queuing delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:262"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:293"><nobr><span class="ft4">is the delay experienced</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:81"><nobr><span class="ft10">by an SDU while waiting for head-of-queue SDUs to clear<br>due to early termination or delivery success. d</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:356"><nobr><span class="ft20">t<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:385"><nobr><span class="ft4">is the ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:81"><nobr><span class="ft10">pected wireless medium transmission delay given the SDU is<br>successfully delivered. d</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:226"><nobr><span class="ft20">t<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:256"><nobr><span class="ft4">is easier and can be calculated</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:81"><nobr><span class="ft4">as:</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:136"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:147"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:187"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:228"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:213"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:222"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:264"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:258"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:259"><nobr><span class="ft13">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:280"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:290"><nobr><span class="ft13">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:290"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:317"><nobr><span class="ft4">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:333"><nobr><span class="ft4">-</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:352"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:379"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:422"><nobr><span class="ft4">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:141"><nobr><span class="ft4">d</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:148"><nobr><span class="ft20">t<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:187"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:212"><nobr><span class="ft4">N m</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:241"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:253"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:264"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:422"><nobr><span class="ft4">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:81"><nobr><span class="ft4">where X</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:131"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:161"><nobr><span class="ft4">is the expected number of PDU (re)transmissions</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:81"><nobr><span class="ft4">given PDU delivery success. To calculate d</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:342"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:367"><nobr><span class="ft4">, we assume</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:81"><nobr><span class="ft4">a M/G/1 queue</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:175"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:185"><nobr><span class="ft4">with arrival rate </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:293"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:299"><nobr><span class="ft4">, mean service time m</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:429"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:81"><nobr><span class="ft4">and variance of service time </span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:266"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:265"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:272"><nobr><span class="ft4">. Using Pollaczek-Khinchin</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:81"><nobr><span class="ft4">mean value formula [14], d</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:241"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:271"><nobr><span class="ft4">can b e written as:</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:168"><nobr><span class="ft4">d</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:175"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:204"><nobr><span class="ft4">= </span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:229"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:235"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:247"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:256"><nobr><span class="ft4">`1 + </span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:294"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:294"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:301"><nobr><span class="ft4">/m</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:320"><nobr><span class="ft20">2<br>q</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:326"><nobr><span class="ft4">´</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:238"><nobr><span class="ft4">2 (1</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:263"><nobr><span class="ft4">- </span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:285"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:291"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:303"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:309"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:334"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:346"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:422"><nobr><span class="ft4">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:81"><nobr><span class="ft4">In our application, </span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:205"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:216"><nobr><span class="ft4">is the rate at which game data arrive</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:81"><nobr><span class="ft10">at WING from the server, which we assume to be known.<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:93"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:104"><nobr><span class="ft4">is the mean service rate for both cases of SDU delivery</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:81"><nobr><span class="ft4">success and failure and can be derived as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:102"><nobr><span class="ft4">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:110"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:149"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:186"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:175"><nobr><span class="ft4">l</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:179"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:214"><nobr><span class="ft13">N</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:209"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:210"><nobr><span class="ft13">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:231"><nobr><span class="ft4">(B + (i - 1)X</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:315"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:342"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:356"><nobr><span class="ft13">B</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:356"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:383"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:393"><nobr><span class="ft13">i-1</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:391"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:422"><nobr><span class="ft4">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:117"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:129"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:149"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:173"><nobr><span class="ft4">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:189"><nobr><span class="ft4">- l</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:207"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:232"><nobr><span class="ft4">) d</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:247"><nobr><span class="ft20">t<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:276"><nobr><span class="ft4">+ l</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:294"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:324"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:336"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:348"><nobr><span class="ft4">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:357"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:415"><nobr><span class="ft4">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:81"><nobr><span class="ft4">where Y</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:129"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:159"><nobr><span class="ft4">is the expected total number of PDU</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:81"><nobr><span class="ft10">(re)transmissions in an SDU given SDU delivery failure.<br>Similar analysis will show that the variance of service rate<br></span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:89"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:89"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:100"><nobr><span class="ft4">for our application is:</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:101"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:110"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:109"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:120"><nobr><span class="ft4">= (1</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:150"><nobr><span class="ft4">- l</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:167"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:193"><nobr><span class="ft4">) N</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:216"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:226"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:239"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:238"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:269"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:278"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:277"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:288"><nobr><span class="ft4">+ l</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:310"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:341"><nobr><span class="ft4">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:352"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:349"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:379"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:388"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:387"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:415"><nobr><span class="ft4">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:81"><nobr><span class="ft4">We can now evaluate expected queuing delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:375"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:401"><nobr><span class="ft4">, from</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:81"><nobr><span class="ft4">which we evaluate expected delay d</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:294"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:319"><nobr><span class="ft4">. Optimal B</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:394"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:405"><nobr><span class="ft4">is one</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:81"><nobr><span class="ft4">that maximizes (1</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:193"><nobr><span class="ft4">- l</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:212"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:211"><nobr><span class="ft13">SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:237"><nobr><span class="ft4">) u(d</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:265"><nobr><span class="ft20"><br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:291"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:81"><nobr><span class="ft3"><b>4.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:121"><nobr><span class="ft3"><b>Loss-optimized Differential Coding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:94"><nobr><span class="ft4">If the location data -- player position updates sent to</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:81"><nobr><span class="ft10">improve dead-reckoning discussed in Section 4.1 -- are in<br>absolute values, then the size of the packet containing the<br>data can be large, resulting in large delay due to many PDU<br>fragmentation and spreading. The alternative is to describe<br>the location in relative terms -- the difference in the location<br>from a previous time slot. Differential values are smaller, re-<br>sulting in fewer encoded bits and smaller packets, and hence</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:81"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:88"><nobr><span class="ft4">Our system is actually more similar to a D/G/1 queue,</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:81"><nobr><span class="ft14">since the arrivals of game data are more likely to be deter-<br>ministic than Markovian. Instead, we use M/G/1 queue as</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft4">a first-order approximation.</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:609"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:689"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:770"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:531"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:617"><nobr><span class="ft23">2</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:697"><nobr><span class="ft23">3</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:778"><nobr><span class="ft23">4</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:528"><nobr><span class="ft22">ACK boundary</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:617"><nobr><span class="ft23">2</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:697"><nobr><span class="ft23">3</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:778"><nobr><span class="ft23">4</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:536"><nobr><span class="ft23">1</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:689"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:770"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:609"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:528"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:511"><nobr><span class="ft4">Figure 3: Example of Differential Coding</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:487"><nobr><span class="ft4">mode</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:536"><nobr><span class="ft4">mode marker</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:631"><nobr><span class="ft4">ref. size</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:695"><nobr><span class="ft4">coord. size</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:785"><nobr><span class="ft4">total</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:500"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:568"><nobr><span class="ft4">00</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:652"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:721"><nobr><span class="ft4">32</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:776"><nobr><span class="ft4">2 + 64n</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:500"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:568"><nobr><span class="ft4">01</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:652"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:721"><nobr><span class="ft4">16</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:776"><nobr><span class="ft4">2 + 32n</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:500"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:568"><nobr><span class="ft4">10</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:652"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:724"><nobr><span class="ft4">8</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:776"><nobr><span class="ft4">4 + 16n</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:500"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:568"><nobr><span class="ft4">11</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:652"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:724"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:780"><nobr><span class="ft4">6 + 8n</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:531"><nobr><span class="ft4">Table 1: Differential Coding Modes</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:475"><nobr><span class="ft10">smaller transmission delay. This differential coding of loca-<br>tion data is used today in networked games.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:489"><nobr><span class="ft4">The obvious disadvantage of differential coding is that the</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:475"><nobr><span class="ft10">created dependency chain is vulnerable to network loss; a<br>single loss can result in error propagation until the next<br>absolute location data (refresh).</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:489"><nobr><span class="ft4">To lessen the error propagation effect while maintaining</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:475"><nobr><span class="ft10">the coding benefit of differential coding, one can reference a<br>position in an earlier time slot. An example is shown in Fig-<br>ure 3, where we see position 3 (</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:676"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:683"><nobr><span class="ft4">) references </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:763"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:775"><nobr><span class="ft4">instead of</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:475"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:481"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:487"><nobr><span class="ft4">. This way, loss of packet containing </span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:719"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:730"><nobr><span class="ft4">will not affect </span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:824"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:830"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:475"><nobr><span class="ft4">which depends only on </span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:625"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:631"><nobr><span class="ft4">. The problem is then: for a new</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:475"><nobr><span class="ft4">position </span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:533"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:538"><nobr><span class="ft4">, how to select reference position </span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:741"><nobr><span class="ft13">t-r</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:764"><nobr><span class="ft4">for differen-</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:475"><nobr><span class="ft10">tial coding such that the right tradeoff of error resilience and<br>packet size can be selected? This selection must be done in<br>an on-line manner as new position becomes available from<br>the application to avoid additional delay.</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:479"><nobr><span class="ft18"><i>4.4.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:528"><nobr><span class="ft18"><i>Specifying Coding Modes</i></span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:489"><nobr><span class="ft4">To implement loss-optimized differential coding, we first</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft10">define a coding specification that dictates how the receiver<br>should decode location packets. For simplicity, we propose<br>only four coding modes, where each mode is specified by a<br>designated bit sequence (mode marker) in the packet. As-<br>suming the original absolute position  is specified by two<br>32-bit fixed point numbers, mode 0 encodes the unaltered<br>absolute position in x-y order, resulting in data payload size<br>of 2 + 64n bits for n game entities. Mode 1 uses the pre-<br>vious position as reference for differential encoding with 16<br>bits per coordinate, resulting in 2 + 32n bits for n entities.<br>Mode 2 uses the first 2 bits to specify r in reference position<br>t - r for differential encoding. Each coordinate takes 8 bits,<br>resulting in 4 + 16n total bits for n entities. Mode 3 is sim-<br>ilar to mode 2 with the exception that each of the reference<br>marker and the two coordinate takes only 4 bits to encode,<br>resulting in 6 + 8n bits for n entities.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:489"><nobr><span class="ft4">For given position </span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:617"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:630"><nobr><span class="ft4">= (x</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:663"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:668"><nobr><span class="ft4">, y</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:681"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:686"><nobr><span class="ft4">) and reference </span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:795"><nobr><span class="ft13">t-r</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:823"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft4">(x</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:489"><nobr><span class="ft13">t-r</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:508"><nobr><span class="ft4">, y</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:521"><nobr><span class="ft13">t-r</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:540"><nobr><span class="ft4">), some modes may be infeasible due to the fixed</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft10">coding bit budgets for reference and coordinate sizes. So<br>limited to the set of feasible modes, we seek a reference po-<br>sition / mode pair that maximizes an objective function.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">210</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft25{font-size:9px;font-family:Times;color:#000000;}
+	.ft26{font-size:2px;font-family:Helvetica;color:#000000;}
+	.ft27{font-size:3px;font-family:Helvetica;color:#000000;}
+	.ft28{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft29{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft30{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147005.png" alt="background image">
+<DIV style="position:absolute;top:79;left:233"><nobr><span class="ft25">PLR</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:276"><nobr><span class="ft25">RTT mean</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:352"><nobr><span class="ft25">RTT variance</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:95"><nobr><span class="ft25">Tokyo-Singapore (50)</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:280"><nobr><span class="ft25">94.125ms</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:373"><nobr><span class="ft25">178.46</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:91"><nobr><span class="ft25">Tokyo-Singapore (100)</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:280"><nobr><span class="ft25">95.131ms</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:373"><nobr><span class="ft25">385.30</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:91"><nobr><span class="ft25">Tokyo-Singapore (200)</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:280"><nobr><span class="ft25">96.921ms</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:373"><nobr><span class="ft25">445.63</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:119"><nobr><span class="ft25">HSDPA (50)</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:280"><nobr><span class="ft25">62.232ms</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:373"><nobr><span class="ft25">7956.8</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:116"><nobr><span class="ft25">HSDPA (100)</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:280"><nobr><span class="ft25">72.547ms</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:375"><nobr><span class="ft25">25084</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:116"><nobr><span class="ft25">HSDPA (200)</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:243"><nobr><span class="ft25">0</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:277"><nobr><span class="ft25">152.448ms</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:371"><nobr><span class="ft25">143390</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:111"><nobr><span class="ft4">Table 2: Comparison of Network Statistics</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:85"><nobr><span class="ft18"><i>4.4.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:134"><nobr><span class="ft18"><i>Finding Optimal Coding Modes</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:94"><nobr><span class="ft4">For an IP packet of size s</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:261"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:273"><nobr><span class="ft4">containing position </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:402"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:414"><nobr><span class="ft4">that</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:81"><nobr><span class="ft10">is sent at time t, we first define the probability that it is<br>correctly delivered b y time  as </span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:293"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:298"><nobr><span class="ft4">( ). </span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:340"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:345"><nobr><span class="ft4">( ) depends on</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:81"><nobr><span class="ft4">expected PLR l(s</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:187"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:192"><nobr><span class="ft4">) and delay d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:284"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:289"><nobr><span class="ft4">), resulting from retrans-</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:81"><nobr><span class="ft4">mission limit B chosen in Section 4.3:</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:148"><nobr><span class="ft4">N(s</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:172"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:177"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:196"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:220"><nobr><span class="ft4"> s</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:249"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:230"><nobr><span class="ft4">S</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:239"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:267"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:415"><nobr><span class="ft4">(12)</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:156"><nobr><span class="ft4">l(s</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:172"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:177"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:196"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:220"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:230"><nobr><span class="ft4">- (P</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:258"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:285"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:291"><nobr><span class="ft13">N(s</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:310"><nobr><span class="ft17">t</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:315"><nobr><span class="ft13">)</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:415"><nobr><span class="ft4">(13)</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:153"><nobr><span class="ft4">d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:172"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:177"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:196"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:220"><nobr><span class="ft4">d</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:228"><nobr><span class="ft24">q<br>SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:256"><nobr><span class="ft4">+ N(s</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:294"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:300"><nobr><span class="ft4">) m</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:322"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:334"><nobr><span class="ft4">X</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:345"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:415"><nobr><span class="ft4">(14)</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:81"><nobr><span class="ft4">where N(s</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:147"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:152"><nobr><span class="ft4">) is the number of PDUs fragmented from an</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:81"><nobr><span class="ft4">SDU of size s</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:169"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:174"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:191"><nobr><span class="ft4">l(s</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:207"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:212"><nobr><span class="ft4">) is PLR in (5) generalized to SDU</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:81"><nobr><span class="ft4">size s</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:114"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:119"><nobr><span class="ft4">. d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:150"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:154"><nobr><span class="ft4">) is the expected queuing delay in (8) plus the</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:81"><nobr><span class="ft4">transmission delay in (7) generalized to SDU size s</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:401"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:406"><nobr><span class="ft4">. We</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:81"><nobr><span class="ft4">can now approximate </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:224"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:229"><nobr><span class="ft4">( ) as:</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:92"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:101"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:106"><nobr><span class="ft4">( ) </span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:143"><nobr><span class="ft4"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:331"><nobr><span class="ft4">if ACKed b y </span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:160"><nobr><span class="ft4">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:175"><nobr><span class="ft4">- l(s</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:205"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:210"><nobr><span class="ft4">))1 ( - t - d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:302"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:307"><nobr><span class="ft4">))</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:331"><nobr><span class="ft4">o.w.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:415"><nobr><span class="ft4">(15)</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:81"><nobr><span class="ft10">where 1(x) = 1 if x  0, and = 0 otherwise. If no acknowl-<br>edgment packets (ACK) are sent from client to WING, then<br></span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:89"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:95"><nobr><span class="ft10">( ) is simply the second case in (15).<br>We next define the probability that position </span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:365"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:374"><nobr><span class="ft4">is correctly</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:81"><nobr><span class="ft4">decoded b y time  as P</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:222"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:227"><nobr><span class="ft4">( ). Due to dependencies resulting</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:81"><nobr><span class="ft4">from differential coding, P</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:239"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:244"><nobr><span class="ft4">( ) is written as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:191"><nobr><span class="ft4">P</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:199"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:204"><nobr><span class="ft4">( ) = </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:250"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:255"><nobr><span class="ft4">( ) Y</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:276"><nobr><span class="ft13">jt</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:296"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:305"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:311"><nobr><span class="ft4">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:415"><nobr><span class="ft4">(16)</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:81"><nobr><span class="ft10">where j  i is the set of positions j's that precedes t in the<br>dependency graph due to differential coding.</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:94"><nobr><span class="ft4">Given utility function u(d) in Section 4.1 and decode prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:81"><nobr><span class="ft10">ability (16), the optimal reference position / mode pair is one<br>that maximizes the following objective function:</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:182"><nobr><span class="ft4">max P</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:219"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:224"><nobr><span class="ft4">(t + d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:270"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:275"><nobr><span class="ft4">)) u(d(s</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:323"><nobr><span class="ft13">t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:328"><nobr><span class="ft4">))</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:415"><nobr><span class="ft4">(17)</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:81"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:112"><nobr><span class="ft3"><b>EXPERIMENTATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:94"><nobr><span class="ft4">We first present network statistics for HSDPA and dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft4">cuss the implications.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:228"><nobr><span class="ft4">We collected network statistics of</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft10">10,000 ping packets, of packet size 50, 100 and 200 bytes,<br>spaced 200ms apart, between hosts in Tokyo and Singapore<br>inside HP intranet. The results are shown in Table 2. We<br>then conducted the same experiment over a network emu-<br>lator called WiNe2 [16] emulating the HSDPA link with 10<br>competing ftp users each with mobility model Pedestrian<br>A. We make two observations in Table 2. One, though re-<br>sults from both experiments had similar RTT means, HS-<br>DPA's RTT variances were very large, substantiating our<br>claim that using split-connection to shield the server-WING<br>connection from HSDPA's RTT variance would drastically<br>improve TFRC bandwidth (3) of server-WING connection.</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:548"><nobr><span class="ft4">number of entities n</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:749"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:578"><nobr><span class="ft4">frame rate</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:732"><nobr><span class="ft4">10 fps</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:555"><nobr><span class="ft4">IP + UDP header</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:715"><nobr><span class="ft4">20 + 8 bytes</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:565"><nobr><span class="ft4">RLC PDU size</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:727"><nobr><span class="ft4">40 bytes</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:550"><nobr><span class="ft4">RLC PDU loss rate</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:724"><nobr><span class="ft4">0.1 to 0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:552"><nobr><span class="ft4">average packet size</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:727"><nobr><span class="ft4">61 bytes</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:520"><nobr><span class="ft4">shifted Gamma parameter </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:692"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:749"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:521"><nobr><span class="ft4">shifted Gamma parameter </span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:692"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:743"><nobr><span class="ft4">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:521"><nobr><span class="ft4">shifted Gamma parameter </span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:692"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:740"><nobr><span class="ft4">10.0</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:544"><nobr><span class="ft4">Table 3: Simulation Parameters</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:478"><nobr><span class="ft26">1</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:496"><nobr><span class="ft26">2</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:514"><nobr><span class="ft26">3</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:533"><nobr><span class="ft26">4</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:551"><nobr><span class="ft26">5</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:569"><nobr><span class="ft26">6</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:588"><nobr><span class="ft26">7</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:606"><nobr><span class="ft26">8</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:624"><nobr><span class="ft26">9</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:641"><nobr><span class="ft26">10</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:472"><nobr><span class="ft26">50</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:470"><nobr><span class="ft26">100</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:470"><nobr><span class="ft26">150</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:470"><nobr><span class="ft26">200</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:470"><nobr><span class="ft26">250</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:470"><nobr><span class="ft26">300</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:470"><nobr><span class="ft26">350</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:470"><nobr><span class="ft26">400</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:537"><nobr><span class="ft27">retransmission limit</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:466"><nobr><span class="ft27">expected delay in ms</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:515"><nobr><span class="ft28">expected delay vs. retrans. limit</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:610"><nobr><span class="ft26">epsilon=0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:610"><nobr><span class="ft26">epsilon=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:610"><nobr><span class="ft26">epsilon=0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:671"><nobr><span class="ft26">1</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:690"><nobr><span class="ft26">2</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:708"><nobr><span class="ft26">3</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:726"><nobr><span class="ft26">4</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:745"><nobr><span class="ft26">5</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:763"><nobr><span class="ft26">6</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:781"><nobr><span class="ft26">7</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:800"><nobr><span class="ft26">8</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:818"><nobr><span class="ft26">9</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:835"><nobr><span class="ft26">10</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:665"><nobr><span class="ft26">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:662"><nobr><span class="ft26">0.22</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:662"><nobr><span class="ft26">0.24</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:662"><nobr><span class="ft26">0.26</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:662"><nobr><span class="ft26">0.28</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:665"><nobr><span class="ft26">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:662"><nobr><span class="ft26">0.32</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:662"><nobr><span class="ft26">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:662"><nobr><span class="ft26">0.36</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:662"><nobr><span class="ft26">0.38</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:731"><nobr><span class="ft27">retransmission limit</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:659"><nobr><span class="ft27">expected utility</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:709"><nobr><span class="ft28">expected utility vs. retrans. limit</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:807"><nobr><span class="ft26">epsilon=0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:807"><nobr><span class="ft26">epsilon=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:807"><nobr><span class="ft26">epsilon=0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:463"><nobr><span class="ft4">a) delay vs. retrans. limit B</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:657"><nobr><span class="ft4">b) utility vs. retrans. limit B</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:491"><nobr><span class="ft4">Figure 4: Delay andUtility vs. Retrans. Limit</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft10">Two, larger packets entailed larger RTT means for HSDPA.<br>This means that the differential coding discussed in Section<br>4.4 indeed has substantial performance improvement poten-<br>tial.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:489"><nobr><span class="ft4">We next used an internally developed network simulator</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:475"><nobr><span class="ft10">called (mu)lti-path (n)etwork (s)imulator (muns) that was<br>used in other simulations [7] to test RLC configurations and<br>differential coding. For PDU transmission delay (), we<br>used a shifted Gamma distribution:</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:482"><nobr><span class="ft4">() = </span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:540"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:547"><nobr><span class="ft17">g</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:540"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:556"><nobr><span class="ft4">( - </span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:595"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:601"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:606"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:614"><nobr><span class="ft17">g</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:620"><nobr><span class="ft13">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:637"><nobr><span class="ft4">e</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:644"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:659"><nobr><span class="ft17">g</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:665"><nobr><span class="ft13">(-</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:691"><nobr><span class="ft17">g</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:697"><nobr><span class="ft13">)</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:600"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:622"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:629"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:704"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:729"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:737"><nobr><span class="ft13">g</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:747"><nobr><span class="ft4">&lt;  &lt;  (18)</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:475"><nobr><span class="ft10">where () is the Gamma function [14]. The parameters<br>used are shown in Table 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:489"><nobr><span class="ft4">Figure 4 shows the expected delay and utility as a function</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:475"><nobr><span class="ft10">of retransmission limit B for different PDU loss rates. As<br>expected, when B increases, the expected delay increases.<br>The expected utility, on the other hand, reaches a peak and<br>decreases. For given PDU loss rate, we simply select B with<br>the largest expected utility.</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:489"><nobr><span class="ft4">Next, we compare the results of our loss-optimized dif-</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:475"><nobr><span class="ft30">ferential coding optimization opt in Section 4.4 with two<br>schemes: abs, which always encodes in absolute values; and,<br>rel, which uses only previous frame for differential coding<br>and refreshes with absolute values every 10 updates. abs</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:532"><nobr><span class="ft4">B</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:543"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:566"><nobr><span class="ft4">abs(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:621"><nobr><span class="ft4">abs(</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:647"><nobr><span class="ft4">B</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:658"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:665"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:686"><nobr><span class="ft4">rel(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:741"><nobr><span class="ft4">rel(</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:768"><nobr><span class="ft4">B</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:779"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:786"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:812"><nobr><span class="ft4">opt</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:487"><nobr><span class="ft4">0.10</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:537"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:569"><nobr><span class="ft4">1.181</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:630"><nobr><span class="ft4">1.134</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:690"><nobr><span class="ft4">1.806</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:750"><nobr><span class="ft4">1.154</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:807"><nobr><span class="ft4">1.070</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:487"><nobr><span class="ft4">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:537"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:569"><nobr><span class="ft4">1.222</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:630"><nobr><span class="ft4">1.166</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:690"><nobr><span class="ft4">2.288</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:750"><nobr><span class="ft4">1.108</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:807"><nobr><span class="ft4">1.073</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:487"><nobr><span class="ft4">0.20</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:537"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:569"><nobr><span class="ft4">1.290</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:630"><nobr><span class="ft4">1.192</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:690"><nobr><span class="ft4">2.619</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:750"><nobr><span class="ft4">1.380</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:807"><nobr><span class="ft4">1.086</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:487"><nobr><span class="ft4">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:537"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:569"><nobr><span class="ft4">1.356</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:630"><nobr><span class="ft4">1.232</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:690"><nobr><span class="ft4">3.035</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:750"><nobr><span class="ft4">1.568</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:807"><nobr><span class="ft4">1.090</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:487"><nobr><span class="ft4">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:537"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:569"><nobr><span class="ft4">1.449</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:630"><nobr><span class="ft4">1.268</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:690"><nobr><span class="ft4">3.506</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:750"><nobr><span class="ft4">1.750</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:807"><nobr><span class="ft4">1.110</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:487"><nobr><span class="ft4">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:537"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:569"><nobr><span class="ft4">1.509</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:630"><nobr><span class="ft4">1.300</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:690"><nobr><span class="ft4">3.556</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:750"><nobr><span class="ft4">2.054</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:807"><nobr><span class="ft4">1.121</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:543"><nobr><span class="ft4">Table 4: Distortion Comparison</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">211</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="147006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft10">represents the most error resilient coding method in dif-<br>ferential coding, while rel represents a reasonably coding-<br>efficient method with periodical resynchronization. Note,<br>however, that neither abs nor rel adapts differential coding<br>in real time using client feedbacks.</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:94"><nobr><span class="ft4">abs and rel were each tested twice.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:335"><nobr><span class="ft4">In the first trial,</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft10">limit B was set to 1, and in the second, B was set to the<br>optimal configured value as discussed in Section 4.3. 20000<br>data points were generated and averaged for each distortion<br>value in Table 4. As we see in Table 4 for various PDU<br>loss rate</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:140"><nobr><span class="ft13">P DU</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:167"><nobr><span class="ft4">, the resulting distortions for opt were always</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:81"><nobr><span class="ft10">lower than abs's and rel's, particularly for high PDU loss<br>rates. opt performed better than rel because of opt's er-<br>ror resiliency of loss-optimized differential coding, while opt<br>performed better than abs because opt's smaller packets in-<br>duced a smaller queuing delay and a smaller transmission<br>delay due to smaller number of RLC fragmentations. This<br>demonstrates that it is important not only to find an op-<br>timal RLC configuration, but a suitable differential coding<br>scheme to match the resulting loss rate and delay of the<br>configuration.</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:81"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:112"><nobr><span class="ft3"><b>CONCLUSION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:94"><nobr><span class="ft4">We propose a performance enhancing proxy called WING</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:81"><nobr><span class="ft10">to improve the delivery of game data from a game server to<br>3G game players using three techniques: i) split-connection<br>TCP-friendly congestion control, ii) network game optimized<br>RLC configuration, and, iii) packet compression using dif-<br>ferential coding. For future, we will investigate how simi-<br>lar techniques can be applied for the 3G uplink from game<br>player to game server.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:81"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:112"><nobr><span class="ft3"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:94"><nobr><span class="ft4">The authors thank other members of the multimedia sys-</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:81"><nobr><span class="ft10">tems architecture team, Yasuhiro Araki and Takeaki Ota,<br>for their valuable comments and discussions.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:81"><nobr><span class="ft3"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:112"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:88"><nobr><span class="ft4">[1] Universal Mobile Telecommunications System</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:109"><nobr><span class="ft10">(UMTS); Radio Link Control (RLC) protocol<br>specification (3GPP TS.25.322 version 5.12.0 Release<br>5). http://www.3gpp.org/ftp/Specs/archive/25 series/<br>25.322/25322-5c0.zip, September 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:88"><nobr><span class="ft4">[2] S. Aggarwal, H. Banavar, and A. Khandelwal.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:109"><nobr><span class="ft10">Accuracy in dead-reckoning based distributed<br>multi-player games. In ACM SIGCOMM NetGames,<br>Portland, OR, August 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:88"><nobr><span class="ft4">[3] A. Akkawi, S. Schaller, O. Wellnitz, and L. Wolf. A</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:109"><nobr><span class="ft10">mobile gaming platform for the IMS. In ACM<br>SIGCOMM NetGames, Portland, OR, August 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:88"><nobr><span class="ft4">[4] H. Balakrishnan, V. Padmanabhan, S. Seshan, and</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:109"><nobr><span class="ft10">R. Katz. A comparison of mechanisms for improving<br>TCP performance over wireless links. In IEEE/ACM<br>Trans. Networking, volume 5, no.6, December 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft4">[5] Q. Bi and S. Vitebsky. Performance analysis of 3G-1x</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft10">EvDO high data rate system. In IEEE Wireless<br>Communications and Networking Conference,<br>Orlando, FL, March 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:482"><nobr><span class="ft4">[6] M. Chen and A. Zakhor. AIO-TRFC: A light-weight</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft10">rate control scheme for streaming over wireless. In<br>IEEE WirelessCom, Maui, HI, June 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:482"><nobr><span class="ft4">[7] G. Cheung, P. Sharma, and S. J. Lee. Striping</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:503"><nobr><span class="ft10">delay-sensitive packets over multiple bursty wireless<br>channels. In IEEE International Conference on<br>Multimedia and Expo, Amsterdam, the Netherlands,<br>July 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:482"><nobr><span class="ft4">[8] G. Cheung and W. t. Tan. Streaming agent for wired</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:503"><nobr><span class="ft10">network / wireless link rate-mismatch environment. In<br>International Workshop on Multimedia Signal<br>Processing, St. Thomas, Virgin Islands, December<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:482"><nobr><span class="ft4">[9] G. Cheung, W. t. Tan, and T. Yoshimura. Double</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:503"><nobr><span class="ft10">feedback streaming agent for real-time delivery of<br>media over 3G wireless networks. In IEEE<br>Transactions on Multimedia, volume 6, no.2, pages<br>304­314, April 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft4">[10] S. P. et al. Game transport protocol: A reliable</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:503"><nobr><span class="ft10">lightweight transport protocol for massively<br>multiplayer on-line games (MMPOGs). In<br>SPIE-ITCOM, Boston, MA, July 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:475"><nobr><span class="ft4">[11] S. Floyd, M. Handley, J. Padhye, and J. Widmer.</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:503"><nobr><span class="ft10">Equation-based congestion control for unicast<br>applications. In ACM SIGCOMM, Stockholm,<br>Sweden, August 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:475"><nobr><span class="ft4">[12] P. Ghosh, K. Basu, and S. Das. A cross-layer design to</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:503"><nobr><span class="ft10">improve quality of service in online multiplayer<br>wireless gaming networks. In IEEE Broadnets, Boston,<br>MA, October 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:475"><nobr><span class="ft4">[13] L. Huang, U. Horn, F. Hartung, and M. Kampmann.</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:503"><nobr><span class="ft10">Proxy-based TCP-friendly streaming over mobile<br>networks. In IEEE International Symposium on a<br>World of Wireless, Mobile and Multimedia Networks,<br>Atlanta, GA, September 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:475"><nobr><span class="ft4">[14] A. Leon-Garcia. Probability and Random Processes for</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:503"><nobr><span class="ft4">Electrical Engineering. Addison Wesley, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:475"><nobr><span class="ft4">[15] M. Meyer, J. Sachs, and M. Holzke. Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:503"><nobr><span class="ft10">evaluation of a TCP proxy in WCDMA networks. In<br>IEEE Wireless Communications, October 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft4">[16] Nomor Research GmbH. WiSe2.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:503"><nobr><span class="ft4">http://www.nomor.de.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:475"><nobr><span class="ft4">[17] F. Yang, Q. Zhang, W. Zhu, and Y.-Q. Zhang. Bit</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:503"><nobr><span class="ft10">allocation for scalable video streaming over mobile<br>wireless internet. In IEEE Infocom, Hong Kong,<br>March 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:475"><nobr><span class="ft4">[18] T. Yoshimura, T. Ohya, T. Kawahara, and M. Etoh.</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:503"><nobr><span class="ft10">Rate and robustness control with RTP monitoring<br>agent for mobile multimedia streaming. In IEEE<br>International Conference on Communication, New<br>York, NY, April 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">212</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,753 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\12</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2002-08-14T10:28:08+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:235"><nobr><span class="ft0"><b>A Geometric Constraint Library for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:290"><nobr><span class="ft0"><b>3D Graphical Applications</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:396"><nobr><span class="ft1">Hiroshi Hosobe</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:355"><nobr><span class="ft2">National Institute of Informatics</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:273"><nobr><span class="ft2">2-1-2 Hitotsubashi, Chiyoda-ku, Tokyo 101-8430, Japan</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:388"><nobr><span class="ft1">hosobe@nii.ac.jp</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:81"><nobr><span class="ft8">Recent computer technologies have enabled fast high-quality<br>3D graphics on personal computers, and also have made<br>the development of 3D graphical applications easier. How-<br>ever, most of such technologies do not sufficiently support<br>layout and behavior aspects of 3D graphics. Geometric con-<br>straints are, in general, a powerful tool for specifying layouts<br>and behaviors of graphical objects, and have been applied<br>to 2D graphical user interfaces and specialized 3D graph-<br>ics packages. In this paper, we present Chorus3D, a geo-<br>metric constraint library for 3D graphical applications. It<br>enables programmers to use geometric constraints for vari-<br>ous purposes such as geometric layout, constrained dragging,<br>and inverse kinematics. Its novel feature is to handle scene<br>graphs by processing coordinate transformations in geomet-<br>ric constraint satisfaction. We demonstrate the usefulness of<br>Chorus3D by presenting sample constraint-based 3D graph-<br>ical applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:81"><nobr><span class="ft8">geometric constraints, constraint satisfaction, geometric lay-<br>out, 3D graphics, scene graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:81"><nobr><span class="ft8">Recent advances in commodity hardware have enabled fast<br>high-quality 3D graphics on personal computers. Also, soft-<br>ware technologies such as VRML and Java 3D have made the<br>development of 3D graphical applications easier. However,<br>most of such technologies mainly focus on rendering aspects<br>of 3D graphics, and do not sufficiently support layout and<br>behavior aspects.</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:81"><nobr><span class="ft8">Constraints are, in general, a powerful tool for specifying<br>layouts and behaviors of graphical objects.</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:366"><nobr><span class="ft4">It is widely</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:81"><nobr><span class="ft8">recognized that constraints facilitate describing geometric<br>layouts and behaviors of diagrams in 2D graphical user in-<br>terfaces such as drawing editors, and therefore constraint<br>solvers for this purpose have been extensively studied [3, 7,</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft9">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to distribute to lists, requires prior specific<br>permission and/or fee.<br><i>Int. Symp. on Smart Graphics,</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:231"><nobr><span class="ft5">June 11-13, 2002, Hawthorne, NY, USA.</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:81"><nobr><span class="ft5">Copyright 2002 ACM 1-58113-555-6/02/0600...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:312"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:319"><nobr><span class="ft5">5.00</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:475"><nobr><span class="ft8">8, 9, 11, 12, 13, 17, 18]. Also, many specialized 3D graph-<br>ics packages enable the specification of object layouts and<br>behaviors by using constraints or similar functions.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:475"><nobr><span class="ft8">It is natural to consider that various 3D graphical applica-<br>tions can also be enhanced by incorporating constraints. It<br>might seem sufficient for this purpose to modify existing 2D<br>geometric constraint solvers to support 3D geometry. It is,<br>however, insufficient in reality because of the essential dif-<br>ference between the ways of specifying 2D and 3D graphics;<br>typical 2D graphics handles only simple coordinate systems,<br>whereas most 3D graphics requires multiple coordinate sys-<br>tems with complex relations such as rotations to treat scene<br>graphs. It means that we need to additionally support coor-<br>dinate transformations in 3D geometric constraint solvers.</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:475"><nobr><span class="ft8">In this paper, we present Chorus3D, a geometric constraint<br>library for 3D graphical applications. The novel feature of<br>Chorus3D is to handle scene graphs by processing coordi-<br>nate transformations in geometric constraint satisfaction.<br>We have realized Chorus3D by adding this feature to our<br>previous 2D geometric constraint library Chorus [13].</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:475"><nobr><span class="ft8">Another important point of Chorus3D is that it inherits from<br>Chorus the capability to handle "soft" constraints with hier-<br>archical strengths or preferences (i.e., constraint hierarchies<br>[7]), which are useful for specifying default layouts and be-<br>haviors of graphical objects. It determines solutions so that<br>they satisfy as many strong constraints as possible, leaving<br>weaker inconsistent constraints unsatisfied.</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:475"><nobr><span class="ft8">Chorus3D also inherits from Chorus a module mechanism<br>which allows user-defined kinds of geometric constraints.<br>This feature enables programmers to use geometric con-<br>straints for various purposes including the following:</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:475"><nobr><span class="ft4">Geometric layout: A typical use of Chorus3D is to lay</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:509"><nobr><span class="ft8">out graphical objects. For example, it allows putting<br>objects parallel or perpendicular to others without re-<br>quiring predetermined positioning parameters. Also, it<br>provides constraint-based general graph layout based<br>on the spring model [14].</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft4">Constrained dragging: Chorus3D enables dragging ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:509"><nobr><span class="ft4">jects with positioning constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:736"><nobr><span class="ft4">For example, it</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:509"><nobr><span class="ft8">can constrain a dragged object to be on the surface<br>of a sphere. Constrained dragging is important for 3D<br>graphics because it provides a sophisticated way to ac-</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:137"><nobr><span class="ft7">94</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:114"><nobr><span class="ft4">commodate ordinary mouse dragging to 3D spaces.</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:81"><nobr><span class="ft4">Inverse kinematics: Chorus3D is applicable to inverse</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:114"><nobr><span class="ft8">kinematics, which is a problem of finding desired con-<br>figurations of "articulated" objects [1, 20]. It allows<br>the specification of articulated objects by using coor-<br>dinate transformations, and can automatically calcu-<br>late the parameters of the transformations that satisfy<br>constraints. This method is also applicable to camera<br>control by aiming at a possibly moving target object.</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:81"><nobr><span class="ft8">In this paper, we demonstrate the usefulness of Chorus3D<br>by presenting sample constraint-based 3D graphical appli-<br>cations.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:81"><nobr><span class="ft8">This paper is organized as follows: We first present our ap-<br>proach to the use of constraints for 3D graphics. Second,<br>we describe our basic framework of constraints. Next, we<br>present a method for processing coordinate transformations<br>in our framework. We then provide the implementation of<br>Chorus3D, and demonstrate examples of using constraints<br>in 3D graphics. After giving related work and discussion, we<br>mention the conclusions and future work of this research.</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:81"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:112"><nobr><span class="ft3"><b>OUR APPROACH</b></span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:81"><nobr><span class="ft8">In this research, we integrate geometric constraints with 3D<br>graphics. Basically, we realize this by extending our previ-<br>ous 2D geometric constraint solver Chorus [13] to support<br>3D geometry. However, as already mentioned, it is not a<br>straightforward task because 3D graphics typically requires<br>handling scene graphs with hierarchical structures of coor-<br>dinate systems, which is not covered by the 2D version of<br>the Chorus constraint solver.</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:81"><nobr><span class="ft8">To support hierarchies of coordinate systems, we introduce<br>the following new model of constraints:</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft4">Point variables: Each point variable (which consists of</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:114"><nobr><span class="ft8">three real-valued constrainable variables) is associated<br>with one coordinate system, and its value is expressed<br>as local coordinates.</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:81"><nobr><span class="ft4">Geometric constraints: Geometric constraints on point</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:114"><nobr><span class="ft8">variables are evaluated by using the world coordinates<br>of the point variables (they can also refer to 1D vari-<br>ables for, e.g., distances and angles by using their val-<br>ues directly). A single constraint can refer to point<br>variables belonging to different coordinate systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:81"><nobr><span class="ft4">Coordinate transformations: Parameters of coordinate</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:114"><nobr><span class="ft8">transformations are provided as constrainable vari-<br>ables, and the solver is allowed to change the param-<br>eters of transformations to appropriately satisfy given<br>constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:81"><nobr><span class="ft8">With this model, we can gain the benefit of the easy mainte-<br>nance of geometric relations by using constraints, as well as<br>the convenience of modeling geometric objects by employing<br>scene graphs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft8">In our actual implementation, we provide the following three<br>elemental kinds of coordinate transformations:</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft4">Translation: A translation transformation is characterized</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:509"><nobr><span class="ft4">with three variables t</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:642"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:649"><nobr><span class="ft4">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:664"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:671"><nobr><span class="ft4">, and t</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:715"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:721"><nobr><span class="ft4">, and specifies the</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:509"><nobr><span class="ft4">translation of vector (t</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:646"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:653"><nobr><span class="ft4">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:665"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:671"><nobr><span class="ft4">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:682"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:689"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:475"><nobr><span class="ft4">Rotation: A rotation transformation is parameterized with</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:509"><nobr><span class="ft4">four variables r</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:602"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:609"><nobr><span class="ft4">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:624"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:631"><nobr><span class="ft4">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:646"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:652"><nobr><span class="ft4">, and r</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:694"><nobr><span class="ft10">w</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:703"><nobr><span class="ft4">, and specifies the ro-</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:509"><nobr><span class="ft4">tation of angle r</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:608"><nobr><span class="ft10">w</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:621"><nobr><span class="ft4">about the axis (r</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:724"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:731"><nobr><span class="ft4">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:744"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:750"><nobr><span class="ft4">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:763"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:769"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:475"><nobr><span class="ft4">Scale: A scale transformation is represented with three</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:509"><nobr><span class="ft4">variables s</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:575"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:582"><nobr><span class="ft4">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:599"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:606"><nobr><span class="ft4">, and s</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:652"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:659"><nobr><span class="ft4">, and specifies the axis-wise</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:509"><nobr><span class="ft4">scale (s</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:554"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:561"><nobr><span class="ft4">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:573"><nobr><span class="ft10">y</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:580"><nobr><span class="ft4">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:593"><nobr><span class="ft10">z</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:599"><nobr><span class="ft4">) about the origin.</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:475"><nobr><span class="ft8">We can express many practically useful transformations by<br>using such elemental ones. In fact, any transformations rep-<br>resented with Transform nodes in VRML can be realized by<br>combining these kinds of transformations [4].</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:475"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:507"><nobr><span class="ft3"><b>CONSTRAINT FRAMEWORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:475"><nobr><span class="ft8">In this section, we briefly describe our framework for han-<br>dling constraints. We base it on the framework for the 2D<br>version of the Chorus constraint solver. See [13] for further<br>detail.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:475"><nobr><span class="ft3"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:516"><nobr><span class="ft3"><b>Problem Formulation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:475"><nobr><span class="ft8">We first present the mathematical formulation for modeling<br>constraints and constraint systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:708"><nobr><span class="ft4">In the following, we</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:475"><nobr><span class="ft4">write x to represent a variable vector (x</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:734"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:740"><nobr><span class="ft4">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:754"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:760"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:803"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:811"><nobr><span class="ft4">) of</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:475"><nobr><span class="ft8">n variables, and also v to indicate a variable value vector<br>(v</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:487"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:494"><nobr><span class="ft4">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:506"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:513"><nobr><span class="ft4">, . . . , v</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:552"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:560"><nobr><span class="ft4">) of n real numbers (v</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:694"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:703"><nobr><span class="ft4">expresses the value of</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:475"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:483"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:488"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:475"><nobr><span class="ft8">To support various geometric constraints in a uniform man-<br>ner, we adopt error functions as a means of expressing con-<br>straints. An error function e(x) is typically associated with<br>a single arithmetic constraint, and is defined as a func-<br>tion from variable value vectors to errors expressed as non-<br>negative real numbers; that is, e(v) gives the error of the<br>associated constraint for v. An error function returns a zero<br>if and only if the constraint is exactly satisfied. For example,<br>e(x) = (x</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:536"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:545"><nobr><span class="ft4">- x</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:567"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:573"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:579"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:590"><nobr><span class="ft4">can be used for the constraint x</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:790"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:800"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:824"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:830"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:475"><nobr><span class="ft4">We assume that, for each e(x), its gradient is known:</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:549"><nobr><span class="ft4">e(x) =</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:606"><nobr><span class="ft4">e(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:612"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:628"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:642"><nobr><span class="ft4">, e(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:656"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:672"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:686"><nobr><span class="ft4">, . . . , e(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:724"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:740"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:767"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:475"><nobr><span class="ft8">In the same way as constraint hierarchies [7], constraint sys-<br>tems in our framework can be divided into levels consisting<br>of constraints with equal strengths. Constraints with the<br>strongest preference are said to be required (or hard), and<br>are guaranteed to be always satisfied (if it is impossible,<br>there will be no solution). By contrast, constraints with<br>weaker preferences are said to be preferential (or soft), and<br>may be relaxed if they conflict with stronger constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft8">Solutions to constraint systems are defined as follows: let<br>e</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:482"><nobr><span class="ft10">i,j</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:495"><nobr><span class="ft4">(x) be the error function of the j-th constraint (1  j </span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:475"><nobr><span class="ft4">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:487"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:492"><nobr><span class="ft4">) at strength level i (0  i  l); then solutions v are</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft4">determined with the optimization problem</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:491"><nobr><span class="ft4">minimize</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:514"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:555"><nobr><span class="ft4">E(v) subject to e</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:670"><nobr><span class="ft10">0,j</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:685"><nobr><span class="ft4">(v) = 0 (1  j  m</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:806"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:813"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:808"><nobr><span class="ft7">95</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:5px;font-family:Times;color:#000000;}
+	.ft12{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+	.ft14{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft4">where E is an objective function defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:186"><nobr><span class="ft4">E(x) =</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:243"><nobr><span class="ft10">l</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:236"><nobr><span class="ft10">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:260"><nobr><span class="ft10">m</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:270"><nobr><span class="ft11">i</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:258"><nobr><span class="ft10">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:280"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:290"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:294"><nobr><span class="ft4">e</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:301"><nobr><span class="ft10">i,j</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:314"><nobr><span class="ft4">(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft4">in which w</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:146"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:155"><nobr><span class="ft4">indicates the weight associated with strength i,</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft4">and the relation w</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:192"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:220"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:230"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:257"><nobr><span class="ft4">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:295"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:305"><nobr><span class="ft10">l</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:314"><nobr><span class="ft4">holds. In this formu-</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:81"><nobr><span class="ft8">lation, level 0 corresponds to required constraints, and the<br>others to preferential ones. Intuitively, more weighted (or<br>stronger) preferential constraints should be more satisfied.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:81"><nobr><span class="ft8">Our framework simulates constraint hierarchies. Particu-<br>larly, if the squares of constraint violations are used to com-<br>pute error functions, a system in our framework will obtain<br>approximate solutions to the similar hierarchy solved with<br>the criterion least-squares-better [3, 17]. The largest differ-<br>ence is that a system in our framework slightly considers a<br>weak constraint inconsistent with a stronger satisfiable one<br>in computing its solutions, while the similar hierarchy would<br>discard such a weak one.</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:81"><nobr><span class="ft8">Our actual implementation of the Chorus3D constraint<br>solver provides four external strengths required, strong,<br>medium, and weak as well as two internal strengths very<br>strong (used to approximately handle required nonlinear<br>or inequality constraints) and very weak (exploited to make<br>new solutions as close to previous ones as possible). It typ-<br>ically assigns weights 32</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:227"><nobr><span class="ft10">4</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:233"><nobr><span class="ft4">, 32</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:256"><nobr><span class="ft10">3</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:262"><nobr><span class="ft4">, 32</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:284"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:291"><nobr><span class="ft4">, 32</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:313"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:319"><nobr><span class="ft4">, and 1 to strengths</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:81"><nobr><span class="ft8">very strong, strong, medium, weak, and very weak respec-<br>tively. These weights were determined according to the pre-<br>cision of the actual numerical algorithm (described in the<br>next subsection). To know how much these weights affect<br>solutions, suppose a system of strong constraint x = 0 and<br>medium one x = 100. Then the unique solution will be ob-<br>tained as x = 3.0303 · · · (= 100/33). Thus the difference of<br>strengths is obvious. According to our actual experience,<br>this precision allows us to discriminate constraint strengths<br>in most graphical applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:81"><nobr><span class="ft3"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:121"><nobr><span class="ft3"><b>Algorithm</b></span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft8">To actually find solutions to constraint systems presented<br>above, we need to solve their corresponding optimization<br>problems. For this purpose, we designed a constraint sat-<br>isfaction algorithm by combining a numerical optimization<br>technique with a genetic algorithm. It uses numerical op-<br>timization to find local solutions, while it adopts a genetic<br>algorithm to search for global solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft8">For numerical optimization, we mainly use the quasi-Newton<br>method based on Broyden-Fletcher-Goldfarb-Sahnno updat-<br>ing formula [2, 6], which is a fast iterative technique that<br>exhibits superlinear convergence.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:297"><nobr><span class="ft4">Since it excludes fruit-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft8">less searches by utilizing its history, it is usually faster than<br>straightforward Newton's method.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft8">We introduced a genetic algorithm to alleviate the problem<br>that some kinds of geometric constraints suffer from local op-<br>timal but global non-optimal solutions [11, 16]. Generally,<br>a genetic algorithm is a stochastic search method that re-<br>peatedly transforms a population of potential solutions into<br>another next-generation population [10, 15]. We typically<br>necessitate it only for computing initial solutions; in other<br>words, we can usually re-solve modified constraint systems</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft8">without the genetic algorithm, only by applying numerical<br>optimization to previous solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:475"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:507"><nobr><span class="ft14"><b>PROCESSING COORDINATE<br>TRANSFORMATIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:475"><nobr><span class="ft8">In this section, we propose a method for integrating coordi-<br>nate transformations with our constraint framework.</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:475"><nobr><span class="ft8">As already mentioned, we use world coordinates of points<br>to evaluate 3D geometric constraints. A naive method for<br>this is to duplicate point variables in all ancestor coordinate<br>systems, and then to impose required constraints that rep-<br>resent coordinate transformations between the point vari-<br>ables. However, this method requires an optimization rou-<br>tine supporting required nonlinear constraints, which lim-<br>its the availability of actual techniques (in fact, we cannot<br>use the quasi-Newton method for this purpose). Also, this<br>method tends to yield many variables and constraints, and<br>therefore requires an extra amount of memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:475"><nobr><span class="ft8">Below we propose a more widely applicable method for han-<br>dling coordinate transformations.</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:695"><nobr><span class="ft4">Its characteristic is to</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:475"><nobr><span class="ft8">hide transformations from optimization routines, which is<br>realized by embedding transformations in error functions.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:475"><nobr><span class="ft3"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:516"><nobr><span class="ft3"><b>Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:475"><nobr><span class="ft8">To begin with, we introduce another variable vector x =<br>(x</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:488"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:495"><nobr><span class="ft4">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:509"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:515"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:553"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:561"><nobr><span class="ft4">), which is created by replacing variables for</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:475"><nobr><span class="ft8">local coordinates of 3D points in x with the corresponding<br>ones for world coordinates (1D variables remain the same).<br>We can mathematically model this process as follows: Con-<br>sider the sequence of the s transformations</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:509"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:517"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:526"><nobr><span class="ft4">(= x) t</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:575"><nobr><span class="ft11">0</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:564"><nobr><span class="ft4">- y</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:599"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:614"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:620"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:609"><nobr><span class="ft4">- · · · t</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:661"><nobr><span class="ft11">s-2</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:656"><nobr><span class="ft4">- y</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:692"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:716"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:722"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:718"><nobr><span class="ft4">- y</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:754"><nobr><span class="ft10">s</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:762"><nobr><span class="ft4">(= x )</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:475"><nobr><span class="ft4">where y</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:525"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:537"><nobr><span class="ft4">and y</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:574"><nobr><span class="ft10">s</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:586"><nobr><span class="ft4">are equal to x and x respectively, each</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:475"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:484"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:495"><nobr><span class="ft4">(1  k  s - 1) is an "intermediate" vector, and each t</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:827"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:475"><nobr><span class="ft4">(0  k  s - 1) is a function that transforms y</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:761"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:772"><nobr><span class="ft4">into y</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:809"><nobr><span class="ft10">k+1</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:830"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:475"><nobr><span class="ft4">Intuitively, t</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:552"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:564"><nobr><span class="ft4">corresponds to a coordinate transformation,</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:475"><nobr><span class="ft8">and transforms related point variables from its source co-<br>ordinate system into its destination system. It should be<br>noted that, although transformations are, in general, hier-<br>archical (or tree-structured), we can always find such a linear<br>sequence by "serializing" them in an appropriate order.</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:475"><nobr><span class="ft8">By using such transformations, we can compute x as fol-<br>lows:</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:528"><nobr><span class="ft4">x = t</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:565"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:585"><nobr><span class="ft4">(t</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:596"><nobr><span class="ft10">s-2</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:617"><nobr><span class="ft4">(· · · (t</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:651"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:658"><nobr><span class="ft4">(t</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:669"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:675"><nobr><span class="ft4">(x))) · · · ))  t(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:475"><nobr><span class="ft8">where t is defined as the composition of all the elemental<br>transformations. In the following description, we write y</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:820"><nobr><span class="ft10">k,i</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:475"><nobr><span class="ft4">to denote the i-th element of y</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:666"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:673"><nobr><span class="ft4">, and also t</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:742"><nobr><span class="ft10">k,i</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:761"><nobr><span class="ft4">to represent</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:475"><nobr><span class="ft4">the i-th element of t</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:599"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:605"><nobr><span class="ft4">; that is,</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:505"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:514"><nobr><span class="ft10">k+1</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:538"><nobr><span class="ft4">= (y</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:565"><nobr><span class="ft10">k+1,1</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:595"><nobr><span class="ft4">, y</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:608"><nobr><span class="ft10">k+1,2</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:637"><nobr><span class="ft4">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:675"><nobr><span class="ft10">k+1,n</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:706"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:538"><nobr><span class="ft4">= (t</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:563"><nobr><span class="ft10">k,1</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:579"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:593"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:600"><nobr><span class="ft4">), t</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:616"><nobr><span class="ft10">k,2</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:632"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:646"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:653"><nobr><span class="ft4">), . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:694"><nobr><span class="ft10">k,n</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:711"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:725"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:732"><nobr><span class="ft4">)) = t</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:767"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:774"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:788"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:795"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:475"><nobr><span class="ft3"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:516"><nobr><span class="ft3"><b>Method</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft8">Geometric constraints are evaluated by using world coordi-<br>nates of points, which means that their error functions are</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:137"><nobr><span class="ft7">96</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:11px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft8">defined as e(x ). Using the composed transformations, we<br>can evaluate them as</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:212"><nobr><span class="ft4">e(x ) = e(t(x)).</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:81"><nobr><span class="ft8">Importantly, we can efficiently realize this computation by<br>applying only necessary transformations to actually used<br>variables.</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:81"><nobr><span class="ft4">We also need to compute the gradient of e(t(x)), i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:122"><nobr><span class="ft4">e(t(x)) =</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:195"><nobr><span class="ft4">e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:209"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:225"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:248"><nobr><span class="ft4">, e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:270"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:286"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:308"><nobr><span class="ft4">, . . . , e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:354"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:370"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:406"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:81"><nobr><span class="ft4">Basically,</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:152"><nobr><span class="ft4">we</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:180"><nobr><span class="ft4">can</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:212"><nobr><span class="ft4">decompose</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:290"><nobr><span class="ft4">each</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:328"><nobr><span class="ft4">partial</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:381"><nobr><span class="ft4">derivative</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:81"><nobr><span class="ft4">e(t(x))/x</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:154"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:166"><nobr><span class="ft4">into primitive expressions by repeatedly us-</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft8">ing the chain rule. However, we should avoid the simple<br>application of the chain rule since it would result in a large<br>number of expressions.</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:81"><nobr><span class="ft8">Instead, we perform a controlled way of decomposing such<br>partial derivatives; it appropriately arranges the chain rule<br>to restrict the computation to only necessary components.<br>First, we decompose e(t(x))/x</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:282"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:291"><nobr><span class="ft4">as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:98"><nobr><span class="ft4">e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:113"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:129"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:155"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:175"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:193"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:200"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:215"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:235"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:248"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:281"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:295"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:315"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:268"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:283"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:100"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:120"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:139"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:145"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:161"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:181"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:186"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:209"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:222"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:255"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:269"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:289"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:221"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:235"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:263"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:298"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:311"><nobr><span class="ft10">s-2,j</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:338"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:358"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:372"><nobr><span class="ft10">s-2</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:392"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:337"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:353"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:100"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:115"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:119"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:141"><nobr><span class="ft15"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:141"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:158"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:177"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:183"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:199"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:219"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:232"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:265"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:279"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:299"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:231"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:245"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:273"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:306"><nobr><span class="ft15"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:306"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:322"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:335"><nobr><span class="ft10">s-2,j</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:363"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:382"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:396"><nobr><span class="ft10">s-2</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:417"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:362"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:378"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:100"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:115"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:119"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:154"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:142"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:157"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:185"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:208"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:221"><nobr><span class="ft10">s-2,j</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:248"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:268"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:282"><nobr><span class="ft10">s-2</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:302"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:247"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:263"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:309"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:81"><nobr><span class="ft4">Note that each e(x )/x</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:258"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:280"><nobr><span class="ft4">is given by the defini-</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:81"><nobr><span class="ft8">tion of the geometric constraint, and also that each<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:94"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:126"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:140"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:161"><nobr><span class="ft4">)/y</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:188"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:215"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:240"><nobr><span class="ft4">is a partial derivative in the gra-</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:81"><nobr><span class="ft4">dient of a single coordinate transformation t</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:355"><nobr><span class="ft10">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:375"><nobr><span class="ft4">. Thus we</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:81"><nobr><span class="ft4">can obtain each e(x )/y</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:242"><nobr><span class="ft10">s-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:269"><nobr><span class="ft11">s-1</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:289"><nobr><span class="ft4">. Also, by repeating this</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:81"><nobr><span class="ft4">process, we can compute, for each k,</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:147"><nobr><span class="ft4">e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:162"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:178"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:203"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:222"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:227"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:242"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:243"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:258"><nobr><span class="ft10">k,j</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:272"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:284"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:297"><nobr><span class="ft10">k-1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:325"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:333"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:347"><nobr><span class="ft10">k-1</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:368"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:318"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:334"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:81"><nobr><span class="ft4">and finally achieve</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:165"><nobr><span class="ft4">e(t(x))</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:180"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:196"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:221"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:241"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:245"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:260"><nobr><span class="ft4">e(x )</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:262"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:277"><nobr><span class="ft10">1,j</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:290"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:302"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:315"><nobr><span class="ft10">0,j</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:329"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:335"><nobr><span class="ft4">(x)</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:318"><nobr><span class="ft4">x</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:334"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:81"><nobr><span class="ft4">where each t</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:165"><nobr><span class="ft10">0,j</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:179"><nobr><span class="ft11">1</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:185"><nobr><span class="ft4">(x)/x</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:228"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:237"><nobr><span class="ft4">is a component of the gradient of</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:81"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:86"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:93"><nobr><span class="ft4">. Therefore, e(t(x))/x</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:243"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:252"><nobr><span class="ft4">is now determined.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:81"><nobr><span class="ft8">Furthermore, we can considerably reduce the number of the<br>computations of e(x )/y</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:241"><nobr><span class="ft10">k,j</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:255"><nobr><span class="ft11">k</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:266"><nobr><span class="ft4">in practice. We can make the</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft4">following observations about the above computation:</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:101"><nobr><span class="ft4">· For each variable x</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:226"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:236"><nobr><span class="ft4">, e(x )/x</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:304"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:317"><nobr><span class="ft4">can be non-zero only</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:114"><nobr><span class="ft4">if x</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:134"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:147"><nobr><span class="ft4">is actually needed to evaluate the designated con-</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:114"><nobr><span class="ft4">straint.</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:101"><nobr><span class="ft4">· If x</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:136"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:145"><nobr><span class="ft4">is originated in the coordinate system associated</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:114"><nobr><span class="ft4">with t</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:153"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:166"><nobr><span class="ft4">(that is, x</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:230"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:241"><nobr><span class="ft4">is either a local coordinate or a</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:509"><nobr><span class="ft8">parameter of the coordinate transformation), we have<br>y</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:516"><nobr><span class="ft10">k,i</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:536"><nobr><span class="ft4">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:561"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:566"><nobr><span class="ft4">, which means that we have t</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:761"><nobr><span class="ft10">k,j</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:776"><nobr><span class="ft4">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:790"><nobr><span class="ft10">k</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:797"><nobr><span class="ft4">)/x</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:825"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:830"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:509"><nobr><span class="ft4">Therefore, we can compute e(x )/x</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:738"><nobr><span class="ft10">i</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:748"><nobr><span class="ft4">immediately.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:475"><nobr><span class="ft8">These observations reveal that we need to transfer a partial<br>derivative e(x )/y</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:599"><nobr><span class="ft10">k,j</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:620"><nobr><span class="ft4">to the next step only when x</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:799"><nobr><span class="ft10">j</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:810"><nobr><span class="ft4">rep-</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:475"><nobr><span class="ft8">resents a really necessary coordinate that has not reached<br>its local coordinate system. Also, since we can handle each<br>necessary point independently, we can implement this pro-<br>cess with a linear recursive function that hands over only<br>three derivatives e(x )/y</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:640"><nobr><span class="ft10">k,j</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:660"><nobr><span class="ft4">at each recursive call.</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:475"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:507"><nobr><span class="ft3"><b>IMPLEMENTATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:475"><nobr><span class="ft8">We implemented the proposed method by developing a con-<br>straint solver called Chorus3D, which is a 3D extension to<br>our previous 2D geometric constraint solver Chorus [13]. We<br>constructed Chorus3D as a C++ class library, and also de-<br>veloped a native method interface to make it available to<br>Java programs.</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:475"><nobr><span class="ft8">Chorus3D allows programmers to add a new kind of arith-<br>metic constraints (e.g., Euclidean geometric constraints) by<br>constructing a new constraint class with a method that eval-<br>uates their error functions. Also, programmers can intro-<br>duce a new kind of non-arithmetic (or pseudo) constraints<br>(for, e.g., general graph layout) by developing a new evalua-<br>tion module which computes an "aggregate" error function<br>for a given set of constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:475"><nobr><span class="ft8">Chorus3D currently provides linear equality, linear inequal-<br>ity, edit (update a variable value), stay (fix a variable value),<br>Euclidean geometric constraints (for, e.g., parallelism, per-<br>pendicularity, and distance equality), and graph layout con-<br>straints based on the spring model [14]. Linear equality/<br>inequality constraints can refer to only 1D variables (includ-<br>ing elements of 3D point variables), while edit and stay con-<br>straints can be associated with 1D and 3D point variables.<br>Euclidean geometric constraints typically refer to point vari-<br>ables although they sometimes require 1D variables for an-<br>gles and distances. Each graph layout constraint represents<br>a graph edge, and refers to two point variables as its asso-<br>ciated graph nodes. As stated earlier, constraints on such<br>point variables are evaluated by using world coordinates of<br>the points. Also, a single constraint can refer to point vari-<br>ables belonging to different coordinate systems.</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:475"><nobr><span class="ft8">The application programming interface of Chorus3D is a<br>natural extension to that of Chorus, which provides a certain<br>compatibility with a recent linear solver called Cassowary<br>[3]; in a similar way to Cassowary and Chorus, Chorus3D<br>allows programmers to process constraint systems by cre-<br>ating variables and constraints as objects, and by adding/<br>removing constraint objects to/from the solver object. In<br>addition, Chorus3D handles coordinate transformations as<br>objects, and presents an interface for arranging them hier-<br>archically.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:475"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:507"><nobr><span class="ft3"><b>EXAMPLES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft8">In this section, we present three examples to demonstrate<br>how to incorporate geometric constraints into 3D graphics<br>by using the Chorus3D constraint solver. All the examples<br>are implemented in Java by using Java 3D as a graphics</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:808"><nobr><span class="ft7">97</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:6px;font-family:Courier;color:#000000;}
+	.ft17{font-size:6px;line-height:9px;font-family:Courier;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12005.png" alt="background image">
+<DIV style="position:absolute;top:403;left:81"><nobr><span class="ft8">Figure 1: A 3D geometric layout of a general graph<br>structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:81"><nobr><span class="ft8">programming interface as well as the native method interface<br>with Chorus3D. We also provide computation times taken<br>for constraint satisfaction in these examples.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:81"><nobr><span class="ft3"><b>6.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:121"><nobr><span class="ft3"><b>Graph Layout</b></span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:81"><nobr><span class="ft8">The first example is an application which lays out a set<br>of points with a general graph structure in a 3D space as<br>shown in Figure 1. This application also allows a user to<br>drag graph nodes with a mouse.</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:282"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:299"><nobr><span class="ft4">The used graph layout</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft8">technique is based on a 3D extension to the spring model<br>[14]. This kind of 3D graph layout is practically useful to<br>information visualization, and has actually been adopted in<br>a certain system [19].</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:81"><nobr><span class="ft8">The constraint system of this graph layout consists of 26<br>point variables (i.e., 78 real-valued variables), 31 graph lay-<br>out constraints, and three linear equality constraints for fix-<br>ing one of the point variables at the origin. When executed<br>on an 866 MHz Pentium III processor running Linux 2.2.16,<br>Chorus3D obtained an initial solution in 456 milliseconds. It<br>performed constraint satisfaction typically within 250 mil-<br>liseconds to reflect the user's dragging a graph node.</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:81"><nobr><span class="ft3"><b>6.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:121"><nobr><span class="ft3"><b>Constrained Dragging</b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:81"><nobr><span class="ft8">The second example is an application which allows a user<br>to drag an object constrained to be on another spherical<br>object. Figure 2 depicts this application, where the smaller<br>solid spherical object is constrained to be on the surface of<br>the larger wireframe one. The application declares a strong<br>Euclidean geometric constraint which specifies a constant<br>distance between the centers of these objects. When the<br>user tries to drag the smaller object with a mouse, the appli-<br>cation imposes another medium Euclidean constraint which<br>collinearly locates the viewpoint, the 3D position of the<br>mouse cursor (which is considered to be on the screen), and</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:81"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:88"><nobr><span class="ft4">Unlike constrained dragging in the next example, this</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:81"><nobr><span class="ft13">mouse operation is simply implemented with Java 3D's<br>PickMouseBehavior classes.</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:475"><nobr><span class="ft8">Figure 2: Dragging an object constrained to be on<br>a sphere.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:528"><nobr><span class="ft16">Viewpoint</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:719"><nobr><span class="ft16">Mouse cursor which</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:724"><nobr><span class="ft16">is on the screen</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:573"><nobr><span class="ft16">Screen</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:727"><nobr><span class="ft17">Object which is on<br>the sphere surface</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:489"><nobr><span class="ft16">Collinearity</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:494"><nobr><span class="ft16">constraint</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:776"><nobr><span class="ft16">Distance</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:771"><nobr><span class="ft16">constraint</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:683"><nobr><span class="ft16">Sphere</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:478"><nobr><span class="ft4">Figure 3: Implementation of constrained dragging.</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:475"><nobr><span class="ft8">the center of the dragged object as shown in Figure 3. This<br>collinearity constraint reflects the motion of the mouse in<br>the position of the dragged object. Since the collinearity<br>constraint is weaker than the first Euclidean constraint, the<br>user cannot drag the smaller object to the outside of the<br>larger sphere.</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:475"><nobr><span class="ft8">The application initially declares one Euclidean geometric<br>constraint on two point variables, and solved it in 1 mil-<br>lisecond on the same computer as the first example. When<br>the user tries to drag the smaller object, it adds another<br>Euclidean constraint as well as two edit constraints for the<br>viewpoint and mouse position. The solver maintained this<br>constraint system usually within 2 milliseconds.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:475"><nobr><span class="ft3"><b>6.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:516"><nobr><span class="ft3"><b>Inverse Kinematics</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft8">The final example applies inverse kinematics to a virtual<br>robot arm by using constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:687"><nobr><span class="ft4">Unlike the previous ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft8">amples, it takes advantage of coordinate transformations to<br>express its constraint system.</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:137"><nobr><span class="ft7">98</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12006.png" alt="background image">
+<DIV style="position:absolute;top:330;left:206"><nobr><span class="ft18">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:448"><nobr><span class="ft18">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:691"><nobr><span class="ft18">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:205"><nobr><span class="ft18">(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:448"><nobr><span class="ft18">(e)</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:691"><nobr><span class="ft18">(f )</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:212"><nobr><span class="ft4">Figure 4: A robot arm application which performs inverse kinematics.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:81"><nobr><span class="ft8">As illustrated in Figure 4(a), the robot arm consists of four<br>parts called a base, a shoulder, an upper arm, and a forearm.<br>Constraint satisfaction for inverse kinematics is performed<br>to position its hand (the end of the forearm) at the target<br>object if possible, or otherwise to make it maximally close<br>to the target. Figures 4(b)­(f) show the movement of the<br>robot arm. In Figures 4(b)­(e), its hand is positioned at<br>the exact location of the target by using appropriate angles<br>of its joints. By contrast, in Figure 4(f), the hand cannot<br>reach the target, and therefore the arm is extended toward<br>the target instead.</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:81"><nobr><span class="ft8">Figure 5 describes the constraint program used in the robot<br>arm application.</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:199"><nobr><span class="ft4">After constructing a constraint solver</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:81"><nobr><span class="ft13">s, it creates six coordinate transformations shldrTTfm,<br>shldrRTfm, uarmTTfm, uarmRTfm, farmTTfm, and farmRTfm.<br>Here the rotation angle parameters of the rotation trans-<br>formations shldrRTfm, uarmRTfm, and farmRTfm will actu-<br>ally work as variables that can be altered by the solver.<br>Next, it generates a point variable handPos to represent<br>the position of the hand, and then suggests the target po-<br>sition to the hand by using a preferential edit constraint<br>editHandPos. Finally, executing the solver, it obtains the<br>desired angles shldrAngle, uarmAngle, and farmAngle of</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:475"><nobr><span class="ft8">the rotation transformations. These angles will be passed<br>to the Java 3D library to render the properly configured<br>robot arm.</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:475"><nobr><span class="ft8">This program generates a constraint system which contains<br>three translation and three rotation transformations, one ex-<br>plicit point variable as well as six point variables and three<br>1D variables for coordinate transformations, and one edit<br>constraint. The solver found an initial solution to this sys-<br>tem in 18 milliseconds, and obtained each new solution for<br>a frame update typically within 10 milliseconds.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:475"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:507"><nobr><span class="ft3"><b>RELATED WORK AND DISCUSSION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:475"><nobr><span class="ft8">There has been work on integrating constraints or similar<br>functions with 3D graphics languages to facilitate the spec-<br>ification of graphical objects. For example, we can view the<br>event routing mechanism in VRML [4] as a limited form of<br>one-way propagation constraints. Also, there is an attempt<br>to extend VRML by introducing one-way propagation and<br>finite-domain combinatorial constraints [5]. However, they<br>cannot handle more powerful simultaneous nonlinear con-<br>straints such as Euclidean geometric constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft4">Although many constraint solvers have been developed in</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:808"><nobr><span class="ft7">99</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12007.png" alt="background image">
+<DIV style="position:absolute;top:82;left:147"><nobr><span class="ft13">// constraint solver<br>s = new C3Solver();<br>// translation transformation for the shoulder: fixed to (0, .1, 0)<br>shldrTTfm = new C3TranslateTransform(new C3Domain3D(0, .1, 0));<br>s.add(shldrTTfm); // shldrTTfm is parented by the world coordinate system<br>// rotation transformation for the shoulder: axis fixed to (0, 1, 0); angle ranging over [-10000, 10000]<br>shldrRTfm = new C3RotateTransform(new C3Domain3D(0, 1, 0), new C3Domain(-10000, 10000));<br>s.add(shldrRTfm, shldrTTfm); // shldrRTfm is parented by shldrTTfm<br>// translation transformation for the upper arm: fixed to (0, .1, 0)<br>uarmTTfm = new C3TranslateTransform(new C3Domain3D(0, .1, 0));<br>s.add(uarmTTfm, shldrRTfm); // uarmTTfm is parented by shldrRTfm<br>// rotation transformation for the upper arm: axis fixed to (0, 0, 1); angle ranging over [-1.57, 1.57]<br>uarmRTfm = new C3RotateTransform(new C3Domain3D(0, 0, 1), new C3Domain(-1.57, 1.57));<br>s.add(uarmRTfm, uarmTTfm); // uarmRTfm is parented by uarmTTfm<br>// translation transformation for the forearm: fixed to (0, .5, 0)<br>farmTTfm = new C3TranslateTransform(new C3Domain3D(0, .5, 0));<br>s.add(farmTTfm, uarmRTfm); // farmTTfm is parented by uarmRTfm<br>// rotation transformation for the forearm: axis fixed to (0, 0, 1); angle ranging over [-3.14, 0]<br>farmRTfm = new C3RotateTransform(new C3Domain3D(0, 0, 1), new C3Domain(-3.14, 0));<br>s.add(farmRTfm, farmTTfm); // farmRTfm is parented by farmTTfm<br>// variable for the hand's position, associated with farmRTfm and fixed to (0, .5, 0)<br>handPos = new C3Variable3D(farmRTfm, new C3Domain3D(0, .5, 0));<br>// medium-strength edit constraint for the hand's position<br>editHandPos = new C3EditConstraint(handPos, C3.MEDIUM);<br>s.add(editHandPos);<br>// suggest the hand being located at the target's position<br>editHandPos.set(getTargetWorldCoordinates());<br>// solve the constraint system<br>s.solve();<br>// get solutions<br>double shldrAngle = shldrRTfm.rotationAngle().value();<br>double uarmAngle = uarmRTfm.rotationAngle().value();<br>double farmAngle = farmRTfm.rotationAngle().value();</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:246"><nobr><span class="ft4">Figure 5: Constraint program for the robot arm application.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft8">the field of graphical user interfaces [3, 7, 11, 12, 13, 17, 18],<br>most of them do not provide special treatment for 3D graph-<br>ics. In general, the role of nonlinear geometric constraints<br>is more important in 3D applications than in 2D interfaces.<br>Most importantly, 3D graphics usually requires rotations of<br>objects which are rarely used in 2D interfaces. The main<br>reason is that we often equally treat all "horizontal" direc-<br>tions in a 3D space even if we may clearly distinguish them<br>from "vertical" directions. Therefore, nonlinear constraint<br>solvers are appropriate for 3D applications. In addition, co-<br>ordinate transformations should be supported since they are<br>typically used to handle rotations of objects.</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:81"><nobr><span class="ft8">Gleicher proposed the differential approach [8, 9], which sup-<br>ports 3D geometric constraints and coordinate transforma-<br>tions. In a sense, it shares a motivation with Chorus3D; in<br>addition to support for 3D graphics, it allows user-defined<br>kinds of geometric constraints. However, it is based on a dif-<br>ferent solution method from Chorus3D; it realizes constraint<br>satisfaction by running virtual dynamic simulations. This<br>difference results in a quite different behavior of solutions as<br>well as an interface for controlling solutions. By contrast,<br>Chorus3D provides a much more compatible interface with<br>recent successful solvers such as Cassowary [3].</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:81"><nobr><span class="ft8">Much research on inverse kinematics has been conducted in<br>the fields of computer graphics and robotics [1, 20]. How-<br>ever, inverse kinematics is typically implemented as special-<br>ized software which only provides limited kinds of geometric</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:475"><nobr><span class="ft4">constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:475"><nobr><span class="ft8">Chorus3D has two limitations in its algorithm: one is on the<br>precision of solutions determined by preferential constraints;<br>the other is on the speed of the satisfaction of large con-<br>straint systems. These limitations are mainly caused by the<br>treatment of multi-level preferences of constraints in addi-<br>tion to required constraints (i.e., constraint hierarchies). Al-<br>though many numerical optimization techniques have been<br>proposed and implemented in the field of mathematical pro-<br>gramming [2, 6], most of them do not handle preferential<br>constraints. To alleviate the limitations of Chorus3D, we<br>are pursuing a more sophisticated method for processing<br>multi-level preferential constraints.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:475"><nobr><span class="ft8">We implemented Chorus3D as a class library which can<br>be exploited in C++ and Java programs. However, more<br>high-level authoring tools will also be useful for declarative<br>approaches to 3D design. One possible direction is to ex-<br>tend VRML [4] to support geometric constraints. Standard<br>VRML requires scripts in Java or JavaScript to realize com-<br>plex layouts and behaviors. By contrast, constraint-enabled<br>VRML will cover a wider range of applications without such<br>additional scripts.</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:475"><nobr><span class="ft3"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:507"><nobr><span class="ft3"><b>CONCLUSIONS AND FUTURE WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft8">In this paper, we presented Chorus3D, a geometric con-<br>straint library for 3D graphical applications. It enables pro-<br>grammers to use geometric constraints for various purposes</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:132"><nobr><span class="ft7">100</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:941;height:1228;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="941" height="1228" src="12008.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft8">such as geometric layout, constrained dragging, and inverse<br>kinematics.</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:164"><nobr><span class="ft4">Its novel feature is to handle scene graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:81"><nobr><span class="ft8">by processing coordinate transformations in geometric con-<br>straint satisfaction.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft8">Our future work includes the development of other kinds of<br>geometric constraints to further prove the usefulness of our<br>approach. In particular, we are planning to implement non-<br>overlapping constraints [13] in Chorus3D so that we can use<br>it for the collision resolution of graphical objects. Another<br>future direction is to improve Chorus3D in the scalability<br>and accuracy of constraint satisfaction.</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:81"><nobr><span class="ft3"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:112"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:88"><nobr><span class="ft4">[1] Badler, N. I., Phillips, C. B., and Webber, B. L.</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:109"><nobr><span class="ft8">Simulating Humans: Computer Graphics, Animation,<br>and Control. Oxford University Press, Oxford, 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:88"><nobr><span class="ft4">[2] Bertsekas, D. P. Nonlinear Programming, 2nd ed.</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:109"><nobr><span class="ft4">Athena Scientific, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:88"><nobr><span class="ft4">[3] Borning, A., Marriott, K., Stuckey, P., and Xiao, Y.</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:109"><nobr><span class="ft8">Solving linear arithmetic constraints for user interface<br>applications. In Proc. ACM UIST , 1997, 87­96.</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:88"><nobr><span class="ft4">[4] Carey, R., Bell, G., and Marrin, C. The Virtual</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:109"><nobr><span class="ft8">Reality Modeling Language (VRML97). ISO/IEC<br>14772-1:1997, The VRML Consortium Inc., 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:88"><nobr><span class="ft4">[5] Diehl, S., and Keller, J. VRML with constraints. In</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:109"><nobr><span class="ft4">Proc. Web3D-VRML, ACM, 2000, 81­86.</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:88"><nobr><span class="ft4">[6] Fletcher, R. Practical Methods of Optimization,</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:109"><nobr><span class="ft4">2nd ed. John Wiley &amp; Sons, 1987.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:88"><nobr><span class="ft4">[7] Freeman-Benson, B. N., Maloney, J., and Borning, A.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:109"><nobr><span class="ft8">An incremental constraint solver. Commun. ACM 33,<br>1 (1990), 54­63.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:88"><nobr><span class="ft4">[8] Gleicher, M. A graphical toolkit based on differential</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:109"><nobr><span class="ft4">constraints. In Proc. ACM UIST , 1993, 109­120.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:88"><nobr><span class="ft4">[9] Gleicher, M. A differential approach to graphical</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:109"><nobr><span class="ft8">manipulation (Ph.D. thesis). Tech. Rep.<br>CMU-CS-94-217, Sch. Comput. Sci. Carnegie Mellon<br>Univ., 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:81"><nobr><span class="ft4">[10] Herrera, F., Lozano, M., and Verdegay, J. L. Tackling</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:109"><nobr><span class="ft8">real-coded genetic algorithms: Operators and tools for<br>behavioural analysis. Artif. Intell. Rev. 12, 4 (1998),<br>265­319.</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:81"><nobr><span class="ft4">[11] Heydon, A., and Nelson, G. The Juno-2</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:109"><nobr><span class="ft8">constraint-based drawing editor. Research Report<br>131a, Digital Systems Research Center, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:81"><nobr><span class="ft4">[12] Hosobe, H. A scalable linear constraint solver for user</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:109"><nobr><span class="ft8">interface construction. In Principles and Practice of<br>Constraint Programming--CP2000 , vol. 1894 of<br>LNCS, Springer, 2000, 218­232.</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:81"><nobr><span class="ft4">[13] Hosobe, H. A modular geometric constraint solver for</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:109"><nobr><span class="ft8">user interface applications. In Proc. ACM UIST , 2001,<br>91­100.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft4">[14] Kamada, T., and Kawai, S. An algorithm for drawing</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:109"><nobr><span class="ft8">general undirected graphs. Inf. Process. Lett. 31, 1<br>(1989), 7­15.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft4">[15] Kitano, H., Ed. Genetic Algorithms. Sangyo-Tosho,</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft4">1993. In Japanese.</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:475"><nobr><span class="ft4">[16] Kramer, G. A. A geometric constraint engine. Artif.</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:503"><nobr><span class="ft4">Intell. 58, 1­3 (1992), 327­360.</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:475"><nobr><span class="ft4">[17] Marriott, K., Chok, S. S., and Finlay, A. A tableau</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:503"><nobr><span class="ft8">based constraint solving toolkit for interactive<br>graphical applications. In Principles and Practice of<br>Constraint Programming--CP98 , vol. 1520 of LNCS,<br>Springer, 1998, 340­354.</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:475"><nobr><span class="ft4">[18] Sannella, M. Skyblue: A multi-way local propagation</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:503"><nobr><span class="ft8">constraint solver for user interface construction. In<br>Proc. ACM UIST , 1994, 137­146.</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:475"><nobr><span class="ft4">[19] Takahashi, S. Visualizing constraints in visualization</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:503"><nobr><span class="ft8">rules. In Proc. CP2000 Workshop on Analysis and<br>Visualization of Constraint Programs and Solvers,<br>2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:475"><nobr><span class="ft4">[20] Zhao, J., and Badler, N. I. Inverse kinematics</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:503"><nobr><span class="ft8">positioning using nonlinear programming for highly<br>articulated figures. ACM Trans. Gr. 13, 4 (1994),<br>313­336.</span></nobr></DIV>
+<DIV style="position:absolute;top:1153;left:804"><nobr><span class="ft7">101</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

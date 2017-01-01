@@ -1,0 +1,1430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\55</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-10-04T11:46:13+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:15px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:15px;line-height:0px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:109"><nobr><span class="ft0"><b>Consistent Query Answering under Key and Exclusion</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:173"><nobr><span class="ft0"><b>Dependencies: Algorithms and Experiments</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:147"><nobr><span class="ft1">Luca Grieco</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:296"><nobr><span class="ft1">Domenico Lembo</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:489"><nobr><span class="ft1">Riccardo Rosati</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:668"><nobr><span class="ft1">Marco Ruzzi</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:305"><nobr><span class="ft2">Dipartimento di Informatica e Sistemistica</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:331"><nobr><span class="ft2">Universit</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:388"><nobr><span class="ft10">`<br>a</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:401"><nobr><span class="ft2">di Roma "La Sapienza"</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:322"><nobr><span class="ft2">Via Salaria 113, I-00198 Roma, Italy</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:272"><nobr><span class="ft4">{</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:279"><nobr><span class="ft1">grieco,lembo,rosati,ruzzi</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:472"><nobr><span class="ft4">}</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:479"><nobr><span class="ft1">@dis.uniroma1.it</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:81"><nobr><span class="ft5"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:81"><nobr><span class="ft11">Research in consistent query answering studies the defini-<br>tion and computation of "meaningful" answers to queries<br>posed to inconsistent databases, i.e., databases whose data<br>do not satisfy the integrity constraints (ICs) declared on<br>their schema. Computing consistent answers to conjunctive<br>queries is generally coNP-hard in data complexity, even in<br>the presence of very restricted forms of ICs (single, unary<br>keys). Recent studies on consistent query answering for<br>database schemas containing only key dependencies have an-<br>alyzed the possibility of identifying classes of queries whose<br>consistent answers can be obtained by a first-order rewrit-<br>ing of the query, which in turn can be easily formulated in<br>SQL and directly evaluated through any relational DBMS.<br>In this paper we study consistent query answering in the<br>presence of key dependencies and exclusion dependencies.<br>We first prove that even in the presence of only exclusion<br>dependencies the problem is coNP-hard in data complex-<br>ity, and define a general method for consistent answering of<br>conjunctive queries under key and exclusion dependencies,<br>based on the rewriting of the query in Datalog with nega-<br>tion. Then, we identify a subclass of conjunctive queries<br>that can be first-order rewritten in the presence of key and<br>exclusion dependencies, and define an algorithm for comput-<br>ing the first-order rewriting of a query belonging to such a<br>class of queries. Finally, we compare the relative efficiency of<br>the two methods for processing queries in the subclass above<br>mentioned. Experimental results, conducted on a real and<br>large database of the computer science engineering degrees<br>of the University of Rome "La Sapienza", clearly show the<br>computational advantage of the first-order based technique.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft5"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:81"><nobr><span class="ft4">H.2.3 [Database Management]:</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:295"><nobr><span class="ft4">Languages--query lan-</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:81"><nobr><span class="ft11">guages; F.2.0 [Analysis of Algorithms and Problem Com-<br>plexity]: General.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft12">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>CIKM'05, </i>October 31­November 5, 2005, Bremen, Germany.<br>Copyright 2005 ACM 1-59593-140-6/05/0010 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:315"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft6">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:475"><nobr><span class="ft5"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:475"><nobr><span class="ft4">Theory, Algorithms, Experimentation.</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:475"><nobr><span class="ft5"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:475"><nobr><span class="ft11">Inconsistency, Computational Complexity, Query Rewrit-<br>ing.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:475"><nobr><span class="ft5"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:507"><nobr><span class="ft5"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:489"><nobr><span class="ft4">Suppose to have a database whose data violate the in-</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:475"><nobr><span class="ft11">tegrity constraints (ICs) declared on its schema. What are<br>the answers that have to be returned to queries posed to<br>such a database?</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:598"><nobr><span class="ft4">The standard approach to this prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:475"><nobr><span class="ft11">lem is through data cleaning, i.e., by explicitly modifying<br>the data in order to eliminate violation of ICs: only when<br>data are "repaired", i.e., are consistent with the ICs, queries<br>can be answered. However, in many situations it would be<br>much more desirable to derive significant information from<br>the database even in the presence of data inconsistent with<br>the ICs. Indeed, in many application scenarios, the ex-<br>plicit repair of data is not convenient, or even not possible.<br>This happens, for instance, in data integration applications,<br>which provide a unified, virtual view of a set of autonomous<br>information sources [5].</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:489"><nobr><span class="ft4">This alternative approach is the one followed by research</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:475"><nobr><span class="ft11">in consistent query answering, which studies the definition<br>(and computation) of "meaningful" answers to queries posed<br>to databases whose data do not satisfy the ICs declared on<br>the database schema [1, 14, 4]. All these approaches are<br>based on the following principle: schema is stronger than<br>data. In other words, the database schema (i.e., the set of in-<br>tegrity constraints) is considered as the actually reliable in-<br>formation (strong knowledge), while data are considered as<br>information to be revised (weak knowledge). Therefore, the<br>problem amounts to deciding how to "repair" (i.e., change)<br>data in order to reconcile them with the information ex-<br>pressed in the schema. Therefore, the intuitive semantics of<br>consistent query answering can be expressed as follows: a<br>tuple t is a consistent answer to a query q in an inconsistent<br>database D if t is an answer to q in all the repairs of D,<br>i.e., in all the possible databases obtained by (minimally)<br>modifying the data in D to eliminate violations of ICs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:490"><nobr><span class="ft4">Example 1. Let D = {r(a, b)} be a database whose</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:475"><nobr><span class="ft11">schema contains the declaration of a key dependency on the<br>first attribute of r. Since the database instance does not vio-<br>late the key dependency on r, the only repair of the database</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">792</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55002.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft11">is D itself. Hence, the following query q(X, Y ) :­ r(X, Y )<br>has the consistent answer t = a, b . Now, let D be the<br>database instance obtained by adding the fact r(a, c) to D.<br>D is inconsistent with the key dependency, and has two pos-<br>sible repairs: {r(a, b)} and {r(a, c)}. Since there is no tuple<br>which is an answer to q in both repairs, it follows that there<br>are no consistent answers to the query q in D . In contrast,<br>observe that the query q (X) :­ r(X, Y ) has the answer a<br>both in D and in D , which can be therefore considered con-<br>sistent.</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:94"><nobr><span class="ft4">Recent studies in this area have established declarative se-</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:81"><nobr><span class="ft11">mantic characterizations of consistent query answering over<br>relational databases, decidability and complexity results for<br>consistent query answering, as well as techniques for query<br>processing [1, 6, 14, 4, 3, 5]. In particular, it has been shown<br>that computing consistent answers of conjunctive queries<br>(CQs) is coNP-hard in data complexity, i.e., in the size of<br>the database instance, even in the presence of very restricted<br>forms of ICs (single, unary keys).</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:94"><nobr><span class="ft4">¿From the algorithmic viewpoint, the approach mainly</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:81"><nobr><span class="ft11">followed is query answering via query rewriting: (i) First,<br>the query that must be processed (usually a conjunctive<br>query) is reformulated in terms of another, more complex<br>query. Such a reformulation is purely intensional, i.e., the<br>rewritten query is independent of the database instance; (ii)<br>Then, the reformulated query is evaluated over the database<br>instance. Due to the semantic nature and the inherent com-<br>plexity of consistent query answering, Answer Set Program-<br>ming (ASP) is usually adopted in the above reformulation<br>step [14, 3, 5], and stable model engines like DLV [15] can<br>be used for query processing.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:94"><nobr><span class="ft4">An orthogonal approach to consistent query answering is</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:81"><nobr><span class="ft11">the one followed by recent theoretical works [1, 6, 13], whose<br>aim is to identify subclasses of CQs whose consistent answers<br>can be obtained by rewriting the query in terms of a first-<br>order (FOL) query. The advantage of such an approach is<br>twofold: first, this technique allows for computing consistent<br>answers in time polynomial in data complexity (i.e., for such<br>subclasses of queries, consistent query answering is compu-<br>tationally simpler than for the whole class of CQs); second,<br>consistent query answering in these cases can be performed<br>through standard database technology, since the FOL query<br>synthesized can be easily translated into SQL and then eval-<br>uated by any relational DBMS. On the other hand, this ap-<br>proach is only limited to polynomial subclasses of the prob-<br>lem. In particular, Fuxman and Miller in [13] have stud-<br>ied databases with key dependencies, and have identified a<br>broad subclass of CQs that can be treated according to the<br>above strategy.</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:94"><nobr><span class="ft4">In this paper we study consistent query answering in the</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:81"><nobr><span class="ft11">presence of key dependencies and exclusion dependencies, a<br>well-known class of ICs. Notice that exclusion dependencies<br>are not only typical of relational database schemas, but are<br>also relevant and very common in languages for conceptual<br>modeling, e.g., ontology languages [2]: indeed such depen-<br>dencies allow for modeling partitioning/disjointness of enti-<br>ties. This makes the study of exclusion dependencies par-<br>ticularly important for the broad applicability of consistent<br>query answering.</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:94"><nobr><span class="ft4">Our contribution can be summarized as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:97"><nobr><span class="ft4">1. We prove that consistent answering of conjunctive</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:114"><nobr><span class="ft4">queries for databases with only exclusion dependen-</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:509"><nobr><span class="ft11">cies is coNP-hard in data complexity, i.e., the prob-<br>lem presents the same complexity lower bound already<br>known for databases with only key dependencies [6, 4].</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:491"><nobr><span class="ft4">2. We define a method for consistent query answering</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:509"><nobr><span class="ft11">under key dependencies and exclusion dependencies<br>based on the rewriting of the query in Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:785"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:798"><nobr><span class="ft4">[10], a</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:509"><nobr><span class="ft11">well-known extension of Datalog that allows for using<br>negation in the body of program rules. The rewrit-<br>ing extends the one defined in [5] to the presence of<br>exclusion dependencies. The rewriting is used by IN-<br>FOMIX,</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:560"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:571"><nobr><span class="ft4">a system for the integration of inconsistent</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:509"><nobr><span class="ft4">data, based on the use of the DLV system.</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:491"><nobr><span class="ft4">3. We extend the work of [13] to the presence of exclu-</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:509"><nobr><span class="ft11">sion dependencies in the database schema. In par-<br>ticular, we identify the class of KE-simple queries (a<br>subclass of CQs) that can be first-order rewritten in<br>the presence of both key dependencies and exclusion<br>dependencies, and define an algorithm for computing<br>the first-order rewriting of a query belonging to such<br>a class of queries. We point out that our algorithm,<br>though inspired by the one of [13], in the presence of<br>only key dependencies applies to a broader class of<br>queries than the class considered first-order rewritable<br>in [13]. Therefore, the technique of the present paper<br>is relevant also for consistent query answering under<br>only key dependencies.</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:491"><nobr><span class="ft4">4. We compare the relative efficiency of these two meth-</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:509"><nobr><span class="ft11">ods for processing KE-simple queries. To this aim,<br>we have realized a software module that implements<br>the above two rewriting methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:739"><nobr><span class="ft4">Then, we have</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:509"><nobr><span class="ft11">compared query answering based on the rewriting in<br>Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:556"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:569"><nobr><span class="ft4">and evaluation in the DLV system [15] with</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:509"><nobr><span class="ft11">the method based on first-order rewriting and query<br>evaluation on MySQL DBMS. We have conducted our<br>experiments on a real and large database of the com-<br>puter science engineering degrees of the University of<br>Rome "La Sapienza".</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:475"><nobr><span class="ft11">Our experimental results clearly show, for KE-simple<br>queries, the computational advantage of the specialized first-<br>order based technique over the more general one based on<br>Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:523"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:531"><nobr><span class="ft4">. In particular, the results indicate that the advan-</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:475"><nobr><span class="ft11">tage of the first-order based technique grows with the num-<br>ber of database tuples that violate the ICs. Such results thus<br>provide, in a general sense, an experimental validation of the<br>first-order based approach: its computational advantage is<br>not only theoretical, but also can be effectively measured<br>when applied to practical, realistic scenarios. However, it<br>turns out that the general method based on Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:801"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:809"><nobr><span class="ft4">, al-</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:475"><nobr><span class="ft11">though not specifically tailored for KE-simple queries, proves<br>particularly efficient in the presence of few data inconsisten-<br>cies.</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:489"><nobr><span class="ft4">In the next section, we briefly introduce the formal frame-</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:475"><nobr><span class="ft11">work of consistent query answering. In Section 3, we prove<br>coNP-hardness of consistent query answering under only ex-<br>clusion dependencies, and present our Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:765"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:779"><nobr><span class="ft4">rewriting</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:475"><nobr><span class="ft11">and our algorithm for first-order rewriting in the presence<br>of key and exclusion dependencies. In Section 4, we present<br>our experimental results, and in Section 5 we address related<br>work and conclude the paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:476"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:482"><nobr><span class="ft4">http://sv.mat.unical.it/infomix.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">793</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:5px;font-family:Times;color:#000000;}
+	.ft15{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55003.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft5"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:112"><nobr><span class="ft5"><b>INCONSISTENT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:272"><nobr><span class="ft5"><b>DATABASES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:400"><nobr><span class="ft5"><b>AND</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:112"><nobr><span class="ft5"><b>CONSISTENT ANSWERS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:94"><nobr><span class="ft4">Syntax. A database schema S is a triple A, K, E , where:</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:101"><nobr><span class="ft4">· A is a relational signature.</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:101"><nobr><span class="ft4">· K is a set of key dependencies over A. A key de-</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:114"><nobr><span class="ft11">pendency (KD) over A is an expression of the form<br>key(r) = {i</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:184"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:190"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:225"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:232"><nobr><span class="ft4">}, where r is a relation of A, and,</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:114"><nobr><span class="ft4">if n is the arity of r, 1  i</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:278"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:288"><nobr><span class="ft4"> n for each j such that</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:114"><nobr><span class="ft11">1  j  k. We assume that at most one KD is specified<br>over a relation r.</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:101"><nobr><span class="ft4">· E is a set of exclusion dependencies over A. An exclu-</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:114"><nobr><span class="ft11">sion dependency (ED) over A is an expression of the<br>form r</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:153"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:160"><nobr><span class="ft4">[i</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:168"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:174"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:210"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:217"><nobr><span class="ft4">]  r</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:242"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:248"><nobr><span class="ft4">[j</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:258"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:264"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:300"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:307"><nobr><span class="ft4">] = , where r</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:391"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:398"><nobr><span class="ft4">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:410"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:421"><nobr><span class="ft4">are</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:114"><nobr><span class="ft4">relations of A, and, if n</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:261"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:273"><nobr><span class="ft4">and n</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:309"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:320"><nobr><span class="ft4">are the arities of r</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:433"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:114"><nobr><span class="ft4">and r</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:149"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:161"><nobr><span class="ft4">respectively, for each</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:307"><nobr><span class="ft4">such that 1 </span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:411"><nobr><span class="ft4"> k,</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:114"><nobr><span class="ft4">1  i  n</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:177"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:187"><nobr><span class="ft4">and 1  j  n</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:277"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:284"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:94"><nobr><span class="ft4">A term is either a variable or a constant symbol. An</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:81"><nobr><span class="ft4">atom is an expression of the form p(t</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:307"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:313"><nobr><span class="ft4">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:349"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:356"><nobr><span class="ft4">) where p is a</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:81"><nobr><span class="ft4">relation symbol of arity n and t</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:276"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:282"><nobr><span class="ft4">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:318"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:330"><nobr><span class="ft4">is a sequence of n</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:81"><nobr><span class="ft11">terms (either variables or constants). An atom is called fact<br>if all the terms occurring in it are constants. A database<br>instance D for S is a set of facts over A. We denote as r</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:430"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:81"><nobr><span class="ft4">the set {t | r(t)  D}.</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:94"><nobr><span class="ft4">A conjunctive query of arity n is an expression of the form</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:81"><nobr><span class="ft4">h(x</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:102"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:108"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:147"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:154"><nobr><span class="ft4">) :­ a</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:189"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:195"><nobr><span class="ft4">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:234"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:244"><nobr><span class="ft4">, where the atom h(x</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:378"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:384"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:422"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:430"><nobr><span class="ft4">),</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:81"><nobr><span class="ft11">is called the head of the query (denoted by head(q)), and<br>a</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:88"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:94"><nobr><span class="ft4">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:132"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:143"><nobr><span class="ft4">, called the body of the query (and denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:81"><nobr><span class="ft11">body(q)), is a set of atoms, such that all the variables occur-<br>ring in the query head also occur in the query body. In a<br>conjunctive query q, we say that a variable is a head vari-<br>able if it occurs in the query head, while we say that a<br>variable is existential if it only occurs in the query body.<br>Moreover, we call an existential variable shared if it occurs<br>at least twice in the query body (otherwise we say that it<br>is non-shared). A FOL query of arity n is an expression<br>of the form {x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:172"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:178"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:216"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:230"><nobr><span class="ft4">| (x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:263"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:269"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:308"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:315"><nobr><span class="ft4">)}, where x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:387"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:393"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:432"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:81"><nobr><span class="ft11">are variable symbols and  is a first-order formula with free<br>variables x</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:146"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:152"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:191"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:198"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:94"><nobr><span class="ft4">Semantics. First, we briefly recall the standard evalua-</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:81"><nobr><span class="ft11">tion of queries over a database instance. Let q be the CQ<br>h(x</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:102"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:108"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:147"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:154"><nobr><span class="ft4">) :­ a</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:187"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:193"><nobr><span class="ft4">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:231"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:246"><nobr><span class="ft4">and let t = c</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:330"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:336"><nobr><span class="ft4">, . . . , c</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:373"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:391"><nobr><span class="ft4">be a tu-</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:81"><nobr><span class="ft11">ple of constants. A set of facts I is an image of t w.r.t. q<br>if there exists a substitution  of the variables occurring in<br>q such that (head(q)) = h(t) and (body(q)) = I. Given a<br>database instance D, we denote by q</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:309"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:324"><nobr><span class="ft4">the evaluation of q</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft4">over D, i.e., q</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:164"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:179"><nobr><span class="ft4">is the set of tuples t such that there exists</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:81"><nobr><span class="ft4">an image I of t w.r.t. q such that I  D.</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:94"><nobr><span class="ft4">Given a FOL query q and a database instance D, we de-</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:81"><nobr><span class="ft4">note by q</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:135"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:149"><nobr><span class="ft4">the evaluation of q over D, i.e., q</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:342"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:356"><nobr><span class="ft4">= {t</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:382"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:388"><nobr><span class="ft4">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:424"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:436"><nobr><span class="ft4">|</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:81"><nobr><span class="ft4">D |= (t</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:132"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:139"><nobr><span class="ft4">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:174"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:182"><nobr><span class="ft4">)}, where each t</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:279"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:288"><nobr><span class="ft4">is a constant symbol and</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:81"><nobr><span class="ft4">(t</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:101"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:107"><nobr><span class="ft4">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:143"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:151"><nobr><span class="ft4">) is the first-order sentence obtained from  by</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:81"><nobr><span class="ft4">replacing each free variable x</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:257"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:267"><nobr><span class="ft4">with the constant t</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:383"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:387"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:94"><nobr><span class="ft4">Then, we define the semantics of queries over incon-</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:81"><nobr><span class="ft4">sistent databases.</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:208"><nobr><span class="ft4">A database instance D violates the</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft4">KD key(r) = {i</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:181"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:187"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:223"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:230"><nobr><span class="ft4">} iff there exist two distinct facts</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:81"><nobr><span class="ft4">r(c</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:99"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:105"><nobr><span class="ft4">, . . . , c</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:142"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:149"><nobr><span class="ft4">), r(d</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:186"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:192"><nobr><span class="ft4">, . . . , d</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:230"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:237"><nobr><span class="ft4">) in D such that c</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:360"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:364"><nobr><span class="ft14">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:379"><nobr><span class="ft4">= d</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:405"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:409"><nobr><span class="ft14">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:423"><nobr><span class="ft4">for</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft11">each j such that 1  j  k. Moreover, D violates the<br>ED r</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:112"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:118"><nobr><span class="ft4">[i</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:126"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:133"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:168"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:175"><nobr><span class="ft4">]  r</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:201"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:207"><nobr><span class="ft4">[j</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:216"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:222"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:259"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:266"><nobr><span class="ft4">] =  iff there exist two facts</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:81"><nobr><span class="ft4">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:87"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:93"><nobr><span class="ft4">(c</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:105"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:111"><nobr><span class="ft4">, . . . , c</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:147"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:155"><nobr><span class="ft4">), r</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:177"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:183"><nobr><span class="ft4">(d</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:196"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:202"><nobr><span class="ft4">, . . . , d</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:240"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:250"><nobr><span class="ft4">) in D such that c</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:366"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:382"><nobr><span class="ft4">= d</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:406"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:423"><nobr><span class="ft4">for</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft4">each</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:122"><nobr><span class="ft4">such that 1   k.</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:489"><nobr><span class="ft4">Let S = A, K, E be a database schema. A database</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:475"><nobr><span class="ft11">instance D is legal for S if D does not violate any KD in K<br>and does not violate any ED in E.</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:489"><nobr><span class="ft4">A set of ground atoms D is a repair of D under S iff: (i)</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:475"><nobr><span class="ft11">D  D; (ii) D is legal for S; (iii) for each D such that<br>D  D  D, D is not legal for S. In words, a repair for<br>D under S is a maximal subset of D that is legal for S.</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:489"><nobr><span class="ft4">Let q be a CQ. A tuple t is a consistent answer to q in D</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft4">under S iff, for each repair D of D under S, t  q</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:778"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:791"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:490"><nobr><span class="ft4">Example 2. Consider</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:659"><nobr><span class="ft4">the</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:708"><nobr><span class="ft4">database</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:790"><nobr><span class="ft4">schema</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:475"><nobr><span class="ft4">S</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:504"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:539"><nobr><span class="ft4">A, K, E ,</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:607"><nobr><span class="ft4">where A comprises the relations</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:475"><nobr><span class="ft4">Journal (title, editor),</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:651"><nobr><span class="ft4">ConfPr (title, editor)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:812"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft4">Editor (name, country),</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:637"><nobr><span class="ft4">K</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:664"><nobr><span class="ft4">comprises</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:739"><nobr><span class="ft4">the</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:774"><nobr><span class="ft4">dependen-</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:475"><nobr><span class="ft4">cies key(Journal)</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:610"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:641"><nobr><span class="ft4">{1},</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:682"><nobr><span class="ft4">key(ConfPr )</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:778"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:809"><nobr><span class="ft4">{1},</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:475"><nobr><span class="ft4">key(Editor )</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:566"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:597"><nobr><span class="ft4">{1},</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:639"><nobr><span class="ft4">E</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:661"><nobr><span class="ft4">comprises the dependency</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft4">Journal [1]  ConfPr [1] = .</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:691"><nobr><span class="ft4">Consider the database</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:475"><nobr><span class="ft4">instance D described below</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:526"><nobr><span class="ft15">{Journal(TODS, ACM), Journal(TODS, IEEE),</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:532"><nobr><span class="ft15">Editor (ACM, USA), ConfPr (PODS05, ACM),</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:535"><nobr><span class="ft15">ConfPr (PODS05, SV), Editor (IEEE, USA)}.</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:475"><nobr><span class="ft4">It is easy to see that D is not consistent with the KDs on</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:475"><nobr><span class="ft4">Journal and ConfPr of S. Then, the repairs of D under S</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:475"><nobr><span class="ft4">are:</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:504"><nobr><span class="ft15">{Journal(TODS, ACM), ConfPr (PODS05, ACM),</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:583"><nobr><span class="ft15">Editor (ACM, USA), Editor (IEEE, USA)}</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:504"><nobr><span class="ft15">{Journal(TODS, ACM), ConfPr (PODS05, SV),</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:583"><nobr><span class="ft15">Editor (ACM, USA), Editor (IEEE, USA)}</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:504"><nobr><span class="ft15">{Journal(TODS, IEEE), ConfPr (PODS05, ACM),</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:583"><nobr><span class="ft15">Editor (ACM, USA), Editor (IEEE, USA)}</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:504"><nobr><span class="ft15">{Journal(TODS, IEEE), ConfPr (PODS05, SV),</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:583"><nobr><span class="ft15">Editor (ACM, USA), Editor (IEEE, USA)}.</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:489"><nobr><span class="ft4">Let q(x, z)</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:573"><nobr><span class="ft4">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:599"><nobr><span class="ft4">Journal (x, y), Editor (y, z) be a user</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:475"><nobr><span class="ft4">query.</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:528"><nobr><span class="ft4">The consistent answers to q in D under S are</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:475"><nobr><span class="ft4">{ TODS, USA }.</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:475"><nobr><span class="ft5"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:507"><nobr><span class="ft5"><b>QUERY ANSWERING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:489"><nobr><span class="ft4">Computational Complexity. The problem of comput-</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:475"><nobr><span class="ft11">ing consistent answers to conjunctive queries over inconsis-<br>tent databases in the presence of KDs (under the repair<br>semantics introduced in Section 2) is coNP-hard in data<br>complexity [4, 6]. In the following, we prove that such a<br>problem is coNP-hard in data complexity also for schemas<br>in which only EDs occur</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:624"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:630"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:490"><nobr><span class="ft4">Theorem 3. Let S = A, , E be a database schema con-</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:475"><nobr><span class="ft11">taining only EDs, D a database instance for S, q a CQ of<br>arity n over S, and t an n-tuple of constants. The problem<br>of establishing whether t is a consistent answer to q in D<br>under S is coNP-hard with respect to data complexity.</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:475"><nobr><span class="ft11">Proof (sketch). We prove coNP-hardness by reducing the<br>3-colorability problem to the complement of our problem.<br>Consider a graph G = V, E with a set of vertices V and<br>edges E. We define a relational schema S = A, , E where<br>A consists of the relation edge of arity 2, and the relation col<br>of arity 5, and E contains the dependencies col[3]col[4] = ,<br>col[3]  col[5] = , col[4]  col[5] = . The instance D is<br>defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:476"><nobr><span class="ft4">D = {col(n, 1, n,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:594"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:606"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:610"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:621"><nobr><span class="ft4">), col(n, 2,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:681"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:693"><nobr><span class="ft4">, n,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:711"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:723"><nobr><span class="ft4">), col(n, 3,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:782"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:794"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:798"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:810"><nobr><span class="ft4">, n)|</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:524"><nobr><span class="ft4">n  V }  {edge(x, y)| x, y  E}.</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:476"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:482"><nobr><span class="ft4">We consider the decision problem associated to query an-</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:475"><nobr><span class="ft4">swering (see e.g., [6])</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">794</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55004.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft4">Where each occurrence of the meta-symbol</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:344"><nobr><span class="ft13">-</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:358"><nobr><span class="ft4">denotes a dif-</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:81"><nobr><span class="ft11">ferent constant not occurring elsewhere in the database. In-<br>tuitively, to represent the fact that vertex n  V is assigned<br>with color i  {1, 2, 3}, D assigns to col a tuple in which i<br>occurs as second component and n occurs as first and also<br>as 2 + i-th component. The EDs of S impose that consis-<br>tent instances assign no more than one color to each node.<br>Finally, we define the query</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:81"><nobr><span class="ft4">q</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:105"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:136"><nobr><span class="ft4">edge(x, y), col(x, z, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:260"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:267"><nobr><span class="ft4">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:283"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:289"><nobr><span class="ft4">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:305"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:311"><nobr><span class="ft4">), col(y, z, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:382"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:388"><nobr><span class="ft4">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:404"><nobr><span class="ft13">5</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:411"><nobr><span class="ft4">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:427"><nobr><span class="ft13">6</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:433"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft11">On the basis of the above construction it is possible to show<br>that G is 3-colorable (i.e., for each pair of adjacent vertices,<br>the vertices are associated with different colors) if and only if<br>the empty tuple</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:194"><nobr><span class="ft4">is not a consistent answer to q in D under</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:81"><nobr><span class="ft4">S (i.e., the boolean query q has a negative answer).</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:94"><nobr><span class="ft4">Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:148"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:165"><nobr><span class="ft4">Rewriting. We now provide a sound and</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:81"><nobr><span class="ft11">complete query rewriting technique for consistent query an-<br>swering in the presence of key and exclusion dependencies.<br>To this aim, we make use of Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:296"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:305"><nobr><span class="ft4">, i.e., Datalog enriched</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:81"><nobr><span class="ft11">with (unstratified) negation, under stable model semantics<br>[10]. From a computational point of view, Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:378"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:389"><nobr><span class="ft4">is coNP-</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:81"><nobr><span class="ft11">complete with respect to data complexity, and therefore is<br>well suited for dealing with the high computational com-<br>plexity of our problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:94"><nobr><span class="ft4">The rewriting that we present in the following extends the</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:81"><nobr><span class="ft11">one proposed in [4] for CQs specified over database schemas<br>with KDs, in order to properly handle the presence of EDs.<br>The rewriting is employed in the system INFOMIX. Anal-<br>ogously to other proposals that solve consistent query an-<br>swering via query rewriting (although for different classes<br>of constraints and query languages, see, e.g., [14, 3]), the<br>basic idea of the technique is to encode the constraints of<br>the relational schema into a Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:307"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:321"><nobr><span class="ft4">program, such that</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft11">the stable models of the program yield the repairs of the<br>database instance D.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:96"><nobr><span class="ft4">Definition 4. Given a CQ</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:271"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:286"><nobr><span class="ft4">q and a schema S, the</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:81"><nobr><span class="ft4">Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:128"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:142"><nobr><span class="ft4">program (q, S) is defined as the following set of</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:81"><nobr><span class="ft4">rules</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:109"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:116"><nobr><span class="ft4">:</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:96"><nobr><span class="ft4">1. the rule corresponding to the definition of q;</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:96"><nobr><span class="ft4">2. for each relation r  S, the rules</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:157"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:168"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:181"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:211"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:239"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:244"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:254"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:259"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:272"><nobr><span class="ft15">y) , not r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:331"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:344"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:157"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:168"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:181"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:211"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:239"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:244"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:254"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:259"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:272"><nobr><span class="ft15">y) , r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:309"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:322"><nobr><span class="ft15">z) , y</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:353"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:363"><nobr><span class="ft15">= z</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:382"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:208"><nobr><span class="ft15">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:157"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:168"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:181"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:211"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:239"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:244"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:254"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:259"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:272"><nobr><span class="ft15">y) , r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:309"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:322"><nobr><span class="ft15">z) , y</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:353"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:367"><nobr><span class="ft15">= z</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:386"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:114"><nobr><span class="ft4">where: in r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:189"><nobr><span class="ft4">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:204"><nobr><span class="ft4">y) the variables in ~</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:321"><nobr><span class="ft4">x correspond to the</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:114"><nobr><span class="ft4">attributes constituting the key of the relation r; ~</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:414"><nobr><span class="ft4">y =</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:114"><nobr><span class="ft4">y</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:121"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:127"><nobr><span class="ft4">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:165"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:180"><nobr><span class="ft4">and ~</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:207"><nobr><span class="ft4">z = z</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:239"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:245"><nobr><span class="ft4">, . . . , z</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:282"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:293"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:96"><nobr><span class="ft4">3. for</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:184"><nobr><span class="ft4">each</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:263"><nobr><span class="ft4">exclusion</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:371"><nobr><span class="ft4">dependency</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:114"><nobr><span class="ft4">(r[i</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:135"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:141"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:177"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:183"><nobr><span class="ft4">]  s[j</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:224"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:230"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:267"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:274"><nobr><span class="ft4">]) =  in E, with r = s, the</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:114"><nobr><span class="ft4">rules:</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:188"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:199"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:213"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:243"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:270"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:276"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:285"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:290"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:304"><nobr><span class="ft15">y) , s(~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:340"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:354"><nobr><span class="ft15">z)</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:189"><nobr><span class="ft15">s(~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:199"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:213"><nobr><span class="ft15">y)</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:243"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:270"><nobr><span class="ft15">s</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:276"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:286"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:291"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:304"><nobr><span class="ft15">y) , r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:341"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:354"><nobr><span class="ft15">z)</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:81"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:88"><nobr><span class="ft4">The present rewriting is not actually restricted to CQs,</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:81"><nobr><span class="ft4">since it can be immediately extended to general Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:431"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:81"><nobr><span class="ft4">queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:81"><nobr><span class="ft13">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:88"><nobr><span class="ft4">Without loss of generality, we assume that the attributes</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:81"><nobr><span class="ft4">in the key precede all other attributes in r, that i</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:386"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:397"><nobr><span class="ft4">= j</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:418"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:429"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft4">1, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:123"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:137"><nobr><span class="ft4">= j</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:161"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:175"><nobr><span class="ft4">= k,</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:217"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:231"><nobr><span class="ft4">= 1, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:292"><nobr><span class="ft13">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:307"><nobr><span class="ft4">= h, and m</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:385"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:398"><nobr><span class="ft4">= h +</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft4">1, . . . , m</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:131"><nobr><span class="ft13">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:142"><nobr><span class="ft4">= h + h.</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:509"><nobr><span class="ft4">where ~</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:549"><nobr><span class="ft4">x = x</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:589"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:596"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:634"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:641"><nobr><span class="ft4">, i.e., the variables in ~</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:784"><nobr><span class="ft4">x corre-</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:509"><nobr><span class="ft11">spond to the sequence of attributes of r and s involved<br>in the ED.</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:491"><nobr><span class="ft4">4. for</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:543"><nobr><span class="ft4">each</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:586"><nobr><span class="ft4">exclusion</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:658"><nobr><span class="ft4">dependency</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:743"><nobr><span class="ft4">r[</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:759"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:765"><nobr><span class="ft4">, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:802"><nobr><span class="ft13">h</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:809"><nobr><span class="ft4">] </span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:509"><nobr><span class="ft4">r[m</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:531"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:538"><nobr><span class="ft4">, . . . , m</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:581"><nobr><span class="ft13">h</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:588"><nobr><span class="ft4">] =  in E, the rules:</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:548"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:559"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:572"><nobr><span class="ft15">y, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:586"><nobr><span class="ft15">z)</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:614"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:642"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:648"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:657"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:662"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:676"><nobr><span class="ft15">y, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:689"><nobr><span class="ft15">z) , r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:724"><nobr><span class="ft15">y, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:738"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:748"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:755"><nobr><span class="ft15">, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:760"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:771"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:777"><nobr><span class="ft15">) ,</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:548"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:559"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:572"><nobr><span class="ft15">y, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:586"><nobr><span class="ft15">z)</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:614"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:642"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:648"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:657"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:662"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:676"><nobr><span class="ft15">y, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:689"><nobr><span class="ft15">z) , r( ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:724"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:735"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:741"><nobr><span class="ft15">, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:747"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:760"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:771"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:777"><nobr><span class="ft15">) ,</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:548"><nobr><span class="ft15">r(~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:559"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:573"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:586"><nobr><span class="ft15">z)</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:614"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:642"><nobr><span class="ft15">r</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:648"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:657"><nobr><span class="ft15">(~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:662"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:676"><nobr><span class="ft15">x, ~</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:689"><nobr><span class="ft15">z).</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:489"><nobr><span class="ft4">Furthermore, we denote with  (D) the database instance</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:475"><nobr><span class="ft11">obtained from D by replacing each predicate symbol r with<br>r</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:481"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:491"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:489"><nobr><span class="ft4">Informally, for each relation r, (q, S) contains (i) a rela-</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:475"><nobr><span class="ft4">tion r</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:510"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:525"><nobr><span class="ft4">that represents r</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:627"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:637"><nobr><span class="ft4">; (ii) a relation r that represents</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:475"><nobr><span class="ft4">a subset of r</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:552"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:566"><nobr><span class="ft4">that is consistent with the KD for r and the</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:475"><nobr><span class="ft11">EDs that involve r; (iii) an auxiliary relation r that rep-<br>resents the "complement" of r, i.e., the subset of r</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:793"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:809"><nobr><span class="ft4">that</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:475"><nobr><span class="ft11">together with r results inconsistent with the EDs and KDs<br>on the schema. Notice that the extension of r depends on<br>the choice made for r (and vice-versa), and that such choices<br>are made in a non-deterministic way (enforced by the use of<br>the unstratified negation). The above rules force each stable<br>model M of (q, S)   (D) to be such that r</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:742"><nobr><span class="ft13">M</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:758"><nobr><span class="ft4">is a maximal</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:475"><nobr><span class="ft4">subset of tuples from r</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:616"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:630"><nobr><span class="ft4">that are consistent with both the</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft4">KD for r and the EDs in E that involve r.</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:475"><nobr><span class="ft4">Example 2.(contd.) The Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:674"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:688"><nobr><span class="ft4">rewriting (q, S) of the</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft4">query q(x, z) :­ Journal(x, y), Editor (y, z) is the following</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:475"><nobr><span class="ft4">program:</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:528"><nobr><span class="ft15">q(x, z)</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:581"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:607"><nobr><span class="ft15">Journal(x, y), Editor (y, z)</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:490"><nobr><span class="ft15">Journal(x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:581"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:607"><nobr><span class="ft15">Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:651"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:661"><nobr><span class="ft15">(x, y) , not Journal(x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:498"><nobr><span class="ft15">Editor (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:581"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:607"><nobr><span class="ft15">Editor</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:644"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:654"><nobr><span class="ft15">(x, y) , not Editor (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:492"><nobr><span class="ft15">ConfPr (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:581"><nobr><span class="ft15">:­</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:607"><nobr><span class="ft15">ConfPr</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:650"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:659"><nobr><span class="ft15">(x, y) , not ConfPr (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:490"><nobr><span class="ft15">Journal(x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:577"><nobr><span class="ft15">: -</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:607"><nobr><span class="ft15">Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:651"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:661"><nobr><span class="ft15">(x, y) , Journal(x, z) , z = y</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:498"><nobr><span class="ft15">Editor (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:577"><nobr><span class="ft15">: -</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:607"><nobr><span class="ft15">Editor</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:644"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:654"><nobr><span class="ft15">(x, y) , Editor (x, z) , z = y</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:492"><nobr><span class="ft15">ConfPr (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:577"><nobr><span class="ft15">: -</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:607"><nobr><span class="ft15">ConfPr</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:650"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:659"><nobr><span class="ft15">(x, y) , ConfPr (x, z) , z = y</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:490"><nobr><span class="ft15">Journal(x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:577"><nobr><span class="ft15">: -</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:607"><nobr><span class="ft15">Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:651"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:661"><nobr><span class="ft15">(x, y) , ConfPr (x, z)</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:492"><nobr><span class="ft15">ConfPr (x, y)</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:577"><nobr><span class="ft15">: -</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:607"><nobr><span class="ft15">ConfPr</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:650"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:659"><nobr><span class="ft15">(x, y) , Journal(x, z)</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:475"><nobr><span class="ft11">The first rule of the rewriting encodes the query. The sec-<br>ond, third and fourth rule establish the relationship between<br>each relation and the corresponding complementary predi-<br>cate. The fifth, sixth, and seventh rule encode the KDs of<br>S, whereas the last two rules encode the ED.</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:489"><nobr><span class="ft4">We now state correctness of our encoding with respect to</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:475"><nobr><span class="ft4">the semantics of consistent query answering.</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:490"><nobr><span class="ft4">Theorem 5. let S = A, K, E be a database schema, D</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:475"><nobr><span class="ft11">be a database instance for S, and q be a CQ over S. A tuple<br>t is a consistent answer to q in D under S iff t  q</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:799"><nobr><span class="ft13">M</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:817"><nobr><span class="ft4">for</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:475"><nobr><span class="ft4">each stable model M of (q, S)   (D).</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:489"><nobr><span class="ft4">From the above theorem and Theorem 3 it follows that the</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:475"><nobr><span class="ft11">consistent query answering problem under KDs and EDs is<br>coNP-complete in data complexity.</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:489"><nobr><span class="ft4">FOL Rewriting. Let us now consider a different ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:475"><nobr><span class="ft11">proach to consistent query answering, which aims at identi-<br>fying subclasses of queries for which the problem is tractable.<br>This is the line followed in [1, 6, 13]. In particular, in [13]<br>the authors define a subclass of CQs, called C</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:752"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:769"><nobr><span class="ft4">, for which</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">795</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55005.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft11">they prove tractability of consistent query answering in the<br>presence of KDs, and provide a FOL rewriting technique.<br>The class C</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:150"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:173"><nobr><span class="ft4">is based on the notion of join graph: a join</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:81"><nobr><span class="ft4">graph of a query q is the graph that contains (i) a node N</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:435"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:81"><nobr><span class="ft4">for every atom in the query body, (ii) an arc from N</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:397"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:406"><nobr><span class="ft4">to N</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:434"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:81"><nobr><span class="ft11">iff an existential shared variable occurs in a non-key position<br>in N</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:107"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:116"><nobr><span class="ft4">and occurs also in N</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:238"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:244"><nobr><span class="ft4">, (iii) an arc from N</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:364"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:373"><nobr><span class="ft4">to N</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:400"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:409"><nobr><span class="ft4">iff an</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:81"><nobr><span class="ft4">existential shared variable occurs at least twice in N</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:403"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:408"><nobr><span class="ft4">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:81"><nobr><span class="ft11">one occurrence is in a non-key position. According to [13],<br>C</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:88"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:110"><nobr><span class="ft4">is the class of conjunctive queries (a) without repeated</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:81"><nobr><span class="ft11">relation symbols, (b) in which every join condition involves<br>the entire key of at least one relation and (c) whose join<br>graph is acyclic. As pointed out in [13], this class of queries<br>is very common, since cycles are rarely present in queries<br>used in practice. However, no repeated symbols may occur<br>in the queries, and queries must have joins from non-key<br>attributes of a relation to the entire key of another one.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:94"><nobr><span class="ft4">We now extend the work of [13] as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:101"><nobr><span class="ft4">· We refine the class C</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:247"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:271"><nobr><span class="ft4">by allowing join conditions</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:114"><nobr><span class="ft11">in which not necessarily the entire key of one relation<br>has to be involved, but it is sufficient that, for each<br>pair of attributes, at least one attribute must belong<br>to a key (i.e., we allow for joins involving portions of<br>key). In such a way, we obtain a new class, called C</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:419"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:418"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:114"><nobr><span class="ft4">larger than C</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:192"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:210"><nobr><span class="ft4">, for which consistent query answering</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:114"><nobr><span class="ft11">is polynomial in the presence of KDs. In other words,<br>C</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:122"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:122"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:144"><nobr><span class="ft4">is the class of conjunctive queries for which only</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:114"><nobr><span class="ft4">condition (a) and (c) above hold.</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:101"><nobr><span class="ft4">· We refine the class C</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:244"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:243"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:266"><nobr><span class="ft4">in order to obtain a class of</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:114"><nobr><span class="ft11">queries, called KE-simple, for which consistent query<br>answering is polynomial in the presence of both KDs<br>and also EDs.</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:101"><nobr><span class="ft4">· We provide a new algorithm for computing the FOL</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:114"><nobr><span class="ft11">rewriting for KE-simple queries. In the algorithm, we<br>exploit the notion of join graph of [13], but we enrich<br>the structure of the graph by associating to each node<br>an adornment which specifies the different nature of<br>terms in the atoms (see below), in order to deal with<br>KE-simple queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft11">Let us describe in detail our technique. Henceforth, given a<br>CQ q, we denote by R</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:212"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:222"><nobr><span class="ft4">the set of relation symbols occurring</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft11">in body(q). Given a database schema S = A, K, E and a CQ<br>q, we denote by O</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:192"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:200"><nobr><span class="ft4">(q) the set of relation symbols O</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:399"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:407"><nobr><span class="ft4">(q) =</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:81"><nobr><span class="ft4">{s | r[j</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:127"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:133"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:170"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:176"><nobr><span class="ft4">]  s[</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:214"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:220"><nobr><span class="ft4">, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:256"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:263"><nobr><span class="ft4">] =   E and r  R</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:399"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:405"><nobr><span class="ft4">}. In</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:81"><nobr><span class="ft4">words, O</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:134"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:142"><nobr><span class="ft4">(q) contains each relation symbol s  A such that</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft11">there exists an exclusion dependency between s and r in E,<br>where r is a relation symbol occurring in body(q).</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:96"><nobr><span class="ft4">Definition 6. Let S = A, K, E be a database schema.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft4">A conjunctive query q is KE-simple if q  C</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:346"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:345"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:363"><nobr><span class="ft4">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:101"><nobr><span class="ft4">· there exists no pair of relation symbols r, s in O</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:414"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:422"><nobr><span class="ft4">(q)</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:114"><nobr><span class="ft11">such that there exists an exclusion dependency between<br>r and s in E,</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:101"><nobr><span class="ft4">· there exists no relation symbol r in O</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:352"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:359"><nobr><span class="ft4">(q) such that</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:114"><nobr><span class="ft4">there exists r[i</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:204"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:211"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:246"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:253"><nobr><span class="ft4">]  s[j</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:290"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:296"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:333"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:339"><nobr><span class="ft4">] =  in E, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:114"><nobr><span class="ft4">either key(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:215"><nobr><span class="ft4">{i</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:226"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:232"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:268"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:275"><nobr><span class="ft4">} or key(s)</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:366"><nobr><span class="ft4">{j</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:379"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:385"><nobr><span class="ft4">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:421"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:428"><nobr><span class="ft4">},</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:114"><nobr><span class="ft4">where s is a relation symbol in R</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:314"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:321"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:94"><nobr><span class="ft4">In words, a query q is KE-simple if it belongs to the class</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft4">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:89"><nobr><span class="ft13">+</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:88"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:106"><nobr><span class="ft4">, and if both there are no EDs between relations that</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:475"><nobr><span class="ft4">are in O</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:526"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:534"><nobr><span class="ft4">(q), and each ED between a relation r  R</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:800"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:812"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:475"><nobr><span class="ft4">a relation s  O</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:573"><nobr><span class="ft13">E</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:581"><nobr><span class="ft4">(q) does not involve non-key attributes of</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:475"><nobr><span class="ft11">r or s. Notice that this last condition does not limit the<br>applicability of our approach in many practical cases. For<br>example, in relational databases obtained from ER-schemas,<br>EDs are typically specified between keys.</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:489"><nobr><span class="ft4">For KE-simple CQs, we present in the following a query</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:475"><nobr><span class="ft11">rewriting algorithm which, given a query q, produces a FOL<br>rewriting, whose evaluation over any database instance D<br>for the database schema S returns the consistent answers to<br>q in D under S. The basic idea of the algorithm is to specify<br>a set of conditions, expressible in FOL, that, if verified over<br>a database instance D, for a given tuple t, guarantee that<br>in any repair of D there is an image of t w.r.t q, i.e., t is<br>a consistent answer to q in D. We point out that, for non-<br>KE-simple CQs, such conditions cannot be specified in FOL.<br>Observe that, in our approach, the FOL rewriting is then in<br>turn translated into SQL, and query evaluation is performed<br>by means of standard DBMS query answering techniques.<br>This further encoding does not present particular difficulties,<br>and due to space limit we omit such transformation.</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:489"><nobr><span class="ft4">In order to construct our join graph we need the following</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:475"><nobr><span class="ft4">definition.</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:490"><nobr><span class="ft4">Definition 7. Let S = A, K, E be a database schema,</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft4">q be a CQ, and a = r(x</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:625"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:631"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:670"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:678"><nobr><span class="ft4">) be an atom (of arity n)</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:475"><nobr><span class="ft4">occurring in R</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:565"><nobr><span class="ft13">q</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:571"><nobr><span class="ft4">. Then, let key(r) = {i</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:718"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:725"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:760"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:767"><nobr><span class="ft4">} belong to</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:475"><nobr><span class="ft11">K, and let 1  i  n. The type of the i-th argument of a in<br>q, denoted by type(a, i, q) is defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:491"><nobr><span class="ft4">1. If i</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:528"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:538"><nobr><span class="ft4"> i  i</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:581"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:587"><nobr><span class="ft4">, then:</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:525"><nobr><span class="ft4">· if x</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:559"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:569"><nobr><span class="ft4">is a head variable of q, a constant, or an ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:538"><nobr><span class="ft4">istential shared variable, then type(a, i, q) = KB;</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:525"><nobr><span class="ft4">· if x</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:562"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:573"><nobr><span class="ft4">is an existential non-shared variable of q,</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:538"><nobr><span class="ft4">then type(a, i, q) = KU.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:491"><nobr><span class="ft4">2. Otherwise (i /</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:588"><nobr><span class="ft4"> {i</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:613"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:619"><nobr><span class="ft4">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:654"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:661"><nobr><span class="ft4">}):</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:525"><nobr><span class="ft4">· if x</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:561"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:571"><nobr><span class="ft4">is a head variable of q or a constant, then</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:538"><nobr><span class="ft4">type(a, i, q) = B;</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:525"><nobr><span class="ft4">· if x</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:561"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:572"><nobr><span class="ft4">is an existential shared variable of q, then</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:538"><nobr><span class="ft4">type(a, i, q) = S;</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:525"><nobr><span class="ft4">· if x</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:562"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:573"><nobr><span class="ft4">is an existential non-shared variable of q,</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:538"><nobr><span class="ft4">then type(a, i, q) = U.</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:489"><nobr><span class="ft4">Terms typed by KB or B are called bound terms, other-</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:475"><nobr><span class="ft11">wise they are called unbound. We call the typing of a in q<br>the expression of the form r(x</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:662"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:668"><nobr><span class="ft4">/t</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:680"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:686"><nobr><span class="ft4">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:725"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:732"><nobr><span class="ft4">/t</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:744"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:752"><nobr><span class="ft4">), where each</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:475"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:480"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:490"><nobr><span class="ft4">is the type of the argument x</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:668"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:677"><nobr><span class="ft4">in q.</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:489"><nobr><span class="ft4">The following algorithm KEFolRewrite computes the FOL</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:475"><nobr><span class="ft11">rewriting to a KE-simple conjunctive query q. In the algo-<br>rithm, JG(q) denotes the join graph of q, in which each node<br>N</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:486"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:496"><nobr><span class="ft4">is labelled with the typing of the corresponding atom a</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:829"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:475"><nobr><span class="ft11">in q. Furthermore, roots(JG(q)) denotes the set of nodes<br>that are roots in JG(q) (notice that for KE-simple queries<br>the join graph is a forest, since it is acyclic).</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:475"><nobr><span class="ft16">Algorithm KEFolRewrite(q, S)<br>Input: KE-simple CQ q (whose head variables are x</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:768"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:774"><nobr><span class="ft15">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:809"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:817"><nobr><span class="ft15">);</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:515"><nobr><span class="ft15">schema S = A, K, E</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:475"><nobr><span class="ft16">Output: FOL query (representing the rewriting of q)<br>begin</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">796</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:9px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55006.png" alt="background image">
+<DIV style="position:absolute;top:80;left:217"><nobr><span class="ft16">Algorithm FolTree(N ,E)<br>Input: node N of JG(q); set of EDs E<br>Output: FOL formula<br>begin</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:232"><nobr><span class="ft15">let a = r(x</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:292"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:298"><nobr><span class="ft15">/t</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:309"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:315"><nobr><span class="ft15">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:351"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:358"><nobr><span class="ft15">/t</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:369"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:377"><nobr><span class="ft15">) be the label of N ;</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:232"><nobr><span class="ft15">for i := 1 to n do</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:244"><nobr><span class="ft15">if t</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:262"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:271"><nobr><span class="ft15"> {KB, B} then v</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:372"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:381"><nobr><span class="ft15">:= x</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:405"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:244"><nobr><span class="ft15">else v</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:277"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:286"><nobr><span class="ft15">:= y</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:309"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:314"><nobr><span class="ft15">, where y</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:364"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:373"><nobr><span class="ft15">is a new variable</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:232"><nobr><span class="ft15">if each argument of a is of type B or KB then f</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:504"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:513"><nobr><span class="ft15">:= r(x</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:548"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:555"><nobr><span class="ft15">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:590"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:598"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:232"><nobr><span class="ft15">else begin</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:243"><nobr><span class="ft15">let i</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:265"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:272"><nobr><span class="ft15">, . . . , i</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:304"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:319"><nobr><span class="ft15">be the positions of the arguments of a of type S, U, KU;</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:243"><nobr><span class="ft15">f</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:249"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:262"><nobr><span class="ft15">:= y</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:296"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:300"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:306"><nobr><span class="ft15">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:341"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:345"><nobr><span class="ft14">m</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:356"><nobr><span class="ft15">. r(v</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:380"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:386"><nobr><span class="ft15">, . . . , v</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:420"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:428"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:232"><nobr><span class="ft16">end;<br>for each ED r[j</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:324"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:330"><nobr><span class="ft15">, . . . , j</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:364"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:371"><nobr><span class="ft15">]  s[</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:403"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:409"><nobr><span class="ft15">, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:443"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:449"><nobr><span class="ft15">] =   E do</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:232"><nobr><span class="ft15">begin</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:247"><nobr><span class="ft16">let m be the arity of s;<br>for i := 1 to m do</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:259"><nobr><span class="ft15">if i  {</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:304"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:311"><nobr><span class="ft15">, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:344"><nobr><span class="ft13">k</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:351"><nobr><span class="ft15">} then if i =</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:436"><nobr><span class="ft13">c</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:446"><nobr><span class="ft15">then z</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:485"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:493"><nobr><span class="ft15">= v</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:512"><nobr><span class="ft13">j</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:517"><nobr><span class="ft14">c</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:259"><nobr><span class="ft15">else z</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:292"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:301"><nobr><span class="ft15">= y</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:320"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:329"><nobr><span class="ft15">where y</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:372"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:381"><nobr><span class="ft15">is a new variable;</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:247"><nobr><span class="ft15">let y</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:272"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:276"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:282"><nobr><span class="ft15">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:317"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:321"><nobr><span class="ft14">k</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:332"><nobr><span class="ft15">be the new variables above introduced;</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:247"><nobr><span class="ft15">f</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:253"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:263"><nobr><span class="ft15">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:282"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:292"><nobr><span class="ft15"> ¬y</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:325"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:329"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:335"><nobr><span class="ft15">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:370"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:374"><nobr><span class="ft14">k</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:383"><nobr><span class="ft15">. s(z</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:405"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:412"><nobr><span class="ft15">, . . . , z</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:446"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:456"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:232"><nobr><span class="ft16">end<br>if there exists no argument in a of type B or S then return f</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:582"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:232"><nobr><span class="ft15">else begin</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:243"><nobr><span class="ft15">let p</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:267"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:274"><nobr><span class="ft15">, . . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:308"><nobr><span class="ft13">c</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:318"><nobr><span class="ft15">be the positions of the arguments of a of type U, S or B;</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:243"><nobr><span class="ft15">let</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:266"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:272"><nobr><span class="ft15">, . . . ,</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:306"><nobr><span class="ft13">h</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:317"><nobr><span class="ft15">be the positions of the arguments of a of type B;</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:243"><nobr><span class="ft15">for i := 1 to c do</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:254"><nobr><span class="ft15">if t</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:273"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:279"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:288"><nobr><span class="ft15">= S then z</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:352"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:357"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:366"><nobr><span class="ft15">:= x</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:391"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:396"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:406"><nobr><span class="ft15">else z</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:439"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:445"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:454"><nobr><span class="ft15">:= y</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:477"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:485"><nobr><span class="ft15">, where y</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:536"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:548"><nobr><span class="ft15">is a new variable</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:243"><nobr><span class="ft15">for i := 1 to n do</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:254"><nobr><span class="ft15">if t</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:273"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:281"><nobr><span class="ft15"> {KB, KU} then w</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:396"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:405"><nobr><span class="ft15">:= v</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:428"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:437"><nobr><span class="ft15">else w</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:473"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:482"><nobr><span class="ft15">:= z</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:504"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:509"><nobr><span class="ft15">;</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:243"><nobr><span class="ft15">f</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:249"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:261"><nobr><span class="ft15">:= z</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:289"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:295"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:301"><nobr><span class="ft15">, . . . , z</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:336"><nobr><span class="ft13">p</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:341"><nobr><span class="ft14">c</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:348"><nobr><span class="ft15">. r(w</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:375"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:381"><nobr><span class="ft15">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:418"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:426"><nobr><span class="ft15">) </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:451"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:451"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:462"><nobr><span class="ft13">N jgsucc(N )</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:514"><nobr><span class="ft15">FolTree(N )</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:579"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:579"><nobr><span class="ft15"> </span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:604"><nobr><span class="ft13">i{</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:626"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:632"><nobr><span class="ft13">,...,</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:653"><nobr><span class="ft14">h</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:660"><nobr><span class="ft13">}</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:655"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:664"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:673"><nobr><span class="ft15">= x</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:693"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:243"><nobr><span class="ft15">return f</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:294"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:303"><nobr><span class="ft15"> f</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:320"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:232"><nobr><span class="ft15">end</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:217"><nobr><span class="ft15">end</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:347"><nobr><span class="ft4">Figure 1: The algorithm FolTree</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:96"><nobr><span class="ft17">compute JG(q);<br>return {x</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:154"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:161"><nobr><span class="ft15">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:196"><nobr><span class="ft13">n</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:207"><nobr><span class="ft15">|</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:214"><nobr><span class="ft13">N roots(JG(q))</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:292"><nobr><span class="ft15">FolTree(N, E)}</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:81"><nobr><span class="ft15">end</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:81"><nobr><span class="ft11">Basically, the algorithm builds the join graph of q and<br>then builds the first-order query by invoking the algorithm<br>FolTree on all the nodes that are roots of the join graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:94"><nobr><span class="ft4">The algorithm FolTree is defined in Figure 1. Roughly</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:81"><nobr><span class="ft11">speaking, the algorithm FolTree(N, E) returns a first-order<br>formula that constitutes the encoding of the whole subtree<br>of the join graph of the query whose root is the node N .<br>To do that, the algorithm computes two subformulas f</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:407"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:417"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft4">f</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:87"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:94"><nobr><span class="ft4">. The formula f</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:199"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:211"><nobr><span class="ft4">contains an atom whose predicate is</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:81"><nobr><span class="ft11">the predicate r labelling the node N , in which the unbound<br>variables of r are renamed with new existentially quantified<br>variables. Furthermore, f</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:242"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:254"><nobr><span class="ft4">contains an atom of the form</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:81"><nobr><span class="ft4">¬y</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:104"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:108"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:115"><nobr><span class="ft4">, . . . , y</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:153"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:156"><nobr><span class="ft14">k</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:166"><nobr><span class="ft4">. s(z</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:190"><nobr><span class="ft13">1</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:197"><nobr><span class="ft4">, . . . , z</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:234"><nobr><span class="ft13">m</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:244"><nobr><span class="ft4">) for each ED that involves r and</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:81"><nobr><span class="ft11">a relation s. Intuitively, when evaluated over a database in-<br>stance D, each such atom checks that there are no facts of<br>the form s(t</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:154"><nobr><span class="ft13">s</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:160"><nobr><span class="ft4">)  D that violate the ED together with a fact</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:81"><nobr><span class="ft4">of the form r(t</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:174"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:181"><nobr><span class="ft4">)  D, which is in an image I of a tuple</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft11">t w.r.t. the input query q, i.e., the atom guarantees that I<br>is not contradicted w.r.t. the ED. The formula f</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:376"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:387"><nobr><span class="ft4">is empty</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft11">only when all non-key arguments of the atom r are existen-<br>tial non-shared variables (i.e., of type U ). Otherwise, the<br>formula f</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:139"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:151"><nobr><span class="ft4">is a universally quantified implication. In such</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft4">an implication, the antecedent is an atom whose predicate</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:475"><nobr><span class="ft11">is r, and the consequent is a conjunction of equality con-<br>ditions and other subformulas: more precisely, there is an<br>equality condition for each non-key argument in r of type<br>B, and a subformula for each successor N of N in the join<br>graph of q, computed by recursively invoking FolTree on N .<br>Intuitively, f</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:553"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:565"><nobr><span class="ft4">enforces the joins between r and each atom</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:475"><nobr><span class="ft11">labelling the successors of r in the join graph of q. At the<br>same time f</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:548"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:559"><nobr><span class="ft4">ensures that, when evaluated over a database</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:475"><nobr><span class="ft4">instance D, if there exists a fact of the form r(t</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:764"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:770"><nobr><span class="ft4">)  D that</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:475"><nobr><span class="ft11">violates the KD specified on r together with a fact of the<br>form r(t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:525"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:532"><nobr><span class="ft4">)  D, which is in the image of a tuple t w.r.t. q,</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:475"><nobr><span class="ft4">r(t</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:492"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:498"><nobr><span class="ft4">) belongs to another image of t w.r.t. q. In other words,</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:475"><nobr><span class="ft11">the atom guarantees that in any repair there exists an image<br>of t (w.r.t. the KD on r). Such a check is iterated for other<br>KDs by recursively invoking FolTree. The following example<br>illustrates the way the algorithm works.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:475"><nobr><span class="ft4">Example 2.(contd.) It is easy to verify that the query</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:475"><nobr><span class="ft4">q(x, z) :­ Journal(x, y), Editor (y, z) is KE-simple.</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:494"><nobr><span class="ft15">Journal(x/KB, y/S) (N 1) - (N 2) Editor (y/KB, z/B)</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:475"><nobr><span class="ft4">Now, by applying the algorithm KEFolRewrite and FolTree</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:475"><nobr><span class="ft4">we obtain:</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:475"><nobr><span class="ft15">KEFolRewrite(q)</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:578"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:601"><nobr><span class="ft15">{x, z | FolTree(N 1)}</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:497"><nobr><span class="ft15">FolTree(N 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:578"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:601"><nobr><span class="ft15">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:614"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:620"><nobr><span class="ft15">. Journal(x, y</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:695"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:702"><nobr><span class="ft15">)  ¬y</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:742"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:749"><nobr><span class="ft15">. ConfPr (x, y</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:822"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:828"><nobr><span class="ft15">) </span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:601"><nobr><span class="ft15">y. Journal(x, y)  (FolTree(N 2))</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:497"><nobr><span class="ft15">FolTree(N 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:578"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:601"><nobr><span class="ft15">Editor (y, z)  y</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:694"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:701"><nobr><span class="ft15">. Editor (y, y</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:769"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:776"><nobr><span class="ft15">)  y</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:807"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:819"><nobr><span class="ft15">= z.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">797</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55007.png" alt="background image">
+<DIV style="position:absolute;top:81;left:286"><nobr><span class="ft15">relations</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:508"><nobr><span class="ft15">integrity constraints</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:206"><nobr><span class="ft15">faculty/3</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:339"><nobr><span class="ft15">exam plan/10</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:437"><nobr><span class="ft15">key(f aculty) = {1, 2}</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:579"><nobr><span class="ft15">key(plan status) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:206"><nobr><span class="ft15">course assignment/3</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:339"><nobr><span class="ft15">degree/5</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:437"><nobr><span class="ft15">key(exam plan) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:579"><nobr><span class="ft15">key(positioning) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:206"><nobr><span class="ft15">positioning/2</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:339"><nobr><span class="ft15">course/4</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:437"><nobr><span class="ft15">key(university) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:579"><nobr><span class="ft15">key(prof data) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:206"><nobr><span class="ft15">plan status/2</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:437"><nobr><span class="ft15">key(exam type) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:579"><nobr><span class="ft15">key(degree) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:206"><nobr><span class="ft15">prof data/3</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:437"><nobr><span class="ft15">key(course) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:579"><nobr><span class="ft15">key(exam) = {2}</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:206"><nobr><span class="ft15">university/3</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:437"><nobr><span class="ft15">key(master exam) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:206"><nobr><span class="ft15">bachelor exam/2</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:437"><nobr><span class="ft15">key(bachelor exam) = {1}</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:206"><nobr><span class="ft15">master exam/2</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:437"><nobr><span class="ft15">course assignment[2]  professor [1] = </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:206"><nobr><span class="ft15">exam type/2</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:437"><nobr><span class="ft15">master exam[1]  bachelor exam[1] = </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:206"><nobr><span class="ft15">exam/4</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:437"><nobr><span class="ft15">course[3, 4]  bachelor exam[1, 2] = </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:289"><nobr><span class="ft4">Figure 2: A portion of the test database schema</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:85"><nobr><span class="ft4">By evaluating the rewriting over D we get { TODS, USA },</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:81"><nobr><span class="ft4">i.e., the set of consistent answers to q in D under S.</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:81"><nobr><span class="ft4">Next, we state soundness and completeness of the algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:96"><nobr><span class="ft4">Theorem 8. Let S = A, K, E be a database schema,</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:81"><nobr><span class="ft4">q be a KE-simple conjunctive query over S, and q</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:391"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:403"><nobr><span class="ft4">be the</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:81"><nobr><span class="ft11">FOL rewriting returned by KEFolRewrite(q). Then, for every<br>database instance D for S, a tuple t is a consistent answer<br>to q in D under S iff t  q</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:242"><nobr><span class="ft13">D</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:241"><nobr><span class="ft13">r</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:251"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:81"><nobr><span class="ft11">As a corollary, consistent query answering for KE-simple<br>conjunctive queries over database schemas with KDs and<br>EDs is polynomial in data complexity.</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:81"><nobr><span class="ft5"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:112"><nobr><span class="ft5"><b>EXPERIMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:94"><nobr><span class="ft4">We now present some experimental results comparing the</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:81"><nobr><span class="ft4">FOL and the Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:214"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:228"><nobr><span class="ft4">rewriting previously described. To</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:81"><nobr><span class="ft11">perform the experiments, we implemented a rewriting mod-<br>ule that translates CQs issued over the database schema into<br>both FOL queries and Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:271"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:285"><nobr><span class="ft4">queries. FOL queries are</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft11">in turn translated by the module into SQL queries. Then,<br>we ran the SQL queries on a MySQL 4.1.10 instance of the<br>test database, while we executed Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:332"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:345"><nobr><span class="ft4">queries on DLV</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:81"><nobr><span class="ft11">[15]. The experiments were conducted on a double processor<br>machine, with 3 GHz Pentium IV Xeon CPU and 2 GB of<br>main memory, running the Linux operating system.</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:94"><nobr><span class="ft4">The test database holds information about the computer</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:81"><nobr><span class="ft11">science engineering degrees of the university of Rome "La<br>Sapienza" and contains 27 tables with an overall size of over<br>200.000 tuples. In Figure 2, we present the portion of the<br>test database schema that is relevant for the queries (in the<br>figure, "r/n" indicates that relation r is of arity n).</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:81"><nobr><span class="ft4">Due to space limits, we only report details about three of</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:81"><nobr><span class="ft4">the queries we tested:</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:87"><nobr><span class="ft15">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:97"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:117"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:140"><nobr><span class="ft15">q(C) : -f aculty(C, U, INGEGNERIA ).</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:87"><nobr><span class="ft15">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:97"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:117"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:140"><nobr><span class="ft16">q(S, D, P ) : -positioning(P S, P ), plan status(ST, DE),<br>exam plan(C, S, P S, DT, ST, 1 , U 1, U 2, U 3, U 4).</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:87"><nobr><span class="ft15">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:97"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:117"><nobr><span class="ft15">=</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:140"><nobr><span class="ft16">q(N, D, N P, CP ) : -master exam(C, N, T, 5 ),<br>exam type(T, D),</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:87"><nobr><span class="ft4">The queries have been posed on various instances of the</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:81"><nobr><span class="ft11">test database with an increasing number of pairs of tuples<br>violating some ICs. Figure 3, shows experimental results.<br>In the charts 3(a), 3(b) and 3(c), the execution time of the<br>SQL encoding and of the Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:288"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:301"><nobr><span class="ft4">program are compared</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft4">for queries Q</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:162"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:168"><nobr><span class="ft4">, Q</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:190"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:196"><nobr><span class="ft4">, and Q</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:245"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:251"><nobr><span class="ft4">. As expected, from a certain</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:81"><nobr><span class="ft4">inconsistency level on, the execution time of the Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:431"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft11">encoding has an exponential blow-up; in contrast, the exe-<br>cution time for the SQL encoding is constant on the average,<br>and for Q</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:141"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:152"><nobr><span class="ft4">(Figure 3(b)) it decreases: although this might</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft4">be surprising, it turns out that some inconsistency allows the</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:475"><nobr><span class="ft11">SQL engine to prune the search space for query answering.<br>Moreover, the chart presented in Figure 3(d) compares, on<br>a logarithmic scale, the execution time of all queries at the<br>highest inconsistency level. It shows that the SQL encoding<br>is always more efficient when the degree of data inconsis-<br>tency grows; however, it turns out that the method based<br>on Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:544"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:559"><nobr><span class="ft4">and DLV proves particularly efficient in the</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:475"><nobr><span class="ft4">presence of few data inconsistencies.</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:475"><nobr><span class="ft5"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:507"><nobr><span class="ft5"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:489"><nobr><span class="ft4">The present work provides a general experimental valida-</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:475"><nobr><span class="ft11">tion of the first-order rewriting approach to the optimization<br>of consistent query answering. Of course, the applicability<br>of our technique is limited to the class of KE-simple queries.<br>For general CQs, the use of a more expressive, and compu-<br>tationally harder, query language like Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:750"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:762"><nobr><span class="ft4">is necessary.</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:489"><nobr><span class="ft4">Very recently, the first prototype implementations of con-</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:475"><nobr><span class="ft11">sistent query answering have appeared, and the first efforts<br>towards optimization of query processing are emerging.</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:489"><nobr><span class="ft4">Within INFOMIX, several optimizations are currently un-</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:475"><nobr><span class="ft11">der development to improve consistent query answering for<br>more expressive classes of queries [9, 8]. In this respect,<br>binding propagation techniques based on magic sets might<br>significantly reduce execution time for Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:764"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:778"><nobr><span class="ft4">programs</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:475"><nobr><span class="ft4">on DLV [11], even if the coNP structure of the Datalog</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:826"><nobr><span class="ft13">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:475"><nobr><span class="ft11">encoding suggests that the efficiency of the SQL rewriting<br>can be hardly reached (especially for a large number of in-<br>consistencies).</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:489"><nobr><span class="ft4">The ConQuer system [12] implements an extension of the</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:475"><nobr><span class="ft11">technique of [13] which allows to rewrite in SQL queries<br>belonging to the class C</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:623"><nobr><span class="ft13">tree</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:647"><nobr><span class="ft4">enriched with aggregates. Ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:475"><nobr><span class="ft11">periments show that the overhead of evaluating rewritten<br>queries is not onerous if compared with evaluation of the<br>original query over the inconsistent database. Therefore,<br>[12] focuses on comparing standard query answering and<br>consistent query answering, while our experiments compare<br>two different query answering techniques. In this respect,<br>we point out that optimization of our SQL rewriting was<br>outside the scope of the present paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:489"><nobr><span class="ft4">Finally, Hippo [7] is a system for consistent answering of</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:475"><nobr><span class="ft11">union of conjunctive queries without existential variables in<br>the presence of denial constraints. Hence, this approach<br>is different from our in terms of both query language and<br>integrity constraints allowed. Moreover, Hippo techniques<br>are not based on rewritings.</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:489"><nobr><span class="ft4">As future work, we aim at extending our approach to other</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:475"><nobr><span class="ft11">forms of ICs (e.g., foreign keys) and at optimizing the SQL<br>rewriting produced by KEFolRewrite.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">798</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="55008.png" alt="background image">
+<DIV style="position:absolute;top:270;left:252"><nobr><span class="ft4">(a) Q</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:285"><nobr><span class="ft13">0</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:296"><nobr><span class="ft4">execution time</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:530"><nobr><span class="ft4">(b) Q</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:564"><nobr><span class="ft13">3</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:575"><nobr><span class="ft4">execution time</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:252"><nobr><span class="ft4">(c) Q</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:284"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:295"><nobr><span class="ft4">execution time</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:530"><nobr><span class="ft4">(d) SQL vs. Datalog¬</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:347"><nobr><span class="ft4">Figure 3: Experimental Results</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:81"><nobr><span class="ft5"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:112"><nobr><span class="ft5"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:94"><nobr><span class="ft4">This research has been partially supported by the Project</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:81"><nobr><span class="ft4">INFOMIX (IST-2001-33570) funded by the EU.</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:81"><nobr><span class="ft5"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:112"><nobr><span class="ft5"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:88"><nobr><span class="ft4">[1] Marcelo Arenas, Leopoldo E. Bertossi, and Jan</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:109"><nobr><span class="ft11">Chomicki. Consistent query answers in inconsistent<br>databases. In Proc. of PODS'99, pages 68­79, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:88"><nobr><span class="ft4">[2] Franz Baader, Diego Calvanese, Deborah McGuinness,</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:109"><nobr><span class="ft11">Daniele Nardi, and Peter F. Patel-Schneider, editors.<br>The Description Logic Handbook: Theory,<br>Implementation and Applications. Cambridge<br>University Press, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:88"><nobr><span class="ft4">[3] Loreto Bravo and Leopoldo Bertossi. Logic</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:109"><nobr><span class="ft11">programming for consistently querying data<br>integration systems. In Proc. of IJCAI 2003, pages<br>10­15, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:88"><nobr><span class="ft4">[4] Andrea Cal`i, Domenico Lembo, and Riccardo Rosati.</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:109"><nobr><span class="ft11">On the decidability and complexity of query<br>answering over inconsistent and incomplete databases.<br>In Proc. of PODS 2003, pages 260­271, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:88"><nobr><span class="ft4">[5] Andrea Cal`i, Domenico Lembo, and Riccardo Rosati.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:109"><nobr><span class="ft11">Query rewriting and answering under constraints in<br>data integration systems. In Proc. of IJCAI 2003,<br>pages 16­21, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:88"><nobr><span class="ft4">[6] Jan Chomicki and Jerzy Marcinkowski. On the</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:109"><nobr><span class="ft11">computational complexity of minimal-change integrity<br>maintenance in relational databases. In Inconsistency<br>Tolerance, pages 119­150, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:88"><nobr><span class="ft4">[7] Jan Chomicki, Jerzy Marcinkowski, and Slawomir</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:109"><nobr><span class="ft4">Staworko. Computing consistent query answers using</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:503"><nobr><span class="ft11">conflict hypergraphs. In Proc. of CIKM 2004, pages<br>417­426, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:482"><nobr><span class="ft4">[8] Chiara Cumbo, Wolfgang Faber, Gianluigi Greco, and</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:503"><nobr><span class="ft11">Nicola Leone. Enhancing the magic-set method for<br>disjunctive datalog programs. In Proc. ICLP 2004),<br>pages 371­385, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:482"><nobr><span class="ft4">[9] Thomas Eiter, Michael Fink, Gianluigi Greco, and</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:503"><nobr><span class="ft11">Domenico Lembo. Efficient evaluation of logic<br>programs for querying data integration systems. In<br>Proc. of ICLP'03, pages 163­177, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:475"><nobr><span class="ft4">[10] Thomas Eiter, Georg Gottlob, and Heikki Mannilla.</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:503"><nobr><span class="ft11">Disjunctive Datalog. ACM Trans. on Database<br>Systems, 22(3):364­418, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:475"><nobr><span class="ft4">[11] Wolfgang Faber, Gianluigi Greco, and Nicola Leone.</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:503"><nobr><span class="ft11">Magic sets and their application to data integration.<br>In Proc. of ICDT 2005, pages 306­320, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:475"><nobr><span class="ft4">[12] Ariel Fuxman, Elham Fazli, and Ren´ee J. Miller.</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:503"><nobr><span class="ft11">Conquer: Efficient management of inconsistent<br>databases. In Proc. of SIGMOD 2005, pages 155­166,<br>2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:475"><nobr><span class="ft4">[13] Ariel Fuxman and Ren´ee J. Miller. First-order query</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:503"><nobr><span class="ft11">rewriting for inconsistent databases. In Proc. of<br>ICDT 2005, pages 337­351, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:475"><nobr><span class="ft4">[14] Gianluigi Greco, Sergio Greco, and Ester Zumpano. A</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:503"><nobr><span class="ft11">logical framework for querying and repairing<br>inconsistent databases. IEEE Trans. on Knowledge<br>and Data Engineering, 15(6):1389­1408, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:475"><nobr><span class="ft4">[15] Nicola Leone, Gerald Pfeifer, Wolfgang Faber,</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:503"><nobr><span class="ft11">Thomas Eiter, Georg Gottlob, Simona Perri, and<br>Francesco Scarcello. The DLV system for knowledge<br>representation and reasoning. ACM Trans. on<br>Computational Logic, 2005. To appear.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft9">799</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

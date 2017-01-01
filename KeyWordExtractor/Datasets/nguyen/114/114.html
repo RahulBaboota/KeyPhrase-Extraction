@@ -1,0 +1,1380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\114</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2001-04-16T08:53:03+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:18px;font-family:Times;color:#000000;}
+	.ft1{font-size:12px;font-family:Times;color:#000000;}
+	.ft2{font-size:14px;font-family:Times;color:#000000;}
+	.ft3{font-size:10px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:7px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft8{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+	.ft9{font-size:10px;line-height:13px;font-family:Times;color:#000000;}
+	.ft10{font-size:7px;line-height:12px;font-family:Times;color:#000000;}
+	.ft11{font-size:7px;line-height:9px;font-family:Times;color:#000000;}
+	.ft12{font-size:7px;line-height:11px;font-family:Times;color:#000000;}
+	.ft13{font-size:10px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114001.png" alt="background image">
+<DIV style="position:absolute;top:142;left:150"><nobr><span class="ft0">Integrating the Document Object Model with Hyperlinks</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:140"><nobr><span class="ft0">for Enhanced Topic Distillation and Information Extraction</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:735"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:362"><nobr><span class="ft2">Soumen Chakrabarti</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:295"><nobr><span class="ft2">Indian Institute of Technology Bombay</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:281"><nobr><span class="ft2">http://www.cse.iitb.ernet.in/~soumen</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:88"><nobr><span class="ft0">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:83"><nobr><span class="ft8">Topic distillation is the process of finding authoritative Web<br>pages and comprehensive "hubs" which reciprocally endorse<br>each other and are relevant to a given query. Hyperlink-<br>based topic distillation has been traditionally applied to<br>a macroscopic Web model where documents are nodes in<br>a directed graph and hyperlinks are edges. Macroscopic<br>models miss valuable clues such as banners, navigation pan-<br>els, and template-based inclusions, which are embedded in<br>HTML pages using markup tags. Consequently, results of<br>macroscopic distillation algorithms have been deteriorating<br>in quality as Web pages are becoming more complex. We<br>propose a uniform fine-grained model for the Web in which<br>pages are represented by their tag trees (also called their<br>Document Object Models or DOMs) and these DOM trees<br>are interconnected by ordinary hyperlinks.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:350"><nobr><span class="ft3">Surprisingly,</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:83"><nobr><span class="ft8">macroscopic distillation algorithms do not work in the fine-<br>grained scenario. We present a new algorithm suitable for<br>the fine-grained model. It can dis-aggregate hubs into co-<br>herent regions by segmenting their DOMtrees.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:379"><nobr><span class="ft3">M</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:391"><nobr><span class="ft3">utual</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:83"><nobr><span class="ft8">endorsement between hubs and authorities involve these re-<br>gions, rather than single nodes representing complete hubs.<br>Anecdotes and measurements using a 28-query, 366000-doc-<br>ument benchmark suite, used in earlier topic distillation<br>research, reveal two benefits from the new algorithm: distil-<br>lation quality improves, and a by-product of distillation is<br>the ability to extract relevant snippets from hubs which are<br>only partially relevant to the query.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:83"><nobr><span class="ft9">Keywords: Topic distillation, Document Object Model,<br>segmentation, Minimum Description Length principle.</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:83"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:117"><nobr><span class="ft0">Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:83"><nobr><span class="ft8">Kleinberg's Hyperlink Induced Topic Search (HITS) [14]<br>and the PageRank algorithm [3] underlying Google have<br>revolutionized ranking technology for Web search engines.<br>PageRank evaluates the "prestige score" of a page as roughly<br>proportional to the sum of prestige scores of pages citing it</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:97"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:103"><nobr><span class="ft5">(Note:</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:144"><nobr><span class="ft5">To view the HTML version using Netscape, add the</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:83"><nobr><span class="ft12">following line to your ~/.Xdefaults or ~/.Xresources file:<br>Netscape*documentFonts.charset*adobe-fontspecific: iso-8859-1<br>For printing use the PDF version, as browsers may not print the<br>mathematics properly.)</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:83"><nobr><span class="ft8">Copyright is held by author/owner.<br>WWW10, May 1­5, 2001, Hong Kong.<br>ACM1-58113-348-0/01/0005.</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:454"><nobr><span class="ft8">using hyperlinks. HITS also identifies collections of resource<br>links or "hubs" densely coupled to authoritative pages on a<br>topic. The model of the Web underlying these and related<br>systems is a directed graph with pages (HTML files) as<br>nodes and hyperlinks as edges.</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:475"><nobr><span class="ft3">Since those papers were published, the Web has been</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:454"><nobr><span class="ft8">evolving in fascinating ways, apart from just getting larger.<br>Web pages are changing from static files to dynamic views<br>generated from complex templates and backing semi-struc-<br>tured databases. A variety of hypertext-specific idioms such<br>as navigation panels, advertisement banners, link exchanges,<br>and Web-rings, have been emerging.</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:475"><nobr><span class="ft3">There is also a migration of Web content from syntac-</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:454"><nobr><span class="ft8">tic HTML markups towards richly tagged, semi-structured<br>XML documents (http://www.w3.org/XML/) interconnected<br>at the XML element level by semantically rich links (see,<br>e.g., the XLink proposal at http://www.w3.org/TR/xlink/).<br>These refinements are welcome steps to implementing what<br>Berners-Lee and others call the semantic Web (http://www.</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:454"><nobr><span class="ft13">w3.org/1999/04/13-tbl.html), but result in document, file,<br>and site boundaries losing their traditional significance.</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:475"><nobr><span class="ft3">Continual experiments performed by several researchers</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:454"><nobr><span class="ft8">[2, 15] reveal a steady deterioration of distillation quality<br>through the last few years. In our experience, poor results<br>are frequently traced to the following causes:</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:476"><nobr><span class="ft3">· Links have become more frequent and "noisy" from</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:489"><nobr><span class="ft8">the perspective of the query, such as in banners, navi-<br>gation panels, and advertisements. Noisy links do not<br>carry human editorial endorsement, a basic assump-<br>tion in topic distillation.</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:476"><nobr><span class="ft3">· Hubs may be "mixed", meaning only a portion of</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:489"><nobr><span class="ft8">the hub may be relevant to the query. Macroscopic<br>distillation algorithms treat whole pages as atomic, in-<br>divisible nodes with no internal structure. This leads<br>to false reinforcements and resulting contamination of<br>the query responses.</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:475"><nobr><span class="ft3">Thanks in part to the visibility of Google, content cre-</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:454"><nobr><span class="ft8">ators are well aware of hyperlink-based ranking technology.<br>One reaction has been the proliferation of nepotistic "clique<br>attacks"--a collection of sites linking to each other with-<br>out semantic reason, e.g. http://www.411fun.com, http://</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:454"><nobr><span class="ft8">www.411fashion.com and http://www.411-loans.com. (Fig-<br>ures 8 and 9 provide some examples.) Some examples look<br>suspiciously like a conscious attempt to spam search engines<br>that use link analysis. Interestingly, in most cases, the visual<br>presentation clearly marks noisy links which surfers rarely<br>follow, but macroscopic algorithms are unable to exploit it.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">211</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:9px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;font-family:Times;color:#000000;}
+	.ft16{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+	.ft17{font-size:10px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114002.png" alt="background image">
+<DIV style="position:absolute;top:115;left:104"><nobr><span class="ft5">&lt;html&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:110"><nobr><span class="ft5">&lt;head&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:116"><nobr><span class="ft5">&lt;title&gt;Portals&lt;/title&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:110"><nobr><span class="ft5">&lt;/head&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:110"><nobr><span class="ft5">&lt;body&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:116"><nobr><span class="ft5">&lt;ul&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:121"><nobr><span class="ft5">&lt;li&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:127"><nobr><span class="ft5">&lt;a href="..."&gt;Yahoo&lt;/a&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:121"><nobr><span class="ft5">&lt;/li&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:121"><nobr><span class="ft5">&lt;li&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:127"><nobr><span class="ft5">&lt;a href="..."&gt;Lycos&lt;/a&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:121"><nobr><span class="ft5">&lt;/li&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:116"><nobr><span class="ft5">&lt;/ul&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:110"><nobr><span class="ft5">&lt;/body&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:104"><nobr><span class="ft5">&lt;/html&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:315"><nobr><span class="ft5">html</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:296"><nobr><span class="ft5">head</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:334"><nobr><span class="ft5">body</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:283"><nobr><span class="ft5">title</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:341"><nobr><span class="ft5">ul</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:320"><nobr><span class="ft5">li</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:363"><nobr><span class="ft5">li</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:320"><nobr><span class="ft5">a</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:369"><nobr><span class="ft5">a</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:83"><nobr><span class="ft16">Figure 1: In the fine-grained model, DOMs for individual pages<br>are trees interconnected by ordinary hyperlinks.Each triangle is<br>the DOM tree corresponding to one HTML page.Green boxes<br>represent text.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:104"><nobr><span class="ft3">Many had hoped that HITS-like algorithms would put</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:83"><nobr><span class="ft8">an end to spamming, but clearly the situation is more like<br>an ongoing arms-race. Google combines link-based ranking<br>with page text and anchor text in undisclosed ways, and<br>keeps tweaking the combination, but suffers an occasional<br>embarrassment</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:169"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:174"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:104"><nobr><span class="ft3">Distillation has always been observed to work well for</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:83"><nobr><span class="ft8">"broad" topics (for which there exist well-connected rele-<br>vant Web subgraphs and "pure" hubs) and not too well for<br>"narrow" topics, because w.r.t. narrow topics most hubs are<br>mixed and have too many irrelevant links. Mixed hubs and<br>the arbitrariness of page boundaries have been known to<br>produce glitches in the Clever system [6]: there has been<br>no reliable way to classify hubs as mixed or pure.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:399"><nobr><span class="ft3">If a</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:83"><nobr><span class="ft8">fine-grained model can suitably dis-aggregate mixed hubs,<br>distillation should become applicable to narrow queries too.</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:104"><nobr><span class="ft3">Yet another motivation for the fine-grained model comes</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:83"><nobr><span class="ft8">from the proliferation of mobile clients such as cell-phones<br>and PDAs with small or no screens. Even on a conventional<br>Web browser, scrolling through search results for promising<br>responses, then scrolling through those responses to satisfy<br>a specific information need are tedious steps. The tedium is<br>worse on mobile clients. Search engines that need to serve<br>mobile clients must be able to pinpoint narrow sections of<br>pages and sites that address a specific information need, and<br>limit the amount of extra matter sent back to the client [4].</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:83"><nobr><span class="ft2">1.1</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:126"><nobr><span class="ft2">Our contributions</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:83"><nobr><span class="ft8">We initiate a study of topic distillation with a fine-grained<br>model of the Web, built using the Document Object Model<br>(DOM) of HTML pages. The DOM can model reasonably<br>clean HTML, support XML documents that adhere to rigid<br>schema definitions, and embed free text in a natural way.<br>In our model, HTML pages are represented by their DOMs<br>and these DOMtrees are interconnected by ordinary hyper-<br>links (figure 1). The sometimes artificial distinction between<br>Web-level, site-level, page-level, and intra-page structures<br>is thereby blurred.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:206"><nobr><span class="ft3">Surprisingly, macroscopic distillation</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:83"><nobr><span class="ft8">algorithms perform poorly in the fine-grained setting; we<br>demonstrate this using analysis and anecdotes. Our main<br>technical contribution is a new fine-grained distillation al-</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:98"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:103"><nobr><span class="ft5">http://searchenginewatch.com/sereport/99/11-google.html</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:83"><nobr><span class="ft11">(local copy GoogleDrEvil.html) and http://searchenginewatch.com/<br>sereport/01/02-bush.html (local copy GoogleBush.html) provide some<br>samples.</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:527"><nobr><span class="ft15">Bibliometry,</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:525"><nobr><span class="ft15">Graph theory</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:479"><nobr><span class="ft15">PageRank/</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:487"><nobr><span class="ft15">Google</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:604"><nobr><span class="ft15">HITS</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:654"><nobr><span class="ft15">Clever@IBM</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:721"><nobr><span class="ft15">Exploiting</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:719"><nobr><span class="ft15">anchor text</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:568"><nobr><span class="ft15">Topic distillation</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:578"><nobr><span class="ft15">@Compaq</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:490"><nobr><span class="ft15">Outlier</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:482"><nobr><span class="ft15">elimination</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:649"><nobr><span class="ft15">DOM</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:642"><nobr><span class="ft15">structure</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:665"><nobr><span class="ft15">This paper</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:454"><nobr><span class="ft14">Figure 2: This work in the context of HITS and related research.</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:454"><nobr><span class="ft8">gorithm which can identify mixed hubs and segment their<br>corresponding DOMtrees into maximal subtrees which are<br>"coherent" w.r.t. the query, i.e., each is almost completely<br>relevant or completely irrelevant. The segmentation algo-<br>rithm uses the Minimum Description Length (MDL) princi-<br>ple [16] from Information Theory [9]. Rather than collapse<br>these diverse hub subtrees into one node, the new algo-<br>rithm allocates a node for each subtree. This intermediate<br>level of detail, between the macroscopic and the fine-grained<br>model, is essential to the success of our algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:773"><nobr><span class="ft3">We</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:454"><nobr><span class="ft8">report on experiments with 28 queries involving over 366000<br>Web pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:534"><nobr><span class="ft3">This benchmark has been used in previous</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:454"><nobr><span class="ft8">research on resource compilation and topic distillation [5,<br>2, 6]. Our experience is that the fine-grained model and<br>algorithm significantly improve the quality of distillation,<br>and are capable of extracting DOMsubtrees from mixed<br>hubs that are relevant to the query.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:475"><nobr><span class="ft3">We note that in this study we have carefully and delib-</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:454"><nobr><span class="ft8">erately isolated the model from possible influences of text<br>analysis. By controlling our experimental environment to<br>not use text, we push HITS-like ideas to the limit, evaluating<br>exactly the value added by information present in DOM<br>structures. In ongoing work, we have added textual support<br>to our framework and obtained even better results [7].</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:454"><nobr><span class="ft2">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:497"><nobr><span class="ft2">Benefits and applications</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:454"><nobr><span class="ft8">Apart from offering a more faithful model of Web content,<br>our approach enables solutions to the following problems.<br>Better topic distillation: We show less tendency for topic<br>drift and contamination when the fine-grained model is used.<br>Web search using devices with small or no screen:<br>The ability to identify page snippets relevant to a query is<br>attractive to search services suitable for mobile clients.<br>Focused crawling: Identification of relevant DOMsub-<br>trees can be used to better guide a focused crawler's link<br>expansion [8].<br>Annotation extraction: Experiments with a previous macro-<br>scopic distillation algorithm (Clever [6]) revealed that volun-<br>teers preferred Clever to Yahoo! only when Yahoo!'s manual<br>site annotations were removed in a blind test. Our work may<br>improve on current techniques for automatic annotation ex-<br>traction [1] by first collecting candidate hub page fragments<br>and then subjecting the text therein to further segmentation<br>techniques.<br>Data preparation for linguistic analysis: Information<br>extraction is a natural next step after resource discovery. It<br>is easier to build extractors based on statistical and linguistic<br>models if the domain or subject matter of the input docu-<br>ments is suitably segmented [12], as is effected by our hub<br>subtree extraction technique, which is a natural successor to<br>resource discovery, and a precursor to linguistic analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">212</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:6px;font-family:Times;color:#ffffff;}
+	.ft19{font-size:3px;font-family:Times;color:#000000;}
+	.ft20{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+	.ft21{font-size:14px;line-height:19px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114003.png" alt="background image">
+<DIV style="position:absolute;top:106;left:83"><nobr><span class="ft2">1.3</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:126"><nobr><span class="ft2">Outline of the paper</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:83"><nobr><span class="ft3">In</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:98"><nobr><span class="ft3">§2.1 we review HITS and related algorithms. This section</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:83"><nobr><span class="ft8">can be skipped by a reader who is familiar with HITS-related<br>literature. In</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:168"><nobr><span class="ft3">§2.2 we illustrate some recent and growing</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:83"><nobr><span class="ft8">threats to the continued success of macroscopic distillation<br>algorithms. We show why the fine-grained model does not<br>work with traditional HITS-like approaches in</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:350"><nobr><span class="ft3">§3, and then</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:83"><nobr><span class="ft3">propose our framework in</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:238"><nobr><span class="ft3">§4. We report on experimental</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:83"><nobr><span class="ft3">results in</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:143"><nobr><span class="ft3">§5 and conclude in §6 with some comments on</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:83"><nobr><span class="ft3">ongoing and future work.</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:83"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:117"><nobr><span class="ft0">Preliminaries</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:83"><nobr><span class="ft8">We review the HITS family of algorithms and discuss how<br>they were continually enhanced to address evolving Web<br>content.</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:83"><nobr><span class="ft2">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:126"><nobr><span class="ft2">Review of HITS and related systems</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:83"><nobr><span class="ft3">The HITS algorithm [14] started with a query</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:352"><nobr><span class="ft3">q which was</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:83"><nobr><span class="ft3">sent to a text search engine. The returned set of pages</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:405"><nobr><span class="ft3">R</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:415"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:83"><nobr><span class="ft8">was fetched from the Web, together with any pages having a<br>link to any page in</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:189"><nobr><span class="ft3">R</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:199"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:204"><nobr><span class="ft3">, as well as any page cited in some page</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:83"><nobr><span class="ft3">of</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:98"><nobr><span class="ft3">R</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:108"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:118"><nobr><span class="ft3">using a hyperlink. Links that connected pages on the</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:83"><nobr><span class="ft8">same Web server (based on canonical host name match) were<br>dropped from consideration because they were often seen to<br>serve only a navigational purpose, or were "nepotistic" in<br>nature.</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:104"><nobr><span class="ft3">Suppose the resulting graph is</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:285"><nobr><span class="ft3">G</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:295"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:306"><nobr><span class="ft3">= (</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:326"><nobr><span class="ft3">V</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:333"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:339"><nobr><span class="ft3">, E</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:355"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:360"><nobr><span class="ft3">). We will</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:83"><nobr><span class="ft3">drop the subscript</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:191"><nobr><span class="ft3">q where clear from context. Each node v</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:83"><nobr><span class="ft3">in</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:98"><nobr><span class="ft3">V is assigned two scores: the hub score h(v) and the au-</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:83"><nobr><span class="ft3">thority score</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:159"><nobr><span class="ft3">a(v), initialized to any positive number. Next</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:83"><nobr><span class="ft3">the HITS algorithm alternately updates a and h as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:83"><nobr><span class="ft3">a(v) =</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:144"><nobr><span class="ft15">(u,v)E</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:185"><nobr><span class="ft3">h(u) and h(u) =</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:304"><nobr><span class="ft15">(u,v)E</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:345"><nobr><span class="ft3">a(v), making</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:83"><nobr><span class="ft3">sure after each iteration to scale a and h so that</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:374"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:382"><nobr><span class="ft3">h(v) =</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:98"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:106"><nobr><span class="ft3">a(v) = 1, until the ranking of nodes by a and h stabilize</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:83"><nobr><span class="ft3">(see figure 3).</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:104"><nobr><span class="ft3">If</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:117"><nobr><span class="ft3">E is represented in the adjacency matrix format (i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:83"><nobr><span class="ft13">E[i, j] = 1 if there is an edge (i, j) and 0 otherwise) then the<br>above operation can be written simply as a =</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:343"><nobr><span class="ft3">E</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:353"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:362"><nobr><span class="ft3">h and h =</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:83"><nobr><span class="ft3">Ea, interspersed with scaling to set |h|</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:311"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:323"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:338"><nobr><span class="ft3">|a|</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:353"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:364"><nobr><span class="ft3">= 1. The</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:83"><nobr><span class="ft17">HITS algorithm effectively uses power iterations [11] to find<br>a, the principal eigenvector of</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:264"><nobr><span class="ft3">E</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:274"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:282"><nobr><span class="ft3">E; and h, the principal</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:83"><nobr><span class="ft3">eigenvector of</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:170"><nobr><span class="ft3">EE</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:191"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:199"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:216"><nobr><span class="ft3">Pages with large</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:321"><nobr><span class="ft3">a are popular or</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:83"><nobr><span class="ft3">authoritative sources of information; pages with large</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:391"><nobr><span class="ft3">h are</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:83"><nobr><span class="ft3">good collections of links.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:104"><nobr><span class="ft3">A key feature of HITS is how endorsement or popularity</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:83"><nobr><span class="ft3">diffuses to siblings. If (</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:214"><nobr><span class="ft3">u, v) and (u, w) are edges and some-</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:83"><nobr><span class="ft3">how</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:110"><nobr><span class="ft3">a(v) becomes large, then in the next iteration h(u) will</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:83"><nobr><span class="ft3">increase, and in the following iteration,</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:315"><nobr><span class="ft3">a(w) will increase.</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:83"><nobr><span class="ft3">We will describe this as "</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:225"><nobr><span class="ft3">v's authority diffuses to w through</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:83"><nobr><span class="ft3">the hub</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:131"><nobr><span class="ft3">u." This is how sibling nodes reinforce each other's</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:83"><nobr><span class="ft3">authority scores. We will revisit this property later in</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:393"><nobr><span class="ft3">§3.</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:104"><nobr><span class="ft3">Google has no notion of hubs. Roughly speaking, each</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:83"><nobr><span class="ft3">page</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:113"><nobr><span class="ft3">v has a single "prestige" score p(v) called its PageRank</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:83"><nobr><span class="ft3">[3] which is defined as proportional to</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:328"><nobr><span class="ft15">(u,v)E</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:369"><nobr><span class="ft3">p(u), the</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:83"><nobr><span class="ft3">sum of prestige scores of pages</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:264"><nobr><span class="ft3">u that cite v. Some conjec-</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:83"><nobr><span class="ft8">ture that the prestige model is adequate for the living Web,<br>because good hubs readily acquire high prestige as well. Our<br>work establishes the value of a bipartite model like HITS,<br>and indeed, the value of an asymmetric model where hubs</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:538"><nobr><span class="ft15">Expanded graph</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:539"><nobr><span class="ft15">Rootset</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:471"><nobr><span class="ft18">Keyword</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:474"><nobr><span class="ft18">Search</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:475"><nobr><span class="ft18">engine</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:476"><nobr><span class="ft15">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:466"><nobr><span class="ft20">a = Eh<br>h = E</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:486"><nobr><span class="ft19"><i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:489"><nobr><span class="ft15">a</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:567"><nobr><span class="ft18">h</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:598"><nobr><span class="ft18">a</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:565"><nobr><span class="ft18">h</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:565"><nobr><span class="ft18">h</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:556"><nobr><span class="ft18">h</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:601"><nobr><span class="ft18">a</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:601"><nobr><span class="ft18">a</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:601"><nobr><span class="ft18">a</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:679"><nobr><span class="ft15">hello</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:639"><nobr><span class="ft15">world</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:761"><nobr><span class="ft15">stdio</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:713"><nobr><span class="ft15">Centroid of</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:721"><nobr><span class="ft15">rootset</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:649"><nobr><span class="ft15">Similarity</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:657"><nobr><span class="ft15">cone</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:754"><nobr><span class="ft15">Distant</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:754"><nobr><span class="ft15">vectors</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:754"><nobr><span class="ft15">pruned</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:454"><nobr><span class="ft16">Figure 3: (a) HITS, a macroscopic topic distillation algorithm<br>with uniform edge weights; (b) The B&amp;H algorithm, apart from<br>using non-uniform edge weights, discards pages in the expanded<br>set which are too dissimilar to the rootset pages to prevent topic<br>drift.Documents are represented as vectors with each component<br>representing one token or word [17].</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:454"><nobr><span class="ft8">are analyzed quite differently from authorities. Therefore<br>we will not discuss prestige-based models any further.</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:454"><nobr><span class="ft2">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:497"><nobr><span class="ft21">The impact of the evolving Web on<br>hyperlink analysis</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:454"><nobr><span class="ft8">Elegant as the HITS model is, it does not adequately capture<br>various idioms of Web content. We discuss here a slew of<br>follow-up work that sought to address these issues.</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:475"><nobr><span class="ft3">Kleinberg dropped links within the same Web-site from</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:454"><nobr><span class="ft8">consideration because these were often found to be naviga-<br>tional, "nepotistic" and noisy. Shortly after HITS was pub-<br>lished, Bharat and Henzinger (B&amp;H [2]) found that nepo-<br>tism was not limited to same-site links. In many trials with<br>HITS, they found two distinct sites</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:672"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:678"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:690"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:718"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:724"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:729"><nobr><span class="ft3">, where</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:780"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:786"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:454"><nobr><span class="ft3">hosted a number of pages</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:599"><nobr><span class="ft3">u linking to a page v on s</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:738"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:744"><nobr><span class="ft3">, driving</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:454"><nobr><span class="ft3">up</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:472"><nobr><span class="ft3">a(v) beyond what may be considered fair. B&amp;H proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:454"><nobr><span class="ft3">a simple and effective fix for such "site-pair" nepotism: if</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:784"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:454"><nobr><span class="ft3">pages on</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:508"><nobr><span class="ft3">s</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:514"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:524"><nobr><span class="ft3">point to</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:575"><nobr><span class="ft3">v, let the weight of each of these links</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:454"><nobr><span class="ft3">be 1</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:479"><nobr><span class="ft3">/k, so that they add up to one, assuming a site (not a</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:454"><nobr><span class="ft3">page) is worth one unit of voting power.</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:475"><nobr><span class="ft3">Later work in the Clever system [6] used a small edge</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:454"><nobr><span class="ft8">weight for same-site links and a larger weight for other links,<br>but these weights were tuned empirically by evaluating the<br>results on specific queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:475"><nobr><span class="ft3">Another issue with HITS were "mixed hubs" or pages</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:454"><nobr><span class="ft13">u that included a collection of links of which only a subset<br>was relevant to a query. Because HITS modeled</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:724"><nobr><span class="ft3">u as a single</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:454"><nobr><span class="ft3">node with a single</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:557"><nobr><span class="ft3">h score, high authority scores could diffuse</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:454"><nobr><span class="ft8">from relevant links to less relevant links. E.g., responses to<br>the query movie awards sometimes drifted into the neigh-<br>boring, more densely linked domain of movie companies.</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:475"><nobr><span class="ft3">Later versions of Clever tried to address the issue in</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:454"><nobr><span class="ft8">two ways. First, links within a fixed number of tokens of<br>query terms were assigned a large edge weight (the width<br>of the "activation window" was tuned by trial-and-error).<br>Second, hubs which were "too long" were segmented at a few<br>prominent boundaries (such as &lt;UL&gt; or &lt;HR&gt;) into "pagelets"<br>with their own scores. The boundaries were chosen using a<br>static set of rules depending on the markup tags on those<br>pages alone.</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:475"><nobr><span class="ft3">To avoid drift, B&amp;H also computed a vector space rep-</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:454"><nobr><span class="ft8">resentation [17] of documents in the response set (shown in<br>Figure 3) and then dropped pages that were judged to be<br>"outliers" using a suitable threshold of (cosine) similarity to<br>the vector space centroid. B&amp;H is effective for improving<br>precision, but may reduce recall if mixed hubs are pruned<br>because of small similarity to the root set centroid. This</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">213</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:7px;font-family:Times;color:#000000;}
+	.ft23{font-size:7px;font-family:Times;color:#000000;}
+	.ft24{font-size:3px;font-family:Times;color:#000000;}
+	.ft25{font-size:5px;font-family:Times;color:#ffffff;}
+	.ft26{font-size:18px;line-height:25px;font-family:Times;color:#000000;}
+	.ft27{font-size:5px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft28{font-size:5px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft29{font-size:5px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft30{font-size:10px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114004.png" alt="background image">
+<DIV style="position:absolute;top:252;left:238"><nobr><span class="ft15">Query term</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:272"><nobr><span class="ft15">Activation</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:277"><nobr><span class="ft15">window</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:83"><nobr><span class="ft16">Figure 4: Clever uses a slightly more detailed page model than<br>HITS.Hyperlinks near query terms are given heavier weights.<br>Such links are shown as thicker lines.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:83"><nobr><span class="ft8">may in turn distort hub and authority scores and hence the<br>desired ranking. Losing a few hubs may not be a problem<br>for broad queries but could be serious for narrower queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:104"><nobr><span class="ft3">As resource discovery and topic distillation become more</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:83"><nobr><span class="ft8">commonplace, we believe the quest will be for every addi-<br>tional resource than can possibly be harvested, not merely<br>the ones that "leap out at the surfer." Our goal should<br>therefore be to extract relevant links and annotations even<br>from pages which are partially or largely irrelevant.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:83"><nobr><span class="ft0">3</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:117"><nobr><span class="ft26">Generalizing hyperlinks to<br>interconnected DOMs</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:83"><nobr><span class="ft8">HTML documents have always embedded many sources of<br>information (other that text) which have been largely ig-<br>nored in previous distillation research. Markups are one<br>such source. From a well-formed HTML document, it ought<br>to be possible to extract a tree structure called the Doc-<br>ument Object Model (DOM). In real life HTML is rarely<br>well formed, but using a few simple patches, it is possible<br>to generate reasonably accurate DOMs. For XML sources<br>adhering to a published DTD, a DOMis precise and well<br>defined.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:104"><nobr><span class="ft3">For simplicity, we shall work with a greatly pared-down</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:83"><nobr><span class="ft8">version of the DOMfor HTML pages. We will discard all<br>text, and only retain those paths in the DOMtree that lead<br>from the root to a leaf which is an &lt;A...&gt; element with an</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:83"><nobr><span class="ft3">HREF leading to another page.</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:104"><nobr><span class="ft3">Hyperlinks always originate from leaf DOMelements,</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:83"><nobr><span class="ft8">typically deep in the DOMtree of the source document. If<br>same-site links are ignored, very few macro-level hyperlinks<br>target an internal node in a DOMtree (using the "#" mod-<br>ifier in the URL). To simplify our model (and experiments)<br>we will assume that the target of a hyperlink is always the<br>root node of a DOMtree. In our experiments we found very<br>few URLs to be otherwise.</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:104"><nobr><span class="ft3">A first-cut approach (which one may call MicroHITS )</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:83"><nobr><span class="ft8">would be to use the fine-grained graph directly in the HITS<br>algorithm. One may even generalize "same-site" to "same-<br>DOM" and use B&amp;H-like edge-weights. This approach turns<br>out to work rather poorly.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:104"><nobr><span class="ft3">To appreciate why, consider two simple example graphs</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:83"><nobr><span class="ft8">shown in Figure 5 and their associated eigenvectors. The<br>first graph is for the macro setting. Expanding out a</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:407"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:83"><nobr><span class="ft3">E</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:93"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:102"><nobr><span class="ft3">Ea we get</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:182"><nobr><span class="ft3">a(2)  a(2) + a(3) and</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:722"><nobr><span class="ft4">Bipar</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:722"><nobr><span class="ft4">tite</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:722"><nobr><span class="ft29">c<br>o<br>r<br>e</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:522"><nobr><span class="ft4">DOM Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:470"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:508"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:610"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:541"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:647"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:634"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:620"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:647"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:634"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:620"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:647"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:634"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:620"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:587"><nobr><span class="ft22">;</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:578"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:565"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:552"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:578"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:565"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:552"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:578"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:565"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:552"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:601"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:590"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:532"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:597"><nobr><span class="ft24"><i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:536"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:494"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:554"><nobr><span class="ft25">4</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:470"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:596"><nobr><span class="ft4">5</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:707"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:612"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:771"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:759"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:746"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:732"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:719"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:769"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:757"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:745"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:732"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:720"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:771"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:758"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:745"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:731"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:718"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:770"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:758"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:746"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:732"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:719"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:771"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:758"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:745"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:731"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:718"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:684"><nobr><span class="ft22">;</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:676"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:676"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:676"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:676"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:676"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:663"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:663"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:663"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:663"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:663"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:649"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:649"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:649"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:649"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:649"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:636"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:636"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:636"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:636"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:636"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:623"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:623"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:623"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:623"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:623"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:699"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:688"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:604"><nobr><span class="ft23"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:694"><nobr><span class="ft24"><i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:454"><nobr><span class="ft16">Figure 5: A straight-forward application of HITS-like algorithms<br>to a DOM graph may result in some internal DOM nodes blocking<br>the diffusion of authority across siblings.</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:553"><nobr><span class="ft3">a(3)  a(2) + a(3),</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:454"><nobr><span class="ft8">which demonstrates the mutual reinforcement. In the sec-<br>ond example nodes numbered 3 and 4 are part of one DOM<br>tree. This time, we get</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:550"><nobr><span class="ft30">a(2)  2a(2) + a(4) and<br>a(4)  a(2) + a(4),</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:454"><nobr><span class="ft3">but there is no coupling between</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:651"><nobr><span class="ft3">a(2) and a(5), which we</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:454"><nobr><span class="ft8">would expect at the macroscopic level. Node 4 (marked<br>red) effectively blocks the authority from diffusing between<br>nodes 2 and 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft3">One may hope that bigger DOMtrees and multiple paths</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:454"><nobr><span class="ft8">to authorities might alleviate the problem, but the above<br>example really depicts a basic problem. The success of HITS<br>depends critically on reinforcement among bipartite cores<br>(see figure 5) which may be destroyed by the introduction<br>of fine-grained nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:454"><nobr><span class="ft0">4</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:488"><nobr><span class="ft0">Proposed model and algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:454"><nobr><span class="ft8">At this point the dilemma is clear: by collapsing hubs into<br>one node, macroscopic distillation algorithms lose valuable<br>detail, but the more faithful fine-grained model prevents<br>bipartite reinforcement.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:475"><nobr><span class="ft3">In this section we present our new model and distillation</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:454"><nobr><span class="ft8">algorithm that resolves the dilemma. Informally, our model<br>of hub generation enables our algorithm to find a cut or<br>frontier across each hub's DOMtree. Subtrees attached<br>to these cuts are made individual nodes in the distillation<br>graph. Thus the hub score of the entire page is dis-aggregated<br>at this intermediate level. The frontiers are not computed<br>one time as a function of the page alone, neither do they<br>remain unchanged during the HITS iterations. The frontiers<br>are determined by the current estimates of the hub scores of<br>the leaf HREF nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:475"><nobr><span class="ft3">We will first describe the hub segmentation technique</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:454"><nobr><span class="ft3">and then use it in a modified iterative distillation algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:454"><nobr><span class="ft2">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:497"><nobr><span class="ft2">Scoring internal micro-hub nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:454"><nobr><span class="ft8">Macroscopic distillation algorithms rank and report com-<br>plete hub pages, even if they are only partially relevant. In<br>this section we address the problem of estimating the hub<br>score of each DOMnode in the fine-grained graph, given an<br>estimate of authority scores. Because inter-page hyperlinks<br>originate in leaf DOMnodes and target root nodes of DOM<br>trees, we will also assume that only those DOMnodes that<br>are document roots can have an authority score.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">214</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft31{font-size:5px;font-family:Times;color:#ffffff;}
+	.ft32{font-size:4px;font-family:Times;color:#000000;}
+	.ft33{font-size:1px;font-family:Times;color:#000000;}
+	.ft34{font-size:13px;font-family:Times;color:#000000;}
+	.ft35{font-size:5px;line-height:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114005.png" alt="background image">
+<DIV style="position:absolute;top:107;left:104"><nobr><span class="ft3">At the end of the h</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:224"><nobr><span class="ft3"> Ea substep of MicroHITS, leaf</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:83"><nobr><span class="ft8">DOMnodes get a hub score. Because leaf nodes point to<br>exactly one page via an HREF, the hub score is exactly the<br>authority score of the target page. Macroscopic distillation<br>algorithms in effect aggregate all the leaf hub scores for a<br>page into one hub score for the entire page. Reporting leaf<br>hub scores in descending order would be useless, because<br>they would simply follow the authority ranking and fail to<br>identify good hub aggregates.</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:104"><nobr><span class="ft3">Instead of the total hub score, one may consider the</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:83"><nobr><span class="ft8">density of hub scores in a subtree, which may be defined as<br>the total hub score in the subtree divided by the number of</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:83"><nobr><span class="ft8">HREF leaves. The maximum density will be achieved by the<br>leaf node that links to the best authority. In our experience<br>small subtrees with small number of leaves dominate the<br>top ranks, again under-aggregating hub scores and pitting<br>ancestor scores against descendant scores.</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:83"><nobr><span class="ft3">4.1.1</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:129"><nobr><span class="ft3">A generative model for hubs</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:83"><nobr><span class="ft8">To help us find suitable frontiers along which we can aggre-<br>gate hub scores, we propose the following generative model<br>for hubs.</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:104"><nobr><span class="ft3">Imagine that the Web has stopped changing and with</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:83"><nobr><span class="ft8">respect to a fixed query, all Web pages have been manually<br>rated for their worth as hubs. From these hub scores, one<br>may estimate that the hub scores have been generated from<br>a distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:176"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:182"><nobr><span class="ft3">. (E.g., </span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:240"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:251"><nobr><span class="ft3">may represent an exponential</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:83"><nobr><span class="ft3">distribution with mean 0</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:226"><nobr><span class="ft3">.005.) If the author of a hub page</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:83"><nobr><span class="ft8">sampled URLs at random to link to, the distribution of hub<br>scores at the leaves of the page would approach the global<br>distribution provided enough samples were taken.</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:104"><nobr><span class="ft3">However, authors differ in their choice of URLs. Hub</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:83"><nobr><span class="ft8">authors are not aware of all URLs relevant to a given query<br>or their relative authority; otherwise all hubs authored on<br>a topic would be complete and identical, and therefore all<br>but one would be pointless to author. (Here we momentarily<br>ignore the value added by annotations and commentaries on<br>hub pages.)</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:104"><nobr><span class="ft3">Therefore, the distribution of hub scores for pages com-</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:83"><nobr><span class="ft3">posed by a specific author will be different from </span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:373"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:379"><nobr><span class="ft3">. (E.g.,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:83"><nobr><span class="ft3">the author's personal average of hub scores may be 0</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:394"><nobr><span class="ft3">.002,</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:83"><nobr><span class="ft8">distributed exponentially.) Moreover, the authors of mixed<br>hubs deliberately choose to dedicate not the entire page, but<br>only a fragment or subtree of it, to URLs that are relevant<br>to the given query. (As an extreme case a subtree could be<br>a single HREF.)</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:104"><nobr><span class="ft3">We can regard the hub generation process as a progres-</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:83"><nobr><span class="ft8">sive specialization of the hub score distribution starting from<br>the global distribution. For simplicity, assume all document<br>roots are attached to a "super-root" which corresponds to<br>the global distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:227"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:233"><nobr><span class="ft3">. As the author works down the</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:83"><nobr><span class="ft8">DOMtree, "corrections" are applied to the score distribu-<br>tion at nodes on the path.</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:104"><nobr><span class="ft3">At some suitable depth, the author fixes the score dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:83"><nobr><span class="ft8">tribution and generates links to pages so that hub scores<br>follow that distribution. This does not mean that there are<br>no interesting DOMsubtrees below this depth. The model<br>merely posits that up to some depth, DOMstructure is in-<br>dicative of systematic choices of score distributions, whereas<br>beyond that depth variation is statistical.</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:684"><nobr><span class="ft31">0</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:579"><nobr><span class="ft4">Global distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:651"><nobr><span class="ft35">Progressive<br>`distortion'</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:748"><nobr><span class="ft35">Model<br>frontier</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:614"><nobr><span class="ft4">Other pages</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:595"><nobr><span class="ft25">v</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:628"><nobr><span class="ft25">u</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:486"><nobr><span class="ft35">Cumulative distortion cost =<br>KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:498"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:504"><nobr><span class="ft19"><i>0</i></span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:507"><nobr><span class="ft4">;</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:511"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:517"><nobr><span class="ft19"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:520"><nobr><span class="ft4">) + ... + KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:560"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:566"><nobr><span class="ft19"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:569"><nobr><span class="ft4">;</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:573"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:579"><nobr><span class="ft19"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:582"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:465"><nobr><span class="ft4">Data encoding cost is roughly</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:487"><nobr><span class="ft32"></span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:488"><nobr><span class="ft19"><i></i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:533"><nobr><span class="ft5"></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:479"><nobr><span class="ft5">-</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:497"><nobr><span class="ft33"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:492"><nobr><span class="ft24"><i>H</i></span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:486"><nobr><span class="ft24"><i>h</i></span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:540"><nobr><span class="ft24"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:523"><nobr><span class="ft23"><i>h</i></span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:544"><nobr><span class="ft22">)</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:529"><nobr><span class="ft22">|</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:512"><nobr><span class="ft22">Pr(</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:498"><nobr><span class="ft22">log</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:635"><nobr><span class="ft4">`Hot' subtree</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:729"><nobr><span class="ft4">`Cold' subtree</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:487"><nobr><span class="ft34"></span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:454"><nobr><span class="ft16">Figure 6: Our fine-grained model of Web linkage which unifies<br>hyperlinks and DOM structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:454"><nobr><span class="ft3">4.1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:500"><nobr><span class="ft8">Discovering DOM frontiers from generated<br>hubs</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:454"><nobr><span class="ft8">During topic distillation we observe pages which are the<br>outcome of the generative process described above, and our<br>goal is to discover the "best" frontier at which the score<br>distributions were likely to have been fixed.</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:475"><nobr><span class="ft3">A balancing act is involved here: one may choose a</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:454"><nobr><span class="ft8">large and redundant frontier near the leaves and model the<br>many small, homogeneous subtrees (each with a different<br>distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:534"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:543"><nobr><span class="ft3">) attached to that frontier accurately, or one</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:454"><nobr><span class="ft8">may choose a short frontier near the root with a few subtrees<br>which are harder to model because they contain diverse hub<br>scores. The balancing act requires a common currency to<br>compare the cost of the frontier with the cost of modeling<br>hub score data beneath the frontier.</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:475"><nobr><span class="ft3">This is a standard problem in segmentation, clustering,</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:454"><nobr><span class="ft8">and model estimation. A particularly successful approach to<br>optimizing the trade-off is to use the Minimum Description<br>Length (MDL) principle [16]. MDL provides a recipe for<br>bringing the cost of model corrections to the same units as<br>the cost for representing data w.r.t a model, and postulates<br>that "learning" is equivalent to minimizing the sum total of<br>model and data encoding costs.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:459"><nobr><span class="ft3">Data encoding cost:</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:604"><nobr><span class="ft3">First we consider the cost of en-</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:454"><nobr><span class="ft3">coding all the</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:538"><nobr><span class="ft3">h-values at the leaves of a subtree rooted at</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:454"><nobr><span class="ft3">node</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:486"><nobr><span class="ft3">w. Specifically, let the distribution associated with w</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:454"><nobr><span class="ft3">be </span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:482"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:491"><nobr><span class="ft3">. The set of HREF leaf nodes in the subtree rooted at</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:454"><nobr><span class="ft3">node</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:487"><nobr><span class="ft3">w is denoted L</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:575"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:584"><nobr><span class="ft3">, and the set of hub scores at these</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:454"><nobr><span class="ft3">leaves is denoted</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:555"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:566"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:574"><nobr><span class="ft3">. As part of the solution we will need</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:454"><nobr><span class="ft3">to evaluate the number of bits needed to encode</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:730"><nobr><span class="ft3">h-values in</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:454"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:465"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:477"><nobr><span class="ft3">using the model </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:579"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:588"><nobr><span class="ft3">. There are efficient codes which can</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:454"><nobr><span class="ft8">achieve a data encoding length close to Shannon's entropy-<br>based lower bound [9] of</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:545"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:557"><nobr><span class="ft15">hH</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:578"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:589"><nobr><span class="ft3">log Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:624"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:632"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:640"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:645"><nobr><span class="ft3">h)</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:676"><nobr><span class="ft3">bits</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:698"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:775"><nobr><span class="ft3">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:454"><nobr><span class="ft3">where Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:508"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:516"><nobr><span class="ft4">w</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:524"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:529"><nobr><span class="ft3">h) is the probability of hub score h w.r.t. a</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:454"><nobr><span class="ft3">distribution represented by </span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:623"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:631"><nobr><span class="ft3">. (E.g., </span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:687"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:700"><nobr><span class="ft3">may include the</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:454"><nobr><span class="ft8">mean and variance of a normal distribution.) We will use<br>this lower bound as an approximation to our data encoding<br>cost. (This would work if the</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:633"><nobr><span class="ft3">h-values followed a discrete</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:454"><nobr><span class="ft8">probability distribution, which is not the case with hub<br>scores. We will come back to this issue in</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:695"><nobr><span class="ft3">§4.2.)</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">215</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114006.png" alt="background image">
+<DIV style="position:absolute;top:109;left:88"><nobr><span class="ft3">Model encoding cost:</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:240"><nobr><span class="ft3">Next we consider the model en-</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:83"><nobr><span class="ft3">coding cost. Consider node</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:251"><nobr><span class="ft3">v in the DOMtree. We will</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:83"><nobr><span class="ft3">assume that </span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:167"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:177"><nobr><span class="ft3">is known to all, and use the path from the</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:83"><nobr><span class="ft3">global root to</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:169"><nobr><span class="ft3">v to inductively encode each node w.r.t its</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:83"><nobr><span class="ft3">parent. Suppose we want to specialize the distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:400"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:410"><nobr><span class="ft3">of</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:83"><nobr><span class="ft3">some</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:116"><nobr><span class="ft3">v away from </span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:200"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:207"><nobr><span class="ft3">, the distribution of its parent</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:381"><nobr><span class="ft3">u. The</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:83"><nobr><span class="ft8">cost for specifying this change is given by the well-known<br>Kullback-Leibler (KL) distance [9]</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:287"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:323"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:330"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:346"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:352"><nobr><span class="ft3">), expressed</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:83"><nobr><span class="ft3">as</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:137"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:173"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:180"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:196"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:202"><nobr><span class="ft3">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:230"><nobr><span class="ft15">x</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:245"><nobr><span class="ft3">Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:259"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:267"><nobr><span class="ft4">u</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:274"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:279"><nobr><span class="ft3">x) log Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:329"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:337"><nobr><span class="ft4">u</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:344"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:349"><nobr><span class="ft3">x)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:315"><nobr><span class="ft3">Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:329"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:337"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:344"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:349"><nobr><span class="ft3">x) .</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:404"><nobr><span class="ft3">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:83"><nobr><span class="ft3">Intuitively, this is the cost of encoding the distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:414"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:83"><nobr><span class="ft3">w.r.t. a reference distribution </span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:262"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:269"><nobr><span class="ft3">. E.g., if</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:319"><nobr><span class="ft3">X is a binary ran-</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:83"><nobr><span class="ft8">dom variable and its probabilities of being zero and one are<br>(</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:88"><nobr><span class="ft3">.2, .8) under </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:171"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:181"><nobr><span class="ft3">and (</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:212"><nobr><span class="ft3">.4, .6) under </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:294"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:300"><nobr><span class="ft3">, then</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:338"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:374"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:380"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:396"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:401"><nobr><span class="ft3">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:83"><nobr><span class="ft3">.4 log</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:116"><nobr><span class="ft15">.4</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:116"><nobr><span class="ft15">.2</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:130"><nobr><span class="ft3">+</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:143"><nobr><span class="ft3">.6 log</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:176"><nobr><span class="ft15">.6</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:176"><nobr><span class="ft15">.8</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:186"><nobr><span class="ft3">. Unlike in the case of entropy, the sum</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:83"><nobr><span class="ft8">can be taken to an integral in the limit for a continuous<br>variable</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:133"><nobr><span class="ft3">x. Clearly for </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:229"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:241"><nobr><span class="ft3">= </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:266"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:273"><nobr><span class="ft3">, the KL distance is zero;</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:83"><nobr><span class="ft8">it can also be shown that this is a necessary condition, and<br>that the KL distance is asymmetric in general but always<br>non-negative.</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:104"><nobr><span class="ft3">If </span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:128"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:140"><nobr><span class="ft3">is specialized to </span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:245"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:256"><nobr><span class="ft3">and </span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:292"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:303"><nobr><span class="ft3">is specialized to </span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:408"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:417"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:83"><nobr><span class="ft3">the cost is additive, i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:230"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:266"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:273"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:289"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:295"><nobr><span class="ft3">) +</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:318"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:354"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:360"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:376"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:384"><nobr><span class="ft3">). We</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:83"><nobr><span class="ft3">will denote the cost of such a path as</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:322"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:358"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:365"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:381"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:387"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:403"><nobr><span class="ft15">w</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:412"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:83"><nobr><span class="ft3">Moreover, the model encoding cost of</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:308"><nobr><span class="ft3">v starting from the</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:83"><nobr><span class="ft3">global root model will be denoted</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:279"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:315"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:321"><nobr><span class="ft3">;</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:327"><nobr><span class="ft3">. . . ; </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:360"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:366"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:86"><nobr><span class="ft3">Combined optimization problem:</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:313"><nobr><span class="ft3">Given the model at</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:83"><nobr><span class="ft3">the parent node </span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:191"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:203"><nobr><span class="ft3">and the observed data</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:337"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:348"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:354"><nobr><span class="ft3">, we should</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:83"><nobr><span class="ft3">choose </span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:134"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:144"><nobr><span class="ft3">so as to minimize the sum of the KL distance and</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:83"><nobr><span class="ft3">data encoding cost:</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:158"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:194"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:201"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:217"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:223"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:231"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:244"><nobr><span class="ft15">hH</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:266"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:274"><nobr><span class="ft3">log Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:309"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:317"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:324"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:329"><nobr><span class="ft3">h).</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:404"><nobr><span class="ft3">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:83"><nobr><span class="ft3">If </span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:107"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:118"><nobr><span class="ft3">is expressed parametrically, this will involve an opti-</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:83"><nobr><span class="ft3">mization over those parameters.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:104"><nobr><span class="ft3">With the above set-up, we are looking for a cut or fron-</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:83"><nobr><span class="ft3">tier</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:107"><nobr><span class="ft3">F across the tree, and for each v  F , a </span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:348"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:354"><nobr><span class="ft3">, such that</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:127"><nobr><span class="ft15">vF</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:161"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:197"><nobr><span class="ft15">0</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:202"><nobr><span class="ft3">;</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:208"><nobr><span class="ft3">. . . ; </span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:241"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:248"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:256"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:269"><nobr><span class="ft15">hH</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:290"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:298"><nobr><span class="ft3">log Pr</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:333"><nobr><span class="ft15"></span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:341"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:348"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:353"><nobr><span class="ft3">h)</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:404"><nobr><span class="ft3">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:83"><nobr><span class="ft8">is minimized. The first part expresses the total model en-<br>coding cost of all nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:227"><nobr><span class="ft3">v on the frontier F starting from</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:83"><nobr><span class="ft8">the global root distribution. The second part corresponds<br>to the data encoding cost for the set of hub scores</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:386"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:397"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:409"><nobr><span class="ft3">at</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:83"><nobr><span class="ft3">the leaves of the subtrees rooted at the nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:354"><nobr><span class="ft3">v. Figure 6</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:83"><nobr><span class="ft3">illustrates the two costs.</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:83"><nobr><span class="ft2">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:126"><nobr><span class="ft2">Practical considerations</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:83"><nobr><span class="ft8">The formulation above is impractical for a number of rea-<br>sons. There is a reduction from the knapsack problem to<br>the frontier-finding problem. Dynamic programming can be<br>used to give close approximations [13, 18], but with tens of<br>thousands of macro-level pages, each with hundreds of DOM<br>nodes, something even simpler is needed. We describe the<br>simplifications we had to make to control the complexity of<br>our algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:104"><nobr><span class="ft3">We use the obvious greedy expansion strategy. We ini-</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:83"><nobr><span class="ft8">tialize our frontier with the global root and keep picking<br>a node</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:130"><nobr><span class="ft3">u from the frontier to see if expanding it to its</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:454"><nobr><span class="ft3">immediate children</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:571"><nobr><span class="ft3">{v} will result in a reduction in code</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:454"><nobr><span class="ft3">length, if so we replace</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:588"><nobr><span class="ft3">u by its children, and continue until</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:454"><nobr><span class="ft8">no further improvement is possible. We compare two costs<br>locally at each</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:541"><nobr><span class="ft3">u:</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:476"><nobr><span class="ft3">· The cost of encoding all the data in H</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:710"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:722"><nobr><span class="ft3">with respect</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:489"><nobr><span class="ft3">to model </span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:554"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:561"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:476"><nobr><span class="ft3">· The cost of expanding u to its children, i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:504"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:513"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:549"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:555"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:571"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:578"><nobr><span class="ft3">), plus the cost of encoding the sub-</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:489"><nobr><span class="ft3">trees</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:521"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:531"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:542"><nobr><span class="ft3">with respect to </span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:642"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:648"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:454"><nobr><span class="ft3">If the latter cost is less, we expand</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:661"><nobr><span class="ft3">u, otherwise, we prune</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:454"><nobr><span class="ft3">it, meaning that</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:551"><nobr><span class="ft3">u becomes a frontier node.</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:475"><nobr><span class="ft3">Another issue is with optimizing the model </span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:731"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:737"><nobr><span class="ft3">. Usually,</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:454"><nobr><span class="ft8">closed form solutions are rare and numerical optimization<br>must be resorted to; again impractical in our setting.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:475"><nobr><span class="ft3">In practice, if</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:555"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:565"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:576"><nobr><span class="ft3">is moderately large, the data encoding</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:454"><nobr><span class="ft8">cost tends to be larger than the model cost. In such cases, a<br>simple approximation which works quite well is to first min-<br>imize the data encoding cost for</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:647"><nobr><span class="ft3">H</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:658"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:669"><nobr><span class="ft3">by picking parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:454"><nobr><span class="ft3">values for </span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:522"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:532"><nobr><span class="ft3">that maximize the probability of the observed</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:454"><nobr><span class="ft8">data (the "maximum likelihood" or ML parameters), thus<br>fix </span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:483"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:489"><nobr><span class="ft3">, then evaluate</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:578"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:613"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:620"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:636"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:643"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:475"><nobr><span class="ft3">(As an example, if a coin tossed</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:661"><nobr><span class="ft3">n times turns up heads</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:454"><nobr><span class="ft13">k times, the ML parameter for bias is simply k/n, but if<br>a uniform </span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:527"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:540"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:557"><nobr><span class="ft3">U(0, 1) is chosen, the mean of </span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:749"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:761"><nobr><span class="ft3">shifts</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:454"><nobr><span class="ft3">slightly to (</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:522"><nobr><span class="ft3">k + 1)/(n + 2) which is a negligible change for</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:454"><nobr><span class="ft3">moderately large</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:554"><nobr><span class="ft3">k and n.)</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:475"><nobr><span class="ft3">Non-parametric evaluation of the KL distance is compli-</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:454"><nobr><span class="ft8">cated, and often entails density estimates. We experimented<br>with two parametric distributions: the Gaussian and expo-<br>nential distributions for which the KL distance has closed<br>form expressions. We finally picked the exponential distribu-<br>tion because it fit the observed hub score distribution more<br>closely.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:475"><nobr><span class="ft3">If  represents an exponential distribution with mean</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:784"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:454"><nobr><span class="ft3">and probability density</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:591"><nobr><span class="ft3">f(x) = (1/µ) exp(-x/µ), then</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:522"><nobr><span class="ft3">KL(</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:558"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:564"><nobr><span class="ft3">; </span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:579"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:585"><nobr><span class="ft3">) = log µ</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:635"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:627"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:635"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:645"><nobr><span class="ft3">+</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:670"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:678"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:670"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:678"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:688"><nobr><span class="ft3">- 1 ,</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:775"><nobr><span class="ft3">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:454"><nobr><span class="ft3">where</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:492"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:500"><nobr><span class="ft15">i</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:508"><nobr><span class="ft3">corresponds to </span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:606"><nobr><span class="ft15">i</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:615"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:620"><nobr><span class="ft3">i = 1, 2).</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:475"><nobr><span class="ft3">The next issue is how to measure data encoding cost</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:454"><nobr><span class="ft8">for continuous variables. There is a notion of the relative<br>entropy of a continuous distribution which generalizes dis-<br>crete entropy, but the relative entropy can be negative and<br>is useful primarily for comparing the information content in<br>two signal sources. Therefore we need to discretize the hub<br>scores.</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:475"><nobr><span class="ft3">A common approach to discretizing real values is to scale</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:454"><nobr><span class="ft3">the smallest value to one, in effect allocating log(</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:727"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:735"><nobr><span class="ft15">max</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:755"><nobr><span class="ft3">/h</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:769"><nobr><span class="ft15">min</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:786"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:454"><nobr><span class="ft8">bits per value. This poses a problem in our case. Con-<br>sider the larger graph in figure 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:671"><nobr><span class="ft3">If h is initialized to</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:454"><nobr><span class="ft3">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:466"><nobr><span class="ft3">, 1, 1, 1, 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:520"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:528"><nobr><span class="ft3">, after the first few multiplications by</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:763"><nobr><span class="ft3">EE</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:783"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:454"><nobr><span class="ft3">which represents the linear transformation</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:457"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:462"><nobr><span class="ft3">h(1), . . . , h(5))</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:545"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:556"><nobr><span class="ft3"> (h(1) + h(3), 0, h(1) + 2h(3), h(4), 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:777"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:785"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:454"><nobr><span class="ft3">we get (2</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:507"><nobr><span class="ft3">, 0, 3, 1, 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:561"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:569"><nobr><span class="ft3">, (5</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:588"><nobr><span class="ft3">, 0, 8, 1, 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:643"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:651"><nobr><span class="ft3">, (13</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:677"><nobr><span class="ft3">, 0, 21, 1, 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:738"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:746"><nobr><span class="ft3">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:454"><nobr><span class="ft3">(34</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:472"><nobr><span class="ft3">, 0, 55, 1, 0)</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:533"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:541"><nobr><span class="ft3">. Even if we disregard the zeroes, the ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:454"><nobr><span class="ft8">of the largest to the smallest positive component of h grows<br>without bound. As scaling is employed to prevent overflow,</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:454"><nobr><span class="ft3">h(4) decays towards zero. This makes the log(h</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:735"><nobr><span class="ft15">max</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:755"><nobr><span class="ft3">/h</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:769"><nobr><span class="ft15">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:786"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:454"><nobr><span class="ft3">strategy useless.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">216</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114007.png" alt="background image">
+<DIV style="position:absolute;top:107;left:104"><nobr><span class="ft3">A reasonable compromise is possible by noting that the</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:83"><nobr><span class="ft8">user is not interested in the precision of all the hub scores.<br>E.g., reporting the top</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:218"><nobr><span class="ft3"> fraction of positive hub scores to</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:83"><nobr><span class="ft3">within a small multiplicative error of</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:307"><nobr><span class="ft3">is quite enough. We</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:83"><nobr><span class="ft3">used</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:113"><nobr><span class="ft3"> = 0.8 and = 0.05 in our experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:83"><nobr><span class="ft2">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:126"><nobr><span class="ft2">Distillation using segmented hubs</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:83"><nobr><span class="ft8">In this section we will embed the segmentation algorithm<br>discussed in the previous section into the edge-weighted B&amp;H<br>algorithm. (Unlike the full B&amp;H algorithm, we do no text<br>analysis at this stage. We continue to call the edge-weighted<br>version of HITS as "B&amp;H" for simplicity.)</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:104"><nobr><span class="ft3">The main modification will be the insertion of a call</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:83"><nobr><span class="ft3">to the segmentation algorithm after the h</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:331"><nobr><span class="ft3"> Ea step and</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:83"><nobr><span class="ft3">before the complementary step a</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:288"><nobr><span class="ft3"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:320"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:328"><nobr><span class="ft3">h.</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:353"><nobr><span class="ft3">It is also a</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:83"><nobr><span class="ft8">reasonable assumption that the best frontier will segment<br>each hub non-trivially, i.e., below its DOMroot. Therefore<br>we can invoke the segmentation routine separately on each<br>page. Let the segmentation algorithm described previously<br>be invoked as</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:118"><nobr><span class="ft3">F  segment(u)</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:83"><nobr><span class="ft3">where</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:119"><nobr><span class="ft3">u is the DOMtree root of a page and F is the returned</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:83"><nobr><span class="ft3">frontier for that page.</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:228"><nobr><span class="ft3">Here is the pseudo-code for one</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:83"><nobr><span class="ft3">iteration:</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:118"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:130"><nobr><span class="ft3"> Ea</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:118"><nobr><span class="ft3">for each document DOMroot</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:291"><nobr><span class="ft3">u</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:144"><nobr><span class="ft13">F  segment(u)<br>for each frontier node</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:271"><nobr><span class="ft3">v  F</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:170"><nobr><span class="ft3">h(v) </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:230"><nobr><span class="ft15">wL</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:252"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:261"><nobr><span class="ft3">h(w)</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:170"><nobr><span class="ft3">for each</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:219"><nobr><span class="ft3">w  L</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:254"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:196"><nobr><span class="ft3">h(w)  h(v)</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:170"><nobr><span class="ft3">reset</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:201"><nobr><span class="ft3">h(v)  0</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:118"><nobr><span class="ft3">a</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:129"><nobr><span class="ft3"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:156"><nobr><span class="ft15">T</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:164"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:118"><nobr><span class="ft3">normalize a so that</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:248"><nobr><span class="ft15">u</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:257"><nobr><span class="ft3">a(u) = 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:83"><nobr><span class="ft8">For convenience we can skip the hub normalization and only<br>normalize authorities every complete cycle; this does not<br>affect ranking.</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:104"><nobr><span class="ft3">The reader will observe that this is not a linear relax-</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:83"><nobr><span class="ft8">ation as was the case with HITS, Clever, or B&amp;H, because<br>segment may lead us to aggregate and redistribute different<br>sets of hub scores in different iterations, based on the current<br>leaf hub scores. (Also note that if</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:274"><nobr><span class="ft3">F were fixed for each page</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:83"><nobr><span class="ft8">for all time, the system would still be linear and therefore<br>guaranteed to converge.) Although convergence results for<br>non-linear dynamical systems are rare [10], in our experi-<br>ments we never found convergence to be a problem (see</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:400"><nobr><span class="ft3">§5).</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:104"><nobr><span class="ft3">However, we do have to take care with the initial values</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:83"><nobr><span class="ft8">of a and h, unlike in the linear relaxation situation where<br>any positive value will do. Assume that the first iteration<br>step transfers weights from authorities to hubs, and consider<br>how we can initialize the authority scores. In contrast to<br>HITS, we cannot start with all</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:257"><nobr><span class="ft3">a(v) = 1. Why not? Because</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:83"><nobr><span class="ft8">both good and bad authorities will get this score, resulting in<br>many hub DOMsubtrees looking more uniformly promising<br>than they should. This will lead the segment algorithm<br>to prune the frontier too eagerly, resulting in potentially<br>excessive authority diffusion, as in HITS.</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:104"><nobr><span class="ft3">We propose a more conservative initialization policy. Sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:83"><nobr><span class="ft8">ilar to B&amp;H, we assume that the textual content of the root-<br>set documents returned by the text search engine is more</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:454"><nobr><span class="ft8">reliably relevant than the radius-1 neighbors included for<br>distillation. Therefore we start our algorithm by assigning<br>only root-set authority scores to one. Of course, once the<br>iterations start, this does not prevent authority from diffus-<br>ing over to siblings, but the diffusion is controlled by hub<br>segmentation.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:475"><nobr><span class="ft3">There is one other way in which we bias our algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:454"><nobr><span class="ft8">to be conservative w.r.t. authority diffusion. If a DOMnode<br>has only one child with a positive hub score, or if there is a<br>tie in the cost of expanding vs. pruning, we expand the node,<br>thereby pushing the frontier down and preventing the leaf<br>hub score from spreading out to possibly irrelevant outlinks.</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:475"><nobr><span class="ft3">Taken together, these two policies may be a little too</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:454"><nobr><span class="ft8">conservative, sometimes preventing desirable authority dif-<br>fusion and bringing our algorithm closer to MicroHITS than<br>we would like. For example, the graph being distilled may<br>be such that page</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:568"><nobr><span class="ft3">u has one DOMsubtree clearly (to a</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:454"><nobr><span class="ft8">human reading the text) dedicated to motorcycles, but only<br>one link target</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:545"><nobr><span class="ft3">v is in the expanded set. In ongoing work</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:454"><nobr><span class="ft8">we are integrating text analysis into our fine-grained model<br>to avoid such pitfalls [7].</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:454"><nobr><span class="ft0">5</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:488"><nobr><span class="ft0">Experiments and results</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:454"><nobr><span class="ft8">We used the 28 queries used in the Clever studies [5, 6] and<br>by B&amp;H [2] (shown in Figure 7). For each, RagingSearch<br>returned at most 500 responses in the root set. These 500</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:781"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:454"><nobr><span class="ft8">28 pages were fetched and all their outlinks included in our<br>database as well. RagingSearch and HotBot were used to<br>get as many inlinks to the root set as possible; these were<br>also included in our database. This resulted in about 488000<br>raw URLs.</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:475"><nobr><span class="ft3">After normalizing URLs and eliminating duplicates, ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:454"><nobr><span class="ft3">proximately 366000 page fetches succeeded. We used the</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:454"><nobr><span class="ft3">w3c command-line page fetching tool from http://www.w3c.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:454"><nobr><span class="ft8">org for its reliable timeout mechanism. We then scanned<br>all these pages and filled a global (macro-)link table with<br>2105271 non-local links, i.e., links between pages not on the<br>same hostname (as a lowercase string without port number).</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:475"><nobr><span class="ft3">We then proceeded to parse the documents into their</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:454"><nobr><span class="ft8">DOMs in order to populate a different set of tables that<br>represented the DOMnodes and the micro-links between<br>them. We used the javax.swing.text.html.parser pack-<br>age and built a custom pared-down DOMgenerator on top of<br>the SAX scanner provided. The total number of micro-links<br>was 9838653, and the total number of micro-nodes likewise<br>increased.</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:475"><nobr><span class="ft3">Out of the two million non-local links, less than 1% had</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:454"><nobr><span class="ft8">targets that were not the root of the DOMtree of a page.<br>Thus our introduction of the asymmetry in handling hubs<br>and authorities seems to be not a great distortion of reality.</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:475"><nobr><span class="ft3">Even though our experiments were performed on a 700</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:454"><nobr><span class="ft8">MHz Pentium Xeon processor with 512 MB RAM and 60 GB<br>of disk, handling this scale of operation required some care<br>and compromise. In particular, to cut down the micro-graph<br>to only about 10 million edges, we deleted all DOMpaths<br>that did not lead to an &lt;A...&gt;...&lt;/A&gt; element. Otherwise,<br>we estimated that the number of micro-links would be at<br>least two orders of magnitude larger</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:660"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:666"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:469"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:474"><nobr><span class="ft5">In our ongoing work we are having to address this issue as we are</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:454"><nobr><span class="ft5">also analyzing text.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">217</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114008.png" alt="background image">
+<DIV style="position:absolute;top:104;left:118"><nobr><span class="ft14">#</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:145"><nobr><span class="ft14">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:312"><nobr><span class="ft14">Drift</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:355"><nobr><span class="ft14">Mixed</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:122"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:145"><nobr><span class="ft14">``affirmative action''</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:122"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:145"><nobr><span class="ft14">alcoholism</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:122"><nobr><span class="ft14">3</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:145"><nobr><span class="ft14">``amusement park*''</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:122"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:145"><nobr><span class="ft14">architecture</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:122"><nobr><span class="ft14">5</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:145"><nobr><span class="ft14">bicycling</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:122"><nobr><span class="ft14">6</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:145"><nobr><span class="ft14">blues</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:122"><nobr><span class="ft14">7</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:145"><nobr><span class="ft14">``classical guitar''</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:122"><nobr><span class="ft14">8</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:145"><nobr><span class="ft14">cheese</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:122"><nobr><span class="ft14">9</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:145"><nobr><span class="ft14">cruises</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:116"><nobr><span class="ft14">10</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:145"><nobr><span class="ft14">``computer vision''</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:116"><nobr><span class="ft14">11</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:145"><nobr><span class="ft14">``field hockey''</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:116"><nobr><span class="ft14">12</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:145"><nobr><span class="ft14">gardening</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:116"><nobr><span class="ft14">13</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:145"><nobr><span class="ft14">``graphic design''</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:116"><nobr><span class="ft14">14</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:145"><nobr><span class="ft14">``Gulf war''</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:116"><nobr><span class="ft14">15</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:145"><nobr><span class="ft14">HIV</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:116"><nobr><span class="ft14">16</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:145"><nobr><span class="ft14">``lyme disease''</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:116"><nobr><span class="ft14">17</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:145"><nobr><span class="ft14">``mutual fund*''</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:116"><nobr><span class="ft14">18</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:145"><nobr><span class="ft14">``parallel architecture''</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:116"><nobr><span class="ft14">19</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:145"><nobr><span class="ft14">``rock climbing''</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:116"><nobr><span class="ft14">20</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:145"><nobr><span class="ft14">+recycling +can*</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:116"><nobr><span class="ft14">21</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:145"><nobr><span class="ft14">+stamp +collecting</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:116"><nobr><span class="ft14">22</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:145"><nobr><span class="ft14">Shakespeare</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:116"><nobr><span class="ft14">23</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:145"><nobr><span class="ft14">sushi</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:116"><nobr><span class="ft14">24</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:145"><nobr><span class="ft14">telecommuting</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:116"><nobr><span class="ft14">25</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:145"><nobr><span class="ft14">+Thailand +tourism</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:116"><nobr><span class="ft14">26</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:145"><nobr><span class="ft14">``table tennis''</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:116"><nobr><span class="ft14">27</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:145"><nobr><span class="ft14">``vintage cars''</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:311"><nobr><span class="ft14">small</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:368"><nobr><span class="ft14">·</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:116"><nobr><span class="ft14">28</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:145"><nobr><span class="ft14">+Zen +buddhism</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:312"><nobr><span class="ft14">large</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:83"><nobr><span class="ft16">Figure 7: The set of 28 broad queries used for comparing B&amp;H<br>(without text analysis) and our system.The second column shows<br>the extent of drift in the B&amp;H response.The third column shows<br>if mixed hubs were found within the top 50 hubs reported.</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:104"><nobr><span class="ft3">Figure 7 shows the 28 queries used by the Clever study</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:83"><nobr><span class="ft8">and by B&amp;H. As indicated before, our baseline was B&amp;H<br>with edge-weighting but without text-based outlier elimina-<br>tion, which we will simply call "B&amp;H". We did not have any<br>arbitrary cut-off for the number of in-links used as we did not<br>know which to discard and which to keep. As B&amp;H noted,<br>edge-weighting improved results significantly, but without<br>text analysis is not adequate to prevent drift. Of the 28<br>queries, half show drift to some extent. We discuss a few<br>cases.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:104"><nobr><span class="ft3">"Affirmative action" is understandably dominated by</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:83"><nobr><span class="ft8">lists of US universities because they publicize their support<br>for the same. Less intuitive was the drift into the world<br>of software, until we found http://206.243.171.145/7927.</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:83"><nobr><span class="ft8">html in the root set which presents a dialup networking soft-<br>ware called Affirmative Action, and links to many popular<br>freeware sites (figure 8).</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:240"><nobr><span class="ft3">By itself, this page would not</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:83"><nobr><span class="ft8">survive the link-based ranking, but the clique of software<br>sites leads B&amp;H astray.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:104"><nobr><span class="ft3">Another example was "amusement parks" where B&amp;H</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:83"><nobr><span class="ft8">fell prey to multi-host nepotism in spite of edge-weighting. A<br>densely connected conglomerate including the relevant start-<br>ing point http://www.411fun.com/THEMEPARKS/ (figure 9)<br>formed a multi-site nepotistic cluster and misled macro-<br>scopic algorithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:104"><nobr><span class="ft3">In both these cases there were ample clues in the DOM</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:83"><nobr><span class="ft8">structure alone (leave alone text) that authority diffusion<br>should be suppressed. We obtained several cases of reduced<br>drift using our technique. (In ongoing work we are getting<br>the improvement evaluated by volunteers.) One striking<br>example was for the query "amusement parks" where our<br>algorithm prevented http://www.411... from taking over<br>the show (see figure 10; complete results are in AP-macro.</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:83"><nobr><span class="ft3">html and AP-micro.html).</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:454"><nobr><span class="ft16">Figure 8: The part of this HTML page that contains the query<br>affirmative action is not very popular, but adjoining DOM<br>subtrees (upper right corner) create a dense network of software<br>sites and mislead macroscopic distillation algorithms.Dotted red<br>lines are drawn by hand.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:454"><nobr><span class="ft16">Figure 9: The 411 "clique attack" comprises a set of sibling sites<br>with different hostnames and a wide variety of topics linking to<br>each other.A human can easily avoid paying attention to the<br>sibling sites but macroscopic distillation will get misled.Dotted<br>red lines are drawn by hand.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:475"><nobr><span class="ft3">Figure 7 also shows that for almost half the queries, we</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:454"><nobr><span class="ft8">found excellent examples of mixed hubs within the top 50<br>hubs reported. Given the abundance of hubs on these topics,<br>we had anticipated that the best hubs would be "pure".<br>While this was to some extent true, we found quite a few<br>mixed hubs too. Our system automatically highlighted the<br>most relevant DOMsubtree; we present some examples in<br>figure 11 and urge the reader to sample the annotated hubs<br>packaged with the HTML version of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:463"><nobr><span class="ft3">Macroscopic</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:641"><nobr><span class="ft3">Fine-grained</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:463"><nobr><span class="ft12">http://www.411boating.com<br>http://www.411jobs.com<br>http://www.411insure.com<br>http://www.411hitech.com<br>http://www.411freestuff.com<br>http://www.411commerce.com<br>http://www.411-realestate.com<br>http://www.411worldtravel.com<br>http://www.411worldsports.com<br>http://www.411photography.com</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:641"><nobr><span class="ft12">http://www.kennywood.com<br>http://www.beachboardwalk.com<br>http://www.sixflags.com<br>http://www.cedarpoint.com<br>http://www.pgathrills.com<br>http://www.pki.com<br>http://www.valleyfair.com<br>http://www.silverwood4fun.com<br>http://www.knotts.com<br>http://www.thegreatescape.com<br>http://www.dutchwonderland.com</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:454"><nobr><span class="ft16">Figure 10: The fine-grained algorithm is less susceptible to clique<br>attacks.The query here is amusement parks.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">218</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft36{font-size:8px;font-family:Times;color:#000000;}
+	.ft37{font-size:8px;line-height:-9px;font-family:Times;color:#000000;}
+	.ft38{font-size:8px;line-height:-6px;font-family:Times;color:#000000;}
+	.ft39{font-size:8px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft40{font-size:8px;line-height:-3px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114009.png" alt="background image">
+<DIV style="position:absolute;top:577;left:83"><nobr><span class="ft16">Figure 11: Two samples of mixed hub annotations: amusement<br>parks amidst roller-coaster manufacturers and sushi amidst<br>international cuisine.</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:164"><nobr><span class="ft5">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:269"><nobr><span class="ft5">Annotated file</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:164"><nobr><span class="ft5">alcoholism</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:269"><nobr><span class="ft5">AL1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:164"><nobr><span class="ft5">Amusement parks</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:269"><nobr><span class="ft5">AP1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:164"><nobr><span class="ft5">Architecture</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:269"><nobr><span class="ft5">AR1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:164"><nobr><span class="ft5">Classical guitar</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:269"><nobr><span class="ft5">CG1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:164"><nobr><span class="ft5">HIV</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:269"><nobr><span class="ft5">HI1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:164"><nobr><span class="ft5">Shakespeare</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:269"><nobr><span class="ft5">SH1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:164"><nobr><span class="ft5">Sushi</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:269"><nobr><span class="ft5">SU1.html</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:104"><nobr><span class="ft3">We verified that our smoothing algorithm was perform-</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:83"><nobr><span class="ft8">ing non-trivial work: it was not merely locating top-scoring<br>authorities and highlighting them. Within the highlighted<br>regions, we typically found as many unvisited links as links<br>already rated as authorities. In ongoing work we are using<br>these new links for enhanced focused crawling.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:104"><nobr><span class="ft3">A key concern for us was whether the smoothing it-</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:83"><nobr><span class="ft3">erations will converge or not.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:273"><nobr><span class="ft3">Because the sites of hub</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:83"><nobr><span class="ft8">aggregation are data-dependent, the transform was non-<br>linear, and we could not give a proof of convergence. In<br>practice we faced no problems with convergence; figure 12<br>is typical of all queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:104"><nobr><span class="ft3">This raised another concern: was the smoothing subrou-</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:83"><nobr><span class="ft8">tine doing anything dynamic and useful, or was convergence<br>due to its picking the same sites for hub aggregation every<br>time? In figures 13 and 14 we plot relative numbers of<br>nodes pruned vs. expanded against the number of itera-<br>tions. Queries which do not have a tendency to drift look<br>like figure 13. Initially, both numbers are small. As the<br>system bootstraps into controlled authority diffusion, more<br>candidate hubs are pruned, i.e., accepted in their entirety.<br>Diffused authority scores in turn lead to fewer nodes get-</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:506"><nobr><span class="ft36">1.00E-07</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:506"><nobr><span class="ft36">1.00E-06</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:506"><nobr><span class="ft36">1.00E-05</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:506"><nobr><span class="ft36">1.00E-04</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:506"><nobr><span class="ft36">1.00E-03</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:506"><nobr><span class="ft36">1.00E-02</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:506"><nobr><span class="ft36">1.00E-01</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:557"><nobr><span class="ft36">0</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:595"><nobr><span class="ft36">2</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:633"><nobr><span class="ft36">4</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:671"><nobr><span class="ft36">6</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:709"><nobr><span class="ft36">8</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:743"><nobr><span class="ft36">10</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:578"><nobr><span class="ft36">Iterations</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:501"><nobr><span class="ft38">M<br>e<br>an</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:501"><nobr><span class="ft36">aut</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:501"><nobr><span class="ft38">h<br>s<br>c<br>o<br>r<br>e<br>c<br>h<br>ang</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:501"><nobr><span class="ft36">e</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:454"><nobr><span class="ft16">Figure 12: In spite of the non-linear nature of our relaxation<br>algorithm, convergence is quick in practice.A typical chart of<br>average change to authority scores is shown against successive<br>iterations.</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:454"><nobr><span class="ft8">ting expanded. For queries with a strong tendency to drift<br>(figure 14), the number of nodes expanded does not drop<br>as low as in low-drift situations. For all the 28 queries, the<br>respective counts stabilize within 10­20 iterations.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:487"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:474"><nobr><span class="ft3">500</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:467"><nobr><span class="ft3">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:467"><nobr><span class="ft3">1500</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:467"><nobr><span class="ft3">2000</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:467"><nobr><span class="ft3">2500</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:467"><nobr><span class="ft3">3000</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:467"><nobr><span class="ft3">3500</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:467"><nobr><span class="ft3">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:509"><nobr><span class="ft3">0</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:527"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:546"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:564"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:583"><nobr><span class="ft3">4</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:601"><nobr><span class="ft3">5</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:619"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:638"><nobr><span class="ft3">7</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:656"><nobr><span class="ft3">8</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:674"><nobr><span class="ft3">9 10</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:731"><nobr><span class="ft3">#Prune</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:731"><nobr><span class="ft3">#Expand</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:718"><nobr><span class="ft3">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:454"><nobr><span class="ft14">Figure 13:</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:528"><nobr><span class="ft14">Our micro-hub smoothing technique is highly</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:454"><nobr><span class="ft16">adaptive: the number of nodes pruned vs.expanded changes<br>dramatically across iterations, but stabilizes within 10­20 iter-<br>ations.There is also a controlled induction of new nodes into<br>the response set owing to authority diffusion via relevant DOM<br>subtrees (query: bicycling).</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:486"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:472"><nobr><span class="ft14">200</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:472"><nobr><span class="ft14">400</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:472"><nobr><span class="ft14">600</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:472"><nobr><span class="ft14">800</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:466"><nobr><span class="ft14">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:466"><nobr><span class="ft14">1200</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:507"><nobr><span class="ft14">0</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:526"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:544"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:562"><nobr><span class="ft14">3</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:580"><nobr><span class="ft14">4</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:599"><nobr><span class="ft14">5</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:617"><nobr><span class="ft14">6</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:635"><nobr><span class="ft14">7</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:653"><nobr><span class="ft14">8</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:671"><nobr><span class="ft14">9 10</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:727"><nobr><span class="ft14">#Prune</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:727"><nobr><span class="ft14">#Expand</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:715"><nobr><span class="ft14">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:454"><nobr><span class="ft16">Figure 14: For some queries for which B&amp;H showed high drift,<br>our algorithm continues to expand a relatively larger number of<br>nodes in an attempt to suppress drift (query: affirmative action).</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:475"><nobr><span class="ft3">Finally, we checked how close we were to B&amp;H ranking.</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:454"><nobr><span class="ft8">We expected our ranking to be correlated with theirs, but<br>verified that there are meaningful exceptions. Figure 15<br>show a scatter plot of authority scores. It illustrates that<br>we systematically under-rate authorities compared to B&amp;H<br>(the axes have incomparable scale; the leading straight line<br>should be interpreted as</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:597"><nobr><span class="ft3">y = x). This is a natural outcome</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:454"><nobr><span class="ft8">of eliminating pseudo-authorities that gain prominence in<br>B&amp;H via mixed hubs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">219</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft41{font-size:7px;line-height:-8px;font-family:Times;color:#000000;}
+	.ft42{font-size:7px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft43{font-size:7px;line-height:-6px;font-family:Times;color:#000000;}
+	.ft44{font-size:7px;line-height:-3px;font-family:Times;color:#000000;}
+	.ft45{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="114010.png" alt="background image">
+<DIV style="position:absolute;top:267;left:155"><nobr><span class="ft36">0</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:136"><nobr><span class="ft36">0.005</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:141"><nobr><span class="ft36">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:136"><nobr><span class="ft36">0.015</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:141"><nobr><span class="ft36">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:136"><nobr><span class="ft36">0.025</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:166"><nobr><span class="ft36">0</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:190"><nobr><span class="ft36">0.002</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:225"><nobr><span class="ft36">0.004</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:259"><nobr><span class="ft36">0.006 0.008</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:331"><nobr><span class="ft36">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:362"><nobr><span class="ft36">0.012</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:226"><nobr><span class="ft36">Authority score B&amp;H</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:128"><nobr><span class="ft42">O<br>u<br>r<br>a<br>ut<br>h<br>o<br>ri<br>t<br>y<br>s<br>c<br>ore</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:83"><nobr><span class="ft16">Figure 15: Our ranking is correlated to B&amp;H, but not identical;<br>we tend to systematically under-rate authorities compared to<br>B&amp;H.</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:83"><nobr><span class="ft0">6</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:117"><nobr><span class="ft0">Conclusion and future work</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:83"><nobr><span class="ft8">We have presented a fine-grained approach to topic distil-<br>lation that integrates document substructure (in the form<br>of the Document Object Model) with regular hyperlinks.<br>Plugging in the fine-grained graph in place of the usual<br>coarse-grained graph does not work because the fine-grained<br>graph may not have the bipartite cores so vital to the success<br>of macroscopic distillation algorithms. We propose a new<br>technique for aggregating and propagating micro-hub scores<br>at a level determined by the Minimum Description Length<br>principle applied to the DOMtree with hub scores at the<br>leaves. We show that the resulting procedure still converges<br>in practice, reduces drift, and is moreover capable of iden-<br>tifying and extracting regions (DOMsubtrees) relevant to<br>the query out of a broader hub or a hub with additional<br>less-relevant contents and links.</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:104"><nobr><span class="ft3">In ongoing work, apart from completing a detailed user</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:83"><nobr><span class="ft8">study (as in the Clever project), we are exploring three more<br>ideas. First, our algorithm depends on DOMbranch points<br>to be able to separate relevant hub fragments from irrelevant<br>ones. We have seen some pages with a long sequence of<br>URLs without any helpful DOMstructure such as &lt;LI&gt;<br>providing natural segment candidates. Second, we need to<br>bring back some of the text analysis techniques that have<br>improved HITS and integrate them with our model. Third,<br>we are measuring if the link localization done by our system<br>can help in faster resource discovery.</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:83"><nobr><span class="ft8">Acknowledgment: Thanks to Vivek Tawde and Hrishikesh<br>Gupta for helpful discussions, to S. Sudarshan for stimulat-<br>ing discussions and generous support from the Informatics<br>Lab, IIT Bombay, and the anonymous reviewers for helping<br>to improve the presentation.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:83"><nobr><span class="ft0">References</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:89"><nobr><span class="ft14">[1] E.Amitay and C.Paris. Automatically summarising web</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:109"><nobr><span class="ft14">sites: Is there a way around it?</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:311"><nobr><span class="ft14">In 9th International</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:109"><nobr><span class="ft45">Conference on Information and Knowledge Management<br>(CIKM 2000), Washington, DC, USA, 2000.ACM. On-<br>line at http://www.mri.mq.edu.au/~einat/publications/<br>cikm2000.pdf.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:89"><nobr><span class="ft14">[2] K.Bharat and M.Henzinger. Improved algorithms for</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:109"><nobr><span class="ft16">topic distillation in a hyperlinked environment.In 21st<br>International ACM SIGIR Conference on Research and<br>Development in Information Retrieval, pages 104­111, Aug.</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:480"><nobr><span class="ft45">1998.Online at ftp://ftp.digital.com/pub/DEC/SRC/<br>publications/monika/sigir98.pdf.</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:460"><nobr><span class="ft14">[3] S.Brin and L.Page. The anatomy of a large-scale</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:480"><nobr><span class="ft45">hypertextual web search engine.In Proceedings of the 7th<br>World-Wide Web Conference (WWW7), 1998.Online at<br>http://decweb.ethz.ch/WWW7/1921/com1921.htm.</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:460"><nobr><span class="ft14">[4] O.Buyukkokten, H.Garcia-Molina, and A.Paepcke.</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:480"><nobr><span class="ft45">Focused web searching with PDAs.In World Wide Web<br>Conference, Amsterdam, May 2000.Online at http://www9.<br>org/w9cdrom/195/195.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:460"><nobr><span class="ft14">[5] S.Chakrabarti, B.Dom, D.Gibson, J.Kleinberg, P.Ragha-</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:480"><nobr><span class="ft45">van, and S.Rajagopalan. Automatic resource compilation<br>by analyzing hyperlink structure and associated text.In<br>7th World-wide web conference (WWW7), 1998.Online<br>at http://www7.scu.edu.au/programme/fullpapers/1898/<br>com1898.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:460"><nobr><span class="ft14">[6] S.Chakrabarti, B.E.Dom, S.Ravi Kumar, P.Raghavan,</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:480"><nobr><span class="ft16">S.Rajagopalan, A.Tomkins, D.Gibson, and J.Kleinberg.<br>Mining the Web's link structure. IEEE Computer, 32(8):60­<br>67, Aug.1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:460"><nobr><span class="ft14">[7] S.Chakrabarti, M.Joshi, and V.Tawde. Enhanced</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:480"><nobr><span class="ft16">topic distillation using text, markup tags, and hyperlinks.<br>Submitted for publication, Jan.2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:460"><nobr><span class="ft14">[8] S.Chakrabarti, M.van den Berg, and B.Dom. Focused</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:480"><nobr><span class="ft45">crawling: a new approach to topic-specific web resource<br>discovery. Computer Networks, 31:1623­1640, 1999.First<br>appeared in the 8th International World Wide Web Confer-<br>ence, Toronto, May 1999.Available online at http://www8.<br>org/w8-papers/5a-search-query/crawling/index.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:460"><nobr><span class="ft14">[9] T.M.Cover and J.A.Thomas. Elements of Information</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:480"><nobr><span class="ft14">Theory.John Wiley and Sons, Inc., 1991.</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:454"><nobr><span class="ft14">[10] D.A.Gibson, J.M.Kleinberg, and P.Raghavan.Clustering</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:480"><nobr><span class="ft16">categorical data: An approach based on dynamical systems.<br>In VLDB, volume 24, pages 311­322, New York, Aug.1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:454"><nobr><span class="ft14">[11] G.H.Golub and C.F.van Loan. Matrix Computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:480"><nobr><span class="ft14">Johns Hopkins University Press, London, 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:454"><nobr><span class="ft14">[12] M.Hearst. Multi-paragraph segmentation of expository</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:480"><nobr><span class="ft45">text.In Proceedings of the 32nd Annual Meeting of the<br>Association for Computational Linguistics, Las Cruces, NM,<br>June 1994.Online at http://www.sims.berkeley.edu/<br>~hearst/publications.shtml.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:454"><nobr><span class="ft14">[13] D.S.Johnson and K.A.Niemi. On knapsacks, partitions,</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:480"><nobr><span class="ft16">and a new dynamic programming technique for trees.<br>Mathematics of Operations Research, 8(1):1­14, 1983.</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:454"><nobr><span class="ft14">[14] J.Kleinberg. Authoritative sources in a hyperlinked</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:480"><nobr><span class="ft45">environment.In ACM-SIAM Symposium on Discrete<br>Algorithms, 1998.Online at http://www.cs.cornell.edu/<br>home/kleinber/auth.ps.</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:454"><nobr><span class="ft14">[15] R.Lempel and S.Moran. The stochastic approach for link-</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:480"><nobr><span class="ft45">structure analysis (SALSA) and the TKC effect.In WWW9,<br>pages 387­401, Amsterdam, May 2000.Online at http://<br>www9.org/w9cdrom/175/175.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:454"><nobr><span class="ft14">[16] J.Rissanen. Stochastic complexity in statistical inquiry. In</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:480"><nobr><span class="ft16">World Scientific Series in Computer Science, volume 15.<br>World Scientific, Singapore, 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:454"><nobr><span class="ft14">[17] G.Salton and M.J.McGill. Introduction to Modern</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:480"><nobr><span class="ft14">Information Retrieval.McGraw-Hill, 1983.</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:454"><nobr><span class="ft14">[18] S.Sarawagi. Explaining differences in multidimensional</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:480"><nobr><span class="ft45">aggregates.In International Conference on Very Large<br>Databases (VLDB), volume 25, 1999.Online at http:<br>//www.it.iitb.ernet.in/~sunita/papers/vldb99.pdf.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:429"><nobr><span class="ft7">220</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

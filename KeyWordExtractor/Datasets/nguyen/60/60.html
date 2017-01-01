@@ -1,0 +1,1009 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>cikm617-lu.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-11-30T08:09:53+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:11px;font-family:Times;color:#000000;}
+	.ft3{font-size:12px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:138"><nobr><span class="ft0"><b>Coupling Feature Selection and Machine Learning</b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:167"><nobr><span class="ft0"><b>Methods for Navigational Query Identification</b></span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:243"><nobr><span class="ft1">Yumao Lu</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:343"><nobr><span class="ft1">Fuchun Peng</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:449"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:481"><nobr><span class="ft1">Xin Li</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:545"><nobr><span class="ft1">Nawaaz Ahmed</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:420"><nobr><span class="ft3">Yahoo! Inc.</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:401"><nobr><span class="ft3">701 First Avenue</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:364"><nobr><span class="ft3">Sunnyvale, California 94089</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:266"><nobr><span class="ft2">{</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:273"><nobr><span class="ft1">yumaol, fuchun, xinli, nawaaz</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:507"><nobr><span class="ft2">}</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:514"><nobr><span class="ft1">@yahoo-inc.com</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft7">It is important yet hard to identify navigational queries in<br>Web search due to a lack of sufficient information in Web<br>queries, which are typically very short. In this paper we<br>study several machine learning methods, including naive<br>Bayes model, maximum entropy model, support vector ma-<br>chine (SVM), and stochastic gradient boosting tree (SGBT),<br>for navigational query identification in Web search. To boost<br>the performance of these machine techniques, we exploit sev-<br>eral feature selection methods and propose coupling feature<br>selection with classification approaches to achieve the best<br>performance. Different from most prior work that uses a<br>small number of features, in this paper, we study the prob-<br>lem of identifying navigational queries with thousands of<br>available features, extracted from major commercial search<br>engine results, Web search user click data, query log, and<br>the whole Web's relational content. A multi-level feature<br>extraction system is constructed.</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:94"><nobr><span class="ft2">Our results on real search data show that 1) Among all</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:81"><nobr><span class="ft7">the features we tested, user click distribution features are the<br>most important set of features for identifying navigational<br>queries. 2) In order to achieve good performance, machine<br>learning approaches have to be coupled with good feature<br>selection methods. We find that gradient boosting tree, cou-<br>pled with linear SVM feature selection is most effective. 3)<br>With carefully coupled feature selection and classification<br>approaches, navigational queries can be accurately identi-<br>fied with 88.1% F1 score, which is 33% error rate reduction<br>compared to the best uncoupled system, and 40% error rate<br>reduction compared to a well tuned system without feature<br>selection.</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:81"><nobr><span class="ft2">H.4 [Information Systems Applications]: Miscellaneous</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:81"><nobr><span class="ft2">Dr. Peng contributes to this paper equally as Dr. Lu.</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>CIKM'06, November 5­11, 2006, Arlington, Virginia, USA.<br>Copyright 2006 ACM 1-59593-433-2/06/0011 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft2">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:475"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:475"><nobr><span class="ft2">Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:475"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:475"><nobr><span class="ft2">Navigational Query Classification, Machine Learning</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:475"><nobr><span class="ft1">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:507"><nobr><span class="ft1">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:489"><nobr><span class="ft2">Nowadays, Web search has become the main method for</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:475"><nobr><span class="ft7">information seeking. Users may have a variety of intents<br>while performing a search. For example, some users may<br>already have in mind the site they want to visit when they<br>type a query; they may not know the URL of the site or<br>may not want to type in the full URL and may rely on the<br>search engine to bring up the right site. Yet others may have<br>no idea of what sites to visit before seeing the results. The<br>information they are seeking normally exists on more than<br>one page.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:489"><nobr><span class="ft2">Knowing the different intents associated with a query may</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft7">dramatically improve search quality. For example, if a query<br>is known to be navigational, we can improve search results<br>by developing a special ranking function for navigational<br>queries. The presentation of the search results or the user-<br>perceived relevance can also be improved by only showing<br>the top results and reserving the rest of space for other pur-<br>poses since users only care about the top result of a nav-<br>igational query. According to our statistics, about 18% of<br>queries in Web search are navigational (see Section 6). Thus,<br>correctly identifying navigational queries has a great poten-<br>tial to improve search performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:489"><nobr><span class="ft2">Navigational query identification is not trivial due to a</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft7">lack of sufficient information in Web queries, which are nor-<br>mally short. Recently, navigational query identification, or<br>more broadly query classification, is drawing significant at-<br>tention. Many machine learning approaches that have been<br>used in general classification framework, including naive Bayes<br>classifier, maximum entropy models, support vector ma-<br>chines, and gradient boosting tree, can be directly applied<br>here. However, each of these approaches has its own advan-<br>tages that suit certain problems. Due to the characteristics<br>of navigational query identification (more to be addressed<br>in Section 2 ), it is not clear which one is the best for the<br>task of navigational query identification. Our first contri-<br>bution in this paper is to evaluate the effectiveness of these<br>machine learning approaches in the context of navigational<br>query identification. To our knowledge, this paper is the<br>very first attempt in this regard.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">682</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+	.ft10{font-size:6px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:94"><nobr><span class="ft2">Machine learning models often suffer from the curse of</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft7">feature dimensionality. Feature selection plays a key role<br>in many tasks, such as text categorization [18]. In this pa-<br>per, our second contribution is to evaluate several feature<br>selection methods and propose coupling feature selection<br>with classification approaches to achieve the best perfor-<br>mance: ranking features by using one algorithm before an-<br>other method is used to train the classifier. This approach is<br>especially useful when redundant low quality heterogeneous<br>features are encountered.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:94"><nobr><span class="ft2">Most previous studies in query identification are based on</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:81"><nobr><span class="ft7">a small number of features that are obtained from limited<br>resources [12]. In this paper, our third contribution is to<br>explore thousands of available features, extracted from ma-<br>jor commercial search engine results, user Web search click<br>data, query log, and the whole Web's relational content. To<br>obtain most useful features, we present a three level system<br>that integrates feature generation, feature integration, and<br>feature selection in a pipe line.</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:94"><nobr><span class="ft2">The system, after coupling features selected by SVM with</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:81"><nobr><span class="ft7">a linear kernel and stochastic gradient boosting tree as clas-<br>sification training method, is able to achieve an average per-<br>formance of 88.1% F1 score in a five fold cross-validation.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:94"><nobr><span class="ft2">The rest of this paper is organized as follows. In the next</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:81"><nobr><span class="ft7">section, we will define the problem in more detail and de-<br>scribe the architecture of our system. We then present a<br>multi-level feature extraction system in Section 3. We de-<br>scribe four classification approaches in Section 4 and three<br>feature selection methods in Section 5. We then conduct<br>extensive experiments on real search data in Section 6. We<br>present detailed discussions in Section 7. We discuss some<br>related work in Section 8. Finally, we conclude the paper in<br>Section 9.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:81"><nobr><span class="ft1">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:112"><nobr><span class="ft1">PROBLEM DEFINITION</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:94"><nobr><span class="ft2">We divide queries into two categories: navigational and</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:81"><nobr><span class="ft7">informational. According to the canonical definition [3, 14],<br>a query is navigational if a user already has a Web-site in<br>mind and the goal is simply to reach that particular site.<br>For example, if a user issues query "amazon", he/she mainly<br>wants to visit "amazon.com". This definition, however, is<br>rather subjective and not easy to formalize. In this paper,<br>we extend the definition of navigational query to a more<br>general case: a query is navigational if it has one and only<br>one perfect site in the result set corresponding to this query.<br>A site is considered as perfect if it contains complete infor-<br>mation about the query and lacks nothing essential.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:94"><nobr><span class="ft2">In our definition, navigational query must have a corre-</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft7">sponding result page that conveys perfectness, uniqueness,<br>and authority.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:183"><nobr><span class="ft2">Unlike Broder's definition, our definition</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft7">does not require the user to have a site in mind. This makes<br>data labeling more objective and practical. For example,<br>when a user issues a query "Fulton, NY", it is not clear<br>if the user knows the Web-site "www.fultoncountyny.org".<br>However, this Web-site has an unique authority and per-<br>fect content for this query and therefore the query "Fulton,<br>NY" is labeled as a navigational query. All non-navigational<br>queries are considered informational. For an informational<br>query, typically there exist multiple excellent Web-sites cor-<br>responding to the query that users are willing to explore.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft2">To give another example, in our dataset, query "national</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft7">earth science teachers association" has only one perfect cor-<br>responding URL "http://www.nestanet.org/" and therefore</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft2">is labeled as navigational query.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:692"><nobr><span class="ft2">Query "Canadian gold</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:475"><nobr><span class="ft7">maple leaf" has several excellent corresponding URL's, in-<br>cluding "http://www. goldfingercoin.com/ catalog gold/ cana-<br>dian maple leaf.htm", "http://coins.about.com/ library/weekly/<br>aa091802a.htm" and "http://www.onlygold.com/Coins/ Cana-<br>dianMapleLeafsFullScreen.asp".</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:680"><nobr><span class="ft2">Therefore, query "Cana-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:475"><nobr><span class="ft2">dian gold maple leaf" is labeled as non-navigational query.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:489"><nobr><span class="ft2">Figure 1 illustrates the architecture of our navigational</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft7">query identification system. A search engine takes in a query<br>and returns a set of URLs. The query and returned URLs<br>are sent into a multi-level feature extraction system that<br>generates and selects useful features; details are presented<br>in the next section. Selected features are then input into a<br>machine learning tool to learn a classification model.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:475"><nobr><span class="ft1">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:507"><nobr><span class="ft1">MULTI-LEVEL FEATURE EXTRACTION</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:489"><nobr><span class="ft2">The multiple level feature system is one of the unique</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:475"><nobr><span class="ft7">features of our system. Unlike prior work with a limited<br>number of features or in a simulated environment [11, 12],<br>our work is based on real search data, a major search en-<br>gine's user click information and a query log. In order to<br>handle large amount of heteorgeneous features in an effi-<br>cient way, we propose a multi-level feature system. The first<br>level is the feature generation level that calculates statistics<br>and induces features from three resources: a click engine,<br>a Web-map and a query log. The second level is responsi-<br>ble for integrating query-URL pair-wise features into query<br>features by applying various functions. The third level is<br>a feature selection module, which ranks features by using<br>different methods. Below we present the details of the first<br>two levels. The third level will be presented separately in<br>Section 5 since those feature selection methods are standard.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:475"><nobr><span class="ft1">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:516"><nobr><span class="ft1">Feature Generation</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:489"><nobr><span class="ft2">Queries are usually too short and lack sufficient context</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:475"><nobr><span class="ft7">to be classified. Therefore, we have to generate more fea-<br>tures from other resources. We use three resources to gen-<br>erate features: a click engine, a Web-map, and query logs.<br>The click engine is a device to record and analyze user click<br>behavior. It is able to generate hundreds of features auto-<br>matically based on user click through distributions [16]. A<br>Web-map can be considered as a relational database that<br>stores hundreds of induced features on page content, an-<br>chor text, hyperlink structure of webpages, including the<br>inbound, outbound URLs, and etc. Query logs are able to<br>provide bag-of-words features and various language model<br>based features based on all the queries issued by users over<br>a period of time.</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:489"><nobr><span class="ft2">Input to feature generation module is a query-URL pair.</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:475"><nobr><span class="ft7">For each query, the top 100 ULRs are recorded and 100<br>query-URLs are generated. Thus for each query-URL pair,<br>we record a total of 197 features generated from the following<br>four categories:</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:495"><nobr><span class="ft2">· Click features: Click features record the click informa-</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:509"><nobr><span class="ft7">tion about a URL. We generate a total number of 29<br>click features for each query-URL pair. An example of<br>a click feature is the click ratio (CR). Let n</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:782"><nobr><span class="ft10">i<br>k</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:794"><nobr><span class="ft2">denote</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:509"><nobr><span class="ft7">the number of clicks on URL k for query i and total<br>number of clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:635"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:643"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:652"><nobr><span class="ft2">= X</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:673"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:689"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:697"><nobr><span class="ft10">i<br>k</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:704"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">683</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60003.png" alt="background image">
+<DIV style="position:absolute;top:181;left:441"><nobr><span class="ft2">Webmap</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:446"><nobr><span class="ft2">Click engine</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:446"><nobr><span class="ft2">Query log</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:589"><nobr><span class="ft2">Entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:589"><nobr><span class="ft2">Max</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:589"><nobr><span class="ft2">Min</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:594"><nobr><span class="ft2">...</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:293"><nobr><span class="ft2">SGBT</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:289"><nobr><span class="ft2">Naive Bayes</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:289"><nobr><span class="ft2">MaxEnt</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:293"><nobr><span class="ft2">SVM</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:298"><nobr><span class="ft2">Search engine</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:237"><nobr><span class="ft2">query</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:224"><nobr><span class="ft2">Classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:267"><nobr><span class="ft11">Classification module</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:437"><nobr><span class="ft11">Feature generation</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:437"><nobr><span class="ft11">Feature selection module</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:563"><nobr><span class="ft11">Feature integration</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:424"><nobr><span class="ft2">Information gain</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:424"><nobr><span class="ft2">SVM feature ranking</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:420"><nobr><span class="ft2">Boosting feature selection</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:598"><nobr><span class="ft11">Integrated feature</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:494"><nobr><span class="ft11">query-url feature</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:359"><nobr><span class="ft11">Selected feature</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:363"><nobr><span class="ft11">query-URL</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:174"><nobr><span class="ft2">Figure 1: Diagram of Result Set Based Navigational Query Identification System</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:114"><nobr><span class="ft7">The click ratio is the ratio of number of clicks on a<br>particular URL K for query i to the total number of<br>clicks for this query, which has the form</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:227"><nobr><span class="ft2">CR(i, K) = n</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:311"><nobr><span class="ft10">i<br>K</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:305"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:314"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:323"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:101"><nobr><span class="ft2">· URL features: URL features measure the characteris-</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:114"><nobr><span class="ft7">tics of the URL itself. There are 24 URL based features<br>in total. One such feature is a URL match feature,<br>named urlmr, which is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:237"><nobr><span class="ft2">urlmr = l(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:291"><nobr><span class="ft2">l(u)</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:114"><nobr><span class="ft7">where l(p) is the length of the longest substring p of the<br>query that presents in the URL and l(u) is the length<br>of the URL u. This feature is based on the observation<br>that Web-sites tend to use their names in the URL's.<br>The distributions confers uniqueness and authority.</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:101"><nobr><span class="ft2">· Anchor text features: Anchor text is the visible text in</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:114"><nobr><span class="ft7">a hyperlink, which also provides useful information for<br>navigational query identification. For example, one an-<br>chor text feature is the entropy of anchor link distribu-<br>tion [12]. This distribution is basically the histogram<br>of inbound anchor text of the destination URL. If an<br>URL is pointed to by the same anchor texts, the URL<br>is likely to contain perfect content. There are many<br>other anchor text features that are calculated by con-<br>sidering many factors, such as edit distance between<br>query and anchor texts, diversity of the hosts, etc. In<br>total, there are 63 features derived from anchor text.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft2">Since we record the top 100 results for each query and</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft7">each query URL pair has 197 features, in total there are<br>19,700 features available for each query. Feature reduction<br>becomes necessary due to curse of dimensionality [5]. Before<br>applying feature selection, we conduct a feature integration<br>procedure that merges redundant features.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:475"><nobr><span class="ft1">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:516"><nobr><span class="ft1">Feature Integration</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:489"><nobr><span class="ft2">We design a feature integration operator, named normal-</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:475"><nobr><span class="ft2">ized ratio r</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:543"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:554"><nobr><span class="ft2">of rank k, as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:521"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:527"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:534"><nobr><span class="ft2">(f</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:546"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:552"><nobr><span class="ft2">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:592"><nobr><span class="ft2">max(f</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:630"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:635"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:644"><nobr><span class="ft2">- f</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:664"><nobr><span class="ft9">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:578"><nobr><span class="ft2">max(f</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:616"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:622"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:630"><nobr><span class="ft2">- min(f</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:679"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:685"><nobr><span class="ft2">) , k = 2, 5, 10, 20.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:816"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:489"><nobr><span class="ft2">The design of this operator is motivated by the obser-</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:475"><nobr><span class="ft7">vation that the values of query-URL features for naviga-<br>tional query and informational query decrease at different<br>rates. Taking the urlmr feature for example and consider-<br>ing a navigational query "Walmart" and an informational<br>query "Canadian gold maple leaf", we plot the feature val-<br>ues of top 100 URLs for both queries, as shown in Figure 2.<br>As we can see, the feature value for the navigational query<br>drops quickly to a stable point, while an information query<br>is not stable. As we will see in the experiment section, this<br>operator is most effective in feature reduction.</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:489"><nobr><span class="ft2">Besides this operator, we use other statistics for feature</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:475"><nobr><span class="ft7">integration, including mean, median, maximum, minimum,<br>entropy, standard deviation and value in top five positions<br>of the result set query-URL pair features. In total, we now<br>have 15 measurements instead of 100 for the top 100 URLs<br>for each query. Therefore, for each query, the dimension of<br>a feature vector is m = 15</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:648"><nobr><span class="ft2">× 197 = 2955, which is much</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:475"><nobr><span class="ft2">smaller than 197, 000.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:475"><nobr><span class="ft1">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:507"><nobr><span class="ft1">CLASSIFICATION METHODS</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:489"><nobr><span class="ft2">We apply the most popular generative (such as naive Bayes</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:475"><nobr><span class="ft7">method), descriptive (such as Maximum Entropy method),<br>and discriminative (such as support vector machine and<br>stochastic gradient boosting tree) learning methods [19] to<br>attack the problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:475"><nobr><span class="ft1">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:516"><nobr><span class="ft1">Naive Bayes Classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:489"><nobr><span class="ft2">A simple yet effective learning algorithm for classification</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">684</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60004.png" alt="background image">
+<DIV style="position:absolute;top:277;left:158"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:200"><nobr><span class="ft12">20</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:245"><nobr><span class="ft12">40</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:290"><nobr><span class="ft12">60</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:335"><nobr><span class="ft12">80</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:377"><nobr><span class="ft12">100</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:154"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:140"><nobr><span class="ft12">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:146"><nobr><span class="ft12">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:140"><nobr><span class="ft12">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:146"><nobr><span class="ft12">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:140"><nobr><span class="ft12">0.25</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:146"><nobr><span class="ft12">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:140"><nobr><span class="ft12">0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:146"><nobr><span class="ft12">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:261"><nobr><span class="ft12">Rank</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:136"><nobr><span class="ft11">Result Set Feature: URLmr</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:234"><nobr><span class="ft12">Query: &quot;Walmart&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:153"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:196"><nobr><span class="ft12">20</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:242"><nobr><span class="ft12">40</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:288"><nobr><span class="ft12">60</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:333"><nobr><span class="ft12">80</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:376"><nobr><span class="ft12">100</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:149"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:140"><nobr><span class="ft12">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:140"><nobr><span class="ft12">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:140"><nobr><span class="ft12">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:140"><nobr><span class="ft12">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:140"><nobr><span class="ft12">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:258"><nobr><span class="ft12">Rank</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:136"><nobr><span class="ft11">Result Set Feature: URLmr</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:192"><nobr><span class="ft12">Query: &quot;Canadian gold maple leaf&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:81"><nobr><span class="ft2">Figure 2:</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:152"><nobr><span class="ft2">urlmr query-URL feature for navigational</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:81"><nobr><span class="ft2">query (upper) and a informational query (lower)</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:81"><nobr><span class="ft2">is based on a simple application of Bayes' rule</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:177"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:201"><nobr><span class="ft2">|q) = P (y) × P (q|y)</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:284"><nobr><span class="ft2">P (q)</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:422"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:81"><nobr><span class="ft7">In query classification, a query q is represented by a vector of<br>K attributes q = (v</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:204"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:210"><nobr><span class="ft2">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:223"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:229"><nobr><span class="ft2">, ....v</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:257"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:268"><nobr><span class="ft2">). Computing p(q</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:378"><nobr><span class="ft2">|y) in this</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:81"><nobr><span class="ft7">case is not trivial, since the space of possible documents<br>q = (v</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:124"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:130"><nobr><span class="ft2">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:143"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:149"><nobr><span class="ft2">, ....v</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:177"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:188"><nobr><span class="ft2">) is vast. To simplify this computation,</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:81"><nobr><span class="ft7">the naive Bayes model introduces an additional assumption<br>that all of the attribute values, v</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:288"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:294"><nobr><span class="ft2">, are independent given</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:81"><nobr><span class="ft2">the category label, c.</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:227"><nobr><span class="ft2">That is, for i = j, v</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:361"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:373"><nobr><span class="ft2">and v</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:408"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:421"><nobr><span class="ft2">are</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:81"><nobr><span class="ft7">conditionally independent given q. This assumption greatly<br>simplifies the computation by reducing Eq. (2) to</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:157"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:180"><nobr><span class="ft2">|q) = P (y) ×</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:281"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:294"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:294"><nobr><span class="ft9">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:316"><nobr><span class="ft2">P (v</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:339"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:345"><nobr><span class="ft2">|y)</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:307"><nobr><span class="ft2">P (q)</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:422"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:81"><nobr><span class="ft7">Based on Eq. (3), a maximum a posteriori (MAP) classifier<br>can be constructed by seeking the optimal category which<br>maximizes the posterior P (c</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:252"><nobr><span class="ft2">|d):</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:150"><nobr><span class="ft2">y</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:157"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:168"><nobr><span class="ft2">= arg max</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:206"><nobr><span class="ft9">yY</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:236"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:247"><nobr><span class="ft2">P (y)</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:279"><nobr><span class="ft2">×</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:297"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:293"><nobr><span class="ft2">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:293"><nobr><span class="ft9">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:314"><nobr><span class="ft2">P (v</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:337"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:342"><nobr><span class="ft2">|y)</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:359"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:422"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:168"><nobr><span class="ft2">= arg max</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:206"><nobr><span class="ft9">yY</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:236"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:251"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:247"><nobr><span class="ft2">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:247"><nobr><span class="ft9">j=1</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:268"><nobr><span class="ft2">P (v</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:291"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:297"><nobr><span class="ft2">|y)</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:313"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:422"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:81"><nobr><span class="ft7">Eq. (5) is called the maximum likelihood naive Bayes classi-<br>fier, obtained by assuming a uniform prior over categories.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft2">To cope with features that remain unobserved during train-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft2">ing, the estimate of P (v</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:227"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:233"><nobr><span class="ft2">|y) is usually adjusted by Laplace</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft2">smoothing</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:587"><nobr><span class="ft2">P (v</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:609"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:615"><nobr><span class="ft2">|y) = N</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:684"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:682"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:694"><nobr><span class="ft2">+ a</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:715"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:674"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:687"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:697"><nobr><span class="ft2">+ a</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:816"><nobr><span class="ft2">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:475"><nobr><span class="ft2">where N</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:530"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:529"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:544"><nobr><span class="ft2">is the frequency of attribute j in D</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:777"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:784"><nobr><span class="ft2">, N</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:808"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:823"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:475"><nobr><span class="ft2">P</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:490"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:498"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:510"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:509"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:517"><nobr><span class="ft2">, and a = P</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:595"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:603"><nobr><span class="ft2">a</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:610"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:616"><nobr><span class="ft2">. A special case of Laplace smooth-</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:475"><nobr><span class="ft2">ing is add one smoothing, obtained by setting a</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:770"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:780"><nobr><span class="ft2">= 1. We</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:475"><nobr><span class="ft2">use add one smoothing in our experiments below.</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:475"><nobr><span class="ft1">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:516"><nobr><span class="ft1">Maximum Entropy Classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:489"><nobr><span class="ft2">Maximum entropy is a general technique for estimating</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:475"><nobr><span class="ft7">probability distributions from data and has been success-<br>fully applied in many natural language processing tasks.<br>The over-riding principle in maximum entropy is that when<br>nothing is known, the distribution should be as uniform as<br>possible, that is, have maximal entropy [9]. Labeled train-<br>ing data are used to derive a set of constraints for the model<br>that characterize the class-specific expectations for the dis-<br>tribution. Constraints are represented as expected values<br>of features. The improved iterative scaling algorithm finds<br>the maximum entropy distribution that is consistent with<br>the given constraints. In query classification scenario, max-<br>imum entropy estimates the conditional distribution of the<br>class label given a query. A query is represented by a set<br>of features. The labeled training data are used to estimate<br>the expected value of these features on a class-by-class basis.<br>Improved iterative scaling finds a classifier of an exponential<br>form that is consistent with the constraints from the labeled<br>data.</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:489"><nobr><span class="ft2">It can be shown that the maximum entropy distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:475"><nobr><span class="ft2">is always of the exponential form [4]:</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:554"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:578"><nobr><span class="ft2">|q) = 1</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:614"><nobr><span class="ft2">Z(q) exp(</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:672"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:680"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:694"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:702"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:707"><nobr><span class="ft2">f</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:714"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:719"><nobr><span class="ft2">(q; y))</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft2">where each f</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:557"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:562"><nobr><span class="ft2">(q; y) is a feature, </span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:691"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:702"><nobr><span class="ft2">is a parameter to be</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft7">estimated and Z(q) is simply the normalizing factor to en-<br>sure a proper probability: Z(q) = P</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:711"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:720"><nobr><span class="ft2">exp(P</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:761"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:768"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:776"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:781"><nobr><span class="ft2">f i(q; y)).</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft7">Learning of the parameters can be done using generalized<br>iterative scaling (GIS), improved iterative scaling (IIS), or<br>quasi-Newton gradient-climber [13].</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:475"><nobr><span class="ft1">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:516"><nobr><span class="ft1">Support Vector Machine</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:489"><nobr><span class="ft2">Support Vector Machine (SVM) is one of the most suc-</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:475"><nobr><span class="ft7">cessful discriminative learning methods. It seeks a hyper-<br>plane to separate a set of positively and negatively labeled<br>training data. The hyperplane is defined by w</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:762"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:770"><nobr><span class="ft2">x + b = 0,</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:475"><nobr><span class="ft2">where the parameter w</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:620"><nobr><span class="ft2"> R</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:645"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:661"><nobr><span class="ft2">is a vector orthogonal to the</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:475"><nobr><span class="ft2">hyperplane and b</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:584"><nobr><span class="ft2"> R is the bias. The decision function is</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:475"><nobr><span class="ft2">the hyperplane classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:586"><nobr><span class="ft2">H(x) = sign(w</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:675"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:684"><nobr><span class="ft2">x + b).</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:475"><nobr><span class="ft2">The hyperplane is designed such that y</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:719"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:724"><nobr><span class="ft2">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:739"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:748"><nobr><span class="ft2">x</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:756"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:765"><nobr><span class="ft2">+ b)</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:796"><nobr><span class="ft2"> 1 -</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:475"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:481"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:486"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:492"><nobr><span class="ft2">i = 1, ..., N, where x</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:631"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:643"><nobr><span class="ft2"> R</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:670"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:687"><nobr><span class="ft2">is a training data point</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:475"><nobr><span class="ft2">and y</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:510"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:519"><nobr><span class="ft2"> {+1, -1} denotes the class of the vector x</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:793"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:798"><nobr><span class="ft2">. The</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:475"><nobr><span class="ft7">margin is defined by the distance between the two parallel<br>hyperplanes w</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:563"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:571"><nobr><span class="ft2">x + b = 1 and w</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:672"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:681"><nobr><span class="ft2">x + b =</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:732"><nobr><span class="ft2">-1, i.e. 2/||w||</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:824"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:830"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:475"><nobr><span class="ft7">The margin is related to the generalization of the classifier<br>[17]. The SVM training problem is defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:501"><nobr><span class="ft2">minimize</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:575"><nobr><span class="ft2">(1/2)w</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:617"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:625"><nobr><span class="ft2">w + 1</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:668"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:677"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:501"><nobr><span class="ft2">subject to</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:575"><nobr><span class="ft2">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:582"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:586"><nobr><span class="ft2">(w</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:602"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:611"><nobr><span class="ft2">x</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:619"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:627"><nobr><span class="ft2">+ b)</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:656"><nobr><span class="ft2"> 1 - </span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:700"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:705"><nobr><span class="ft2">, i = 1, ..., N</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:575"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:585"><nobr><span class="ft2"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:816"><nobr><span class="ft2">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">685</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">where the scalar  is called the regularization parameter,<br>and is usually empirically selected to reduce the testing error<br>rate.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft2">The basic SVM formulation can be extended to the non-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft2">linear case by using nonlinear kernels.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:334"><nobr><span class="ft2">Interestingly, the</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft7">complexity of an SVM classifier representation does not de-<br>pend on the number of features, but rather on the number of<br>support vectors (the training examples closest to the hyper-<br>plane). This property makes SVMs suitable for high dimen-<br>sional classification problems [10]. In our experimentation,<br>we use a linear SVM and a SVM with radial basis kernel.</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:81"><nobr><span class="ft1">4.4</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:121"><nobr><span class="ft1">Gradient Boosting Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:94"><nobr><span class="ft2">Like SVM, gradient boosting tree model also seeks a pa-</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft2">rameterized classifier. It iteratively fits an additive model [8]</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:148"><nobr><span class="ft2">f</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:155"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:160"><nobr><span class="ft2">(x) = T</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:205"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:210"><nobr><span class="ft2">(x; </span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:240"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:247"><nobr><span class="ft2">) + </span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:285"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:279"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:280"><nobr><span class="ft9">t=1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:301"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:309"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:314"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:322"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:327"><nobr><span class="ft2">(x; </span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:357"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:362"><nobr><span class="ft2">),</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:81"><nobr><span class="ft2">such that certain loss function L(y</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:289"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:294"><nobr><span class="ft2">, f</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:307"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:316"><nobr><span class="ft2">(x + i) is minimized,</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:81"><nobr><span class="ft2">where T</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:129"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:134"><nobr><span class="ft2">(x; </span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:164"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:169"><nobr><span class="ft2">) is a tree at iteration t, weighted by param-</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:81"><nobr><span class="ft2">eter </span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:116"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:121"><nobr><span class="ft2">, with a finite number of parameters, </span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:358"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:368"><nobr><span class="ft2">and  is the</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:81"><nobr><span class="ft2">learning rate. At iteration t, tree T</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:298"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:303"><nobr><span class="ft2">(x; ) is induced to fit</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:81"><nobr><span class="ft2">the negative gradient by least squares. That is</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:145"><nobr><span class="ft2">^</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:143"><nobr><span class="ft2"> := arg min</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:206"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:228"><nobr><span class="ft9">N</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:223"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:231"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:243"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:248"><nobr><span class="ft2">-G</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:270"><nobr><span class="ft9">it</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:282"><nobr><span class="ft2">- </span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:303"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:309"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:317"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:322"><nobr><span class="ft2">(x</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:335"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:340"><nobr><span class="ft2">); )</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:367"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:373"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:81"><nobr><span class="ft2">where G</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:132"><nobr><span class="ft9">it</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:145"><nobr><span class="ft2">is the gradient over current prediction function</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:173"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:184"><nobr><span class="ft9">it</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:197"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:211"><nobr><span class="ft2">» L(y</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:250"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:255"><nobr><span class="ft2">, f (x</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:282"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:287"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:237"><nobr><span class="ft2">f (x</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:266"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:271"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:294"><nobr><span class="ft2">­</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:302"><nobr><span class="ft9">f=f</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:322"><nobr><span class="ft13">t-1</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:343"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:81"><nobr><span class="ft2">The optimal weights of trees </span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:266"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:275"><nobr><span class="ft2">are determined</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:127"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:134"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:143"><nobr><span class="ft2">= arg min</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:188"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:210"><nobr><span class="ft9">N</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:205"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:213"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:227"><nobr><span class="ft2">L(y</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:249"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:253"><nobr><span class="ft2">, f</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:266"><nobr><span class="ft9">t-1</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:285"><nobr><span class="ft2">(x</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:299"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:303"><nobr><span class="ft2">) + T (x</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:357"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:362"><nobr><span class="ft2">, )).</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:94"><nobr><span class="ft2">If the L-2 loss function [y</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:244"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:250"><nobr><span class="ft2">-f(x</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:284"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:288"><nobr><span class="ft2">)]</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:298"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:304"><nobr><span class="ft2">/2 is used, we have the</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft2">gradient G(x</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:159"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:164"><nobr><span class="ft2">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:189"><nobr><span class="ft2">-y</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:207"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:215"><nobr><span class="ft2">+ f (x</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:250"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:255"><nobr><span class="ft2">). In this paper, the Bernoulli</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:81"><nobr><span class="ft2">loss function</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:147"><nobr><span class="ft2">-2 X</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:175"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:187"><nobr><span class="ft2">(y</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:199"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:204"><nobr><span class="ft2">f (x</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:225"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:230"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:238"><nobr><span class="ft2">- log(1 + exp(f(x</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:347"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:352"><nobr><span class="ft2">))))</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:81"><nobr><span class="ft2">is used and the gradient has the form</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:167"><nobr><span class="ft2">G(x</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:191"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:196"><nobr><span class="ft2">) = y</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:226"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:234"><nobr><span class="ft2">-</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:295"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:250"><nobr><span class="ft2">1 + exp(</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:300"><nobr><span class="ft2">-f(x</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:332"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:337"><nobr><span class="ft2">)) .</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:94"><nobr><span class="ft2">During each iteration of gradient boosting, the feature</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft7">space is further partitioned. This kind of rectangular parti-<br>tion does not require any data preprocessing and the result-<br>ing classifier can be very robust. However, it may suffer from<br>the dead zoom phenomenon, where prediction is not able to<br>change with features, due to its discrete feature space par-<br>tition. Friedman (2002) found that it helps performance by<br>sampling uniformly without replacement from the dataset<br>before estimating the next gradient step [6]. This method<br>was called stochastic gradient boosting.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:81"><nobr><span class="ft1">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:112"><nobr><span class="ft1">FEATURE SELECTION</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft2">Many methods have been used in feature selection for</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft7">text classification, including information gain, mutual infor-<br>mation, document frequency thresholding, and Chi-square</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft7">statistics. Yang and Pedersen [18] gives a good compari-<br>son of these methods. Information gain is one of the most<br>effective methods in the context of text categorization. In<br>addition to information gain, we also use feature selection<br>methods based on SVM's feature coefficients and stochastic<br>gradient boosting tree's variable importance.</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:475"><nobr><span class="ft1">5.1</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:516"><nobr><span class="ft1">Information Gain</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:489"><nobr><span class="ft2">Information gain is frequently used as a measure of fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:475"><nobr><span class="ft7">ture goodness in text classification [18]. It measures the<br>number of bits of information obtained for category predic-<br>tion by knowing the presence or absence of a feature. Let<br>y</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:482"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:491"><nobr><span class="ft2">: i = 1..m be the set of categories, information gain of a</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:475"><nobr><span class="ft2">feature f is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:546"><nobr><span class="ft2">IG(f ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:602"><nobr><span class="ft2">-</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:620"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:615"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:616"><nobr><span class="ft9">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:637"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:660"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:665"><nobr><span class="ft2">)logP (y</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:711"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:716"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:586"><nobr><span class="ft2">+ P (f )</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:637"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:632"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:633"><nobr><span class="ft9">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:654"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:677"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:682"><nobr><span class="ft2">|f)logP (y</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:741"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:745"><nobr><span class="ft2">|f)</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:586"><nobr><span class="ft2">+ P (f )</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:637"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:632"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:633"><nobr><span class="ft9">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:654"><nobr><span class="ft2">P (y</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:677"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:682"><nobr><span class="ft2">|f)logP (y</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:741"><nobr><span class="ft9">i</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:745"><nobr><span class="ft2">|f)</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft7">where f indicates f is not present. We compute the infor-<br>mation gain for each unique feature and select top ranked<br>features.</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:475"><nobr><span class="ft1">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:516"><nobr><span class="ft1">Linear SVM Feature Ranking</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:489"><nobr><span class="ft2">Linear SVM (7) produces a hyperplane as well as a nor-</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:475"><nobr><span class="ft7">mal vector w. The normal vector w serves as the slope of<br>the hyperplane classifier and measures the relative impor-<br>tance that each feature contribute to the classifier. An ex-<br>treme case is that when there is only one feature correlated<br>to sample labels, the optimal classifier hyperplane must be<br>perpendicular to this feature axle.</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:489"><nobr><span class="ft2">The L-2 norm of w, in the objective, denotes the inverse</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:475"><nobr><span class="ft7">margin. Also, it can be viewed as a Gaussian prior of random<br>variable w. Sparse results may be achieved by assuming a<br>laplace prior and using the L-1 norm [2].</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:489"><nobr><span class="ft2">Unlike the previous information gain method, the linear</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:475"><nobr><span class="ft7">SVM normal vector w is not determined by the whole body<br>of training samples. Instead, it is determined by an opti-<br>mally determined subset, support vectors, that are critical<br>to be classified. Another difference is obvious: normal vec-<br>tor w is solved jointly by all features instead of one by one<br>independently.</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:489"><nobr><span class="ft2">Our results show that linear SVM is able to provide rea-</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:475"><nobr><span class="ft7">sonably good results in feature ranking for our navigational<br>query identification problem even when the corresponding<br>classifier is weak.</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:475"><nobr><span class="ft1">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:516"><nobr><span class="ft1">Stochastic Gradient Boosting Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft2">Boosting methods construct weak classifiers using subsets</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:475"><nobr><span class="ft7">of features and combines them by considering their predica-<br>tion errors. It is a natural feature ranking procedure: each<br>feature is ranked by its related classification errors.</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:489"><nobr><span class="ft2">Tree based boosting methods approximate relative influ-</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:475"><nobr><span class="ft2">ence of a feature x</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:588"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:598"><nobr><span class="ft2">as</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:595"><nobr><span class="ft2">J</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:604"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:603"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:614"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:654"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:629"><nobr><span class="ft2">splits on x</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:692"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:700"><nobr><span class="ft2">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:707"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:706"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">686</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:14px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft2">where I</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:128"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:127"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:139"><nobr><span class="ft2">is the empirical improvement by k-th splitting on</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft2">x</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:89"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:99"><nobr><span class="ft2">at that point.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:94"><nobr><span class="ft2">Unlike the information gain model that considers one fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft7">ture at a time or the SVM method that considers all the<br>feature at one time, the boosting tree model considers a set<br>of features at a time and combines them according to their<br>empirical errors.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:94"><nobr><span class="ft2">Let R(</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:134"><nobr><span class="ft2">X ) be a feature ranking function based on data set</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:81"><nobr><span class="ft15">X . Information gain feature ranking depends on the whole<br>training set RInfo(X ) = RInfo(Xtr). Linear SVM ranks fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft7">tures is based on a set of optimally determined dataset. That<br>is, RSVM(X ) = RSVM(XSV), where XSV is the set of sup-</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:81"><nobr><span class="ft7">port vectors. The stochastic gradient boosting tree (GSBT)<br>uses multiple randomly sampled data to induce trees and<br>ranks feature by their linear combination. Its ranking func-<br>tion can be written as RSGBT(X ) = P</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:326"><nobr><span class="ft9">T</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:326"><nobr><span class="ft9">t=1</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:348"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:355"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:360"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:371"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:371"><nobr><span class="ft2">SGBT(X</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:425"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:430"><nobr><span class="ft2">),</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft2">where</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:121"><nobr><span class="ft2">X</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:131"><nobr><span class="ft9">t</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:141"><nobr><span class="ft2">is the training set randomly sampled at iteration</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:81"><nobr><span class="ft2">t.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:81"><nobr><span class="ft1">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:112"><nobr><span class="ft1">EXPERIMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:81"><nobr><span class="ft1">6.1</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:121"><nobr><span class="ft1">Data Set</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:94"><nobr><span class="ft2">A total number of 2102 queries were uniformly sampled</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:81"><nobr><span class="ft7">from a query log over a four month period. The queries<br>were sent to four major search engines, including Yahoo,<br>Google, MSN, and Ask. The top 5 URL's returned by each<br>search engine were recorded and sent to trained editors for<br>labeling (the number 5 is just an arbitrary number we found<br>good enough to measure the quality of retrieval). If there<br>exists one and only one perfect URL among all returned<br>URLs for a query, this query is labeled as navigational query.<br>Otherwise, it is labeled as non-navigational query.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:94"><nobr><span class="ft2">Out of 2102 queries, 384 queries are labeled as naviga-</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:81"><nobr><span class="ft7">tional. Since they are uniformly sampled from a query log,<br>we estimate there are about 18% queries are navigational.</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:94"><nobr><span class="ft2">The data set were divided into five folders for the purpose</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:81"><nobr><span class="ft7">of cross-validation. All results presented in this section are<br>average testing results in five fold cross validations.</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:81"><nobr><span class="ft1">6.2</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:121"><nobr><span class="ft1">Evaluation</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:94"><nobr><span class="ft2">Classification performance is evaluated using three met-</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:81"><nobr><span class="ft2">rics: precision, recall and F1 score. In each test, Let n</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:422"><nobr><span class="ft9">++</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:81"><nobr><span class="ft7">denotes the number of positive samples that correctly clas-<br>sified (true positive); n</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:223"><nobr><span class="ft9">-+</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:246"><nobr><span class="ft2">denotes the number of negative</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:81"><nobr><span class="ft2">samples that are classified as positive (false positive); n</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:422"><nobr><span class="ft9">+-</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:81"><nobr><span class="ft7">denotes the number of false positive samples that are classi-<br>fied as negative (false negative); and n</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:313"><nobr><span class="ft9">--</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:335"><nobr><span class="ft2">denotes the num-</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:81"><nobr><span class="ft7">ber of negative samples that are correctly classified (true<br>negative). Recall is the ratio of the number of true positives<br>to the total number of positives samples in the testing set,<br>namely</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:197"><nobr><span class="ft2">recall =</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:271"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:279"><nobr><span class="ft9">++</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:249"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:257"><nobr><span class="ft9">++</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:278"><nobr><span class="ft2">+ n</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:300"><nobr><span class="ft9">+-</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:320"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:81"><nobr><span class="ft7">Precision is the ratio of the number of true positive samples<br>to the number samples that are classified as positive, namely</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:186"><nobr><span class="ft2">precision =</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:281"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:289"><nobr><span class="ft9">++</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:259"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:268"><nobr><span class="ft9">++</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:288"><nobr><span class="ft2">+ n</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:311"><nobr><span class="ft9">-+</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:330"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:94"><nobr><span class="ft2">F1 is a single score that combines precision and recall,</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:81"><nobr><span class="ft2">defined as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:177"><nobr><span class="ft2">F 1 = 2 × precsion × recall</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:227"><nobr><span class="ft2">precsion + recall</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:339"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:475"><nobr><span class="ft1">6.3</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:516"><nobr><span class="ft1">Results</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:479"><nobr><span class="ft14"><i>6.3.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:529"><nobr><span class="ft14"><i>Feature Selection Results</i></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:489"><nobr><span class="ft2">Table 1 shows the distributions of the top 50 features se-</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:475"><nobr><span class="ft7">lected by different methods. All methods agree that click<br>features are the most important. In particular, linear SVM<br>and boosting tree select more click features than informa-<br>tion gain. On the other hand, information gain select many<br>features from anchor text and other metrics such as spam<br>scores.</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:475"><nobr><span class="ft7">Table 1: Distributions of the Selected Top 50 Fea-<br>tures According to Feature Categories</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:501"><nobr><span class="ft2">Feature Set</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:593"><nobr><span class="ft2">Info. Gain</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:672"><nobr><span class="ft2">Linear SVM</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:763"><nobr><span class="ft2">Boosting</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:520"><nobr><span class="ft2">Click</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:593"><nobr><span class="ft2">52%</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:672"><nobr><span class="ft2">84%</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:763"><nobr><span class="ft2">74%</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:521"><nobr><span class="ft2">URL</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:593"><nobr><span class="ft2">4%</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:672"><nobr><span class="ft2">2%</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:763"><nobr><span class="ft2">6%</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:497"><nobr><span class="ft2">Anchor Text</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:593"><nobr><span class="ft2">18%</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:672"><nobr><span class="ft2">2%</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:763"><nobr><span class="ft2">12%</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:493"><nobr><span class="ft2">Other metrics</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:593"><nobr><span class="ft2">26%</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:672"><nobr><span class="ft2">12%</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:763"><nobr><span class="ft2">8%</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:489"><nobr><span class="ft2">Table 2 shows the distribution of the selected features ac-</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:475"><nobr><span class="ft2">cording to feature integration operators.</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:740"><nobr><span class="ft2">It shows which</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:475"><nobr><span class="ft7">operators applied to result set query-URL pair wise features<br>are most useful. We group the 15 operators into 5 types:<br>vector, normalized ratios (r</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:640"><nobr><span class="ft9">k</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:646"><nobr><span class="ft2">, k = 2, 5, 10, 20), min/max, en-</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:475"><nobr><span class="ft7">tropy/stand deviation, and median/mean. Vector group in-<br>cludes all query-URL pair features in top 5 positions; nor-<br>malized ratios are defined in (1). As we can see from the<br>table, all feature integration operators are useful.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:475"><nobr><span class="ft7">Table 2: Distributions of the Selected Top 50 Fea-<br>tures According to Integration Operators</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:505"><nobr><span class="ft2">Operators</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:604"><nobr><span class="ft2">Info. Gain</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:683"><nobr><span class="ft2">Linear SVM</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:773"><nobr><span class="ft2">Boosting</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:517"><nobr><span class="ft2">vector</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:604"><nobr><span class="ft2">40%</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:683"><nobr><span class="ft2">22%</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:773"><nobr><span class="ft2">28%</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:483"><nobr><span class="ft2">normalized ratios</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:604"><nobr><span class="ft2">8%</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:683"><nobr><span class="ft2">38%</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:773"><nobr><span class="ft2">22%</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:508"><nobr><span class="ft2">min/max</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:604"><nobr><span class="ft2">6%</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:683"><nobr><span class="ft2">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:773"><nobr><span class="ft2">16%</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:500"><nobr><span class="ft2">entropy/std</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:604"><nobr><span class="ft2">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:683"><nobr><span class="ft2">16%</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:773"><nobr><span class="ft2">18%</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:494"><nobr><span class="ft2">mean/median</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:604"><nobr><span class="ft2">26%</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:683"><nobr><span class="ft2">4%</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:773"><nobr><span class="ft2">16%</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:489"><nobr><span class="ft2">The number of selected features directly influence the clas-</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:475"><nobr><span class="ft7">sification performance. Figure 3 shows relationship between<br>the boosting tree classification performance and the number<br>of selected features. As we can see, performance increases<br>with cleaner selected features. However, if the number of<br>selected feature is too small, performance will decrease. A<br>number of 50 works the best in our work.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:479"><nobr><span class="ft14"><i>6.3.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:529"><nobr><span class="ft14"><i>Classification Results</i></span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:489"><nobr><span class="ft2">We first apply four different classification methods: naive</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft7">Bayes, maximum entropy methods, support vector machine<br>and stochastic gradient boosting tree model over all available<br>features. The results are reported in Table 3. As we can see,<br>stochastic gradient boosting tree has the best performance<br>with an F1 score of 0.78.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft2">We then apply those methods to machine selected fea-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:475"><nobr><span class="ft7">tures. We test 4 different feature sets with 50 number of fea-<br>tures, selected by information gain, linear SVM and boosting<br>tree. The combined set consists of 30 top features selected by<br>linear SVM and 29 top features selected by boosting tree.<br>Please note that the total number of features are still 50<br>since linear SVM and boosting tree selected 9 same features<br>in their top 30 feature set.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">687</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60007.png" alt="background image">
+<DIV style="position:absolute;top:277;left:158"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:189"><nobr><span class="ft12">500</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:223"><nobr><span class="ft12">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:260"><nobr><span class="ft12">1500</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:297"><nobr><span class="ft12">2000</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:334"><nobr><span class="ft12">2500</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:371"><nobr><span class="ft12">3000</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:140"><nobr><span class="ft12">0.78</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:140"><nobr><span class="ft12">0.79</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:145"><nobr><span class="ft12">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:140"><nobr><span class="ft12">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:140"><nobr><span class="ft12">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:140"><nobr><span class="ft12">0.83</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:140"><nobr><span class="ft12">0.84</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:140"><nobr><span class="ft12">0.85</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:140"><nobr><span class="ft12">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:168"><nobr><span class="ft12">Number of Features Selected By Boosting Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:135"><nobr><span class="ft12">F1 Score of Boosting Tree Classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:159"><nobr><span class="ft12">Classification Performance VS Number of Features</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:81"><nobr><span class="ft2">Figure 3:</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:164"><nobr><span class="ft2">Classification performance F1 against</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:81"><nobr><span class="ft7">number of features: 25, 50, 100, 200, 400, 800, and<br>2955 (all features)</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:81"><nobr><span class="ft7">Table 3: Results of Various Classification Methods<br>over All Features</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:255"><nobr><span class="ft2">Recall</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:308"><nobr><span class="ft2">Precision</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:379"><nobr><span class="ft2">F1</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:137"><nobr><span class="ft2">Naive Bayes</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:255"><nobr><span class="ft2">0.242</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:308"><nobr><span class="ft2">0.706</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:379"><nobr><span class="ft2">0.360</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:109"><nobr><span class="ft2">SVM (Linear Kernel)</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:255"><nobr><span class="ft2">0.189</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:308"><nobr><span class="ft2">1.000</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:379"><nobr><span class="ft2">0.318</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:117"><nobr><span class="ft2">Maximum Entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:255"><nobr><span class="ft2">0.743</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:308"><nobr><span class="ft2">0.682</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:379"><nobr><span class="ft2">0.711</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:114"><nobr><span class="ft2">SVM (RBF Kernel)</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:255"><nobr><span class="ft2">0.589</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:308"><nobr><span class="ft2">0.485</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:379"><nobr><span class="ft2">0.528</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:129"><nobr><span class="ft2">Boosting Trees</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:255"><nobr><span class="ft2">0.724</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:308"><nobr><span class="ft2">0.845</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:379"><nobr><span class="ft2">0.780</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:94"><nobr><span class="ft2">Table 4 presents the results of the coupled feature selec-</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:81"><nobr><span class="ft7">tion and classification methods. It is obvious that the perfor-<br>mance of each method is improved by applying them to ma-<br>chine selected clean features, except naive Bayes classifier.<br>Surprisingly, the features selected by linear SVM are the<br>best set of features. The results show that even if the under-<br>lying problem is not linear separable, the linear coefficients<br>of the large margin linear classifier still convey important<br>feature information. When the stochastic gradient boost-<br>ing tree is applied over this set of features, we get the best<br>performance with 0.881 F1 score among all cross-methods<br>evaluations. Without feature ablation, SGBT is only able<br>to achieve 0.738 F1 score. That is, feature selection has<br>an effect of error reduction rate 40%. Without introducing<br>linear SVM in feature ablation, if SGBT works on the fea-<br>ture set selected by its own variable importance ranking, it<br>achieves 0.848 F1 score. That is to say, a cross methods<br>coupling of feature selection and classification causes a 33%<br>error reduction.</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:81"><nobr><span class="ft1">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:112"><nobr><span class="ft1">DISCUSSION</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:94"><nobr><span class="ft2">An interesting result from Table 1 is the features selected</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:81"><nobr><span class="ft2">for navigational query identification.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:323"><nobr><span class="ft2">Those features are</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft7">mostly induced from user click information. This is intu-<br>itively understandable because if a query is navigational,<br>the navigational URL is the most clicked one. On the other<br>hand, it might be risky to completely rely on click infor-<br>mation. The reasons might be 1) user click features may<br>be easier to be spammed, and 2) clicks are often biased by<br>various presentation situation such as quality of auto ab-<br>straction, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft2">From Table 4, we observe that linear SVM and boosting</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft2">tree have better feature selection power than information</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft7">gain. The reason that information gain performs inferior to<br>linear SVM and boosting tree is probably due to the fact<br>that information gain considers each feature independently<br>while linear SVM considers all features jointly and boosting<br>tree composites feature rank by sum over all used features.<br>The results show that URL, anchor text and other metrics<br>are helpful only when they are considered jointly with click<br>features.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:489"><nobr><span class="ft2">The most important result is that the stochastic gradi-</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:475"><nobr><span class="ft7">ent boosting tree coupled with linear SVM feature selection<br>method achieves much better results than any other combi-<br>nation. In this application, the data has very high dimension<br>considering the small sample size. The boosting tree method<br>needs to partition an ultra-high dimensional feature space<br>for feature selection. However, the stochastic step does not<br>have enough data to sample from [6]. Therefore, the boosted<br>result might be biased by earlier sampling and trapped in<br>a local optimum. Support vector machine, however, is able<br>to find an optimally determined subset of training samples,<br>namely support vectors, and ranks features based on those<br>vectors. Therefore, the SVM feature selection step makes<br>up the disadvantage of the stochastic boosting tree in its<br>initial sampling and learning stages that may lead to a local<br>optimum.</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:489"><nobr><span class="ft2">As expected, naive Bayes classifier hardly works for the</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:475"><nobr><span class="ft7">navigational query identification problem. It is also the only<br>classifier that performs worse with feature selection. Naive<br>Bayes classifiers work well when the selected features are<br>mostly orthogonal. However, in this problem, all features<br>are highly correlated.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:624"><nobr><span class="ft2">On the other hand, classification</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:475"><nobr><span class="ft7">methods such as boosting tree, maximum entropy model<br>and SVM do not require orthogonal features.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:475"><nobr><span class="ft1">8.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:507"><nobr><span class="ft1">RELATED WORK</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:489"><nobr><span class="ft2">Our work is closely related to query classification, a task of</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft7">assigning a query to one or more categories. However, gen-<br>eral query classification and navigational query identifica-<br>tion are different in the problems themselves. Query classi-<br>fication focuses on content classification, thus the classes are<br>mainly topic based, such as shopping and products. While<br>in navigational query identification, the two classes are in-<br>tent based.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft2">In the classification approaches regard, our work is re-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft7">lated to Gravano, et al. [7] where authors applied various<br>classification methods, including linear and nonlinear SVM,<br>decision tree and log-linear regression to classify query lo-<br>cality based on result set features in 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:761"><nobr><span class="ft2">Their work,</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft7">however, lacked carefully designed feature engineering and<br>therefore only achieved a F1 score of 0.52 with a linear SVM.<br>Beitzel, et al.[1] realized the limitation of a single classifica-<br>tion method in their query classification problem and pro-<br>posed a semi-supervised learning method. Their idea is to<br>compose the final classifier by combining classification re-<br>sults of multiple classification methods. Shen, et al. [15]<br>also trained a linear combination of two classifiers. Differ-<br>ently, instead of combining two classifiers for prediction, we<br>couple feature selection and classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:489"><nobr><span class="ft2">In the feature extraction aspect, our work is related to</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft7">Kang and Kim 2003 [11] where authors extracted heteroge-<br>nous features to classify user queries into three categories:<br>topic relevance task, the homepage finding task and service<br>finding task. They combined those features, for example<br>URL feature and content feature, by several linear empiri-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">688</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="60008.png" alt="background image">
+<DIV style="position:absolute;top:96;left:143"><nobr><span class="ft2">Table 4: F1 Scores of Systems with Coupled Feature Selection and Classification Methods</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:261"><nobr><span class="ft2">Methods</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:368"><nobr><span class="ft2">Info. Gain</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:447"><nobr><span class="ft2">Linear SVM</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:537"><nobr><span class="ft2">Boosting</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:607"><nobr><span class="ft2">Combined Set</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:223"><nobr><span class="ft2">SVM (Linear Kernel)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:368"><nobr><span class="ft2">0.124</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:447"><nobr><span class="ft2">0.733</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:537"><nobr><span class="ft2">0.712</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:607"><nobr><span class="ft2">0.738</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:251"><nobr><span class="ft2">Naive Bayes</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:368"><nobr><span class="ft2">0.226</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:447"><nobr><span class="ft2">0.182</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:538"><nobr><span class="ft2">0.088</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:607"><nobr><span class="ft2">0.154</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:230"><nobr><span class="ft2">Maximum Entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:368"><nobr><span class="ft2">0.427</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:447"><nobr><span class="ft2">0.777</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:537"><nobr><span class="ft2">0.828</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:607"><nobr><span class="ft2">0.784</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:228"><nobr><span class="ft2">SVM (RBF Kernel)</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:368"><nobr><span class="ft2">0.467</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:447"><nobr><span class="ft2">0.753</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:537"><nobr><span class="ft2">0.728</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:607"><nobr><span class="ft2">0.736</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:245"><nobr><span class="ft2">Boosting Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:368"><nobr><span class="ft2">0.627</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:447"><nobr><span class="ft2">0.881</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:537"><nobr><span class="ft2">0.848</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:607"><nobr><span class="ft2">0.834</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:81"><nobr><span class="ft7">cal linear functions. Each function was applied to a different<br>binary classification problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:275"><nobr><span class="ft2">Their idea was to empha-</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:81"><nobr><span class="ft7">size features for different classification purposes. However,<br>the important features were not selected automatically and<br>therefore their work is not applicable in applications with<br>thousands of features.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:81"><nobr><span class="ft1">9.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:112"><nobr><span class="ft1">CONCLUSION</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:94"><nobr><span class="ft2">We have made three contributions in the paper. First,</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:81"><nobr><span class="ft7">we evaluate the effectiveness of four machine learning ap-<br>proaches in the context of navigational query identification.<br>We find that boosting trees are the most effective one. Sec-<br>ond, we evaluate three feature selection methods and pro-<br>pose coupling feature selection with classification approaches.<br>Third, we propose a multi-level feature extraction system to<br>exploit more information for navigational query identifica-<br>tion.</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:94"><nobr><span class="ft2">The underlying classification problem has been satisfacto-</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:81"><nobr><span class="ft7">rily solved with 88.1% F1 score. In addition to the successful<br>classification, we successfully identified key features for rec-<br>ognizing navigational queries: the user click features. Other<br>features, such as URL, anchor text, etc. are also important<br>if coupled with user click features.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:94"><nobr><span class="ft2">In future research, it is of interest to conduct cross meth-</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:81"><nobr><span class="ft7">ods co-training for the query classification problem to utilize<br>unlabeled data, as there is enough evidence that different<br>training methods may benefit each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:81"><nobr><span class="ft1">10.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:121"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:88"><nobr><span class="ft2">[1] S. Beitzel, E. Jensen, D. Lewis, A. Chowdhury,</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:109"><nobr><span class="ft7">A. Kolcz, and O. Frieder. Improving Automatic Query<br>Classification via Semi-supervised Learning. In The<br>Fifth IEEE International Conference on Data Mining,<br>pages 27­30, New Orleans, Louisiana, November 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:88"><nobr><span class="ft2">[2] C. Bhattacharyya, L. R. Grate, M. I. Jordan, L. El</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:109"><nobr><span class="ft7">Ghaoui, and I. S. Mian. Robust Sparse Hyperplane<br>Classifiers: Application to Uncertain Molecular<br>Profiling Data. Journal of Computational Biology,<br>11(6):1073­1089, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:88"><nobr><span class="ft2">[3] A. Broder. A Taxonomy of Web Search. In ACM</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:109"><nobr><span class="ft2">SIGIR Forum, pages 3­10, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:88"><nobr><span class="ft2">[4] S. della Pietra, V. della Pietra, and J. Lafferty.</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:109"><nobr><span class="ft7">Inducing Features of Random Fields. IEEE<br>Transactions on Pattern Analysis and Machine<br>Intelligence, 19(4), 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:88"><nobr><span class="ft2">[5] R. O. Duda, P. E. Hart, and D. G. Stork. Pattern</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:109"><nobr><span class="ft7">Classification. John Wiley, New York, NY, 2nd<br>edition, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:88"><nobr><span class="ft2">[6] J. H. Friedman. Stochastic Gradient Boosting.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:109"><nobr><span class="ft7">Computational Statistics and Data Analysis,<br>38(4):367­378, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:482"><nobr><span class="ft2">[7] L. Gravano, V. Hatzivassiloglou, and R. Lichtenstein.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:503"><nobr><span class="ft7">Categorizing Web Queries According to Geographical<br>Locality. In ACM 12th Conference on Information<br>and Knowledge Management (CIKM), pages 27­30,<br>New Orleans, Louisiana, November 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:482"><nobr><span class="ft2">[8] T. Hastie, R. Tibshirani, and J. Friedman. The</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:503"><nobr><span class="ft7">Elements of Statistical Learning: Data Mining,<br>Inference, and Predication. Springer Verlag, New<br>York, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:482"><nobr><span class="ft2">[9] E. T. Jaynes. Papers on Probability, Statistics, and</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:503"><nobr><span class="ft7">Statistical Physics. D. Reidel, Dordrecht, Holland and<br>Boston and Hingham, MA, 1983.</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:475"><nobr><span class="ft2">[10] T. Joachims. Text Categorization with Support Vector</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:503"><nobr><span class="ft7">Machines: Learning with Many Relevant Features. In<br>Proceedings of the 10th European Conference on<br>Machine Learning (ECML), pages 137­142, Chemnitz,<br>Germany, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft2">[11] I.-H. Kang and G. Kim. Query Type Classification for</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:503"><nobr><span class="ft7">Web Document Retrieval. In Proceedings of the 26th<br>annual international ACM SIGIR conference on<br>Research and development in informaion retrieval,<br>pages 64 ­ 71, Toronto Canada, July 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:475"><nobr><span class="ft2">[12] U. Lee, Z. Liu, and J. Cho. Automatic Identification</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:503"><nobr><span class="ft7">of User Goals in Web Search. In Proceedings of the<br>14th International World Wide Web Conference<br>(WWW), Chiba, Japan, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:475"><nobr><span class="ft2">[13] R. Malouf. A Comparison of Algorithms for Maximum</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:503"><nobr><span class="ft7">Entropy Parameter Estimation. In Proceedings of the<br>Sixth Conference on Natural Language Learning<br>(CoNLL), Taipei, China, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:475"><nobr><span class="ft2">[14] D. E. Rose and D. Levinson. Understanding User</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:503"><nobr><span class="ft7">Goals in Web Search. In Proceedings of The 13th<br>International World Wide Web Conference (WWW),<br>2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:475"><nobr><span class="ft2">[15] D. Shen, R. Pan, J.-T. Sun, J. J. Pan, K. Wu, J. Yin,</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:503"><nobr><span class="ft7">and Q. Yang. Q2C at UST: Our Winning Solution to<br>Query Classification in KDDCUP 2005. SIGKDD<br>Explorations, 7(2):100­110, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:475"><nobr><span class="ft2">[16] L. Sherman and J. Deighton. Banner advertising:</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:503"><nobr><span class="ft7">Measuring effectiveness and optimizing placement.<br>Journal of Interactive Marketing, 15(2):60­64, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:475"><nobr><span class="ft2">[17] V. Vapnik. The Nature of Statistical Learning Theory.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:503"><nobr><span class="ft2">Springer Verlag, New York, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:475"><nobr><span class="ft2">[18] Y. Yang and J. Pedersen. An Comparison Study on</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:503"><nobr><span class="ft7">Feature Selection in Text Categorization. In<br>Proceedings of the 20th annual international ACM<br>SIGIR conference on Research and development in<br>informaion retrieval, Philadelphia, PA, USA, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:475"><nobr><span class="ft2">[19] S.C. Zhu. Statistical modeling and conceptualization</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:503"><nobr><span class="ft7">of visual patterns. IEEE Transactions on Pattern<br>Analysis and Machine Intelligence, 25(6):619­712,<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft6">689</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

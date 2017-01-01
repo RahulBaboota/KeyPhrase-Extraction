@@ -1,0 +1,1493 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>finalPCSS.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2001-09-25T13:05:45+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:23px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:14px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:14px;font-family:Times;color:#000000;}
+	.ft4{font-size:10px;font-family:Times;color:#000000;}
+	.ft5{font-size:10px;font-family:Times;color:#000000;}
+	.ft6{font-size:10px;font-family:Times;color:#000000;}
+	.ft7{font-size:12px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:16px;font-family:Times;color:#000000;}
+	.ft10{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+	.ft11{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17001.png" alt="background image">
+<DIV style="position:absolute;top:172;left:124"><nobr><span class="ft0"><b>A Pseudo Random Coordinated Scheduling Algorithm for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:338"><nobr><span class="ft0"><b>Bluetooth Scatternets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:239"><nobr><span class="ft1">Andr ´as R ´acz, Gy ¨orgy Mikl ´os, Ferenc Kubinszky, Andr ´as Valk ´o</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:261"><nobr><span class="ft2">Traffic Analysis and Network Performance Lab., Ericsson Research</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:360"><nobr><span class="ft2">Laborc 1, 1037 Budapest, Hungary</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:340"><nobr><span class="ft2">Ph: +36-1-4377621, Fax: +36-1-4377767</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:356"><nobr><span class="ft1">Andras.Racz@eth.ericsson.se</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:115"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:115"><nobr><span class="ft10">The emergence of Bluetooth as a default radio interface allows<br>handheld devices to be rapidly interconnected into ad hoc networks.<br>Bluetooth allows large numbers of piconets to form a scatternet us-<br>ing designated nodes that participate in multiple piconets. A unit<br>that participates in multiple piconets can serve as a bridge and for-<br>wards traffic between neighbouring piconets. Since a Bluetooth<br>unit can transmit or receive in only one piconet at a time, a bridging<br>unit has to share its time among the different piconets. To sched-<br>ule communication with bridging nodes one must take into account<br>their availability in the different piconets, which represents a dif-<br>ficult, scatternet wide coordination problem and can be an impor-<br>tant performance bottleneck in building scatternets. In this paper<br>we propose the Pseudo-Random Coordinated Scatternet Schedul-<br>ing (PCSS) algorithm to perform the scheduling of both intra and<br>inter-piconet communication. In this algorithm Bluetooth nodes<br>assign meeting points with their peers such that the sequence of<br>meeting points follows a pseudo random process that is different<br>for each pair of nodes. The uniqueness of the pseudo random se-<br>quence guarantees that the meeting points with different peers of<br>the node will collide only occasionally. This removes the need<br>for explicit information exchange between peer devices, which is<br>a major advantage of the algorithm. The lack of explicit signaling<br>between Bluetooth nodes makes it easy to deploy the PCSS algo-<br>rithm in Bluetooth devices, while conformance to the current Blue-<br>tooth specification is also maintained. To assess the performance of<br>the algorithm we define two reference case schedulers and perform<br>simulations in a number of scenarios where we compare the perfor-<br>mance of PCSS to the performance of the reference schedulers.</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:115"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:115"><nobr><span class="ft4">Bluetooth, scheduling, inter-piconet communication, scatternet</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:115"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:145"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:115"><nobr><span class="ft10">Short range radio technologies enable users to rapidly interconnect<br>handheld electronic devices such as cellular phones, palm devices<br>or notebook computers. The emergence of Bluetooth [1] as de-</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:486"><nobr><span class="ft10">fault radio interface in these devices provides an opportunity to turn<br>them from stand-alone tools into networked equipment. Building<br>Bluetooth ad hoc networks also represents, however, a number of<br>new challenges, partly stemming from the fact that Bluetooth was<br>originally developed for single hop wireless connections. In this<br>paper we study the scheduling problems of inter-piconet commu-<br>nication and propose a lightweight scheduling algorithm that Blue-<br>tooth nodes can employ to perform the scheduling of both intra and<br>inter-piconet communication.</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:486"><nobr><span class="ft10">Bluetooth is a short range radio technology operating in the unli-<br>censed ISM (Industrial-Scientific-Medical) band using a frequency<br>hopping scheme. Bluetooth (BT) units are organized into <i>piconets</i>.<br>There is one Bluetooth device in each piconet that acts as the mas-<br>ter, which can have any number of slaves out of which up to seven<br>can be active simultaneously. The communication within a piconet<br>is organized by the master which polls each slave according to some<br>polling scheme. A slave is only allowed to transmit in a slave-<br>to-master slot if it has been polled by the master in the previous<br>master-to-slave slot. In Section 3 we present a brief overview of<br>the Bluetooth technology.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:486"><nobr><span class="ft10">A Bluetooth unit can participate in more than one piconet at any<br>time but it can be a master in only one piconet. A unit that par-<br>ticipates in multiple piconets can serve as a bridge thus allowing<br>the piconets to form a larger network. We define <i>bridging degree<br></i>as the number of piconets a bridging node is member of. A set<br>of piconets that are all interconnected by such bridging units is re-<br>ferred to as a <i>scatternet </i>network (Figure 1). Since a Bluetooth unit<br>can transmit or receive in only one piconet at a time, bridging units<br>must switch between piconets on a time division basis. Due to the<br>fact that different piconets are not synchronized in time a bridging<br>unit necessarily loses some time while switching from one piconet<br>to the other. Furthermore, the temporal unavailability of bridging<br>nodes in the different piconets makes it difficult to coordinate the<br>communication with them, which impacts throughput and can be<br>an important performance constraint in building scatternets.</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:486"><nobr><span class="ft10">There are two important phenomena that can reduce the efficiency<br>of the polling based communication in Bluetooth scatternets:</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:505"><nobr><span class="ft6">· slaves that have no data to transmit may be unnecessarily</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:518"><nobr><span class="ft10">polled, while other slaves with data to transmit may have to<br>wait to be polled; and</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:505"><nobr><span class="ft6">· at the time of an expected poll one of the nodes of a master-</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:518"><nobr><span class="ft4">slave node pair may not be present in the piconet (the slave</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:89"><nobr><span class="ft4">Permission to make digital or hard copies of part or all of this work or </span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:89"><nobr><span class="ft10">personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that copies </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:89"><nobr><span class="ft4">bear this notice and the full citation on the first page.  To copy otherwise, to </span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:89"><nobr><span class="ft4">republish, to post on servers, or to redistribute to lists, requires prior </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:89"><nobr><span class="ft10">specific permission and/or a fee. <br>MobiHOC 2001, Long Beach, CA, USA </span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:89"><nobr><span class="ft4">© ACM 2001 1-58113-390-1/01/10...$5.00</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:301"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">193</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:7px;font-family:Times;color:#000000;}
+	.ft13{font-size:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17002.png" alt="background image">
+<DIV style="position:absolute;top:319;left:198"><nobr><span class="ft12">master</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:198"><nobr><span class="ft12">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:199"><nobr><span class="ft12">slave in two piconets</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:200"><nobr><span class="ft12">slave in one piconet and master in another</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:232"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:182"><nobr><span class="ft12">B</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:178"><nobr><span class="ft12">C</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:251"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:286"><nobr><span class="ft12">E</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:339"><nobr><span class="ft12">G</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:270"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:332"><nobr><span class="ft12">H</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:205"><nobr><span class="ft13"><b>Figure 1: Example scatternet</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:147"><nobr><span class="ft10">that is being polled is not listening or the master that is ex-<br>pected to poll is not polling).</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:115"><nobr><span class="ft10">The first problem applies to polling based schemes in general, while<br>the second one is specific to the Bluetooth environment. In or-<br>der to improve the efficiency of inter-piconet communication the<br>scheduling algorithm has to coordinate the presence of bridging<br>nodes in the different piconets such that the effect of the second<br>phenomenon be minimized.</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:115"><nobr><span class="ft10">However, the scheduling of inter-piconet communication expands<br>to a scatternet wide coordination problem. Each node that has more<br>than one Bluetooth links have to schedule the order in which it com-<br>municates with its respective neighbours. A node with multiple<br>Bluetooth links can be either a piconet master or a bridging node or<br>both. The scheduling order of two nodes will mutually depend on<br>each other if they have a direct Bluetooth link in which case they<br>have to schedule the communication on their common link for the<br>same time slots. This necessitates some coordination between the<br>respective schedulers. For instance in Figure 1 the scheduling order<br>of node A and the scheduling order of its bridging neighbours, B,<br>C, D and E mutually depend on each other, while nodes D and E<br>further effects nodes F, G and H as well. Furthermore, the possi-<br>ble loops in a scatternet (e.g., A-E-G-H-F-D) makes it even more<br>complicated to resolve scheduling conflicts.</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:115"><nobr><span class="ft10">In case of bursty traffic in the scatternet the scheduling problem<br>is further augmented by the need to adjust scheduling order in re-<br>sponse to dynamic variation of traffic intensity. In a bursty traffic<br>environment it is desirable that a node spends most of its time on<br>those links that have a backlogged burst of data.</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:115"><nobr><span class="ft10">One way to address the coordination problem of inter-piconet<br>scheduling is to explicitly allocate, in advance, time slots for com-<br>munication in each pair of nodes. Such a <i>hard coordination </i>ap-<br>proach eliminates ambiguity with regards to a node's presence in<br>piconets, but it implies a complex, scatternet wide coordination<br>problem and requires explicit signaling between nodes of a scat-<br>ternet. In the case of bursty traffic, hard coordination schemes<br>generate a significant computation and signaling overhead as the<br>communication slots have to be reallocated in response to changes<br>in traffic intensity and each time when a new connection is estab-<br>lished or released.</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:486"><nobr><span class="ft10">In this paper we propose the Pseudo-Random Coordinated Scatter-<br>net Scheduling algorithm which falls in the category of <i>soft coor-<br>dination </i>schemes. In soft coordination schemes nodes decide their<br>presence in piconets based on local information. By nature, soft co-<br>ordination schemes cannot guarantee conflict-free participation of<br>bridging nodes in the different piconets, however, they have a sig-<br>nificantly reduced complexity. In the PCSS algorithm coordination<br>is achieved by implicit rules in the communication without the need<br>of exchanging explicit control information. The low complexity of<br>the algorithm and its conformance to the current Bluetooth specifi-<br>cation allow easy implementation and deployment.</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:486"><nobr><span class="ft10">The first key component of the algorithm is the notion of <i>check-<br>points </i>which are defined in relation to each pair of nodes that<br>are connected by a Bluetooth link and which represent predictable<br>points in time when packet transmission can be initiated on the par-<br>ticular link. In other words, checkpoints serve as regular meeting<br>points for neighboring nodes when they can exchange packets. In<br>order to avoid systematic collision of checkpoints on different links<br>of a node the position of checkpoints follows a pseudo random se-<br>quence that is specific to the particular link the checkpoints belong<br>to.</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:486"><nobr><span class="ft10">The second key component of the algorithm is the dynamic adjust-<br>ment of checking intensity, which is necessary in order to effec-<br>tively support bursty data traffic. Bandwidth can be allocated and<br>deallocated to a particular link by increasing and decreasing check-<br>point intensity, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:486"><nobr><span class="ft10">To assess the performance of the algorithm we define two reference<br>schedulers and relate the performance of the PCSS scheme to these<br>reference algorithms in a number of simulation scenarios.</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:486"><nobr><span class="ft10">The remainder of the paper is structured as follows. In Section 2 we<br>give an overview of related work focusing on Bluetooth scheduling<br>related studies available in the literature. Section 3 gives a brief<br>overview of the Bluetooth technology. In Section 4 and 5 we intro-<br>duce the proposed algorithm. In Section 6 we define the reference<br>schedulers. Finally, in Section 7 we present simulation results.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:486"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:516"><nobr><span class="ft3"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:486"><nobr><span class="ft10">A number of researchers have addressed the issue of scheduling in<br>Bluetooth. Most of these studies have been restricted, however, to<br>the single piconet environment, where the fundamental question is<br>the polling discipline used by the piconet master to poll its slaves.<br>These algorithms are often referred to as intra-piconet scheduling<br>schemes. In [7] the authors assume a simple round robin polling<br>scheme and investigate queueing delays in master and slave units<br>depending on the length of the Bluetooth packets used. In [5] Jo-<br>hansson <i>et al. </i>analyze and compare the behavior of three differ-<br>ent polling algorithms. They conclude that the simple round robin<br>scheme may perform poorly in Bluetooth systems and they propose<br>a scheme called Fair Exhaustive Polling. The authors demonstrate<br>the strength of this scheme and argue in favor of using multi-slot<br>packets. Similar conclusions are drawn by Kalia <i>et al. </i>who argue<br>that the traditional round robin scheme may result in waste and un-<br>fairness [8]. The authors propose two new scheduling disciplines<br>that utilize information about the status of master and slave queues.<br>In [9, 10] the authors concentrate on scheduling policies designed<br>with the aim of low power consumption. A number of schedul-<br>ing policies are proposed which exploit either the <i>park </i>or <i>sniff </i>low<br>power modes of Bluetooth.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">194</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:6px;font-family:Times;color:#000000;}
+	.ft15{font-size:5px;font-family:Times;color:#000000;}
+	.ft16{font-size:8px;font-family:Times;color:#000000;}
+	.ft17{font-size:9px;font-family:Times;color:#000000;}
+	.ft18{font-size:9px;font-family:Times;color:#000000;}
+	.ft19{font-size:14px;line-height:19px;font-family:Times;color:#000000;}
+	.ft20{font-size:10px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17003.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft10">Although the above studies have revealed a number of important<br>performance aspects of scheduling in Bluetooth piconets, the algo-<br>rithms developed therein are not applicable for inter-piconet com-<br>munication. In [6] the authors have shown that constructing an op-<br>timal link schedule that maximizes total throughput in a Bluetooth<br>scatternet is an NP hard problem even if scheduling is performed<br>by a central entity. The authors also propose a scheduling algo-<br>rithm referred to as Distributed Scatternet Scheduling Algorithm<br>(DSSA), which falls in the category of distributed, hard coordina-<br>tion schemes. Although the DSSA algorithm provides a solution<br>for scheduling communication in a scatternet, some of its idealized<br>properties (e.g., nodes are aware of the traffic requirements of their<br>neighbours) and its relatively high complexity make it difficult to<br>apply it in a real life environment.</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:115"><nobr><span class="ft10">There is an ongoing work in the Personal Area Networking (PAN)<br>working group of the Bluetooth Special Interest Group (SIG) [2] to<br>define an appropriate scheduling algorithm for Bluetooth scatter-<br>nets.</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:115"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:145"><nobr><span class="ft3"><b>BLUETOOTH BACKGROUND</b></span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:115"><nobr><span class="ft10">Bluetooth is a short range radio technology that uses frequency<br>hopping scheme, where hopping is performed on 79 RF channels<br>spaced 1 MHz apart. Communication in Bluetooth is always be-<br>tween master and slave nodes. Being a master or a slave is only<br>a logical state: any Bluetooth unit can be a master or a slave.<br>The Bluetooth system provides full-duplex transmission based on<br>slotted Time Division Duplex (TDD) scheme, where each slot is<br>0.625 ms long. Master-to-slave transmission always starts in an<br>even-numbered time slot, while slave-to-master transmission al-<br>ways starts in an odd-numbered time slot. A pair of master-to-slave<br>and slave-to-master slots are often referred to as a frame. The com-<br>munication within a piconet is organized by the master which polls<br>each slave according to some polling scheme. A slave is only al-<br>lowed to transmit in a slave-to-master slot if it has been polled by<br>the master in the previous master-to-slave slot. The master may<br>or may not include data in the packet used to poll a slave. Blue-<br>tooth packets can carry synchronous data (e.g., real-time traffic) on<br>Synchronous Connection Oriented (SCO) links or asynchronous<br>data (e.g., elastic data traffic, which is the case in our study) on<br>Asynchronous Connectionless (ACL) links. Bluetooth packets on<br>an ACL link can be 1, 3 or 5 slot long and they can carry differ-<br>ent amount of user data depending on whether the payload is FEC<br>coded or not. Accordingly, the Bluetooth packet types DH1, DH3<br>and DH5 denote 1, 3 and 5 slot packets, respectively, where the<br>payload is not FEC encoded, while in case of packet types DM1,<br>DM3 and DM5 the payload is protected with FEC encoding. There<br>are two other types of packets, the POLL and NULL packets that do<br>not carry user data. The POLL packet is used by the master when<br>it has no user data to the slave but it still wants to poll it. Similarly,<br>the NULL packet is used by the slave to respond to the master if it<br>has no user data. For further information regarding the Bluetooth<br>technology the reader is referred to [1, 3].</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:115"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:145"><nobr><span class="ft19"><b>OVERVIEW OF THE PCSS ALGO-<br>RITHM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:115"><nobr><span class="ft11">Coordination in the PCSS algorithm is achieved by the unique<br>pseudo random sequence of checkpoints that is specific to each<br>master-slave node pair and by implicit information exchange be-<br>tween peer devices. A checkpoint is a designated Bluetooth frame.<br>The activity of being present at a checkpoint is referred to as <i>to<br>check</i>. A master node actively checks its slave by sending a packet</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:486"><nobr><span class="ft10">to the slave at the corresponding checkpoint and waiting for a re-<br>sponse from the slave. The slave node passively checks its master<br>by listening to the master at the checkpoint and sending a response<br>packet in case of being addressed.</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:486"><nobr><span class="ft20">The expected behaviour of nodes is that they show up at each<br>checkpoint on all of their links and check their peers for available<br>user data. The exchange of user data packets started at a check-<br>point can be continued in the slots following the checkpoint. A<br>node remains active on the current link until there is user data in<br>either the master-to-slave or slave-to-master directions or until it<br>has to leave for a next checkpoint on one of its other links. In<br>the PCSS scheme we exploit the concept of randomness in assign-<br>ing the position of checkpoints, which excludes the possibility that<br>checkpoints on different links of a node will collide systematically,<br>thus giving the node an equal chance to visit all of its checkpoints.<br>The pseudo random procedure is similar to the one used to derive<br>the pseudo random frequency hopping sequence. In particular, the<br>PCSS scheme assigns the positions of checkpoints on a given link<br>following a pseudo random sequence that is generated based on the<br>Bluetooth clock of the master and the MAC address of the slave.<br>This scheme guarantees that the same pseudo random sequence<br>will be generated by both nodes of a master-slave pair, while the se-<br>quences belonging to different node pairs will be different. Figure<br>2 shows an example for the pseudo random arrangement of check-<br>points in case of a node pair A and B. The length of the current base<br>checking interval is denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:645"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:655"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:653"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:683"><nobr><span class="ft4">and the current checking in-</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:486"><nobr><span class="ft4">tensity is defined accordingly as</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:671"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:657"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:665"><nobr><span class="ft15">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:663"><nobr><span class="ft15">check</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:691"><nobr><span class="ft4">. There is one checkpoint</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:486"><nobr><span class="ft10">within each base checking interval and the position of the check-<br>point within this window is changing from one time window to the<br>other in a pseudo random manner.</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:506"><nobr><span class="ft16">checkpoints of A toward B</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:662"><nobr><span class="ft16">checkpoints of B toward A</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:498"><nobr><span class="ft17">1 frame</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:533"><nobr><span class="ft18">T</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:542"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:540"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:514"><nobr><span class="ft13"><b>Figure 2: Pseudo-random positioning of checkpoints</b></span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:486"><nobr><span class="ft10">Since the pseudo random sequence is different from one link to an-<br>other, checkpoints on different links of a node will collide only oc-<br>casionally. In case of collision the node can attend only one of the<br>colliding checkpoints, which implies that the corresponding neigh-<br>bours have to be prepared for a non-present peer. That is, the mas-<br>ter might not poll and the slave might not listen at a checkpoint.<br>We note that a collision occurs either if there are more than one<br>checkpoints scheduled for the same time slot or if the checkpoints<br>are so close to each other that a packet transmission started at the<br>first checkpoint necessarily overlaps the second one. Furthermore,<br>if the colliding checkpoints belong to links in different piconets,<br>the necessary time to perform the switch must be also taken into<br>account.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:486"><nobr><span class="ft10">During the communication there is the possibility to increase or<br>decrease the intensity of checkpoints depending on the amount of<br>user data to be transmitted and on the available capacity of the<br>node. According to the PCSS algorithm a node performs certain<br>traffic measurements at the checkpoints and increases or decreases<br>the current checking intensity based on these measurements. Since</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">195</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft21{font-size:-1px;font-family:Times;color:#000000;}
+	.ft22{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+	.ft23{font-size:6px;line-height:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17004.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft10">nodes decide independently about the current checking intensity<br>without explicit coordination, two nodes on a given link may select<br>different base checking periods. In order to ensure that two nodes<br>with different checking intensities on the same link can still com-<br>municate we require the pseudo random generation of checkpoints<br>to be such that the set of checkpoint positions at a lower checking<br>intensity is a subset of checkpoint positions at any higher checking<br>intensities. In the Appendix we are going to present a pseudo ran-<br>dom scheme for generating the position of checkpoints, which has<br>the desired properties.</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:115"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:145"><nobr><span class="ft3"><b>OPERATION OF PCSS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:115"><nobr><span class="ft10">In what follows, we describe the procedures of the PCSS algorithm.<br>We start by the initialization process which ensures that two nodes<br>can start communication as soon as a new link has been established<br>or the connection has been reset. Next, we describe the rules that<br>define how nodes calculate their checkpoints, decide upon their<br>presence at checkpoints and exchange packets. Finally, we present<br>the way neighboring nodes can dynamically increase and decrease<br>of checkpoint intensity.</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:115"><nobr><span class="ft3"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:153"><nobr><span class="ft3"><b>Initialization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:115"><nobr><span class="ft10">In the PCSS algorithm there is no need for a separate initialization<br>procedure to start communication, since the pseudo random gener-<br>ation of checkpoints is defined such that once a master slave node<br>pair share the same master's clock and slave's MAC address infor-<br>mation, it is guaranteed that the same pseudo random sequence will<br>be produced at each node. That is, it is guaranteed that two nodes<br>starting checkpoint generation at different time instants with differ-<br>ent checking intensities will be able to communicate. It is the own<br>decision of the nodes to select an appropriate initial checking in-<br>tensity, which may depend for example on the free capacities of the<br>node or on the amount of data to transmit. Once the communication<br>is established the increase and decrease procedures will adjust the<br>possibly different initial checking intensities to a common value.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:115"><nobr><span class="ft3"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:153"><nobr><span class="ft3"><b>Communication</b></span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:115"><nobr><span class="ft10">A pair of nodes can start exchanging user data packets at a check-<br>point, which can expand through the slots following the checkpoint.<br>The nodes remain active on the current link following a check-<br>point until there is user data to be transmitted or one of them has to<br>leave in order to attend a checkpoint on one of its other links. Af-<br>ter a POLL/NULL packet pair has been exchanged indicating that<br>there is no more user data left the nodes switch off their transmit-<br>ters/receivers and remain idle until a next checkpoint comes on one<br>of their links. However, during the communication any of the nodes<br>can leave in order to attend a coming checkpoint on one of its other<br>links. After one of the nodes has left the remaining peer will realize<br>the absence of the node and will go idle until the time of its next<br>checkpoint. If the master has left earlier the slave will realize the<br>absence of the master at the next master-to-slave slot by not receiv-<br>ing the expected poll. In the worst case the master has left before<br>receiving the last packet response from the slave, which can be a 5<br>slot packet in which case the slave wastes 5+1 slots before realiz-<br>ing the absence of the master. Similarly, if the master does not get<br>a response from the slave it assumes that the slave has already left<br>the checkpoint and goes idle until its next checkpoint. Note that the<br>master may also waste 5+1 slots in the worst case before realizing<br>the absence of the slave.</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:115"><nobr><span class="ft10">A node stores the current length of the base checking interval and<br>the time of the next checkpoint for each of its Bluetooth links sep-</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:486"><nobr><span class="ft4">arately. For its</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:571"><nobr><span class="ft6">i</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:575"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:591"><nobr><span class="ft4">link a node maintains the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:774"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:784"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:782"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:814"><nobr><span class="ft4">to</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:486"><nobr><span class="ft20">store the length of the current base checking period in number of<br>frames and the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:613"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:617"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:645"><nobr><span class="ft4">, which stores the Bluetooth clock</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:486"><nobr><span class="ft20">of the master at the next checkpoint. After passing a checkpoint<br>the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:552"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:556"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:588"><nobr><span class="ft4">is updated to the next checkpoint by running</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:486"><nobr><span class="ft4">the pseudo random generator (</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:643"><nobr><span class="ft6">P seudoChkGen) with the current</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:486"><nobr><span class="ft4">value of the master's clock</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:625"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:629"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:645"><nobr><span class="ft4">and the length of the base checking</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:486"><nobr><span class="ft4">period</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:522"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:531"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:529"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:559"><nobr><span class="ft4">and with the MAC address of the slave</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:758"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:768"><nobr><span class="ft22">(i)<br>slave</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:796"><nobr><span class="ft4">as in-</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:486"><nobr><span class="ft4">put parameters;</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:569"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:574"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:606"><nobr><span class="ft6">= P seudoChkGen(T</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:726"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:725"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:752"><nobr><span class="ft6">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:767"><nobr><span class="ft22">(i)<br>slave</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:792"><nobr><span class="ft6">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:803"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:815"><nobr><span class="ft6">).</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:486"><nobr><span class="ft4">The procedure</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:563"><nobr><span class="ft6">P seudoChkGen is described in the Appendix.</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:486"><nobr><span class="ft4">There is a maximum and minimum checking interval</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:776"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:784"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:814"><nobr><span class="ft6">=</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:486"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:493"><nobr><span class="ft14">f</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:498"><nobr><span class="ft15">max</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:522"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:544"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:552"><nobr><span class="ft14">min</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:577"><nobr><span class="ft6">= 2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:598"><nobr><span class="ft14">f</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:603"><nobr><span class="ft15">min</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:623"><nobr><span class="ft4">, respectively. The length of the check-</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:486"><nobr><span class="ft10">ing period must be a power of 2 number of frames and it must take<br>a value from the interval</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:613"><nobr><span class="ft6">[2</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:623"><nobr><span class="ft14">f</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:628"><nobr><span class="ft15">min</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:648"><nobr><span class="ft6">, 2</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:660"><nobr><span class="ft14">f</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:666"><nobr><span class="ft15">max</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:687"><nobr><span class="ft6">].</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:486"><nobr><span class="ft3"><b>5.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:524"><nobr><span class="ft19"><b>Increasing and Decreasing Checking In-<br>tensity</b></span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:486"><nobr><span class="ft10">The increase and decrease procedures are used to adjust the check-<br>ing intensity of a node according to the traffic intensity and to the<br>availability of the peer device. Each node decides independently<br>about the current checking intensity based on traffic measurements<br>at checkpoints.</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:486"><nobr><span class="ft10">Since the time spent by a node on a link is proportional to the ratio<br>of the number of checkpoints on that link and the number of check-<br>points on all links of the node, the bandwidth allocated to a link can<br>be controlled by the intensity of checkpoints on that link. This can<br>be shown by the following simple calculation.</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:486"><nobr><span class="ft4">Let us assume that the node has</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:661"><nobr><span class="ft6">L number of links and assume</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:486"><nobr><span class="ft20">further that for the base checking periods on all links of the node<br>it holds that</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:551"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:559"><nobr><span class="ft14">min</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:584"><nobr><span class="ft6"> T</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:608"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:606"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:638"><nobr><span class="ft6"> T</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:660"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:682"><nobr><span class="ft6">, i = 1, . . . , L. Then the</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:486"><nobr><span class="ft4">average number of checkpoints within an interval of length</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:783"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:791"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:815"><nobr><span class="ft4">is</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:486"><nobr><span class="ft6">N =</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:516"><nobr><span class="ft21"> </span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:529"><nobr><span class="ft23">L<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:533"><nobr><span class="ft14">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:553"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:559"><nobr><span class="ft15">max</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:550"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:558"><nobr><span class="ft15">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:557"><nobr><span class="ft15">check</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:584"><nobr><span class="ft4">, and the average time between two consecutive</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:486"><nobr><span class="ft4">checkpoints is</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:588"><nobr><span class="ft6">t = T</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:620"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:621"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:646"><nobr><span class="ft6">=</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:686"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:667"><nobr><span class="ft14">L</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:664"><nobr><span class="ft21"> </span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:662"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:666"><nobr><span class="ft14">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:696"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:682"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:690"><nobr><span class="ft15">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:689"><nobr><span class="ft15">check</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:718"><nobr><span class="ft6">,</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:486"><nobr><span class="ft10">provided that the pseudo random generator produces a uniformly<br>distributed sequence of checkpoints. Then, the share of link</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:790"><nobr><span class="ft6">j from</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:486"><nobr><span class="ft4">the total capacity of the node is</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:610"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:616"><nobr><span class="ft14">j</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:625"><nobr><span class="ft6">= 1/T</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:666"><nobr><span class="ft14">(j)</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:664"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:645"><nobr><span class="ft14">L</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:642"><nobr><span class="ft21"> </span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:640"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:644"><nobr><span class="ft14">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:674"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:661"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:668"><nobr><span class="ft15">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:667"><nobr><span class="ft15">check</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:696"><nobr><span class="ft6">.</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:486"><nobr><span class="ft10">A node has to measure the utilization of checkpoints on each of<br>its links separately in order to provide input to the checking inten-<br>sity increase and decrease procedures. According to the algorithm<br>a given checkpoint is considered to be utilized if both nodes have<br>shown up at the checkpoint and at least one Bluetooth packet carry-<br>ing user data has been transmitted or received. If there has not been<br>a successful poll at the checkpoint due to the unavailability of any<br>of the nodes or if there has been only a POLL/NULL packet pair<br>exchange but no user data has been transmitted, the checkpoint is<br>considered to be unutilized. We note that due to packet losses the<br>utilization of a given checkpoint might be interpreted differently by<br>the nodes. However, this does not impact correct operation of the<br>algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">196</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft24{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft25{font-size:4px;font-family:Times;color:#000000;}
+	.ft26{font-size:6px;font-family:Times;color:#000000;}
+	.ft27{font-size:7px;font-family:Symbol;color:#000000;}
+	.ft28{font-size:3px;font-family:Times;color:#000000;}
+	.ft29{font-size:6px;line-height:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17005.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft4">To measure the utilization of checkpoints</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:326"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:333"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:348"><nobr><span class="ft4">on the</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:382"><nobr><span class="ft6">i</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:387"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:401"><nobr><span class="ft4">link of the</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:115"><nobr><span class="ft10">node we employ the moving average method as follows. The uti-<br>lization of a checkpoint equals to 1 if it has been utilized, otherwise<br>it equals to 0. If the checkpoint has been utilized the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:433"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:440"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:115"><nobr><span class="ft4">is updated as,</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:197"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:203"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:220"><nobr><span class="ft6">= q</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:239"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:257"><nobr><span class="ft6">· </span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:270"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:285"><nobr><span class="ft6">+ (1 - q</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:332"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:346"><nobr><span class="ft6">) · 1;</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:115"><nobr><span class="ft4">if the checkpoint has not been utilized it is updated as,</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:197"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:203"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:220"><nobr><span class="ft6">= q</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:239"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:257"><nobr><span class="ft6">· </span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:270"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:285"><nobr><span class="ft6">+ (1 - q</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:332"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:346"><nobr><span class="ft6">) · 0,</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:115"><nobr><span class="ft4">where</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:151"><nobr><span class="ft6">0  q</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:186"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:207"><nobr><span class="ft6">&lt; 1 is the time scale parameter of the moving</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:115"><nobr><span class="ft10">average method. A further parameter of the utilization measure-<br>ment is the minimum number of samples that have to be observed<br>before the measured utilization value is considered to be confident<br>and can be used as input to decide about increase and decrease of<br>checking intensity. This minimum number of samples is a denoted<br>by</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:131"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:141"><nobr><span class="ft14">sample,min</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:198"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:115"><nobr><span class="ft10">Finally, a node also has to measure its total utilization, which is<br>defined as the fraction of time slots where the node has been active<br>(transmitted or received) over the total number of time slots. To<br>measure the total utilization of a node we employ the moving aver-<br>age method again. Each node measures its own utilization</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:415"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:422"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:115"><nobr><span class="ft4">and updates the</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:203"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:209"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:245"><nobr><span class="ft4">variable after each</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:347"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:357"><nobr><span class="ft14">uti,win</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:398"><nobr><span class="ft4">number of</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:115"><nobr><span class="ft4">slots as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:148"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:155"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:189"><nobr><span class="ft6">= q</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:209"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:209"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:243"><nobr><span class="ft6">· </span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:256"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:290"><nobr><span class="ft6">+ (1 - q</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:337"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:336"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:368"><nobr><span class="ft6">) · </span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:389"><nobr><span class="ft14">(win)</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:416"><nobr><span class="ft6">,</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:115"><nobr><span class="ft4">where</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:150"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:157"><nobr><span class="ft14">(win)</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:187"><nobr><span class="ft4">is the fraction of time slots in the past time window</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:115"><nobr><span class="ft4">of length</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:166"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:176"><nobr><span class="ft14">uti,win</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:217"><nobr><span class="ft4">where the node has been active over the total</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:115"><nobr><span class="ft4">number of time slots</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:223"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:233"><nobr><span class="ft14">uti,win</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:269"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:115"><nobr><span class="ft4">If the utilization of checkpoints on link</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:331"><nobr><span class="ft6">i falls below the lower</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:115"><nobr><span class="ft4">threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:166"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:173"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:200"><nobr><span class="ft4">, the current base checking period</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:378"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:388"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:386"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:417"><nobr><span class="ft4">will be</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:115"><nobr><span class="ft10">doubled. Having a low checkpoint utilization can be either because<br>one or both of the nodes have not shown up at all of the checkpoints<br>or because there is not enough user data to be transmitted. In either<br>cases the intensity of checkpoints has to be decreased. Whenever a<br>decrease or increase is performed on link</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:324"><nobr><span class="ft6">i the measured utilization</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:115"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:122"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:138"><nobr><span class="ft4">must be reset.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:115"><nobr><span class="ft4">Since the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:220"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:230"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:228"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:258"><nobr><span class="ft4">is one of the inputs to the pseudo ran-</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:115"><nobr><span class="ft4">dom checkpoint generation process,</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:304"><nobr><span class="ft6">P seudoChkGen the check-</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:115"><nobr><span class="ft10">points after the decrease will be generated according to the new<br>period. Furthermore, due to the special characteristic of the check-<br>point generation scheme the remaining checkpoints after the de-<br>crease will be a subset of the original checkpoints, which guaran-<br>tees that the two nodes can sustain communication independent of<br>local changes in checking intensities.</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:115"><nobr><span class="ft10">An example for the checking intensity decrease in case of a node<br>pair A and B is shown in Figure 3. First, node A decreases check-<br>ing intensity by doubling its current base checking period in re-<br>sponse to the measured low utilization. As a consequence node B<br>will find node A on average only at every second checkpoint and<br>its measured utilization will decrease rapidly. When the measured<br>utilization at node B falls below the threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:359"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:366"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:393"><nobr><span class="ft4">, B realizes</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:115"><nobr><span class="ft10">that its peer has a lower checking intensity and follows the de-<br>crease by doubling its current base checking period. Although we<br>have not explicitly indicated in the Figure, it is assumed that there<br>has been user data exchanged at each checkpoint where both nodes<br>were present.</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:492"><nobr><span class="ft24">=0.35&lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:524"><nobr><span class="ft25">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:658"><nobr><span class="ft24">=0.36&lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:691"><nobr><span class="ft25">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:496"><nobr><span class="ft29">node A reduces the checking<br>intensity, by doubling its base period</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:644"><nobr><span class="ft26">checkpoints of B toward A</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:644"><nobr><span class="ft26">checkpoints of A toward B</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:681"><nobr><span class="ft26">doubles its base period</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:681"><nobr><span class="ft26">node B realizes the decrease and</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:501"><nobr><span class="ft24">=0.6=0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:693"><nobr><span class="ft24">=0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:562"><nobr><span class="ft24">=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:803"><nobr><span class="ft24">=0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:578"><nobr><span class="ft24">=0.48 =0.56 =0.46</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:803"><nobr><span class="ft24">=0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:553"><nobr><span class="ft24">=0.58</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:604"><nobr><span class="ft24">=0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:772"><nobr><span class="ft24">=0.35</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:775"><nobr><span class="ft24">=0.65</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:707"><nobr><span class="ft24">=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:553"><nobr><span class="ft13"><b>Figure 3: Checking intensity decrease</b></span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:486"><nobr><span class="ft10">Recall from the utilization measurement procedure that there is a<br>minimum number of checkpoints</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:658"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:668"><nobr><span class="ft14">sample,min</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:729"><nobr><span class="ft4">that has to be sam-</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:486"><nobr><span class="ft10">pled before the measured utilization is considered to be confident<br>and can be used to decide about checking intensity decrease. The<br>parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:541"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:552"><nobr><span class="ft14">sample,min</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:613"><nobr><span class="ft4">together with the parameter of the mov-</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:486"><nobr><span class="ft4">ing average method</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:592"><nobr><span class="ft6">q</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:597"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:616"><nobr><span class="ft4">determine the time scale over which the</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:486"><nobr><span class="ft4">utilization of checkpoints has to be above the threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:786"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:793"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:820"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:486"><nobr><span class="ft10">otherwise the node decreases checking intensity. It might be also<br>reasonable to allow that the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:685"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:695"><nobr><span class="ft14">sample,min</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:756"><nobr><span class="ft4">and the mov-</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:486"><nobr><span class="ft4">ing average parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:603"><nobr><span class="ft6">q</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:609"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:628"><nobr><span class="ft4">can be changed after each decrease or</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:486"><nobr><span class="ft10">increase taking into account for example the current checking in-<br>tensity, the available resources of the node or the amount of user<br>data to be transmitted, etc. However, in the current implementation<br>we apply fixed parameter values.</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:486"><nobr><span class="ft10">After a checkpoint where user data has been exchanged (not only a<br>POLL/NULL packet pair) checking intensity can be increased pro-<br>vided that the measured utilization of checkpoints exceeds the up-<br>per threshold</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:556"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:562"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:593"><nobr><span class="ft4">and the node has available capacity. Formally</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:486"><nobr><span class="ft4">a checking intensity increase is performed on link</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:739"><nobr><span class="ft6">i if the following</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:486"><nobr><span class="ft4">two conditions are satisfied:</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:632"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:639"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:655"><nobr><span class="ft6">&gt; </span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:675"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:706"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:728"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:735"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:769"><nobr><span class="ft6">&lt; </span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:790"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:790"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:820"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:486"><nobr><span class="ft4">where</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:521"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:528"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:528"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:563"><nobr><span class="ft4">is the upper threshold of the total utilization of the</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:486"><nobr><span class="ft20">node. This last condition ensures that the intensity of checkpoints<br>will not increase unbounded. The intensity of checkpoints is dou-<br>bled at each increase by dividing the current length of the base<br>checking period</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:571"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:581"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:579"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:609"><nobr><span class="ft4">by 2. For typical values of</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:748"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:754"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:786"><nobr><span class="ft4">we rec-</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:486"><nobr><span class="ft4">ommend</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:534"><nobr><span class="ft6">0.8  </span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:576"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:608"><nobr><span class="ft6"> 0.9 in which case the respective </span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:797"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:486"><nobr><span class="ft4">value should be</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:572"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:578"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:611"><nobr><span class="ft6"> 0.4 in order to avoid oscillation of in-</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:486"><nobr><span class="ft4">creases and decreases.</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:486"><nobr><span class="ft10">Figure 4 shows an example where node A and B communicate and<br>after exchanging user data at the second checkpoint both nodes<br>double the checking intensity. In the Figure we have explicitly in-<br>dicated whether there has been user data exchanged at a checkpoint<br>or not.</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:597"><nobr><span class="ft26">user data</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:505"><nobr><span class="ft12">checkpoints of B toward A</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:505"><nobr><span class="ft12">checkpoints of A toward B</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:582"><nobr><span class="ft27">=0.8&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:615"><nobr><span class="ft28">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:579"><nobr><span class="ft27">=0.8&gt;</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:612"><nobr><span class="ft28">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:505"><nobr><span class="ft27">=0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:636"><nobr><span class="ft27">=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:748"><nobr><span class="ft27">=0.55</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:671"><nobr><span class="ft27">=0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:748"><nobr><span class="ft27">=0.55</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:505"><nobr><span class="ft27">=0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:526"><nobr><span class="ft26">user data</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:656"><nobr><span class="ft26">user data</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:763"><nobr><span class="ft26">user data</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:674"><nobr><span class="ft27">=0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:638"><nobr><span class="ft27">=0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:659"><nobr><span class="ft12">checking intensity</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:659"><nobr><span class="ft12">both node A and B double</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:716"><nobr><span class="ft27">=0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:716"><nobr><span class="ft27">=0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:554"><nobr><span class="ft13"><b>Figure 4: Checking intensity increase</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">197</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft30{font-size:-1px;font-family:Times;color:#86cfff;}
+	.ft31{font-size:-1px;font-family:Times;color:#00ff00;}
+	.ft32{font-size:-1px;font-family:Times;color:#008f8f;}
+	.ft33{font-size:-1px;font-family:Times;color:#ffe0e0;}
+	.ft34{font-size:7px;line-height:11px;font-family:Times;color:#000000;}
+	.ft35{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17006.png" alt="background image">
+<DIV style="position:absolute;top:149;left:115"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:145"><nobr><span class="ft3"><b>REFERENCE ALGORITHMS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:115"><nobr><span class="ft10">In this section we define the Ideal Coordinated Scatternet Sched-<br>uler (ICSS) and the Uncoordinated Greedy Scatternet Scheduler<br>(UGSS) reference algorithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:286"><nobr><span class="ft4">The ICSS algorithm represents</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:115"><nobr><span class="ft10">the "ideal" case where nodes exploit all extra information when<br>scheduling packet transmissions, which would not be available in a<br>realistic scenario. The UGSS algorithm represents the greedy case<br>where nodes continuously switch among their Bluetooth links in a<br>random order.</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:115"><nobr><span class="ft3"><b>6.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:153"><nobr><span class="ft3"><b>The ICSS Algorithm</b></span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:115"><nobr><span class="ft10">The ICSS algorithm is a hypothetical, ideal scheduling algorithm<br>that we use as a reference case in the evaluation of the PCSS<br>scheme. In the ICSS algorithm a node has the following extra<br>information about its neighbours, which represents the idealized<br>property of the algorithm:</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:134"><nobr><span class="ft6">· a node is aware of the already pre-scheduled transmissions</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:147"><nobr><span class="ft4">of its neighbours; and</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:134"><nobr><span class="ft6">· a node is aware of the content of the transmission buffers of</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:147"><nobr><span class="ft4">its neighbours.</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:115"><nobr><span class="ft10">According to the ICSS algorithm each node maintains a <i>scheduling<br>list</i>, which contains the already pre-scheduled tasks of the node. A<br>task always corresponds to one packet pair exchange with a given<br>peer of the node. Knowing the scheduling list of the neighbours<br>allows the node to schedule communication with its neighbours<br>without overlapping their other communication, such that the ca-<br>pacity of the nodes is utilized as much as possible. Furthermore<br>being aware of the content of the transmission buffers of neigh-<br>bours eliminates the inefficiencies of the polling based scheme,<br>since there will be no unnecessary polls and the system will be<br>work-conserving.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:115"><nobr><span class="ft10">In the scheduling list of a node there is at most one packet pair<br>exchange scheduled in relation to each of its peers, provided that<br>there is a Bluetooth packet carrying user data either in the trans-<br>mission buffer of the node or in the transmission buffer of the peer<br>or in both. After completing a packet exchange on a given link the<br>two nodes schedule the next packet exchange, provided that there<br>is user data to be transmitted in at least one of the directions. If<br>there is user data in only one of the directions, a POLL or NULL<br>packet is assumed for the reverse direction depending on whether<br>it is the master-to-slave or slave-to-master direction, respectively.<br>The new task is fitted into the scheduling lists of the nodes using<br>a first fit strategy. According to this strategy the task is fitted into<br>the first time interval that is available in both of the scheduling lists<br>and that is long enough to accommodate the new task. Note that the<br>algorithm strives for maximal utilization of node capacity by trying<br>to fill in the unused gaps in the scheduling lists.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:115"><nobr><span class="ft10">If there is no more user data to be transmitted on a previously busy<br>link, the link goes to idle in which case no tasks corresponding to<br>the given link will be scheduled until there is user data again in at<br>least one of the directions.</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:115"><nobr><span class="ft10">An example for the scheduling lists of a node pair A and B is shown<br>in Figure 5. The tasks are labeled with the name of the correspond-<br>ing peers the different tasks belong to. Each node has as many<br>pre-scheduled tasks in its scheduling list as the number of its ac-<br>tive Bluetooth links. A link is considered to be active if there is</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:624"><nobr><span class="ft34">schedule the next packet pair<br>exchange for node A and B</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:487"><nobr><span class="ft34">scheduling list of<br>node A</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:539"><nobr><span class="ft30"> ¡ ¡ ¡ </span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:539"><nobr><span class="ft30"> ¡ ¡ ¡ </span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:539"><nobr><span class="ft30"> ¡ ¡ ¡ </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:539"><nobr><span class="ft21">¢¡¢¡¢¡¢</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:539"><nobr><span class="ft21">¢¡¢¡¢¡¢</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:539"><nobr><span class="ft21">¢¡¢¡¢¡¢</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:539"><nobr><span class="ft30">£¡£¡£¡£</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:539"><nobr><span class="ft30">£¡£¡£¡£</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:539"><nobr><span class="ft21">¤¡¤¡¤¡¤</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:539"><nobr><span class="ft21">¤¡¤¡¤¡¤</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:696"><nobr><span class="ft30">¥¡¥</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:696"><nobr><span class="ft30">¥¡¥</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:696"><nobr><span class="ft21">¦¡¦</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:696"><nobr><span class="ft21">¦¡¦</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:696"><nobr><span class="ft30">§¡§</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:696"><nobr><span class="ft30">§¡§</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:696"><nobr><span class="ft21">¨¡¨</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:696"><nobr><span class="ft21">¨¡¨</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:611"><nobr><span class="ft31">©¡©¡©¡©</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:611"><nobr><span class="ft31">©¡©¡©¡©</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:611"><nobr><span class="ft21">¡¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:611"><nobr><span class="ft21">¡¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:755"><nobr><span class="ft31">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:755"><nobr><span class="ft31">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:755"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:755"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:598"><nobr><span class="ft32"></span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:598"><nobr><span class="ft32"></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:598"><nobr><span class="ft32"></span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:598"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:598"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:598"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:650"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:650"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:650"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:650"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:650"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:650"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:650"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:650"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:737"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:737"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:737"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:737"><nobr><span class="ft33">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:737"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:737"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:737"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:737"><nobr><span class="ft21">¡¡</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:563"><nobr><span class="ft12">current time</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:487"><nobr><span class="ft34">scheduling list of<br>node B</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:816"><nobr><span class="ft12">t</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:816"><nobr><span class="ft12">t</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:554"><nobr><span class="ft12">peer B</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:554"><nobr><span class="ft12">peer A</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:698"><nobr><span class="ft12">peer A</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:698"><nobr><span class="ft12">peer B</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:659"><nobr><span class="ft12">peer E</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:746"><nobr><span class="ft12">peer E</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:635"><nobr><span class="ft12">peer C</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:599"><nobr><span class="ft12">peer D</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:763"><nobr><span class="ft12">peer C</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:486"><nobr><span class="ft35"><b>Figure 5: Example for the scheduling lists of a node pair in case<br>of the ICSS algorithm</b></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:486"><nobr><span class="ft10">user data packet in at least one of the directions. Node A has active<br>peers B and C, while node B has active peers A, D and E. After<br>node A and B have finished the transmission of a packet pair they<br>schedule the next task for the nearest time slots that are available<br>in both of their scheduling lists and the number of consecutive free<br>time slots is greater than or equal to the length of the task.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:486"><nobr><span class="ft3"><b>6.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:524"><nobr><span class="ft3"><b>The UGSS Algorithm</b></span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:486"><nobr><span class="ft10">In the UGSS algorithm Bluetooth nodes do not attempt to coordi-<br>nate their meeting points, instead each node visits its neighbours<br>in a random order. Nodes switch continuously among their Blue-<br>tooth links in a greedy manner. If the node has</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:723"><nobr><span class="ft6">n number of links it</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:486"><nobr><span class="ft4">chooses each of them with a probability of</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:704"><nobr><span class="ft6">1/n. The greedy nature</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:486"><nobr><span class="ft10">of the algorithm results in high power consumption of Bluetooth<br>devices.</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:486"><nobr><span class="ft10">If the node is the master on the visited link it polls the slave by<br>sending a packet on the given link. The type of Bluetooth packet<br>sent can be a 1, 3 or 5 slot packet carrying useful data or an empty<br>POLL packet depending on whether there is user data to be trans-<br>mitted or not. After the packet has been sent the master remains<br>active on the link in order to receive any response from the slave.<br>If the slave has not been active on the given link at the time when<br>the master has sent the packet it could not have received the packet<br>and consequently it will not send a response to the master. After<br>the master has received the response of the slave or if it has sensed<br>the link to be idle indicating that no response from the salve can be<br>expected, it selects the next link to visit randomly.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:486"><nobr><span class="ft10">Similar procedure is followed when the node is the slave on the<br>visited link. The slave tunes its receiver to the master and listens<br>for a packet transmission from the master in the current master-<br>to-slave slot. If the slave has not been addressed by the master<br>in the actual master-to-slave slot it immediately goes to the next<br>link. However, if the slave has been addressed it remains active on<br>the current link and receives the packet. After having received the<br>packet of the master the slave responds with its own packet in the<br>following slave-to-master slot. After the slave has sent its response<br>it selects the next link to visit randomly.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:486"><nobr><span class="ft3"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:516"><nobr><span class="ft3"><b>SIMULATION RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:486"><nobr><span class="ft10">First, we evaluate the algorithm in a realistic usage scenario, which<br>is the Network Access Point (NAP) scenario. Next we investigate<br>theoretical configurations and obtain asymptotical results that re-<br>veals the scaling properties of the algorithm. For instance we in-<br>vestigate the carried traffic in function of the number of forwarding</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">198</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17007.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft10">hops along the path and in function of bridging degree. Both in the<br>realistic and theoretical configurations we relate the performance of<br>the PCSS scheme to the performance of the ICSS and UGSS ref-<br>erence algorithms. Before presenting the scenarios and simulation<br>results we shortly describe the simulation environment and define<br>the performance metrics that are going to be measured during the<br>simulations.</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:115"><nobr><span class="ft3"><b>7.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:153"><nobr><span class="ft3"><b>Simulation Environment</b></span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:115"><nobr><span class="ft10">We have developed a Bluetooth packet level simulator, which is<br>based on the Plasma simulation environment [4]. The simulator<br>has a detailed model of all the packet transmission, reception pro-<br>cedures in the Bluetooth Baseband including packet buffering, up-<br>per layer packet segmentation/reassemble, the ARQ mechanism,<br>etc. The simulator supports all Bluetooth packet types and follows<br>the same master-slave slot structure as in Bluetooth. For the physi-<br>cal layer we employ a simplified analytical model that captures the<br>frequency collision effect of interfering piconets.</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:115"><nobr><span class="ft10">In the current simulations the connection establishment procedures,<br>e.g., the inquiry and page procedures are not simulated in detail and<br>we do not consider dynamic scatternet formation either. Instead we<br>perform simulations in static scatternet configurations where the<br>scatternet topology is kept constant during one particular run of<br>simulation.</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:115"><nobr><span class="ft10">In the current simulations we run IP directly on top of the Blue-<br>tooth link layer and we apply AODV as the routing protocol in the<br>IP layer. The simulator also includes various implementations of<br>the TCP protocol (we employed RenoPlus) and supports different<br>TCP/IP applications, from which we used TCP bulk data transfer<br>in the current simulations.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:115"><nobr><span class="ft10">One of the most important user perceived performance measures is<br>the achieved throughput. We are going to investigate the throughput<br>in case of bulk TCP data transfer and in case of Constant Bit Rate<br>(CBR) sources.</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:115"><nobr><span class="ft10">In order to take into account the power consumption of nodes we<br>define <i>activity ratio </i>of a node,</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:279"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:285"><nobr><span class="ft14">act</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:304"><nobr><span class="ft4">as the fraction of time when</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:115"><nobr><span class="ft11">the node has been active over the total elapsed time; and <i>power<br>efficiency</i>,</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:169"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:175"><nobr><span class="ft14">ef f</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:196"><nobr><span class="ft4">as the fraction of the number of user bytes success-</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:115"><nobr><span class="ft10">fully communicated (transmitted and received) over the total time<br>the node has been active. The power efficiency shows the num-<br>ber of user bytes that can be communicated by the node during an<br>active period of length 1 sec. Power efficiency can be measured<br>in [kbit/sec], or assuming that being active for 1 sec consumes 1<br>unit of energy we can get a more straightforward dimension of<br>[kbit/energy unit], which is interpreted as the number of bits that<br>can be transmitted while consuming one unit of energy.</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:115"><nobr><span class="ft3"><b>7.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:153"><nobr><span class="ft3"><b>Network Access Point Scenario</b></span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:115"><nobr><span class="ft10">In this scenario we have a NAP that is assumed to be connected to<br>a wired network infrastructure and it provides network access via<br>its Bluetooth radio interface. The NAP acts as a master and up to 7<br>laptops, all acting as slaves, can connect to the NAP. Furthermore<br>we assume that each laptop has a Bluetooth enabled mouse and<br>each laptop connects to its mouse by forming a new piconet as it is<br>shown in Figure 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:115"><nobr><span class="ft10">We simulate a bulk TCP data transfer from the NAP towards each<br>laptop separately. Regarding the traffic generated by the mouse we<br>assume that the mouse produces a 16 byte long packet each 50 ms,</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:652"><nobr><span class="ft16">NAP</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:566"><nobr><span class="ft16">laptop</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:638"><nobr><span class="ft16">max 7</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:702"><nobr><span class="ft16">laptop</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:715"><nobr><span class="ft16">mouse</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:579"><nobr><span class="ft16">mouse</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:544"><nobr><span class="ft13"><b>Figure 6: Network Access Point Scenario</b></span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:486"><nobr><span class="ft10">periodically. In the NAP-laptop communication we are interested<br>in the achieved throughput while in the laptop-mouse communi-<br>cation we are concerned with the delay perceived by the mouse.<br>In the current scenario we switched off the dynamic checkperiod<br>adjustment capability of the PCSS algorithm and we set the base<br>checking period to 32 frames (40 ms), which is in accordance with<br>the delay requirement of a mouse. Note that this same base check-<br>ing period is applied also on the NAP-laptop links, although, there<br>is no delay requirement for the TCP traffic. However, the current<br>implementation in the simulator does not yet support the setting of<br>the base checking periods for each link separately. The dynamic<br>checking period adjustment would definitely improve the through-<br>put of NAP-laptop communication as we are going to see later in<br>case of other configurations.</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:486"><nobr><span class="ft10">The simulation results are shown in Figure 7. In plot (a) the aver-<br>aged throughput of NAP-laptop communications are shown in the<br>function of number of laptops for the different algorithms, respec-<br>tively. Graph (b) plots the sum of the throughputs between the<br>NAP and all laptops. As we expect, the individual laptop through-<br>put decreases as the number of laptops increases. However, it is<br>important to notice that the sum of laptop throughputs do not de-<br>crease with increasing number of laptops in case of the PCSS and<br>ICSS algorithms. As the number of laptops increases the efficient<br>coordination becomes more important and the total carried traffic<br>will decrease with the uncoordinated UGSS scheme. The increase<br>of the total throughput in case of the PCSS algorithm is the conse-<br>quence of the fixed checking intensities, which allocates one half<br>of a laptop capacity to the mouse and the other half to the NAP. In<br>case of small number of laptops this prevents the laptops to fully<br>utilize the NAP capacity, which improves as the number of laptops<br>increases.</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:486"><nobr><span class="ft4">The</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:509"><nobr><span class="ft6">99% percentile of the delay seen by mouse packets is shown in</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:486"><nobr><span class="ft10">plot (c). The delay that can be provided with the PCSS algorithm<br>is determined by the base checking period that we use. Recall, that<br>in the current setup the base checking period of the PCSS scheme<br>was set to 32 frames, which implies that the delay has to be in the<br>order of 32 frames, as shown in the figure. The low delay with the<br>UGSS algorithm is due to the continuous switching among the links<br>of a node, which ensures high polling intensity within a piconet<br>and frequent switching between piconets. The UGSS algorithm<br>provides an unnecessarily low delay, which is less than the delay<br>requirement at the expense of higher power consumption.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:486"><nobr><span class="ft10">Plots (d) and (e) show the averaged activity ratio over all lap-<br>tops and mice, respectively. The considerably higher throughput<br>achieved for small number of laptops by the ICSS scheme explains<br>its higher activity ratio. On graph (f) the averaged power efficiency<br>of laptops is shown, which relates the number of bytes transmit-<br>ted to the total time of activity. The power efficiency of the PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">199</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft36{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17008.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft10">scheme decreases with increasing number of laptops, which is a<br>consequence of the fixed checking intensities. Since the NAP has<br>to share its capacity among the laptops, with an increasing number<br>of laptops there will be an increasing number of checkpoints where<br>the NAP cannot show up. In such cases the dynamic checking in-<br>tensity adjustment procedure could help by decreasing checking<br>intensity on the NAP-laptop links. Recall that in the current sce-<br>nario we employed fixed checking intensities in order to satisfy the<br>mouse delay requirement. It is also important to notice that with the<br>uncoordinated UGSS scheme the activity ratio of a mouse is rela-<br>tively high, which is an important drawback considering the low<br>power capabilities of such devices.</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:115"><nobr><span class="ft3"><b>7.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:153"><nobr><span class="ft3"><b>Impact of Number of Forwarding Hops</b></span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:115"><nobr><span class="ft10">In what follows, we investigate the performance impact of the num-<br>ber of forwarding hops along the communication path in the scat-<br>ternet configuration shown in Figure 8. The configuration consists<br>of a chain of S/M forwarding nodes (</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:308"><nobr><span class="ft6">F</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:317"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:321"><nobr><span class="ft4">) and a certain number of</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:115"><nobr><span class="ft10">additional node pairs connected to each forwarding node in order to<br>generate background traffic. The number of S/M forwarding nodes<br>is denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:185"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:195"><nobr><span class="ft14">F</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:204"><nobr><span class="ft4">. There are</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:261"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:272"><nobr><span class="ft14">B</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:283"><nobr><span class="ft4">number of background node pairs</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:115"><nobr><span class="ft20">connected to each forwarding node as masters. The background<br>traffic flows from each source node</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:308"><nobr><span class="ft6">B</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:319"><nobr><span class="ft14">(S)</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:318"><nobr><span class="ft14">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:340"><nobr><span class="ft4">to its destination pair</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:115"><nobr><span class="ft6">B</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:126"><nobr><span class="ft14">(D)</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:125"><nobr><span class="ft14">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:147"><nobr><span class="ft4">through the corresponding forwarding node</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:376"><nobr><span class="ft6">F</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:384"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:389"><nobr><span class="ft4">. The traffic</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:115"><nobr><span class="ft10">that we are interested in is a bulk TCP data transfer between node<br>S and D. The background traffic is a CBR source, which generates<br>512 byte long IP packets with a period of length 0.05 sec.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:435"><nobr><span class="ft36">D</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:169"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:178"><nobr><span class="ft15">(D)</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:177"><nobr><span class="ft15">1i</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:230"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:239"><nobr><span class="ft15">(D)</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:239"><nobr><span class="ft15">2i</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:331"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:340"><nobr><span class="ft15">(D)</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:340"><nobr><span class="ft15">NF i</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:331"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:340"><nobr><span class="ft15">(S)</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:340"><nobr><span class="ft15">NF i</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:228"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:237"><nobr><span class="ft15">(S)</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:236"><nobr><span class="ft15">2i</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:169"><nobr><span class="ft36">B</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:178"><nobr><span class="ft15">(S)</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:177"><nobr><span class="ft15">1i</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:211"><nobr><span class="ft36">F</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:218"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:272"><nobr><span class="ft36">F</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:280"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:376"><nobr><span class="ft36">F</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:383"><nobr><span class="ft15">NF</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:130"><nobr><span class="ft36">S</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:152"><nobr><span class="ft13"><b>Figure 8: Impact of number of forwarding nodes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:115"><nobr><span class="ft4">During the simulations we vary the number of forwarding hops</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:433"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:444"><nobr><span class="ft14">F</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:115"><nobr><span class="ft4">and the number of background node pairs</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:336"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:347"><nobr><span class="ft14">B</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:360"><nobr><span class="ft4">connected to each</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:115"><nobr><span class="ft10">forwarding node. As one would expect, with increasing number of<br>forwarding hops and background node pairs the coordinated algo-<br>rithms will perform significantly better than the one without any<br>coordination (UGSS).</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:115"><nobr><span class="ft10">The throughput of the S-D traffic as a function of the number of<br>forwarding nodes (</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:212"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:222"><nobr><span class="ft14">F</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:231"><nobr><span class="ft4">) without background traffic (</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:382"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:392"><nobr><span class="ft14">B</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:405"><nobr><span class="ft6">= 0) and</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:115"><nobr><span class="ft4">with two pairs of background nodes (</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:308"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:318"><nobr><span class="ft14">B</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:332"><nobr><span class="ft6">= 2) are shown in Fig-</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:115"><nobr><span class="ft10">ure 9 (a) and (b), respectively. The throughput in case of no cross<br>traffic drops roughly by half when we introduce the first forward-<br>ing node. Adding additional forwarding hops continuously reduces<br>the throughput, however, the decrease at each step is less drasti-<br>cal. We note that in case of the ICSS scheme one would expect<br>that for</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:158"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:169"><nobr><span class="ft14">F</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:184"><nobr><span class="ft6">&gt; 1 the throughput should not decrease by adding</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:115"><nobr><span class="ft10">additional forwarding hops. However, there are a number of other<br>effects besides the number of forwarding hops that decrease the<br>throughput. For instance, with an increasing number of forward-<br>ing hops the number of piconets in the same area increases, which,<br>in turn, causes an increasing number of lost packets over the radio<br>interface due to frequency collisions. Furthermore with increasing<br>number of hops the end-to-end delay suffered by the TCP flow in-</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:486"><nobr><span class="ft10">creases, which makes the TCP connection less reactive to recover<br>from packet losses.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:486"><nobr><span class="ft10">In the no background traffic case the PCSS scheme performs close<br>to the UGSS algorithm in terms of throughput. However, as we<br>introduce two pairs of background nodes the UGSS algorithm fails<br>completely, while the PCSS scheme still achieves approximately 20<br>kbit/sec throughput. Furthermore, the power efficiency of the PCSS<br>scheme is an order of magnitude higher than that of the UGSS algo-<br>rithm in both cases, which indicates that the PCSS algorithm con-<br>sumes significantly less power to transmit the same amount of data<br>than the UGSS scheme.</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:486"><nobr><span class="ft3"><b>7.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:524"><nobr><span class="ft3"><b>Impact of Bridging Degree</b></span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:486"><nobr><span class="ft10">Next we investigate the performance of scheduling algorithms as<br>the number of piconets that a bridging node participates in is in-<br>creased. The scatternet setup that we consider is shown in Figure<br>10, where we are interested in the performance of the bridging node<br>C. Node C is an all slave bridging node and it is connected to mas-<br>ter nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:537"><nobr><span class="ft6">P</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:546"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:550"><nobr><span class="ft4">, where the number of these master nodes is denoted</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:486"><nobr><span class="ft4">by</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:503"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:514"><nobr><span class="ft14">P</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:522"><nobr><span class="ft4">. To each master node</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:644"><nobr><span class="ft6">P</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:653"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:662"><nobr><span class="ft4">we connect</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:724"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:735"><nobr><span class="ft14">L</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:747"><nobr><span class="ft4">number of leaf</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:486"><nobr><span class="ft10">nodes as slaves in order to generate additional background load in<br>the piconets. We introduce bulk TCP data transfer from node C<br>towards each of its master node</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:658"><nobr><span class="ft6">P</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:667"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:676"><nobr><span class="ft4">and CBR background traffic</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:486"><nobr><span class="ft4">on each</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:531"><nobr><span class="ft6">L</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:540"><nobr><span class="ft14">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:553"><nobr><span class="ft6">- P</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:575"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:584"><nobr><span class="ft4">link. The packet generation interval for back-</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:486"><nobr><span class="ft10">ground sources was set to 0.25 sec, which corresponds to a 16<br>kbit/sec stream. During the simulation we vary the number of pi-<br>conets</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:522"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:532"><nobr><span class="ft14">P</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:544"><nobr><span class="ft4">participated by node C and investigate the performance</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:486"><nobr><span class="ft10">of the PCSS algorithm with and without dynamic checkpoint inten-<br>sity changes. The number of background nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:736"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:747"><nobr><span class="ft14">L</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:758"><nobr><span class="ft4">connected to</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:486"><nobr><span class="ft4">each master node</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:577"><nobr><span class="ft6">P</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:585"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:593"><nobr><span class="ft4">was set to</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:645"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:655"><nobr><span class="ft14">L</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:667"><nobr><span class="ft6">= 3 and it was kept constant in</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:486"><nobr><span class="ft4">the simulations.</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:632"><nobr><span class="ft18">C</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:581"><nobr><span class="ft18">P</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:588"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:539"><nobr><span class="ft18">L</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:547"><nobr><span class="ft14">1i</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:610"><nobr><span class="ft18">L</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:618"><nobr><span class="ft14">1N</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:631"><nobr><span class="ft15">L</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:674"><nobr><span class="ft18">L</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:682"><nobr><span class="ft14">N</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:690"><nobr><span class="ft15">P</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:698"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:738"><nobr><span class="ft18">L</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:746"><nobr><span class="ft14">N</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:754"><nobr><span class="ft15">P</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:762"><nobr><span class="ft14">N</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:770"><nobr><span class="ft15">L</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:725"><nobr><span class="ft18">P</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:732"><nobr><span class="ft14">N</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:741"><nobr><span class="ft15">P</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:511"><nobr><span class="ft13"><b>Figure 10: Impact of number of participated piconets</b></span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:486"><nobr><span class="ft4">The throughputs of TCP flows between node C and each</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:773"><nobr><span class="ft6">P</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:782"><nobr><span class="ft14">i</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:789"><nobr><span class="ft4">are av-</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:486"><nobr><span class="ft10">eraged and it is shown in Figure 10 (a). The sum of TCP through-<br>puts are plotted in graph (b) and the power efficiency of the central<br>node is shown in graph (c). The PCSS algorithm has been tested<br>both with fixed base checking periods equal to 32 frames ("PCSS-<br>32") and with dynamic checking intensity changes as well ("PCSS-<br>dyn"). The parameter settings of the dynamic case is shown in Ta-<br>ble 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:529"><nobr><span class="ft6">q</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:534"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:553"><nobr><span class="ft6">= 0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:609"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:619"><nobr><span class="ft14">sample,min</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:680"><nobr><span class="ft6">= 4</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:522"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:529"><nobr><span class="ft14">lower</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:559"><nobr><span class="ft6">= 0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:620"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:627"><nobr><span class="ft14">upper</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:659"><nobr><span class="ft6">= 0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:520"><nobr><span class="ft6">q</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:527"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:526"><nobr><span class="ft14">uti</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:561"><nobr><span class="ft6">= 0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:616"><nobr><span class="ft6">N</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:627"><nobr><span class="ft14">uti,win</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:666"><nobr><span class="ft6">= 10</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:718"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:725"><nobr><span class="ft14">(node)</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:725"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:759"><nobr><span class="ft6">= 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:530"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:538"><nobr><span class="ft14">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:561"><nobr><span class="ft6">= 8</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:622"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:629"><nobr><span class="ft14">max</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:655"><nobr><span class="ft6">= 256</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:503"><nobr><span class="ft13"><b>Table 1: Parameter setting of the dynamic PCSS scheme</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">200</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft37{font-size:4px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17009.png" alt="background image">
+<DIV style="position:absolute;top:283;left:163"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:160"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:156"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:156"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:156"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:156"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:156"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:156"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:156"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:156"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:156"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:169"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:197"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:225"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:253"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:281"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:310"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:338"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:151"><nobr><span class="ft37">Throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:229"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:218"><nobr><span class="ft37">TCP throughput per laptop</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:292"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:291"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:294"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:387"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:383"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:380"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:380"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:380"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:380"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:380"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:380"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:380"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:380"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:380"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:392"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:420"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:448"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:476"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:505"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:533"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:561"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:374"><nobr><span class="ft37">Throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:452"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:434"><nobr><span class="ft37">Sum TCP throughput of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:513"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:513"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:516"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:614"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:605"><nobr><span class="ft37">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:605"><nobr><span class="ft37">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:605"><nobr><span class="ft37">0.03</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:605"><nobr><span class="ft37">0.04</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:605"><nobr><span class="ft37">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:605"><nobr><span class="ft37">0.06</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:619"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:647"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:674"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:702"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:729"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:756"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:784"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:597"><nobr><span class="ft37">Delay [sec]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:677"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:660"><nobr><span class="ft37">0.99 percentile of mouse dealy</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:737"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:736"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:740"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:239"><nobr><span class="ft4">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:462"><nobr><span class="ft4">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:685"><nobr><span class="ft4">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:163"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:158"><nobr><span class="ft37">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:158"><nobr><span class="ft37">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:158"><nobr><span class="ft37">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:158"><nobr><span class="ft37">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:158"><nobr><span class="ft37">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:158"><nobr><span class="ft37">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:158"><nobr><span class="ft37">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:158"><nobr><span class="ft37">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:158"><nobr><span class="ft37">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:169"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:197"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:225"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:253"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:281"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:310"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:338"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:151"><nobr><span class="ft37">Activity ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:229"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:222"><nobr><span class="ft37">Activity Ratio of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:290"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:289"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:293"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:387"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:381"><nobr><span class="ft37">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:381"><nobr><span class="ft37">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:381"><nobr><span class="ft37">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:381"><nobr><span class="ft37">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:381"><nobr><span class="ft37">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:381"><nobr><span class="ft37">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:381"><nobr><span class="ft37">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:381"><nobr><span class="ft37">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:381"><nobr><span class="ft37">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:392"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:420"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:448"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:476"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:505"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:533"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:561"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:374"><nobr><span class="ft37">Activity ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:452"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:449"><nobr><span class="ft37">Activity Ratio of mice</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:513"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:513"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:516"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:610"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:603"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:603"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:603"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:603"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:603"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:603"><nobr><span class="ft37">600</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:615"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:643"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:672"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:700"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:728"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:756"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:784"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:597"><nobr><span class="ft37">kbit/Energy unit</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:675"><nobr><span class="ft37">Number of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:664"><nobr><span class="ft37">Power efficiency of laptops</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:736"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:736"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:739"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:239"><nobr><span class="ft4">(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:462"><nobr><span class="ft4">(e)</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:686"><nobr><span class="ft4">(f)</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:176"><nobr><span class="ft13"><b>Figure 7: Throughput, delay and power measures in the function of number of laptops connected to the NAP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:163"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:160"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:156"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:156"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:156"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:156"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:156"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:156"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:156"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:156"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:156"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:169"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:190"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:211"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:232"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:253"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:274"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:295"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:317"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:338"><nobr><span class="ft37">8</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:151"><nobr><span class="ft37">TCP throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:206"><nobr><span class="ft37">Number of forwarding nodes (N_F)</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:182"><nobr><span class="ft37">TCP throughput without background nodes (N_B=0)</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:297"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:296"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:300"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:387"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:383"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:380"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:380"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:380"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:380"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:380"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:380"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:380"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:380"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:380"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:392"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:413"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:434"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:455"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:476"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:498"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:519"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:540"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:561"><nobr><span class="ft37">8</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:374"><nobr><span class="ft37">TCP throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:429"><nobr><span class="ft37">Number of forwarding nodes (N_F)</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:396"><nobr><span class="ft37">TCP throughput with 2 pairs of background nodes (N_B=2)</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:520"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:520"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:523"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:610"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:603"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:603"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:603"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:603"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:603"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:603"><nobr><span class="ft37">600</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:615"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:636"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:657"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:679"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:700"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:721"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:742"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:763"><nobr><span class="ft37">7</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:784"><nobr><span class="ft37">8</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:597"><nobr><span class="ft37">Power Efficiency [kbit/Energy unit]</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:652"><nobr><span class="ft37">Number of forwarding nodes (N_F)</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:637"><nobr><span class="ft37">Power efficiency of forwarding nodes (N_B=2)</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:744"><nobr><span class="ft37">PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:743"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:746"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:239"><nobr><span class="ft4">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:462"><nobr><span class="ft4">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:685"><nobr><span class="ft4">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:239"><nobr><span class="ft13"><b>Figure 9: Throughput and power efficiency in function of number of forwarding hops</b></span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:115"><nobr><span class="ft10">It is important to notice that the per flow TCP throughputs in case<br>of the dynamic PCSS scheme matches quite closely the through-<br>put achieved by the ICSS algorithm and it significantly exceeds the<br>throughput that has been achieved by the fixed PCSS. This large<br>difference is due to the relatively low background traffic in the<br>neighbouring piconets of node</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:271"><nobr><span class="ft6">C, in which case the dynamic PCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:115"><nobr><span class="ft10">automatically reduces checkpoint intensity on the lightly loaded<br>links and allocates more bandwidth to the highly loaded ones by<br>increasing checking intensity.</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:115"><nobr><span class="ft3"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:145"><nobr><span class="ft3"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:115"><nobr><span class="ft10">We have presented Pseudo Random Coordinated Scatternet<br>Scheduling, an algorithm that can efficiently control communica-<br>tion in Bluetooth scatternets without exchange of control informa-<br>tion between Bluetooth devices. The algorithm relies on two key<br>components, namely the use of pseudo random sequences of meet-<br>ing points, that eliminate systematic collisions, and a set of rules<br>that govern the increase and decrease of meeting point intensity<br>without explicit coordination.</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:486"><nobr><span class="ft10">We have evaluated the performance of PCSS in a number of sim-<br>ulation scenarios, where we have compared throughput and power<br>measures achieved by PCSS to those achieved by two reference<br>schedulers.</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:557"><nobr><span class="ft4">The first reference scheduler is an uncoordinated</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:486"><nobr><span class="ft10">greedy algorithm, while the other is a hypothetical "ideal" sched-<br>uler.</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:486"><nobr><span class="ft10">In all the scenarios investigated we have found that PCSS achieves<br>higher throughput than the uncoordinated reference algorithm.<br>Moreover, with the traffic dependent meeting point intensity adjust-<br>ments the throughput and power measures of PCSS quite closely<br>match the results of the "ideal" reference algorithm. At the same<br>time PCSS consumes approximately the same amount of power as<br>the ideal scheduler to achieve the same throughput, which is sig-<br>nificantly less than the power consumption of the uncoordinated<br>reference scheduler.</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:486"><nobr><span class="ft3"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:516"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:493"><nobr><span class="ft4">[1] Bluetooth Special Interest Group. <i>Bluetooth Baseband</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:514"><nobr><span class="ft5"><i>Specification Version 1.0 B</i>. http://www.bluetooth.com/.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">201</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft38{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17010.png" alt="background image">
+<DIV style="position:absolute;top:283;left:163"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:160"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:156"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:156"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:156"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:156"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:156"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:156"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:156"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:156"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:169"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:203"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:236"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:270"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:304"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:338"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:151"><nobr><span class="ft37">Throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:173"><nobr><span class="ft37">Number of piconets participated by the central node (N_P)</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:161"><nobr><span class="ft37">Averaged TCP throughput between central node and master nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:279"><nobr><span class="ft37">PCSS-32</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:276"><nobr><span class="ft37">PCSS-dyn</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:287"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:290"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:387"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:383"><nobr><span class="ft37">50</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:380"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:380"><nobr><span class="ft37">150</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:380"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:380"><nobr><span class="ft37">250</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:380"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:380"><nobr><span class="ft37">350</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:380"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:380"><nobr><span class="ft37">450</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:392"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:426"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:460"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:493"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:527"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:561"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:374"><nobr><span class="ft37">Throughput [kbit/s]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:396"><nobr><span class="ft37">Number of piconets participated by the central node (N_P)</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:416"><nobr><span class="ft37">Sum of TCP throughputs at the central node</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:502"><nobr><span class="ft37">PCSS-32</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:499"><nobr><span class="ft37">PCSS-dyn</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:510"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:514"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:610"><nobr><span class="ft37">0</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:603"><nobr><span class="ft37">100</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:603"><nobr><span class="ft37">200</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:603"><nobr><span class="ft37">300</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:603"><nobr><span class="ft37">400</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:603"><nobr><span class="ft37">500</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:603"><nobr><span class="ft37">600</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:615"><nobr><span class="ft37">1</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:649"><nobr><span class="ft37">2</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:683"><nobr><span class="ft37">3</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:716"><nobr><span class="ft37">4</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:750"><nobr><span class="ft37">5</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:784"><nobr><span class="ft37">6</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:597"><nobr><span class="ft37">Power efficiency [kbit/Energy unit]</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:619"><nobr><span class="ft37">Number of piconets participated by the central node (N_P)</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:658"><nobr><span class="ft37">Effective power of central node</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:725"><nobr><span class="ft37">PCSS-32</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:722"><nobr><span class="ft37">PCSS-dyn</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:734"><nobr><span class="ft37">UGSS</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:737"><nobr><span class="ft37">ICSS</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:239"><nobr><span class="ft4">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:462"><nobr><span class="ft4">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:685"><nobr><span class="ft4">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:230"><nobr><span class="ft13"><b>Figure 11: Throughput and power efficiency in function of the bridging degree of node C</b></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:122"><nobr><span class="ft4">[2] Bluetooth Special Interest Group.</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:143"><nobr><span class="ft4">http://www.bluetooth.com/.</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:122"><nobr><span class="ft4">[3] J. Haartsen. BLUETOOTH- the universal radio interface for</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:143"><nobr><span class="ft4">ad-hoc, wireless connectivity. <i>Ericsson Review</i>, (3), 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:122"><nobr><span class="ft4">[4] Z. Haraszti, I. Dahlquist, A. Farag´o, and T. Henk. Plasma -</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:143"><nobr><span class="ft11">an integrated tool for ATM network operation. In <i>Proc.<br>International Switching Symposium</i>, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:122"><nobr><span class="ft4">[5] N. Johansson, U. K¨orner, and P. Johansson. Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:143"><nobr><span class="ft11">evaluation of scheduling algorithms for Bluetooth. In <i>IFIP<br>TC6 WG6.2 Fifth International Conference on Broadband<br>Communications (BC'99)</i>, Hong Kong, November 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:122"><nobr><span class="ft4">[6] N. Johansson, U. K¨orner, and L. Tassiulas. A distributed</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:143"><nobr><span class="ft10">scheduling algorithm for a Bluetooth scatternet. In <i>Proc. of<br>The Seventeenth International Teletraffic Congress, ITC'17</i>,<br>Salvador da Bahia, Brazil, September 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:122"><nobr><span class="ft4">[7] P. Johansson, N. Johansson, U. K¨orner, J. Elgg, and</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:143"><nobr><span class="ft10">G. Svennarp. Short range radio based ad hoc networking:<br>Performance and properties. In <i>Proc. of ICC'99</i>, Vancouver,<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:122"><nobr><span class="ft4">[8] M. Kalia, D. Bansal, and R. Shorey. MAC scheduling and</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:143"><nobr><span class="ft10">SAR policies for Bluetooth: A master driven TDD<br>pico-cellular wireless system. In <i>IEEE Mobile Multimedia<br>Communications Conference MOMUC'99</i>, San Diego,<br>November 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:122"><nobr><span class="ft4">[9] M. Kalia, D. Bansal, and R. Shorey. MAC scheduling</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:143"><nobr><span class="ft11">policies for power optimization in Bluetooth: A master<br>driven TDD wireless system. In <i>IEEE Vehicular Technology<br>Conference 2000</i>, Tokyo, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:115"><nobr><span class="ft4">[10] M. Kalia, S. Garg, and R. Shorey. Efficient policies for</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:143"><nobr><span class="ft11">increasing capacity in Bluetooth: An indoor pico-cellular<br>wireless system. In <i>IEEE Vehicular Technology Conference<br>2000</i>, Tokyo, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:115"><nobr><span class="ft3"><b>APPENDIX</b></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:115"><nobr><span class="ft20">Here, we present the procedure for generating the pseudo ran-<br>dom sequence of checkpoints, where we reuse the elements of<br>the pseudo random frequency hop generation procedure available<br>in Bluetooth. The inputs to the checkpoint generation procedure<br>P seudoChkGen are the current checking period T</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:376"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:374"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:401"><nobr><span class="ft4">, the Blue-</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:115"><nobr><span class="ft4">tooth MAC address of the slave</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:277"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:1078;left:287"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:315"><nobr><span class="ft4">and the current value of the</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:486"><nobr><span class="ft4">master's clock</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:562"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:567"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:580"><nobr><span class="ft4">. A node can perform checkpoint generation us-</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:486"><nobr><span class="ft4">ing the</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:526"><nobr><span class="ft6">P seudoChkGen procedure at any point in time, it is al-</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:486"><nobr><span class="ft20">ways guaranteed that the position of checkpoint generated by the<br>two nodes will be the same, as it has been pointed out in Section<br>5.1. Nevertheless the typical case will be that whenever a node ar-<br>rives to a checkpoint it generates the position of the next checkpoint<br>on the given link. The variable</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:653"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:658"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:689"><nobr><span class="ft4">always stores the master's</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:486"><nobr><span class="ft10">clock at the next checkpoint, thus it needs to be updated every time<br>a checkpoint is passed. Here we note that the Bluetooth clock of a<br>device is a 28 bit counter, where the LSB changes at every half slot.</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:486"><nobr><span class="ft4">Let us assume that the base period of checkpoints on the</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:772"><nobr><span class="ft6">i</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:777"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:791"><nobr><span class="ft4">link of</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:486"><nobr><span class="ft4">the node is</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:544"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:554"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:552"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:582"><nobr><span class="ft6">= 2</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:603"><nobr><span class="ft14">j-2</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:622"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:628"><nobr><span class="ft6">j &gt; 2 number of frames, which means</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:486"><nobr><span class="ft20">that there is one pseudo randomly positioned checkpoint in each<br>consecutive time interval of length</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:671"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:681"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:679"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:711"><nobr><span class="ft4">and the</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:754"><nobr><span class="ft6">j</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:760"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:775"><nobr><span class="ft4">bit of the</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:486"><nobr><span class="ft4">Bluetooth clock changes at every</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:658"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:668"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:666"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:693"><nobr><span class="ft4">. Upon arrival to a check-</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:486"><nobr><span class="ft4">point the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:578"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:582"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:613"><nobr><span class="ft4">equals to the current value of the master's</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:486"><nobr><span class="ft20">clock on that link. After the checkpoint generation procedure has<br>been executed the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:628"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:633"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:664"><nobr><span class="ft4">will store the master's clock at</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:486"><nobr><span class="ft4">the time of the next checkpoint on that link.</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:486"><nobr><span class="ft4">Before starting the procedure the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:704"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:709"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:740"><nobr><span class="ft4">is set to the cur-</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:486"><nobr><span class="ft4">rent value of the master's clock</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:654"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:659"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:676"><nobr><span class="ft4">in order to cover the general</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:486"><nobr><span class="ft20">case when at the time of generating the next checkpoint the value<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:502"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:506"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:538"><nobr><span class="ft4">does not necessarily equals to the current value of the</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:486"><nobr><span class="ft4">master's clock</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:566"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:571"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:584"><nobr><span class="ft4">. The position of the next checkpoint is ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:486"><nobr><span class="ft4">tained such that the node first adds the current value of</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:789"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:799"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:797"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:486"><nobr><span class="ft4">to the variable</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:564"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:568"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:595"><nobr><span class="ft4">, clears the bits</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:677"><nobr><span class="ft6">[j - 1, . . . , 0] of t</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:775"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:805"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:486"><nobr><span class="ft4">then generates the bits</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:608"><nobr><span class="ft6">[j - 1, . . . , 2] one by one using the pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:486"><nobr><span class="ft4">cedure</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:524"><nobr><span class="ft6">P seudoBitGen(X, W</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:645"><nobr><span class="ft14">ctrl</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:663"><nobr><span class="ft6">). When generating the k</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:795"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:810"><nobr><span class="ft4">bit</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:486"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:490"><nobr><span class="ft6">j -1  k  2) the clock bits X = t</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:672"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:699"><nobr><span class="ft6">[k+1, . . . , k+5] are fed</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:486"><nobr><span class="ft4">as inputs to the</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:564"><nobr><span class="ft6">P seudoBitGen procedure, while the control word</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:486"><nobr><span class="ft6">W</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:499"><nobr><span class="ft14">ctrl</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:521"><nobr><span class="ft4">is derived from</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:603"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:608"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:639"><nobr><span class="ft4">including the bits already generated</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:486"><nobr><span class="ft4">and from the MAC address of the slave</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:682"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:692"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:717"><nobr><span class="ft4">. The schematic view</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:486"><nobr><span class="ft10">of generating the clock bits of the next checkpoint is illustrated in<br>Figure 12.</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:556"><nobr><span class="ft17">W</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:510"><nobr><span class="ft16">27.</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:641"><nobr><span class="ft17">X</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:609"><nobr><span class="ft38"><i>PseudoBitGen</i></span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:564"><nobr><span class="ft26">ctrl</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:699"><nobr><span class="ft16">k.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:601"><nobr><span class="ft16">k+5.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:676"><nobr><span class="ft16">k+1.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:491"><nobr><span class="ft16">28.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:812"><nobr><span class="ft16">0.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:793"><nobr><span class="ft16">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:775"><nobr><span class="ft16">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:496"><nobr><span class="ft13"><b>Figure 12: Generating the clock bits of the next checkpoint</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">202</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft39{font-size:10px;font-family:Times;color:#000000;}
+	.ft40{font-size:10px;line-height:15px;font-family:Times;color:#000000;}
+	.ft41{font-size:10px;line-height:15px;font-family:Times;color:#000000;}
+	.ft42{font-size:8px;line-height:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="17011.png" alt="background image">
+<DIV style="position:absolute;top:152;left:115"><nobr><span class="ft4">The</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:140"><nobr><span class="ft6">P seudoBitGen procedure is based on the pseudo random</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:115"><nobr><span class="ft4">scheme used for frequency hop selection in Bluetooth.</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:424"><nobr><span class="ft4">How-</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:115"><nobr><span class="ft4">ever, before presenting the</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:252"><nobr><span class="ft6">P seudoBitGen procedure we give the</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:115"><nobr><span class="ft4">pseudo-code of the</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:215"><nobr><span class="ft6">P seudoChkGen procedure.</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:115"><nobr><span class="ft40"><i>PseudoChkGen </i>procedure:<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:120"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:132"><nobr><span class="ft4">: the current value of the master's clock;</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:115"><nobr><span class="ft6">T</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:125"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:123"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:153"><nobr><span class="ft6">= 2</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:174"><nobr><span class="ft14">j-2</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:192"><nobr><span class="ft6">, j &gt; 2: current length of the base checkperiod</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:238"><nobr><span class="ft4">in terms of number of frames.</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:115"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:120"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:151"><nobr><span class="ft6">= t</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:169"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:181"><nobr><span class="ft4">;</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:115"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:120"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:147"><nobr><span class="ft6">[j - 1, . . . , 0] = 0;</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:115"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:120"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:151"><nobr><span class="ft6">= t</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:169"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:199"><nobr><span class="ft6">+ T</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:221"><nobr><span class="ft14">(i)</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:219"><nobr><span class="ft14">check</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:246"><nobr><span class="ft4">;</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:115"><nobr><span class="ft41">k = j - 1;<br>while (</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:151"><nobr><span class="ft6">k  2)</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:146"><nobr><span class="ft6">X[0, . . . , 4] = t</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:232"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:259"><nobr><span class="ft6">[k + 1, . . . , k + 5];</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:146"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:151"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:178"><nobr><span class="ft6">[k] = P seudoBitGen(X, W</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:330"><nobr><span class="ft14">ctrl</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:348"><nobr><span class="ft6">);</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:146"><nobr><span class="ft4">k=k-1;</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:115"><nobr><span class="ft4">end</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:115"><nobr><span class="ft4">Finally, we discuss the</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:234"><nobr><span class="ft6">P seudoBitGen procedure, which is illus-</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:115"><nobr><span class="ft4">trated in Figure 13.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:173"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:180"><nobr><span class="ft17">A</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:218"><nobr><span class="ft17">Y</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:215"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:116"><nobr><span class="ft17">X</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:135"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:441"><nobr><span class="ft17">O</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:438"><nobr><span class="ft17">1</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:231"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:237"><nobr><span class="ft17">B</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:263"><nobr><span class="ft17">Z</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:259"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:291"><nobr><span class="ft16">PERM5</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:279"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:285"><nobr><span class="ft17">C</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:317"><nobr><span class="ft17">9</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:323"><nobr><span class="ft17">D</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:352"><nobr><span class="ft17">V</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:349"><nobr><span class="ft17">5</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:374"><nobr><span class="ft16">V[k mod 5]</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:374"><nobr><span class="ft16">bit selector</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:237"><nobr><span class="ft42">X<br>O<br>R</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:169"><nobr><span class="ft16">Add</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:164"><nobr><span class="ft16">mod 32</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:175"><nobr><span class="ft13"><b>Figure 13: The <i>PseudoBitGen </i>procedure</b></span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:115"><nobr><span class="ft4">The</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:149"><nobr><span class="ft4">control</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:200"><nobr><span class="ft4">words</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:245"><nobr><span class="ft4">of</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:271"><nobr><span class="ft4">the</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:301"><nobr><span class="ft6">P seudoBitGen</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:402"><nobr><span class="ft4">procedure</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:115"><nobr><span class="ft6">W</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:127"><nobr><span class="ft14">ctrl</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:154"><nobr><span class="ft6">= {A, B, C, D} are the same as the control words of</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:115"><nobr><span class="ft10">the frequency hop selection scheme in Bluetooth and they are<br>shown in Table 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:228"><nobr><span class="ft4">However, the input</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:337"><nobr><span class="ft6">X and the additional</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:115"><nobr><span class="ft4">bit selection operator at the end are different.</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:373"><nobr><span class="ft4">As it has been</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:115"><nobr><span class="ft4">discussed above the input</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:259"><nobr><span class="ft6">X is changing depending on which</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:115"><nobr><span class="ft4">bit of the checkpoint is going to be generated.</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:384"><nobr><span class="ft4">When gener-</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:115"><nobr><span class="ft4">ating the</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:169"><nobr><span class="ft6">k</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:176"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:194"><nobr><span class="ft4">clock bit of the next checkpoint the clock bits</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:115"><nobr><span class="ft6">X = t</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:159"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:186"><nobr><span class="ft6">[k + 1, . . . , k + 5] are fed as inputs and the bit</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:115"><nobr><span class="ft4">selection operator at the end selects the</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:323"><nobr><span class="ft6">(k mod 5)</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:380"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:394"><nobr><span class="ft4">bit of the 5</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:115"><nobr><span class="ft4">bits long output</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:198"><nobr><span class="ft6">V .</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:169"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:207"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:217"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:242"><nobr><span class="ft6">[27 - 23]  t</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:312"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:339"><nobr><span class="ft6">[25 - 21]</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:170"><nobr><span class="ft4">B</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:196"><nobr><span class="ft6">B[0 - 3] = A</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:270"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:295"><nobr><span class="ft6">[22 - 19], B[4] = 0</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:170"><nobr><span class="ft4">C</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:200"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:210"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:235"><nobr><span class="ft6">[8, 6, 4, 2, 0]  t</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:318"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:345"><nobr><span class="ft6">[20 - 16]</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:169"><nobr><span class="ft4">D</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:210"><nobr><span class="ft6">A</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:220"><nobr><span class="ft14">slave</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:245"><nobr><span class="ft6">[18 - 10]  t</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:315"><nobr><span class="ft22">(i)<br>check</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:342"><nobr><span class="ft6">[15 - 7]</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:221"><nobr><span class="ft13"><b>Table 2: Control words</b></span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:115"><nobr><span class="ft10">The operation PERM5 is a butterfly permutation, which is the<br>same as in the frequency hop selection scheme of Bluetooth and<br>it is described in Figure 14. Each bit of the control word</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:429"><nobr><span class="ft6">P is</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:115"><nobr><span class="ft10">associated with a given bit exchange in the input word. If the<br>given bit of the control word equals to 1 the corresponding bit ex-<br>change is performed otherwise skipped. The control word</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:429"><nobr><span class="ft6">P is</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:115"><nobr><span class="ft4">obtained from</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:191"><nobr><span class="ft6">C and D, such that P [i] = D[i], i = 0 . . . 8 and</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:115"><nobr><span class="ft6">P [j + 9] = C[j], j = 0 . . . 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:486"><nobr><span class="ft17">Z[1]</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:486"><nobr><span class="ft17">Z[2]</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:486"><nobr><span class="ft17">Z[3]</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:486"><nobr><span class="ft17">Z[4]</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:486"><nobr><span class="ft17">Z[0]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:566"><nobr><span class="ft17">P[11,10]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:520"><nobr><span class="ft17">P[13,12]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:612"><nobr><span class="ft17">P[9,8]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:653"><nobr><span class="ft17">P[7,6]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:695"><nobr><span class="ft17">P[5,4]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:737"><nobr><span class="ft17">P[3,2]</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:778"><nobr><span class="ft17">P[1,0]</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:566"><nobr><span class="ft13"><b>Figure 14: Butterfly permutation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:446"><nobr><span class="ft9">203</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

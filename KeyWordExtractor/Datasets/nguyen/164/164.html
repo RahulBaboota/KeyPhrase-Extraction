@@ -1,0 +1,1195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\164</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-11-29T11:48:38+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;font-family:Courier;color:#000000;}
+	.ft9{font-size:11px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:166"><nobr><span class="ft0"><b>Ranking Target Objects of Navigational Queries</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:151"><nobr><span class="ft1">Louiqa Raschid, Yao Wu,</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:196"><nobr><span class="ft1">Woei-Jyh Lee</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:177"><nobr><span class="ft2">University of Maryland</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:188"><nobr><span class="ft2">College Park, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:152"><nobr><span class="ft1">louiqa@umiacs.umd.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:170"><nobr><span class="ft1">yaowu@cs.umd.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:149"><nobr><span class="ft1">adamlee@umiacs.umd.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:396"><nobr><span class="ft1">Mar´ia Esther Vidal</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:382"><nobr><span class="ft2">Universidad Sim ´on Bol´ivar</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:403"><nobr><span class="ft2">Caracas, Venezuela</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:369"><nobr><span class="ft1">mvidal@umiacs.umd.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:389"><nobr><span class="ft1">Panayiotis Tsaparas</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:401"><nobr><span class="ft2">University of Helsinki</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:415"><nobr><span class="ft2">Helsinki, Finland</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:378"><nobr><span class="ft1">tsaparas@cs.helsinki.fi</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:610"><nobr><span class="ft1">Padmini Srinivasan,</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:605"><nobr><span class="ft1">Aditya Kumar Sehgal</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:616"><nobr><span class="ft2">The University of Iowa</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:640"><nobr><span class="ft2">Iowa City, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:655"><nobr><span class="ft1">padmini-</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:599"><nobr><span class="ft1">srinivasan@uiowa.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:602"><nobr><span class="ft1">sehgal@cs.uiowa.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:93"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:93"><nobr><span class="ft10">Web navigation plays an important role in exploring pub-<br>lic interconnected data sources such as life science data. A<br>navigational query in the life science graph produces a re-<br>sult graph which is a layered directed acyclic graph (DAG).<br>Traversing the result paths in this graph reaches a target<br>object set (TOS). The challenge for ranking the target ob-<br>jects is to provide recommendations that reflect the relative<br>importance of the retrieved object, as well as its relevance to<br>the specific query posed by the scientist. We present a met-<br>ric layered graph PageRank (lgPR) to rank target objects<br>based on the link structure of the result graph. LgPR is<br>a modification of PageRank; it avoids random jumps to re-<br>spect the path structure of the result graph. We also outline<br>a metric layered graph ObjectRank (lgOR) which extends<br>the metric ObjectRank to layered graphs. We then present<br>an initial evaluation of lgPR. We perform experiments on<br>a real-world graph of life sciences objects from NCBI and<br>report on the ranking distribution produced by lgPR. We<br>compare lgPR with PageRank. In order to understand the<br>characteristics of lgPR, an expert compared the Top K tar-<br>get objects (publications in the PubMed source) produced<br>by lgPR and a word-based ranking method that uses text<br>features extracted from an external source (such as Entrez<br>Gene) to rank publications.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:93"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:93"><nobr><span class="ft10">H.3.5 [Information Storage and Retrieval]: On-line In-<br>formation Services ­ Web-based Services; H.2.8 [Database<br>Management]: Database Applications ­ Data Mining</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:93"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:93"><nobr><span class="ft4">Algorithms, Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:93"><nobr><span class="ft11">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>WIDM'06, </i>November 10, 2006, Arlington, Virginia, USA.<br>Copyright 2006 ACM 1-59593-52</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:257"><nobr><span class="ft7">5-8/06/0011 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:327"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:334"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:488"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:488"><nobr><span class="ft4">Ranking, Navigational Query, Link Analysis, PageRank</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:488"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:519"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:501"><nobr><span class="ft4">The last few years have seen an explosion in the number</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:488"><nobr><span class="ft10">of public Web accessible data sources, Web services and se-<br>mantic Web applications. While this has occurred in many<br>domains, biologists have taken the lead in making life science<br>data public, and biologists spend a considerable amount of<br>time navigating through the contents of these sources, to<br>obtain information that is critical to their research.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:501"><nobr><span class="ft4">Providing meaningful answers to queries on life science</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:488"><nobr><span class="ft10">data sources poses some unique challenges. First, informa-<br>tion about a scientific entity, e.g., genes, proteins, sequences<br>and publications, may be available in a large number of au-<br>tonomous sources and several sources may provide differ-<br>ent descriptions of some entity such as a protein. Second,<br>the links between scientific objects (links between data en-<br>tries in the different sources) are important in this domain<br>since they capture significant knowledge about the relation-<br>ship and interactions between these objects. Third, inter-<br>connected data entries can be modeled as a large complex<br>graph. Queries could be expressed as regular expression nav-<br>igational queries and can more richly express a user's needs,<br>compared to simpler keyword based queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:501"><nobr><span class="ft4">Consider the following navigational query: Retrieve pub-</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:488"><nobr><span class="ft10">lications related to the gene 'tnf ' that are reached by travers-<br>ing one intermediate (protein or sequence) entry. This query<br>expresses the scientist's need to expand a search for gene re-<br>lated publications beyond those publications whose text di-<br>rectly addresses the 'tnf' gene, while still limiting the search<br>to publications that are closely linked to gene entries.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:501"><nobr><span class="ft4">Consider gene sources OMIM Gene and Entrez Gene, pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:488"><nobr><span class="ft10">tein sources NCBI Protein and SwissProt, sequences in NCBI<br>Nucleotide and biomedical publications in PubMed. Figure<br>1 represents the results of evaluating this navigational query<br>against these sources. The result is a layered DAG; we refer<br>to it as a result graph (RG). All paths in this directed result<br>graph (RG) start with data entries in the sources OMIM<br>Gene or Entrez Gene; this is the first layer. They visit one<br>intermediate data entry in sources NCBI Protein, Swiss Prot<br>or NCBI Nucleotide (second layer) and they terminate in a<br>publication data entry in PubMed (final layer).</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:501"><nobr><span class="ft4">The query returns all objects in PubMed that are reached</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">27</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:10px;font-family:Times;color:#000000;}
+	.ft13{font-size:12px;font-family:Times;color:#000000;}
+	.ft14{font-size:3px;font-family:Times;color:#000000;}
+	.ft15{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164002.png" alt="background image">
+<DIV style="position:absolute;top:334;left:98"><nobr><span class="ft12">     &quot;tnf&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:98"><nobr><span class="ft12">  keyword</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:93"><nobr><span class="ft12">     &quot;tnf&quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:93"><nobr><span class="ft12">  keyword</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:220"><nobr><span class="ft13"><b>NCBI Nucleotide</b></span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:205"><nobr><span class="ft13"><b>Swiss Prot</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:398"><nobr><span class="ft13"><b>PubMed</b></span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:240"><nobr><span class="ft13"><b>NCBI Protein</b></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:103"><nobr><span class="ft13"><b>OMIM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:108"><nobr><span class="ft13"><b>Gene</b></span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:108"><nobr><span class="ft13"><b>Entrez</b></span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:114"><nobr><span class="ft13"><b>Gene</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:114"><nobr><span class="ft4">Figure 1: An example of a result graph (RG)</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:93"><nobr><span class="ft10">by traversing results paths; these PubMed entries are re-<br>ferred to as the target object set (TOS) reached by travers-<br>ing the result paths of the RG. In contrast, a keyword based<br>query would not have been able to specify the set of target<br>publications. Navigational queries, the RG and the target<br>object set (TOS) that answers the query are defined in the<br>paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:107"><nobr><span class="ft4">It is difficult for a user to explore all target objects in a</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:93"><nobr><span class="ft10">reasonable amount of time and it is important to provide<br>a ranking of the TOS. As is well known, word based rank-<br>ing methods are very good at identifying the most relevant<br>results, typically using features extracted from the contents<br>of the target objects. For example [13] produces a ranking<br>of documents in PubMed that are most relevant to a gene.<br>In contrast, PageRank [11] focuses on the importance of the<br>target object and importance is transferred from other im-<br>portant objects via the link structure. A recent technique<br>ObjectRank [1] addresses both relevance and importance; it<br>exploits schema knowledge to determine the correct author-<br>ity transfer between important pages. We note that there<br>is also research on ranking paths [2]. For term-based query<br>dependent ranking, we refer to [3, 12].</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:107"><nobr><span class="ft4">The focus of this paper is to produce a ranking method</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:93"><nobr><span class="ft10">to select the best target objects in the RG that answer the<br>navigational query. Our ideal ranking must identify target<br>objects that are both relevant and important. The ranking<br>must also be query dependent since we must guarantee that<br>the target objects that are ranked indeed occur in the RG<br>and answer the navigational query. Further, both relevance<br>and importance must be determined with respect to the ob-<br>jects in TOS, rather than with respect to all the data entries<br>(as is the case with PageRank).</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:107"><nobr><span class="ft4">We propose two ranking metrics for the layered graph</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:93"><nobr><span class="ft10">RG; they are layered graph PageRank (lgPR) and layered<br>graph ObjectRank (lgOR). lgPR extends PageRank by dis-<br>tinguishing different roles (intermediate node, answer node)<br>which can be played by the same node in the result graph.<br>It does not perform random jumps so as to respect the RG.<br>Our second metric lgOR is an extension to ObjectRank; due<br>to space limitations we only discuss it briefly.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:501"><nobr><span class="ft4">We report on our preliminary evaluation of lgPR on a real</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:488"><nobr><span class="ft10">dataset from NCBI/NIH. For some navigational queries, we<br>apply lgPR to the corresponding RG and use the ranking<br>distribution for lgPR to illustrate that lgPR indeed discrim-<br>inates among the TOS objects. We also apply the original<br>PR metric to the object graph of life science data (against<br>which we evaluate the query). We compare with applying<br>lgPR to the actual RG to illustrate that lgPR and PR pro-<br>duce dissimilar rankings.</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:501"><nobr><span class="ft4">Finally, we report on an initial user experiment. We con-</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:488"><nobr><span class="ft10">sider a set of complex queries typical of a scientist search-<br>ing for gene related PubMed publications, and the Top K<br>results of a word based ranking technique (Iowa) that has<br>been shown to be accurate in answering gene queries [13].<br>We compare the Iowa Top K publications with the lgPR Top<br>K publications, for some sample gene related queries, using<br>criteria that reflect both relevance and importance. We use<br>these criteria to understand the characteristics of lgPR.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:501"><nobr><span class="ft4">The paper is organized as follows: Section 2 describes the</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:488"><nobr><span class="ft10">data model, navigational query language and layered DAG<br>result graph. Section 3 presents PageRank, lgPR, Objec-<br>tRank, and lgOR. 4 reports on preliminary results of an<br>experimental study with NCBI data and concludes.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:488"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:519"><nobr><span class="ft3"><b>DATA MODEL</b></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:501"><nobr><span class="ft4">We briefly describe a data model and navigational query</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:488"><nobr><span class="ft4">language for the life science graph. Details in [6, 9, 14].</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:488"><nobr><span class="ft3"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:528"><nobr><span class="ft3"><b>Data Model for the Life Science Graph</b></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:501"><nobr><span class="ft4">The data model comprises three levels: ontology, source</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:488"><nobr><span class="ft4">and data (Figure 2). At the ontology level, a domain ontol-</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:562"><nobr><span class="ft14">Gene</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:662"><nobr><span class="ft14">Marker</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:638"><nobr><span class="ft14">Publication</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:654"><nobr><span class="ft14">Nucleotide</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:772"><nobr><span class="ft14">Protein</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:711"><nobr><span class="ft14">Disease</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:566"><nobr><span class="ft14">OMIM </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:567"><nobr><span class="ft14">Gene</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:599"><nobr><span class="ft14">\NCBI</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:599"><nobr><span class="ft14">Gene</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:655"><nobr><span class="ft14">PubMed</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:721"><nobr><span class="ft14">OMIM</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:718"><nobr><span class="ft14">Disease</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:766"><nobr><span class="ft14">Swiss</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:768"><nobr><span class="ft14">Prot</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:714"><nobr><span class="ft14">NCBI </span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:712"><nobr><span class="ft14">Protein</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:665"><nobr><span class="ft14">NCBI</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:658"><nobr><span class="ft14">Nucleotide</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:678"><nobr><span class="ft14">UniSTS</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:507"><nobr><span class="ft15">Ontology Level</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:500"><nobr><span class="ft15">Source Level</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:792"><nobr><span class="ft15">Mappings</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:501"><nobr><span class="ft15">Data Level</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:792"><nobr><span class="ft15">Mappings </span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:488"><nobr><span class="ft4">Figure 2: A Data Model for the Life Science Graph</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:488"><nobr><span class="ft4">ogy describes the universe of discourse, e.g., a gene, a pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">28</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:5px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft10">tein, etc., and the relationships among them. An ontology<br>graph OG = (C, L</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:211"><nobr><span class="ft15">C</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:220"><nobr><span class="ft4">) models the domain ontology, where</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:93"><nobr><span class="ft4">nodes in C represent classes, and edges in L</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:356"><nobr><span class="ft15">C</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:370"><nobr><span class="ft4">correspond to</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:93"><nobr><span class="ft10">relationships among classes. For example, genes and publi-<br>cations are classes in OG and the association discuss relates<br>publications with genes.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:255"><nobr><span class="ft4">In this paper, we only consider</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:93"><nobr><span class="ft10">one type of link, isRelatedTo, to capture the semantics of a<br>relationship; therefore, we omit all link labels.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:107"><nobr><span class="ft4">At the source level, a source graph SG = (S, L</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:413"><nobr><span class="ft15">S</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:421"><nobr><span class="ft4">) de-</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:93"><nobr><span class="ft10">scribes data sources and links that implement logical classes<br>(C) and associations (L</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:233"><nobr><span class="ft15">C</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:243"><nobr><span class="ft4">) in OG, respectively. For example,</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:93"><nobr><span class="ft10">PubMed and Entrez Gene are sources that implement the<br>logical classes publications and genes, respectively. A map-<br>ping defines logical classes in C in terms of the sources in S<br>that implement them. A link between sources represents a<br>hyper-link, a service or an application that connects these<br>two sources. At the data level, a Data Graph is a graph<br>(D, L</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:126"><nobr><span class="ft15">D</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:136"><nobr><span class="ft4">), where D is a set of data entries and L</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:392"><nobr><span class="ft15">D</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:407"><nobr><span class="ft4">is a set</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:93"><nobr><span class="ft4">of references between entries. A mapping m</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:374"><nobr><span class="ft15">S</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:388"><nobr><span class="ft4">establishes</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:93"><nobr><span class="ft4">which data entries in D are published by source S.</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:93"><nobr><span class="ft3"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:134"><nobr><span class="ft3"><b>Navigational Query Language</b></span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:107"><nobr><span class="ft4">We define a query as a path expression over the alphabet</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:93"><nobr><span class="ft10">C in OG, where each class occurrence can optionally be an-<br>notated with a Boolean expression. The simplest Boolean<br>expression is the comparison of a Field to a particular value.<br>In this paper, a field can be either source or Object content,<br>and the relational operators can be "=" for source and "con-<br>tains" for Object content. A condition over source and the<br>relational operator "=", (source = "name-of-source"), re-<br>stricts the query to some specific sources that implement<br>the class. A condition on Object content and the relational<br>operator "contains", specifies the set of keywords that must<br>occur within objects in the Data Graph. The symbol</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:443"><nobr><span class="ft4">is</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:93"><nobr><span class="ft10">a wild-card matching any class and the "." represents any<br>relationship.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:107"><nobr><span class="ft4">The query: Retrieve publications that are related to the</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:93"><nobr><span class="ft17">gene "tnf or aliases in human" in OMIM or Enrtez Gene,<br>and are reached by traversing one intermediate resource, is<br>expressed in the navigational query language as follows: Q =<br>Gene[Object content contains</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:272"><nobr><span class="ft4">{"tnf" and aliases in human}</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:93"><nobr><span class="ft4">and source = OMIM or Entrez Gene]</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:324"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:343"><nobr><span class="ft4">· Publication</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:107"><nobr><span class="ft4">The answer to a query Q is defined at the three levels of</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:93"><nobr><span class="ft4">the data model. It comprises three sets of paths: </span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:408"><nobr><span class="ft15">OG</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:426"><nobr><span class="ft4">(Q),</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:93"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:101"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:118"><nobr><span class="ft4">(Q) and </span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:178"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:196"><nobr><span class="ft4">(Q). The meaning of query Q with respect</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:93"><nobr><span class="ft4">to the ontology graph OG, </span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:261"><nobr><span class="ft15">OG</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:279"><nobr><span class="ft4">(Q), is the set of simple paths</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:93"><nobr><span class="ft10">in OG that correspond to words in the language induced by<br>the regular expression Q. The meaning of the query with<br>respect to the source graph SG, </span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:308"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:325"><nobr><span class="ft4">(Q), is the set of all</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:93"><nobr><span class="ft10">simple paths in SG that correspond to mappings of the paths<br>in </span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:117"><nobr><span class="ft15">OG</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:135"><nobr><span class="ft4">(Q). Finally, the answer for query Q with respect to</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:93"><nobr><span class="ft4">the data graph DG, </span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:230"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:249"><nobr><span class="ft4">(Q), is the set of simple paths in</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:93"><nobr><span class="ft4">DG that are the result of mapping the paths in </span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:414"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:430"><nobr><span class="ft4">(Q)</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:93"><nobr><span class="ft4">using mapping function m</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:252"><nobr><span class="ft15">S</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:260"><nobr><span class="ft4">. A simple path does not repeat</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:93"><nobr><span class="ft10">(revisit) the same class, data source or data entry (in the<br>same path).</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:107"><nobr><span class="ft4">The queries that are presented in this section are typi-</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:93"><nobr><span class="ft10">cal queries posed by researchers. At present, there are no<br>query evaluation engines to answer navigational queries and<br>researchers must rely on manual navigation via browsers or<br>they must write scripts; the latter involves labor to keep<br>writing the scripts and the scripts may be inefficient in an-<br>swering these queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:488"><nobr><span class="ft3"><b>2.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:528"><nobr><span class="ft3"><b>Result Graph</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:501"><nobr><span class="ft4">The union of paths in </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:641"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:659"><nobr><span class="ft4">(Q) is the result graph RG. We</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:488"><nobr><span class="ft10">note that for our query language, all the paths that satisfy<br>a query are of the same length, i.e., all the paths in the<br>sets </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:523"><nobr><span class="ft15">OG</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:541"><nobr><span class="ft4">(Q), </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:580"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:597"><nobr><span class="ft4">(Q) and </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:659"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:678"><nobr><span class="ft4">(Q) are of the same length.</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:488"><nobr><span class="ft4">We model a result graph RG</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:668"><nobr><span class="ft15">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:683"><nobr><span class="ft4">= (D</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:716"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:734"><nobr><span class="ft4">, L</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:749"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:767"><nobr><span class="ft4">) for a query</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:488"><nobr><span class="ft10">Q, as a layered directed acyclic graph comprising k layers,<br>L</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:497"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:503"><nobr><span class="ft4">, ..., L</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:542"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:549"><nobr><span class="ft4">, where k is determined by the query. The set of</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:488"><nobr><span class="ft4">nodes D</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:537"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:558"><nobr><span class="ft4">corresponds to the union of the data entries that</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:488"><nobr><span class="ft4">appear in the paths in </span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:641"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:659"><nobr><span class="ft4">(Q). L</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:704"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:727"><nobr><span class="ft4">represents the links</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:488"><nobr><span class="ft4">among these data entries. A layer L</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:719"><nobr><span class="ft15">i</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:730"><nobr><span class="ft4">is composed of the</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:488"><nobr><span class="ft4">union of the data entries in the paths </span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:730"><nobr><span class="ft15">DG</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:748"><nobr><span class="ft4">(Q) that appear</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:488"><nobr><span class="ft10">in the i-th position of the paths. The data entries in the<br>k-th layer are called the target objects and they form the<br>target object set (TOS) of the RG.</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:501"><nobr><span class="ft4">Note that since the result graph has multiple paths, and</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:488"><nobr><span class="ft10">since a source may occur in different layers of these paths,<br>the same data entry may appear multiple times in the dif-<br>ferent layers, depending on its connectivity to other data<br>entries. In this case, each occurrence of the data entry is<br>represented independently within each layer/path in which<br>it occurs. The result graph framework distinguishes the dif-<br>ferent roles (intermediate node, answer node) which can be<br>played by the same node in the result graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:501"><nobr><span class="ft4">Figure 1 is a layered RG for the following query: Retrieve</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:488"><nobr><span class="ft10">publications related to the gene "tnf " traversing one interme-<br>diate source; it has three layers. The first layer corresponds<br>to the genes in the sources OMIM Gene and Entrez Gene<br>that are related to the keyword "tnf". The second layer are<br>the entries in the sources NCBI Protein, Swiss Prot or NCBI<br>Nucleotide that are reached by objects in the first layer. Fi-<br>nally, the target objects in the third layer (TOS) are the<br>publications in PubMed that are linked to the objects in<br>the second layer.</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:488"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:519"><nobr><span class="ft3"><b>RANKING METRICS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:501"><nobr><span class="ft4">We briefly describe the PageRank metric [11] and then</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:488"><nobr><span class="ft10">discuss our metric lgPR for layered DAGs. We briefly dis-<br>cuss the ObjectRank metric [1] and our extension lgOR.</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:488"><nobr><span class="ft3"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:528"><nobr><span class="ft3"><b>PageRank</b></span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:501"><nobr><span class="ft4">PageRank assumes that links between pages confer au-</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:488"><nobr><span class="ft10">thority. A link from page i to page j is evidence that i is<br>suggesting that j is important. The importance from page<br>i that is contributed to page j is inversely proportional to<br>the outdegree of i. Let N</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:643"><nobr><span class="ft15">i</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:652"><nobr><span class="ft4">be the outdegree of page i. The</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:488"><nobr><span class="ft10">corresponding random walk on the directed web graph can<br>be expressed by a transition matrix A as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:523"><nobr><span class="ft4">A[i, j] =</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:600"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:596"><nobr><span class="ft15">N</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:605"><nobr><span class="ft16">i</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:625"><nobr><span class="ft4">if there is an edge from i to j</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:594"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:624"><nobr><span class="ft4">otherwise</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:501"><nobr><span class="ft4">Let E be an arbitrary vector over the webpages, repre-</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:488"><nobr><span class="ft10">senting the initial probability of visiting a page. Let d be<br>the probability of following a link from a page and let (1</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:822"><nobr><span class="ft4">-d)</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:488"><nobr><span class="ft10">be the probability of a random jump to a page. The PageR-<br>ank ranking vector R = dA</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:656"><nobr><span class="ft4">· R + (1 - d)E. R converges for</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:488"><nobr><span class="ft10">the web graph with any E, since generally the web graph is<br>aperiodic and irreducible[5, 10].</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:501"><nobr><span class="ft4">PageRank cannot be directly applied to a layered graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:488"><nobr><span class="ft10">A Markov Chain is irreducible if and only if the graph con-<br>tains only one strongly connected component. RG is not</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">29</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:14px;font-family:Times;color:#000000;}
+	.ft19{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft20{font-size:6px;line-height:8px;font-family:Times;color:#000000;}
+	.ft21{font-size:11px;line-height:24px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164004.png" alt="background image">
+<DIV style="position:absolute;top:100;left:93"><nobr><span class="ft4">outgoing links with respect to the query.</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:107"><nobr><span class="ft4">There are several potential ways to extend PageRank for</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:93"><nobr><span class="ft10">RG. First, one can ignore links that point to pages without<br>outgoing edges since these pages do not affect the ranking<br>of other pages [11]. However we are specifically interested<br>in obtaining a ranking for the TOS or the objects in the<br>last layer of the layered result graph RG with no outgoing<br>links, we cannot ignore these pages.</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:334"><nobr><span class="ft4">Another possibility</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:93"><nobr><span class="ft10">is modifying the transition matrix probability so that one<br>takes a random jump from a node in the TOS [5]. This<br>will ensure that the graph will be irreducible and aperiodic.<br>However, this would arbitrarily modify RG whose structure<br>is determined by the query; modifying RG will not assure<br>that it answers the query. To summarize, the extensions to<br>PageRank in the literature cannot be applied to the problem<br>of ranking the target object set TOS of RG.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:93"><nobr><span class="ft3"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:134"><nobr><span class="ft3"><b>Layered Graph PageRank(lgPR)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:107"><nobr><span class="ft4">We describe layered graph PageRank to rank the TOS.</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:97"><nobr><span class="ft18"><i>3.2.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:147"><nobr><span class="ft18"><i>The Metric</i></span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:107"><nobr><span class="ft4">Table 1 lists the symbols used to compute lgPR.</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:133"><nobr><span class="ft7">Symbol</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:213"><nobr><span class="ft7">Meaning</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:110"><nobr><span class="ft7">RG(V</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:142"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:159"><nobr><span class="ft7">, E</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:174"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:192"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:213"><nobr><span class="ft19">Result Graph, a layered DAG, with<br>objects V</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:264"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:286"><nobr><span class="ft7">and edges E</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:354"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:138"><nobr><span class="ft7">e</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:144"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:152"><nobr><span class="ft16">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:213"><nobr><span class="ft7">an edge in E</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:284"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:149"><nobr><span class="ft7">R</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:213"><nobr><span class="ft7">ranking vector for objects in RG</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:141"><nobr><span class="ft7">R</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:150"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:213"><nobr><span class="ft7">initial ranking vector</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:144"><nobr><span class="ft7">A</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:153"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:213"><nobr><span class="ft7">the transition matrix for objects in RG</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:150"><nobr><span class="ft7">k</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:213"><nobr><span class="ft7">the number of layers in the result graph</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:110"><nobr><span class="ft7">OutDeg</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:155"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:173"><nobr><span class="ft7">(u</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:185"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:192"><nobr><span class="ft7">)</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:213"><nobr><span class="ft19">outdegree from object u at layer p<br>(across multiple link types to objects in<br>layer p + 1</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:163"><nobr><span class="ft4">Table 1: Symbols used by lgPR</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:107"><nobr><span class="ft4">The layered DAG result graph RG is represented by a</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:93"><nobr><span class="ft4">transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:212"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:227"><nobr><span class="ft4">to be defined next. Note that an ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:93"><nobr><span class="ft10">ject in the object graph may occur in multiple paths of the<br>result graph, in different layers; it will be replicated in the<br>transition matrix for each occurrence. Each object u at layer<br>p will have an entry in the transition matrix to some object<br>v at layer q. We denote the occurrence of them as u</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:418"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:430"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:93"><nobr><span class="ft4">v</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:100"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:111"><nobr><span class="ft4">respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:107"><nobr><span class="ft4">The ranking vector R is defined by a transition matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:93"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:104"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:118"><nobr><span class="ft4">and initial ranking vector R</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:287"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:303"><nobr><span class="ft4">, is as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:178"><nobr><span class="ft4">R = A</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:217"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:223"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:217"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:238"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:249"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:268"><nobr><span class="ft4">= (</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:288"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:294"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:290"><nobr><span class="ft15">l=1</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:311"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:321"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:331"><nobr><span class="ft4">) R</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:352"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:107"><nobr><span class="ft4">We pick R</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:169"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:189"><nobr><span class="ft4">as follows: the entry for an object in R</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:423"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:443"><nobr><span class="ft4">is</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:93"><nobr><span class="ft10">1 if this object is a link in start layer and 0 otherwise. The<br>transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:212"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:226"><nobr><span class="ft4">is computed as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:108"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:118"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:128"><nobr><span class="ft4">[i</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:137"><nobr><span class="ft20">p<br>u</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:144"><nobr><span class="ft4">, j</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:157"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:156"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:163"><nobr><span class="ft4">] =</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:185"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:185"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:185"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:185"><nobr><span class="ft21"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:185"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:185"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:242"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:206"><nobr><span class="ft15">OutDeg</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:246"><nobr><span class="ft16">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:262"><nobr><span class="ft15">(u</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:273"><nobr><span class="ft16">p</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:279"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:299"><nobr><span class="ft4">if OutDeg</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:361"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:378"><nobr><span class="ft4">(u</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:392"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:398"><nobr><span class="ft4">) &gt; 0</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:299"><nobr><span class="ft4">and e(u</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:346"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:352"><nobr><span class="ft4">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:365"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:371"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:380"><nobr><span class="ft4"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:404"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:421"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:204"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:299"><nobr><span class="ft4">otherwise.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:107"><nobr><span class="ft4">Note that we define the outdegree of each object in RG</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:93"><nobr><span class="ft10">to only consider those edges that actually occur in RG and<br>link to objects in the next layer. This reflect the probability<br>that a user follows an object path in the RG. In contrast,<br>PageRank considers all outgoing edges from a page.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:501"><nobr><span class="ft4">Unlike PageRank, lgPR differentiates the occurrence of a</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:488"><nobr><span class="ft10">data entry in different layers, as well as the links to entries<br>in subsequent layers; lgPR is thus able to reflect the role of<br>objects and links (from the entire graph of data entries) in<br>answering a navigational query. Suppose an object a occurs<br>in an intermediate layer as well as in the TOS of the RG. It<br>is possible that a is able to convey authority to other objects<br>in the TOS. However, a may not rank very high in the TOS<br>for this query. This characteristic is unique to lgPR. Thus,<br>the score associated with the object is query dependent to<br>reflect the role played by the object in the result graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:492"><nobr><span class="ft18"><i>3.2.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:541"><nobr><span class="ft18"><i>Convergence Property</i></span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:501"><nobr><span class="ft4">This transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:652"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:666"><nobr><span class="ft4">is neither irreducible nor ape-</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:488"><nobr><span class="ft10">riodic as all rows for target objects contain only 0's. The<br>matrix A is a nilpotent matrix and the number of layers is<br>the index. We provide two defintions (details in [8]).</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:503"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:581"><nobr><span class="ft4">3.1. A square matrix A is a nilpotent matrix,</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:488"><nobr><span class="ft4">if there exists some positive integer k such that A</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:789"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:801"><nobr><span class="ft4">= 0 but</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:488"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:498"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:504"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:523"><nobr><span class="ft4">= 0. Integer k is known as the index of A.</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:503"><nobr><span class="ft4">Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:581"><nobr><span class="ft4">3.2. Let k be the index of A.</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:751"><nobr><span class="ft4">{A</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:768"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:774"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:789"><nobr><span class="ft4">x, A</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:813"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:819"><nobr><span class="ft15">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:834"><nobr><span class="ft4">x,</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:488"><nobr><span class="ft4">..., Ax, x</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:538"><nobr><span class="ft4">} form a Jordan Chain, where x is any vector such</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:488"><nobr><span class="ft4">that A</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:526"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:532"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:547"><nobr><span class="ft4">x = 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:501"><nobr><span class="ft4">A characteristic of a nilpotent matrix is that its only eigen-</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:488"><nobr><span class="ft10">value is 0. The consequence is that any vector x is an eigen-<br>vector of A as long as Ax = 0. From the previous defini-<br>tion</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:517"><nobr><span class="ft4">{A</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:534"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:540"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:534"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:555"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:565"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:581"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:598"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:604"><nobr><span class="ft15">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:598"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:619"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:629"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:645"><nobr><span class="ft4">, ..., A</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:679"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:689"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:699"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:715"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:732"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:742"><nobr><span class="ft4">} forms a Jordan</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:488"><nobr><span class="ft4">Chain, since A</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:577"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:583"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:577"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:598"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:608"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:627"><nobr><span class="ft4">= 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:501"><nobr><span class="ft4">We show following two lemmas without providing proof</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:488"><nobr><span class="ft4">in this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:503"><nobr><span class="ft4">Lemma</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:555"><nobr><span class="ft4">3.3. Jordan chain</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:667"><nobr><span class="ft4">{A</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:684"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:690"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:684"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:705"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:716"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:731"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:748"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:754"><nobr><span class="ft15">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:748"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:769"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:779"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:795"><nobr><span class="ft4">, ...,</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:488"><nobr><span class="ft4">A</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:498"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:508"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:519"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:534"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:551"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:561"><nobr><span class="ft4">} is a linearly independent set.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:503"><nobr><span class="ft4">Lemma</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:555"><nobr><span class="ft4">3.4.</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:583"><nobr><span class="ft4">{A</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:601"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:607"><nobr><span class="ft15">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:601"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:622"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:632"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:648"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:664"><nobr><span class="ft15">k</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:670"><nobr><span class="ft15">-2</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:664"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:685"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:696"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:711"><nobr><span class="ft4">, ..., A</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:746"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:756"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:766"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:782"><nobr><span class="ft4">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:798"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:808"><nobr><span class="ft4">} con-</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:488"><nobr><span class="ft4">sists of a sequence of ranking vectors. In R</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:751"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:767"><nobr><span class="ft4">, only objects</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:488"><nobr><span class="ft4">in layer 0 have non-zero scores; In ranking vector A</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:806"><nobr><span class="ft20">m<br>lg</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:816"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:827"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:842"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:488"><nobr><span class="ft4">only objects in layer m receive non-zero scores.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:501"><nobr><span class="ft4">The final ranking vector by lgPR is the first eigenvector</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:488"><nobr><span class="ft10">in the Jordan Chain, given the above initial ranking vector<br>R</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:498"><nobr><span class="ft15">ini</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:520"><nobr><span class="ft4">and the transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:693"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:703"><nobr><span class="ft4">. While the traditional</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:488"><nobr><span class="ft10">PageRank algorithm converges on a ranking in multiple it-<br>erations, lgPR can be computed in exactly k</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:761"><nobr><span class="ft4">- 1 iterations.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:488"><nobr><span class="ft10">Note that because RG is a layered DAG, we can use link<br>matrices, each of which represents links between neighbor-<br>ing layers, instead of the single transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:793"><nobr><span class="ft15">lg</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:807"><nobr><span class="ft4">for the</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:488"><nobr><span class="ft10">entire graph. We also use keywords to filter query answers<br>at each iteration.</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:488"><nobr><span class="ft3"><b>3.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:528"><nobr><span class="ft3"><b>Layered Graph ObjectRank(lgOR)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:501"><nobr><span class="ft4">PR is computed a priori on the complete data graph and is</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:488"><nobr><span class="ft10">independent of the RG. A recent technique ObjectRank [1]<br>extends PageRank to consider relevance of query keywords.<br>It exploits schema knowledge to determine the correct au-<br>thority transfer in a schema graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:723"><nobr><span class="ft4">In ObjectRank, the</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:488"><nobr><span class="ft10">authority flows between objects according to semantic con-<br>nections. It does so by determining an authority weight for<br>each edge in their schema graph. The ranking is (keyword)<br>query dependent.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:501"><nobr><span class="ft4">Due to space limitations, we do not provide the details</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:488"><nobr><span class="ft4">of the ObjectRank metric. Instead, we briefly describe how</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:93"><nobr><span class="ft4">irreducible since the last layer in RG contains nodes with no</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">30</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:4px;font-family:Times;color:#000000;}
+	.ft23{font-size:5px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft10">the transition matrix for lgPR can be extended to consider<br>the authority weights associated with edges that occur in<br>RG.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:107"><nobr><span class="ft4">Consider a metric layered graph ObjectRank(lgOR). The</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:93"><nobr><span class="ft4">difference from lgPR is the transition matrix A</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:381"><nobr><span class="ft15">OG</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:399"><nobr><span class="ft4">. It is as</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:93"><nobr><span class="ft4">follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:138"><nobr><span class="ft4">A[i</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:157"><nobr><span class="ft20">p<br>u</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:164"><nobr><span class="ft4">, j</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:177"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:176"><nobr><span class="ft15">v</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:183"><nobr><span class="ft4">] =</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:222"><nobr><span class="ft4">(e</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:243"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:251"><nobr><span class="ft16">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:268"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:287"><nobr><span class="ft4">if e(u</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:319"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:326"><nobr><span class="ft4">, v</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:339"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:345"><nobr><span class="ft4">)</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:354"><nobr><span class="ft4"> E</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:377"><nobr><span class="ft15">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:395"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:222"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:287"><nobr><span class="ft4">otherwise.</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:95"><nobr><span class="ft4">(e</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:115"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:123"><nobr><span class="ft16">RG</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:140"><nobr><span class="ft4">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:208"><nobr><span class="ft15">(e</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:225"><nobr><span class="ft16">ESG</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:249"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:184"><nobr><span class="ft15">OutDeg(u</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:235"><nobr><span class="ft16">p</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:241"><nobr><span class="ft15">,e</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:250"><nobr><span class="ft16">ESG</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:273"><nobr><span class="ft15">)</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:293"><nobr><span class="ft4">if OutDeg(u</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:368"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:375"><nobr><span class="ft4">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:387"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:395"><nobr><span class="ft16">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:411"><nobr><span class="ft4">) &gt; 0</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:182"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:293"><nobr><span class="ft4">if OutDeg(u</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:368"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:375"><nobr><span class="ft4">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:387"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:395"><nobr><span class="ft16">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:411"><nobr><span class="ft4">) = 0</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:93"><nobr><span class="ft4">Let the edge between u</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:242"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:254"><nobr><span class="ft4">and v</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:290"><nobr><span class="ft15">q</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:302"><nobr><span class="ft4">map to an edge E</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:418"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:440"><nobr><span class="ft4">in</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:93"><nobr><span class="ft4">the SG. (E</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:178"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:194"><nobr><span class="ft4">) represents the authority transfer weight</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:93"><nobr><span class="ft4">associated with E</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:200"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:216"><nobr><span class="ft4">. OutDeg(u</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:288"><nobr><span class="ft15">p</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:295"><nobr><span class="ft4">, e</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:308"><nobr><span class="ft15">E</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:316"><nobr><span class="ft16">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:332"><nobr><span class="ft4">) is the outdegree in</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:93"><nobr><span class="ft4">RG of type E</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:176"><nobr><span class="ft15">SG</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:193"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:107"><nobr><span class="ft4">As discussed in [1], the success of ObjectRank depends on</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:93"><nobr><span class="ft10">correctly determining the authority weight to be associated<br>with each link. Figure 3 (next section) illustrates the source<br>graph that we use in our evaluation of navigational queries.<br>For lgOR to be successful, an authority weight may have<br>to be associated with each link in each result path (type)<br>in the RG. Experiments with users to determine the correct<br>authority weights for lgOR is planned for future work.</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:107"><nobr><span class="ft4">Currently the importance is computed after query eval-</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:93"><nobr><span class="ft10">uation. We compute result graph first, then ranking, for<br>the reason that the transition matrix is defined in terms of<br>outdegree in the RG. This motivates further research of com-<br>bination of two problems, whose ideal solution is to ranking<br>objects during query evaluation.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:93"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:125"><nobr><span class="ft3"><b>EXPERIMENTS ON LGPR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:107"><nobr><span class="ft4">We report on experiments on real world data. We show</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:93"><nobr><span class="ft10">that the lgPR ranking distribution has the ability to differ-<br>entiate among the target objects of the RG and it is dif-<br>ferent from PageRank. A user compared the Top K results<br>of lgPR and a word based ranking (Iowa) [13], using crite-<br>ria that reflect both importance and relevance, to determine<br>their characteristics.</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:93"><nobr><span class="ft3"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:134"><nobr><span class="ft3"><b>Experiment Setting</b></span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:107"><nobr><span class="ft4">NCBI/NIH is the gatekeeper for biological data produced</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:93"><nobr><span class="ft4">using federal funds in the US</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:270"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:277"><nobr><span class="ft4">. We consider a source graph</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:93"><nobr><span class="ft10">SG of 10 data sources and 46 links. Figure 3 presents the<br>source graph used in this task.We used several hundred key-<br>words to sample data from these sources (the EFetch utility)<br>and followed links to the other sources (the ELink utility).<br>We created a data graph of approximately 28.5 million ob-<br>jects and 19.4 million links. We note that several objects are<br>machine predicted objects so it is not uncommon that they<br>have no links. The object identifiers for the data entries<br>(nodes of the data graph) and the pair of object identifiers<br>(links) were stored in a DB2 relational database.</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:107"><nobr><span class="ft4">Table 2 identifies the queries and keywords that were used</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:93"><nobr><span class="ft10">in this experiment. The symbols g, p, n, s refer to classes<br>gene, publication, nucleotide and SNP, respectively. Note<br>that</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:136"><nobr><span class="ft4">is the wild card and can match all the classes and</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:93"><nobr><span class="ft4">sources (in the source graph).</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:107"><nobr><span class="ft4">For each navigational query, the source paths that answer</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:93"><nobr><span class="ft4">the query were determined using an algorithm described in</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:94"><nobr><span class="ft15">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:100"><nobr><span class="ft4">www.ncbi.nlm.nih.gov</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:715"><nobr><span class="ft16">Class </span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:710"><nobr><span class="ft16">PubMed</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:700"><nobr><span class="ft23">PmId<br>Title</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:774"><nobr><span class="ft16">Class Author</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:772"><nobr><span class="ft16">Name</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:782"><nobr><span class="ft16">Class Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:782"><nobr><span class="ft16">Name</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:789"><nobr><span class="ft16">ClassYear</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:782"><nobr><span class="ft16">Year</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:811"><nobr><span class="ft22">(1,*)</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:810"><nobr><span class="ft22">(1,1)</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:756"><nobr><span class="ft22">(1,*)</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:705"><nobr><span class="ft16">Class Lash </span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:714"><nobr><span class="ft16">Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:700"><nobr><span class="ft23">TermId<br>Descrip</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:729"><nobr><span class="ft22">(1,*)</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:729"><nobr><span class="ft22">(0,*)</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:630"><nobr><span class="ft16">Class Entrez </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:643"><nobr><span class="ft16">Gene</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:627"><nobr><span class="ft16">EGId</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:752"><nobr><span class="ft22">(1,*) (1,1)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:570"><nobr><span class="ft16">Class Geo</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:564"><nobr><span class="ft16">GeoId</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:632"><nobr><span class="ft16">ClassOMIM</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:627"><nobr><span class="ft16">CddId</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:504"><nobr><span class="ft16">Class UniSTS</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:503"><nobr><span class="ft16">USId</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:518"><nobr><span class="ft16">Class </span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:513"><nobr><span class="ft16">UniGene</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft16">UGId</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:524"><nobr><span class="ft16">Class Entrez </span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:533"><nobr><span class="ft16">Protein</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:522"><nobr><span class="ft16">EPId</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:535"><nobr><span class="ft16">Class dbSNP</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:534"><nobr><span class="ft16">dbSID</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:512"><nobr><span class="ft16">Class CDD</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:506"><nobr><span class="ft16">CddId</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:604"><nobr><span class="ft16">Class Entrez </span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:607"><nobr><span class="ft16">Nucleotide</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:601"><nobr><span class="ft16">NuId</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:743"><nobr><span class="ft22">(1,*)</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:513"><nobr><span class="ft4">Figure 3: Source Graph for User Evaluation</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:506"><nobr><span class="ft7">Queries</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:570"><nobr><span class="ft7">g.n.p, g.s.p, g.n.s.p, g.s.n.p, g.s.g.n.p, g.s.n.g.p,</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:644"><nobr><span class="ft7">g. .p, g. . .p, g. . . .p</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:597"><nobr><span class="ft7">"parkinson disease", "aging","cancer"</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:500"><nobr><span class="ft7">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:611"><nobr><span class="ft7">"diabetes", "flutamide", "stress"</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:604"><nobr><span class="ft7">"degenerative joint","tnf","insulin"</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:587"><nobr><span class="ft7">"fluorouracil", "osteoarthritis","sarcoma"</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:569"><nobr><span class="ft4">Table 2: Experiment setting</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:488"><nobr><span class="ft10">[14]. Evaluating the paths in the data graph for each source<br>path was implemented by SQL queries. Since a result graph<br>RG could involve multiple source paths whose computation<br>may overlap we applied several multiple query optimization<br>techniques. The SQL queries were executed on DB2 Enter-<br>prise Server V8.2 installed on a 3.2 GHz Intel Xeon processor<br>with 1GB RAM. The execution time for these queries varied<br>considerably, depending on the size and shape of RG. If we<br>consider the query g.n.p with keyword "degenerative joint"<br>used to filter 'g', one source path was ranked in approxi-<br>mately 1 second. However, the query (g. . . .p) with the<br>keyword aging used to filter 'g' created a very large result<br>graph and the execution time for this was approximately<br>2000 seconds. Typically the We note that computing the<br>high scoring TOS objects of the RG efficiently is a related<br>but distinct optimization problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:488"><nobr><span class="ft3"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:528"><nobr><span class="ft3"><b>lgPR Distribution</b></span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:501"><nobr><span class="ft4">We report on the query (g. .p), i.e., paths from genes to</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:488"><nobr><span class="ft4">publications via one intermediate source.</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:501"><nobr><span class="ft4">Figures 4 and 5 report on the distribution of scores pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:488"><nobr><span class="ft10">duced by the lgPR metric for the target objects in TOS<br>for some representative queries. The first 10 bars represent<br>scores in the range (0.00-0.01) to (0.09-0.1) and the last bar<br>represents the range (0.1-1.0).</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:687"><nobr><span class="ft4">Fig 4 shows that a small</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:488"><nobr><span class="ft10">number of objects have very high score and the majority<br>have a low score. As expected, many queries and keywords<br>produced distributions that were similar to Figure 4. Most<br>of the objects in TOS, in this case approx. 12,000 objects,<br>had a very low score, and less than 200 object had a score<br>in the range (0.1-1.0).</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:501"><nobr><span class="ft4">However, we made an interesting observation that some</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:488"><nobr><span class="ft10">queries produced distributions that were similar to Figure<br>5. In this case, while many of the results (approx. 120) had<br>low scores in the range (0.00-0.02), 46 objects had scores in</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:487"><nobr><span class="ft4">the range (0.1-1.0) and 120 objects had scores in between.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">31</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft24{font-size:3px;font-family:Helvetica;color:#000000;}
+	.ft25{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft26{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164006.png" alt="background image">
+<DIV style="position:absolute;top:311;left:168"><nobr><span class="ft24">.00-.01</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:192"><nobr><span class="ft24">.01-.02</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:216"><nobr><span class="ft24">.02-.03</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:240"><nobr><span class="ft24">.03-.04</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:263"><nobr><span class="ft24">.04-.05</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:287"><nobr><span class="ft24">.05-.06</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:311"><nobr><span class="ft24">.06-.07</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:334"><nobr><span class="ft24">.07-.08</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:358"><nobr><span class="ft24">.08-.09</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:382"><nobr><span class="ft24">.09-.10</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:404"><nobr><span class="ft24">.10-1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:148"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:140"><nobr><span class="ft24">2000</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:140"><nobr><span class="ft24">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:140"><nobr><span class="ft24">6000</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:140"><nobr><span class="ft24">8000</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:137"><nobr><span class="ft24">10000</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:137"><nobr><span class="ft24">12000</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:172"><nobr><span class="ft24">12183</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:196"><nobr><span class="ft24">677</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:220"><nobr><span class="ft24">404</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:244"><nobr><span class="ft24">172</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:267"><nobr><span class="ft24">105</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:291"><nobr><span class="ft24">62</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:315"><nobr><span class="ft24">52</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:339"><nobr><span class="ft24">43</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:363"><nobr><span class="ft24">34</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:386"><nobr><span class="ft24">19</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:410"><nobr><span class="ft24">197</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:278"><nobr><span class="ft25">lgPR score</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:132"><nobr><span class="ft25">Number of objects</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:93"><nobr><span class="ft10">Figure 4: Histogram for query: g[Object content con-<br>tains "aging"]</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:189"><nobr><span class="ft4">· ·p</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:168"><nobr><span class="ft24">.00-.01</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:192"><nobr><span class="ft24">.01-.02</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:216"><nobr><span class="ft24">.02-.03</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:240"><nobr><span class="ft24">.03-.04</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:263"><nobr><span class="ft24">.04-.05</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:287"><nobr><span class="ft24">.05-.06</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:311"><nobr><span class="ft24">.06-.07</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:334"><nobr><span class="ft24">.07-.08</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:358"><nobr><span class="ft24">.08-.09</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:382"><nobr><span class="ft24">.09-.10</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:404"><nobr><span class="ft24">.10-1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:148"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:145"><nobr><span class="ft24">10</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:145"><nobr><span class="ft24">20</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:145"><nobr><span class="ft24">30</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:145"><nobr><span class="ft24">40</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:145"><nobr><span class="ft24">50</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:145"><nobr><span class="ft24">60</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:145"><nobr><span class="ft24">70</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:145"><nobr><span class="ft24">80</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:172"><nobr><span class="ft24">81</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:196"><nobr><span class="ft24">41</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:220"><nobr><span class="ft24">12</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:244"><nobr><span class="ft24">4</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:267"><nobr><span class="ft24">32</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:291"><nobr><span class="ft24">11</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:315"><nobr><span class="ft24">8</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:339"><nobr><span class="ft24">0</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:363"><nobr><span class="ft24">2</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:386"><nobr><span class="ft24">1</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:410"><nobr><span class="ft24">46</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:278"><nobr><span class="ft25">lgPR score</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:141"><nobr><span class="ft25">Number of objects</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:93"><nobr><span class="ft10">Figure 5: Histogram for query: g [Object content con-<br>tains "degenerative joint"]</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:283"><nobr><span class="ft4">· ·p</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:107"><nobr><span class="ft4">Finally, we compared the ranking produced by lgPR and</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:93"><nobr><span class="ft10">PageRank. We apply PageRank to the entire data graph<br>of 28.5 million objects and 19.4 million links described in<br>section 4.1. For the three sample queries (described in the<br>next section), there are no PubMed ID's in common to the<br>Top 25, 50, 100 for each of the queries, except that the<br>top 50 of query with Lash term "allele" have 1 PubMed<br>publications in common, and top 100 of same query have 3<br>in common. We speculate that the link structure of the RG<br>is distinct compared to the link structure of the data graph;<br>hence applying lgPR to the RG results in dissimilar ranking<br>compared to a priori applying PageRank to the entire data<br>graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:107"><nobr><span class="ft4">We summarize that the lgPR score can both identify those</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:93"><nobr><span class="ft10">objects with a very low ranking that may not be of interest<br>to the user. However, it can also be used to discriminate<br>amongst objects in the TOS whose ranking has a much lower<br>variation of scores. Finally, lgPR ranking is not the same<br>as that produced by PageRank applied to the entire data<br>graph.</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:93"><nobr><span class="ft3"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:134"><nobr><span class="ft3"><b>User Evaluation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:107"><nobr><span class="ft4">In our user evaluation of lgPR, we consider a set of com-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:93"><nobr><span class="ft4">plex queries typical of a scientist searching for gene related</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft10">PubMed publications, and the Top K results of a word based<br>ranking technique (Iowa) that has been shown to be accurate<br>in answering gene queries [13]. We compare the Iowa Top<br>K publications with the lgPR Top K publications, for some<br>sample gene related queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:676"><nobr><span class="ft4">We use criteria that reflect</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:488"><nobr><span class="ft10">both relevance and importance to identify characteristics of<br>lgPR.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:501"><nobr><span class="ft4">Researchers are particularly interested in genetic and phe-</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:488"><nobr><span class="ft10">notypic variations associated with genes; these phenomena<br>are often studied in the context of diseases, in a chromoso-<br>mal region identified by a genomic marker (a unique known<br>sequence) associated with the disease. Genetic and pheno-<br>typic knowledge are described using terms of the Lash con-<br>trolled vocabulary [7]. We focus on a branch of the Lash<br>vocabulary that relates to phenotypes and population ge-<br>netics. Terms of interest include linkage disequilibrium,<br>quantitative trait locus and allele. Figure 6 presents<br>a portion of the Lash controlled vocabulary (term hierar-<br>chy). LD is not listed as the synonym to the term linkage<br>disequilibrium, because LD may often refer to another con-<br>cept. In the following experiment, we did not consider the<br>plural form of some terms, such as alleles to allele, but this<br>can be extended in the future studies.</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:504"><nobr><span class="ft4">1. EPIGENETIC ALTERATION</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:521"><nobr><span class="ft4">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:504"><nobr><span class="ft4">2. GENOMIC SEGMENT LOSS</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:521"><nobr><span class="ft4">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:504"><nobr><span class="ft4">3. GENOMIC SEGMENT GAIN</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:521"><nobr><span class="ft4">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:504"><nobr><span class="ft4">4. GENOMIC SEQUENCE ALTERATION</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:521"><nobr><span class="ft4">· · ·</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:504"><nobr><span class="ft4">5. PHENOTYPIC ASSOCIATION</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:521"><nobr><span class="ft4">(synonym: phenotype, trait)</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:527"><nobr><span class="ft4">(a) locus association (synonym: locus, loci)</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:562"><nobr><span class="ft4">i. linkage</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:558"><nobr><span class="ft4">ii. quantitative trait locus (synonym: QTL)</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:526"><nobr><span class="ft4">(b) allelic association (synonym: allele)</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:562"><nobr><span class="ft4">i. linkage disequilibrium</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:488"><nobr><span class="ft10">Figure 6: Branch 5 in Hierarchical controlled vo-<br>cabulary of genetics terms (Lash Controlled Vocab-<br>ulary)</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:501"><nobr><span class="ft4">The navigational query used in our evaluation experiment</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:488"><nobr><span class="ft10">can be described in English as follows: "Return all publica-<br>tions in PubMed that are linked to an Entrez Gene entry<br>that is related to the human gene TNF (or its aliases). The<br>entry in PubMed must contain an STS marker and a term<br>from the Lash controlled vocabulary."</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:501"><nobr><span class="ft4">We used the query term "TNF AND 9606[TAXID]"</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:823"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:834"><nobr><span class="ft4">to</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:488"><nobr><span class="ft10">sample data from Entrez Gene. We then followed 8 paths to<br>PubMed. Table 3 reports on the number of entries in Entrez<br>Gene as well as the cardinality of the TOS for some sample<br>queries</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:534"><nobr><span class="ft15">3</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:541"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:501"><nobr><span class="ft4">We briefly describe the word-based ranking method (Iowa)</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:488"><nobr><span class="ft4">that focuses on ranking documents retrieved by PubMed</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:488"><nobr><span class="ft15">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:495"><nobr><span class="ft4">Note the Taxonomy ID for human is 9606 [4], and term</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:488"><nobr><span class="ft4">9606[TAXID] was used to select human genes.</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:488"><nobr><span class="ft15">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:495"><nobr><span class="ft4">We</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:526"><nobr><span class="ft4">use</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:558"><nobr><span class="ft4">g["tnf"</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:614"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:649"><nobr><span class="ft4">aliases</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:700"><nobr><span class="ft4">in</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:724"><nobr><span class="ft4">human]</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:782"><nobr><span class="ft4">to</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:806"><nobr><span class="ft4">denote</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:488"><nobr><span class="ft4">g[Object content contains</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:652"><nobr><span class="ft4">{"tnf" and aliases in human}];</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:488"><nobr><span class="ft4">the entries in the first column of Table 3 are similar.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">32</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft27{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164007.png" alt="background image">
+<DIV style="position:absolute;top:82;left:196"><nobr><span class="ft7">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:335"><nobr><span class="ft7">Cardinality of TOS</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:103"><nobr><span class="ft7">g["tnf" and aliases in human]</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:379"><nobr><span class="ft7">649</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:103"><nobr><span class="ft7">g["tnf" and aliases in human]</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:270"><nobr><span class="ft7">· ·p[STS</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:376"><nobr><span class="ft7">2777</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:103"><nobr><span class="ft27">marker and "allele"]<br>g["tnf" and aliases in human]</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:270"><nobr><span class="ft7">· ·p[STS</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:379"><nobr><span class="ft7">257</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:103"><nobr><span class="ft27">marker and "linkage disequilibrium"]<br>g["tnf" and aliases in human]</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:270"><nobr><span class="ft7">· ·p[STS</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:382"><nobr><span class="ft7">22</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:103"><nobr><span class="ft7">marker and "quantitative trait locus"]</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:174"><nobr><span class="ft4">Table 3: Cardinality of TOS</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:93"><nobr><span class="ft10">for human gene queries [13], so that relevant documents are<br>ranked higher than non-relevant documents. This method<br>relies on using post-retrieval queries (ranking queries), au-<br>tomatically generated from an external source, viz., Entrez<br>Gene (Locus Link), to rank retrieved documents. The re-<br>search shows that ranking queries generated from a com-<br>bination of the Official Gene Symbol, Official Gene Name,<br>Alias Symbols, Entrez Summary, and Protein Products (op-<br>tional) were very effective in ranking relevant documents<br>higher in the retrieved list. Documents and ranking queries<br>are represented using the traditional vector-space represen-<br>tation, commonly used in information retrieval.</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:403"><nobr><span class="ft4">Given a</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:93"><nobr><span class="ft10">gene, the cosine similarity score between the ranking query<br>vector for the gene and each document vector is computed.<br>Cosine scores are in the [0, 1] range and documents assigned<br>a higher score are ranked higher than documents with a<br>lower score. In the absence of summary and protein prod-<br>uct information, ranking queries generated from the gene<br>symbol, name and aliases are used to rank retrieved docu-<br>ments. In this experiment study we are working on the Bio<br>Web documents alone.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:107"><nobr><span class="ft4">We use the following criteria to compare the Top K results</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:93"><nobr><span class="ft10">from Iowa and lgPR, to understand basic characteristics of<br>the two methods. Criteria labeled R appear to judge the<br>relevance of the paper and those labeled I appear to judge<br>importance. Some criteria appear to judge both and are<br>labeled R,I.</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:109"><nobr><span class="ft4">1. R: Does the title or abstract of the article contain the</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:127"><nobr><span class="ft10">term TNF or its aliases in human? Does the article<br>discuss immune response?</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:109"><nobr><span class="ft4">2. R,I: Does the article contain any disease related terms?</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:127"><nobr><span class="ft10">Does the article contain any genomic components (genes,<br>markers, snps, sequences, etc.)?</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:109"><nobr><span class="ft4">3. R,I: Does the article discuss biological processes re-</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:127"><nobr><span class="ft4">lated to the Lash terms?</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:109"><nobr><span class="ft4">4. R,I: What is the connectivity of the article to gene</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:127"><nobr><span class="ft10">entries in Entrez Gene that are related to TNF? Note<br>that as shown in Table 3, there are 649 Entrez Gene<br>entries that are related to human gene TNF. Each<br>PubMed publication was reached by following a re-<br>sult path through the result graph RG that started<br>with one of these Entrez Gene entries. However, some<br>PubMed publications may have been reached along<br>multiple paths in the RG reflecting much greater con-<br>nectivity.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:109"><nobr><span class="ft4">5. I: What is the category of the article (review, survey,</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:127"><nobr><span class="ft10">etc.). Does the article address some specific topics or<br>is it a broad brush article?</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:504"><nobr><span class="ft4">6. I: Where did the article appear? What is the journal</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:521"><nobr><span class="ft4">impact factor? Has the article been highly cited?</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:514"><nobr><span class="ft7">Top 10</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:577"><nobr><span class="ft7">Rel.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:618"><nobr><span class="ft7">Imp.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:722"><nobr><span class="ft7">Criteria</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:516"><nobr><span class="ft7">PMID</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:575"><nobr><span class="ft7">(0-5)</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:618"><nobr><span class="ft7">(0-5)</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:665"><nobr><span class="ft7">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:695"><nobr><span class="ft7">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:726"><nobr><span class="ft7">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:756"><nobr><span class="ft7">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:786"><nobr><span class="ft7">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:816"><nobr><span class="ft7">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:508"><nobr><span class="ft7">16271851</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:628"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:692"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:785"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:511"><nobr><span class="ft7">1946393</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:694"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:753"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:508"><nobr><span class="ft7">12217957</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:508"><nobr><span class="ft7">12545017</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:692"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:511"><nobr><span class="ft7">9757913</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:585"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:694"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:511"><nobr><span class="ft7">8882412</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:692"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:511"><nobr><span class="ft7">2674559</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:692"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:511"><nobr><span class="ft7">7495783</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:508"><nobr><span class="ft7">15976383</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:508"><nobr><span class="ft7">10698305</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:585"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:694"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:488"><nobr><span class="ft10">Table 4: Relevance and Importance of Top 10 Puli-<br>cations Reported by Iowa Ranking Method</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:514"><nobr><span class="ft7">Top 10</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:577"><nobr><span class="ft7">Rel.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:618"><nobr><span class="ft7">Imp.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:722"><nobr><span class="ft7">Criteria</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:516"><nobr><span class="ft7">PMID</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:575"><nobr><span class="ft7">(0-5)</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:618"><nobr><span class="ft7">(0-5)</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:665"><nobr><span class="ft7">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:695"><nobr><span class="ft7">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:726"><nobr><span class="ft7">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:756"><nobr><span class="ft7">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:786"><nobr><span class="ft7">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:816"><nobr><span class="ft7">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:511"><nobr><span class="ft7">7560085</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:628"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:508"><nobr><span class="ft7">12938093</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:628"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:508"><nobr><span class="ft7">10998471</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:585"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:662"><nobr><span class="ft7">M</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:508"><nobr><span class="ft7">11290834</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:508"><nobr><span class="ft7">11501950</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:628"><nobr><span class="ft7">3</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:508"><nobr><span class="ft7">11587067</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:508"><nobr><span class="ft7">11845411</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:585"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:664"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:508"><nobr><span class="ft7">12133494</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:815"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:508"><nobr><span class="ft7">12594308</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:585"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:628"><nobr><span class="ft7">4</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:755"><nobr><span class="ft7">L</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:508"><nobr><span class="ft7">12619925</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:585"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:628"><nobr><span class="ft7">5</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:663"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:693"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:724"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:754"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:784"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:814"><nobr><span class="ft7">H</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:488"><nobr><span class="ft10">Table 5: Relevance and Importance of Top 10 Puli-<br>cations Reported by lgPR Ranking Method</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:501"><nobr><span class="ft4">Tables 4 and 5 report Top 10 publications in PubMed that</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:488"><nobr><span class="ft10">are linked to an Entrez Gene entry that is related to hu-<br>man gene TNF and contain the term linkage disequilibrium.<br>The first column reports the PubMed identifiers (PMIDs)<br>of the Top 10 publications returned by the Iowa and the<br>lgPR ranking methods. The human evaluation results are<br>reported in the fourth to the ninth columns using the the<br>six criteria listed above. An H represents the publication<br>is highly matched to the correspoinding criteria (M and L<br>represents medium and low respectively). An H indicates:</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:504"><nobr><span class="ft4">1. The PubMed entry is linked to the human gene TNF</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:521"><nobr><span class="ft4">with Entrez Gene identifier GeneID:7124.</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:504"><nobr><span class="ft4">2. The publication contains both diseases related terms</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:521"><nobr><span class="ft4">and genomic components.</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:504"><nobr><span class="ft4">3. The publication contains multiple Lash terms.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:504"><nobr><span class="ft4">4. The connectivity is high, if there are more than five</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:521"><nobr><span class="ft4">related gene entries linked to the publication.</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:504"><nobr><span class="ft4">5. A research article considered more important than a</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:521"><nobr><span class="ft4">review or a survey, and a more specific topic is better.</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:504"><nobr><span class="ft4">6. The article is published in a journal with the impact</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:521"><nobr><span class="ft10">factor higher than 10.0, or the article is cited by ten<br>or more publications.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:501"><nobr><span class="ft4">We then score the relevance (rel.) and the importance</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:488"><nobr><span class="ft4">(imp.) in the second and the third columns by combining</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">33</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="164008.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft10">the number of H and M reported in the six criteria. Crite-<br>ria 1 weighs twice compared to the other five criteria. We<br>use a number between 0 and 5, in which 5 indicates the<br>corresponding PubMed entry is highly relevant or highly<br>important to the given query. While both rankings appear<br>to identify "good" documents, Iowa appears to favor rele-<br>vant documents based on their word content. lgPR appears<br>to exploit the link structure of the RG, and have higher in-<br>terconnectivity to TNF related entries in Entrez gene. The<br>publications retrieved by lgPR are more likely to contain<br>diseases related terms or genomic components. The Iowa<br>ranking has a primary focus on the relevance of documents<br>(based on document contents; it is not able to differentiate<br>the importance of these relevant documents. In contrast,<br>lgPR has a primary focus on importance (based on the link<br>structure of the result graph); it is not able to differentiate<br>the relevance of important documents. We conclude that<br>further study is needed to determine how we can exploit the<br>characteristics of both methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:107"><nobr><span class="ft4">There is no intersection between two sets of Top 10 pub-</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:93"><nobr><span class="ft10">lications returned by these two ranking methods. The first<br>common PMID is 7935762, which is ranked 24 in the Iowa<br>method and 21 by the lgPR method.</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:93"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:125"><nobr><span class="ft3"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:107"><nobr><span class="ft4">We have defined a model for life science sources. The an-</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:93"><nobr><span class="ft10">swer to a navigational query are the target objects (TOS) of<br>a layered graph Result Graph (RG). We define two ranking<br>metrics layered graph PageRank (lgPR) and layered graph<br>ObjectRank (lgOR). We also report on the results of exper-<br>iments on real world data from NCBI/NIH. We show that<br>the ranking distribution of lgPR indeed discriminates among<br>the TOS objects of the RG. The lgPR distribution is not the<br>same as applying PageRank a priori to the data graph. We<br>perform a user experiment on complex queries typical of<br>a scientist searching for gene related PubMed publications,<br>and the Top K results of a word based ranking technique<br>(Iowa) that has been shown to be accurate in answering gene<br>queries the query. Using criteria that judge both relevance<br>and importance, we explore the characteristics of these two<br>rankings. Our preliminary evaluation indicates there may<br>be a benefit or a meta-ranking.</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:107"><nobr><span class="ft4">We briefly presented layered graph ObjectRank (lgOR)</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:93"><nobr><span class="ft4">which is an extension to ObjectRank.</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:348"><nobr><span class="ft4">The challenge of</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:93"><nobr><span class="ft10">ObjectRank is determining the correct authority weight for<br>each edge. For lgOR, we need to find the weight for the<br>edges that occur in RG. Experiments with users to deter-<br>mine the correct authority weights for lgOR is planned for<br>future work. We expect that IR techniques can be used to<br>determine authority weights.</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:93"><nobr><span class="ft3"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:125"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:100"><nobr><span class="ft4">[1] Andrey Balmin, Vagelis Hristidis, and Yannis</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:121"><nobr><span class="ft10">Papakonstantinou. Objectrank: Authority-based<br>keyword search in databases. In VLDB, pages<br>564­575, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:100"><nobr><span class="ft4">[2] Magdalini Eirinaki, Michalis Vazirgiannis, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:121"><nobr><span class="ft10">Dimitris Kapogiannis. Web path recommendations<br>based on page ranking and markov models. In WIDM<br>'05: Proceedings of the 7th annual ACM international<br>workshop on Web information and data management,<br>pages 2­9, New York, NY, USA, 2005. ACM Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:495"><nobr><span class="ft4">[3] Taher H. Haveliwala. Topic-sensitive pagerank. In</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:516"><nobr><span class="ft10">WWW '02: Proceedings of the 11th international<br>conference on World Wide Web, pages 517­526, New<br>York, NY, USA, 2002. ACM Press.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:495"><nobr><span class="ft4">[4] Homo sapiens in NCBI Taxonomy Browser.</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:516"><nobr><span class="ft10">www.ncbi.nih.gov/Taxonomy/Browser/wwwtax.cgi?<br>mode=Info&amp;id=9606.</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:495"><nobr><span class="ft4">[5] Sepandar D. Kamvar, Taher H. Haveliwala,</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:516"><nobr><span class="ft10">Christopher D. Manning, and Gene H. Golub.<br>Extrapolation methods for accelerating pagerank<br>computations. In WWW, pages 261­270, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:495"><nobr><span class="ft4">[6] Z. Lacroix, L. Raschid, and M.-E. Vidal. Semantic</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:516"><nobr><span class="ft10">model ot integrate biological resources. In<br>International Workshop on Semantic Web and<br>Databases (SWDB 2006), Atlanta, Georgia, USA, 3-7<br>April 2006.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:495"><nobr><span class="ft4">[7] Alex Lash, Woei-Jyh Lee, and Louiqa Raschid. A</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:516"><nobr><span class="ft10">methodology to enhance the semantics of links<br>between PubMed publications and markers in the<br>human genome. In Fifth IEEE Symposium on<br>Bioinformatics and Bioengineering (BIBE 2005),<br>pages 185­192, Minneapolis, Minnesota, USA, 19-21<br>October 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:495"><nobr><span class="ft4">[8] Carl D. Meyer. Matrix Analysis and Applied Linear</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:516"><nobr><span class="ft10">Algebra. Society for Industrial and Applied<br>Mathmatics, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:495"><nobr><span class="ft4">[9] G. Mihaila, F. Naumann, L. Raschid, and M. Vidal. A</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:516"><nobr><span class="ft10">data model and query language to explore enhanced<br>links and paths in life sciences data sources.<br>Proceedings of the Workshop on Web and Databases,<br>WebDB, Maryland, USA, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:488"><nobr><span class="ft4">[10] Rajeev Motwani and Prabhakar Raghavan.</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:516"><nobr><span class="ft10">Randomized algorithms. Cambridge University Press,<br>New York, NY, USA, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:488"><nobr><span class="ft4">[11] Lawrence Page, Sergey Brin, Rajeev Motwani, and</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:516"><nobr><span class="ft10">Terry Winograd. The pagerank citation ranking:<br>Bringing order to the web. Technical report, Stanford<br>Digital Library Technologies Project, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:488"><nobr><span class="ft4">[12] Matthew Richardson and Pedro Domingos. Combining</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:516"><nobr><span class="ft10">link and content information in web search. In Web<br>Dynamics '04: Web Dynamics - Adapting to Change<br>in Content, Size, Topology and Use, pages 179­194.<br>Springer, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:488"><nobr><span class="ft4">[13] Aditya Kumar Sehgal and Padmini Srinivasan.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:516"><nobr><span class="ft10">Retrieval with gene queries. BMC Bioinformatics,<br>7:220, 2006.</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:488"><nobr><span class="ft4">[14] Maria-Esther Vidal, Louiqa Raschid, Natalia</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:516"><nobr><span class="ft4">M´</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:529"><nobr><span class="ft4">arquez, Marelis C´</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:636"><nobr><span class="ft4">ardenas, and Yao Wu. Query</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:516"><nobr><span class="ft4">rewriting in the semantic web. In InterDB, 2006.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:463"><nobr><span class="ft9">34</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

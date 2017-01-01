@@ -1,0 +1,1176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>ACMJ200-06.TEX</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="iaz">
+<META name="date" content="2006-12-05T15:55:17+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:13px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:6px;font-family:Times;color:#000000;}
+	.ft4{font-size:8px;font-family:Times;color:#000000;}
+	.ft5{font-size:24px;line-height:29px;font-family:Times;color:#000000;}
+	.ft6{font-size:12px;line-height:20px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91001.png" alt="background image">
+<DIV style="position:absolute;top:175;left:198"><nobr><span class="ft5">Fast String Sorting Using Order-Preserving<br>Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:198"><nobr><span class="ft1">ALEJANDRO L ´</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:299"><nobr><span class="ft1">OPEZ-ORTIZ</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:198"><nobr><span class="ft6">University of Waterloo<br>MEHDI MIRZAZADEH<br>University of Waterloo<br>MOHAMMAD ALI SAFARI<br>University of British Columbia<br>and<br>HOSSEIN SHEIKHATTAR<br>University of Waterloo</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:299"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:198"><nobr><span class="ft7">We give experimental evidence for the benefits of order-preserving compression in sorting algo-<br>rithms. While, in general, any algorithm might benefit from compressed data because of reduced<br>paging requirements, we identified two natural candidates that would further benefit from order-<br>preserving compression, namely string-oriented sorting algorithms and word-RAM algorithms for<br>keys of bounded length. The word-RAM model has some of the fastest known sorting algorithms<br>in practice. These algorithms are designed for keys of bounded length, usually 32 or 64 bits, which<br>limits their direct applicability for strings. One possibility is to use an order-preserving compres-<br>sion scheme, so that a bounded-key-length algorithm can be applied. For the case of standard<br>algorithms, we took what is considered to be the among the fastest nonword RAM string sorting<br>algorithms, Fast MKQSort, and measured its performance on compressed data. The Fast MKQSort<br>algorithm of Bentley and Sedgewick is optimized to handle text strings. Our experiments show<br>that order-compression techniques results in savings of approximately 15% over the same algo-<br>rithm on noncompressed data. For the word-RAM, we modified Andersson's sorting algorithm to<br>handle variable-length keys. The resulting algorithm is faster than the standard Unix sort by a<br>factor of 1.5X . Last, we used an order-preserving scheme that is within a constant additive term<br>of the optimal Hu­Tucker, but requires linear time rather than O(m log m), where m</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:671"><nobr><span class="ft2">= | | is the</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:198"><nobr><span class="ft2">size of the alphabet.</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:198"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:198"><nobr><span class="ft7">E.2 [Data Storage]: Contiguous Representations,Object Rep-<br>resentations; E.4 [Coding and Information Theory]: Data Compaction and Compression; F.2.0<br>[Analysis of Algorithms and Problem Complexity]: General; H.3.2 [Information Storage]:</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:198"><nobr><span class="ft7">Authors' addresses: Alejandro L´opez-Ortiz, Mehdi Mirzazadeh, and Hossein SheikhAttar are at the<br>David R. Cheriton School of Computer Science, University of Waterloo, Waterloo, Ont., Canada,<br>N2L 3G1; email:</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:292"><nobr><span class="ft2">{alopez-o, mmirzazadeh,mhsheikhattar}@uwaterloo.ca; Mohammad Ali Safari</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:198"><nobr><span class="ft7">is at the Department of Computer Science, University of British Columbia, 201-2366 Main Mall,<br>Vancouver, B.C., Canada, V6T 1Z4; email:</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:431"><nobr><span class="ft2">safari@cs.ubc.ca.</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:198"><nobr><span class="ft7">Permission to make digital or hard copies of part or all of this work for personal or classroom use is<br>granted without fee provided that copies are not made or distributed for profit or direct commercial<br>advantage and that copies show this notice on the first page or initial screen of a display along<br>with the full citation. Copyrights for components of this work owned by others than ACM must be<br>honored. Abstracting with credit is permitted. To copy otherwise, to republish, to post on servers,<br>to redistribute to lists, or to use any component of this work in other works requires prior specific<br>permission and/or a fee. Permissions may be requested from Publications Dept., ACM, Inc., 2 Penn<br>Plaza, Suite 701, New York, NY 10121-0701 USA, fax +1 (212) 869-0481, or permissions@acm.org.</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:200"><nobr><span class="ft3">C</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:316"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2005, Pages 1­12.</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:211"><nobr><span class="ft2">2005 ACM 1084-6654/05/0001-ART1.4 $5.00</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91002.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:228"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:262"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:191"><nobr><span class="ft2">File Organization; H.3.2 [Information Search and Retrieval]: Search process</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:191"><nobr><span class="ft2">General Terms: Algorithms, Experimentation, Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:191"><nobr><span class="ft7">Additional Key Words and Phrases: Order-preserving compression, sorting, word-RAM, unit-cost<br>RAM</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:191"><nobr><span class="ft1">1. INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:191"><nobr><span class="ft9">In recent years, the size of corporate data collections has grown rapidly. For<br>example, in the mid-1980s, a large text collection was in the order of 500 MB.<br>Today, large text collections are over a thousand times larger. At the same<br>time, archival legacy data that used to sit in tape vaults is now held on-line in<br>large data warehouses and regularly accessed. Data-storage companies, such<br>as EMC, have emerged to serve this need for data storage, with market capi-<br>talizations that presently rival that of all but the largest PC manufacturers.</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:209"><nobr><span class="ft1">Devising algorithms for these massive data collections requires novel tech-</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:191"><nobr><span class="ft9">niques. Because of this, over the last 10 years there has been renewed interest<br>in research on indexing techniques, string-matching algorithms, and very large<br>database-management systems among others.</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:209"><nobr><span class="ft1">Consider, for example, a corporate setting, such as a bank, with a large col-</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:191"><nobr><span class="ft9">lection of archival data, say, a copy of every bank transaction ever made. Data<br>is stored in a data-warehouse facility and periodically accessed, albeit perhaps<br>somewhat unfrequently. Storing the data requires a representation that is suc-<br>cinct, amenable to arbitrary searches, and supports efficient random access.</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:209"><nobr><span class="ft1">Aside from savings in storage, a no less important advantage of a succinct</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:191"><nobr><span class="ft9">representation of archival data is a resulting improvement in performance of<br>sorting and searching operations. This improvement is twofold: First, in gen-<br>eral, almost any sorting and searching algorithm benefits from operating on<br>smaller keys, as this leads to a reduced number of page faults as observed by<br>Moura et al. [1997]. Second, benefits can be derived from using a word-RAM<br>(unit-cost RAM) sorting algorithm, such as that of [Andersson 1994; Andersson<br>and Nilsson 1998]. This algorithm sorts n w-bits keys on a unit-cost RAM with<br>word size w in time O(n log n). As one can expect, in general, this algorithm<br>cannot be applied to strings as the key length is substantially larger than the<br>word size. However, if all or most of the keys can be compressed to below the<br>word size, then this algorithm can be applied--with ensuing gains in perfor-<br>mance.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:209"><nobr><span class="ft1">There are many well-known techniques for compressing data, however, most</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:191"><nobr><span class="ft9">of them are not order preserving and do not support random access to the data<br>as the decoding process is inherently sequential [Bell et al. 1990; Knuth 1997].<br>Hence, it is important that the compression technique be static as well as order<br>preserving. This rules out many of the most powerful compression techniques,<br>such as those based on the Ziv­Lempel method [Ziv and Lempel 1978], which<br>are more attuned to compression of long text passages in any event (we note,<br>however, that it is possible to implement certain search operations on Lempel­<br>Ziv encoded text as shown by Farach and Thorup [1998], and K ¨arkk ¨ainen and<br>Ukknonen [1996]). The need to preserve order also eliminates many dictionary<br>techniques, such as Huffman codes [Knuth 1997; Antoshenkov 1997].</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91003.png" alt="background image">
+<DIV style="position:absolute;top:142;left:325"><nobr><span class="ft8">Fast String Sorting Using Order-Preserving Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:694"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:728"><nobr><span class="ft8">3</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:216"><nobr><span class="ft1">Hence, we consider a special type of static code, namely, order-preserving</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:198"><nobr><span class="ft9">compression schemes, which are similar to Huffman codes. More precisely, we<br>are given an alphabet</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:364"><nobr><span class="ft1">with an associated frequency p</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:574"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:582"><nobr><span class="ft1">for each symbol s</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:697"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:706"><nobr><span class="ft1"> .</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:198"><nobr><span class="ft1">The compression scheme E :</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:423"><nobr><span class="ft1"> {0, 1}</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:481"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:492"><nobr><span class="ft1">maps each symbol into an element</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:198"><nobr><span class="ft1">of a set of prefix-free strings over</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:435"><nobr><span class="ft1">{0, 1}</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:470"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:476"><nobr><span class="ft1">. The goal is to minimize the entropy</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:213"><nobr><span class="ft4">s</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:217"><nobr><span class="ft10"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:221"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:241"><nobr><span class="ft1">p</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:249"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:256"><nobr><span class="ft1">|E(s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:284"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:289"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:294"><nobr><span class="ft1">| with the added condition that if s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:526"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:535"><nobr><span class="ft1">&lt; s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:559"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:568"><nobr><span class="ft1">then E(s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:626"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:631"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:640"><nobr><span class="ft1">&lt; E(s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:682"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:687"><nobr><span class="ft1">) in the</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:198"><nobr><span class="ft1">lexicographic ordering of</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:375"><nobr><span class="ft1">{0, 1}</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:410"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:416"><nobr><span class="ft1">. This is in contrast to Huffman codes, which,</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:198"><nobr><span class="ft9">in general, do not preserve the order of the initial alphabet. Such a scheme is<br>known as order preserving.</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:216"><nobr><span class="ft1">Optimal order-preserving compression schemes were introduced by Gilbert</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:198"><nobr><span class="ft1">and Moore [1959] who gave an O(n</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:435"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:441"><nobr><span class="ft1">) algorithm for computing the optimal code.</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:198"><nobr><span class="ft1">This was later improved by Hu and Tucker, who gave a</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:605"><nobr><span class="ft1">(n log n) algorithm,</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:198"><nobr><span class="ft9">which is optimal [Hu 1973]. In this paper we use a linear time-encoding<br>algorithm that approximates the optimal order-preserving compression scheme<br>to within a constant additive term to produce a compressed form of the data.<br>The savings are of significance when dealing with large alphabets, which arise<br>in applications, such as DNA databases and compression, on words. We test<br>the actual quality of the compression scheme on real string data and obtain<br>that the compressed image produced by the linear algorithm is within 0.4,<br>and 5.2% of the optimal, in the worst case. The experiments suggest that<br>the compression ratio is, in practice, much better than what is predicted by<br>theory.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:216"><nobr><span class="ft1">Then, using the compressed form, we test the performance of the sorting</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:198"><nobr><span class="ft9">algorithm against the standard Unix sort in the Sun Solaris OS. Using data<br>from a 1-GB world wide web crawl, we study first the feasability of compressing<br>the keys to obtain 64-bit word-length keys. In this case we obtain that only 2%<br>of the keys cannot be resolved within the first 64 significant bits. This small<br>number of keys are flagged and resolved in a secondary stage. For this modified<br>version of Andersson's, we report a factor of 1.5X improvement over the timings<br>reported by Unix sort.</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:216"><nobr><span class="ft1">As noted above, an important advantage of order-preserving compression</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:198"><nobr><span class="ft9">schemes is that they support random access. As such we consider as a likely<br>application scenario that the data is stored in compressed format. As an exam-<br>ple, consider a database-management system (DBMS). Such systems often use<br>sorting as an intermediate step in the process of computing a</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:626"><nobr><span class="ft1">join statement.</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:198"><nobr><span class="ft9">The DBMS would benefit from an order-preserving compression scheme, first,<br>by allowing faster initial loading (copying) of the data into memory and, second,<br>by executing a sorting algorithm tuned for compressed data, which reduces both<br>processing time and the amount of paging required by the algorithm itself if<br>the data does not fit in main memory. The contribution of each of these aspects<br>is highlighted later in Tables V and VI.</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:216"><nobr><span class="ft1">The paper is laid out as follows. In Section 2, we introduce the linear time</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:198"><nobr><span class="ft9">algorithm for encoding and observe that its approximation term follows from<br>a theorem of Bayer [1975]. In Section 3, we compare the compression ratio<br>empirically for string data using the Calgary corpus. In Section 4, we com-<br>pare the performance of sorting algorithms aided by order-preserving data<br>compression.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91004.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">4</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:228"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:262"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:191"><nobr><span class="ft1">2. ORDER-PRESERVING COMPRESSION</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:191"><nobr><span class="ft9">We consider the problem of determining code-words (encoded forms) such that<br>the compression ratio is as high as possible. Code-words may or may not have<br>the prefix property. In the prefix property case, the problem reduces to finding<br>an optimum alphabetic binary tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:191"><nobr><span class="ft1">2.1 Problem Definition</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:191"><nobr><span class="ft9">Formally, the problem of finding optimal alphabetic binary trees can be stated<br>as follows: Given a sequence of n positive weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:547"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:554"><nobr><span class="ft1">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:573"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:579"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:587"><nobr><span class="ft1">· · · , w</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:626"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:633"><nobr><span class="ft1">, find a binary</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:191"><nobr><span class="ft1">tree in which all weights appear in the leaves such that</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:194"><nobr><span class="ft1">r The weights on the leaves occur in order when traversing the tree from left</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:207"><nobr><span class="ft1">to right. Such a tree is called an alphabetic tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:194"><nobr><span class="ft1">r The sum</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:286"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:292"><nobr><span class="ft4">in</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:321"><nobr><span class="ft1">w</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:333"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:337"><nobr><span class="ft1">l</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:343"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:352"><nobr><span class="ft1">is minimized, where l</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:500"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:509"><nobr><span class="ft1">is the depth (distance from root)</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:207"><nobr><span class="ft1">of the ith leave from left. If so, this is an optimal alphabetic tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:191"><nobr><span class="ft9">If we drop the first condition, the problem becomes the well-known problem of<br>building Huffman trees, which is known to have the same complexity as sorting.</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:191"><nobr><span class="ft1">2.2 Previous Work</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:191"><nobr><span class="ft9">Mumey introduced the idea of finding optimal alphabetic binary tree in linear<br>time for some special classes of inputs in Mumey [1992]. One example is a simple<br>case solvable in O(n) time when the values of the weights in the initial sequence<br>are all within a term of two. Mumey showed that the region-based method,<br>described in Mumey [1992], exhibits linear time performance for a significant<br>variety of inputs. Linear time solutions were discovered for the following special<br>cases: when the input sequence of nodes is sorted sequence, bitonic sequence,<br>weights exponentially separated, and weights within a constant factor [see<br>Larmore and Przytycka 1998].</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:209"><nobr><span class="ft1">Moura et al. [1997] considered the benefits of constructing a suffix tree</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:191"><nobr><span class="ft9">over compressed text using an order-preserving code. In their paper, they ob-<br>serve dramatic savings in the construction of a suffix tree over the compressed<br>text.</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:191"><nobr><span class="ft1">2.3 A Simple Linear-Approximation Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:191"><nobr><span class="ft9">Here, we present an algorithm that creates a compression dictionary in linear<br>time on the size of the alphabet and whose compression ratio compares very<br>favorably to that of optimal algorithms which have</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:573"><nobr><span class="ft1">(n log n) running time,</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:191"><nobr><span class="ft9">where n is the number of symbols or tokens for the compression scheme. For the<br>purposes of presentation, we refer to the symbols or tokens as characters in an<br>alphabet</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:266"><nobr><span class="ft1">. In practice these "characters" might well correspond to, for example,</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:191"><nobr><span class="ft9">entire English words or commonly occurring three-or four-letter combinations.<br>In this case, the "alphabet" can have tens of thousands of tokens, and, hence,<br>the importance of linear-time algorithms for creating the compression scheme.</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:209"><nobr><span class="ft1">The idea of the proposed algorithm is to divide the set of weights into two</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:191"><nobr><span class="ft1">almost equal size subsets and solve the problem recursively for them. As we</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:8px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91005.png" alt="background image">
+<DIV style="position:absolute;top:142;left:325"><nobr><span class="ft8">Fast String Sorting Using Order-Preserving Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:694"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:728"><nobr><span class="ft8">5</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:198"><nobr><span class="ft9">show in Section 2.4, this algorithm finds a compression scheme within an addi-<br>tive term of 2 bits of the average code length found by Huffman or Hu­Tucker<br>algorithms.</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:198"><nobr><span class="ft1">2.4 Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:198"><nobr><span class="ft1">Let w</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:237"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:244"><nobr><span class="ft1">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:263"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:269"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:277"><nobr><span class="ft1">. . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:315"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:327"><nobr><span class="ft1">be the weights of the alphabet characters or word codes to</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:198"><nobr><span class="ft9">be compressed in alphabetical order. The procedure Make(i, j ) described below,<br>finds a tree in which tokens with weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:497"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:502"><nobr><span class="ft1">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:521"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:525"><nobr><span class="ft4">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:539"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:547"><nobr><span class="ft1">. . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:587"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:597"><nobr><span class="ft1">are in the leaves:</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:207"><nobr><span class="ft8">Procedure Make(i, j )</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:199"><nobr><span class="ft8">1. if (i == j ) return a tree with one node containing w</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:535"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:539"><nobr><span class="ft8">.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:199"><nobr><span class="ft8">2. Find k such that (w</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:344"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:352"><nobr><span class="ft8">+ w</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:375"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:379"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:394"><nobr><span class="ft8">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:450"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:456"><nobr><span class="ft8">)</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:464"><nobr><span class="ft8">- (w</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:492"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:498"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:513"><nobr><span class="ft8">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:571"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:576"><nobr><span class="ft8">) is minimum.</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:199"><nobr><span class="ft8">3. Let T</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:252"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:261"><nobr><span class="ft8">= Make(i, k) and T</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:377"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:387"><nobr><span class="ft8">= Make(k</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:449"><nobr><span class="ft8">+ 1, j )</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:199"><nobr><span class="ft8">4. Return tree T with left subtree T</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:423"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:432"><nobr><span class="ft8">and right subtree T</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:553"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:559"><nobr><span class="ft8">.</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:198"><nobr><span class="ft9">In the next two subsections we study (a) the time complexity of the proposed<br>algorithm and (b) bounds on the quality of the approximation obtained.</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:198"><nobr><span class="ft1">2.5 Time Complexity</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:198"><nobr><span class="ft9">First observe that, aside from line 2, all other operations take constant time.<br>Hence, so long as line 2 of the algorithm can be performed in logarithmic time,<br>then the running time T (n) of the algorithm would be given by the recursion<br>T (n)</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:233"><nobr><span class="ft1">= T(k)+T(n-k)+ O(log k), and, thus, T(n) = O(n). Therefore, the critical</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:198"><nobr><span class="ft9">part of the algorithm is line 2: how to divide the set of weights into two subsets<br>of almost the same size in logarithmic time.</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:216"><nobr><span class="ft1">Suppose that for every k, the value of a</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:485"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:497"><nobr><span class="ft1">= b</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:520"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:528"><nobr><span class="ft1">+ w</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:554"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:562"><nobr><span class="ft1">+ w</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:588"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:592"><nobr><span class="ft4">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:610"><nobr><span class="ft1">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:671"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:683"><nobr><span class="ft1">is given</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:198"><nobr><span class="ft1">for all k</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:260"><nobr><span class="ft1"> i, where b</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:347"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:357"><nobr><span class="ft1">is a given integer to be specified later. Notice that the</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:198"><nobr><span class="ft1">a</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:208"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:213"><nobr><span class="ft1">'s form an increasing sequence as a</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:459"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:469"><nobr><span class="ft1">&lt; a</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:494"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:498"><nobr><span class="ft4">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:518"><nobr><span class="ft1">&lt; · · · &lt; a</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:585"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:590"><nobr><span class="ft1">. Now the expression</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:198"><nobr><span class="ft1">in line 2 of the algorithm can be rewritten as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:264"><nobr><span class="ft1">|(w</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:285"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:293"><nobr><span class="ft1">+ w</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:319"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:323"><nobr><span class="ft4">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:341"><nobr><span class="ft1">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:403"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:410"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:418"><nobr><span class="ft1">- (w</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:450"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:456"><nobr><span class="ft4">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:474"><nobr><span class="ft1">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:538"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:544"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:549"><nobr><span class="ft1">| = |a</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:587"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:596"><nobr><span class="ft1">- 2a</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:628"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:638"><nobr><span class="ft1">+ b</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:660"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:665"><nobr><span class="ft1">|</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:198"><nobr><span class="ft1">Thus, given the value of a</span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:377"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:384"><nobr><span class="ft1">, for all k, one can easily find the index u for which</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:198"><nobr><span class="ft1">|a</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:212"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:219"><nobr><span class="ft1">-2a</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:248"><nobr><span class="ft4">u</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:257"><nobr><span class="ft1">+b</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:277"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:282"><nobr><span class="ft1">| is minimum using a variation of a one-sided binary search, known</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:198"><nobr><span class="ft1">as galloping. Define a</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:347"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:359"><nobr><span class="ft1">:</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:363"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:394"><nobr><span class="ft11">k<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:398"><nobr><span class="ft4">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:415"><nobr><span class="ft1">w</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:427"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:438"><nobr><span class="ft1">and, hence, b</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:528"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:537"><nobr><span class="ft1">= a</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:561"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:565"><nobr><span class="ft4">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:584"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:615"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:619"><nobr><span class="ft4">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:620"><nobr><span class="ft4">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:637"><nobr><span class="ft1">w and modify</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:198"><nobr><span class="ft1">the algorithm as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:207"><nobr><span class="ft8">Procedure Make(i, j , b)</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:199"><nobr><span class="ft8">1. If (i == j ) return a tree with one node containing w</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:536"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:540"><nobr><span class="ft8">.</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:199"><nobr><span class="ft8">2. Let k</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:255"><nobr><span class="ft8">= Minimize(i, j , b, 1).</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:199"><nobr><span class="ft8">3. Let T</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:252"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:261"><nobr><span class="ft8">= Make(i, k, b) and T</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:394"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:403"><nobr><span class="ft8">= Make(k + 1, j , a</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:520"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:526"><nobr><span class="ft8">)</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:199"><nobr><span class="ft8">4. Return tree T with left subtree T</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:425"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:434"><nobr><span class="ft8">and right subtree T</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:555"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:561"><nobr><span class="ft8">.</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:198"><nobr><span class="ft9">where the Minimize procedure is a one-sided binary search for the element<br>closest to zero in the sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:409"><nobr><span class="ft1">{a</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:425"><nobr><span class="ft4">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:434"><nobr><span class="ft1">- 2a</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:465"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:476"><nobr><span class="ft1">- 2b}</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:512"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:519"><nobr><span class="ft1">. More precisely:</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91006.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">6</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:228"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:262"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:200"><nobr><span class="ft8">Procedure Minimize(i, j , b, g )</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:193"><nobr><span class="ft8">1. if ( j</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:241"><nobr><span class="ft8">- i  1) return min{|a</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:379"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:387"><nobr><span class="ft8">- 2a</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:415"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:422"><nobr><span class="ft8">- 2p|, |a</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:476"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:483"><nobr><span class="ft8">+ 2b|}.</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:193"><nobr><span class="ft8">2. let</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:242"><nobr><span class="ft8">= i + g, u = j - g.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:193"><nobr><span class="ft8">3. if (a</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:238"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:246"><nobr><span class="ft8">- 2a - 2b) &gt; 0 and (a</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:385"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:393"><nobr><span class="ft8">- 2a</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:421"><nobr><span class="ft3">u</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:430"><nobr><span class="ft8">- 2b) &lt; 0 then return Minimize(i, j ,b,2g).</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:193"><nobr><span class="ft8">4. if (a</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:238"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:246"><nobr><span class="ft8">- 2a - 2b) &lt; 0 then return Minimize( - g/2, ,b,1).</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:193"><nobr><span class="ft8">5. if (a</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:238"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:246"><nobr><span class="ft8">- 2a</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:275"><nobr><span class="ft3">u</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:284"><nobr><span class="ft8">- 2b) &gt; 0 then return Minimize(u,u + g/2,b,1).</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:209"><nobr><span class="ft1">The total time taken by all calls to Minimize is given by the recursion T (n)</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:718"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:192"><nobr><span class="ft1">T (k)</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:227"><nobr><span class="ft1">+ T(n - k) + log k, if k  n/2 and T(n) = T(k) + T(n - k) + log(n - k)</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:191"><nobr><span class="ft9">otherwise, where n is the number of elements in the entire range and k is<br>the position of the element found in the first call to Make. This recursion has<br>solution T (n)</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:286"><nobr><span class="ft1"> 2n - log n - 1, as can easily be verified:</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:206"><nobr><span class="ft1">T (n)</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:245"><nobr><span class="ft1">= T(k) + T(n - k) + log k  2n - 1 - log(n - k) - 1  2n - 1 - log n</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:191"><nobr><span class="ft1">when k</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:246"><nobr><span class="ft1"> n/2. The case k &gt; n/2 is analogous.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:209"><nobr><span class="ft1">To compute total time, we have that, at initialization time, the algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:191"><nobr><span class="ft1">calculates a</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:273"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:284"><nobr><span class="ft1">for all k and then makes a call to Make(1, n, 0). The total cost of</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:191"><nobr><span class="ft1">line 2 is linear and, hence, the entire algorithm takes time O(n).</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:191"><nobr><span class="ft1">2.6 Approximation Bounds</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:191"><nobr><span class="ft9">Recall that a binary tree T can be interpreted as representing a coding for sym-<br>bols corresponding to its leaves by assigning 0/1 labels to left/right branches,<br>respectively. Given a tree T and a set of weights associated to its leaves, we<br>denote as E(T ), the expected number of bits needed to represent each of these<br>symbols using codes represented by the tree. More precisely, if T has n leaves<br>with weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:296"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:303"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:310"><nobr><span class="ft1">. . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:349"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:360"><nobr><span class="ft1">and depths l</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:446"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:453"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:460"><nobr><span class="ft1">. . . , l</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:493"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:500"><nobr><span class="ft1">, then</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:401"><nobr><span class="ft1">E(T )</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:439"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:463"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:457"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:461"><nobr><span class="ft4">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:486"><nobr><span class="ft1">w</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:497"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:504"><nobr><span class="ft1">l</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:510"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:481"><nobr><span class="ft1">W (T )</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:191"><nobr><span class="ft1">where W (T ) is defined as the total sum of the weights</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:613"><nobr><span class="ft11">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:616"><nobr><span class="ft4">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:634"><nobr><span class="ft1">w</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:645"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:650"><nobr><span class="ft1">. Note that</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:192"><nobr><span class="ft1">W (T )</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:234"><nobr><span class="ft1">= 1 for the case of probability frequency distributions.</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:209"><nobr><span class="ft1">T</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:219"><nobr><span class="ft4">HEOREM</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:276"><nobr><span class="ft1">2.1.</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:317"><nobr><span class="ft1">Let T be the tree generated by our algorithm, and let T</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:687"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:714"><nobr><span class="ft1">be</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:191"><nobr><span class="ft1">the optimal static binary order-preserving code. Then</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:393"><nobr><span class="ft1">E(T )</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:431"><nobr><span class="ft1"> E(T</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:474"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:497"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:506"><nobr><span class="ft1">+ 2</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:209"><nobr><span class="ft1">This fact can be proved directly by careful study of the partition mecha-</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:191"><nobr><span class="ft1">nism, depending on how large the central weight w</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:553"><nobr><span class="ft4">k</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:565"><nobr><span class="ft1">is. However we observe</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:191"><nobr><span class="ft9">that a much more elegant proof can be derived from a rarely cited work<br>by Paul Bayer [1975]. Consider a set of keys k</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:536"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:543"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:550"><nobr><span class="ft1">. . . , k</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:586"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:593"><nobr><span class="ft1">, with probabilities</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:193"><nobr><span class="ft1">p</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:201"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:208"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:215"><nobr><span class="ft1">. . . , p</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:252"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:264"><nobr><span class="ft1">for successful searches and q</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:466"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:473"><nobr><span class="ft1">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:488"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:495"><nobr><span class="ft1">,</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:502"><nobr><span class="ft1">. . . , q</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:537"><nobr><span class="ft4">n</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:549"><nobr><span class="ft1">for unsuccessful searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:191"><nobr><span class="ft1">Let H</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:242"><nobr><span class="ft1">=</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:276"><nobr><span class="ft11">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:280"><nobr><span class="ft4">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:297"><nobr><span class="ft1">-p</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:319"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:326"><nobr><span class="ft1">lg p</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:351"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:360"><nobr><span class="ft1">+</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:391"><nobr><span class="ft11">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:395"><nobr><span class="ft4">=0</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:413"><nobr><span class="ft1">-q</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:432"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:439"><nobr><span class="ft1">lg q</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:462"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:473"><nobr><span class="ft1">denote the entropy of the associated</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:191"><nobr><span class="ft9">probability distribution. Observe that from Shannon's source-coding theorem<br>[Shannon 1948], we know that H</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:425"><nobr><span class="ft1"> E(T) for any tree T.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91007.png" alt="background image">
+<DIV style="position:absolute;top:142;left:325"><nobr><span class="ft8">Fast String Sorting Using Order-Preserving Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:694"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:728"><nobr><span class="ft8">7</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:216"><nobr><span class="ft1">Definition 2.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:332"><nobr><span class="ft1">A weight-balanced tree is an alphabetic binary search tree</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:198"><nobr><span class="ft9">constructed recursively from the root by minimizing the difference between the<br>weights of the left and right subtrees.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:198"><nobr><span class="ft1">That is, a weight-balanced tree minimizes</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:493"><nobr><span class="ft1">|W (L) - W (R)| in a similar fashion</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:198"><nobr><span class="ft1">to procedure Make above.</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:216"><nobr><span class="ft1">T</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:226"><nobr><span class="ft4">HEOREM</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:280"><nobr><span class="ft1">2.3 [B</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:322"><nobr><span class="ft4">AYER</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:356"><nobr><span class="ft1">1975].</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:413"><nobr><span class="ft1">Let S</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:451"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:479"><nobr><span class="ft1">denote the optimal alphabetic binary</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:198"><nobr><span class="ft9">search tree, with keys in internal nodes and unsuccessful searches in external<br>nodes. Let S denote a weight-balanced tree on the same keys, then</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:369"><nobr><span class="ft1">E(S)</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:406"><nobr><span class="ft1"> H + 2  E(S</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:511"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:534"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:542"><nobr><span class="ft1">+ 2</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:198"><nobr><span class="ft9">With this theorem at hand, we can now proceed with the original proof of<br>Theorem 2.1.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:216"><nobr><span class="ft1">P</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:226"><nobr><span class="ft4">ROOF OF</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:280"><nobr><span class="ft1">T</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:290"><nobr><span class="ft4">HEOREM</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:343"><nobr><span class="ft1">2.1. We are given a set of symbols s</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:588"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:597"><nobr><span class="ft1">and weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:696"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:704"><nobr><span class="ft1">with</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:198"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:213"><nobr><span class="ft1"> i  n. Consider the weight-balanced alphabetical binary search tree on</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:198"><nobr><span class="ft1">n</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:210"><nobr><span class="ft1">- 1 keys with successful search probabilities p</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:531"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:540"><nobr><span class="ft1">= 0 and unsuccessful search</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:198"><nobr><span class="ft1">probabilities q</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:298"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:309"><nobr><span class="ft1">= w</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:338"><nobr><span class="ft4">i</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:342"><nobr><span class="ft4">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:357"><nobr><span class="ft1">. Observe that there is a one-to-one mapping between</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:198"><nobr><span class="ft9">alphabetic search trees for this problem and order-preserving codes. Moreover,<br>the cost of the corresponding trees coincide. It is not hard to see that the tree<br>constructed by Make corresponds to the weight-balanced tree, and that the<br>optimal alphabetical binary search tree S</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:478"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:504"><nobr><span class="ft1">and the optimum Hu­Tucker code</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:198"><nobr><span class="ft1">tree T</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:239"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:266"><nobr><span class="ft1">also correspond to each other. Hence from Bayer's theorem we have</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:317"><nobr><span class="ft1">E(T )</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:356"><nobr><span class="ft1"> H + 2  E(S</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:460"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:484"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:492"><nobr><span class="ft1">+ 2 = E(T</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:563"><nobr><span class="ft4">OPT</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:586"><nobr><span class="ft1">)</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:594"><nobr><span class="ft1">+ 2</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:198"><nobr><span class="ft1">as required.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:216"><nobr><span class="ft1">This shows that in theory the algorithm proposed is fast and has only a small</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:198"><nobr><span class="ft9">performance penalty in terms of compression over both the optimal encoding<br>method and the information theoretical lower bound given by the entropy.</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:198"><nobr><span class="ft1">3. EXPERIMENTS ON COMPRESSION RATIO</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:198"><nobr><span class="ft9">In this section we experimentally compare the performance of the algorithm in<br>terms of compression against other static-compression codes. We compare three<br>algorithms: Huffman, Hu­Tucker, and our algorithm on a number of random<br>frequency distributions. We compared alphabets of size n, for variable n. In<br>the case of English, this corresponds to compression on words, rather than on<br>single characters. Each character was given a random weight between 0 and<br>100, 000, which is later normalized. The worst-case behavior of our algorithm<br>in comparison with Hu­Tucker and Huffman algorithms is shown in Table I.<br>For each sample, we calculated the expected number of bits required by each<br>algorithm on that frequency distribution and reported the ratio least favorable<br>among those reported.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:216"><nobr><span class="ft1">We also compared the performance of the proposed linear-time algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:198"><nobr><span class="ft9">with Huffman and Hu­Tucker compression using the Calgary corpus, a com-<br>mon benchmark in the field of data compression. This is shown in Table II.<br>We report both the compression ratio of each of the solutions as well as the</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91008.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">8</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:228"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:262"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:335"><nobr><span class="ft2">Table I. Comparison of the Three Algorithms</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:217"><nobr><span class="ft2">Alphabet size n</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:352"><nobr><span class="ft2">Linear / Huffman</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:467"><nobr><span class="ft2">Hu­Tucker /Huffman</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:604"><nobr><span class="ft2">Linear/Hu­Tucker</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:217"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:227"><nobr><span class="ft2">= 26 (10000 tests)</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:382"><nobr><span class="ft2">1.1028</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:508"><nobr><span class="ft2">1.0857</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:637"><nobr><span class="ft2">1.0519</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:217"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:227"><nobr><span class="ft2">= 256 (10000 tests)</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:382"><nobr><span class="ft2">1.0277</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:508"><nobr><span class="ft2">1.0198</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:637"><nobr><span class="ft2">1.0117</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:217"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:227"><nobr><span class="ft2">= 1000 (3100 tests)</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:382"><nobr><span class="ft2">1.0171</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:508"><nobr><span class="ft2">1.0117</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:637"><nobr><span class="ft2">1.0065</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:217"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:227"><nobr><span class="ft2">= 2000 (1600 tests)</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:382"><nobr><span class="ft2">1.0147</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:508"><nobr><span class="ft2">1.0100</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:637"><nobr><span class="ft2">1.0053</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:217"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:227"><nobr><span class="ft2">= 3000 (608 tests)</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:382"><nobr><span class="ft2">1.0120</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:508"><nobr><span class="ft2">1.0089</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:637"><nobr><span class="ft2">1.0038</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:327"><nobr><span class="ft2">Table II. Comparison Using the Calgary Corpus</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:193"><nobr><span class="ft2">File</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:267"><nobr><span class="ft2">Size (in bits)</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:353"><nobr><span class="ft2">Huff. (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:420"><nobr><span class="ft2">Lin. (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:480"><nobr><span class="ft2">H-T (%)</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:541"><nobr><span class="ft2">Lin./Huff.</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:612"><nobr><span class="ft2">Lin./H-T</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:676"><nobr><span class="ft2">H-T/Huff.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:193"><nobr><span class="ft2">bib.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:280"><nobr><span class="ft2">890088</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:370"><nobr><span class="ft2">65</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:433"><nobr><span class="ft2">68</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:494"><nobr><span class="ft2">67</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:548"><nobr><span class="ft2">1.0487</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:615"><nobr><span class="ft2">1.0140</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:683"><nobr><span class="ft2">1.0342</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:193"><nobr><span class="ft2">book1.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:273"><nobr><span class="ft2">6150168</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:370"><nobr><span class="ft2">57</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:433"><nobr><span class="ft2">61</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:494"><nobr><span class="ft2">59</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:548"><nobr><span class="ft2">1.0727</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:615"><nobr><span class="ft2">1.0199</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:683"><nobr><span class="ft2">1.0518</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:193"><nobr><span class="ft2">book2.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:273"><nobr><span class="ft2">4886848</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:370"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:433"><nobr><span class="ft2">63</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:494"><nobr><span class="ft2">62</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:548"><nobr><span class="ft2">1.0475</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:615"><nobr><span class="ft2">1.0159</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:683"><nobr><span class="ft2">1.0310</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:193"><nobr><span class="ft2">paper1.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:280"><nobr><span class="ft2">425288</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:370"><nobr><span class="ft2">62</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:433"><nobr><span class="ft2">65</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:494"><nobr><span class="ft2">64</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:548"><nobr><span class="ft2">1.0378</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:615"><nobr><span class="ft2">1.0075</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:683"><nobr><span class="ft2">1.0301</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:193"><nobr><span class="ft2">paper2.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:280"><nobr><span class="ft2">657592</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:370"><nobr><span class="ft2">57</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:433"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:494"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:548"><nobr><span class="ft2">1.0520</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:615"><nobr><span class="ft2">1.0098</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:683"><nobr><span class="ft2">1.0418</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:193"><nobr><span class="ft2">paper3.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:280"><nobr><span class="ft2">372208</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:370"><nobr><span class="ft2">58</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:433"><nobr><span class="ft2">61</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:494"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:548"><nobr><span class="ft2">1.0421</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:615"><nobr><span class="ft2">1.0099</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:683"><nobr><span class="ft2">1.0318</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:193"><nobr><span class="ft2">paper4.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:280"><nobr><span class="ft2">106288</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:370"><nobr><span class="ft2">59</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:433"><nobr><span class="ft2">63</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:494"><nobr><span class="ft2">61</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:548"><nobr><span class="ft2">1.0656</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:615"><nobr><span class="ft2">1.0321</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:683"><nobr><span class="ft2">1.0324</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:193"><nobr><span class="ft2">paper5.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:283"><nobr><span class="ft2">95632</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:370"><nobr><span class="ft2">62</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:433"><nobr><span class="ft2">65</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:494"><nobr><span class="ft2">64</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:548"><nobr><span class="ft2">1.0518</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:615"><nobr><span class="ft2">1.0151</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:683"><nobr><span class="ft2">1.0361</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:193"><nobr><span class="ft2">paper6.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:280"><nobr><span class="ft2">304840</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:370"><nobr><span class="ft2">63</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:433"><nobr><span class="ft2">66</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:494"><nobr><span class="ft2">64</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:548"><nobr><span class="ft2">1.0495</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:615"><nobr><span class="ft2">1.0198</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:683"><nobr><span class="ft2">1.0290</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:193"><nobr><span class="ft2">progc.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:280"><nobr><span class="ft2">316888</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:370"><nobr><span class="ft2">65</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:433"><nobr><span class="ft2">68</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:494"><nobr><span class="ft2">66</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:548"><nobr><span class="ft2">1.0463</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:615"><nobr><span class="ft2">1.0315</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:683"><nobr><span class="ft2">1.0143</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:193"><nobr><span class="ft2">progl.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:280"><nobr><span class="ft2">573168</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:370"><nobr><span class="ft2">59</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:433"><nobr><span class="ft2">63</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:494"><nobr><span class="ft2">61</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:548"><nobr><span class="ft2">1.0637</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:615"><nobr><span class="ft2">1.0324</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:683"><nobr><span class="ft2">1.0302</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:193"><nobr><span class="ft2">progp.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:280"><nobr><span class="ft2">395032</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:370"><nobr><span class="ft2">61</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:433"><nobr><span class="ft2">64</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:494"><nobr><span class="ft2">63</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:548"><nobr><span class="ft2">1.0583</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:615"><nobr><span class="ft2">1.0133</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:683"><nobr><span class="ft2">1.0443</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:193"><nobr><span class="ft2">trans.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:280"><nobr><span class="ft2">749560</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:370"><nobr><span class="ft2">69</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:433"><nobr><span class="ft2">72</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:494"><nobr><span class="ft2">70</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:548"><nobr><span class="ft2">1.0436</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:615"><nobr><span class="ft2">1.0243</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:683"><nobr><span class="ft2">1.0187</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:193"><nobr><span class="ft2">news.txt</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:273"><nobr><span class="ft2">3016872</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:370"><nobr><span class="ft2">65</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:433"><nobr><span class="ft2">67</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:494"><nobr><span class="ft2">67</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:548"><nobr><span class="ft2">1.0403</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:615"><nobr><span class="ft2">1.0103</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:683"><nobr><span class="ft2">1.0296</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:193"><nobr><span class="ft2">geo</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:280"><nobr><span class="ft2">819200</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:370"><nobr><span class="ft2">70</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:433"><nobr><span class="ft2">72</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:494"><nobr><span class="ft2">71</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:548"><nobr><span class="ft2">1.0173</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:615"><nobr><span class="ft2">1.0098</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:683"><nobr><span class="ft2">1.0074</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:193"><nobr><span class="ft2">obj1</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:280"><nobr><span class="ft2">172032</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:370"><nobr><span class="ft2">74</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:433"><nobr><span class="ft2">76</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:494"><nobr><span class="ft2">75</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:548"><nobr><span class="ft2">1.0220</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:615"><nobr><span class="ft2">1.0149</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:683"><nobr><span class="ft2">1.0070</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:193"><nobr><span class="ft2">obj2</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:273"><nobr><span class="ft2">1974512</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:370"><nobr><span class="ft2">78</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:433"><nobr><span class="ft2">80</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:494"><nobr><span class="ft2">80</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:548"><nobr><span class="ft2">1.0280</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:615"><nobr><span class="ft2">1.0103</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:683"><nobr><span class="ft2">1.0175</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:193"><nobr><span class="ft2">pic</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:273"><nobr><span class="ft2">4105728</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:370"><nobr><span class="ft2">20</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:433"><nobr><span class="ft2">21</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:494"><nobr><span class="ft2">21</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:548"><nobr><span class="ft2">1.0362</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:615"><nobr><span class="ft2">1.0116</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:683"><nobr><span class="ft2">1.0242</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:191"><nobr><span class="ft9">comparative performance of the linear-time solution with the other two well-<br>known static methods. As we can see, the penalty on the compression factor<br>of the linear-time algorithm over Huffman, which is not order-preserving, or<br>Hu­Tucker, which takes time O(n log n), is minimal.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:209"><nobr><span class="ft1">It is important to observe that for the data set tested, the difference between</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:191"><nobr><span class="ft9">the optimal Hu­Tucker and the linear compression code was, in all cases, below<br>0.2 bits, which is much less than the worst-case additive term of 2 predicted by<br>Bayer's theorem.</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:191"><nobr><span class="ft1">4. STRING SORTING USING A WORD-RAM ALGORITHM</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:191"><nobr><span class="ft9">In this section, we compare the performance of sorting on the compressed text<br>against the uncompressed form [as in Moura et al. 1997], including Bentley<br>and Sedgewicks's FastSort [Bentley and Sedgewick 1997], as well as Anders-<br>son's word-RAM sort [Andersson 1994]. Traditionally, word-RAM algorithms<br>operate on unbounded length keys, such as strings, by using radix/bucket-sort<br>variants which iteratively examine the keys [Andersson and Nilsson 1994]. In<br>contrast, our method uses order-preserving compression to first reduce the size<br>of the keys, then sort by using fixed-key size word-RAM algorithms [Andersson<br>et al. 1995], sorting keys into buckets. We observed experimentally that this<br>suffices to sort the vast majority of the strings when sorting 100 MB files of</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91009.png" alt="background image">
+<DIV style="position:absolute;top:142;left:325"><nobr><span class="ft8">Fast String Sorting Using Order-Preserving Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:694"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:728"><nobr><span class="ft8">9</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:288"><nobr><span class="ft2">Table III. Percentage of Buckets Multiply Occupied (Web Crawl)</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:376"><nobr><span class="ft2">Size in</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:467"><nobr><span class="ft2">% Words Sharing a Bucket</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:278"><nobr><span class="ft2">File</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:375"><nobr><span class="ft2">Tokens</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:436"><nobr><span class="ft2">Uncompressed</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:538"><nobr><span class="ft2">Hu­Tucker</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:622"><nobr><span class="ft2">Linear</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:278"><nobr><span class="ft2">Alphanumeric</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:374"><nobr><span class="ft2">515277</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:468"><nobr><span class="ft2">16</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:564"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:635"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:278"><nobr><span class="ft2">Alpha only</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:374"><nobr><span class="ft2">373977</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:468"><nobr><span class="ft2">21</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:564"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:635"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:198"><nobr><span class="ft9">web-crawled text data. In this case, each of the buckets contained very few ele-<br>ments, in practice. We also tested the algorithms on the Calgary corpus, which<br>is a standard benchmark in the field of text compression.</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:216"><nobr><span class="ft1">We consider the use of a word-RAM sorting algorithm to create a dictionary</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:198"><nobr><span class="ft9">of the words appearing in a given text. The standard word-RAM algorithms<br>have as a requirement that the keys fit within the word size of the RAM ma-<br>chine being used. Modern computers have word sizes of 32 or 64 bits. In this<br>particular example, we tested Andersson's 32 bit implementation [Andersson<br>and Nilsson 1998] of the O(n log log n) algorithm by Andersson et al. [1995]. We<br>also tested the performance of Bentley and Sedgewick's [1997] MKQSort run-<br>ning on compressed data using order-preserving compression. The algorithm is<br>a straightforward implementation of the code in Bentley and Sedgewick [1997].</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:216"><nobr><span class="ft1">Observe that one can use a word-RAM algorithm on keys longer than w bits</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:198"><nobr><span class="ft9">by initially sorting on the first w bits of the key and then identifying "buckets"<br>where two or more strings are "tied," i.e., share the first w bits. The algorithm<br>proceeds recursively on each of these buckets until there are no further ties.<br>This method is particularly effective if the number of ties is not too large.</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:216"><nobr><span class="ft1">To study this effect, we consider two word dictionaries and a text source. One</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:198"><nobr><span class="ft9">is collected from a 1-GB crawl of the world wide web, the second from all the<br>unique words appearing in the Calgary corpus; the last one is a more recent<br>3.3-GB crawl of the world wide web. This is motivated by an indexing applica-<br>tion for which sorting a large number of words was required. In principle, the<br>result is equally applicable to other settings, such as sorting of alphanumeric<br>fields in a database.</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:216"><nobr><span class="ft1">In the case of the web crawl we considered two alternative tokenization</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:198"><nobr><span class="ft9">schemes. The first one tokenizes on alphanumeric characters while the second<br>ignores numbers in favor of words only. Table III shows the number of buck-<br>ets that have more than one element after the first pass in the uncompressed<br>and the compressed form of the text. We report both the figure for the pro-<br>posed linear algorithm and for the optimal Hu­Tucker scheme. Observe the<br>dramatic reduction in the number of buckets that require further processing in<br>the compressed data.</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:216"><nobr><span class="ft1">In fact the numbers of ties in the compressed case is sufficiently small that</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:198"><nobr><span class="ft9">aborting the recursion after the first pass and using a simpler sorting algorithm<br>on the buckets is a realistic alternative. In comparison, in the uncompressed<br>case the recursion reaches depth three in the worst case before other types of<br>sorting become a realistic possibility.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:216"><nobr><span class="ft1">In the case of the Calgary corpus, the number of buckets with ties in the</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:198"><nobr><span class="ft9">uncompressed form of the text ranged from 3 to 8%. After compressing the text,<br>the number of ties, in all cases, rounded to 0</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:493"><nobr><span class="ft1">.0%. The specific figures for a subset</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:198"><nobr><span class="ft1">of the Calgary corpus are shown in Table IV.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91010.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">10</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:235"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:269"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:319"><nobr><span class="ft2">Table IV. Percentage of Buckets Multiply Occupied</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:346"><nobr><span class="ft2">on the Text Subset of the Calgary Corpus</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:422"><nobr><span class="ft2">Percentage Words Tied</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:321"><nobr><span class="ft2">File</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:380"><nobr><span class="ft2">Uncompressed</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:482"><nobr><span class="ft2">Hu­Tucker</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:567"><nobr><span class="ft2">Linear</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:321"><nobr><span class="ft2">paper1</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:416"><nobr><span class="ft2">5</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:321"><nobr><span class="ft2">paper2</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:416"><nobr><span class="ft2">4</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:321"><nobr><span class="ft2">paper3</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:416"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:321"><nobr><span class="ft2">paper4</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:416"><nobr><span class="ft2">4</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:321"><nobr><span class="ft2">paper5</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:416"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:321"><nobr><span class="ft2">paper6</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:416"><nobr><span class="ft2">4</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:321"><nobr><span class="ft2">book1</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:416"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:321"><nobr><span class="ft2">book2</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:416"><nobr><span class="ft2">8</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:321"><nobr><span class="ft2">bib</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:416"><nobr><span class="ft2">7</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:509"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:580"><nobr><span class="ft2">0</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:209"><nobr><span class="ft1">Notice that in all cases the performance of the optimal Hu­Tucker algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:191"><nobr><span class="ft9">and the linear algorithm is comparable. We should also emphasize that while<br>the tests in this paper used compression on alphanumeric characters only, the<br>compression scheme can be applied to entire words [see, for example, Mumey<br>1992]. In this case, the size of the code dictionary can range in the thousands<br>of symbols, which makes the savings of a linear-time algorithm particularly<br>relevant.</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:209"><nobr><span class="ft1">Last, we considered a series of ten web crawls from Google, each of approx-</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:191"><nobr><span class="ft9">imately 100 MB in size (3.3 GB in total). In this case, we operate under the<br>assumption that the data is stored in the suitable format to the corresponding<br>algorithm. We posit that it is desirable to store data in compressed format, as<br>this results also in storage savings while not sacrificing searchability because of<br>the order-preserving nature of the compression. We tokenized and sorted each of<br>these files to create a dictionary, a common preprocessing step for some indexing<br>algorithms. The tokenization was performed on nonalphanumeric characters.<br>For this test, we removed tokens larger than 32 bits from the tokenized file. In<br>practice, these tokens would be sorted using a second pass, as explained earlier.<br>We first studied the benefits of order-preserving compression alone by compar-<br>ing the time taken to sort the uncompressed and compressed forms of the text.<br>The tokens were sorted using the Unix</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:452"><nobr><span class="ft1">sort routine, Unix qsort, Fast MKQSort,</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:191"><nobr><span class="ft9">and Andersson's sort algorithm [Andersson and Nilsson 1998]. Table V shows a<br>comparison of CPU times among the different sorting algorithms, while Table<br>VI shows the comparison in performance including I/O time for copying the<br>data into memory. Note that there are observed gains both in CPU time alone<br>and in CPU plus I/O timings as a result of using the data-compressed form.</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:209"><nobr><span class="ft1">We report timings in individual form for the first three crawls as well as</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:191"><nobr><span class="ft9">the average sorting time across all 10 files together with the variance. On the<br>data provided, Fast MKQSort is the best possible choice with the compressed<br>variant, being 20% faster than the uncompressed form. These are substantial<br>savings for such a highly optimized algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:209"><nobr><span class="ft1">While, in this case, we focused on key lengths below w bits, the savings from</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:191"><nobr><span class="ft9">compression can be realized by most other sorting, searching, or indexing mech-<br>anisms, both by the reduction of the key length field and by the reduced demands<br>in terms of space. To emphasize, there are two aspects of order-preserving</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91011.png" alt="background image">
+<DIV style="position:absolute;top:142;left:318"><nobr><span class="ft8">Fast String Sorting Using Order-Preserving Compression</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:686"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:721"><nobr><span class="ft8">11</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:274"><nobr><span class="ft2">Table V. CPU Time (in Seconds) as Reported by the Unix</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:594"><nobr><span class="ft2">Time Utility</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:239"><nobr><span class="ft2">Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:420"><nobr><span class="ft2">Data 1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:476"><nobr><span class="ft2">Data 2</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:531"><nobr><span class="ft2">Data 3</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:586"><nobr><span class="ft2">Average</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:649"><nobr><span class="ft2">Variance</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:239"><nobr><span class="ft2">QSort</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:427"><nobr><span class="ft2">2.41</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:483"><nobr><span class="ft2">2.29</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:538"><nobr><span class="ft2">2.33</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:597"><nobr><span class="ft2">2.33</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:661"><nobr><span class="ft2">0.04</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:239"><nobr><span class="ft2">QSort on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:427"><nobr><span class="ft2">2.17</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:483"><nobr><span class="ft2">2.18</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:538"><nobr><span class="ft2">2.20</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:597"><nobr><span class="ft2">2.20</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:661"><nobr><span class="ft2">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:239"><nobr><span class="ft2">Andersson</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:427"><nobr><span class="ft2">0.80</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:483"><nobr><span class="ft2">0.82</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:538"><nobr><span class="ft2">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:597"><nobr><span class="ft2">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:661"><nobr><span class="ft2">0.01</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:239"><nobr><span class="ft2">Fast Sort</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:427"><nobr><span class="ft2">0.88</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:483"><nobr><span class="ft2">0.89</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:538"><nobr><span class="ft2">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:597"><nobr><span class="ft2">0.88</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:239"><nobr><span class="ft2">Fast Sort on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:427"><nobr><span class="ft2">0.73</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:483"><nobr><span class="ft2">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:538"><nobr><span class="ft2">0.75</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:597"><nobr><span class="ft2">0.74</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:239"><nobr><span class="ft2">Binary Search</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:427"><nobr><span class="ft2">1.27</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:483"><nobr><span class="ft2">1.29</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:538"><nobr><span class="ft2">1.26</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:597"><nobr><span class="ft2">1.28</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:239"><nobr><span class="ft2">Binary Search on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:427"><nobr><span class="ft2">1.08</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:483"><nobr><span class="ft2">1.09</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:538"><nobr><span class="ft2">1.09</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:597"><nobr><span class="ft2">1.09</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:283"><nobr><span class="ft2">Table VI. Total System Time as Reported by the Unix</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:585"><nobr><span class="ft2">time Utility</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:239"><nobr><span class="ft2">Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:420"><nobr><span class="ft2">Data 1</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:476"><nobr><span class="ft2">Data 2</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:531"><nobr><span class="ft2">Data 3</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:586"><nobr><span class="ft2">Average</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:649"><nobr><span class="ft2">Variance</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:239"><nobr><span class="ft2">Unix Sort</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:427"><nobr><span class="ft2">5.53</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:483"><nobr><span class="ft2">5.40</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:538"><nobr><span class="ft2">5.30</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:597"><nobr><span class="ft2">5.41</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:661"><nobr><span class="ft2">0.07</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:239"><nobr><span class="ft2">Unix Sort compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:427"><nobr><span class="ft2">5.43</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:483"><nobr><span class="ft2">5.43</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:538"><nobr><span class="ft2">5.53</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:597"><nobr><span class="ft2">5.42</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:661"><nobr><span class="ft2">0.06</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:239"><nobr><span class="ft2">QSort</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:427"><nobr><span class="ft2">2.78</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:483"><nobr><span class="ft2">2.64</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:538"><nobr><span class="ft2">2.68</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:597"><nobr><span class="ft2">2.69</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:661"><nobr><span class="ft2">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:239"><nobr><span class="ft2">QSort on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:427"><nobr><span class="ft2">2.45</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:483"><nobr><span class="ft2">2.47</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:538"><nobr><span class="ft2">2.48</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:597"><nobr><span class="ft2">2.48</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:661"><nobr><span class="ft2">0.05</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:239"><nobr><span class="ft2">Andersson</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:427"><nobr><span class="ft2">3.63</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:483"><nobr><span class="ft2">3.60</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:538"><nobr><span class="ft2">3.67</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:597"><nobr><span class="ft2">3.61</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:661"><nobr><span class="ft2">0.04</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:239"><nobr><span class="ft2">Fast Sort</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:427"><nobr><span class="ft2">1.24</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:483"><nobr><span class="ft2">1.25</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:538"><nobr><span class="ft2">1.22</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:597"><nobr><span class="ft2">1.24</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:239"><nobr><span class="ft2">Fast Sort on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:427"><nobr><span class="ft2">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:483"><nobr><span class="ft2">1.04</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:538"><nobr><span class="ft2">1.02</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:597"><nobr><span class="ft2">1.03</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:239"><nobr><span class="ft2">Binary Search</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:427"><nobr><span class="ft2">1.63</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:483"><nobr><span class="ft2">1.64</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:538"><nobr><span class="ft2">1.62</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:597"><nobr><span class="ft2">1.65</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:239"><nobr><span class="ft2">Binary Search on compressed</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:427"><nobr><span class="ft2">1.36</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:483"><nobr><span class="ft2">1.38</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:538"><nobr><span class="ft2">1.37</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:597"><nobr><span class="ft2">1.38</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:661"><nobr><span class="ft2">0.02</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:198"><nobr><span class="ft9">compression, which have a positive impact on performance. The first is that<br>when comparing two keys byte-per-byte, we are now, in fact, comparing more<br>than key at once, since compressed characters fit at a rate of more than 1 per<br>byte. Second, the orginal data size is reduced. This leads to a decrease in the<br>amount of paging to external memory, which is often the principal bottleneck<br>for algorithms on large data collections.</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:198"><nobr><span class="ft1">5. CONCLUSIONS</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:198"><nobr><span class="ft9">In this work, we studied the benefits of order-preserving compression for<br>sorting strings in the word-RAM model. First, we propose a simple linear-<br>approximation algorithm for optimal order-preserving compression, which acts<br>reasonably well in comparison with optimum algorithms, both in theory and<br>in practice. The approximation is within a constant additive term of both the<br>optimum scheme and the information theoretical ideal, i.e., the entropy of the<br>probabilistic distribution associated to the character frequency. We then test<br>the benefits of this algorithm using the sorting algorithm of Andersson for the<br>word-RAM, as well as Bentley and Sedgewick's fast MKQSort. We present ex-<br>perimental data based on a 1-GB web crawl, showing that Fast MKQSort and<br>Andersson are more efficient for compressed data.</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:198"><nobr><span class="ft1">ACKNOWLEDGEMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:198"><nobr><span class="ft9">We wish to thank Ian Munro for helpful discussions on this topic, as well<br>as anonymous referees of an earlier version of this paper for their helpful<br>comments.</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:376"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+<!-- Page 12 -->
+<a name="12"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="91012.png" alt="background image">
+<DIV style="position:absolute;top:142;left:191"><nobr><span class="ft8">12</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:235"><nobr><span class="ft4">·</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:269"><nobr><span class="ft8">A. L ´opez-Ortiz et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:191"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:191"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:200"><nobr><span class="ft3">NDERSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:249"><nobr><span class="ft2">, A. 1994. Faster deterministic sorting and searching in linear space. In Proceedings of</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:203"><nobr><span class="ft2">the 37th Annual IEEE Symposium on Foundations of Computer Science (FOCS 1996). 135­141.</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:191"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:200"><nobr><span class="ft3">NDERSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:249"><nobr><span class="ft2">, A.</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:272"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:295"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:305"><nobr><span class="ft3">ILSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:337"><nobr><span class="ft2">, S. 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:407"><nobr><span class="ft2">A new efficient radix sort. In FOCS: IEEE Symposium on</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:203"><nobr><span class="ft2">Foundations of Computer Science (FOCS).</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:191"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:200"><nobr><span class="ft3">NDERSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:249"><nobr><span class="ft2">, A.</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:275"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:299"><nobr><span class="ft2">N</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:309"><nobr><span class="ft3">ILSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:341"><nobr><span class="ft2">, S. 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:415"><nobr><span class="ft2">Implementing radixsort. ACM Journal of Experimental</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:203"><nobr><span class="ft2">Algorithms 3, 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:191"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:200"><nobr><span class="ft3">NDERSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:249"><nobr><span class="ft2">, A., H</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:286"><nobr><span class="ft3">AGERUP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:321"><nobr><span class="ft2">, T., N</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:356"><nobr><span class="ft3">ILSSON</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:388"><nobr><span class="ft2">, S.,</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:413"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:437"><nobr><span class="ft2">R</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:445"><nobr><span class="ft3">AMAN</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:471"><nobr><span class="ft2">, R. 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:544"><nobr><span class="ft2">Sorting in linear time? In STOC:</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:203"><nobr><span class="ft2">ACM Symposium on Theory of Computing (STOC).</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:191"><nobr><span class="ft2">A</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:200"><nobr><span class="ft3">NTOSHENKOV</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:262"><nobr><span class="ft2">, G. 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:335"><nobr><span class="ft2">Dictionary-based order-preserving string compression. VLDB Journal:</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:203"><nobr><span class="ft2">Very Large Data Bases 6, 1 (Jan.), 26­39. (Electronic edition.)</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:191"><nobr><span class="ft2">B</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:200"><nobr><span class="ft3">AYER</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:223"><nobr><span class="ft2">, P. J. 1975.</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:307"><nobr><span class="ft2">Improved bounds on the costs of optimal and balanced binary search trees.</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:203"><nobr><span class="ft2">Master's thesis. Massachussets Institute of Technology (MIT), Cambridge, MA.</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:191"><nobr><span class="ft2">B</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:200"><nobr><span class="ft3">ELL</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:217"><nobr><span class="ft2">, T. C., C</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:267"><nobr><span class="ft3">LEARY</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:295"><nobr><span class="ft2">, J. G.,</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:336"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:360"><nobr><span class="ft2">W</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:371"><nobr><span class="ft3">ITTEN</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:398"><nobr><span class="ft2">, I. H. 1990.</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:485"><nobr><span class="ft2">Text compression. Prentice Hall, Englewood</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:203"><nobr><span class="ft2">Cliffs, NJ.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:191"><nobr><span class="ft2">B</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:200"><nobr><span class="ft3">ENTLEY</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:235"><nobr><span class="ft2">, J. L.</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:273"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:298"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:305"><nobr><span class="ft3">EDGEWICK</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:354"><nobr><span class="ft2">, R. 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:429"><nobr><span class="ft2">Fast algorithms for sorting and searching strings. In</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:203"><nobr><span class="ft2">Proceedings of 8th ACM-SIAM Symposium on Discrete Algorithms (SODA '97). 360­369.</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:191"><nobr><span class="ft2">F</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:199"><nobr><span class="ft3">ARACH</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:230"><nobr><span class="ft2">, M.</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:256"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:280"><nobr><span class="ft2">T</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:288"><nobr><span class="ft3">HORUP</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:318"><nobr><span class="ft2">, M. 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:394"><nobr><span class="ft2">String matching in lempel-ziv compressed strings. Algorith-</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:203"><nobr><span class="ft2">mica 20, 4, 388­404.</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:191"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:201"><nobr><span class="ft3">ILBERT</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:232"><nobr><span class="ft2">, E. N.</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:271"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:295"><nobr><span class="ft2">M</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:306"><nobr><span class="ft3">OORE</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:331"><nobr><span class="ft2">, E. F. 1959.</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:417"><nobr><span class="ft2">Variable-length binary encoding. Bell Systems Technical</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:203"><nobr><span class="ft2">Journal 38, 933­968.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:191"><nobr><span class="ft2">H</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:201"><nobr><span class="ft3">U</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:207"><nobr><span class="ft2">, T. C. 1973.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:291"><nobr><span class="ft2">A new proof of the T -C algorithm. SIAM Journal on Applied Mathematics 25, 1</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:203"><nobr><span class="ft2">(July), 83­94.</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:191"><nobr><span class="ft2">K¨</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:201"><nobr><span class="ft3">ARKK</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:227"><nobr><span class="ft2">¨</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:226"><nobr><span class="ft3">AINEN</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:254"><nobr><span class="ft2">, J.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:274"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:297"><nobr><span class="ft2">U</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:307"><nobr><span class="ft3">KKNONEN</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:352"><nobr><span class="ft2">, E. 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:423"><nobr><span class="ft2">Lempel-ziv parsing and sublinear-size index structures</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:203"><nobr><span class="ft7">for string matching. In Proceedings of the 3rd South American Workshop on String Processing<br>(WSP '96). 141­155.</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:191"><nobr><span class="ft2">K</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:201"><nobr><span class="ft3">NUTH</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:227"><nobr><span class="ft2">, D. E. 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:314"><nobr><span class="ft2">The art of computer programming: Fundamental algorithms, 3rd ed, vol. 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:203"><nobr><span class="ft2">Addison­Wesley, Reading, MA.</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:191"><nobr><span class="ft2">L</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:199"><nobr><span class="ft3">ARMORE</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:238"><nobr><span class="ft2">, L. L.</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:271"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:293"><nobr><span class="ft2">P</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:301"><nobr><span class="ft3">RZYTYCKA</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:348"><nobr><span class="ft2">, T. M. 1998. The optimal alphabetic tree problem revisited. Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:203"><nobr><span class="ft2">of Algorithms 28, 1 (July), 1­20.</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:191"><nobr><span class="ft2">M</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:203"><nobr><span class="ft3">OURA</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:228"><nobr><span class="ft2">, E., N</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:262"><nobr><span class="ft3">AVARRO</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:296"><nobr><span class="ft2">, G.,</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:321"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:343"><nobr><span class="ft2">Z</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:350"><nobr><span class="ft3">IVIANI</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:379"><nobr><span class="ft2">, N. 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:450"><nobr><span class="ft2">Indexing compressed text. In Proceedings of the 4th</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:203"><nobr><span class="ft7">South American Workshop on String Processing (WSP '97). Carleton University Press, Ottawa,<br>Ontario. 95­111.</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:191"><nobr><span class="ft2">M</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:203"><nobr><span class="ft3">UMEY</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:228"><nobr><span class="ft2">, B. M. 1992.</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:316"><nobr><span class="ft2">Some new results on constructing optimal alphabetic binary trees. Master's</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:203"><nobr><span class="ft2">thesis, University of British Columbia, Vancouver, British Columbia .</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:191"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:199"><nobr><span class="ft3">HANNON</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:238"><nobr><span class="ft2">, C. E. 1948.</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:323"><nobr><span class="ft2">A mathematical theory of communication. Bell Syst. Technical Journal 27,</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:203"><nobr><span class="ft2">379­423, 623­656.</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:191"><nobr><span class="ft2">Z</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:199"><nobr><span class="ft3">IV</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:207"><nobr><span class="ft2">, J.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:225"><nobr><span class="ft3">AND</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:248"><nobr><span class="ft2">L</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:255"><nobr><span class="ft3">EMPEL</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:287"><nobr><span class="ft2">, A. 1978.</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:357"><nobr><span class="ft2">Compression of individual sequences via variable-rate coding. IEEE</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:203"><nobr><span class="ft2">Trans. Inform. Theory, Vol.IT-24 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:191"><nobr><span class="ft4">Received June 2004; revised January 2006; accepted October 2004 and January 2006</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:191"><nobr><span class="ft4">ACM Journal of Experimental Algorithmics, Vol. 10, Article No. 1.4, 2006.</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

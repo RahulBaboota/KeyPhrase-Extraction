@@ -1,0 +1,1280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>CF06_final1.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-05-01T10:22:21+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:235"><nobr><span class="ft0"><b>The Potential of the Cell Processor</b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:301"><nobr><span class="ft0"><b>for Scientific Computing</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:287"><nobr><span class="ft1">Samuel Williams, John Shalf, Leonid Oliker</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:267"><nobr><span class="ft1">Shoaib Kamil, Parry Husbands, Katherine Yelick</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:347"><nobr><span class="ft2">Computational Research Division</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:327"><nobr><span class="ft2">Lawrence Berkeley National Laboratory</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:392"><nobr><span class="ft2">Berkeley, CA 94720</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:208"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:214"><nobr><span class="ft1">swwilliams,jshalf,loliker,sakamil,prjhusbands,kayelick</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:630"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:637"><nobr><span class="ft1">@lbl.gov</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:81"><nobr><span class="ft9">The slowing pace of commodity microprocessor performance<br>improvements combined with ever-increasing chip power de-<br>mands has become of utmost concern to computational sci-<br>entists. As a result, the high performance computing com-<br>munity is examining alternative architectures that address<br>the limitations of modern cache-based designs. In this work,<br>we examine the potential of using the forthcoming STI Cell<br>processor as a building block for future high-end comput-<br>ing systems. Our work contains several novel contributions.<br>First, we introduce a performance model for Cell and apply<br>it to several key scientific computing kernels: dense ma-<br>trix multiply, sparse matrix vector multiply, stencil com-<br>putations, and 1D/2D FFTs.</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:276"><nobr><span class="ft3">The difficulty of program-</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:81"><nobr><span class="ft9">ming Cell, which requires assembly level intrinsics for the<br>best performance, makes this model useful as an initial step<br>in algorithm design and evaluation. Next, we validate the<br>accuracy of our model by comparing results against pub-<br>lished hardware results, as well as our own implementations<br>on the Cell full system simulator. Additionally, we com-<br>pare Cell performance to benchmarks run on leading super-<br>scalar (AMD Opteron), VLIW (Intel Itanium2), and vector<br>(Cray X1E) architectures. Our work also explores several<br>different mappings of the kernels and demonstrates a simple<br>and effective programming model for Cell's unique architec-<br>ture. Finally, we propose modest microarchitectural mod-<br>ifications that could significantly increase the efficiency of<br>double-precision calculations. Overall results demonstrate<br>the tremendous potential of the Cell architecture for scien-<br>tific computations in terms of both raw performance and<br>power efficiency.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:81"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:81"><nobr><span class="ft9">C.1.2 [Processor Architectures] : Multiple Data Stream Ar-<br>chitectures -- Single-instruction- stream, multiple-data-stream<br>processors (SIMD)</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:81"><nobr><span class="ft10">Copyright 2005 Association for Computing Machinery. ACM acknowl-<br>edges that this contribution was authored or co-authored by a contractor or<br>affiliate of the U.S. Government. As such, the Government retains a nonex-<br>clusive, royalty-free right to publish or reproduce this article, or to allow<br>others to do so, for Government purposes only.<br><i>CF'06, </i>May 3­5, 2006, Ischia, Italy.<br>Copyright 2006 ACM 1-59593-302-6/06/0005 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:475"><nobr><span class="ft9">C.1.3 [Processor Architectures] : Other Architecture Styles<br>-- Heterogeneous (hybrid) systems<br>C.1.4 [Processor Architectures] : Parallel Architectures<br>C.4 [Performance of Systems] : Design studies, modeling<br>techniques, performance attributes<br>D.1.3 [Programming Techniques] : Concurrent Program-<br>ming -- Parallel Programming</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:475"><nobr><span class="ft4"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:475"><nobr><span class="ft3">Performance, Design</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:475"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:475"><nobr><span class="ft9">Cell processor, GEMM, SpMV, sparse matrix, FFT, Stencil,<br>three level memory</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:475"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:507"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:489"><nobr><span class="ft3">Over the last decade the HPC community has moved to-</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft9">wards machines composed of commodity microprocessors as<br>a strategy for tracking the tremendous growth in processor<br>performance in that market. As frequency scaling slows,<br>and the power requirements of these mainstream processors<br>continues to grow, the HPC community is looking for alter-<br>native architectures that provide high performance on sci-<br>entific applications, yet have a healthy market outside the<br>scientific community. In this work, we examine the potential<br>of the forthcoming STI Cell processor as a building block for<br>future high-end computing systems, by investigating perfor-<br>mance across several key scientific computing kernels: dense<br>matrix multiply, sparse matrix vector multiply, stencil com-<br>putations on regular grids, as well as 1D and 2D FFTs.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft3">Cell combines the considerable floating point resources re-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft9">quired for demanding numerical algorithms with a power-<br>efficient software-controlled memory hierarchy. Despite its<br>radical departure from previous mainstream/commodity pro-<br>cessor designs, Cell is particularly compelling because it<br>will be produced at such high volumes that it will be cost-<br>competitive with commodity CPUs. The current implemen-<br>tation of Cell is most often noted for its extremely high per-<br>formance single-precision (SP) arithmetic, which is widely<br>considered insufficient for the majority of scientific applica-<br>tions. Although Cell's peak double precision performance<br>is still impressive relative to its commodity peers (~14.6<br>Gflop/s@3.2GHz), we explore how modest hardware changes<br>could significantly improve performance for computationally<br>intensive DP applications.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:456"><nobr><span class="ft8">9</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:94"><nobr><span class="ft3">This paper presents several novel results.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:369"><nobr><span class="ft3">We present</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft9">quantitative performance data for scientific kernels that com-<br>pares Cell performance to leading superscalar (AMD Opteron),<br>VLIW (Intel Itanium2), and vector (Cray X1E) architec-<br>tures. We believe this study examines the broadest array<br>of scientific algorithms to date on Cell. We developed both<br>analytical models and lightweight simulators to predict ker-<br>nel performance that we demonstrated to be accurate when<br>compared against published Cell hardware result, as well as<br>our own implementations on the Cell full system simulator.<br>Our work also explores the complexity of mapping several<br>important scientific algorithms onto the Cell's unique archi-<br>tecture in order to leverage the large number of available<br>functional units and the software-controlled memory. Ad-<br>ditionally, we propose modest microarchitectural modifica-<br>tions that could increase the efficiency of double-precision<br>arithmetic calculations, and demonstrate significant perfor-<br>mance improvements compared with the current Cell imple-<br>mentation.</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:94"><nobr><span class="ft3">Overall results demonstrate the tremendous potential of</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:81"><nobr><span class="ft9">the Cell architecture for scientific computations in terms of<br>both raw performance and power efficiency. We also con-<br>clude that Cell's heterogeneous multi-core implementation<br>is inherently better suited to the HPC environment than<br>homogeneous commodity multicore processors.</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:81"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:112"><nobr><span class="ft4"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:94"><nobr><span class="ft3">One of the key limiting factors for computational per-</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:81"><nobr><span class="ft9">formance is off-chip memory bandwidth. Since increasing<br>the off-chip bandwidth is prohibitively expensive, many ar-<br>chitects are considering ways of using available bandwidth<br>more efficiently. Examples include hardware multithreading<br>or more efficient alternatives to conventional cache-based ar-<br>chitectures such as software-controlled memories. Software-<br>controlled memories can potentially improve memory sub-<br>system performance by supporting finely controlled prefetch-<br>ing and more efficient cache-utilization policies that take ad-<br>vantage of application-level information -- but do so with far<br>less architectural complexity than conventional cache archi-<br>tectures. While placing data movement under explicit soft-<br>ware control increases the complexity of the programming<br>model, prior research has demonstrated that this approach<br>can be more effective for hiding memory latencies (including<br>cache misses and TLB misses) -- requiring far smaller cache<br>sizes to match the performance of conventional cache imple-<br>mentations [17, 19]. The performance of software-controlled<br>memory is more predictable, thereby making it popular for<br>real-time embedded applications where guaranteed response<br>rates are essential.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:94"><nobr><span class="ft3">Over the last five years, a plethora of alternatives to con-</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft9">ventional cache-based architectures have been suggested in-<br>cluding scratchpad memories [9,16,30], paged on-chip mem-<br>ories [12, 17], and explicit three-level memory architectures<br>[18, 19]. Until recently, few of these architectural concepts<br>made it into mainstream processor designs, but the increas-<br>ingly stringent power/performance requirements for embed-<br>ded systems have resulted in a number of recent implemen-<br>tations that have adopted these concepts. Chips like the<br>Sony Emotion Engine [20, 23, 29] and Intel's MXP5800 both<br>achieved high performance at low power by adopting three<br>levels (registers, local memory, external DRAM) of software-<br>managed memory. More recently, the STI Cell processor has<br>adopted a similar approach where data movement between</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:612"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:605"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:494"><nobr><span class="ft11">PPC  </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:487"><nobr><span class="ft11">512 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:542"><nobr><span class="ft11">memo ry </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:539"><nobr><span class="ft11">con troller </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:497"><nobr><span class="ft11">I/O  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:505"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:556"><nobr><span class="ft11">I/O  </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:643"><nobr><span class="ft11">EIB  </span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:584"><nobr><span class="ft11">4 rings, 8bytes/ core cycle</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:722"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:531"><nobr><span class="ft11">25.6 GB/s  </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:671"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:664"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:730"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:723"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:789"><nobr><span class="ft11">SPE </span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:782"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:612"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:605"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:671"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:664"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:730"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:723"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:789"><nobr><span class="ft11">SPE  </span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:782"><nobr><span class="ft11">256 KB </span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:512"><nobr><span class="ft3">Figure 1: Overview of the Cell processor</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:475"><nobr><span class="ft9">these three address spaces is explicitly controlled by the ap-<br>plication.</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:544"><nobr><span class="ft3">For predictable data access patterns the local</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:475"><nobr><span class="ft9">store approach is highly advantageous as it can be very effi-<br>ciently utilized through explicit software-controlled schedul-<br>ing. Improved bandwidth utilization through deep pipelin-<br>ing of memory requests requires less power, and has a faster<br>access time, than a large cache due in part to its lower com-<br>plexity. If however, the data access pattern lacks predictabil-<br>ity, then the advantages of software-managed memory are<br>lost. This more aggressive approach to memory architec-<br>ture was adopted to meet the demanding cost/performance<br>and real-time responsiveness requirements of Sony's upcom-<br>ing video game console. However, to date, an in-depth study<br>to evaluate the potential of utilizing the Cell architecture in<br>the context of scientific computations does not appear in the<br>literature.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:475"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:507"><nobr><span class="ft4"><b>CELL BACKGROUND</b></span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:489"><nobr><span class="ft3">Cell [8,27] was designed by a partnership of Sony, Toshiba,</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft9">and IBM (STI) to be the heart of Sony's forthcoming PlaySta-<br>tion3 gaming system. Cell takes a radical departure from<br>conventional multiprocessor or multi-core architectures. In-<br>stead of using identical cooperating commodity processors,<br>it uses a conventional high performance PowerPC core that<br>controls eight simple SIMD cores, called synergistic process-<br>ing elements (SPEs), where each SPE contains a synergistic<br>processing unit (SPU), a local memory, and a memory flow<br>controller. An overview of Cell is provided in Figure 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:489"><nobr><span class="ft3">Access to external memory is handled via a 25.6GB/s</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft9">XDR memory controller. The cache coherent PowerPC core,<br>the eight SPEs, the DRAM controller, and I/O controllers<br>are all connected via 4 data rings, collectively known as the<br>EIB. The ring interface within each unit allows 8 bytes/cycle<br>to be read or written. Simultaneous transfers on the same<br>ring are possible. All transfers are orchestrated by the Pow-<br>erPC core.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:489"><nobr><span class="ft3">Each SPE includes four single precision (SP) 6-cycle pipe-</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft9">lined FMA datapaths and one double precision (DP) half-<br>pumped (the double precision operations within a SIMD<br>operation must be serialized) 9-cycle pipelined FMA datap-<br>ath with 4 cycles of overhead for data movement [22]. Cell<br>has a 7 cycle in-order execution pipeline and forwarding net-<br>work [8]. IBM appears to have solved the problem of insert-<br>ing a 13 (9+4) cycle DP pipeline into a 7 stage in-order ma-<br>chine by choosing the minimum effort/performance/power<br>solution of simply stalling for 6 cycles after issuing a DP</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">10</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">instruction. The SPE's DP throughput [14] of one DP in-<br>struction every 7 (1 issue + 6 stall) cycles coincides perfectly<br>with this reasoning.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft3">Thus for computationally intense algorithms like dense</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft9">matrix multiply (GEMM), we expect SP implementations to<br>run near peak whereas DP versions would drop to approxi-<br>mately one fourteenth the peak SP flop rate [10]. Similarly,<br>for bandwidth intensive applications such as sparse matrix<br>vector multiplication (SpMV) we expect SP versions to be<br>between 1.5x and 4x as fast as DP, depending on density<br>and uniformity.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:94"><nobr><span class="ft3">Unlike a typical coprocessor, each SPE has its own local</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft9">memory from which it fetches code and reads and writes<br>data. All loads and stores issued from the SPE can only<br>access the SPE's local memory. The Cell processor depends<br>on explicit DMA operations to move data from main mem-<br>ory to the local store of the SPE. The limited scope of loads<br>and stores allows one to view the SPE as having a two-level<br>register file. The first level is a 128 x 128b single cycle reg-<br>ister file, where the second is a 16K x 128b six cycle register<br>file. Data must be moved into the first level before it can be<br>operated on by instructions. Dedicated DMA engines allow<br>multiple concurrent DMA loads to run concurrently with the<br>SIMD execution unit, thereby mitigating memory latency<br>overhead via double-buffered DMA loads and stores. The<br>selectable length DMA operations supported by the SPE<br>are much like a traditional unit stride vector load. We ex-<br>ploit these similarities to existing HPC platforms to select<br>programming models that are both familiar and tractable<br>for scientific application developers.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:112"><nobr><span class="ft4"><b>PROGRAMMING MODELS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">The Cell architecture poses several challenges to program-</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft9">ming: an explicitly controlled memory hierarchy, explicit<br>parallelism between the 8 SPEs and the PowerPC, and a<br>quadword based ISA. Our goal is to select the programming<br>paradigm that offers the simplest possible expression of an<br>algorithm while being capable of fully utilizing the hardware<br>resources of the Cell processor.</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:94"><nobr><span class="ft3">The memory hierarchy is programmed using explicit DMA</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:81"><nobr><span class="ft9">intrinsics with the option of user programmed double buffer-<br>ing to overlap data movement with computation on the<br>SPEs. Moving from a hardware managed memory hierarchy<br>to one controlled explicitly by the application significantly<br>complicates the programming model, and pushes it towards<br>a one sided communication model. Unlike MPI, the intrin-<br>sics are very low level and map to half a dozen instructions.<br>This allows for very low software overhead and good perfor-<br>mance, but requires the user to be capable and either ensure<br>correct usage or provide an interface or abstraction.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft3">For programming the parallelism on Cell, we considered</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">three possible programming models: task parallelism with<br>independent tasks scheduled on each SPE; pipelined paral-<br>lelism where large data blocks are passed from one SPE to<br>the next; and data parallelism, where the processors perform<br>identical computations on distinct data. For simplicity, we<br>do not consider parallelism between the PowerPC and the<br>SPEs, so we can treat this as a homogeneous parallel ma-<br>chine. Data pipelining may be suitable for certain classes<br>of algorithms and will be the focus of future investigation.<br>We adopt the data-parallel programming model, which is a<br>good match to many scientific applications and offers the<br>simplest and most direct method of decomposing the prob-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">lem. Data-parallel programming is quite similar to loop-<br>level parallelization afforded by OpenMP or the vector-like<br>multistreaming on the Cray X1E and the Hitachi SR-8000.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:489"><nobr><span class="ft3">The focus of this paper is Cell architecture and perfor-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft9">mance; we do not explore the efficacy of the IBM SPE XLC<br>compiler. Thus, we heavily rely on SIMD intrinsics and do<br>not investigate if appropriate SIMD instructions are gener-<br>ated by the compiler. Although the produced Cell code may<br>appear verbose -- due to the use of intrinsics instead of C<br>operators -- it delivers readily understandable performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:489"><nobr><span class="ft3">Our first Cell implementation, SpMV, required about a</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:475"><nobr><span class="ft9">month of learning the programming model, the architecture,<br>the compiler, the tools, and deciding on a final algorithmic<br>strategy. The final implementation required about 600 lines<br>of code. The next code development examined two flavors<br>of double precision stencil-based algorithms. These imple-<br>mentations required one week of work and are each about<br>250 lines, with an additional 200 lines of common code. The<br>programming overhead of these kernels on Cell required sig-<br>nificantly more effort than the scalar version's 15 lines, due<br>mainly to loop unrolling and intrinsics use. Although the<br>stencils are a simpler kernel, the SpMV learning experience<br>accelerated the coding process.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:489"><nobr><span class="ft3">Having become experienced Cell programmers, the single</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:475"><nobr><span class="ft9">precision time skewed stencil -- although virtually a com-<br>plete rewrite from the double precision single step version<br>-- required only a single day to code, debug, benchmark,<br>and attain spectacular results of over 65 Gflop/s. This im-<br>plementation consists of about 450 lines, due once again to<br>unrolling and the heavy use of intrinsics.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:475"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:507"><nobr><span class="ft4"><b>SIMULATION METHODOLOGY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:489"><nobr><span class="ft3">The simplicity of the SPEs and the deterministic behav-</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:475"><nobr><span class="ft9">ior of the explicitly controlled memory hierarchy make Cell<br>amenable to performance prediction using a simple analytic<br>model. Using this approach, one can easily explore multiple<br>variations of an algorithm without the effort of programming<br>each variation and running on either a fully cycle-accurate<br>simulator or hardware. With the newly released cycle accu-<br>rate simulator (Mambo), we have succesfully validated our<br>performance model for SGEMM, SpMV, and Stencil Com-<br>putations, as will be shown in the subsequent sections.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft3">Our modeling approach is broken into two steps commen-</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:475"><nobr><span class="ft9">surate with the two phase double buffered computational<br>model. The kernels were first segmented into code-snippets<br>that operate only on data present in the local store of the<br>SPE. We sketched the code snippets in SPE assembly and<br>performed static timing analysis. The latency of each opera-<br>tion, issue width limitations, and the operand alignment re-<br>quirements of the SIMD/quadword SPE execution pipeline<br>determined the number of cycles required. The in-order na-<br>ture and fixed local store memory latency of the SPEs makes<br>the analysis deterministic and thus more tractable than on<br>cache-based, out-of-order microprocessors.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:489"><nobr><span class="ft3">In the second step, we construct a model that tabulates</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft9">the time required for DMA loads and stores of the operands<br>required by the code snippets. The model accurately re-<br>flects the constraints imposed by resource conflicts in the<br>memory subsystem. For instance, concurrent DMAs issued<br>by multiple SPEs must be serialized, as there is only a single<br>DRAM controller. The model also presumes a conservative<br>fixed DMA initiation latency of 1000 cycles.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:489"><nobr><span class="ft3">The model computes the total time by adding all the per-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">11</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191004.png" alt="background image">
+<DIV style="position:absolute;top:82;left:221"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:295"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:337"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:400"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:195"><nobr><span class="ft3">SPE</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:244"><nobr><span class="ft3">Chip</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:288"><nobr><span class="ft3">(MSP)</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:190"><nobr><span class="ft3">SIMD</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:239"><nobr><span class="ft3">Multi-</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:291"><nobr><span class="ft3">Multi</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:344"><nobr><span class="ft3">Super</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:395"><nobr><span class="ft3">VLIW</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:86"><nobr><span class="ft3">Architecture</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:246"><nobr><span class="ft3">core</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:296"><nobr><span class="ft3">chip</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:344"><nobr><span class="ft3">scalar</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:240"><nobr><span class="ft3">SIMD Vector</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:86"><nobr><span class="ft3">Clock (GHz)</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:199"><nobr><span class="ft3">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:249"><nobr><span class="ft3">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:296"><nobr><span class="ft3">1.13</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:352"><nobr><span class="ft3">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:406"><nobr><span class="ft3">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:86"><nobr><span class="ft3">DRAM (GB/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:196"><nobr><span class="ft3">25.6</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:246"><nobr><span class="ft3">25.6</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:301"><nobr><span class="ft3">34</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:352"><nobr><span class="ft3">6.4</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:406"><nobr><span class="ft3">6.4</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:86"><nobr><span class="ft3">SP Gflop/s</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:196"><nobr><span class="ft3">25.6</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:243"><nobr><span class="ft3">204.8</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:301"><nobr><span class="ft3">36</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:352"><nobr><span class="ft3">8.8</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:406"><nobr><span class="ft3">5.6</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:86"><nobr><span class="ft3">DP Gflop/s</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:196"><nobr><span class="ft3">1.83</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:243"><nobr><span class="ft3">14.63</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:301"><nobr><span class="ft3">18</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:352"><nobr><span class="ft3">4.4</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:406"><nobr><span class="ft3">5.6</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:86"><nobr><span class="ft3">Local Store</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:187"><nobr><span class="ft3">256KB</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:244"><nobr><span class="ft3">2MB</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:301"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:354"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:408"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:86"><nobr><span class="ft3">L2 Cache</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:201"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:238"><nobr><span class="ft3">512KB</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:294"><nobr><span class="ft3">2MB</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:347"><nobr><span class="ft3">1MB</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:394"><nobr><span class="ft3">256KB</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:86"><nobr><span class="ft3">L3 Cache</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:201"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:251"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:301"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:354"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:400"><nobr><span class="ft3">3MB</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:86"><nobr><span class="ft3">Power (W)</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:205"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:248"><nobr><span class="ft3">~40</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:298"><nobr><span class="ft3">120</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:354"><nobr><span class="ft3">89</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:404"><nobr><span class="ft3">130</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:86"><nobr><span class="ft3">Year</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:201"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:244"><nobr><span class="ft3">2006</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:294"><nobr><span class="ft3">2005</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:347"><nobr><span class="ft3">2004</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:401"><nobr><span class="ft3">2003</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:81"><nobr><span class="ft9">Table 1: Architectural overview of STI Cell, Cray<br>X1E MSP, AMD Opteron, and Intel Itanium2. Es-<br>timated total Cell power and peak Gflop/s are<br>based on the active SPEs/idle PowerPC program-<br>ming model.</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:81"><nobr><span class="ft9">iteration (outer loop) times, which are themselves computed<br>by taking the maximum of the snippet and DMA transfer<br>times. In some cases, the per-iteration times are constant<br>across iterations, but in others it varies between iterations<br>and is input-dependent. For example, in a sparse matrix, the<br>memory access pattern depends on the nonzero structure of<br>the matrix, which varies across iterations. Some algorithms<br>may also require separate stages which have different execu-<br>tion times; e.g., the FFT has stages for loading data, loading<br>constants, local computation, transpose, local computation,<br>bit reversal, and storing the results.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:94"><nobr><span class="ft3">For simplicity we chose to model a 3.2GHz, 8 SPE version</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:81"><nobr><span class="ft9">of Cell with 25.6GB/s of memory bandwidth. This version<br>of Cell is likely to be used in the first release of the Sony<br>PlayStation3 [28]. The lower frequency had the simplifying<br>benefit that both the EIB and DRAM controller could de-<br>liver two SP words per cycle. The maximum flop rate of<br>such a machine would be 204.8 Gflop/s, with a computa-<br>tional intensity of 32 FLOPs/word. For comparison, we ran<br>these kernels on actual hardware of several leading proces-<br>sor designs: the vector Cray X1E MSP, superscalar AMD<br>Opteron 248 and VLIW Intel Itanium2. The key architec-<br>tural characteristics are detailed in Table 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:81"><nobr><span class="ft4"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:121"><nobr><span class="ft4"><b>Cell+ Architectural Exploration</b></span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:94"><nobr><span class="ft3">The Double Precision (DP) pipeline in Cell is obviously</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:81"><nobr><span class="ft9">an afterthought as video games have limited need for DP<br>arithmetic.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:159"><nobr><span class="ft3">Certainly a redesigned pipeline would rectify</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">the performance limitations, but would do so at a cost of<br>additional design complexity and power consumption. We<br>offer a more modest alternative that can reuse most of the<br>existing circuitry. Based on our experience designing the VI-<br>RAM vector processor-in-memory chip [12], we believe these<br>"Cell+" design modifications are considerably less complex<br>than a redesigned pipeline, consume very little additional<br>surface area on the chip, but show significant DP perfor-<br>mance improvements for scientific kernels.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">In order to explore the limitations of Cell's DP issue band-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">width, we propose an alternate design with a longer forward-<br>ing network to eliminate the all but one of the stall cycles</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">-- recall the factors that limit DP throughput as described<br>in Section 3. In this hypothetical implementation, called<br>Cell+, each SPE would still have the single DP datapath,<br>but would be able to dispatch one DP SIMD instruction<br>every other cycle instead of one every 7 cycles. The Cell+<br>design would not stall issuing other instructions and would<br>achieve 3.5x the DP throughput of the Cell (51.2 Gflop/s) by<br>fully utilizing the existing DP datapath; however, it would<br>maintain the same SP throughput, frequency, bandwidth,<br>and power as the Cell.</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:506"><nobr><span class="ft4"><b>DENSE MATRIX-MATRIX MULTIPLY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:489"><nobr><span class="ft3">We begin by examining the performance of dense matrix-</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:475"><nobr><span class="ft9">matrix multiplication, or GEMM. This kernel is character-<br>ized by high computational intensity and regular memory<br>access patterns, making it an extremely well suited for the<br>Cell architecture. We explored two storage formats: column<br>major and block data layout [26] (BDL). BDL is a two-<br>stage addressing scheme (block row/column, element sub<br>row/column).</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:475"><nobr><span class="ft4"><b>6.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:516"><nobr><span class="ft4"><b>Algorithm Considerations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:489"><nobr><span class="ft3">For GEMM, we adopt what is in essence an outer loop</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:475"><nobr><span class="ft9">parallelization approach. Each matrix is broken into 8n x<br>n element tiles designed to fit into the memory available on<br>the Cell chip, which are in turn split into eight n x n element<br>tiles that can fit into the 8 SPE local stores. For the column<br>layout, the matrix will be accessed via a number of short<br>DMAs equal to the dimension of the tile -- e.g. 64 DMAs<br>of length 64. BDL, on the other hand, will require a single<br>long DMA of length 16KB.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:489"><nobr><span class="ft3">Since the local store is only 256KB, and must contain</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:475"><nobr><span class="ft9">both the program and stack, program data in the local<br>store is limited to about 56K words. The tiles, when dou-<br>ble buffered, require 6n</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:615"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:625"><nobr><span class="ft3">words of local store (one from each</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft3">matrix) -- thus making 96</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:643"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:655"><nobr><span class="ft3">the maximum square tiles in</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:475"><nobr><span class="ft9">SP. Additionally, in column layout, there is added pressure<br>on the maximum tile size for large matrices, as each column<br>within a tile will be on a different page resulting in TLB<br>misses. The minimum size of a tile is determined by the<br>FLOPs to word ratio of the processor. In the middle, there<br>is a tile-size "sweet spot" that delivers peak performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:489"><nobr><span class="ft3">The loop order was therefore chosen to minimize the aver-</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:475"><nobr><span class="ft9">age number of pages touched per phase for a column major<br>storage format. The BDL approach, as TLB misses are of<br>little concern, allows us to structure the loop order to min-<br>imize memory bandwidth requirements.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:489"><nobr><span class="ft3">A possible alternate approach is to adapt Cannon's algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:475"><nobr><span class="ft9">rithm [3] for parallel machines. Although this strategy could<br>reduce the DRAM bandwidth requirements by transferring<br>blocks via the EIB, for a column major layout, it could sig-<br>nificantly increase the number of pages touched. This will<br>be the subject of future work. Note that for small matrix<br>sizes, it is most likely advantageous to choose an algorithm<br>that minimizes the number of DMAs. One such solution<br>would be to broadcast a copy of the first matrix to all SPEs.</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:475"><nobr><span class="ft4"><b>6.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:516"><nobr><span class="ft4"><b>Single Precision GEMM Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:489"><nobr><span class="ft3">The Cell performance of GEMM based on our perfor-</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft3">mance model (referred to as Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:681"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:698"><nobr><span class="ft3">) for large matrices is</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft9">presented in Table 2. SGEMM simulation data show that<br>32</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:489"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:502"><nobr><span class="ft3">blocks do not achieve sufficient computational inten-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">sity to fully utilize the processor. The choice of loop order</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">12</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191005.png" alt="background image">
+<DIV style="position:absolute;top:82;left:187"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:210"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:210"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:243"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:267"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:300"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:342"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:406"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:89"><nobr><span class="ft3">DP (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:195"><nobr><span class="ft3">51.1</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:254"><nobr><span class="ft3">14.6</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:300"><nobr><span class="ft3">16.9</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:357"><nobr><span class="ft3">4.0</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:412"><nobr><span class="ft3">5.4</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:89"><nobr><span class="ft3">SP (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:200"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:248"><nobr><span class="ft3">204.7</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:300"><nobr><span class="ft3">29.5</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:357"><nobr><span class="ft3">7.8</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:412"><nobr><span class="ft3">3.0</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:81"><nobr><span class="ft9">Table 2: GEMM performance (in Gflop/s) for large<br>square matrices on Cell, X1E, Opteron, and Ita-<br>nium2.</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:148"><nobr><span class="ft3">Only the best performing numbers are</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:81"><nobr><span class="ft9">shown. Cell data based on our performance model<br>is referred to as Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:224"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:240"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:81"><nobr><span class="ft9">and the resulting increase in memory traffic prevents column<br>major 64</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:137"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:150"><nobr><span class="ft3">blocks from achieving a large fraction of peak</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:81"><nobr><span class="ft3">(over 90%) for large matrices. Only 96</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:315"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:327"><nobr><span class="ft3">block sizes provide</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft9">enough computational intensity to overcome the additional<br>block loads and stores, and thus achieving near-peak perfor-<br>mance -- over 200Gflop/s. For BDL, however, 64</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:390"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:402"><nobr><span class="ft3">blocks</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:81"><nobr><span class="ft9">effectively achieve peak performance. Whereas we assume a<br>1000 cycle DMA startup latency in our simulations, if the<br>DMA latency were only 100 cycles, then the 64</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:383"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:396"><nobr><span class="ft3">column</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:81"><nobr><span class="ft3">major performance would reach parity with BDL.</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:94"><nobr><span class="ft3">At 3.2GHz, each SPE requires about 3W [8]. Thus with</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:81"><nobr><span class="ft3">a nearly idle PPC and L2, Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:269"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:285"><nobr><span class="ft3">achieves over 200 Gflop/s</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:81"><nobr><span class="ft9">for approximately 40W of power -- nearly 5 Gflop/s/Watt.<br>Clearly, for well-suited applications, Cell is extremely power<br>efficient.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft4"><b>6.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:121"><nobr><span class="ft4"><b>Double Precision GEMM Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:94"><nobr><span class="ft3">A similar set of strategies and simulations were performed</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:81"><nobr><span class="ft3">for DGEMM. Although the time to load a DP 64</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:382"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:393"><nobr><span class="ft3">block is</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:81"><nobr><span class="ft9">twice that of the SP version, the time required to compute<br>on a 64</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:123"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:132"><nobr><span class="ft3">DP block is about 14x as long as the SP counterpart</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:81"><nobr><span class="ft9">(due to the limitations of the DP issue logic). Thus it is far<br>easier for DP to reach its peak performance. -- a mere 14.6<br>Gflop/s. However, when using our proposed Cell+ hardware<br>variant, DGEMM performance jumps to an impressive 51<br>Gflop/s.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:81"><nobr><span class="ft4"><b>6.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:121"><nobr><span class="ft4"><b>Performance Comparison</b></span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:94"><nobr><span class="ft3">Table 2 shows a performance comparison of GEMM be-</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:81"><nobr><span class="ft3">tween Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:144"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:160"><nobr><span class="ft3">and the set of modern processors evaluated in</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft9">our study. Note the impressive performance characteristics<br>of the Cell processors, achieving 69x, 26x, and 7x speed<br>up for SGEMM compared with the Itanium2, Opteron, and<br>X1E respectively. For DGEMM, the default Cell processor<br>is 2.7x and 3.7x faster than the Itanium2 and Opteron. In<br>terms of power, the Cell performance is even more impres-<br>sive, achieving over 200x the efficiency of the Itanium2 for<br>SGEMM!</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:94"><nobr><span class="ft3">Our Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:147"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:147"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:169"><nobr><span class="ft3">exploration architecture is capable, for large</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft9">tiles, of fully exploiting the DP pipeline and achieving over<br>50 Gflop/s. In DP, the Cell+ architecture would be nearly<br>10 times faster than the Itanium2 and nearly 30 times more<br>power efficient. Additionally, traditional micros (Itanium2,<br>Opteron, etc) in multi-core configurations would require ei-<br>ther enormous power saving innovations or dramatic reduc-<br>tions in performance, and thus would show even poorer per-<br>formance/power compared with the Cell technology. Com-<br>pared to the X1E, Cell+ would be 3 times as fast and 9<br>times more power efficient.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">The decoupling of main memory data access from the</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">computational kernel guarantees constant memory access<br>latency since there will be no cache misses, and all TLB ac-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">cesses are resolved in the communication phase. Matrix mul-<br>tiplication is perhaps the best benchmark to demonstrate<br>Cell's computational capabilities, as it achieves high perfor-<br>mance by buffering large blocks on chip before computing<br>on them.</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:475"><nobr><span class="ft4"><b>6.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:516"><nobr><span class="ft4"><b>Model Validation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:489"><nobr><span class="ft3">IBM recently released their in-house performance evalu-</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft9">ation of their prototype hardware [4]. On SGEMM, they<br>achieve about 201 Gflop/s, which is within 2% of our pred-<br>icated performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:506"><nobr><span class="ft4"><b>SPARSE MATRIX VECTOR MULTIPLY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:489"><nobr><span class="ft3">At first glance, SpMV would seem to be a poor applica-</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:475"><nobr><span class="ft9">tion choice for the Cell since the SPEs have neither caches<br>nor word-granularity gather/scatter support. Furthermore,<br>SpMV has a relatively low O(1) computational intensity.<br>However, these considerations are perhaps less important<br>than the Cell's low functional unit and local store latency<br>(&lt;2ns), the task parallelism afforded by the SPEs, the eight<br>independent load store units, and the ability to stream nonze-<br>ros via DMAs.</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:475"><nobr><span class="ft4"><b>7.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:520"><nobr><span class="ft4"><b>Algorithmic Considerations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:489"><nobr><span class="ft3">Two storage formats are presented in this paper: Com-</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:475"><nobr><span class="ft9">pressed Sparse Row (CSR) and Blocked Compressed Sparse<br>Row (BCSR). Only square BCSR was explored, and only<br>2x2 BCSR numbers will be presented here.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:763"><nobr><span class="ft3">Future Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:475"><nobr><span class="ft9">SpMV work will examine the entire BCSR space. Because<br>of the quadword nature of the SPEs, all rows within a CSR<br>tile are padded to a multiple of 4. This greatly simplifies<br>the programming model at the expense of increasing mem-<br>ory traffic. Note that this is very different than 1x4 BCSR..</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:489"><nobr><span class="ft3">To perform a stanza gather operation the Cell utilizes the</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft9">MFC "get list" command, where a list of addresses/lengths<br>is created in local store. The MFC then gathers these stan-<br>zas from the global store and packs them into the local store.<br>It is possible to make every stanza a single quadword, how-<br>ever, without an accurate performance model of the MFC<br>"get list" command, one must resort to tiling to provide<br>a reasonable estimate for performance. For simplicity all<br>benchmarks were run using square tiles. The data structure<br>required to store the entire matrix is a 2D array of tiles,<br>where each block stores its nonzeros and row pointers as if<br>it were an entire matrix. We chose not to buffer the source<br>and destination vector tiles as this would result in a smaller<br>block size. These tradeoffs will be examined in future work.<br>Collectively the blocks are chosen to be no larger than ~36K<br>words in SP (half that in DP).</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:489"><nobr><span class="ft3">The inner loop of CSR SpMV either requires significant</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft9">software pipelining, hefty loop unrolling, or an approach al-<br>gorithmically analogous to a segmented scan [1]. As there<br>are no conditional stores in the SPE assembly language, we<br>chose to partially implement a segmented scan, where the<br>gather operations are decoupled from the dot products. This<br>decoupled gather operation can be unrolled and software<br>pipelined, thereby completing in close to three cycles per<br>element (the ISA is not particularly gather friendly). It is<br>important to note that since the local store is not a write<br>back cache, it is possible to overwrite its contents without<br>fear of consuming DRAM bandwidth or corrupting the ac-<br>tual arrays.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:489"><nobr><span class="ft3">As the nonzeros are stored contiguously in arrays, it is</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">13</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191006.png" alt="background image">
+<DIV style="position:absolute;top:83;left:86"><nobr><span class="ft3">#</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:129"><nobr><span class="ft3">Name</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:206"><nobr><span class="ft3">N</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:235"><nobr><span class="ft3">NNZ</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:322"><nobr><span class="ft3">Comments</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:84"><nobr><span class="ft3">15</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:125"><nobr><span class="ft3">Vavasis</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:199"><nobr><span class="ft3">40K 1.6M</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:301"><nobr><span class="ft3">2D PDE Problem</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:84"><nobr><span class="ft3">17</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:131"><nobr><span class="ft3">FEM</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:199"><nobr><span class="ft3">22K</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:240"><nobr><span class="ft3">1M</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:277"><nobr><span class="ft3">Fluid Mechanics Problem</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:84"><nobr><span class="ft3">18</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:122"><nobr><span class="ft3">Memory</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:199"><nobr><span class="ft3">17K 125K</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:278"><nobr><span class="ft3">MotorolaMemory Circuit</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:84"><nobr><span class="ft3">36</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:132"><nobr><span class="ft3">CFD</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:199"><nobr><span class="ft3">75K 325K Navier-Stokes, viscous flow</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:84"><nobr><span class="ft3">06 FEM Crystal</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:199"><nobr><span class="ft3">14K 490K</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:290"><nobr><span class="ft3">FEM stiffness matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:84"><nobr><span class="ft3">09</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:120"><nobr><span class="ft3">3D Tube</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:199"><nobr><span class="ft3">45K 1.6M</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:301"><nobr><span class="ft3">3D pressure Tube</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:84"><nobr><span class="ft3">25</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:121"><nobr><span class="ft3">Portfolio</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:199"><nobr><span class="ft3">74K 335K</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:298"><nobr><span class="ft3">Financial Portfolio</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:84"><nobr><span class="ft3">27</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:127"><nobr><span class="ft3">NASA</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:199"><nobr><span class="ft3">36K 180K</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:293"><nobr><span class="ft3">PWT NASA Matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:84"><nobr><span class="ft3">28 Vibroacoustic 12K 177K</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:288"><nobr><span class="ft3">Flexible box structure</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:84"><nobr><span class="ft3">40 Linear Prog.</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:199"><nobr><span class="ft3">31K</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:240"><nobr><span class="ft3">1M</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:340"><nobr><span class="ft3">AA</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:361"><nobr><span class="ft12">T</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:84"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:127"><nobr><span class="ft3">7pt 64</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:195"><nobr><span class="ft3">256K 1.8M</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:311"><nobr><span class="ft3">64</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:324"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:335"><nobr><span class="ft3">7pt stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:81"><nobr><span class="ft9">Table 3: Suite of matrices used to evaluate SpMV<br>performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:189"><nobr><span class="ft3">Matrix numbers as defined in the</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:81"><nobr><span class="ft3">SPARSITY suite are shown in the first column.</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:81"><nobr><span class="ft9">straightforward to stream them in via DMA. Here, unlike<br>the source and destination vectors, it is essential to dou-<br>ble buffer in order to maximize the SPEs computational<br>throughput. Using buffers of 16KB for SP allows for 2K<br>values and 2K indices for CSR, and 1K tiles for 2x2 BCSR.<br>Note that for each phase -- loading nonzeros and indices<br>-- there is the omnipresent 1000 cycle DMA latency over-<br>head in addition to the startup and finalize penalties (as in<br>traditional pipelining).</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:94"><nobr><span class="ft3">To partition the work among the SPEs, we implemented</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:81"><nobr><span class="ft9">a cooperative blocking model. By forcing all SPEs to work<br>on the same block, it is possible to broadcast the blocked<br>source vector and row pointers to minimize memory traffic.<br>One approach, referred to as PrivateY, was to divide work<br>among SPEs within a block by distributing the nonzeros<br>as evenly as possible. This strategy necessitates that each<br>SPE contains a private copy of the destination vector, and<br>requires an inter-SPE reduction at the end of each blocked<br>row.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:119"><nobr><span class="ft3">The alternate method, referred to as PartitionedY,</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:81"><nobr><span class="ft9">partitions the destination vector evenly among the SPEs.<br>However there is no longer any guarantee that the SPEs'<br>computations will remain balanced, causing the execution<br>time of the entire tile to be limited by the most heavily<br>loaded SPE. Thus for load balanced blocks, the PartitionedY<br>approach is generally advantageous; however, for matrices<br>exhibiting irregular (uneven) nonzero patterns, we expect<br>higher performance using PrivateY.</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:94"><nobr><span class="ft3">Note that there is a potential performance benefit by writ-</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:81"><nobr><span class="ft9">ing a kernel specifically optimized for symmetric matrices.<br>For these types of matrices, the number of operations can<br>effectively double relative to the memory traffic. However,<br>the algorithm must block two tiles at a time -- thus the sym-<br>metric matrix kernel divides memory allocated for blocking<br>the vector evenly among the two submatrices, and performs<br>a dot product and SAXPY for each row in the lower triangle.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:81"><nobr><span class="ft4"><b>7.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:121"><nobr><span class="ft4"><b>Evaluation Matrices</b></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft3">In order to effectively evaluate SpMV performance, we ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft9">amine a synthetic stencil matrix, as well as ten real matrices<br>used in numerical calculations from the BeBop SPARSITY<br>suite [11, 31] (four nonsymmetric and six symmetric). Ta-<br>ble 3 presents an overview of the evaluated matrices.</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:475"><nobr><span class="ft4"><b>7.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:516"><nobr><span class="ft4"><b>Single Precision SpMV Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:489"><nobr><span class="ft3">Single and double precision tuned SpMV results for the</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:475"><nobr><span class="ft9">SPARSITY matrices are show in Tables 4 and 5. Surpris-<br>ingly, given Cell's inherent SpMV limitations, the SPAR-<br>SITY nonsymmetric matrices average over 4 Gflop/s, while<br>the symmetric matrices average nearly 8 Gflop/s. Unfortu-<br>nately, many of these matrices are so small that they utilize<br>only a fraction of the default tile size. Unlike the synthetic<br>matrices, the real matrices, which contain dense sub-blocks,<br>can exploit BCSR without unnecessarily wasting memory<br>bandwidth on zeros. As memory traffic is key, storing BCSR<br>blocks in a compressed format (the zeros are neither stored<br>nor loaded) would allow for significantly higher performance<br>if there is sufficient support within the ISA to either decom-<br>press these blocks on the fly, or compute on compressed<br>blocks. This is an area of future research.</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:489"><nobr><span class="ft3">Overall results show that the PrivateY approach is gen-</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:475"><nobr><span class="ft9">erally a superior partitioning strategy compared with Parti-<br>tionedY. In most cases, the matrices are sufficiently unbal-<br>anced that the uniform partitioning of the nonzeros coupled<br>with a reduction requires less time than the performing a<br>load imbalanced calculation.</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:489"><nobr><span class="ft3">When using the PartionedY approach, the symmetric ker-</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:475"><nobr><span class="ft9">nel is extremely unbalanced for blocks along the diagonal.<br>Thus, for matrices approximately the size of a single block,<br>the imbalance between SPEs can severely impair the perfor-<br>mance -- even if the matrix is uniform. In fact, symmetric<br>optimizations show only about 50% performance improve-<br>ment when running the nonsymmetric kernel on the sym-<br>metric matrices.</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:489"><nobr><span class="ft3">Once again DMA latency plays a relatively small role in</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:475"><nobr><span class="ft3">this algorithm.</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:579"><nobr><span class="ft3">In fact, reducing the DMA latency by a</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:475"><nobr><span class="ft9">factor of ten results in only a 5% increase in performance.<br>This is actually a good result. It means than the memory<br>bandwidth is highly utilized and the majority of bus cycles<br>are used for transferring data rather than stalls.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:489"><nobr><span class="ft3">On the whole, clock frequency also plays a small part in</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:475"><nobr><span class="ft3">the overall performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:640"><nobr><span class="ft3">Solely increasing the clock fre-</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:475"><nobr><span class="ft9">quency by a factor of 2 (to 6.4GHz) provides only a 1%<br>increase in performance on the SPARSITY nonsymmetric<br>matrix suite. Similarly, cutting the frequency in half (to<br>1.6GHz) results in only a 20% decrease in performance. Sim-<br>ply put, for the common case, more time is used in trans-<br>ferring nonzeros and the vectors rather than computing on<br>them.</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:475"><nobr><span class="ft4"><b>7.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:516"><nobr><span class="ft4"><b>Double Precision SpMV Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:489"><nobr><span class="ft3">Results from our performance estimator show that single</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:475"><nobr><span class="ft9">precision SPMV is almost twice as fast as double precision,<br>even though the nonzero memory traffic only increases by<br>50%. This discrepancy is due to the reduction in the number<br>of values contained in a tile, where twice as many blocked<br>rows are present. For example, when using 16K</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:759"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:770"><nobr><span class="ft3">SP tiles on</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:475"><nobr><span class="ft3">a 128K</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:518"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:529"><nobr><span class="ft3">matrix, the 512KB source vector must be loaded 8</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:475"><nobr><span class="ft3">times. However, in DP, the tiles are only 8K</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:739"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:749"><nobr><span class="ft3">-- causing the</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:475"><nobr><span class="ft9">1MB source vector to be loaded 16 times, and thus resulting<br>in a much higher volume of memory traffic. Future work<br>will investigate caching mega blocks across SPEs to reduce<br>total memory traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:475"><nobr><span class="ft4"><b>7.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:520"><nobr><span class="ft4"><b>Performance Comparison</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">Table 4 compares Cell's estimated performance (the best</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">partitioning and blocking combination) for SpMV with re-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">14</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191007.png" alt="background image">
+<DIV style="position:absolute;top:83;left:372"><nobr><span class="ft3">SPARSITY nonsymmetric matrix suite</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:340"><nobr><span class="ft3">Double Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:601"><nobr><span class="ft3">Single Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:179"><nobr><span class="ft3">Matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:260"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:284"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:325"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:349"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:349"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:383"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:407"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:442"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:488"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:553"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:601"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:624"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:659"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:726"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:177"><nobr><span class="ft3">Vavasis</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:271"><nobr><span class="ft3">3.79</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:333"><nobr><span class="ft3">3.17</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:391"><nobr><span class="ft3">3.06</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:443"><nobr><span class="ft3">0.84</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:499"><nobr><span class="ft3">0.44</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:555"><nobr><span class="ft3">0.46</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:609"><nobr><span class="ft3">6.06</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:670"><nobr><span class="ft3">0.70</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:728"><nobr><span class="ft3">0.49</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:184"><nobr><span class="ft3">FEM</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:271"><nobr><span class="ft3">4.28</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:333"><nobr><span class="ft3">3.44</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:391"><nobr><span class="ft3">3.39</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:443"><nobr><span class="ft3">1.55</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:499"><nobr><span class="ft3">0.42</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:555"><nobr><span class="ft3">0.49</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:609"><nobr><span class="ft3">5.14</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:670"><nobr><span class="ft3">0.59</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:728"><nobr><span class="ft3">0.62</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:184"><nobr><span class="ft3">Mem</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:271"><nobr><span class="ft3">2.21</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:333"><nobr><span class="ft3">1.69</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:391"><nobr><span class="ft3">1.46</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:443"><nobr><span class="ft3">0.57</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:499"><nobr><span class="ft3">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:555"><nobr><span class="ft3">0.27</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:609"><nobr><span class="ft3">2.79</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:670"><nobr><span class="ft3">0.45</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:728"><nobr><span class="ft3">0.31</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:185"><nobr><span class="ft3">CFD</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:271"><nobr><span class="ft3">1.87</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:333"><nobr><span class="ft3">1.52</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:391"><nobr><span class="ft3">1.44</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:443"><nobr><span class="ft3">1.61</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:499"><nobr><span class="ft3">0.28</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:555"><nobr><span class="ft3">0.21</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:609"><nobr><span class="ft3">2.33</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:670"><nobr><span class="ft3">0.38</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:728"><nobr><span class="ft3">0.23</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:171"><nobr><span class="ft3">Average</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:270"><nobr><span class="ft3">3.04</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:331"><nobr><span class="ft3">2.46</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:389"><nobr><span class="ft3">2.34</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:442"><nobr><span class="ft3">1.14</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:497"><nobr><span class="ft3">0.36</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:554"><nobr><span class="ft3">0.36</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:607"><nobr><span class="ft3">4.08</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:669"><nobr><span class="ft3">0.53</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:727"><nobr><span class="ft3">0.41</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:384"><nobr><span class="ft3">SPARSITY symmetric matrix suite</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:340"><nobr><span class="ft3">Double Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:601"><nobr><span class="ft3">Single Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:179"><nobr><span class="ft3">Matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:260"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:284"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:325"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:349"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:349"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:383"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:407"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:442"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:488"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:553"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:601"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:624"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:659"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:726"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:184"><nobr><span class="ft3">FEM</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:333"><nobr><span class="ft3">6.79</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:391"><nobr><span class="ft3">6.32</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:443"><nobr><span class="ft3">3.12</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:499"><nobr><span class="ft3">0.93</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:555"><nobr><span class="ft3">1.14</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:605"><nobr><span class="ft3">12.37</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:670"><nobr><span class="ft3">1.46</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:728"><nobr><span class="ft3">1.37</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:173"><nobr><span class="ft3">3D Tube</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:333"><nobr><span class="ft3">6.48</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:391"><nobr><span class="ft3">6.06</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:443"><nobr><span class="ft3">2.62</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:499"><nobr><span class="ft3">0.86</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:555"><nobr><span class="ft3">1.16</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:605"><nobr><span class="ft3">11.66</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:670"><nobr><span class="ft3">1.36</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:728"><nobr><span class="ft3">1.31</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:173"><nobr><span class="ft3">Portfolio</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:333"><nobr><span class="ft3">1.83</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:391"><nobr><span class="ft3">1.60</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:443"><nobr><span class="ft3">2.99</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:499"><nobr><span class="ft3">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:555"><nobr><span class="ft3">0.24</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:609"><nobr><span class="ft3">3.26</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:670"><nobr><span class="ft3">0.42</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:728"><nobr><span class="ft3">0.32</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:180"><nobr><span class="ft3">NASA</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:333"><nobr><span class="ft3">1.92</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:391"><nobr><span class="ft3">1.66</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:443"><nobr><span class="ft3">3.30</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:499"><nobr><span class="ft3">0.42</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:555"><nobr><span class="ft3">0.32</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:609"><nobr><span class="ft3">3.17</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:670"><nobr><span class="ft3">0.46</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:728"><nobr><span class="ft3">0.40</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:182"><nobr><span class="ft3">Vibro</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:333"><nobr><span class="ft3">3.90</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:391"><nobr><span class="ft3">3.47</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:443"><nobr><span class="ft3">2.54</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:499"><nobr><span class="ft3">0.57</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:555"><nobr><span class="ft3">0.56</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:609"><nobr><span class="ft3">7.08</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:670"><nobr><span class="ft3">0.56</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:728"><nobr><span class="ft3">0.64</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:190"><nobr><span class="ft3">LP</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:333"><nobr><span class="ft3">5.17</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:391"><nobr><span class="ft3">4.87</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:443"><nobr><span class="ft3">1.27</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:499"><nobr><span class="ft3">0.47</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:555"><nobr><span class="ft3">0.63</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:609"><nobr><span class="ft3">8.54</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:670"><nobr><span class="ft3">0.55</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:728"><nobr><span class="ft3">0.92</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:171"><nobr><span class="ft3">Average</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:277"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:331"><nobr><span class="ft3">4.35</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:389"><nobr><span class="ft3">4.00</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:442"><nobr><span class="ft3">2.64</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:497"><nobr><span class="ft3">0.60</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:554"><nobr><span class="ft3">0.67</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:607"><nobr><span class="ft3">7.68</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:669"><nobr><span class="ft3">0.80</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:727"><nobr><span class="ft3">0.83</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:443"><nobr><span class="ft3">Synthetic Matrices</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:340"><nobr><span class="ft3">Double Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:601"><nobr><span class="ft3">Single Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:179"><nobr><span class="ft3">Matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:260"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:284"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:325"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:349"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:349"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:383"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:407"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:442"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:488"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:553"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:601"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:624"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:659"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:726"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:157"><nobr><span class="ft3">7pt 64 Stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:271"><nobr><span class="ft3">2.20</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:333"><nobr><span class="ft3">1.44</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:391"><nobr><span class="ft3">1.29</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:449"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:499"><nobr><span class="ft3">0.30</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:555"><nobr><span class="ft3">0.29</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:609"><nobr><span class="ft3">2.61</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:670"><nobr><span class="ft3">0.51</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:728"><nobr><span class="ft3">0.32</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:81"><nobr><span class="ft9">Table 4: SpMV performance in single and double precision on the SPARSITY (top) nonsymmetric and<br>(bottom) symmetric matrix suites. Note: Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:416"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:446"><nobr><span class="ft3">represents the actual implementation and runs on the</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:81"><nobr><span class="ft3">cycle accurate full system simulator</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:81"><nobr><span class="ft9">sults from the Itanium2 and Opteron using SPARSITY,<br>a highly tuned sparse matrix numerical library, on non-<br>symmetric (top) and symmetric matrix suites. X1E results<br>where gathered using a high-performance X1-specific SpMV<br>implementation [6].</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:94"><nobr><span class="ft3">Considering that the Itanium2 and Opteron each have a</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:81"><nobr><span class="ft9">6.4GB/s bus compared to the Cell's 25.6GB/s DRAM band-<br>width -- one may expect that a memory bound application<br>such as SpMV would perform only four times better on the<br>Cell. Nonetheless, on average, Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:288"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:309"><nobr><span class="ft3">is more than 6x faster</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:81"><nobr><span class="ft9">in DP and 10x faster in SP. This is because in order to<br>achieve maximum performance, the Itanium2 must rely on<br>the BCSR storage format, and thus waste memory band-<br>width loading unnecessary zeros. However, the Cell's high<br>FLOP to byte ratio ensures that the regularity of BCSR is<br>unnecessary allowing it to avoid loading many of the super-<br>fluous zeros. For example, in matrix #17, Cell uses more<br>than 50% of its bandwidth loading just the DP nonzero val-<br>ues, while the Itanium2 utilizes only 33% of its bandwidth.<br>The rest of Itanium2's bandwidth is used for zeros and meta<br>data. It should be noted that where simulations on Cell in-<br>volve a cold start to the local store, the Itanium2's have the<br>additional advantage of a warm cache.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:94"><nobr><span class="ft3">Cell's use of on-chip memory as a buffer is advantageous in</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:81"><nobr><span class="ft9">both power and area compared with a traditional cache. In<br>fact, Cell is 20 times more power efficient than the Itanium2<br>and 15 times more efficient than the Opteron for SpMV. For<br>a memory bound application such as this, multicore com-<br>modity processors will see little performance improvement<br>unless they also scale memory bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:94"><nobr><span class="ft3">Comparing results with an X1E MSP is far more diffi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:81"><nobr><span class="ft3">cult. For unsymmetric matrices, the Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:326"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:346"><nobr><span class="ft3">performance on</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:475"><nobr><span class="ft9">average is twice that of the X1E. For symmetric matrices,<br>Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:499"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:519"><nobr><span class="ft3">performs somewhere between half and triple the per-</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:475"><nobr><span class="ft9">formance of the X1E, but on average is 50% faster. The fact<br>that the X1E consumes about three times the power of Cell<br>guarantees Cell, in double precision, is at least as power ef-<br>ficient as the X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:475"><nobr><span class="ft4"><b>7.6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:516"><nobr><span class="ft4"><b>Model Validation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:489"><nobr><span class="ft3">Some might claim that matrix-matrix multiplication per-</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:475"><nobr><span class="ft9">formance can be easily predictable. Most, however, would<br>agree that SpMV is very difficult to predict. As seen in Ta-<br>ble 4, we tested our implementation of the DP SpMV kernel<br>on the cycle accurate IBM full system simulator, referred<br>to as Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:534"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:558"><nobr><span class="ft3">. The actual implementation makes dynamic</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft9">blocking and partitioning decisions at run time, based on<br>the lessons learned while exploring optimization strategies<br>for the performance model; however, the current version but<br>does not include the BCSR approach, and only pads rows<br>to the nearest even number.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:489"><nobr><span class="ft3">The cycle accurate simulations with a superior implemen-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:475"><nobr><span class="ft9">tation proved to be about 30% faster than the initial per-<br>formance estimate, and averages impressive results of more<br>than 3 Gflop/s for nonsymmetric matrices. The 30% dis-<br>crepancy disappears when static partitioning and blocking<br>strategies used. We can clearly see how the actual implemen-<br>tation's run time search for structure boosted performance<br>of the heat equation from about 1.3 Gflop/s to 2.2 Gflop/s --<br>achieving a 7x speedup over the Itanium2. Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:755"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:779"><nobr><span class="ft3">, for dou-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft9">ble precision nonsymmetric matrices, is more than 8 times<br>faster than the Itanium2, and 27 times more power efficient.<br>These results confirm our performance model's predictive</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">15</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191008.png" alt="background image">
+<DIV style="position:absolute;top:101;left:92"><nobr><span class="ft3">X</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:104"><nobr><span class="ft12">next</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:127"><nobr><span class="ft3">[i, j, k, t+ 1] = X[i</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:253"><nobr><span class="ft3">- 1, j, k, t]+ X[i+ 1, j, k, t]+</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:231"><nobr><span class="ft3">X[i, j</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:265"><nobr><span class="ft3">- 1, k, t]+ X[i, j+ 1, k, t]+</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:231"><nobr><span class="ft3">X[i, j, k</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:278"><nobr><span class="ft3">- 1, t]+ X[i, j, k+ 1, t]+</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:231"><nobr><span class="ft3">X[i, j, k, t]</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:86"><nobr><span class="ft3">X[i, j, k, t+ 1] =</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:205"><nobr><span class="ft3">dt</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:218"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:204"><nobr><span class="ft3">dx</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:219"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:227"><nobr><span class="ft3">(X[i</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:254"><nobr><span class="ft3">- 1, j, k, t]+ X[i+ 1, j, k, t])+</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:205"><nobr><span class="ft3">dt</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:217"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:204"><nobr><span class="ft3">dy</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:219"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:226"><nobr><span class="ft3">(X[i, j</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:266"><nobr><span class="ft3">- 1, k, t]+ X[i, j+ 1, k, t])+</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:205"><nobr><span class="ft3">dt</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:217"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:204"><nobr><span class="ft3">dz</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:218"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:226"><nobr><span class="ft3">(X[i, j, k</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:279"><nobr><span class="ft3">- 1, t]+ X[i, j, k+ 1, t])+</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:202"><nobr><span class="ft3">X[i, j, k, t]</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:273"><nobr><span class="ft3">- X[i, j, k, t- 1]</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:81"><nobr><span class="ft9">Figure 2: Stencil kernels used in evaluation. Top:<br>Chombo heattut equation requires only the previ-<br>ous time step. Bottom: Cactus WaveToy equation<br>requires both two previous time steps.</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:81"><nobr><span class="ft9">abilities on complex kernels, and clearly demonstrate Cell's<br>performance superiority when compared with leading mi-<br>croarchitectural approaches.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:81"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:112"><nobr><span class="ft4"><b>STENCIL COMPUTATIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:94"><nobr><span class="ft3">Stencil-based computations on regular grids are at the</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:81"><nobr><span class="ft9">core of a wide range of important scientific applications. In<br>these applications, each point in a multidimensional grid is<br>updated with contributions from a subset of its neighbors.<br>The numerical operations are then used to build solvers that<br>range from simple Jacobi iterations to complex multigrid<br>and block structured adaptive methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:94"><nobr><span class="ft3">In this work we examine two flavors of stencil computa-</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:81"><nobr><span class="ft9">tions derived from the numerical kernels of the Chombo [5]<br>and Cactus [2] toolkits. Chombo is a framework for comput-<br>ing solutions of partial differential equations (PDEs) using<br>finite difference methods on adaptively refined meshes. Here<br>we examine a stencil computation based on Chombo's demo<br>application, heattut, which solves a simple heat equation<br>without adaptivity. Cactus is modular open source frame-<br>work for computational science, successfully used in many<br>areas of astrophysics. Our work examines the stencil kernel<br>of the Cactus demo, WaveToy, which solves a 3D hyper-<br>bolic PDE by finite differencing. The heattut and WaveToy<br>equations are shown in Figure 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:94"><nobr><span class="ft3">Notice that both kernels solve 7 point stencils in 3D for</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:81"><nobr><span class="ft9">each point. However, the heattut equation only utilizes val-<br>ues from the previous time step, while WaveToy requires val-<br>ues from the two previous timesteps.. Additionally, Wave-<br>Toy has a higher computational intensity, and can more<br>readily exploit the FMA pipeline.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:81"><nobr><span class="ft4"><b>8.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:121"><nobr><span class="ft4"><b>Algorithmic Considerations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:94"><nobr><span class="ft3">The algorithm used on Cell is virtually identical to that</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:81"><nobr><span class="ft9">used on traditional architectures except that the ISA forces<br>main memory loads and stores to be explicit, rather than<br>caused by cache misses and evictions. The basic algorith-<br>mic approach to update the 3D cubic data array is to sweep<br>across the domain, updating one plane at a time. Since a<br>stencil requires both the next and previous plane, a mini-<br>mum of 4 planes must be present in the local stores: (z-1,t),</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:492"><nobr><span class="ft13">Z+2  </span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:492"><nobr><span class="ft13">Z+1  </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:499"><nobr><span class="ft13">Z </span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:494"><nobr><span class="ft13">Z-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:562"><nobr><span class="ft13">Z-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:567"><nobr><span class="ft13">Z </span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:548"><nobr><span class="ft13">Time  t+1  </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:486"><nobr><span class="ft13">Time  t </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:656"><nobr><span class="ft13">Z+2  </span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:656"><nobr><span class="ft13">Z+1  </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:662"><nobr><span class="ft13">Z </span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:657"><nobr><span class="ft13">Z-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:793"><nobr><span class="ft13">Z-2 </span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:793"><nobr><span class="ft13">Z-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:779"><nobr><span class="ft13">Time  t+2  </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:650"><nobr><span class="ft13">Time  t </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:730"><nobr><span class="ft13">Z </span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:725"><nobr><span class="ft13">Z-1 </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:725"><nobr><span class="ft13">Z-2 </span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:711"><nobr><span class="ft13">Time  t+1  </span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:475"><nobr><span class="ft9">Figure 3: Flow Diagram for Heat equation flow di-<br>agram. Left: Queues implemented within each SPE<br>perform only one time step. Right: Time skewing<br>version requires an additional circular queue to hold<br>intermediate results.</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:475"><nobr><span class="ft9">(z,t), (z+1,t), and (z,t+1). Additionally, bus utilization can<br>be maximized by double buffering the previous output plane<br>(z-1,t+1) with the next input plane (z+2,t).</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:489"><nobr><span class="ft3">In order to parallelize across SPEs, each plane of the 3D</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:475"><nobr><span class="ft9">domain is partitioned into eight overlapping blocks. Due<br>to the finite size of the local store memory, a straightfor-<br>ward stencil calculation is limited to planes of 256</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:772"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:782"><nobr><span class="ft3">elements</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:475"><nobr><span class="ft9">plus ghost regions. Thus each SPE updates the core 256x32<br>points from a 258x34 slab (as slabs also contain ghost re-<br>gions).</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:489"><nobr><span class="ft3">To improve performance of stencil computations on cache-</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:475"><nobr><span class="ft9">based architectures, previous research has shown multiple<br>time steps can be combined to increase performance [13,<br>21, 32].</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:531"><nobr><span class="ft3">This concept of time skewing can also be effec-</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:475"><nobr><span class="ft3">tively leveraged in our Cell implementation.</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:765"><nobr><span class="ft3">By keeping</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:475"><nobr><span class="ft9">multiple planes from multiple time steps in the SPE simul-<br>taneously, it is possible to double or triple the number of<br>stencils performed with almost no increase in memory traf-<br>fic; thus increasing computational intensity and improving<br>overall performance. Figure 3 details a flow diagram for the<br>heat equation, showing both the simple and time skewed<br>implementations.</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:489"><nobr><span class="ft3">Note that the neighbor communication required by sten-</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:475"><nobr><span class="ft9">cils is not well suited for the aligned quadword load require-<br>ments of the SPE ISA - i.e. unaligned loads must be emu-<br>lated with permute instructions. In fact, for SP stencils with<br>extensive unrolling, after memory bandwidth, the permute<br>datapath is the limiting factor in performance -- not the<br>FPU. This lack of support for unaligned accesses highlights<br>a potential bottleneck of the Cell architecture; however we<br>can partially obviate this problem for the stencil kernel via<br>data padding.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:475"><nobr><span class="ft4"><b>8.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:516"><nobr><span class="ft4"><b>Stencil Kernel Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft3">The performance estimation for the heattut and Wave-</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:475"><nobr><span class="ft9">Toy stencil kernels is shown in Table 5. Results show that<br>as the number of time steps increases, a corresponding de-<br>crease in the grid size is required due to the limited memory<br>footprint of the local store. In SP, the heat equation on the<br>Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:499"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:520"><nobr><span class="ft3">is effectively computationally bound with two steps</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft9">of time skewing, resulting in over 41 Gflop/s. More specif-<br>ically, the permute unit becomes fully utilized as discussed</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">16</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191009.png" alt="background image">
+<DIV style="position:absolute;top:83;left:195"><nobr><span class="ft3">Double Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:142"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:165"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:195"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:219"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:219"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:242"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:266"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:266"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:285"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:309"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:328"><nobr><span class="ft3">X1E AMD64 IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:90"><nobr><span class="ft3">Stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:192"><nobr><span class="ft3">(2 step)</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:96"><nobr><span class="ft3">Heat</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:153"><nobr><span class="ft3">7.25</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:203"><nobr><span class="ft3">21.1</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:250"><nobr><span class="ft3">10.6</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:296"><nobr><span class="ft3">8.2</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:329"><nobr><span class="ft3">3.91</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:369"><nobr><span class="ft3">0.57</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:411"><nobr><span class="ft3">1.19</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:83"><nobr><span class="ft3">WaveToy</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:153"><nobr><span class="ft3">9.68</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:203"><nobr><span class="ft3">16.7</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:250"><nobr><span class="ft3">11.1</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:293"><nobr><span class="ft3">10.8 4.99</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:369"><nobr><span class="ft3">0.68</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:411"><nobr><span class="ft3">2.05</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:203"><nobr><span class="ft3">Single Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:149"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:172"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:210"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:233"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:264"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:287"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:314"><nobr><span class="ft3">X1E AMD64 IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:90"><nobr><span class="ft3">Stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:149"><nobr><span class="ft3">(4 step) (2 step)</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:96"><nobr><span class="ft3">Heat</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:160"><nobr><span class="ft3">65.8</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:218"><nobr><span class="ft3">41.9</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:271"><nobr><span class="ft3">21.2</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:315"><nobr><span class="ft3">3.26</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:362"><nobr><span class="ft3">1.07</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:410"><nobr><span class="ft3">1.97</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:83"><nobr><span class="ft3">WaveToy</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:166"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:218"><nobr><span class="ft3">33.4</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:271"><nobr><span class="ft3">22.3</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:315"><nobr><span class="ft3">5.13</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:362"><nobr><span class="ft3">1.53</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:410"><nobr><span class="ft3">3.11</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:81"><nobr><span class="ft3">Table 5:</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:151"><nobr><span class="ft3">Performance for the Heat equation and</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:81"><nobr><span class="ft9">WaveToy stencils. X1E and Itanium2 experiments<br>use 256</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:132"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:145"><nobr><span class="ft3">grids. The Opteron uses a 128</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:359"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:365"><nobr><span class="ft3">. Cell uses</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:81"><nobr><span class="ft9">the largest grid that would fit within the local stores.<br>The (n steps) versions denote a time skewed version<br>where n time steps are computed.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:81"><nobr><span class="ft9">in Section 8.1. In DP, however, the heat equation is truly<br>computationally bound for only a single time step, achieving<br>8.2 Gflop/s. Analysis also shows that in the Cell+ approach,<br>the heat equation is memory bound when using a single time<br>step attaining 10.6 Gflop/s; for time skewing, performance<br>of Cell+ DP jumps to over 21 Gflops/s.</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:94"><nobr><span class="ft3">We believe the temporal recurrence in the CACTUS Wave-</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:81"><nobr><span class="ft9">Toy example will allow more time skewing in single precision<br>at the expense of far more complicated code, and will be the<br>subject of future investigation.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft4"><b>8.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:121"><nobr><span class="ft4"><b>Performance Comparison</b></span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">Table 5 presents a performance comparison of the stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft9">computations across our evaluated set of leading processors.<br>Note that stencil performance has been optimized for the<br>cache-based platforms as described in [15].</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:94"><nobr><span class="ft3">In single precision, for this memory bound computation,</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:81"><nobr><span class="ft3">even without time skewing, Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:277"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:298"><nobr><span class="ft3">achieves 6.5x, 11x, and</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:81"><nobr><span class="ft9">20x speedup compared with the X1E, the Itanium2 and the<br>Opteron respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:223"><nobr><span class="ft3">Recall that the Cell has only four</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:81"><nobr><span class="ft9">times the memory bandwidth the scalar machines, and 75%<br>the bandwidth of the X1E indicating that Cells potential to<br>perform this class of computations in a much more efficient<br>manner is due to the advantages of software controlled mem-<br>ory for algorithms exhibiting predictable memory accesses.<br>In double precision, with 1/14</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:262"><nobr><span class="ft12">th</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:278"><nobr><span class="ft3">the floating point through-</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft3">put, Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:133"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:153"><nobr><span class="ft3">achieves a 2x, 7x, and 14x speedup compared to</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft9">the X1E, the Itanium2, and the Opteron for the heat equa-<br>tion -- a truly impressive result. Additionally, unlike the<br>Opteron and Itanium2, simple time skewing has the poten-<br>tial to at least double the performance in either SP (either<br>version of Cell) or in DP on the Cell+ variant.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:94"><nobr><span class="ft3">Finally, recall that in Section 7 we examined Cell SpMV</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft3">performance using 7-point stencil matrices.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:362"><nobr><span class="ft3">We can now</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft9">compare those results with the structured grid approach pre-<br>sented here, as the numerical computations are equivalent<br>in both cases. Results show that for two time step calcula-<br>tions, the single precision structured grid approach achieves<br>a 23x advantage compared with the sparse matrix method.<br>This impressive speedup is attained through the regularity of<br>memory accesses, reduction of memory traffic (constants are<br>encoded in the equation rather than the matrix), the ability<br>to time skew (increased computational intensity), and that</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">stencils on a structured grid dont require multiplications by<br>1.0 like a sparse matrix would. For double precision, the<br>stencil algorithm advantage is diminished to approximately<br>12x, due mainly to the lack of time skewing.</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:475"><nobr><span class="ft4"><b>8.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:516"><nobr><span class="ft4"><b>Model Validation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:489"><nobr><span class="ft3">As with SpMV, we implemented an actual double preci-</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:475"><nobr><span class="ft3">sion kernel on the full system simulator, with Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:767"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:795"><nobr><span class="ft3">results</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:475"><nobr><span class="ft9">shown in Table 5. At first, we were surprised that measured<br>performance fell short of our prediction by 13%. However,<br>upon closer examination it was discovered that the actual<br>Cell implementation prohibits dual issuing of DP instruc-<br>tions with loads or permutes, even though it allows SP with<br>loads or permutes to be dual issued. Thus for kernels with<br>streaming behavior, it is realistic to assume that one double<br>precision SIMD instruction can be executed every 8 cycles<br>-- instead of every 7 as we had predicted previously. This<br>discrepancy results in a 14% architectural performance re-<br>duction, which corresponding very well to the 13% differ-<br>ence observed in Table 5 between the predicted (Cellpm)<br>and simulated (Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:594"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:618"><nobr><span class="ft3">) DP data.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:489"><nobr><span class="ft3">Nonetheless, the actual DP Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:691"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:722"><nobr><span class="ft3">implementation of</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:475"><nobr><span class="ft9">our evaluated stencil kernel is about 13x faster, and nearly<br>30x more power efficient than the Opteron. We also devel-<br>oped a SP version of the heat equation that allowed four<br>time-skewed stencil steps.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:648"><nobr><span class="ft3">(Our original performance es-</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:475"><nobr><span class="ft3">timation assumed one or two time steps.)</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:753"><nobr><span class="ft3">Results show</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft3">spectacular SP Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:597"><nobr><span class="ft12">F SS</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:627"><nobr><span class="ft3">performance of nearly 66 Gflop/s</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:475"><nobr><span class="ft9">-- more than 60x faster and 136x power efficient compared<br>with the Opteron, even though Cell has only four times the<br>bandwidth and 20 times the single precision throughput.</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:475"><nobr><span class="ft4"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:511"><nobr><span class="ft4"><b>FAST FOURIER TRANSFORMS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:489"><nobr><span class="ft3">The FFT presents us with an interesting challenge: its</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft9">computational intensity is much less than matrix-matrix<br>multiplication and standard algorithms require a non-trivial<br>amount of data movement. Extensive work has been per-<br>formed on optimizing this kernel for both vector [24] and<br>cache-based [7] machines. In addition, implementations for<br>varying precisions appear in many embedded devices using<br>both general and special purpose hardware. In this section<br>we evaluate the implementation of a standard FFT algo-<br>rithm on the Cell processor.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft4"><b>9.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:516"><nobr><span class="ft4"><b>Methods</b></span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:489"><nobr><span class="ft3">We examine both the 1D FFT cooperatively executed</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft9">across the SPEs, and a 2D FFT whose 1D FFTs are each<br>run on a single SPE. In all cases the data appears in a sin-<br>gle array of complex numbers. Internally (within the local<br>stores) the data is unpacked into separate arrays, and a table<br>lookup is used for the roots of unity so that no runtime com-<br>putation of roots is required. As such, our results include<br>the time needed to load this table. Additionally, all results<br>are presented to the FFT algorithm and returned in natural<br>order (i.e. a bit reversal was required to unwind the permu-<br>tation process in all cases). Note that these requirements<br>have the potential to severely impact performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:489"><nobr><span class="ft3">For simplicity we evaluated a naive FFT algorithm (no</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft9">double buffering and with barriers around computational<br>segments) for the single 1D FFT. The data blocks are dis-<br>tributed cyclically to SPEs, 3 stages of local work are per-<br>formed, the data is transposed (basically the reverse of the</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">17</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191010.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">cyclic allocation), and then 9 to 13 stages of local compu-<br>tation is performed (depending on the FFT size). At that<br>point the indices of the data on chip are bit-reversed to un-<br>wind the permutation process and the naturally ordered re-<br>sult copied back into main memory. Once again, we presume<br>a large DMA initiation overhead of 1000 cycles. However, a<br>Cell implementation where the DMA initiation overhead is<br>smaller, would allow the possibility of much larger FFT cal-<br>culations (including out of core FFTs) using smaller block<br>transfers, with little or no slowdown using double buffering<br>to hide the DMA latency.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:94"><nobr><span class="ft3">Before exploring the 2D FFT, we briefly discuss simul-</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft9">taneous FFTs. For sufficiently small FFTs (&lt;4K points in<br>SP) it is possible to both double buffer and round robin al-<br>locate a large number of independent FFTs to the 8 SPEs.<br>Although there is lower computational intensity, the sheer<br>parallelism, and double buffering allow for extremely high<br>performance (up to 76 Gflop/s).</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:94"><nobr><span class="ft3">Simultaneous FFTs form the core of the 2D FFT. In order</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:81"><nobr><span class="ft9">to ensure long DMAs, and thus validate our assumptions on<br>effective memory bandwidth, we adopted an approach that<br>requires two full element transposes. First, N 1D N-point<br>FFTs are performed for the rows storing the data back to<br>DRAM. Second, the data stored in DRAM is transposed<br>(columns become rows) and stored back to DRAM. Third<br>the 1D FFTs are performed on the columns, whose elements<br>are now sequential (because of the transpose). Finally a sec-<br>ond transpose is applied to the data to return it to its origi-<br>nal layout. Instead of performing an N point bit reversal for<br>every FFT, entire transformed rows (not the elements of the<br>rows) are stored in bit-reversed order (in effect, bit reversing<br>the elements of the columns). After the first transpose, a<br>decimation in frequency FFT is applied to the columns. The<br>columns are stored back in bit-reversed order -- in doing so,<br>the row elements are bit reversed. With a final transpose,<br>the data is stored back to memory in natural order and lay-<br>out in less time.</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft4"><b>9.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:121"><nobr><span class="ft4"><b>Single Precision FFT Performance</b></span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:94"><nobr><span class="ft3">Table 6 presents performance results for the Cell 1D and</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:81"><nobr><span class="ft9">2D FFT. For the 1D case, more than half of the total time is<br>spent just loading and storing points and roots of unity from<br>DRAM. If completely memory bound, peak performance is<br>approximately (25.6GB/s/8Bytes)</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:296"><nobr><span class="ft3"> 5NlogN/3N cycles or</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:81"><nobr><span class="ft9">approximately 5.3logN Gflop/s. This means performance is<br>limited to 64 Gflop/s for a 4K point SP FFT regardless of<br>CPU frequency. A clear area for future exploration is hiding<br>computation within the communication and the minimiza-<br>tion of the overhead involved with the loading of the roots<br>of unity.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:94"><nobr><span class="ft3">Unfortunately the two full element transposes, used in</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft9">the 2D FFT to guarantee long sequential accesses, consume<br>nearly 50% of the time. Thus, although 8K simultaneous<br>4K point FFTs achieve 76 Gflop/s (after optimizing away<br>the loading of roots of unity), a 4K</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:298"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:309"><nobr><span class="ft3">2D FFT only reaches</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:81"><nobr><span class="ft9">46 Gflop/s -- an impressive figure nonetheless. Without the<br>bit reversal approach, the performance would have further<br>dropped to about 40 Gflop/s. The smaller FFT's shown in<br>the table show even poorer performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:81"><nobr><span class="ft4"><b>9.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:121"><nobr><span class="ft4"><b>Double Precision FFT Performance</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">When DP is employed, the balance between memory and</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">computation is changed by a factor of 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:352"><nobr><span class="ft3">This pushes a</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:600"><nobr><span class="ft3">Double Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:528"><nobr><span class="ft3">N</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:564"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:588"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:588"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:622"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:645"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:680"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:707"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:731"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:797"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:524"><nobr><span class="ft3">4K</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:572"><nobr><span class="ft3">12.6</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:633"><nobr><span class="ft3">5.6</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:684"><nobr><span class="ft3">2.92</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:742"><nobr><span class="ft3">1.88</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:799"><nobr><span class="ft3">3.51</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:485"><nobr><span class="ft3">1D</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:521"><nobr><span class="ft3">16K</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:572"><nobr><span class="ft3">14.2</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:633"><nobr><span class="ft3">6.1</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:684"><nobr><span class="ft3">6.13</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:742"><nobr><span class="ft3">1.34</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:799"><nobr><span class="ft3">1.88</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:521"><nobr><span class="ft3">64K</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:635"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:684"><nobr><span class="ft3">7.56</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:743"><nobr><span class="ft3">0.90</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:799"><nobr><span class="ft3">1.57</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:521"><nobr><span class="ft3">1K</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:539"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:572"><nobr><span class="ft3">15.9</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:633"><nobr><span class="ft3">6.6</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:684"><nobr><span class="ft3">6.99</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:742"><nobr><span class="ft3">1.19</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:799"><nobr><span class="ft3">0.52</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:485"><nobr><span class="ft3">2D</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:521"><nobr><span class="ft3">2K</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:539"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:572"><nobr><span class="ft3">16.5</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:633"><nobr><span class="ft3">6.7</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:684"><nobr><span class="ft3">7.10</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:742"><nobr><span class="ft3">0.19</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:799"><nobr><span class="ft3">0.11</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:604"><nobr><span class="ft3">Single Precision (Gflop/s)</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:528"><nobr><span class="ft3">N</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:564"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:588"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:588"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:622"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:645"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:680"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:707"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:731"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:797"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:524"><nobr><span class="ft3">4K</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:630"><nobr><span class="ft3">29.9</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:684"><nobr><span class="ft3">3.11</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:743"><nobr><span class="ft3">4.24</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:799"><nobr><span class="ft3">1.68</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:485"><nobr><span class="ft3">1D</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:521"><nobr><span class="ft3">16K</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:630"><nobr><span class="ft3">37.4</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:684"><nobr><span class="ft3">7.48</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:743"><nobr><span class="ft3">2.24</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:799"><nobr><span class="ft3">1.75</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:521"><nobr><span class="ft3">64K</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:630"><nobr><span class="ft3">41.8</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:684"><nobr><span class="ft3">11.2</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:743"><nobr><span class="ft3">1.81</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:799"><nobr><span class="ft3">1.48</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:521"><nobr><span class="ft3">1K</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:539"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:630"><nobr><span class="ft3">35.9</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:684"><nobr><span class="ft3">7.59</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:743"><nobr><span class="ft3">2.30</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:799"><nobr><span class="ft3">0.69</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:485"><nobr><span class="ft3">2D</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:521"><nobr><span class="ft3">2K</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:539"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:577"><nobr><span class="ft3">--</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:630"><nobr><span class="ft3">40.5</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:684"><nobr><span class="ft3">8.27</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:743"><nobr><span class="ft3">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:799"><nobr><span class="ft3">0.15</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:475"><nobr><span class="ft9">Table 6: Performance of 1D and 2D FFT in DP (top)<br>and SP (bottom). For large FFTs, Cell is more than<br>10 times faster in SP than either the Opteron or<br>Itanium2. The Gflop/s number is calculated based<br>on a naive radix-2 FFT algorithm. For 2D FFTs the<br>naive algorithm computes 2N N-point FFTs.</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:475"><nobr><span class="ft9">slightly memory bound application strongly into the com-<br>putationally bound domain. The SP simultaneous FFT is<br>10 times faster than the DP version. On the upside, the<br>transposes required in the 2D FFT are now less than 20% of<br>the total time, compared with 50% for the SP case. Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:817"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:817"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:475"><nobr><span class="ft9">finds a middle ground between the 4x reduction in computa-<br>tional throughput and the 2x increase in memory traffic --<br>increasing performance by almost 2.5x compared with the<br>Cell for all problem sizes.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft4"><b>9.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:515"><nobr><span class="ft4"><b>Performance Comparison</b></span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:489"><nobr><span class="ft3">The peak Cell FFT performance is compared to a number</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:475"><nobr><span class="ft9">of other processors in the Table 6. These results are con-<br>servative given the naive 1D FFT implementation we used<br>on Cell whereas the other systems in the comparison used<br>highly tuned FFTW [7] or vendor-tuned FFT implementa-<br>tions [25]. Nonetheless, in DP, Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:689"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:710"><nobr><span class="ft3">is at least 12x faster</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:475"><nobr><span class="ft3">than the Itanium2 for a 1D FFT, and Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:741"><nobr><span class="ft12">pm</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:741"><nobr><span class="ft12">+</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:764"><nobr><span class="ft3">could be as</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:475"><nobr><span class="ft9">much as 30x faster for a large 2D FFT. Cell+ more than<br>doubles the DP FFT performance of Cell for all problem<br>sizes. Cell performance is nearly at parity with the X1E in<br>double precision; however, we believe considerable headroom<br>remains for more sophisticated Cell FFT implementations.<br>In single precision, Cell is unparalleled.</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:489"><nobr><span class="ft3">Note that FFT performance on Cell improves as the num-</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:475"><nobr><span class="ft9">ber of points increases, so long as the points fit within the<br>local store. In comparison, the performance on cache-based<br>machines typically reach peak at a problem size that is far<br>smaller than the on-chip cache-size, and then drops precip-<br>itously once the associativity of the cache is exhausted and<br>cache lines start getting evicted due to aliasing. Elimination<br>of cache evictions requires extensive algorithmic changes for<br>the power-of-two problem sizes required by the FFT algo-<br>rithm, but such evictions will not occur on Cells software-<br>managed local store. Furthermore, we believe that even for<br>problems that are larger than local store, 1D FFTs will con-</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:476"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:482"><nobr><span class="ft3">X1E FFT numbers provided by Cray's Bracy Elton and</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">Adrian Tate.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">18</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191011.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">tinue to scale much better on Cell than typical cache-based<br>superscalar processors with set-associative caches since local<br>store provides all of the benefits as a fully associative cache.<br>The FFT performance clearly underscores the advantages<br>of software-controlled three-level memory architecture over<br>conventional cache-based architectures.</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:81"><nobr><span class="ft4"><b>10.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:121"><nobr><span class="ft4"><b>CONCLUSIONS AND FUTURE WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:94"><nobr><span class="ft3">The Cell processor offers an innovative architectural ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:81"><nobr><span class="ft9">proach that will be produced in large enough volumes to be<br>cost-competitive with commodity CPUs. This work presents<br>the broadest quantitative study Cell's performance on scien-<br>tific kernels and directly compares its performance to tuned<br>kernels running on leading superscalar (Opteron), VLIW<br>(Itanium2), and vector (X1E) architectures. We developed<br>an analytic framework to predict Cell performance on dense<br>and sparse matrix operations, stencil computations, and 1D<br>and 2D FFTs. Using this approach allowed us to explore<br>numerous algorithmic approaches without the effort of im-<br>plementing each variation. We believe this analytical model<br>is especially important given the relatively immature soft-<br>ware environment makes Cell time-consuming to program<br>currently; the model proves to be quite accurate, because<br>the programmer has explicit control over parallelism and<br>features of the memory system.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:94"><nobr><span class="ft3">Furthermore, we propose Cell+, a modest architectural</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:81"><nobr><span class="ft9">variant to the Cell architecture designed to improve DP be-<br>havior. Overall results demonstrate the tremendous poten-<br>tial of the Cell architecture for scientific computations in<br>terms of both raw DP and SP performance and power ef-<br>ficiency. In addition, we show that Cell+ significantly out-<br>performs Cell for most of our evaluated DP kernels, while<br>requiring minimal microarchitectural modifications to the<br>existing design.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:94"><nobr><span class="ft3">Analysis shows that Cell's three level software-controlled</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft9">memory architecture, which completely decouples main mem-<br>ory load/store from computation, provides several advan-<br>tages over mainstream cache-based architectures. First, ker-<br>nel performance can be extremely predictable as the load<br>time from local store is constant. Second, long block trans-<br>fers can achieve a much higher percentage of memory band-<br>width than individual loads in much the same way a hard-<br>ware stream prefetch engine, once engaged, can fully con-<br>sume memory bandwidth. Finally, for predictable memory<br>access patterns, communication and computation can be<br>overlapped more effectively than conventional cache-based<br>approaches. Increasing the size of the local store or reducing<br>the DMA startup overhead on future Cell implementations<br>may further enhance the scheduling efficiency by enabling<br>more effective overlap of communication and computation.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft3">There are also disadvantages to the Cell architecture for</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">kernels such as SpMV. With its lack of unaligned load sup-<br>port, Cell must issue additional instructions simply to per-<br>mute data, yet still manages to outperform conventional<br>scalar processor architectures.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:281"><nobr><span class="ft3">Even memory bandwidth</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft9">may be wasted since SpMV is constrained to use tiling to<br>remove the indirectly indexed accesses to the source vec-<br>tor. The ability, however, to perform a decoupled gather,<br>to stream nonzeros, and Cell's low functional unit latency,<br>tends to hide this deficiency. Additionally, we see stencil<br>computations as an example of an algorithm that is heav-<br>ily influenced by the performance of the permute pipeline.<br>Here, the lack of support for an unaligned load instruction</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:572"><nobr><span class="ft3">Speedup vs.</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:698"><nobr><span class="ft3">Power Efficiency vs.</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:485"><nobr><span class="ft3">Cell+</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:545"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:585"><nobr><span class="ft3">AMD64 IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:691"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:731"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:794"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:483"><nobr><span class="ft3">GEMM</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:551"><nobr><span class="ft3">3x</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:592"><nobr><span class="ft3">12.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:646"><nobr><span class="ft3">9.5x</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:697"><nobr><span class="ft3">9x</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:739"><nobr><span class="ft3">28.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:793"><nobr><span class="ft3">30.9x</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:486"><nobr><span class="ft3">SpMV</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:540"><nobr><span class="ft3">&gt;2.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:591"><nobr><span class="ft3">&gt;8.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:641"><nobr><span class="ft3">&gt;8.4x &gt;8.0x &gt;18.7x &gt;27.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:485"><nobr><span class="ft3">Stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:545"><nobr><span class="ft3">5.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:592"><nobr><span class="ft3">37.0x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:643"><nobr><span class="ft3">17.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:688"><nobr><span class="ft3">16.2x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:739"><nobr><span class="ft3">82.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:793"><nobr><span class="ft3">57.5x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:480"><nobr><span class="ft3">1D FFT</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:545"><nobr><span class="ft3">2.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:592"><nobr><span class="ft3">10.6x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:646"><nobr><span class="ft3">7.6x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:692"><nobr><span class="ft3">6.9x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:739"><nobr><span class="ft3">23.6x</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:793"><nobr><span class="ft3">24.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:480"><nobr><span class="ft3">2D FFT</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:545"><nobr><span class="ft3">2.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:592"><nobr><span class="ft3">13.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:643"><nobr><span class="ft3">30.6x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:692"><nobr><span class="ft3">6.9x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:739"><nobr><span class="ft3">29.8x</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:793"><nobr><span class="ft3">99.5x</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:572"><nobr><span class="ft3">Speedup vs.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:698"><nobr><span class="ft3">Power Efficiency vs.</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:492"><nobr><span class="ft3">Cell</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:545"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:585"><nobr><span class="ft3">AMD64 IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:691"><nobr><span class="ft3">X1E</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:731"><nobr><span class="ft3">AMD64</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:794"><nobr><span class="ft3">IA64</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:483"><nobr><span class="ft3">GEMM</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:545"><nobr><span class="ft3">0.8x</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:596"><nobr><span class="ft3">3.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:646"><nobr><span class="ft3">2.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:692"><nobr><span class="ft3">2.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:742"><nobr><span class="ft3">8.2x</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:793"><nobr><span class="ft3">8.78x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:486"><nobr><span class="ft3">SpMV</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:545"><nobr><span class="ft3">2.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:596"><nobr><span class="ft3">8.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:646"><nobr><span class="ft3">8.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:692"><nobr><span class="ft3">8.0x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:739"><nobr><span class="ft3">18.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:793"><nobr><span class="ft3">27.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:485"><nobr><span class="ft3">Stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:545"><nobr><span class="ft3">1.9x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:592"><nobr><span class="ft3">12.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:646"><nobr><span class="ft3">6.1x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:692"><nobr><span class="ft3">5.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:739"><nobr><span class="ft3">28.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:793"><nobr><span class="ft3">19.8x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:480"><nobr><span class="ft3">1D FFT</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:545"><nobr><span class="ft3">1.0x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:596"><nobr><span class="ft3">4.6x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:646"><nobr><span class="ft3">3.2x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:692"><nobr><span class="ft3">3.0x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:739"><nobr><span class="ft3">10.2x</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:793"><nobr><span class="ft3">10.4x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:480"><nobr><span class="ft3">2D FFT</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:545"><nobr><span class="ft3">0.9x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:596"><nobr><span class="ft3">5.5x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:643"><nobr><span class="ft3">12.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:692"><nobr><span class="ft3">2.7x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:739"><nobr><span class="ft3">12.2x</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:793"><nobr><span class="ft3">41.3x</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:475"><nobr><span class="ft9">Table 7: Double precision speedup and increase in<br>power efficiency of (Top) Cell+ and (Bottom) Cell,<br>relative to the X1E, Opteron, and Itanium2 for our<br>evaluated suite of scientific kernels. Results show an<br>impressive improvement in performance and power<br>efficiency.</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:475"><nobr><span class="ft9">is a more significant performance bottleneck than either the<br>SP execution rate or the memory bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:489"><nobr><span class="ft3">For dense matrix operations, it is essential to maximize</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft9">computational intensity and thereby fully utilize the local<br>store.</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:521"><nobr><span class="ft3">However, if not done properly, the resulting TLB</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:475"><nobr><span class="ft9">misses adversely affect performance. For example, in the<br>GEMM kernel we observe that the BDL data storage format,<br>either created on the fly or before hand, can ensure that<br>TLB misses remain a small issue even as on-chip memories<br>increase in size.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:489"><nobr><span class="ft3">Table 7 compares the advantage of Cell and Cell+ based</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft9">on the better of performance model or actual implemen-<br>tation (where available) in terms of DP performance and<br>power efficiency for our suite of evaluated kernels and archi-<br>tectural platforms. Observe that Cell+ has the potential to<br>greatly increase the already impressive performance charac-<br>teristics of Cell.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:489"><nobr><span class="ft3">By using the insight gained in the development of our es-</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft9">timation model, we developed an optimized SpMV version<br>that outperformed our initial predictions by 25% ­ 70%. If a<br>full system simulator could model the modest improvements<br>of our Cell+ variant, we feel confident that we could demon-<br>strate comparable improvements to DP performance as well.<br>We also note that DP stencil performance fell short of our<br>model by 13% due to previously unknown microarchitectural<br>limitations. However, time skewing showed a huge benefit<br>in SP and we believe a similar benefit would be present in<br>DP on Cell+ variant.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:489"><nobr><span class="ft3">It is important to consider these performance differences</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft9">in the context of increasingly prevalent multi-core commod-<br>ity processors. The first generation of this technology will<br>instantiate at most two cores per chip, and thus will deliver<br>less than twice the performance of today's existing archi-<br>tectures. This factor of 2x is trivial compared with Cell+'s<br>potential of 10-20x improvement.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft3">While peak Cell DP performance is impressive relative to</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft9">its commodity peers, a fully utilizable pipelined DP floating<br>point unit would boost Cell (i.e. Cell+) performance and<br>efficiency significantly.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">19</span></nobr></DIV>
+</DIV>
+<!-- Page 12 -->
+<a name="12"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:11px;line-height:17px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="191012.png" alt="background image">
+<DIV style="position:absolute;top:83;left:81"><nobr><span class="ft4"><b>Acknowledgments</b></span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">This work was supported by the Director, Office of Science,<br>of the U.S. Department of Energy under Contract No. DE-<br>AC02-05CH11231. The authors gratefully thank Bracy El-<br>ton and Adrian Tate for their assistance in obtaining X1E<br>FFT performance data, and Eduardo D'Azevedo for provid-<br>ing us with an optimized X1E SpMV implementation.</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:81"><nobr><span class="ft4"><b>11.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:121"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:88"><nobr><span class="ft3">[1] G. Blelloch, M. Heroux, and M. Zagha. Segmented</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:109"><nobr><span class="ft9">operations for sparse matrix computation on vector<br>multiprocessors. Technical Report CMU-CS-93-173,<br>CMU, 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:88"><nobr><span class="ft14">[2] Cactus homepage. http://www.cactuscode.org.<br>[3] L. Cannon. A Cellular Computer to Implement the</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:109"><nobr><span class="ft9">Kalman Filter Algorithm. PhD thesis, Montana State<br>University, 1969.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:88"><nobr><span class="ft3">[4] Cell broadband engine architecture and its first</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:109"><nobr><span class="ft15">implementation. http://www-128.ibm.com/<br>developerworks/power/library/pa-cellperf/.</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:88"><nobr><span class="ft3">[5] Chombo homepage.</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:109"><nobr><span class="ft3">http://seesar.lbl.gov/anag/chombo.</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:88"><nobr><span class="ft3">[6] E. D'Azevedo, M. R. Fahey, and R. T. Mills.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:109"><nobr><span class="ft9">Vectorized sparse matrix multiply for compressed row<br>storage format. In International Conference on<br>Computational Science (ICCS), pages 99­106, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:88"><nobr><span class="ft14">[7] FFTW speed tests. http://www.fftw.org.<br>[8] B. Flachs, S. Asano, S. Dhong, et al. A streaming</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:109"><nobr><span class="ft9">processor unit for a cell processor. ISSCC Dig. Tech.<br>Papers, pages 134­135, February 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:88"><nobr><span class="ft3">[9] P. Francesco, P. Marchal, D. Atienzaothers, et al. An</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:109"><nobr><span class="ft9">integrated hardware/software approach for run-time<br>scratchpad management. In Proceedings of the 41st<br>Design Automation Conference, June 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:81"><nobr><span class="ft3">[10] Ibm cell specifications.</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:109"><nobr><span class="ft3">http://www.research.ibm.com/cell/home.html.</span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:81"><nobr><span class="ft3">[11] E.-J. Im, K. Yelick, and R. Vuduc. Sparsity:</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:109"><nobr><span class="ft9">Optimization framework for sparse matrix kernels.<br>International Journal of High Performance Computing<br>Applications, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft3">[12] The Berkeley Intelligent RAM (IRAM) Project.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:109"><nobr><span class="ft3">http://iram.cs.berkeley.edu.</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:81"><nobr><span class="ft3">[13] G. Jin, J. Mellor-Crummey, and R. Fowlerothers.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:109"><nobr><span class="ft9">Increasing temporal locality with skewing and<br>recursive blocking. In Proc. SC2001, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:81"><nobr><span class="ft3">[14] J. Kahle, M. Day, H. Hofstee, et al. Introduction to</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:109"><nobr><span class="ft9">the cell multiprocessor. IBM Journal of R&amp;D, 49(4),<br>2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:81"><nobr><span class="ft3">[15] S. Kamil, P. Husbands, L. Oliker, et al. Impact of</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:109"><nobr><span class="ft9">modern memory subsystems on cache optimizations<br>for stencil computations. In ACM Workshop on<br>Memory System Performance, June 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:81"><nobr><span class="ft3">[16] M. Kandemir, J. Ramanujam, M. Irwin, et al.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:109"><nobr><span class="ft9">Dynamic management of scratch-pad memory space.<br>In Proceedings of the Design Automation Conference,<br>June 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">[17] P. Keltcher, S. Richardson, S. Siu, et al. An equal area</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft9">comparison of embedded dram and sram memory<br>architectures for a chip multiprocessor. Technical<br>report, HP Laboratories, April 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:475"><nobr><span class="ft3">[18] B. Khailany, W. Dally, S. Rixner, et al. Imagine:</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft9">Media processing with streams. IEEE Micro, 21(2),<br>March-April 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:475"><nobr><span class="ft3">[19] M. Kondo, H. Okawara, H. Nakamura, et al. Scima: A</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:503"><nobr><span class="ft9">novel processor architecture for high performance<br>comp uting. In 4th International Conference on High<br>Performance Computing in the Asia Pacific Region,<br>volume 1, May 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:475"><nobr><span class="ft3">[20] A. Kunimatsu, N. Ide, T. Sato, et al. Vector unit</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:503"><nobr><span class="ft9">architecture for emotion synthesis. IEEE Micro, 20(2),<br>March 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:475"><nobr><span class="ft3">[21] Z. Li and Y. Song. Automatic tiling of iterative stencil</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:503"><nobr><span class="ft9">loops. ACM Transactions on Programming Language<br>Systems, 26(6), 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:475"><nobr><span class="ft3">[22] S. Mueller, C. Jacobi, C. Hwa-Joon, et al. The vector</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:503"><nobr><span class="ft9">floating-point unit in a synergistic processor element<br>of a cell processor. In 17th IEEE Annual Symposium<br>on Computer Arithmetic (ISCA), June 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:475"><nobr><span class="ft3">[23] M. Oka and M. Suzuoki. Designing and programming</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:503"><nobr><span class="ft9">the emotion engine. IEEE Micro, 19(6), November<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:475"><nobr><span class="ft3">[24] L. Oliker, R. Biswas, J. Borrill, et al. A performance</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:503"><nobr><span class="ft9">evaluation of the Cray X1 for scientific applications. In<br>Proc. 6th International Meeting on High Performance<br>Computing for Computational Science, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:475"><nobr><span class="ft3">[25] Ornl cray x1 evaluation.</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:503"><nobr><span class="ft3">http://www.csm.ornl.gov/</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:672"><nobr><span class="ft12"></span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:681"><nobr><span class="ft3">dunigan/cray.</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:475"><nobr><span class="ft3">[26] N. Park, B. Hong, and V. Prasanna. Analysis of</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:503"><nobr><span class="ft9">memory hierarchy performance of block data layout.<br>In International Conference on Parallel Processing<br>(ICPP), August 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:475"><nobr><span class="ft3">[27] D. Pham, S. Asano, M. Bollier, et al. The design and</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:503"><nobr><span class="ft9">implementation of a first-generation cell processor.<br>ISSCC Dig. Tech. Papers, pages 184­185, February<br>2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:475"><nobr><span class="ft3">[28] Sony press release. http://www.scei.co.jp/</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:503"><nobr><span class="ft3">corporate/release/pdf/050517e.pdf.</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:475"><nobr><span class="ft3">[29] M. Suzuoki et al. A microprocessor with a 128-bit cpu,</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:503"><nobr><span class="ft9">ten floating point macs, four floating-point dividers,<br>and an mpeg-2 decoder. IEEE Solid State Circuits,<br>34(1), November 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:475"><nobr><span class="ft3">[30] S. Tomar, S. Kim, N. Vijaykrishnan, et al. Use of local</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:503"><nobr><span class="ft9">memory for efficient java execution. In Proceedings of<br>the International Conference on Computer Design,<br>September 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:475"><nobr><span class="ft3">[31] R. Vuduc. Automatic Performance Tuning of Sparse</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:503"><nobr><span class="ft9">Matrix Kernels. PhD thesis, University of California<br>at Berkeley, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:475"><nobr><span class="ft3">[32] D. Wonnacott. Using time skewing to eliminate idle</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:503"><nobr><span class="ft9">time due to memory bandwidth and network<br>limitations. In International Parallel and Distributed<br>Processing Symposium (IPDPS), 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft8">20</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,1023 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\23</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2003-04-09T13:23:04+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:11px;font-family:Times;color:#000000;}
+	.ft1{font-size:21px;font-family:Times;color:#000000;}
+	.ft2{font-size:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:8px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft6{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft7{font-size:12px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23001.png" alt="background image">
+<DIV style="position:absolute;top:84;left:531"><nobr><span class="ft0">Mobile Networks and Applications 8, 209­221, 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:427"><nobr><span class="ft0"> 2003 Kluwer Academic Publishers. Manufactured in The Netherlands.</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:115"><nobr><span class="ft1"><b>A Unified Approach for Improving QoS and Provider Revenue in</b></span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:338"><nobr><span class="ft1"><b>3G Mobile Networks</b></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:201"><nobr><span class="ft2">CHRISTOPH LINDEMANN</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:381"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:387"><nobr><span class="ft2">, MARCO LOHMANN and AXEL THÜMMLER</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:178"><nobr><span class="ft3">University of Dortmund, Department of Computer Science, August-Schmidt-Str. 12, 44227 Dortmund, Germany</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:72"><nobr><span class="ft2">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:72"><nobr><span class="ft5">In this paper, we introduce a unified approach for the adaptive control of 3G mobile networks in order to improve both quality<br>of service (QoS) for mobile subscribers and to increase revenue for service providers. The introduced approach constantly monitors QoS<br>measures as packet loss probability and the current number of active mobile users during operation of the network. Based on the values<br>of the QoS measures just observed, the system parameters of the admission controller and packet scheduler are controlled by the adaptive<br>performance management entity. Considering UMTS, we present performance curves showing that handover failure probability is improved<br>by more than one order of magnitude. Moreover, the packet loss probability can be effectively regulated to a predefined level and provider<br>revenue is significantly increased for all pricing policies.</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:72"><nobr><span class="ft5">Keywords: performance evaluation of next generation mobile systems, Quality of Service in mobile systems, admission control in mobile<br>system, pricing and revenue optimization</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:72"><nobr><span class="ft2">1. Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:72"><nobr><span class="ft6">The third generation (3G) of mobile networks is expected<br>to complete the worldwide globalization process of mobile<br>communication. Since different parts of the worlds empha-<br>size different issues, the global term 3G has regional syn-<br>onyms: In the US and Japan, 3G often carries the name In-<br>ternational Mobile Telephony 2000 (IMT2000). In Europe,<br>3G has become Universal Mobile Telecommunications Sys-<br>tem (UMTS) following the ETSI perspective. The European<br>industrial players have created the 3rd Generation Partner-<br>ship Project (3GPP) [1] for the standardization of UMTS.<br>3G mobile networks provide the foundation for new services<br>with high-rate data not provided by current second generation<br>systems [26]. While the standardization of 3G is still ongo-<br>ing the discussion of technical issues beyond 3G has already<br>started [23,28]. Recently, Aretz et al. reported a vision for<br>the future of wireless communication systems beyond 3G that<br>consists of a combination of several optimized access systems<br>on a common IP-based medium access and core network plat-<br>form [5].</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:90"><nobr><span class="ft2">Charging and pricing are essential issues for network op-</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:72"><nobr><span class="ft7">erations of 3G mobile networks. A primary target of differen-<br>tiated pricing of Internet services is the prevention of system<br>overload and an optimal resource usage according to differ-<br>ent daytimes and different traffic intensities [12]. Among the<br>proposed pricing proposals, flat-rate pricing [11] is the most<br>common mode of payment today for bandwidth services.<br>Flat-rate pricing is popular because of its minimal account-<br>ing overhead. A flat-rate encourages usage but does not offer<br>any motivation for users to adjust their demand. Dynamic<br>pricing models that take the state of the network into account<br>in the price determination have been proposed as being more</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:73"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:81"><nobr><span class="ft3">Corresponding author.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:455"><nobr><span class="ft6">responsive. Usage-based pricing regulates usage by impos-<br>ing a fee based on the amount of data actually sent, whereas<br>congestion-sensitive pricing uses a fee based on the current<br>state of congestion in the network. Thus, a unified approach<br>considering both dynamic pricing and controlling quality of<br>service (i.e., performance management) provides an effective<br>tool for the operation of 3G mobile networks. However, in<br>previous work [8,13,19,21,25] the improvement of Quality of<br>Service (QoS) in 3G mobile networks and the optimization<br>of mobile service provider revenue has been considered sepa-<br>rately.</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:473"><nobr><span class="ft2">The Quality of Service (QoS) concept and architecture for</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:455"><nobr><span class="ft6">UMTS networks specified in [2] provides means for shar-<br>ing radio resources among different groups of users accord-<br>ing to their individual QoS demands. Furthermore, the con-<br>cept of UMTS management and control functions such as<br>admission controller and resource manager is roughly out-<br>lined. Das et al. proposed a framework for QoS provisioning<br>for multimedia services in 3G wireless access networks [8].<br>They developed an integrated framework by combining var-<br>ious approaches for call admission control, channel reser-<br>vation, bandwidth degradation, and bandwidth compaction.<br>In [19], we introduced a framework for the adaptive control<br>of UMTS networks, which utilizes online monitoring of QoS<br>measures (e.g., handover failure and call blocking probabil-<br>ities) in order to adjust system parameters of the admission<br>controller and the packet scheduler. The presented approach<br>is based on a lookup table called the Performance Manage-<br>ment Information Base (P-MIB). Entries of the P-MIB have<br>to be determined using extensive off-line simulation experi-<br>ments to determine optimal parameter configuration for the<br>considered scenarios. Given the entries of the P-MIB, we<br>showed how to improve QoS for mobile users by periodi-<br>cally adjusting system parameters. The practical applicability<br>of this approach is limited if the P-MIB comprises many en-</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23002.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">210</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft6">tries (i.e., many scenarios have to be considered) because of<br>the high computational effort for determining these entries by<br>simulation.</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:90"><nobr><span class="ft2">This paper introduces a unified approach for the adaptive</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:72"><nobr><span class="ft6">performance management for 3G mobile networks. As the<br>main result of the paper, the introduced approach is based on<br>a mathematical framework for the proposed update schemes<br>rather than a lookup table. As a consequence, the adaptive<br>control mechanism can be adjusted in an intuitive way and<br>optimal system parameter configuration can efficiently be de-<br>termined. We effectively utilize adaptive performance man-<br>agement for improving not only QoS for mobile users but<br>also increase revenue earned by service providers. As in [19],<br>controlled system parameters comprise queueing weights for<br>packet scheduling, a threshold value of the access queue for<br>admission of non real-time traffic, and a portion of the over-<br>all available bandwidth reserved for handover calls.</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:416"><nobr><span class="ft2">Be-</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft6">yond [19], we propose a scheme for adjusting the queueing<br>weights for both improving QoS for higher priority users that<br>suffer from a high population of users with lower priority and<br>for increasing the revenue earned by the service provider. For<br>the analysis of the update strategy of the queuing weights, we<br>consider a usage-based and a usage-/throughput-based pric-<br>ing policy according to [11,12,21]. Furthermore, we intro-<br>duce a hybrid pricing policy combining the notion of flat-<br>rate and a usage-based pricing according to current policies<br>of GSM networks. Performance curves derived by simulation<br>evidently illustrate the gain of the unified approach for adap-<br>tive performance management. In fact, for UMTS networks,<br>simulation results show that handover failure probability can<br>be improved by more than one order of magnitude. Moreover,<br>packet loss probability can be effectively regulated to a prede-<br>fined level and the provider revenue is significantly increased<br>for all considered pricing policies.</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:90"><nobr><span class="ft2">The paper is organized as follows. Section 2 introduces the</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:72"><nobr><span class="ft6">unified approach for adaptive performance management and<br>describes its embedding in the system architecture of 3G mo-<br>bile networks. Section 3 introduces strategies for controlling<br>the parameters of an admission controller in order to improve<br>QoS. Section 4 describes the parameter control of a packet<br>scheduler for the combined improvement of both QoS and<br>provider revenue. In section 5, we present simulation results<br>that illustrate the benefit of employing the proposed approach<br>for adaptive performance management. Finally, concluding<br>remarks are given.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:72"><nobr><span class="ft2">2. Adaptive performance management for 3G mobile</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:90"><nobr><span class="ft2">networks</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:72"><nobr><span class="ft2">2.1. Description of the unified approach</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:72"><nobr><span class="ft6">This section introduces the unified approach for regularly ad-<br>justing system parameters to changing traffic load, packet ar-<br>rival pattern or population of users, etc. We consider a cellular<br>mobile network in which a different transceiver station serves<br>each cell. The purpose of the transceiver station is the modu-</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:472"><nobr><span class="ft3">Figure 1. System architecture for adaptive performance management.</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:455"><nobr><span class="ft6">lation of carrier frequencies and demodulation of signals. Fur-<br>thermore, a base station controller (BSC) is considered that is<br>responsible for a cluster of cells, i.e., several transceiver sta-<br>tions. The BSC manages the radio resources, i.e., schedules<br>data packets, and controls handovers inside the cell cluster as<br>well as handovers towards and from neighboring cell clusters.</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:473"><nobr><span class="ft2">To improve QoS for mobile users as well as to increase</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:455"><nobr><span class="ft6">revenue earned by service providers, an entity for Adaptive<br>Performance Management (APM) is included in a BSC. Fur-<br>thermore, a BSC has to be extended by an online performance<br>monitoring component that derives QoS measures in a cer-<br>tain time window (e.g., handover failure probabilities of mo-<br>bile users or packet loss probabilities). These QoS measures<br>form a system pattern that is submitted in fixed time intervals<br>(i.e., a control period) to the APM entity, which subsequently<br>updates corresponding system parameters (i.e., parameters of<br>traffic controlling components like the admission controller<br>and packet scheduler). Thus, the proposed approach closes<br>the loop between network operation and network control. Fig-<br>ure 1 shows the system architecture for performance manage-<br>ment embedded in a BSC.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:455"><nobr><span class="ft6">2.1.1. Online performance monitoring<br>System parameters of a BSC can be effectively updated by<br>monitoring QoS measures, which are immediately affected by<br>these parameters. A current value for a QoS measure is deter-<br>mined online based on a set of relevant events corresponding<br>to this QoS measure (e.g., packet arrivals are relevant events<br>for computing packet loss probabilities). The online monitor-<br>ing of QoS measures is done by a sliding window technique<br>as introduced in [19]. The width of the sliding window over<br>time depends on the number of relevant events that are oc-<br>curred according to a QoS measure. Upon arrival of a new<br>relevant event the sliding window moves in time. At the end<br>of a control period the QoS measures are derived for each<br>sliding window (e.g., packet loss probability can be derived<br>from number of lost packets divided by number of all packet<br>arrivals in the sliding window). These QoS measures and the<br>number of events occurred in the last control period form the<br>system pattern that is transferred to the adaptive performance<br>management entity (see figure 1).</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23003.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">211</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:90"><nobr><span class="ft2">Note that an accurate online monitoring of QoS measures</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:72"><nobr><span class="ft6">requires a specific width for the sliding window. A certain<br>number of events representing the history of the QoS mea-<br>sure have to be considered to get an expressive measure. On<br>the other hand considering a big sliding window prevents the<br>APM entity from fast reaction on changing traffic conditions.<br>A bigger sliding window contains more history and, thus,<br>more events have to be collected to cause a significant change<br>in the online monitored QoS measure. This tradeoff between<br>accurate online monitoring and fast reaction of the APM to<br>changing traffic conditions has to be studied carefully in sev-<br>eral experiments to get the optimal width of the sliding win-<br>dow for each QoS measure.</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:72"><nobr><span class="ft6">2.1.2. Adaptive performance management<br>Whenever a system pattern S</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:264"><nobr><span class="ft2">= {(P</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:304"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:311"><nobr><span class="ft2">, n</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:326"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:333"><nobr><span class="ft2">), . . . , (P</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:388"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:397"><nobr><span class="ft2">, n</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:413"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:423"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:428"><nobr><span class="ft2">},</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:72"><nobr><span class="ft2">consisting of online monitored QoS measures P</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:377"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:384"><nobr><span class="ft2">, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:428"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:72"><nobr><span class="ft2">and the numbers of relevant events n</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:303"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:310"><nobr><span class="ft2">, . . . , n</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:352"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:368"><nobr><span class="ft2">occurred in</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:72"><nobr><span class="ft7">the last control period is transmitted to the APM an up-<br>date of the system parameters can be performed. In gen-<br>eral, an update of a system parameter  is made according<br>to a function f depending on a subset of the QoS measures<br>P</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:81"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:88"><nobr><span class="ft2">, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:132"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:147"><nobr><span class="ft2">and the previous value </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:301"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:305"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:330"><nobr><span class="ft2">of the system pa-</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:72"><nobr><span class="ft2">rameter. Let P</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:161"><nobr><span class="ft3"> (</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:172"><nobr><span class="ft3">1)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:182"><nobr><span class="ft2">, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:226"><nobr><span class="ft3"> (k)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:248"><nobr><span class="ft2">, k</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:289"><nobr><span class="ft2">m</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:301"><nobr><span class="ft2">, be the QoS measures</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:72"><nobr><span class="ft6">corresponding to system parameter  , then the update is made<br>if a certain minimum number n( ) of relevant events occurred<br>in the last control period. That is:</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:145"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:155"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:160"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:187"><nobr><span class="ft2">= f P</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:229"><nobr><span class="ft3"> (</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:240"><nobr><span class="ft3">1)</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:250"><nobr><span class="ft2">, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:294"><nobr><span class="ft3"> (k)</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:316"><nobr><span class="ft2">, </span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:333"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:337"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:363"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:160"><nobr><span class="ft2">if min</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:199"><nobr><span class="ft2">{n</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:212"><nobr><span class="ft3"> (</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:223"><nobr><span class="ft3">1)</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:234"><nobr><span class="ft2">, . . . , n</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:276"><nobr><span class="ft3"> (k)</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:298"><nobr><span class="ft2">}</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:323"><nobr><span class="ft2">n( ).</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:420"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:72"><nobr><span class="ft6">We classify update functions in relative functions, that per-<br>form a parameter update relative to the old parameter value<br>and absolute functions that set the new parameter value in-<br>dependent of the old value, i.e., f is independent of </span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:414"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:418"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:72"><nobr><span class="ft6">in (1). With relative update functions strong fluctuations of<br>the corresponding system parameter in one update step can be<br>avoided. In section 3, we study a special class of relative up-<br>date functions in order to set the parameters of an admission<br>controller. Furthermore, we develop in section 4 an absolute<br>update function for adjusting the weights of a weighted fair<br>queueing packet scheduler.</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:72"><nobr><span class="ft2">2.2. Economics and pricing policies in 3G mobile networks</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:72"><nobr><span class="ft6">There are multiple requirements, which should be fulfilled<br>for any viable pricing mechanism in multi-service class data<br>communication networks [12]. A primary target of differen-<br>tiated pricing of Internet services is the prevention of system<br>overload and an optimal resource usage according to differ-<br>ent daytimes and different traffic intensities. Furthermore, the<br>pricing scheme should be implemented in a completely de-<br>centralized manner and there should be multiple priorities in<br>order to take into account the different QoS required by dif-<br>ferent applications and users.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:90"><nobr><span class="ft2">In general, pricing policies can be partitioned into usage-</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:72"><nobr><span class="ft6">based (pay-as-you-go) pricing, flat-rate (all-you-can-eat)<br>pricing, and dynamic pricing. In usage-based pricing poli-</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft6">cies a user is charged according to a connection time or traffic<br>volume. Whereas connection based calls (e.g., in GSM) are<br>charged by connection time, packet-switched services (e.g., in<br>UMTS) are charging the transferred data volume. Dynamic<br>pricing models take into account the state of the mobile ra-<br>dio network for determining the current price of a service.<br>Congestion-sensitive pricing as a particular dynamic pricing<br>model has been shown to be more responsive. MacKie-Mason<br>and Varian introduced the concept of congestion-sensitive<br>pricing in their smart market scheme [21]. Under this model,<br>the actual price for each packet is determined based on the<br>current state of network congestion. In [25], Rao and Petersen<br>discussed the optimal pricing of priority services. Analo-<br>gously to the smart market approach, Gupta et al. presented<br>a pricing scheme that uses priorities on the packet-level [13].<br>They proposed to differentiate Internet traffic according to de-<br>lay and loss requirements.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:473"><nobr><span class="ft2">For the analysis of the update strategy of the queuing</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:455"><nobr><span class="ft6">weights, we consider in section 4 a usage-based and a usage-/<br>throughput-based pricing policy according to [11,12,21]. Fur-<br>thermore, we introduce a hybrid pricing policy combining the<br>notion of flat-rate and a usage-based pricing according to cur-<br>rent policies of GSM networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:455"><nobr><span class="ft2">3. Strategies for improving Quality of Service</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:455"><nobr><span class="ft2">3.1. Admission controller</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:455"><nobr><span class="ft6">The proposed approach distinguishes three different types<br>of services: circuit-switched services, packet-switched real-<br>time services (RT), and packet-switched non real-time ser-<br>vices (NRT). Typically, circuit-switched services are voice<br>calls from a GSM mobile station. As proposed by 3GPP, RT<br>services belong to the conversational and streaming classes<br>and NRT services fall into the interactive and background<br>classes [2]. The bandwidth available in a cell must be shared<br>by calls of these different service classes and the different ser-<br>vice requirements have to be met. Before a mobile session<br>begins, the user needs to specify its traffic characteristics and<br>desired performance requirements by a QoS profile. Then, an<br>admission controller decides to accept or reject the users re-<br>quest based on the QoS profile and the current network state<br>as, e.g., given by queueing length. The purpose of the admis-<br>sion controller is to guarantee the QoS requirements of the<br>user who requested admission while not violating the QoS<br>profiles of already admitted users. The call admission criteria<br>will be different for each service class. The QoS profile for<br>RT sessions specifies a guaranteed bandwidth to be provided<br>for the application in order to meet its QoS requirements. If<br>the network cannot satisfy the desired bandwidth, the corre-<br>sponding admission request is rejected.</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:473"><nobr><span class="ft2">Data packets arriving at the BSC are queued until they are</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:455"><nobr><span class="ft6">scheduled to be transmitted over the radio link. For NRT ses-<br>sions, we consider an admission controller taking into account<br>free buffer space in the NRT queue [8]. In order to prevent<br>buffer overflow once a call is admitted, the current queue-<br>ing length is set against certain buffer availability threshold</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23004.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">212</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft6">of the capacity, denoted by . The admission criteria for<br>voice and RT handovers are the same as for new voice calls<br>and RT sessions except that additional handover bandwidth<br>can be utilized. The analysis of several admission control<br>schemes for cellular systems presented in [24] showed that<br>the simple reservation scheme (i.e., reserving bandwidth for<br>handover calls) performs remarkably well. For simple cellu-<br>lar networks, the optimal amount of bandwidth reserved for<br>handover calls can be determined by analytical models [14].<br>In the model presented here, we denote with b</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:360"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:371"><nobr><span class="ft2">the portion</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:72"><nobr><span class="ft6">of the overall bandwidth that is exclusively reserved for han-<br>dover calls from neighboring cells. The considered admission<br>controller does not prioritize NRT handovers over new NRT<br>sessions. Further details of the admission controller are given<br>in [19].</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:72"><nobr><span class="ft2">3.2. Adjusting the admission controller for QoS improvement</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:72"><nobr><span class="ft6">In this section, we show how to utilize equation (1) for setting<br>the parameters  and b</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:205"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:215"><nobr><span class="ft2">of the admission controller in order to</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:72"><nobr><span class="ft6">reduce packet loss probability and handover failure probabil-<br>ity. For updating the system parameters, we split the general<br>function introduced in section 2.1 into separate functions each<br>depending only on one QoS measure. Let P</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:339"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:346"><nobr><span class="ft2">, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:390"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:401"><nobr><span class="ft2">be the</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:72"><nobr><span class="ft6">QoS measures corresponding to a system parameter  . Then,<br>equation (1) can be simplified to</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:133"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:142"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:147"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:174"><nobr><span class="ft2">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:200"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:207"><nobr><span class="ft2">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:221"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:228"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:237"><nobr><span class="ft2">+ · · · + f</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:295"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:302"><nobr><span class="ft2">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:317"><nobr><span class="ft3">k</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:324"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:257"><nobr><span class="ft2">k</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:334"><nobr><span class="ft2">· </span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:352"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:356"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:375"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:147"><nobr><span class="ft2">L</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:178"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:188"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:192"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:235"><nobr><span class="ft2">R.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:420"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:90"><nobr><span class="ft2">The interpretation of (2) is the following. Each update</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:72"><nobr><span class="ft2">function f</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:137"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:149"><nobr><span class="ft2">describes the influence that the QoS measure</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:72"><nobr><span class="ft2">P</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:92"><nobr><span class="ft2">should have on the system parameter  . Subsequently,</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:72"><nobr><span class="ft6">the overall update is performed by computing the arithmetic<br>mean of the functions f</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:215"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:224"><nobr><span class="ft2">multiplied with the old value of the</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:72"><nobr><span class="ft2">system parameter. Note that the value </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:322"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:326"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:355"><nobr><span class="ft2">must be trun-</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:72"><nobr><span class="ft6">cated at a certain lower bound L and an upper bound R in<br>order to guarantee that the computation of </span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:340"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:344"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:372"><nobr><span class="ft2">results in a</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:72"><nobr><span class="ft6">valid value of the system parameter. As basic update function<br>we consider a logarithmic linear function of the form:</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:181"><nobr><span class="ft2">f</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:189"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:194"><nobr><span class="ft2">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:208"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:214"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:223"><nobr><span class="ft2">= m</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:251"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:258"><nobr><span class="ft2">log P</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:289"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:297"><nobr><span class="ft2">+ b</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:320"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:325"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:420"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:90"><nobr><span class="ft2">The reason for this choice is that we want to consider QoS</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:72"><nobr><span class="ft6">measures like loss probabilities and failure/blocking proba-<br>bilities, which are in the range of 10</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:302"><nobr><span class="ft3">-5</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:323"><nobr><span class="ft2">to 1. Therefore, a</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:72"><nobr><span class="ft6">logarithmic shape is more suitable. In previous work [19],<br>we have studied update schemes of system parameters of<br>an admission controller and a packet scheduler based on a<br>lookup table. In order to determine the optimal entries of this<br>lookup table extensive off-line simulation experiments have<br>been conducted. Applying regression statistics to the entries<br>of this lookup table shows that these entries are well repre-<br>sented by functions with logarithmic shape. Thus, besides the<br>motivation of the update functions given here, their choice<br>is to a large extend originated from regression statistics con-<br>ducted in earlier work. The strength of the influence of f</span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:414"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:423"><nobr><span class="ft2">on</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:72"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:82"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:86"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:113"><nobr><span class="ft2">can be adjusted with the gradient m</span></nobr></DIV>
+<DIV style="position:absolute;top:1131;left:323"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:327"><nobr><span class="ft2">. The parameter b</span></nobr></DIV>
+<DIV style="position:absolute;top:1131;left:433"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft6">can be determined by the following interpretation: suppose<br>the desired level of the QoS measure P</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:698"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:709"><nobr><span class="ft2">is </span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:732"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:743"><nobr><span class="ft2">(e.g., the de-</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:455"><nobr><span class="ft6">sired packet loss probability is 0.001). That is, if the online<br>measured value of P</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:584"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:594"><nobr><span class="ft2">is </span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:619"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:629"><nobr><span class="ft2">the system parameter  should</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:455"><nobr><span class="ft6">not be changed in the update step from the point of view of<br>measure P</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:520"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:525"><nobr><span class="ft2">. Therefore, we chose f</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:673"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:678"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:692"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:697"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:709"><nobr><span class="ft2">= 1 and from this</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:455"><nobr><span class="ft2">relation we get b</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:557"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:567"><nobr><span class="ft2">= 1 - m</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:622"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:630"><nobr><span class="ft2">log </span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:660"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:665"><nobr><span class="ft2">. Inserting in equation (3)</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:455"><nobr><span class="ft2">results in the final form of the update function:</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:565"><nobr><span class="ft2">f</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:573"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:578"><nobr><span class="ft2">(P</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:593"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:598"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:607"><nobr><span class="ft2">= m</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:635"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:642"><nobr><span class="ft2">log P</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:675"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:666"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:675"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:685"><nobr><span class="ft2">+ 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:804"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:473"><nobr><span class="ft2">For ease of notation, we abbreviate the QoS measures han-</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:455"><nobr><span class="ft6">dover failure probability and new call/session blocking prob-<br>ability corresponding to voice calls and RT sessions by HFP<br>and CBP, respectively. The probability of a packet loss due<br>to buffer overflow in the NRT queue is abbreviated by PLP.<br>The update strategy according to equations (2)­(4) is justified<br>by its intuitive understanding and the performance results pre-<br>sented in section 5. The suitability of update functions other<br>than (2)­(4), is subject for further study and out of the scope<br>of this paper.</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:455"><nobr><span class="ft6">3.2.1. Update of non real-time queue threshold<br>Recall that a system parameter update is performed each time<br>a system pattern arrives at the APM entity and the minimum<br>number of relevant events corresponding to this system para-<br>meter is reached. Determining the update for the system para-<br>meter , i.e., determining </span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:620"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:624"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:648"><nobr><span class="ft2">, is performed corresponding</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:455"><nobr><span class="ft2">to the old value </span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:559"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:563"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:586"><nobr><span class="ft2">and the actually observed QoS measure</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:455"><nobr><span class="ft2">PLP. That is:</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:491"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:499"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:503"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:531"><nobr><span class="ft2">= f (PLP) · </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:613"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:617"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:636"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:659"><nobr><span class="ft2">0.001</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:713"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:721"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:725"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:769"><nobr><span class="ft2">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:804"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:473"><nobr><span class="ft2">The truncation of </span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:588"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:593"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:620"><nobr><span class="ft2">at the lower bound guaranties that</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:455"><nobr><span class="ft6">the value does not accumulate near zero for long periods of<br>low traffic load. The minimum number of relevant events re-<br>quired for an update of  is counted in data volume rather than<br>in packet arrivals (in the experiments this number is 5 MB).<br>The setting of the gradient m of the corresponding update<br>function is derived from a couple of experiments for different<br>values of the gradient. We found m</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:677"><nobr><span class="ft2">= -0.02 to be suitable.</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:455"><nobr><span class="ft6">Choosing a suitable value for the gradient is a similar tradeoff<br>as explained for the sliding window size. A large gradient re-<br>sults in a fast update of the system parameter in a few number<br>of update steps, but also introduces higher fluctuations of the<br>system parameter over time. We demonstrate the speed of the<br>parameter adjustment in an experiment in section 5. Further-<br>more, several experiments for different desired loss values <br>are presented.</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:455"><nobr><span class="ft6">3.2.2. Update of fraction of bandwidth reserved for handover<br>The update for the system parameter b</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:702"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:709"><nobr><span class="ft2">, i.e., determining</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:455"><nobr><span class="ft2">b</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:463"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:468"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:463"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:491"><nobr><span class="ft2">, is performed based on the old value and the actually</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:455"><nobr><span class="ft2">observed QoS measures HFP and CBP. That is:</span></nobr></DIV>
+<DIV style="position:absolute;top:1094;left:524"><nobr><span class="ft2">b</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:532"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:536"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:532"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:564"><nobr><span class="ft2">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:590"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:596"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:602"><nobr><span class="ft2">HFP)</span></nobr></DIV>
+<DIV style="position:absolute;top:1080;left:638"><nobr><span class="ft2">+ f</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:661"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:667"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:673"><nobr><span class="ft2">CBP)</span></nobr></DIV>
+<DIV style="position:absolute;top:1105;left:640"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:712"><nobr><span class="ft2">· b</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:727"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:732"><nobr><span class="ft3">old)</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:727"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1094;left:751"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:539"><nobr><span class="ft2">0.001</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:593"><nobr><span class="ft2">b</span></nobr></DIV>
+<DIV style="position:absolute;top:1121;left:601"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1121;left:605"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1134;left:601"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:649"><nobr><span class="ft2">R.</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:804"><nobr><span class="ft2">(6)</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft8{font-size:12px;line-height:19px;font-family:Times;color:#000000;}
+	.ft9{font-size:12px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23005.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">213</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:90"><nobr><span class="ft2">The value b</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:165"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:169"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:164"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:198"><nobr><span class="ft2">is truncated at a lower bound of 0.1%</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:72"><nobr><span class="ft7">and a certain upper bound R which is a fraction of the over-<br>all bandwidth available (in the experiments we fix R</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:393"><nobr><span class="ft2">= 0.7).</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:72"><nobr><span class="ft7">The truncation at the lower bound is for the same reason as<br>explained above. In fact, for computing b</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:320"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:324"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:320"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:351"><nobr><span class="ft2">two QoS mea-</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:72"><nobr><span class="ft8">sures corresponding to the actually observed HFP and CBP<br>are taken into account. A high HFP should increase b</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:410"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:414"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:410"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:72"><nobr><span class="ft7">but this obviously also increases the CBP because less band-<br>width is available for new voice calls and RT sessions. There-<br>fore, the HFP and the CBP influence the handover bandwidth<br>b</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:80"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:84"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:79"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:108"><nobr><span class="ft2">. In fact, m</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:178"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:190"><nobr><span class="ft2">= -m</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:231"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:242"><nobr><span class="ft2">holds in the update functions f</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:431"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:72"><nobr><span class="ft2">and f</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:105"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:112"><nobr><span class="ft2">. From a couple of experiments for different gradients,</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:72"><nobr><span class="ft2">we found m</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:145"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:157"><nobr><span class="ft2">= 0.08 to be suitable. A common assumption</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:72"><nobr><span class="ft7">in cellular networks is to prioritize handover calls over new<br>calls. Therefore, the desired handover failure level </span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:387"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:398"><nobr><span class="ft2">should</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:72"><nobr><span class="ft2">be smaller than the desired call blocking level </span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:359"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:366"><nobr><span class="ft2">. According</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:72"><nobr><span class="ft7">to these values the handover bandwidth is slightly increased,<br>if HFP is equal to CBP.</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:90"><nobr><span class="ft2">With the presented strategy the parameters of the update</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:72"><nobr><span class="ft7">functions can be chosen in an intuitive way and optimal para-<br>meter configuration can efficiently be determined. This is the<br>major advantage over the approach based on a Performance<br>Management Information Base introduced in [19] which re-<br>quires extensive off-line simulation experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:72"><nobr><span class="ft2">4. Strategies for improving both QoS and provider</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:90"><nobr><span class="ft2">revenue</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:72"><nobr><span class="ft2">4.1. Packet scheduler</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:72"><nobr><span class="ft7">At a BSC responsible for a cluster of cells, data packets from<br>various connections arrive and are queued until bandwidth<br>for transmission is available. In order to distinguish differ-<br>ent priorities for NRT traffic corresponding to the traffic han-<br>dling priority defined by 3GPP [2], scheduling algorithms<br>like Weighted Round Robin (WRR), Weighted Fair Queue-<br>ing (WFQ [9]) or Class Based Queueing (CBQ [10]) have to<br>be implemented. An overview of queueing issues for guar-<br>anteed performance services can be found in [27]. In WFQ,<br>the weights control the amount of traffic a source may de-<br>liver relative to other active sources during some period of<br>time. From the scheduling algorithm's point of view, a source<br>is considered to be active, if it has data queued in the NRT<br>queue. Let B be the overall bandwidth available for NRT<br>sessions at time t. For an active source i with weight w</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:406"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:411"><nobr><span class="ft2">, the</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:72"><nobr><span class="ft2">bandwidth B</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:148"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:156"><nobr><span class="ft2">that is allocated to this transfer at time t is given</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:72"><nobr><span class="ft2">by</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:201"><nobr><span class="ft2">B</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:211"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:220"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:251"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:262"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:253"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:263"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:274"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:286"><nobr><span class="ft2">· B.</span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:420"><nobr><span class="ft2">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:72"><nobr><span class="ft7">In (7) the sum is taken over all active NRT sources j . A class<br>based version of WFQ serves packets of each priority class<br>according to the weights rather than every active source.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft2">4.2. Adjusting the packet scheduler for QoS and revenue</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:473"><nobr><span class="ft2">improvement</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:455"><nobr><span class="ft6">This section utilizes the proposed approach for the adaptive<br>control of the weights of a weighted fair queueing packet<br>scheduler in order to improve QoS as well as to increase the<br>revenue. The strategy for adjusting the weights combined<br>with the introduction of several pricing policies constitutes<br>a further contribution of the paper. Recall that the revenue<br>earned by a mobile service provider is determined by the<br>monthly payment of mobile users as well as by the additional<br>usage-based pricing after the monthly amount of data volume<br>is consumed. Note, that the monthly subscription rate is only<br>relevant for monthly revenue calculations. In this section, we<br>consider the revenue improvement in a certain small time pe-<br>riod regardless the monthly subscription rates. In section 5,<br>we briefly discuss monthly revenue calculation. Let P denote<br>the number of different priority classes, i.e., weights of the<br>weighted fair queueing scheduler. Define by b</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:738"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:743"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:764"><nobr><span class="ft2">the trans-</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:455"><nobr><span class="ft2">ferred data volume in time t of users of priority i and by r</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:799"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:804"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:455"><nobr><span class="ft6">the payment of users of priority i at time t, i.e., the user pays<br>for the transferred data volume. We distinguish a pure usage-<br>based and a usage-/throughput-based pricing policy:</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:456"><nobr><span class="ft2">(a) A user of priority i has a fixed payment p</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:725"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:733"><nobr><span class="ft2">per kbit during</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:480"><nobr><span class="ft2">his session, i.e., r</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:584"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:589"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:610"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:634"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:639"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:455"><nobr><span class="ft2">(b) The payment of a user of priority i consists of a fixed part</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:480"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:489"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:497"><nobr><span class="ft2">that is increased proportional to the additional through-</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:480"><nobr><span class="ft2">put </span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:513"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:518"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:540"><nobr><span class="ft2">he received due to the update of the queueing</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:480"><nobr><span class="ft2">weights, i.e., r</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:566"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:571"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:592"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:617"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:622"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:630"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:635"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:651"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:455"><nobr><span class="ft6">According to the proposed data volume based pricing with<br>respect to different priority classes the revenue function</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:804"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:455"><nobr><span class="ft2">is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:584"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:605"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:627"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:622"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:626"><nobr><span class="ft3">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:644"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:650"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:655"><nobr><span class="ft2">(t)b</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:679"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:684"><nobr><span class="ft2">(t).</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:804"><nobr><span class="ft2">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:455"><nobr><span class="ft6">The revenue function of equation (8) is utilized in section 5<br>for evaluating the strategies for revenue improvement pre-<br>sented below.</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:455"><nobr><span class="ft6">4.2.1. Update of WFQ weights<br>Recall that packets of NRT users arriving at the BSC are first<br>queued until they are scheduled for transfer by a weighted<br>fair queueing discipline. Let w</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:642"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:668"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:679"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:683"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:699"><nobr><span class="ft2">, i</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:721"><nobr><span class="ft2">= 1, . . . , P - 1,</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:455"><nobr><span class="ft9">be the basic weights of the WFQ scheduler. The update of<br>the queueing weights, i.e., determining w</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:715"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:719"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:714"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:749"><nobr><span class="ft2">is made ac-</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:455"><nobr><span class="ft6">cording to an absolute update function depending on the basic<br>weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:517"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:527"><nobr><span class="ft2">and the current number of NRT sessions belong-</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:455"><nobr><span class="ft6">ing to priority i. Therefore, every system pattern that is trans-<br>mitted from the online monitoring component to the adaptive<br>performance management entity contains the current number<br>of active NRT sessions with priority i in the cell. For ease<br>of notation, the number of active non real-time sessions with<br>priority i is abbreviated by NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:1095;left:648"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:653"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:473"><nobr><span class="ft2">The idea behind the strategy for revenue improvement is</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:455"><nobr><span class="ft2">to shift the overall utilization of bandwidth for NRT traffic</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23006.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">214</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft7">towards higher priority users, which pay more for the trans-<br>ferred data volume. Note that the update strategy should be<br>conservative in a way that the transfer of packets of low pri-<br>ority is not simply blocked if packets of higher priorities are<br>arriving, i.e., priority queueing. Assuming that the majority<br>of users will buy a cheaper low priority service class, priority<br>queueing will leave most users unsatisfied. Therefore, the up-<br>date strategy also considers the QoS aspect. The update strat-<br>egy concerning the queueing weights is developed according<br>to the following premises:</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:80"><nobr><span class="ft2">(i) If the number of active NRT users in the cell is the same</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:102"><nobr><span class="ft2">for each priority class, i.e., NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:307"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:321"><nobr><span class="ft2">= NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:370"><nobr><span class="ft3">j</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:378"><nobr><span class="ft2">, i</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:405"><nobr><span class="ft2">= j,</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:102"><nobr><span class="ft2">the weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:187"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:191"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:187"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:220"><nobr><span class="ft2">should be set according to the basic</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:102"><nobr><span class="ft2">weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:163"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:172"><nobr><span class="ft2">for i</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:202"><nobr><span class="ft2">= 1, . . . , P .</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:76"><nobr><span class="ft2">(ii) Priority classes with low population of users compared</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:102"><nobr><span class="ft7">to other classes should be prioritized, i.e., the corre-<br>sponding weights should be increased.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:72"><nobr><span class="ft2">(iii) The relative ordering of the weights should be preserved</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:102"><nobr><span class="ft2">in a strong way, i.e., w</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:237"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:242"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:237"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:269"><nobr><span class="ft2">· (w</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:293"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:298"><nobr><span class="ft2">/w</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:316"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:320"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:335"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:344"><nobr><span class="ft2">· w</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:363"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:367"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:363"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:367"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:395"><nobr><span class="ft2">for i</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:426"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:102"><nobr><span class="ft2">1, . . . , P</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:159"><nobr><span class="ft2">- 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:90"><nobr><span class="ft2">Premise (i) constitutes the key of the update strategy. If all</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:72"><nobr><span class="ft7">priority classes have the same population of users the schedul-<br>ing should work as in the case without adaptive control of<br>the weights. The rationale behind premise (ii) is to priori-<br>tize users that are consuming less bandwidth (relative to their<br>weights) than users belonging to other classes, i.e., users of<br>low population should be made more independent from the<br>influence of user classes with higher population. This premise<br>constitutes the basic idea for QoS improvement and is demon-<br>strated by the following example that considers two priority<br>classes, i.e., a high and low priority class. In WFQ the avail-<br>able bandwidth is shared among all active users according to<br>their weights. That is, if the minority are high priority users,<br>the overall bandwidth consumed by these users will suffer<br>from a strong influence of low priority users that hold the<br>majority. Therefore, increasing the weights for high priority<br>users will result in a higher QoS for this user class. Updating<br>the weights according to this strategy will result in a schedul-<br>ing algorithm somewhere between a WFQ and a class based<br>queueing scheduler. In fact, the benefit of both is utilized: the<br>fair sharing of the bandwidth of WFQ and the higher band-<br>width guarantees for each priority class provided by a class<br>based queueing scheduler.</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:90"><nobr><span class="ft2">Preserving the relative ordering of the weights (i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:72"><nobr><span class="ft9">premise (iii)) guarantees that QoS for higher priority users<br>and, therefore, the provider revenue can only be improved<br>due to the adaptive control of the weights. If the intention<br>of the update strategy is not primary on improving provider<br>revenue the weights can be also set in a weak relation, i.e.,<br>w</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:83"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:88"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1097;left:83"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:135"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:147"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:151"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:1097;left:146"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1094;left:151"><nobr><span class="ft3">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:175"><nobr><span class="ft2">. This might be useful to increase QoS for</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:72"><nobr><span class="ft7">users of low population independent of their priority class.<br>With the following algorithm the computation of the weights</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:455"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:467"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:471"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:466"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:495"><nobr><span class="ft2">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:541"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:545"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:540"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:572"><nobr><span class="ft2">can be performed iteratively in P</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:769"><nobr><span class="ft2">-1 min-</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:455"><nobr><span class="ft2">imum calculations. The iteration is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:493"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:505"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:509"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:504"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:536"><nobr><span class="ft2">= w</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:561"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:571"><nobr><span class="ft2">· (NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:613"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:619"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:625"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:641"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:804"><nobr><span class="ft2">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:493"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:505"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:509"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:504"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:536"><nobr><span class="ft2">= min</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:595"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:606"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:588"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:599"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:603"><nobr><span class="ft3">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:623"><nobr><span class="ft2">· w</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:642"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:646"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:642"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:646"><nobr><span class="ft3">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:670"><nobr><span class="ft2">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:688"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:697"><nobr><span class="ft2">· (NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:739"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:744"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:749"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:776"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:565"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:575"><nobr><span class="ft2">= 2, . . . , P.</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:796"><nobr><span class="ft2">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:473"><nobr><span class="ft2">In order to smooth the influence of the number of NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:455"><nobr><span class="ft2">users on the queueing weights, an exponent </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:752"><nobr><span class="ft2">0 is consid-</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:455"><nobr><span class="ft2">ered (e.g., </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:534"><nobr><span class="ft2">= 1/2). It is easy to show that premises (i), (ii)</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:455"><nobr><span class="ft8">and (iii) hold for the weights set according to equations (9)<br>and (10). The iteration starts with setting w</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:715"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:720"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:715"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:747"><nobr><span class="ft2">according to</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:455"><nobr><span class="ft2">NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:484"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:495"><nobr><span class="ft2">and continues up to w</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:630"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:634"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:629"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:658"><nobr><span class="ft2">. Note that this is only one</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:455"><nobr><span class="ft6">possibility to set the new weights. Any other starting position<br>for the iteration is possible and results in a slightly different<br>update of the weights. Nevertheless, the algorithms work in<br>a similar way, and therefore, we consider only the iteration<br>of (9) and (10). If currently no users of priority i are in the<br>cell, i.e., NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:544"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:556"><nobr><span class="ft2">= 0, the algorithm skips the setting of the</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:455"><nobr><span class="ft2">corresponding weight w</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:600"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:605"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:600"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:632"><nobr><span class="ft2">and the next iteration step i</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:799"><nobr><span class="ft2">+ 1</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:455"><nobr><span class="ft2">is related to step i</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:567"><nobr><span class="ft2">- 1. Subsequently, these weights were set</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:455"><nobr><span class="ft6">to zero. For other scheduling disciplines like weighted round<br>robin or a class based queueing corresponding update strate-<br>gies can be derived in a similar way.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:455"><nobr><span class="ft6">4.2.2. Considering advanced pricing policies<br>In pricing policy (b) introduced above, users have to pay an<br>additional fee depending on the throughput improvement due<br>to the update of the queueing weights. This concept of pric-<br>ing indicates strong similarities to the congestion-sensitive<br>pricing of the smart market scheme [21], where the actual<br>price for each packet is determined based on the current state<br>of network congestion. Similarly, in our throughput-based<br>pricing policy the throughput of users is determined by their<br>willingness-to-pay additional costs (according to their choice<br>of priority class) for transmission of packets in a congested<br>network. The additional payment is justified because the<br>throughput for users of higher priority will be maintained,<br>even if more and more users of lower priority attend the cell,<br>i.e., the network is currently congested. We describe the rela-<br>tive throughput increase of priority class i with the function</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:534"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:542"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:547"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:568"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:593"><nobr><span class="ft3">(</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:597"><nobr><span class="ft3">new)</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:592"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:625"><nobr><span class="ft2">= w</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:663"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:676"><nobr><span class="ft2">· THR</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:714"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:652"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:663"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:672"><nobr><span class="ft2">· THR</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:709"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:730"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:739"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:796"><nobr><span class="ft2">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:455"><nobr><span class="ft2">In equation (11), THR</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:588"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:596"><nobr><span class="ft2">is the current throughput of class i de-</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:455"><nobr><span class="ft2">rived from the corresponding sliding window and 0</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:784"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:814"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:455"><nobr><span class="ft2">is a scaling exponent (e.g., </span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:637"><nobr><span class="ft2">= 1/4) that has to be adjusted</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:455"><nobr><span class="ft7">by the service provider for appropriate revenue dimension-<br>ing. In order to guarantee that revenue will be only improved,<br></span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:464"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:469"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:489"><nobr><span class="ft2">has to be truncated, i.e., </span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:643"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:648"><nobr><span class="ft2">(t)</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:685"><nobr><span class="ft2">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:473"><nobr><span class="ft2">Next, we adjust the weights according to an advanced pric-</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:455"><nobr><span class="ft6">ing policy that adopts ideas, which have been successful in<br>existing GSM networks. In GSM networks, the pricing of<br>a provided service is as follows: the proposed service is of-<br>fered based on a monthly payment for a dedicated amount</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23007.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">215</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft6">of call time. If a user has consumed this amount of time<br>before the end of the month, he has to pay for any further<br>use of this service based on a time-dependent accounting.<br>This idea can be generalized and extended towards packet-<br>switched services in 3G networks. Analogously, a user has<br>to pay a monthly charge for a dedicated amount of data vol-<br>ume, which can be transferred without further pricing. After<br>using up this monthly amount of data, the user has to pay for<br>the desired services according to the transferred data volume<br>(byte-based). Moreover, analogous to GSM networks a user<br>can utilize "unused" data volume, i.e., the unused fraction of<br>the prepaid monthly amount of data volume, in subsequent<br>months. If the monthly amount of data is unrestricted, this<br>pricing would become a flat-rate pricing and if there is no<br>monthly payment, the pricing follows a usage-based policy.<br>Thus, our pricing policy constitutes a hybrid approach of flat-<br>rate and usage-based pricing.</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:90"><nobr><span class="ft2">The update of the queueing weights can now be extended</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:72"><nobr><span class="ft6">in a way that users consuming their monthly amount of data<br>are served with a lower priority than users currently paying for<br>their data transfer. Therefore, we introduce a new weight w<br>corresponding to the not paying users. The weight w must<br>be sorted in the weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:231"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:237"><nobr><span class="ft2">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:283"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:297"><nobr><span class="ft2">and the iterative update</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:72"><nobr><span class="ft2">algorithm (9)­(10) can be applied to the P</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:344"><nobr><span class="ft2">+ 1 weights as</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:72"><nobr><span class="ft6">described above. In order to distinguish not paying users<br>with different priorities these users are served by the WFQ<br>scheduler with weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:235"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:242"><nobr><span class="ft2">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:288"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:305"><nobr><span class="ft2">relative to w .</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:410"><nobr><span class="ft2">That</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:72"><nobr><span class="ft2">is, WFQ is applied to 2</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:226"><nobr><span class="ft2">· P weights, i.e., w</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:349"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:355"><nobr><span class="ft2">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:401"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:416"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:72"><nobr><span class="ft2">(w /w)</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:120"><nobr><span class="ft2">· w</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:138"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:145"><nobr><span class="ft2">, . . . , (w /w)</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:228"><nobr><span class="ft2">· w</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:246"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:260"><nobr><span class="ft2">with w</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:306"><nobr><span class="ft2">= w</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:332"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:342"><nobr><span class="ft2">+ · · · + w</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:404"><nobr><span class="ft3">P</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:413"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:72"><nobr><span class="ft2">4.3. Implementation issues</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:72"><nobr><span class="ft6">As outlined in section 2.1, the controlled system parameters<br>for QoS and revenue improvement, i.e., , b</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:347"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:353"><nobr><span class="ft2">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:374"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:379"><nobr><span class="ft2">, </span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:397"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:401"><nobr><span class="ft2">, con-</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:72"><nobr><span class="ft6">stitute an integral component of the proposed extension to a<br>BSC. The adjustment of system parameters is only based on<br>implicit information that is directly measured by the online<br>monitoring component. Therefore, no additional signaling<br>with other BSCs is necessary for updating system parameters.<br>The online monitored QoS measures, i.e., PLP, HFP, CBP,<br>NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:101"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:106"><nobr><span class="ft2">, and THR</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:174"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:179"><nobr><span class="ft2">, can easily be derived and stored within</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:72"><nobr><span class="ft6">the BSC (see figure 1). The PLP can directly be determined<br>by counting the number of IP packets, which are lost due to<br>buffer overflow in the NRT queue. HFP as well as the CBP is<br>determined by the non-admitted handover calls and new calls<br>in the admission controller, respectively. Admission, termina-<br>tion, and handover of NRT calls enable the profiling of NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:429"><nobr><span class="ft3">i</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:434"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:72"><nobr><span class="ft6">the number of non real-time sessions with priority i. More-<br>over, the packet scheduler allows the throughput computation<br>of NRT users according to their individual priorities. Fur-<br>thermore, no time consuming signaling is needed to transfer<br>the system pattern inside the BSC because the online perfor-<br>mance monitoring component and the performance manage-<br>ment entity both reside in the BSC.</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:90"><nobr><span class="ft2">The question arises how call charging can be accomplished</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:72"><nobr><span class="ft6">for the considered pricing policies in 3G mobile networks.<br>For pricing policy (a), i.e., a fixed payment per kbit, call</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft6">charging can easily be processed by the subscription manage-<br>ment component of the operation subsystem (OSS) by means<br>of the call charging mechanism using the home location reg-<br>ister (HLR) [1]. Similarly, the hybrid pricing scheme can be<br>realized except that the remaining amount of prepaid data vol-<br>ume has to be stored in the HLR for charging the transferred<br>data volume. Utilizing these existing charging mechanisms,<br>no additionally signaling overhead arises for charging data<br>services. The throughput-based pricing policy (pricing pol-<br>icy (b)) just slightly changes the situation and can easily be<br>implemented within the BSC using a local copy of the user's<br>HLR charging data fields. This local data minimizes signal-<br>ing overhead of individual user charging. According to the<br>transferred data volume and current throughput of the user's<br>bandwidth class, this local charging profile is continuously<br>updated. Handovers with changing BSC of response induce<br>the transfer of this local charging profile to the new BSC of<br>response. Subsequently, these local data have to be updated<br>in the HLR for individual user accounting after termination of<br>the call. Note, that this transfer of local charging profiles can<br>naturally be embedded in the OSS functionality.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:455"><nobr><span class="ft2">5. Evaluation of the adaptive performance management</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:473"><nobr><span class="ft2">strategies</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:455"><nobr><span class="ft2">5.1. Traffic characterization for 3G networks</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:455"><nobr><span class="ft6">For traffic modeling of RT applications we utilize the ap-<br>proach proposed in [18], where variable bit rate video traffic<br>is modeled in terms of time-discrete M/G/</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:707"><nobr><span class="ft2"> input processes.</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:455"><nobr><span class="ft6">This model is based on measured video streams and ef-<br>ficiently captures the correlation structure of the consid-<br>ered video traffic applying the time-discrete M/G/</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:769"><nobr><span class="ft2"> input</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:455"><nobr><span class="ft6">process. The generated traffic is transformed utilizing a hy-<br>brid Gamma/Pareto numerical transformation in order to cap-<br>ture the marginal distribution of the measured traffic stream.<br>Subsequently, the synthetically generated traffic is broken<br>down to IP packets of a maximum size of 1500 bytes, which<br>are uniformly distributed within a given frame-duration of the<br>MPEG video sequence comprising of 1/30 s. Note that this<br>traffic model does not propose information for modeling RT<br>session durations. Therefore, we assume session durations to<br>be exponentially distributed (see section 5.2).</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:473"><nobr><span class="ft2">Recent recommendations for modeling NRT traffic and an-</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:455"><nobr><span class="ft6">alytical traffic models for 3G mobile networks are proposed<br>in [15,16], respectively. The traffic model is based on real<br>measurements conducted at an Internet service provider dial-<br>in link, which comprises comparable characteristics of future<br>mobile networks [17], i.e., different access speeds, influence<br>of the user behavior due to different tariff limits, as well as<br>asymmetric up- and downlink traffic. Based on these mea-<br>surements a NRT traffic model is conducted, applying the idea<br>of the single user traffic model, which describes traffic charac-<br>teristics on session-level, connection-level, i.e., application-<br>level, and packet-level, respectively. The key insight of this<br>modeling approach lies in an appropriate scaling procedure of</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23008.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">216</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:429"><nobr><span class="ft3">Table 1</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:328"><nobr><span class="ft3">Characteristics for different UMTS session types.</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:284"><nobr><span class="ft3">Circuit switched</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:393"><nobr><span class="ft3">Streaming real time (RT)</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:569"><nobr><span class="ft3">Interactive non real time (NRT)</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:293"><nobr><span class="ft3">voice service</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:393"><nobr><span class="ft3">Audio</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:482"><nobr><span class="ft3">Video</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:535"><nobr><span class="ft3">high priority</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:610"><nobr><span class="ft3">normal priority</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:698"><nobr><span class="ft3">low priority</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:139"><nobr><span class="ft3">Portion of arriving requests</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:313"><nobr><span class="ft3">25%</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:397"><nobr><span class="ft3">12%</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:488"><nobr><span class="ft3">3%</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:561"><nobr><span class="ft3">6%</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:636"><nobr><span class="ft3">18%</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:715"><nobr><span class="ft3">36%</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:139"><nobr><span class="ft3">Session duration</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:311"><nobr><span class="ft3">120 s</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:440"><nobr><span class="ft3">180 s</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:543"><nobr><span class="ft3">determined by session volume distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:139"><nobr><span class="ft3">Session dwell time</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:314"><nobr><span class="ft3">60 s</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:440"><nobr><span class="ft3">120 s</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:632"><nobr><span class="ft3">120 s</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:72"><nobr><span class="ft7">the measured trace data towards typical bandwidth classes of<br>3G mobile networks, i.e., 64 kbps, 144 kbps, and 384 kbps.<br>In this context, a bandwidth class denotes the maximum band-<br>width capability of future handheld devices. We refer to [15]<br>for details of the NRT traffic model, especially for the para-<br>meterization of the traffic characteristics.</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:72"><nobr><span class="ft2">5.2. The simulation environment</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:72"><nobr><span class="ft6">In order to evaluate the proposed approach for adaptive con-<br>trol, we developed a simulation environment for a UMTS ac-<br>cess network, i.e., a UMTS Terrestrial Radio Access Network<br>(UTRAN [3]). The simulator considers a cell cluster com-<br>prising of seven hexagonal cells with corresponding trans-<br>ceiver stations (i.e., Node B elements), that are managed by<br>a base station controller (i.e., a Radio Network Controller,<br>RNC). We assume that a mobile user requests a new session<br>in a cell according to a Poisson process. When a mobile user<br>starts a new session, the session is classified as voice, RT,<br>or NRT session, i.e., with the session the user utilizes voice,<br>RT, or NRT services mutually exclusive. RT sessions con-<br>sist of streaming downlink traffic corresponding to the UMTS<br>streaming class specified by 3GPP [2] and NRT sessions con-<br>sist of elastic traffic and correspond to the UMTS interactive<br>class or background class, respectively. For the year 2010<br>an amount of about 50% voice calls is anticipated [26]. We<br>assume that one half of the voice calls are served over the fre-<br>quency spectrum for traditional GSM services (i.e., 890­915<br>and 935­960 MHz) and the second half is served over the new<br>frequency spectrum allocated for UMTS. Nevertheless, the<br>simulator considers only the new frequency spectrum. There-<br>fore, we assume that 25% of the call requests are voice calls<br>whereas RT and NRT sessions constitute 15% and 60% of the<br>overall arriving requests (see table 1).</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:90"><nobr><span class="ft2">Subsequently, we have to specify the QoS profile for RT</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:72"><nobr><span class="ft6">and NRT sessions. For RT sessions the simulator considers<br>two QoS profiles, i.e., a low bandwidth profile comprising of<br>a guaranteed bit rate of 64 kbps corresponding to streaming<br>audio and a high bandwidth profile comprising of a guaran-<br>teed bit rate of 192 kbps corresponding to streaming video.<br>According to the RT traffic model presented in section 5.1, we<br>assume that 80% of the RT sessions utilize the low bandwidth<br>profile whereas the remaining 20% utilize the high bandwidth<br>profile. Following the single user traffic model, NRT ses-<br>sions are partitioned according to different bandwidth classes<br>as follows: 60% for 64 kbps, 30% for 144 kbps, and 10%<br>for 384 kbps, comprising of different priorities (see table 1),<br>respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:473"><nobr><span class="ft2">The amount of time that a mobile user with an ongoing</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:455"><nobr><span class="ft7">session remains within the cell is called dwell time. If the ses-<br>sion is still active after the dwell time, a handover toward an<br>adjacent cell takes place. The call/session duration is defined<br>as the amount of time that the call will be active, assuming it<br>completes without being forced to terminate due to handover<br>failure. We assume the duration of voice calls and RT ses-<br>sions to be exponentially distributed. As proposed in [6], the<br>dwell time is modeled by a lognormal distribution. All corre-<br>sponding mean values are shown in table 1. A NRT session<br>remains active until a specific data volume drawn according to<br>a bandwidth-dependent lognormal distribution is transferred.<br>To distinguish between NRT traffic classes, the UMTS simu-<br>lator implements a WFQ scheduler with three packet priori-<br>ties: 1 (high), 2 (normal), and 3 (low) with weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:781"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:793"><nobr><span class="ft2">= 4,</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:455"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:466"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:481"><nobr><span class="ft2">= 2, and w</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:556"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:571"><nobr><span class="ft2">= 1. These priorities correspond to the</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:455"><nobr><span class="ft7">traffic handling priority specified by 3GPP. To model the user<br>behavior in the cell, the simulator considers the handover flow<br>of active mobile users from adjacent cells. The iterative pro-<br>cedure introduced in [4] is employed for balancing the incom-<br>ing and outgoing handover rates. The iteration is based on the<br>assumption that the incoming handover rate of a user class at<br>step i</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:495"><nobr><span class="ft2">+ 1 is equal to the corresponding outgoing handover</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:455"><nobr><span class="ft2">rate computed at step i.</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:455"><nobr><span class="ft7">5.2.1. UMTS system model assumptions<br>The simulator exactly mimics UMTS system behavior on the<br>IP level. The focus is not on studying link level dynam-<br>ics. Therefore, we assume a reliable link layer as provided<br>by the automatic repeat request (ARQ) mechanism of the<br>Radio Link Control (RLC) protocol. As shown in [22] for<br>the General Packet Radio Service (GPRS), the ARQ mecha-<br>nism is fast enough to recover from packet losses before reli-<br>able protocols on higher layers (e.g., TCP) recognize these<br>losses due to timer expiration. Thus, a reliable link level<br>can be assumed when considering higher layer protocol ac-<br>tions (see, e.g., [20]). To accurately model the UMTS radio<br>access network, the simulator represents the functionality of<br>one radio network controller and seven Node B transceiver<br>stations, one for each of the considered cells. Since in the<br>end-to-end path, the wireless link is typically the bottleneck,<br>and given the anticipated traffic asymmetry, the simulator fo-<br>cuses on resource contention in the downlink (i.e., the path<br>RNC</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:490"><nobr><span class="ft2"> Node B  MS) of the radio interface.</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:473"><nobr><span class="ft2">The simulator considers the UTRAN access scheme based</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:455"><nobr><span class="ft7">on Wideband-Code Division Multiple Access (W-CDMA) in<br>Frequency Division Duplex mode (FDD) proposed by 3GPP<br>[1]. In FDD downlink, a division of the radio frequencies into</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:12px;line-height:14px;font-family:Times;color:#000000;}
+	.ft11{font-size:12px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23009.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">217</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:72"><nobr><span class="ft7">four physical code channels with data rates of 1,920 kbps each<br>up to 512 physical code channels with 15 kbps data rates each<br>is possible. Therefore, the overall bandwidth that is available<br>in one cell is 7,680 kbps. For the channel coding, we assume<br>a convolution-coding scheme with coding factor 2. In the ex-<br>periments without adaptive control the handover bandwidth<br>portion b</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:126"><nobr><span class="ft3">h</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:135"><nobr><span class="ft2">is 5% and the NRT queue threshold  is set to 95%.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:72"><nobr><span class="ft7">The simulation environment was implemented using the sim-<br>ulation library CSIM [7]. In a presimulation run the handover<br>flow is balanced, for each cell at the boundary of the seven-<br>cell cluster. All simulation results are derived with confidence<br>level of 95% using the batch means method. The execution<br>of a single simulation run requires about 40­60 min of CPU<br>time (depending on the call arrival rate) on a dual processor<br>Sun Sparc Enterprise with one GByte main memory.</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:72"><nobr><span class="ft2">5.2.2. Implementation of the hybrid pricing policy in the</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:90"><nobr><span class="ft2">simulator</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:72"><nobr><span class="ft7">According to the hybrid pricing policy as introduced in sec-<br>tion 4.2.2, the user's overall remaining amount of prepaid data<br>volume d out of the user's monthly data volume D is deter-<br>mined at the beginning of a session. Moreover, the remain-<br>ing amount of data volume of previous months r is deter-<br>mined. For simulation study purposes, this is accomplished<br>by choosing the random value d uniformly out of the interval<br>[0, kD]. kD captures the monthly amount of data a user typ-<br>ically transfers, i.e., a user typically transfers a multiple k of<br>the data volume D that is available for a fixed monthly pay-<br>ment. The random value r, is sampled according to a uniform<br>distribution out of the interval</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:263"><nobr><span class="ft2">[0, 0.1D], where 0.1D mea-</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:72"><nobr><span class="ft7">sures the maximum amount of "unused" data volume of pre-<br>vious months. If d exceeds D</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:256"><nobr><span class="ft2">+ r the user has no remaining</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:72"><nobr><span class="ft7">prepaid data volume, including the data volume of the cur-<br>rent and the previous months. Otherwise, there is a remaining<br>amount of prepaid data volume D</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:278"><nobr><span class="ft2">+ r - d for the considered</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:72"><nobr><span class="ft7">user and additional pricing arises only, if the transferred data<br>volume of the user session exceeds D</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:302"><nobr><span class="ft2">+ r - d. Thus, during</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:72"><nobr><span class="ft7">the user session the remaining data volume has to be updated<br>according to the actually transferred data.</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:90"><nobr><span class="ft2">In the simulation studies we utilize the proposed hybrid-</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:72"><nobr><span class="ft7">pricing scheme with a prepaid monthly data volume of<br>150 MB. According to the different priority classes 1, 2,<br>and 3, the volume-based pricing for transferred data exceed-<br>ing the prepaid monthly data volume comprises of 20, 15,<br>and 10 cost-units per MB, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:339"><nobr><span class="ft2">Considering the</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:72"><nobr><span class="ft7">changing traffic loads according to the daytime, this approach<br>can be refined, by the notion of different pricing for daily peri-<br>ods of time. For the parameterization of the typically monthly<br>transferred data volume, we assume k</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:315"><nobr><span class="ft2">= 2. Note that the</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:72"><nobr><span class="ft7">parameterization of the pricing scheme is chosen for demon-<br>stration purposes only. Due to the high flexibility of the hy-<br>brid pricing scheme, it can be easily extended towards multi-<br>ple, concurrent pricing schemes comprising of, e.g., different<br>monthly amounts of prepaid data volumes, different payments<br>for the individual priority classes, or a pure usage-based pric-<br>ing as well as pure flat-rate pricing.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:630"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:630"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:455"><nobr><span class="ft3">Figure 2. Impact of adaptive performance management on non real-time</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:623"><nobr><span class="ft3">traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:455"><nobr><span class="ft2">5.3. Performance results</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:455"><nobr><span class="ft6">Using simulation experiments, we illustrate the benefit of the<br>proposed unified approach for adaptive performance manage-<br>ment of UMTS systems. In particular, we show the improve-<br>ment of QoS measures and the increase in revenue earned by<br>service providers. The presented curves plot the mean values<br>of the confidence intervals for the considered QoS measures.<br>In almost all figures, the overall call/session arrival rate of<br>new mobile users is varied to study the cell under increasing<br>load conditions. For ease of notation, results with and without<br>adaptive performance management (APM) are abbreviated by<br>APM on and APM off, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:473"><nobr><span class="ft2">In a first experiment, we investigate the effect of adap-</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:455"><nobr><span class="ft6">tive control on the threshold for the buffer size of the NRT<br>queue denoted by . Figure 2 shows the NRT packet loss<br>probability (a) and the average number of NRT users in the<br>cell (b) for the UMTS system with and without adaptive con-<br>trol. Furthermore, the figures distinguish between different<br>desired loss levels  as introduced in section 3.2. We observe<br>that the APM achieves a substantially decrease in packet loss<br>probability. Moreover, the packet loss probability can be kept<br>below a constant level for increasing arrival rates of mobile<br>users. Note, that this level slightly differs from the desired<br>level of the QoS measure. This is due to the fact that the up-<br>date function only decreases the NRT threshold if the online</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23010.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">218</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:72"><nobr><span class="ft3">Figure 3. Number of packet losses for a half day window of a weekly usage</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:237"><nobr><span class="ft3">pattern.</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft6">measured packet loss probability is greater than . There-<br>fore, the packet loss probability is in steady state also slightly<br>greater than . Nevertheless, figure 2 shows that the resulting<br>packet loss probability can be adjusted quite well. For very<br>low arrival rates, the packet loss probability is increased com-<br>pared to the case without adaptive control. This is because<br>the packet loss probability is below the desired level and  is<br>adjusted towards 100%.</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:90"><nobr><span class="ft2">Figure 2(b) shows the average number of NRT users ad-</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:72"><nobr><span class="ft6">mitted in the cell. For all curves, the number of NRT users in<br>the cell first increases up to about 70 users for an arrival rate of<br>1.0 arrivals per second. For higher arrival rates the admission<br>controller decides to reject requests depending on the choice<br>of the NRT threshold. In the case without APM the num-<br>ber of NRT users approaches 100 whereas in the cases with<br>adaptive control less users are admitted in the cell because<br>the threshold parameter  is decreased (e.g., about 80 users<br>for </span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:113"><nobr><span class="ft2">= 0.001). For high arrival rates a slightly decrease</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:72"><nobr><span class="ft6">of the average number of NRT users can be observed. This is<br>due to the fact that with increasing arrival rate the competition<br>between voice, RT and NRT traffic decreases the bandwidth<br>capacity available for NRT traffic. Therefore, less NRT users<br>are admitted.</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:90"><nobr><span class="ft2">In the experiment presented in figure 3, we study the ab-</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:72"><nobr><span class="ft6">solute number of packet losses observed in one hour for a<br>transient scenario, i.e., the arrival rate of new calls is chang-<br>ing every hour according to a half day window of a weekly<br>usage pattern [15]. The purpose of this experiment is to show<br>that the adaptive performance management is fast enough to<br>react on changing traffic conditions, i.e., to effectively adjust<br>the NRT threshold in order to reduce packet losses. The bars<br>shown in figure 3 correspond to the number of packet losses<br>for experiments with and without adaptive control. Further-<br>more, the figure distinguishes between a desired loss level <br>of 0.01 and 0.001, respectively. The new call arrival rates con-<br>sidered in one hour are depicted above the bars. We conclude<br>from figure 3 that for a real-life pattern of changing arrival<br>rates the packet losses can be effectively controlled by the<br>APM. This justifies the choice of the gradient m</span></nobr></DIV>
+<DIV style="position:absolute;top:1105;left:367"><nobr><span class="ft2">= -0.02 in</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:72"><nobr><span class="ft2">the update function for the NRT threshold.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:630"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:630"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:458"><nobr><span class="ft3">Figure 4. Impact of adaptive performance management on handover traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:473"><nobr><span class="ft2">Next, we study the effect of the APM on the handover</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:455"><nobr><span class="ft7">traffic. Figure 4 shows the handover failure probability (a)<br>and the new call blocking probability (b) for the UMTS sys-<br>tem with and without APM. Similar to figure 2, we distin-<br>guish between different desired levels  for the handover fail-<br>ure probability. The desired level for new call blocking is<br>fixed to 0.1. Note, that for controlling the handover band-<br>width the desired level  can be used only to adjust the de-<br>gree of prioritization of handover failure over new call block-<br>ing. Distinct from the packet loss probability, it cannot be<br>expected to keep the handover failure probability at a con-<br>stant level for increasing traffic load. That is for two rea-<br>sons: (1) the handover bandwidth is adjusted according to<br>two QoS measures that have a contrary influence and (2) the<br>increase of the handover bandwidth must be limited by a<br>certain portion of the overall available bandwidth (see sec-<br>tion 3.2). If this limit is reached handover failures occur<br>more frequently for further increasing call arrival rate. These<br>two effects can be observed in the curves of figure 4. Nev-<br>ertheless, the handover failure probability is improved more<br>than one order of magnitude for call arrival rates between<br>0.75 and 1.25 call requests per second and a desired loss<br>level </span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:510"><nobr><span class="ft2">= 0.001. When studying the blocking probabil-</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:455"><nobr><span class="ft6">ity of new voice calls and RT sessions (see figure 4(b)),<br>we surly observe a higher blocking probability of new calls<br>in the case with adaptive control and high arrival rate. In</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23011.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">219</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:105"><nobr><span class="ft3">Figure 5. Improving QoS for high priority non real-time users.</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:72"><nobr><span class="ft3">Figure 6. Effect of adjusting WFQ weights on bandwidth utilization of NRT</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:239"><nobr><span class="ft3">traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:72"><nobr><span class="ft7">fact, almost all call requests are blocked if system load is<br>high.</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:90"><nobr><span class="ft2">In a next experiment, we study the impact of NRT users on</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:72"><nobr><span class="ft6">QoS by the adaptive control of the queueing weights as intro-<br>duced in section 4.2. Figure 5 plots the average throughput<br>per user for each priority class of NRT traffic. As shown in<br>table 1, we assume 10% NRT users with high priority, 30%<br>with normal priority, and 60% with low priority. Recall, that<br>higher priority service is more expensive and, hence, more<br>users choose low priority service. If the overall load in the<br>cell is very low (i.e., less than 0.3 call arrivals per second)<br>each NRT user receives the maximal throughput independent<br>of the priority class. However, when the cell load is further<br>increased (arrival rates of more than 0.5 arrivals per second),<br>throughput for users of all priority classes decreases. The in-<br>tention of adaptively controlling the queueing weights is to<br>reduce heavy throughput degradation of high priority users<br>in this case. The performance increase of high priority users<br>and the decrease of low priority users are shown in figure 5.<br>Figure 6 plots the bandwidth portion utilized for each prior-<br>ity class of NRT traffic. For low arrival rate (i.e., less than<br>0.5 call arrivals per second) NRT users with low priority uti-<br>lize the greatest portion of the NRT bandwidth because most<br>NRT users have priority low. When the cell load is increased<br>(arrival rates of more than 0.5 arrivals per second), the band-</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:630"><nobr><span class="ft2">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:630"><nobr><span class="ft2">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:486"><nobr><span class="ft3">Figure 7. Revenue improvement for usage-based pricing policy.</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:455"><nobr><span class="ft6">width will be utilized more and more by high priority users.<br>The adaptive control of the WFQ weights decides to intensify<br>this effect because users belonging to priority high suffer from<br>the high population of low priority users. Figures 5 and 6 are<br>derived from simulation runs with </span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:676"><nobr><span class="ft2">= 1/2 (see section 4.2).</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:473"><nobr><span class="ft2">In the following experiments, we study the impact of con-</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:455"><nobr><span class="ft7">trolling the queueing weights on the revenue function (see<br>equation (8)) for the three proposed pricing policies, i.e.,<br>usage-based, usage-/throughput-based, and the hybrid pricing<br>policy. From the revenue function the average (steady state)<br>provider revenue  in the considered cell can be derived. Re-<br>call that the available bandwidth for NRT traffic is variable for<br>different call arrival rates. Therefore, we consider the revenue<br>earned by the provider in one hour per available bandwidth<br>unit, i.e., per available kbit, for NRT traffic. Figure 7 shows<br>the provider revenue for the usage-based pricing policy (i.e.,<br></span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:470"><nobr><span class="ft2">= 0) and different values of the exponent . As discussed</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:455"><nobr><span class="ft6">in section 4.2, the best revenue improvement will be achieved<br>with priority queueing. From the curves we conclude that the<br>update strategy increases the revenue in one cell successfully<br>for the considered traffic assumptions. Recall that the revenue<br>improvement stems from a shift in bandwidth utilization to-<br>wards higher priority users (see figure 6) if the population of<br>high priority users is low compared to users of lower priority.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:473"><nobr><span class="ft2">Figure 7(b) shows the revenue improvement for different</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:455"><nobr><span class="ft2">user populations. In the experiment the percentage of high</span></nobr></DIV>
+</DIV>
+<!-- Page 12 -->
+<a name="12"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:9px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23012.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">220</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:711"><nobr><span class="ft4">C. LINDEMANN ET AL.</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:72"><nobr><span class="ft3">Figure 8. Revenue improvement for usage-/throughput-based pricing policy.</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:116"><nobr><span class="ft3">Figure 9. Revenue improvement for hybrid pricing policy.</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:72"><nobr><span class="ft6">priority users among the arriving user requests is varied. The<br>remaining users are assumed to be low priority users. Normal<br>priority users are not considered in this experiment (i.e., 0%<br>normal priority users). This figure shows how the adaptive<br>control of the queueing weights works. As expected, for a low<br>percentage of high priority users the corresponding weight<br>is increased. Therefore, QoS for high priority users and the<br>provider revenue is also increased. For more than 50% high<br>priority users the revenue is the same as in the case without<br>adaptive control. No further revenue improvement is allowed<br>because degradation of QoS for low priority users would be<br>unacceptable. Considering a weak relation among the weights<br>as introduced in section 4.2 would decrease the revenue com-<br>pared to the case without adaptive control for more than 50%<br>high priority users. This might be useful to increase QoS for<br>users of low population independent of their priority class.</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:90"><nobr><span class="ft2">Figure 8 shows the revenue improvement for the usage-/</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:72"><nobr><span class="ft2">throughput-based pricing policy and scaling exponents </span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:426"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:72"><nobr><span class="ft2">1/4 and </span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:144"><nobr><span class="ft2">= 1/16. In the last experiment we studied the</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:72"><nobr><span class="ft6">revenue improvement for the hybrid pricing policy (see fig-<br>ure 9). We assume that half of the arriving users start their<br>session in non-paying mode (i.e., k</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:289"><nobr><span class="ft2">= 2). The curves distin-</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:72"><nobr><span class="ft2">guish between weights w</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:230"><nobr><span class="ft2">= 1 and w = 2 for the non-paying</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:72"><nobr><span class="ft6">users. Furthermore, the revenue for the case with and without<br>adaptive control is compared. The curves are derived from<br>simulations with </span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:196"><nobr><span class="ft2">= 0 and  = 1/2. From the revenue</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:455"><nobr><span class="ft6">curves of figures 7­9 the average monthly revenue can be<br>computed considering a daily/weekly usage-pattern and dif-<br>ferent splits of call arrival rates of users requesting different<br>services (i.e., voice, RT, NRT with different priorities). Com-<br>paring the monthly revenue for the pricing policies used in<br>figures 7­9 with the monthly revenue for the hybrid pricing<br>policy a provider can determine values such as the monthly<br>free data volume and monthly payment per user.</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:455"><nobr><span class="ft2">6. Conclusions</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:455"><nobr><span class="ft6">We introduced a unified approach based on a mathematical<br>framework for the adaptive performance management of 3G<br>mobile networks. Opposed to previous work [8,13,19,21,25],<br>the improvement of quality of service (QoS) and the optimiza-<br>tion of mobile service provider revenue was considered in an<br>integrated way. The unified approach aims at improving both<br>QoS for mobile subscribers and increasing revenue earned by<br>service providers. System parameters controlled by adaptive<br>performance management constitute the portion of bandwidth<br>reserved for handovers, the buffer threshold of the queue for<br>non real-time traffic, and the weights of a weighted fair queue-<br>ing packet scheduler.</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:473"><nobr><span class="ft2">Using the UMTS traffic model of [15] and a simulator on</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:455"><nobr><span class="ft6">the IP level for the UMTS system, we presented performance<br>curves for various QoS measures to illustrate the benefit of<br>the unified approach for adaptive performance management.<br>We introduced update functions that effectively control the<br>packet loss probability and the handover failure probability.<br>Considering usage-based, usage-/throughput-based, and hy-<br>brid pricing policies, we showed that the provider revenue in<br>one cell can be significantly increased by the adaptive control<br>of the queueing weights.</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:473"><nobr><span class="ft2">Throughout the paper, we considered the services and QoS</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:455"><nobr><span class="ft6">profiles standardized for UMTS. Thus, the proposed approach<br>for adaptive control is tailored to UMTS networks. How-<br>ever, by considering other services and QoS profiles, the ba-<br>sic ideas underlying the unified approach for adaptive perfor-<br>mance management can also be applied for the adaptive con-<br>trol of other kinds of multi-service IP networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:455"><nobr><span class="ft2">References</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:461"><nobr><span class="ft12">[1] 3GPP, http://www.3gpp.org<br>[2] 3GPP, QoS concept and architecture, Technical Specification TS</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:483"><nobr><span class="ft3">23.107 (September 2001).</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:461"><nobr><span class="ft3">[3] 3GPP, UTRAN overall description, Technical Specification TS 25.401</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:483"><nobr><span class="ft3">(September 2001).</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:461"><nobr><span class="ft3">[4] M. Ajmone Marsan, S. Marano, C. Mastroianni and M. Meo, Perfor-</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:483"><nobr><span class="ft12">mance analysis of cellular mobile communication networks supporting<br>multimedia services, Mobile Networks and Applications 5 (2000) 167­<br>177.</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:461"><nobr><span class="ft3">[5] K. Aretz, M. Haardt, W. Konhäuser and W. Mohr, The future of wire-</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:483"><nobr><span class="ft12">less communications beyond the third generation, Computer Networks<br>37 (2001) 83­92.</span></nobr></DIV>
+<DIV style="position:absolute;top:1098;left:461"><nobr><span class="ft3">[6] F. Barceló and J. Jordán, Channel holding time distribution in public</span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:483"><nobr><span class="ft12">cellular telephony, in: Proceedings of the 16th International Teletraffic<br>Congress, Edinburgh, Scotland (1999) pp. 107­116.</span></nobr></DIV>
+</DIV>
+<!-- Page 13 -->
+<a name="13"></a>
+<DIV style="position:relative;width:892;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:9px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1263" src="23013.png" alt="background image">
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft4">IMPROVING QoS AND PROVIDER REVENUE IN 3G MOBILE NETWORKS</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:805"><nobr><span class="ft4">221</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:78"><nobr><span class="ft12">[7] CSIM18 ­ The Simulation Engine, http://www.mesquite.com<br>[8] S.K. Das, R. Jayaram, N.K. Kakani and S.K. Sen, A call admission and</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:99"><nobr><span class="ft12">control scheme for Quality-of-Service provisioning in next generation<br>wireless networks, Wireless Networks 6 (2000) 17­30.</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:78"><nobr><span class="ft3">[9] A. Demers, S. Keshav and S. Shenker, Analysis and simulation of a fair</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:99"><nobr><span class="ft13">queueing algorithm, in: Proceedings of the International Symposium<br>on Communications Architectures and Protocols (SIGCOMM), Austin,<br>TX (1989) pp. 1­12.</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:72"><nobr><span class="ft3">[10] S. Floyd and V. Jacobson, Link-sharing and resource management mod-</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:99"><nobr><span class="ft12">els for packet networks, IEEE/ACM Transactions on Networking 3<br>(1995) 365­386.</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:72"><nobr><span class="ft3">[11] X. Geng and A.B. Whinston, Profiting from value-added wireless ser-</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:99"><nobr><span class="ft3">vices, IEEE Computer 34 (August 2001) 87­89.</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:72"><nobr><span class="ft3">[12] A. Gupta, D.O. Stahl and A.B. Whinston, The economics of network</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:99"><nobr><span class="ft3">management, Communications of the ACM 42 (1999) 57­63.</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:72"><nobr><span class="ft3">[13] A. Gupta, D.O. Stahl and A.B. Whinston, Priority pricing of inte-</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:99"><nobr><span class="ft12">grated services networks, in: Internet Economics, eds. L. McKnight<br>and J. Bailey (MIT Press, 1995) pp. 323­378.</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:72"><nobr><span class="ft3">[14] G. Haring, R. Marie and K.S. Trivedi, Loss formulas and their appli-</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:99"><nobr><span class="ft12">cation to optimization for cellular networks, IEEE Transactions on Ve-<br>hicular Technology 50 (2001) 664­673.</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:72"><nobr><span class="ft3">[15] A. Klemm, C. Lindemann and M. Lohmann, Traffic modeling and</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:99"><nobr><span class="ft12">characterization for UMTS networks, in: Proceedings of GLOBECOM<br>2001, San Antonio, TX (November 2001) pp. 1741­1746.</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:72"><nobr><span class="ft3">[16] A. Klemm, C. Lindemann and M. Lohmann, Traffic modeling of IP</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:99"><nobr><span class="ft12">networks using the batch Markovian arrival process, in: Proceedings of<br>Tools 2002, London, Great Britain (April 2002) pp. 92­110.</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:72"><nobr><span class="ft3">[17] J. Kilpi and I. Norros, Call level traffic analysis of a large ISP, in: Pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:99"><nobr><span class="ft12">ceedings of the 13th ITC Specialist Seminar on Measurement and Mod-<br>eling of IP Traffic, Monterey, CA (2000) pp. 6.1­6.9.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:72"><nobr><span class="ft3">[18] M. Krunz and A. Makowski, A source model for VBR video traffic</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:99"><nobr><span class="ft3">based on M/G/</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:174"><nobr><span class="ft3"> input processes, in: Proceedings of the 17th Confer-</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:99"><nobr><span class="ft12">ence on Computer Communications (IEEE INFOCOM), San Francisco,<br>CA (1998) pp. 1441­1449.</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:72"><nobr><span class="ft3">[19] C. Lindemann, M. Lohmann and A. Thümmler, Adaptive performance</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:99"><nobr><span class="ft12">management for UMTS networks, Computer Networks 38 (2002) 477­<br>496.</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:72"><nobr><span class="ft3">[20] R. Ludwig, A. Konrad and A.D. Joseph, Optimizing the end-to-end</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:99"><nobr><span class="ft12">performance of reliable flows over wireless links, in: Proceedings<br>of the 5th Conference on Mobile Computing and Networking (ACM<br>MobiCom), Seattle, WA (1999) pp. 113­119.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:72"><nobr><span class="ft3">[21] J.K. MacKie-Mason and H.R. Varian, Pricing the Internet, in: Public</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:99"><nobr><span class="ft12">Access to the Internet, eds. B. Kahin and J. Keller (MIT Press, 1995)<br>pp. 269­314.</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:72"><nobr><span class="ft3">[22] M. Meyer, TCP performance over GPRS, in: Proceedings of the First</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:99"><nobr><span class="ft12">Wireless Communications and Networking Conference (IEEE WCNC),<br>New Orleans, MS (1999) pp. 1248­1252.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:72"><nobr><span class="ft3">[23] Mobile Wireless Internet Forum (MWIF), OpenRAN architecture in</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:99"><nobr><span class="ft12">3rd generation mobile systems, Technical report MTR-007 (September<br>2001) http://www.mwif.org</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:72"><nobr><span class="ft3">[24] J.M. Peha and A. Sutivong, Admission control algorithms for cellular</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:99"><nobr><span class="ft3">systems, Wireless Networks 7 (2001) 117­125.</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:455"><nobr><span class="ft3">[25] S. Rao and E.R. Petersen, Optimal pricing of priority services, Opera-</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:483"><nobr><span class="ft3">tions Research 46 (1998) 46­56.</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:455"><nobr><span class="ft12">[26] UMTS-Forum, UMTS/IMT-2000 Spectrum, Report No. 6 (1999).<br>[27] H. Zhang, Service disciplines for guaranteed performance service in</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:483"><nobr><span class="ft12">packet-switched networks, Proceedings of the IEEE 83 (1995) 1374­<br>1396.</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:455"><nobr><span class="ft3">[28] Wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:537"><nobr><span class="ft3">World</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:580"><nobr><span class="ft3">Research</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:637"><nobr><span class="ft3">Forum</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:681"><nobr><span class="ft3">(WWRF),</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:742"><nobr><span class="ft3">http://www.</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:483"><nobr><span class="ft3">wireless-world-research.org</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:570"><nobr><span class="ft12">Christoph Lindemann is an Associate Professor in<br>the Department of Computer Science at the Univer-<br>sity of Dortmund and leads the Computer Systems<br>and Performance Evaluation group. From 1994 to<br>1997, he was a Senior Research Scientist at the GMD<br>Institute for Computer Architecture and Software<br>Technology (GMD FIRST) in Berlin. In the sum-<br>mer 1993 and during the academic year 1994/1995,<br>he was a Visiting Scientist at the IBM Almaden Re-<br>search Center, San Jose, CA. Christoph Lindemann</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:455"><nobr><span class="ft12">is a Senior Member of the IEEE. He is author of the monograph Performance<br>Modelling with Deterministic and Stochastic Petri Nets (Wiley, 1998). More-<br>over, he co-authored the survey text Performance Evaluation ­ Origins and<br>Directions (Springer-Verlag, 2000). He served on the program committees of<br>various well-known international conferences. His current research interests<br>include mobile computing, communication networks, Internet search tech-<br>nology, and performance evaluation.<br>E-mail: cl@cs.uni-dortmund.de<br>WWW: http://www4.cs.uni-dortmund.de/</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:654"><nobr><span class="ft3">Lindemann/</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:570"><nobr><span class="ft12">Marco Lohmann received the degree Diplom-Infor-<br>matiker (M.S. in computer science) with honors<br>from the University of Dortmund in March 2000.<br>Presently, he is a Ph.D. student in the Computer Sys-<br>tems and Performance Evaluation group at the Uni-<br>versity of Dortmund. He is a student member of the<br>IEEE and the ACM. His research interests include<br>mobile computing, Internet search technology, and<br>stochastic modeling.<br>E-mail: ml@ls4.cs.uni-dortmund.de</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:570"><nobr><span class="ft12">Axel Thümmler received the degree Diplom-Infor-<br>matiker (M.S. in computer science) from the Univer-<br>sity of Dortmund in April 1998. Presently, he is a<br>Ph.D. student in the Computer Systems and Perfor-<br>mance Evaluation group at the University of Dort-<br>mund. His research interests include mobile com-<br>puting, communication networks, and performance<br>evaluation.<br>E-mail: at@ls4.cs.uni-dortmund.de</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

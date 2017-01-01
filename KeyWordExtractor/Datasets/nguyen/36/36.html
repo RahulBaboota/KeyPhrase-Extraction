@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\36</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-09-27T17:33:37+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:205"><nobr><span class="ft0"><b>Analysis of Soft Handover Measurements</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:380"><nobr><span class="ft0"><b>in 3G Network</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:415"><nobr><span class="ft1">Kimmo Raivio</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:344"><nobr><span class="ft2">Adaptive Informatics Research Centre</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:361"><nobr><span class="ft2">Helsinki University of Technology</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:338"><nobr><span class="ft2">P.O. Box 5400, FIN-02015 HUT, Finland</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:391"><nobr><span class="ft1">kimmo.raivio@hut.fi</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:93"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:93"><nobr><span class="ft7">A neural network based clustering method for the analysis<br>of soft handovers in 3G network is introduced. The method<br>is highly visual and it could be utilized in explorative anal-<br>ysis of mobile networks. In this paper, the method is used<br>to find groups of similar mobile cell pairs in the sense of<br>handover measurements. The groups or clusters found by<br>the method are characterized by the rate of successful han-<br>dovers as well as the causes of failing handover attempts.<br>The most interesting clusters are those which represent cer-<br>tain type of problems in handover attempts. By comparing<br>variable histograms of a selected cluster to histograms of<br>the whole data set an application domain expert may find<br>some explanations on problems. Two clusters are investi-<br>gated further and causes of failing handover attempts are<br>discussed.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:93"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:93"><nobr><span class="ft7">H.4.3 [Information Systems Applications]: Communi-<br>cations Applications--Information browsers; I.5.3 [Pattern<br>Recognition]: Clustering</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:93"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:93"><nobr><span class="ft3">Algorithms, Management, Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:93"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:93"><nobr><span class="ft7">3G network, soft handover, mobility management, data min-<br>ing, hierarchical clustering, neural networks</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:93"><nobr><span class="ft1">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:125"><nobr><span class="ft1">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:107"><nobr><span class="ft3">Mobility management is a great challenge in current and</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:93"><nobr><span class="ft7">future radio access networks. In third generation (3G) net-<br>works user experienced quality of service (QoS) under a<br>move of mobile station (MS) from one mobile cell to an-<br>other cell has been improved by implementing soft handover</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:93"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>MSWiM'06,</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:154"><nobr><span class="ft4">October 2­6, 2006, Torremolinos, Malaga, Spain.</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:93"><nobr><span class="ft4">Copyright 2006 ACM 1-59593-477-4/06/0010 ...$5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:488"><nobr><span class="ft7">(SHO). Soft handover makes it possible to have connections<br>on several base stations (BS) simultaneously.</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:501"><nobr><span class="ft3">In this paper, a set of measurements which can be used for</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:488"><nobr><span class="ft7">soft handover decision making are analyzed and compared<br>with other measurements in which statistics of successful-<br>ness of handover attempts have been collected. We do not<br>know exactly the parameters of used SHO algorithm. SHOs<br>are investigated only on basis of data set and some general<br>knowledge of 3G systems. Mobile cell pairs with handovers<br>(HO) are divided in groups using clustering algorithm. Cell<br>pairs in which SHOs are similar with each other fall in same<br>group. Different types of SHO failures are analyzed using<br>clustering information and distributions of measurements in<br>each cluster.</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:501"><nobr><span class="ft3">In Section 2 the soft handover concept, the measurements</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:488"><nobr><span class="ft7">and used neural network algorithm are shortly introduced.<br>Analysis methods which have been used are described in<br>Section 3. Preliminary results are shown and discussed in<br>Section 4. Finally, some conclusions are drawn in the last<br>section.</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:488"><nobr><span class="ft1">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:519"><nobr><span class="ft1">BACKGROUND</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:501"><nobr><span class="ft3">In this section, the basics of soft handover in 3G network</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:488"><nobr><span class="ft7">is explained and the available data set is introduced. Neural<br>network algorithm used in data clustering is also presented.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:488"><nobr><span class="ft1">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:528"><nobr><span class="ft1">Soft handover</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:501"><nobr><span class="ft3">Soft handover is a state of MS being connected to several</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:488"><nobr><span class="ft7">BSs simultaneously. In GSM networks, a fixed threshold for<br>handover from one cell to another is used. In 3G networks,<br>each MS is connected to a network via a set of BSs called<br>active set. Members of active set are updated on basis of<br>measurements made by MS. The advantage of having con-<br>nections on several BS simultaneously is realized when MS<br>is moving towards another BS, the MS should have a con-<br>nection at least on one BS all the time. In GSM system, the<br>older connection has to be terminated before the new one<br>can be setup. The connection setup phases are the most<br>vulnerable steps in a call. The connection between MS and<br>BS is setup in a beginning of a call or later when handover<br>occurs. If the setup is not successful, it is useful to have an<br>existing connection to another BS or otherwise the call will<br>be abnormally terminated.</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:501"><nobr><span class="ft3">Handover can occur due to signal quality reasons or when</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:488"><nobr><span class="ft7">the traffic capacity in a cell has reached its maximum or is<br>approaching it. In the latter case, traffic load in the network<br>can be distributed more uniformly by handing over some<br>users from the most crowded cells. The above method is</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">330</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft7">called cell breathing. Use of cell breathing without giving<br>the information to the analyzer increases the complexity of<br>the analysis and can mix up a lot in the analysis process.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:107"><nobr><span class="ft3">For a user soft handover means power saving (in uplink)</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:93"><nobr><span class="ft7">and less abnormally terminated calls. For an operator lower<br>MS transmitting powers mean less interference. When MS<br>is in SHO, several BSs listen the same uplink channel, but<br>all BSs have their own downlink channel. The offered diver-<br>sity is resource consuming in downlink direction. There is<br>a tradeoff between better QoS in mobility management and<br>consumption of resources.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:107"><nobr><span class="ft3">Decision of soft handover is made in mobile station by</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:93"><nobr><span class="ft7">comparing the signal-to-noise ratios of active and candidate<br>BSs Common Pilot Channel (CPICH) [2]. Members of ac-<br>tive set are selected on basis of powers of this pilot signal [5,<br>12, 16].</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:107"><nobr><span class="ft3">BSs which are not in the active set but next from it in the</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:93"><nobr><span class="ft7">sense of measured quantity are in candidate set. Candidate<br>set BSs are constantly monitored whether their offer better<br>connection than cells in active set. Cells not in active or<br>candidate set are monitored less frequently whether their<br>can enter the candidate set.</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:283"><nobr><span class="ft3">Cell is either added to the</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:93"><nobr><span class="ft7">active set if the maximum amount of cells in the active set<br>is not reached or cell replaces the cell which offers the lowest<br>quality connection. Cells which are no more able to offer<br>a connection which is good enough are removed from the<br>active set.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:107"><nobr><span class="ft3">Thresholds are used in adding, replacing and removing</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:93"><nobr><span class="ft7">BSs from active set by BSs in candidate set to avoid ping<br>pong effect. This means that a value of measured quantity<br>should be with a certain threshold better than the old one<br>for changing cells in active set. If measurement which is only<br>slightly better (i.e. with zero threshold) is enough for chang-<br>ing cells in sets, it is quite possible that the same change is<br>performed in opposite direction very soon. Thus, the origi-<br>nal update of the set was useless and resource consuming in<br>the sense of all required signaling.</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:93"><nobr><span class="ft1">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:134"><nobr><span class="ft1">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:107"><nobr><span class="ft3">Three data sets of Key Performance Indicator (KPI) level</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:93"><nobr><span class="ft7">measurements related on handover events are saved. Each<br>set consists of measurements collected during one hour. KPI<br>is considered as an important measure to be followed. It can<br>be a measurement by itself or it has been computed from a<br>group of raw counters [10]. One data vector consists of prob-<br>abilities, means, sums and counters computed over one hour<br>of one source target cell pair. Here, source refers on cell<br>in active set and target on another cell which is measured<br>and possibly added in active or candidate set.</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:397"><nobr><span class="ft3">Measure-</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:93"><nobr><span class="ft7">ments of target cell are compared with those of source cell.<br>Handover decisions are made in MS on basis of measured<br>and computed base stations received signal signal-to-noise<br>ratios (E</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:148"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:154"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:171"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:177"><nobr><span class="ft3">). For each source and target cell pair mean</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:93"><nobr><span class="ft3">of signal-to-noise ratio differences is computed using</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:102"><nobr><span class="ft3">EcnoDiffMean = mean n[E</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:265"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:270"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:288"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:294"><nobr><span class="ft3">]</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:298"><nobr><span class="ft9">target</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:333"><nobr><span class="ft3">- [E</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:360"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:366"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:383"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:390"><nobr><span class="ft3">]</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:393"><nobr><span class="ft9">source</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:427"><nobr><span class="ft3">o .</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:93"><nobr><span class="ft7">Mean value and number of made comparisons (EcnoDiffNum)<br>are saved. Four bin pdfs of these measurements are also<br>stored with bin centers in -6, -3, 0 and 3dB, correspond-<br>ingly.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:107"><nobr><span class="ft3">In addition to E</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:205"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:211"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:228"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:239"><nobr><span class="ft3">measurements, averages of received</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft7">pilot signal power ratios between BS pairs (av rscp ratio)<br>have been computed and stored in database. The time and</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft7">probability of being in SHO with each other have also been<br>measured. Time of target and source cell being in SHO with<br>each other simultaneously is counted in variable t act. Then,<br>at least one MS is in SHO having both source and target cell<br>in its active set. The measurement is symmetric for a switch<br>of source and target cells. Time of target cell being in SHO<br>with source cell is stored in t act dir. Cell total time in<br>SHO is saved in tot time sho. It has been counted over all<br>the targets of fixed source cell. Probability of target and<br>source being in same active set is stored in variable p act.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:501"><nobr><span class="ft3">Total number of SHO attempts to add target to active</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:488"><nobr><span class="ft7">set is stored in SHO total att. Ratio of successful SHO at-<br>tempts which lead to addition of target cell in active set is<br>saved in add ratio. In addition to those above, the num-<br>ber of SHO failures is stored in pfail total and ratios of four<br>different failure causes are saved. Failure occurs in setup<br>or active time phase of SHO and it is either radio channel<br>problem or not. Probability of cell being in monitored state<br>is also measured (p4th 5th). All the measurements used in<br>the analysis are shortly described in Table 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:501"><nobr><span class="ft3">A lot of data has been saved in data sets, but also some</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:488"><nobr><span class="ft7">very important information is missing. Due to missing in-<br>formation on cell capacities, their locations and performed<br>manual and automatic tuning operations on network config-<br>uration between successive data set saves, only preliminary<br>analysis can be performed. The rest of the analysis process<br>is described on theoretical level.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:488"><nobr><span class="ft1">2.3</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:528"><nobr><span class="ft1">Self-Organizing Map</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:501"><nobr><span class="ft3">Self-Organizing Map (SOM) [8] is an unsupervised neu-</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:488"><nobr><span class="ft7">ral network algorithm which adapts the codebook vectors<br>of neurons so that they approximate the input data distri-<br>bution. When the training has converged topological areas<br>or domains corresponding to certain types of inputs can be<br>found from the map. The topology and the size of the net-<br>work is fixed before adaptation.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:501"><nobr><span class="ft3">In the SOM algorithm, the codebook vectors w</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:798"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:810"><nobr><span class="ft3">of the</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:488"><nobr><span class="ft7">SOM are at first initialized. Then, the following steps are<br>repeated for each input vector x: Find the index of best-<br>matching or nearest codebook vector using</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:593"><nobr><span class="ft3">i(x) = argmin||x - w</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:724"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:729"><nobr><span class="ft3">||,</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:501"><nobr><span class="ft3">in which j goes through all the neurons in the map. Next,</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:488"><nobr><span class="ft7">the codebook vectors of winner neuron and its neighbors are<br>updated using</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:540"><nobr><span class="ft3">w</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:550"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:556"><nobr><span class="ft3">(t + 1) = w</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:624"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:630"><nobr><span class="ft3">(t) + h</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:679"><nobr><span class="ft9">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:689"><nobr><span class="ft3">(x)(x(t) - w</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:763"><nobr><span class="ft9">j</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:769"><nobr><span class="ft3">(t)).</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:488"><nobr><span class="ft3">Here,  is the learning rate and h</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:693"><nobr><span class="ft9">ij</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:703"><nobr><span class="ft3">(x) is the neighborhood</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:488"><nobr><span class="ft7">function centered around the winner neuron. Input sample<br>x defines the winner neuron and the topological distance<br>between indexes i and j defines how much the neuron is<br>updated. Neighborhood function is typically Gaussian or<br>bubble function i.e. function which decrease monotonically<br>and even goes to zero when the distance increases.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:501"><nobr><span class="ft3">In this paper, a batch version of the SOM algorithm is</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:488"><nobr><span class="ft7">used. In batch SOM, all codebook vectors of the SOM are<br>computed after the best-matching units of all input data<br>vectors have been found. The same data set is used several<br>times.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:488"><nobr><span class="ft1">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:519"><nobr><span class="ft1">METHODS</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:501"><nobr><span class="ft3">Handover related measurement from 3G network can be</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:488"><nobr><span class="ft3">analyzed using standard data mining methods [1]. In this</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">331</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36003.png" alt="background image">
+<DIV style="position:absolute;top:96;left:110"><nobr><span class="ft3">Table 1: Measurements in the analysis. Data set has one sample vector for each source target cell pair.</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:247"><nobr><span class="ft3">Variable</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:368"><nobr><span class="ft3">Explanation</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:654"><nobr><span class="ft3">Type</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:247"><nobr><span class="ft3">EcnoDiffNum</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:368"><nobr><span class="ft3">Computed E</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:446"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:452"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:469"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:480"><nobr><span class="ft3">differences</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:647"><nobr><span class="ft3">number</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:247"><nobr><span class="ft3">EcnoDiffMean</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:368"><nobr><span class="ft3">Computed E</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:446"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:452"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:469"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:480"><nobr><span class="ft3">differences</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:654"><nobr><span class="ft3">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:247"><nobr><span class="ft3">EcnoDiffPdf-6.0</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:368"><nobr><span class="ft3">-6 dB bin of E</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:456"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:462"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:479"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:490"><nobr><span class="ft3">difference pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:247"><nobr><span class="ft3">EcnoDiffPdf-3.0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:368"><nobr><span class="ft3">-3 dB bin of E</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:456"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:462"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:479"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:490"><nobr><span class="ft3">difference pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:247"><nobr><span class="ft3">EcnoDiffPdf0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:368"><nobr><span class="ft3">0 dB bin of E</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:452"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:457"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:475"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:485"><nobr><span class="ft3">difference pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:247"><nobr><span class="ft3">EcnoDiffPdf3.0</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:368"><nobr><span class="ft3">3 dB bin of E</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:452"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:457"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:475"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:485"><nobr><span class="ft3">difference pdf</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:247"><nobr><span class="ft3">t act</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:368"><nobr><span class="ft3">Target and source simultaneously in SHO</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:654"><nobr><span class="ft3">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:247"><nobr><span class="ft3">t act dir</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:368"><nobr><span class="ft3">Time of target being in SHO with source</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:654"><nobr><span class="ft3">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:247"><nobr><span class="ft3">tot time sho</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:368"><nobr><span class="ft3">Cell total time in SHO</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:658"><nobr><span class="ft3">sum</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:247"><nobr><span class="ft3">p act</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:368"><nobr><span class="ft3">Target in active set of source</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:247"><nobr><span class="ft3">SHO total att</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:368"><nobr><span class="ft3">SHO attempts to add Target to active set</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:647"><nobr><span class="ft3">number</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:247"><nobr><span class="ft3">add ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:368"><nobr><span class="ft3">Successful attempts leading to addition</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:247"><nobr><span class="ft3">pfail total</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:368"><nobr><span class="ft3">Failures</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:647"><nobr><span class="ft3">number</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:247"><nobr><span class="ft3">pfail ini</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:368"><nobr><span class="ft3">Setup phase failures due to non-radio</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:247"><nobr><span class="ft3">pfail ini radio</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:368"><nobr><span class="ft3">Setup phase failures due to radio</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:247"><nobr><span class="ft3">pfail act</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:368"><nobr><span class="ft3">Active time failures due to non-radio</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:247"><nobr><span class="ft3">pfail act radio</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:368"><nobr><span class="ft3">Active time failures due to radio</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:247"><nobr><span class="ft3">p4th 5th</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:368"><nobr><span class="ft3">Cell is in monitored state (=4th or 5th)</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:247"><nobr><span class="ft3">av rscp ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:368"><nobr><span class="ft3">Target / Source Received power ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:654"><nobr><span class="ft3">mean</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:247"><nobr><span class="ft3">r fail</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:368"><nobr><span class="ft3">Ratio pfail total / SHO total att</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:615"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:247"><nobr><span class="ft3">r EcnoDNum</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:368"><nobr><span class="ft3">Ratio EcnoDiffNum / SHO total att</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:615"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:656"><nobr><span class="ft3">ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:365"><nobr><span class="ft9"></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:376"><nobr><span class="ft3">Variable defined in the analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:93"><nobr><span class="ft7">study, methods presented in Figure 1 are used. At first,<br>the miner have to decide what could be interesting in this<br>data. The analysis task has to be defined. On basis of that<br>the first choice of variables will be done. Next, the selected<br>variables are preprocessed, in order to be able to use them<br>in later analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:107"><nobr><span class="ft3">In data mining tasks, variable selection and preprocessing</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:93"><nobr><span class="ft7">are the most critical phases, because in this step the miner<br>decides which variables are important and how should they<br>be processed. The whole data mining process consists of sev-<br>eral cycles performed repeatedly. The cycles include testing<br>how different variable selections and preprocessing methods<br>effect on final results. The process has inner loops in which<br>some tasks or parameters are fixed on basis of selections<br>made in outer loop. The inner loops are performed more<br>frequently. Loops with more general task like the defini-<br>tion of mining task are repeated less frequently. When the<br>mining task is defined the analyzer should be able to decide<br>what is (s)he looking out for.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:107"><nobr><span class="ft3">Now, the analysis task is defined as finding groups of sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:93"><nobr><span class="ft7">ilarly behaving cell pairs in SHO situations. Importance of<br>measurements can also be highlighted using proper weight-<br>ing of variables. In addition to clustering, also other tasks<br>for data analysis can be defined. One possibility is to try to<br>find cells or cell pairs with anomalous behavior. Anomalies<br>can also be found by clustering, but expert knowledge in<br>variable selection and preprocessing steps are very impor-<br>tant.</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:107"><nobr><span class="ft3">Using different variables, preprocessing methods and weight-</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:93"><nobr><span class="ft7">ing of variables different clustering results can be found. To<br>find out which of them is useful, interpretation of clusters is<br>needed. This can be done using histograms or rules defined<br>by data samples falling in clusters. The results which have<br>been found using clustering methods should be visualized</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:488"><nobr><span class="ft7">together with spatial locations to be able to understand the<br>usefulness of results. Methods should be performed repeat-<br>edly to analyze successive data sets under the knowledge of<br>performed tuning operations. Thus, there is a possibility to<br>find explanations to changing results. In this study, results<br>of only one data set are shown, because more information<br>on application domain is needed to be able to combine and<br>compare successive clustering results.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:488"><nobr><span class="ft1">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:528"><nobr><span class="ft1">Preprocessing</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:501"><nobr><span class="ft3">Different preprocessing methods have been tested. The</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:488"><nobr><span class="ft7">final method was selected on basis of histograms and the<br>clusters which were found using the selected method. At<br>the first step, the distributions are truncated. Outliers in<br>the selected variables were replaced by their maximum per-<br>mitted values. Two variables, pfail total and EcnoDiffNum,<br>were scaled using the number of performed soft handover<br>attempts (see Table 1). Logarithms of some of the variables<br>were taken, but finally only scaled EcnoDiffNum was prepro-<br>cessed with logarithmic function. Sample vectors with high<br>amount of undefined measurements were canceled.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:817"><nobr><span class="ft3">Used</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:488"><nobr><span class="ft7">clustering method (see section 3.2) allows using sample vec-<br>tors in which some variables are undefined. However, they<br>are not so useful when the rate of undefined values increases.<br>Here, sample vectors with 15 or more missing values in 20<br>variables are canceled.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:501"><nobr><span class="ft3">In Figure 2 the histograms of the most interesting vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:488"><nobr><span class="ft7">ables preprocessed using selected methods are visualized.<br>Some of the variables have quite high peaks in distributions,<br>but due to the origin of variables no other preprocessing<br>have been performed. For example, handover failure reasons<br>pfail ini, pfail ini radio, pfail act radio and pfail act sum up<br>to unity. However, pfail act is not analyzed because it is zero<br>all the time in the first data set.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">332</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36004.png" alt="background image">
+<DIV style="position:absolute;top:423;left:165"><nobr><span class="ft10"><b>Interpretation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:174"><nobr><span class="ft10"><b>of clusters</b></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:171"><nobr><span class="ft10"><b>Clustering</b></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:165"><nobr><span class="ft10"><b>Preprocessing</b></span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:156"><nobr><span class="ft10"><b>Parameter tuning</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:162"><nobr><span class="ft10"><b>Task definition</b></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:168"><nobr><span class="ft10"><b>Visualization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:165"><nobr><span class="ft10"><b>with locations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:156"><nobr><span class="ft10"><b>Variable selection</b></span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:93"><nobr><span class="ft3">Figure 1: Used data analysis method.</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:378"><nobr><span class="ft3">Steps con-</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:93"><nobr><span class="ft3">nected with solid arrows have been performed.</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:93"><nobr><span class="ft1">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:134"><nobr><span class="ft1">Clustering</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:107"><nobr><span class="ft3">Cluster analysis is used to divide data vectors in groups.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:93"><nobr><span class="ft7">Data vectors falling in same cluster are similar with each<br>other.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:145"><nobr><span class="ft3">Here, clustering is performed using a two-phase</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:93"><nobr><span class="ft7">method [15]. In this method, data vectors are at first used<br>to train a Self-Organizing Map. Neurons of the SOM adapt<br>to incoming data so that the input data can in later analysis<br>be represented by the codebook vectors of neurons. Number<br>of these codebook vectors is much smaller than the number<br>of original data vectors. Thus, computational complexity of<br>the final crisp clustering algorithm is decreased. Another<br>advantage of using a SOM based two-phase method instead<br>of direct clustering of data vectors is the visualization capa-<br>bility of SOM.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:107"><nobr><span class="ft3">In addition to preprocessing, SOM algorithm provides an-</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:93"><nobr><span class="ft7">other possibility to emphasize important properties of data.<br>Larger weights in distance computation are given to the<br>most important properties defined by the analyzer. Smaller<br>or even zero weight can be given to those variables which<br>are not used in organization of the SOM i.e. in building clus-<br>ters. However, values of them can be compared to those with<br>larger weights using various visualization methods. Weight-<br>ing by variable importance can also be built into SOM train-<br>ing algorithm by utilizing learning distance metrics [7].</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:488"><nobr><span class="ft7">Figure 2: Logarithmic histograms after distribution<br>cuts, logarithmic preprocessing of r EcnoDNum and<br>scaling of all variables between [0,1]</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:501"><nobr><span class="ft3">The codebook vectors are further clustered using k-means</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:488"><nobr><span class="ft7">or some hierarchical clustering method. In this paper, Ward<br>agglomerative clustering method has been used [4]. In the<br>beginning of hierarchical clustering, each codebook vector<br>is a cluster of its own. In the next step, the most similar<br>clusters are combined and this is continued until all vectors<br>are in same cluster. The clustering results form a tree struc-<br>ture called dendrogram. In visualization of a dendrogram,<br>the clusters combined in each step and the distance between<br>them are shown. Final clustering is selected by cutting this<br>tree at certain level. The number of clusters can be selected<br>manually or some cluster validation index can be utilized<br>to find the optimum. In this paper, Davies-Bouldin vali-<br>dation index has been used [3]. Similar clustering methods<br>have earlier been used in the analysis of both GSM and 3G<br>network BTSs [9, 11, 13].</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:501"><nobr><span class="ft3">As a result of clustering, each data vector is represented</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:488"><nobr><span class="ft7">by index of one neuron or by the codebook vector stored in<br>that neuron. Furthermore, the neuron and the data vectors<br>the neuron represents belong to same cluster. On basis of<br>the clustering result, some clusters can be selected for more<br>specific analysis. Cluster selection is usually done on basis<br>of found higher values of some critical variables. It is pos-<br>sible to build a system in which rules are found for clusters<br>[14, 9] and these are used to select interesting clusters au-<br>tomatically. Here, interesting clusters are selected manually<br>on basis of clusterwise variable mean values and histograms.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:488"><nobr><span class="ft1">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:519"><nobr><span class="ft1">RESULTS</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:501"><nobr><span class="ft3">In this section, handover measurement data is used to</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:488"><nobr><span class="ft7">train a Self-Organizing Map of size 17 × 12. Then, the code-<br>book vectors of the SOM are clustered using hierarchical<br>Ward method. Results of clustering are described and two<br>clusters are then selected for more specific analysis. Charac-<br>teristics of sample vectors falling in those clusters are studied<br>using histograms.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:501"><nobr><span class="ft3">Only the most interesting variables are used to find the</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">333</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:93"><nobr><span class="ft7">nearest neuron of input data vector. These variables have<br>nonzero mask which can also be considered as a weighting<br>factor in a search for the best-matching neuron. Rest of<br>the variables have zero mask, which means that they can<br>be visualized and updated using SOM algorithm, but they<br>do not have an effect on organization of the SOM and on<br>selection of the cluster in which the sample belongs to.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:107"><nobr><span class="ft3">In Figure 3 all other component planes of SOM with pos-</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:93"><nobr><span class="ft3">itive mask are shown, except E</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:281"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:286"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:304"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:314"><nobr><span class="ft3">difference distributions</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:93"><nobr><span class="ft7">which are shown in Figure 6. In component plane visual-<br>ization, distributions of components (or variables) of SOM<br>codebook vectors are shown. Component values of one code-<br>book vector are visualized using grayscaling and their locate<br>in the same position at each plane. For example, values of<br>one codebook vector are shown at upper right corner in each<br>plane.</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:93"><nobr><span class="ft7">Figure 3: Component planes of SOM with denor-<br>malized scales. Shown variables have nonzero mask<br>and they are not describing E</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:303"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:308"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:326"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:337"><nobr><span class="ft3">difference distri-</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:93"><nobr><span class="ft3">butions.</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:107"><nobr><span class="ft3">Some component values which were not used in SOM</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:93"><nobr><span class="ft7">training (i.e. they were masked out) are shown in Figure<br>4. Although, they have no effect on SOM organization, they<br>are adapted to be able to compare their distributions even<br>with those used in organizing the SOM.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:107"><nobr><span class="ft3">By visual comparison of variables in Figures 3 and 4, it can</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:93"><nobr><span class="ft3">be</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:121"><nobr><span class="ft3">seen</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:160"><nobr><span class="ft3">that</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:198"><nobr><span class="ft3">the</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:231"><nobr><span class="ft3">total</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:272"><nobr><span class="ft3">number</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:332"><nobr><span class="ft3">of</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:356"><nobr><span class="ft3">SHO</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:398"><nobr><span class="ft3">attempts</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:93"><nobr><span class="ft3">(SHO total att)</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:204"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:241"><nobr><span class="ft3">E</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:251"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:257"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:274"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:295"><nobr><span class="ft3">difference</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:367"><nobr><span class="ft3">measurements</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:93"><nobr><span class="ft7">(EcnoDiffNum) is higher in upper part of the SOM. How-<br>ever, when the latter is scaled by total number of attempts,<br>higher rate of measurements (r EcnoDNum) is in lower part<br>of the map. Also, the total number of failuring SHO at-<br>tempts (pfail total) is high in upper right corner, but scal-<br>ing this by number of attempts tells us that the failure rate<br>(r fail) in upper right corner is quite moderate. Instead,<br>higher failure rates exists in both lower corners i.e. in clus-<br>ters 5 and 8 (see Figure 5).</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:107"><nobr><span class="ft3">Trained SOM codebook vectors are clustered using hier-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:93"><nobr><span class="ft7">archical Ward algorithm. The clustering result selected by<br>Davies-Bouldin index is shown in Figure 5. Four bin E</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:423"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:428"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:1056;left:446"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:93"><nobr><span class="ft3">difference histograms are visualized on top of clustered SOM</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:488"><nobr><span class="ft7">Figure 4: Denormalized component planes of vari-<br>ables which were not used in SOM training.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:488"><nobr><span class="ft7">in Figure 6. When component values of SOM (see Figures<br>3, 4 and 6) are compared with clustering result (see Figure<br>5) several types of source target pairs can be found. Most of<br>them are behaving as expected, but some of them represent<br>handover attempts with certain type of problems.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:488"><nobr><span class="ft7">Figure 5: SOM which is clustered using hierarchical<br>Ward method and Davies-Bouldin validation index.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:501"><nobr><span class="ft3">To find out the most interesting clusters of the SOM for</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:488"><nobr><span class="ft7">further investigations, distribution of data samples on SOM<br>is visualized. In Figure 7a hits of all samples on SOM nodes<br>are visualized and in Figure 7b hits of samples with SHO<br>failure rate (r fail) larger than 22% are shown. Samples are<br>distributed all over the map, only some edge nodes have<br>slightly larger hit rate. Lower part of the map has more hits<br>when samples with increased failure rate are considered.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:501"><nobr><span class="ft3">In Figure 8 hits of samples which represent two differ-</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">334</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36006.png" alt="background image">
+<DIV style="position:absolute;top:632;left:93"><nobr><span class="ft7">Figure 6: EcnoDiff distributions on top of clustered<br>SOM. In each SOM node a four bin E</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:349"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:355"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:372"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:383"><nobr><span class="ft3">histogram</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:93"><nobr><span class="ft3">is shown.</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:93"><nobr><span class="ft7">ent types of SHO failures are shown. Samples are from cell<br>pairs in which the rate of selected type of failures is larger<br>than 75%. However, handover initialization failures due to<br>some other reason than radio channel resources (i.e. pfail ini<br>type failures) are obviously more frequent than failures due<br>to radio channel initialization problems (pfail ini radio type<br>failures). Cell pairs with SHO failures originating mainly<br>from these two reasons are mapped on separate clusters.<br>All SHO failures due to radio channel initialization are in<br>cluster 9 (see Figures 5 and 8b) and most of all other ini-<br>tialization failures are in cluster 5 (see Figures 5 and 8a). In<br>the following, these two clusters are studied in more detail.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:107"><nobr><span class="ft3">In Figures 9 and 10 histograms of samples which belong</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:93"><nobr><span class="ft3">to clusters 5 and 9 are shown.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:299"><nobr><span class="ft3">These histograms should</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:93"><nobr><span class="ft7">be compared with histograms of whole data set which were<br>shown in Figure 2. In histograms of cluster 5 (see Figure<br>9), the average received signal power ratio (av rscp ratio) is<br>slightly lower than in general. Distributions of three largest<br>E</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:103"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:109"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:126"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:137"><nobr><span class="ft3">difference measurement bins are completely different</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:93"><nobr><span class="ft7">than corresponding distributions from the whole data set.<br>In cluster 5 most of the samples have about 3dB E</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:398"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:404"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:421"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:432"><nobr><span class="ft3">dif-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:93"><nobr><span class="ft7">ference (EcnodiffPdf3.0) which means that at least this mea-<br>surement makes successful SHOs possible and SHO should<br>be performed. Exceptional E</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:271"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:277"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:294"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:305"><nobr><span class="ft3">difference measurements</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:557"><nobr><span class="ft3">(a) All</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:677"><nobr><span class="ft3">(b) SHO failure rate &gt; 22%</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:488"><nobr><span class="ft7">Figure 7: Sample vector hits on SOM nodes. Size of<br>black hexagonal on SOM node denotes the number<br>of hits. Maximum number of hits per node is shown<br>above the plot.</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:548"><nobr><span class="ft3">(a) pfail ini</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:703"><nobr><span class="ft3">(b) pfail ini radio</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:488"><nobr><span class="ft7">Figure 8: Hits of samples of two failure types. Sam-<br>ples of which more than 75% are failuring due to<br>selected cause are counted.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:488"><nobr><span class="ft7">of this cluster can also be seen in Figure 6. All the failing<br>cell pairs fail in initialization due to other than radio chan-<br>nel reasons (pfail ini). Total rate of failures is very high<br>(r fail). One reason for high rate of failures can be that all<br>the capacity is in use.</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:501"><nobr><span class="ft3">In histograms of cluster 9 (see Figure 10), the average re-</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:488"><nobr><span class="ft7">ceived power ratios are a bit higher than usual, but there are<br>no samples with high rate of 3dB E</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:697"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:703"><nobr><span class="ft3">/N</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:720"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:730"><nobr><span class="ft3">differences (EcnoD-</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:488"><nobr><span class="ft11">iffPdf3.0). However, in such a situation it should be possible<br>to perform successful SHOs. The rate of initialization fail-<br>ures in radio channels (pfail ini radio) is higher than usually,<br>but because only a small part of samples in this cluster have<br>above mentioned problems the total SHO failure rate is not<br>higher than usually. The total number of samples or cell<br>pairs with high rate of initialization failures in SHO is so<br>small, that it is impossible to make any further inferences<br>from these clusters. It is possible to check histograms of<br>only those samples which fulfill the failure rate criteria, but<br>the number of samples is anyway quite low.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">335</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:11px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36007.png" alt="background image">
+<DIV style="position:absolute;top:400;left:100"><nobr><span class="ft3">Figure 9: Histograms of data vectors of cluster 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:107"><nobr><span class="ft3">Cell pairs with high rate of radio channel initialization</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:93"><nobr><span class="ft7">failures in SHO attempts vary from data set to another,<br>but without any information on network topology and with<br>uncomplete information on performed tuning operations, it<br>is impossible to make any further inferences.</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:96"><nobr><span class="ft3">Figure 10: Histograms of data vectors of cluster 9.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:93"><nobr><span class="ft1">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:125"><nobr><span class="ft1">CONCLUSIONS</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:107"><nobr><span class="ft3">In this paper, a data analysis method based on a neu-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:93"><nobr><span class="ft7">ral network has been presented. The method is utilized in<br>data visualization and clustering. The presented method is<br>only one possibility for finding data clusters. However, the<br>benefits of the proposed method are the decrease in compu-<br>tational complexity due to used two-phase clustering algo-<br>rithm and the visualization capability of the method. Thus,<br>it is well suitable for this kind of explorative data analysis.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:107"><nobr><span class="ft3">It is desirable to find clusters with characteristics which</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:488"><nobr><span class="ft7">differ from one cluster to another. In the presented method,<br>selection of variables and variable weighting factors have<br>been used to find interesting clusters. In the preprocess-<br>ing phase, also the number of permitted undefined measure-<br>ment values in sample vector has an effect on found clusters.<br>Sample vectors with high rate of missing values are not so<br>usable and describable as samples without them. Vectors<br>with missing values can be used in the SOM training but<br>the benefit of using them decreases when the rate of unde-<br>fined values increases.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:501"><nobr><span class="ft3">In this study, histograms are used both when preprocess-</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:488"><nobr><span class="ft7">ing methods are decided and when an interpretation for the<br>found clusters are looked for. However, clusters can also be<br>compared using other visual methods, finding limiting rules<br>for variable values in clusters or comparing distributions of<br>variable values in clusters using more sophisticated distribu-<br>tion comparison measures like Kullback-Leibler divergences<br>[6].</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:501"><nobr><span class="ft3">The results which have been obtained using all available</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:488"><nobr><span class="ft7">data sets differ slightly from each other, but due to uncom-<br>plete information on network configuration and parameter<br>tuning, further inferences cannot be made. However, adding<br>this information would offer interesting possibilities to con-<br>tinue this study.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:488"><nobr><span class="ft1">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:519"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:495"><nobr><span class="ft3">[1] P. Chapman, J. Clinton, T. Khabaza, T. Reinartz,</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:516"><nobr><span class="ft7">and R. Wirth. CRISP-DM 1.0 step-by-step data<br>mining guide. Technical report, CRISM-DM<br>consortium, 2000. http://www.crisp-dm.org.</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:495"><nobr><span class="ft3">[2] Y. Chen. Soft Handover Issues in Radio Resource</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:516"><nobr><span class="ft7">Management for 3G WCDMA Networks. PhD thesis,<br>Queen Mary, University of London, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:495"><nobr><span class="ft3">[3] D. Davies and D. Bouldin. A cluster separation</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:516"><nobr><span class="ft7">measure. IEEE Transactions on Pattern Analysis and<br>Machine Intelligence, 1(2):224­227, April 1979.</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:495"><nobr><span class="ft12">[4] B. Everitt. Cluster Analysis. Arnold, 1993.<br>[5] V. K. Garg. Wireless Network Evolution: 2G to 3G.</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:516"><nobr><span class="ft3">Prentice-Hall, Inc., 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:495"><nobr><span class="ft3">[6] S. Haykin. Neural Networks, a Comprehensive</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:516"><nobr><span class="ft3">Foundation. Macmillan, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:495"><nobr><span class="ft3">[7] S. Kaski and J. Sinkkonen. Metrics that learn</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:516"><nobr><span class="ft7">relevance. In Proceedings of the International Joint<br>Conference on Neural Networks, volume 5, pages<br>547­552, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:495"><nobr><span class="ft3">[8] T. Kohonen. Self-Organizing Maps. Springer-Verlag,</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:516"><nobr><span class="ft3">Berlin, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:495"><nobr><span class="ft3">[9] J. Laiho, K. Raivio, P. Lehtim¨</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:700"><nobr><span class="ft3">aki, K. H¨</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:756"><nobr><span class="ft3">at¨</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:768"><nobr><span class="ft3">onen, and</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:516"><nobr><span class="ft7">O. Simula. Advanced analysis methods for 3G cellular<br>networks. IEEE Transactions on Wireless<br>Communications, 4(3):930­942, May 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:488"><nobr><span class="ft3">[10] J. Laiho, A. Wacker, and T. Novosad, editors. Radio</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:516"><nobr><span class="ft7">Network Planning and Optimisation for UMTS. John<br>Wiley &amp; Sons Ltd., 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:488"><nobr><span class="ft3">[11] P. Lehtim¨</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:575"><nobr><span class="ft3">aki and K. Raivio. A SOM based approach</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:516"><nobr><span class="ft7">for visualization of GSM network performance data.<br>In IEA/AIE, pages 588­598, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:488"><nobr><span class="ft3">[12] R. Prakash and V. Veeravalli. Locally optimal soft</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:516"><nobr><span class="ft7">handoff algorithms. IEEE Transactions on Vehicular<br>Technology, 52(2):347­356, March 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:488"><nobr><span class="ft3">[13] K. Raivio, O. Simula, and J. Laiho. Neural analysis of</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:516"><nobr><span class="ft3">mobile radio access network. In IEEE International</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">336</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:928;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1262" src="36008.png" alt="background image">
+<DIV style="position:absolute;top:86;left:121"><nobr><span class="ft7">Conference on Data Mining, pages 457­464, San Jose,<br>California, USA, November 29 - December 2 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:93"><nobr><span class="ft3">[14] M. Siponen, J. Vesanto, O. Simula, and P. Vasara. An</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:121"><nobr><span class="ft7">approach to automated interpretation of SOM. In<br>N. Allinson, H. Yin, L. Allinson, and J. Slack, editors,<br>Advances in Self-Organizing Maps, pages 89­94.<br>Springer, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:486"><nobr><span class="ft3">[15] J. Vesanto and E. Alhoniemi. Clustering of the</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:514"><nobr><span class="ft7">self-organizing map. IEEE Transactions on Neural<br>Networks, 11(3):586­600, May 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:486"><nobr><span class="ft3">[16] J. Zander. Radio Resource Management for Wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:514"><nobr><span class="ft3">Networks. Artech House, Inc., 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:460"><nobr><span class="ft6">337</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

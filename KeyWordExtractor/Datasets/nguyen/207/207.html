@@ -1,0 +1,831 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Microsoft Word - rp204-nagappan.doc</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Administrator">
+<META name="date" content="2005-05-05T19:24:05+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:16px;font-family:Times;color:#000000;}
+	.ft1{font-size:25px;font-family:Times;color:#000000;}
+	.ft2{font-size:10px;font-family:Times;color:#000000;}
+	.ft3{font-size:12px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:7px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:10px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207001.png" alt="background image">
+<DIV style="position:absolute;top:1113;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:97"><nobr><span class="ft1"><b>Use of Relative Code Churn Measures to Predict System </b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:365"><nobr><span class="ft1"><b>Defect Density </b></span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:459"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:228"><nobr><span class="ft0">Nachiappan Nagappan</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:413"><nobr><span class="ft2">*</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:417"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:212"><nobr><span class="ft3">Department of Computer Science </span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:220"><nobr><span class="ft3">North Carolina State University </span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:260"><nobr><span class="ft3">Raleigh, NC 27695 </span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:242"><nobr><span class="ft0">nnagapp@ncsu.edu </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:540"><nobr><span class="ft0">Thomas Ball </span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:526"><nobr><span class="ft3">Microsoft Research </span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:519"><nobr><span class="ft3">Redmond, WA 98052 </span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:509"><nobr><span class="ft0">tball@microsoft.com </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:81"><nobr><span class="ft8"> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:476"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:81"><nobr><span class="ft0">ABSTRACT </span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:81"><nobr><span class="ft9">Software  systems  evolve  over  time  due  to  changes  in <br>requirements, optimization of code, fixes for security and <br>reliability bugs etc. Code churn, which measures the changes <br>made to a component over a period of time, quantifies the extent <br>of this change.  We present a technique for early prediction of <br>system defect density using a set of relative code churn measures <br>that relate the amount of churn to other variables such as <br>component size and the temporal extent of churn.   <br>Using statistical regression models, we show that while absolute <br>measures of code churn are poor predictors of defect density, our <br>set of relative measures of code churn is highly predictive of <br>defect density. A case study performed on Windows Server 2003 <br>indicates the validity of the relative code churn measures as early <br>indicators of system defect density. Furthermore, our code churn <br>metric suite is able to discriminate between fault and not fault-<br>prone binaries with an accuracy of 89.0 percent.  </span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft0">Categories and Subject Descriptors </span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:81"><nobr><span class="ft9">D.2.7  [Software Engineering]: Distribution, Maintenance, and <br>Enhancement ­ Version control. D.2.8 [Software Engineering]: <br>Metrics -  Performance measures,  Process metrics,  Product <br>metrics. </span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:81"><nobr><span class="ft0">General Terms </span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:81"><nobr><span class="ft4">Measurement, Design, Reliability.</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:267"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:81"><nobr><span class="ft0">Keywords </span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:81"><nobr><span class="ft9">Relative code churn, defect density, fault-proneness, multiple <br>regression, principal component analysis. </span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:81"><nobr><span class="ft0">1. INTRODUCTION </span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:81"><nobr><span class="ft9">A "reliability chasm" often separates the quality of a software <br>product observed in its pre-release testing in a software <br>development shop and its post-release use in the field.  That is, <br>true field reliability, as measured by the number of failures found <br>by customers over a period of time, cannot be measured before a </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:476"><nobr><span class="ft9">product has been completed and delivered to a customer. Because <br>true reliability information is available late in the process, <br>corrective actions tend to be expensive [3]. Clearly, software <br>organizations can benefit in many ways from an early warning <br>system concerning potential post-release defects in their product <br>to guide corrective actions to the quality of the software.  </span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:476"><nobr><span class="ft9">We use code churn to predict the defect density in software <br>systems. Code churn is a measure of the amount of code change <br>taking place within a software unit over time.  It is easily extracted <br>from a system's change history, as recorded automatically by a <br>version control system. Most version control systems use a file <br>comparison utility (such as diff) to automatically estimate how <br>many lines were added, deleted and changed by a programmer to <br>create a new version of a file from an old version. These <br>differences are the basis of churn measures. </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:476"><nobr><span class="ft9">We create and validate a set of relative code churn measures as <br>early indicators of system defect density. Relative churn measures <br>are normalized values of the various measures obtained during the <br>churn process. Some of the normalization parameters are total <br>lines of code, file churn, file count etc.  Munson et al. [17] use a <br>similar relative approach towards establishing a baseline while <br>studying code churn. Studies have shown that absolute measures <br>like LOC are poor predictors of pre- and post release faults [7] in <br>industrial software systems. In general, process measures based on <br>change history have been found be better indicators of fault rates <br>than product metrics of code [9]. In an evolving system it is highly <br>beneficial to use a relative approach to quantify the change in a <br>system. As we show, these relative measures can be devised to <br>cross check each other so that the metrics do not provide <br>conflicting information. </span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:476"><nobr><span class="ft9">Our basic hypothesis is that code that changes many times pre-<br>release will likely have more post-release defects than code that <br>changes less over the same period of time. More precisely, we <br>address the hypotheses shown in Table 1. </span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:476"><nobr><span class="ft9">Our experiments on Windows Server 2003 (W2k3) support these <br>four hypotheses with high statistical significance. We analyzed the <br>code churn between the release of W2k3 and the release of the <br>W2k3 Service Pack 1 (W2k3-SP1) to predict the defect density in <br>W2k3-SP1. The relative code churn measures are statistically <br>better predictors of defect density than the absolute measures. </span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:80"><nobr><span class="ft10"> <br>Permission to make digital or hard copies of all or part of this work for <br>personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that copies <br>bear this notice and the full citation on the first page. To copy otherwise, or <br>republish, to post on servers or to redistribute to lists, requires prior <br>specific permission and/or a fee. <br>ICSE'05, May 15­21, 2005, St. Louis, MO, USA. <br>Copyright 2005 ACM 1-58113-963-2/05/0005...$5.00. </span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:472"><nobr><span class="ft5">_________________________________________________________________________________</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:472"><nobr><span class="ft5">*</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:476"><nobr><span class="ft4"> Nachiappan Nagappan was an intern with the Testing, </span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:472"><nobr><span class="ft9">Verification and Measurement Group, Microsoft Research in the <br>Summer of 2004 when this work was carried out. </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">284</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207002.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">They also they are indicative of increase in system defect density <br>and can accurately predict the system defect density with a high <br>degree of sensitivity. Our metric suite is able to discriminate <br>between fault and not fault-prone binaries in W2k3-SP1 with an <br>accuracy of 89.0 percent.  </span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:184"><nobr><span class="ft4">Table 1. Research Hypotheses </span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:111"><nobr><span class="ft4"> Hypothesis </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:95"><nobr><span class="ft4">H</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:104"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:109"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:143"><nobr><span class="ft9">Increase in relative code churn measures is <br>accompanied by an increase in system defect <br>density </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:95"><nobr><span class="ft4">H</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:104"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:109"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:143"><nobr><span class="ft9">Using relative values of code churn predictors is <br>better than using direct (absolute) values to explain <br>the system defect density </span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:95"><nobr><span class="ft4">H</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:104"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:109"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:143"><nobr><span class="ft9">Relative code churn measures can be used as <br>efficient predictors of system defect density. </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:95"><nobr><span class="ft4">H</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:104"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:109"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:143"><nobr><span class="ft9">Relative code churn measures can be used to <br>discriminate between fault and not fault-prone <br>binaries.  </span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:81"><nobr><span class="ft9">The organization of this paper is as follows. Section 2 describes <br>the related work.  Section 3 explains data collection and section 4 <br>the relative code churn measures. Section 5 presents the case <br>study and the observed results. Section 6 discusses our <br>conclusions and future work.  </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:81"><nobr><span class="ft0">2. RELATED WORK </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:81"><nobr><span class="ft9">Prior analyses on predicting defect density used code churn <br>measures as part of a larger set of metrics. Code churn measures <br>have not been studied in isolation as predictors of software defect <br>density. The background work presented below is from studies <br>that involved industrial software systems. The source code base of <br>W2k3 is two orders of magnitude larger than the largest example <br>considered below. </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:81"><nobr><span class="ft9">Munson et al. [17] observe that as a system is developed, the <br>relative complexity of each program module that has been altered <br>(or churned) also will change. The rate of change in relative <br>complexity serves as a good index of the rate of fault injection.  <br>They studied a 300 KLOC (thousand lines of code) embedded real <br>time system with 3700 modules programmed in C. Code churn <br>metrics were found to be among the most highly correlated with <br>problem reports [17].  </span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:81"><nobr><span class="ft9">Khoshgoftaar et al.[13] define debug churn as the number of lines <br>of code added or changed for bug fixes. Their objective was to <br>identify modules where debug code churn exceeds a threshold, in <br>order to classify the modules as fault-prone. They studied two <br>consecutive releases of a large legacy system for <br>telecommunications. The system contained over 38,000 <br>procedures in 171 modules. Discriminant analysis identified fault-<br>prone modules based on 16 static software product metrics. Their <br>model when used on the second release showed a type I and II <br>misclassification rate of 21.7%, 19.1% respectively and an overall <br>misclassification rate of 21.0%. </span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:81"><nobr><span class="ft9">Ohlsson et al. [19] identify fault-prone modules by analyzing <br>legacy software through successive releases. They use a total of <br>28 measures, twelve of which are based on size and change </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:476"><nobr><span class="ft9">measures. These measures were used to identify 25 percent of the <br>most fault-prone components successfully.  </span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:476"><nobr><span class="ft9">Karunanithi [12] uses a neural network approach for software <br>reliability growth modeling in the presence of continuous code <br>churn, which he shows improves over the traditional time-domain <br>based models. Similarly Khoshgoftaar et al. [15] use code churn <br>as a measure of software quality in a program of 225,000 lines of <br>assembly language. Using eight complexity measures, including <br>code churn, they found neural networks and multiple regression to <br>be an efficient predictor of software quality, as measured by gross <br>change in the code. They suggest that using neural networks may <br>not work in all environments and the results obtained are <br>environment specific.  Neural networks can be used for improving <br>software maintenance [15]. </span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:476"><nobr><span class="ft9">Ostrand et al. [20] use information of file status such as new, <br>changed, unchanged files along with other explanatory variables <br>such as lines of code, age, prior faults etc. as predictors in a <br>negative binomial regression equation to predict the number of <br>faults in a multiple release software system. The predictions made <br>using binomial regression model were of a high accuracy for <br>faults found in both early and later stages of development. [20] </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:476"><nobr><span class="ft9">Closely related to our study is the work performed by Graves et al. <br>[9] on predicting fault incidences using software change history. <br>Several statistical models were built based on a weighted time <br>damp model using the sum of contributions from all changes to a <br>module in its history. The most successful model computes the <br>fault potential by summing contributions from changes to the <br>module, where large and/or recent changes contribute the most to <br>fault potential [9]. This is similar to our approach of using relative <br>measures to predict fault potential. </span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:476"><nobr><span class="ft9">Drawing general conclusions from empirical studies in software <br>engineering is difficult because any process depends to a large <br>degree on a potentially large number of relevant context variables.  <br>For this reason, we cannot assume a priori that the results of a <br>study generalize beyond the specific environment in which it was <br>conducted [2].  Researchers become more confident in a theory <br>when similar findings emerge in different contexts [2].  Towards <br>this end we intend that our case study contributes towards <br>strengthening the existing empirical body of knowledge in this <br>field [7, 9, 13, 15, 17, 19, 20].  </span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:476"><nobr><span class="ft0">3. DATA COLLECTION </span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:476"><nobr><span class="ft9">The baseline used for measuring the code churn and other <br>measures described below is Windows Server 2003 (W2k3). We <br>measured churn between this baseline and Windows Server 2003 <br>Service Pack 1 (W2k3-SP1). We sometimes refer to W2k3-SP1 as <br>the "new version" of the code.  Service packs are a means by <br>which product updates are distributed</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:696"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:700"><nobr><span class="ft4">. Service packs contain </span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:476"><nobr><span class="ft9">updates for system reliability, program compatibility, security, etc. <br>that are conveniently bundled for easy downloading. </span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:476"><nobr><span class="ft9">The size of the code base analyzed is 44.97 million LOC (44,970 <br>KLOC). This consisted of 2465 binaries which were compiled <br>from 96,189 files. Some files contribute to more than one binary. <br>As defects for W2k3-SP1 are reported at the binary level, we <br>relate churn to defects at the level of binaries. </span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:476"><nobr><span class="ft0">                                                 </span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:476"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:481"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:485"><nobr><span class="ft4">http://support.microsoft.com/</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:643"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">285</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:11px;font-family:Symbol;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207003.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">The absolute measures and methods of data collection are <br>described below: </span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:135"><nobr><span class="ft9">Total LOC  is the number of lines of non-commented <br>executable lines in the files comprising the new version <br>of a binary. Internal Microsoft tools were used to <br>compute this measure.  </span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:135"><nobr><span class="ft9">Churned LOC  is the sum of the added and changed <br>lines of code between a baseline version and a new <br>version of the files comprising a binary.   </span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:135"><nobr><span class="ft9">Deleted LOC  is the number of lines of code deleted <br>between the baseline version and the new version of a <br>binary. The churned LOC and the deleted LOC are <br>computed by the version control systems using a file <br>comparison utility like diff.  </span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:135"><nobr><span class="ft9">File count  is the number of files compiled to create a <br>binary. </span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:135"><nobr><span class="ft9">Weeks of churn is the cumulative time that a file was <br>opened for editing from the version control system.  </span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:135"><nobr><span class="ft9">Churn count is the number of changes made to the files <br>comprising a binary between the two versions (W2k3 <br>and W2k3-SP1). </span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:135"><nobr><span class="ft9">Files churned  is the number of files within the binary <br>that churned. </span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:81"><nobr><span class="ft0">4. RELATIVE CODE CHURN MEASURES  </span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:81"><nobr><span class="ft9">In this section we describe our relative code churn measures. The <br>churn measures are denoted by the elements M1-M8. The <br>elements and their relationship to defect density are explained <br>below (these relationships are verified in section 5.1): </span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:135"><nobr><span class="ft9">M1: Churned LOC / Total LOC. We expect the larger <br>the proportion of churned (added + changed) code to the <br>LOC of the new binary, the larger the magnitude of the <br>defect density for that binary will be. </span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:135"><nobr><span class="ft9">M2: Deleted LOC / Total LOC. We expect the larger <br>the proportion of deleted code to the LOC of the new <br>binary, the larger the magnitude of the defect density for <br>that binary will be.  </span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:135"><nobr><span class="ft9">M3: Files churned / File count. We expect the greater <br>the proportion of files in a binary that get churned, the <br>greater the probability of these files introducing defects. <br>For e.g. suppose binaries A and B contain twenty files <br>each. If binary A has five churned files and binary B has <br>two churned files, we expect binary A to have a higher <br>defect density. </span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:135"><nobr><span class="ft9">M4: Churn count / Files churned. Suppose binaries A <br>and B have twenty files each and also have five churned <br>files each. If the five files in binary A are churned <br>twenty times and the five files in binary B are churned <br>ten times, then we expect binary A to have a higher <br>defect density. M4 acts as a cross check on M3. </span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:135"><nobr><span class="ft9">M5: Weeks of churn / File count.  M5  is  used  to <br>account for the temporal extent of churn. A higher value <br>of M5 indicates that it took a longer time to fix a smaller </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:530"><nobr><span class="ft9">number of files.  This may indicate that the binary <br>contains complex files that may be hard to modify <br>correctly.  Thus, we expect that an increase in M5 would <br>be accompanied by an increase in the defect density of <br>the related binary. </span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:530"><nobr><span class="ft9">M6: Lines worked on / Weeks of churn: The measure <br>"Lines worked on" is the sum of the churned LOC and <br>the deleted LOC. M6 measures the extent of code churn <br>over time in order to cross check on M5. Weeks of <br>churn does not necessarily indicate the amount of churn. <br>M6 reflects our expectation that the more lines are <br>worked on, the longer the weeks of churn should be. A <br>high value of M6 cross checks on M5 and should <br>predict a higher defect density. </span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:530"><nobr><span class="ft9">M7: Churned LOC / Deleted LOC. M7 is used in order <br>to quantify new development. All churn is not due to <br>bug fixes. In feature development the lines churned is <br>much greater than the lines deleted, so a high value of <br>M7 indicates new feature development. M7 acts as a <br>cross check on M1 and M2, neither of which accurately <br>predicts new feature development. </span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:530"><nobr><span class="ft9">M8: Lines worked on / Churn count: We expect that <br>the larger a change (lines worked on) relative to the <br>number of changes (churn count), the greater the defect <br>density will be. M8 acts as a cross check on M3 and <br>M4, as well as M5 and M6. With respect to M3 and M4, <br>M8 measures the amount of actual change that took <br>place. M8 cross checks to account for the fact that files <br>are not getting churned repeatedly for small fixes. M8 <br>also cross checks on M5 and M6 to account for the fact <br>that the higher the value of M8 (more lines per churn), <br>the higher is the time (M5) and lines worked on per <br>week (M6). ). If this is not so then a large amount of <br>churn might have been performed in a small amount of <br>time, which can cause an increased defect density. </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:476"><nobr><span class="ft9">Figure 1 illustrates the cross check relationships of these relative <br>code churn measures. As discussed above M1, M2 and M7 cross <br>check on each other and M8 cross checks on the set of M3, M4 <br>and M5, M6. All these measures triangulate on their respective <br>dependent measures with the goal of providing the best possible <br>estimate of defect density with a minimum inflation in the <br>estimation.   </span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:476"><nobr><span class="ft0">5. CASE STUDY  </span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:476"><nobr><span class="ft9">We now describe the case study performed at Microsoft. Section <br>5.1 presents the correlation analysis between the relative code <br>churn measures and system defect density. Section 5.2 details the <br>model building activities and Section 5.3 the predictive ability of <br>the models. Section 5.4 discusses the discriminative power of the <br>relative code churn measures and Section 5.5 the limitations of the <br>study. </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:657"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">286</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:11px;line-height:0px;font-family:Symbol;color:#000000;}
+	.ft13{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207004.png" alt="background image">
+<DIV style="position:absolute;top:378;left:261"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:281"><nobr><span class="ft4">Figure 1. Relative Churn Measure Cross Check Relationships </span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:459"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:202"><nobr><span class="ft4">Table 2. Cross Correlations. All correlations are significant at the 0.01 (99%) level (2-tailed).  </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:143"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:196"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:234"><nobr><span class="ft4">M1 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:292"><nobr><span class="ft4">M2 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:358"><nobr><span class="ft4">M3 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:427"><nobr><span class="ft4">M4 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:494"><nobr><span class="ft4">M5 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:562"><nobr><span class="ft4">M6 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:629"><nobr><span class="ft4">M7 </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:697"><nobr><span class="ft4">M8 </span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:751"><nobr><span class="ft4">Defects </span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:753"><nobr><span class="ft4">/KLOC </span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:134"><nobr><span class="ft4">M1 </span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:226"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:288"><nobr><span class="ft4">.834 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:354"><nobr><span class="ft4">.795 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:423"><nobr><span class="ft4">.413 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:491"><nobr><span class="ft4">.707 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:558"><nobr><span class="ft4">.651 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:626"><nobr><span class="ft4">.466 </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:693"><nobr><span class="ft4">.588 </span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:760"><nobr><span class="ft4">.883 </span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:134"><nobr><span class="ft4">M2 </span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:284"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:354"><nobr><span class="ft4">.645 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:423"><nobr><span class="ft4">.553 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:491"><nobr><span class="ft4">.747 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:558"><nobr><span class="ft4">.446 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:626"><nobr><span class="ft4">.219 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:693"><nobr><span class="ft4">.492 </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:760"><nobr><span class="ft4">.798 </span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:134"><nobr><span class="ft4">M3 </span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:351"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:423"><nobr><span class="ft4">.186 </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:491"><nobr><span class="ft4">.749 </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:558"><nobr><span class="ft4">.434 </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:626"><nobr><span class="ft4">.445 </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:693"><nobr><span class="ft4">.269 </span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:760"><nobr><span class="ft4">.868 </span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:134"><nobr><span class="ft4">M4 </span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:419"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:491"><nobr><span class="ft4">.531 </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:558"><nobr><span class="ft4">.429 </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:626"><nobr><span class="ft4">.210 </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:693"><nobr><span class="ft4">.631 </span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:760"><nobr><span class="ft4">.288 </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:134"><nobr><span class="ft4">M5 </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:436"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:487"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:558"><nobr><span class="ft4">.263 </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:626"><nobr><span class="ft4">.201 </span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:693"><nobr><span class="ft4">.390 </span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:760"><nobr><span class="ft4">.729 </span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:134"><nobr><span class="ft4">M6 </span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:436"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:504"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:554"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:626"><nobr><span class="ft4">.701 </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:693"><nobr><span class="ft4">.843 </span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:760"><nobr><span class="ft4">.374 </span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:134"><nobr><span class="ft4">M7 </span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:436"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:504"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:571"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:622"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:693"><nobr><span class="ft4">.507 </span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:760"><nobr><span class="ft4">.288 </span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:134"><nobr><span class="ft4">M8 </span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:436"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:504"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:571"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:639"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:689"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:760"><nobr><span class="ft4">.262 </span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:118"><nobr><span class="ft4">Defects/</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:125"><nobr><span class="ft4">KLOC </span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:192"><nobr><span class="ft12"><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:199"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:243"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:301"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:368"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:436"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:504"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:571"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:639"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:706"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:757"><nobr><span class="ft4">1.000 </span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:81"><nobr><span class="ft9">As mentioned before, the system defect density for W2k3-SP1 <br>was collected at the level of binaries. That is, for each binary we <br>have a count of the number of defects assigned to that binary.  </span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:81"><nobr><span class="ft9">Throughout the rest of the paper we assume a statistical <br>significance at 99% confidence (level of significance ( = 0.01)). </span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:81"><nobr><span class="ft0">5.1 Correlation Analysis </span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:81"><nobr><span class="ft9">Our goal is to verify that with an increase in the code churn <br>measures (M1-M8) there is a statistically significant increase in <br>the defects/KLOC. Table 2 shows the Spearman rank correlation <br>() among the defects/KLOC and the relative code churn <br>measures. Spearman rank correlation is a commonly-used robust <br>correlation technique [8] because it can be applied even when the <br>association between elements is non-linear.  </span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:81"><nobr><span class="ft9">Table 2 shows that there exists a statistically significant (at 99% <br>confidence) positive relationship between the measures and the <br>defects/KLOC (shown in bold). Thus, with an increase in the <br>relative churn measures there is a corresponding positive increase <br>in the defects/KLOC. This is indicated by the statistically <br>significant positive Spearman rank correlation coefficient . From <br>the above observations we conclude that an increase in relative <br>code churn measures is accompanied by an increase in system <br>defect density (H</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:172"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:177"><nobr><span class="ft4">). </span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:476"><nobr><span class="ft9">In order to illustrate the cross checks better consider the measures <br>M1, M2 and M7 in Figure 2 with their Spearman rank correlation <br>coefficients from Table 2. </span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:785"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:536"><nobr><span class="ft4">Figure 2: Cross Correlation Relationships </span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:476"><nobr><span class="ft9">The Spearman correlation coefficient of 0.834 between M1 and <br>M2 indicates that there is a very strong correlation between the <br>two measures. But this might not be the case when there is a <br>higher proportion of churned code compared to deleted code (as <br>measured by M7 for new feature development). Since this cannot <br>be measured by M1 or M2, M7 acts as a cross check on them. The <br>correlation between M1 and M7 (0.466) indicates when there is a </span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:680"><nobr><span class="ft3">M1 </span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:680"><nobr><span class="ft3">M2 </span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:572"><nobr><span class="ft3">M7</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:715"><nobr><span class="ft4">0.834</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:607"><nobr><span class="ft4">0.466</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:607"><nobr><span class="ft4">0.219</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:165"><nobr><span class="ft3">M7 </span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:273"><nobr><span class="ft3">M2 </span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:273"><nobr><span class="ft3">M1 </span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:462"><nobr><span class="ft3">M6</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:462"><nobr><span class="ft3">M3</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:462"><nobr><span class="ft3">M4</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:462"><nobr><span class="ft3">M5</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:354"><nobr><span class="ft3">M8</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:551"><nobr><span class="ft10">M1: Churned LOC / Total LOC <br>M2: Deleted LOC / Total LOC <br>M3: Files churned / File count <br>M4: Churn count / Files churned <br>M5: Weeks of churn/ File count <br>M6: Lines worked on / Weeks of churn<br>M7: Churned LOC / Deleted LOC <br>M8: Lines worked on / Churn count </span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:618"><nobr><span class="ft13">Cross check <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">287</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:11px;line-height:19px;font-family:Times;color:#000000;}
+	.ft15{font-size:11px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207005.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">new feature addition there is a corresponding increase in the <br>churned code. For M2 and M7 this correlation is not as strong (but <br>is statistically significant) because there were relatively fewer new <br>feature additions compared to other changes in the W2k3-SP1 <br>source base.  </span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:81"><nobr><span class="ft0">5.2 Model Fitting </span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:81"><nobr><span class="ft9">We now compare predictive models built using absolute measures <br>against those built using the relative churn measures. For the <br>absolute model, defects/KLOC is the dependent variable and the <br>predictors are the absolute measures described in Section 3. For <br>the relative model, defects/KLOC is the dependent variable and <br>the predictors are the relative measures described in Section 4. </span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:81"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:90"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:100"><nobr><span class="ft4">is a measure of variance in the dependent variable that is </span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:81"><nobr><span class="ft4">accounted for by the model built using the predictors [4]. R</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:414"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:422"><nobr><span class="ft4">is a </span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:81"><nobr><span class="ft9">measure of the fit for the given data set. (It cannot be interpreted <br>as the quality of the dataset to make future predictions). The <br>adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:142"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:146"><nobr><span class="ft4"> measure also can be used to evaluate how well a </span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:81"><nobr><span class="ft4">model will fit a given data set [5]. Adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:343"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:352"><nobr><span class="ft4">explains for any </span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:81"><nobr><span class="ft4">bias in the R</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:159"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:164"><nobr><span class="ft4"> measure by taking into account the degrees of </span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:81"><nobr><span class="ft9">freedom of the predictor variables and the sample population. The <br>adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:140"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:144"><nobr><span class="ft4"> tends to remain constant as the R</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:335"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:340"><nobr><span class="ft4"> measure for large </span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:81"><nobr><span class="ft4">population samples. </span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:81"><nobr><span class="ft9">The multiple regression model fit for absolute measures using all <br>the predictors has an R</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:216"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:221"><nobr><span class="ft4"> value of 0.052 (F=16.922, p&lt;0.0005). </span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:81"><nobr><span class="ft9">(The F-ratio is used to test the hypothesis that all regression <br>coefficients are zero). This is a poor fit of the data and irrespective <br>of other transformations (like for e.g. log) we cannot get a marked <br>improvement in R</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:189"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:194"><nobr><span class="ft4">. The adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:297"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:302"><nobr><span class="ft4"> value for the absolute </span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:81"><nobr><span class="ft9">measures is 0.49. Throughout the rest of this paper we present the <br>adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:142"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:146"><nobr><span class="ft4"> values in addition to the R</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:311"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:316"><nobr><span class="ft4"> measures in order to </span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft9">eliminate any bias in model building. But with respect to the large <br>sample size (2465 binaries) the adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:325"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:330"><nobr><span class="ft4"> and R</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:370"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:379"><nobr><span class="ft4">value</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:409"><nobr><span class="ft5"> </span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:413"><nobr><span class="ft4">show </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:81"><nobr><span class="ft4">only minor variation, not sufficient enough to drop the R</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:404"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:413"><nobr><span class="ft4">value </span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:81"><nobr><span class="ft4">and employ the adjusted</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:213"><nobr><span class="ft5"> </span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:215"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:224"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:231"><nobr><span class="ft4">value.</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:263"><nobr><span class="ft5"> </span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:266"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:81"><nobr><span class="ft9">There are different ways in which regression models [16] can be <br>built. Three common regression methods [16] are forward, <br>backward and step-wise regression. In forward regression, one <br>adds a single predictor at a time to the model based on the strength <br>of its correlation with the dependent variable. The effect of adding <br>each predictor is evaluated based on the results of an F-ratio test <br>[16].  Variables that do not significantly add to the success of the <br>model are excluded. In backward regression, a model is built <br>using all the predictors. The weakest predictor variable is removed <br>and the strength of the overall built model is assessed similar to <br>the forward regression procedure. If this significantly weakens the <br>model then the predictor is put back (and otherwise removed). <br>Step-wise regression [16] is the more robust technique of these <br>methods. The initial model consists of the predictor having the <br>single largest correlation with the dependent variable. <br>Subsequently, new predictors are selected for addition into the <br>model based on their partial correlation with the predictors already <br>in the model. With each new set of predictors, the model is <br>evaluated and predictors that do not significantly contribute <br>towards statistical significance in terms of the F-ratio are removed <br>so that, in the end, the best set of predictors explaining the <br>maximum possible variance is left.  </span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:81"><nobr><span class="ft9">A step-wise regression analysis using the absolute set of <br>predictors does not lead to any significant change in the R</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:400"><nobr><span class="ft5">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:408"><nobr><span class="ft4">values </span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:81"><nobr><span class="ft4">(=0.051) (adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:195"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:199"><nobr><span class="ft4"> = 0.050). Only the LOC and the number of </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:476"><nobr><span class="ft9">times a file is churned are kept as predictors. This further confirms <br>the fact that using the absolute measures is not an appropriate <br>method for assessing the system defect density.  </span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:476"><nobr><span class="ft9">Several empirical studies use Principal Component Analysis <br>(PCA) [10] to build regression models [6]. In PCA a smaller <br>number of uncorrelated linear combinations of metrics, which <br>account for as much sample variance as possible, are selected for <br>use in regression. PCA is not a possible solution when using <br>absolute measures because the correlation matrix is not positive <br>definite. We still use the two principal components generated to <br>build a multiple regression equation. The multiple regression <br>equation constructed has an even lower value of R</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:791"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:796"><nobr><span class="ft4">=0.026, </span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:476"><nobr><span class="ft4">(F=33.279, p&lt;0.0005).  </span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:476"><nobr><span class="ft9">Based on the three results discussed above (multiple regression <br>using all the predictors, step-wise regression and PCA) we <br>conclude that the absolute measures are not good predictors of <br>system defect density.  </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:476"><nobr><span class="ft9">As outlined in Section 3 we calculate the relative code churn <br>measures (M1-M8) and build regression models using all the <br>measures, step-wise regression and PCA. Table 3 shows the R</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:832"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:837"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:476"><nobr><span class="ft9">value of the regression equation built using all the measures. We <br>also present the adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:638"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:642"><nobr><span class="ft4"> value and the root MSE (Mean </span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:476"><nobr><span class="ft4">Squared Error).  </span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:532"><nobr><span class="ft4">Table 3. Regression Fit Using All Measures </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:526"><nobr><span class="ft4">Model </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:609"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:618"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:623"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:654"><nobr><span class="ft4">Adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:715"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:720"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:746"><nobr><span class="ft4">Root MSE </span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:508"><nobr><span class="ft4">All Measures </span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:604"><nobr><span class="ft4">.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:675"><nobr><span class="ft4">.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:749"><nobr><span class="ft4">1.301215 </span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:476"><nobr><span class="ft4">Table 4 shows how the R</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:620"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:624"><nobr><span class="ft4"> value changes in step-wise regression </span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:476"><nobr><span class="ft9">for all the models built during that process. In the step-wise <br>regression model the measure M7 is dropped. The best R</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:786"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:790"><nobr><span class="ft4"> value in </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:476"><nobr><span class="ft9">Table 4 (without M7) is the same as that of Table 3 (.811) but <br>there is a change in the third decimal place of the standard error of <br>the estimate. M7 probably was dropped because there were <br>relatively fewer new feature additions compared to other changes <br>in the W2k3-SP1 source base. The adjusted R</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:742"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:746"><nobr><span class="ft4"> values are also </span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:476"><nobr><span class="ft4">shown but are not significantly different from the R</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:757"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:762"><nobr><span class="ft4"> values due to </span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:476"><nobr><span class="ft4">the large sample size used to build the models.  </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:657"><nobr><span class="ft14"> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:657"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">288</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207006.png" alt="background image">
+<DIV style="position:absolute;top:109;left:153"><nobr><span class="ft4">Table 4. Step-wise Regression Models </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:136"><nobr><span class="ft4">Model </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:190"><nobr><span class="ft4">R-Square </span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:286"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:262"><nobr><span class="ft4">Adjusted </span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:260"><nobr><span class="ft4">R-Square  Root MSE </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:146"><nobr><span class="ft4">(a) </span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:204"><nobr><span class="ft4">.592 </span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:274"><nobr><span class="ft4">.592 </span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:332"><nobr><span class="ft4">1.908727 </span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:145"><nobr><span class="ft4">(b) </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:204"><nobr><span class="ft4">.685 </span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:274"><nobr><span class="ft4">.685 </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:332"><nobr><span class="ft4">1.677762 </span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:146"><nobr><span class="ft4">(c) </span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:204"><nobr><span class="ft4">.769 </span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:274"><nobr><span class="ft4">.769 </span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:332"><nobr><span class="ft4">1.437246 </span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:145"><nobr><span class="ft4">(d) </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:204"><nobr><span class="ft4">.802 </span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:274"><nobr><span class="ft4">.801 </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:332"><nobr><span class="ft4">1.331717 </span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:146"><nobr><span class="ft4">(e) </span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:204"><nobr><span class="ft4">.808 </span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:274"><nobr><span class="ft4">.807 </span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:332"><nobr><span class="ft4">1.312777 </span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:147"><nobr><span class="ft4">(f) </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:204"><nobr><span class="ft4">.810 </span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:274"><nobr><span class="ft4">.809 </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:332"><nobr><span class="ft4">1.305817 </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:146"><nobr><span class="ft4">(g) </span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:204"><nobr><span class="ft4">.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:274"><nobr><span class="ft4">.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:332"><nobr><span class="ft4">1.300985 </span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:81"><nobr><span class="ft9">a  Predictors: (Constant), M2 <br>b  Predictors: (Constant), M2, M3 <br>c  Predictors: (Constant), M2, M3, M8 <br>d  Predictors: (Constant), M2, M3, M8, M1 <br>e  Predictors: (Constant), M2, M3, M8, M1, M6 <br>f  Predictors: (Constant), M2, M3, M8, M1, M6, M5 <br>g  Predictors: (Constant), M2, M3, M8, M1, M6, M5, M4. </span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:81"><nobr><span class="ft9">The PCA of the eight relative code churn measures yields three <br>principal components. PCA can account for the multicollinearity <br>among the measures, which can lead to inflated variance in the <br>estimation of the defect density.  </span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:476"><nobr><span class="ft9">But for PCA to be applicable the KMO (Kaiser-Meyer-Olkin) <br>measure[11] of sampling adequacy should be greater than 0.6 [4]. <br>The KMO measure of sampling adequacy is a test of the amount <br>of variance within the data that can be explained by the measures. <br>The KMO measure of the eight relative code churn measures is <br>0.594 which indicates that PCA might not be an appropriate <br>method to apply.   </span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:476"><nobr><span class="ft9">We still perform the analysis to investigate and present those <br>results as well on a comparative basis. The results for all three <br>models are summarized in Table 5.  <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:546"><nobr><span class="ft4">Table 5. Relative Measures Model Fits </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:521"><nobr><span class="ft4">Model R</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:617"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:621"><nobr><span class="ft4"> Adjusted </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:709"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:719"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:723"><nobr><span class="ft4"> F-Test </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:787"><nobr><span class="ft4">sig. </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:502"><nobr><span class="ft4">All measures </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:599"><nobr><span class="ft4">0.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:673"><nobr><span class="ft4">0.811 </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:753"><nobr><span class="ft4">1318.44, </span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:746"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:502"><nobr><span class="ft9">Step-wise <br>regression </span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:599"><nobr><span class="ft4">0.811 0.811  1507.31, </span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:746"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:502"><nobr><span class="ft4">PCA 0.749 </span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:673"><nobr><span class="ft4">0.748 </span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:752"><nobr><span class="ft4">2450.89, </span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:746"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:476"><nobr><span class="ft9">From the above results we can see that using relative values of <br>code churn predictors is better than using absolute values to <br>explain the system defect density (H</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:670"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:675"><nobr><span class="ft4">). </span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:503"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:780"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:306"><nobr><span class="ft4">Figure 3: Actual vs. Estimated System Defect Density</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">289</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207007.png" alt="background image">
+<DIV style="position:absolute;top:113;left:81"><nobr><span class="ft0">5.3 Defect Density Prediction </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft9">We use the technique of data splitting [18] to measure the ability <br>of the relative code churn measures to predict system defect <br>density. The data splitting technique was employed to get an <br>independent assessment of how well the defect density can be <br>estimated from a population sample. We randomly select two <br>thirds of the binaries (1645) to build the prediction model and use <br>the remaining one third (820) to verify the prediction accuracy. <br>We constructed models using all the measures, step-wise <br>regression and PCA (for purpose of completeness). Table 6 shows <br>the results for these models. </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:179"><nobr><span class="ft4">Table 6. Regression Data Fit </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:126"><nobr><span class="ft4">Model R</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:228"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:233"><nobr><span class="ft4"> Adjusted </span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:292"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:302"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:307"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:353"><nobr><span class="ft4">F-Test sig. </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:109"><nobr><span class="ft4">All measures </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:210"><nobr><span class="ft4">0.821 </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:284"><nobr><span class="ft4">0.820 </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:359"><nobr><span class="ft4">938.304, </span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:352"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:118"><nobr><span class="ft4">Step-wise </span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:117"><nobr><span class="ft4">regression </span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:107"><nobr><span class="ft4">(M7 dropped) </span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:210"><nobr><span class="ft4">0.821 0.820 1072.975, </span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:352"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:131"><nobr><span class="ft4">PCA 0.762 </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:284"><nobr><span class="ft4">0.761 </span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:356"><nobr><span class="ft4">1749.113, </span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:352"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:81"><nobr><span class="ft9">Using the fitted regression equation we estimate the system defect <br>density for the remaining 820 binaries. Figure 3 shows the <br>estimated and actual defect density using the regression equation <br>constructed using all the measures (sorted by estimated defect <br>density). The estimated defect density is shown by the thicker <br>continuous line. From the graph we can see that the estimated <br>defect density is similar to the actual defect density. The axes on <br>the graphs are removed in order to protect proprietary data </span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:81"><nobr><span class="ft9">To quantify the sensitivity of prediction, we run a correlation <br>analysis between the estimated and actual values. A high positive <br>correlation coefficient indicates that with an increase in the actual <br>defect density there is a corresponding positive increase in the <br>estimated defect density. We perform Pearson and Spearman <br>correlations to indicate their sensitivity. The Pearson correlation <br>indicates a linear relationship. The Spearman correlation is a more <br>robust correlation technique.  </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft9">Table 7 shows that the correlations are all positive and statistically <br>significant. The magnitude of the correlations indicates the <br>sensitivity of the predictions (the stronger the correlations the <br>more sensitive are the predictions). The models built using all the <br>measures and the step-wise method have the same sensitivity and <br>are better than the model built using PCA. </span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:180"><nobr><span class="ft4">Table 7. Correlation Results </span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:121"><nobr><span class="ft4">Model </span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:206"><nobr><span class="ft4">Pearson (sig.) </span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:321"><nobr><span class="ft4">Spearman (sig.) </span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:103"><nobr><span class="ft4">All measures </span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:198"><nobr><span class="ft4">0.889 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:319"><nobr><span class="ft4">0.929 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:103"><nobr><span class="ft9">Step-wise <br>regression  </span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:198"><nobr><span class="ft4">0.889 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:319"><nobr><span class="ft4">0.929 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:103"><nobr><span class="ft4">PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:198"><nobr><span class="ft4">0.849 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:319"><nobr><span class="ft4">0.826 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:81"><nobr><span class="ft9">Analyses that are based on a single dataset that use the same data <br>to both estimate the model and to assess its performance can lead <br>to unreasonably negative biased estimates of sampling variability. <br>In order to address this we repeat the random sampling with 3 <br>different random samples to verify if the above results are <br>repeatable. For each sample the model is fit with 1645 binaries to <br>build the model. Table 8 shows the fit of the various models built <br>for each sample. </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:564"><nobr><span class="ft4">Table 8. Random Splits Data Fit </span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:527"><nobr><span class="ft4">Model R</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:641"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:645"><nobr><span class="ft4"> Adjusted </span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:698"><nobr><span class="ft4">R</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:707"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:712"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:748"><nobr><span class="ft4">F-Test (Sig.) </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:505"><nobr><span class="ft4">Random 1: All </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:623"><nobr><span class="ft4">0.836 </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:690"><nobr><span class="ft4">0.835 </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:760"><nobr><span class="ft4">1045.07,  </span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:515"><nobr><span class="ft4">Random 1: </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:504"><nobr><span class="ft4">Stepwise (drop </span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:530"><nobr><span class="ft4">none) </span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:623"><nobr><span class="ft4">0.836 0.835  1045.07, </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:500"><nobr><span class="ft4">Random 1: PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:623"><nobr><span class="ft4">0.757 </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:690"><nobr><span class="ft4">0.756 </span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:760"><nobr><span class="ft4">1701.98, </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:505"><nobr><span class="ft4">Random 2: All </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:623"><nobr><span class="ft4">0.822 </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:690"><nobr><span class="ft4">0.821 </span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:764"><nobr><span class="ft4">941.86,  </span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:515"><nobr><span class="ft4">Random 2: </span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:504"><nobr><span class="ft4">Stepwise (drop </span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:533"><nobr><span class="ft4">M4) </span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:623"><nobr><span class="ft4">0.821 0.820  1074.05, </span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:500"><nobr><span class="ft4">Random 2: PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:623"><nobr><span class="ft4">0.765 </span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:690"><nobr><span class="ft4">0.764 </span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:760"><nobr><span class="ft4">1776.87, </span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:505"><nobr><span class="ft4">Random 3: All </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:623"><nobr><span class="ft4">0.799 </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:690"><nobr><span class="ft4">0.798 </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:764"><nobr><span class="ft4">813.12, </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:515"><nobr><span class="ft4">Random 3: </span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:504"><nobr><span class="ft4">Stepwise (drop </span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:533"><nobr><span class="ft4">M7) </span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:623"><nobr><span class="ft4">0.799 0.798  927.54, </span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:500"><nobr><span class="ft4">Random 3: PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:623"><nobr><span class="ft4">0.737 </span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:690"><nobr><span class="ft4">0.736 </span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:760"><nobr><span class="ft4">1529.25, </span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:754"><nobr><span class="ft4">(p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:476"><nobr><span class="ft9"> <br>Using each of the above predictive models we calculate the <br>estimated defect density for the remaining 820 binaries. Table 9 <br>shows the correlation between the estimated and the actual defect <br>density. </span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:508"><nobr><span class="ft4">Table 9. Correlation Between Actual and Estimated </span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:614"><nobr><span class="ft4">Defects/KLOC </span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:506"><nobr><span class="ft4">Model Pearson </span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:587"><nobr><span class="ft4">Correlation (sig.) </span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:739"><nobr><span class="ft4">Spearman </span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:719"><nobr><span class="ft4">Correlation (sig.) </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:494"><nobr><span class="ft4">Random 1: </span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:516"><nobr><span class="ft4">All </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:589"><nobr><span class="ft4">0.873 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:721"><nobr><span class="ft4">0.931 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:494"><nobr><span class="ft4">Random 1: </span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:500"><nobr><span class="ft4">Stepwise </span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:589"><nobr><span class="ft4">0.873 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:721"><nobr><span class="ft4">0.931 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:494"><nobr><span class="ft4">Random 1: </span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:511"><nobr><span class="ft4">PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:589"><nobr><span class="ft4">0.858 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:721"><nobr><span class="ft4">0.836 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:494"><nobr><span class="ft4">Random 2: </span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:516"><nobr><span class="ft4">All </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:589"><nobr><span class="ft4">0.878 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:721"><nobr><span class="ft4">0.917 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:494"><nobr><span class="ft4">Random 2: </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:500"><nobr><span class="ft4">Stepwise </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:589"><nobr><span class="ft4">0.876 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:721"><nobr><span class="ft4">0.906 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:494"><nobr><span class="ft4">Random 2: </span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:511"><nobr><span class="ft4">PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:589"><nobr><span class="ft4">0.847 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:721"><nobr><span class="ft4">0.825 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:494"><nobr><span class="ft4">Random 3: </span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:516"><nobr><span class="ft4">All </span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:589"><nobr><span class="ft4">0.899 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:721"><nobr><span class="ft4">0.892 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:494"><nobr><span class="ft4">Random 3: </span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:500"><nobr><span class="ft4">Stepwise </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:589"><nobr><span class="ft4">0.901 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:721"><nobr><span class="ft4">0.893 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:494"><nobr><span class="ft4">Random 3: </span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:511"><nobr><span class="ft4">PCA </span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:589"><nobr><span class="ft4">0.880 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:721"><nobr><span class="ft4">0.818 (p&lt;0.0005) </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:503"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:476"><nobr><span class="ft9">Based on the consistent positive and statistically significant <br>correlations, indicating the sensitivity of predictions obtained in <br>Table 9 we can say that relative code churn measures can be used <br>as efficient predictors of system defect density (H</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:742"><nobr><span class="ft5">3</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:746"><nobr><span class="ft4">). </span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:476"><nobr><span class="ft9">Our results demonstrate it is effective to use all eight measures <br>rather than dropping any of them from the predictive equation. <br>Each of these measures cross check on each other and any </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">290</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:11px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207008.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">abnormal behavior in one of the measures (for e.g. like a file <br>getting churned too many times) would be immediately <br>highlighted. </span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:81"><nobr><span class="ft9">By interchanging the measures in a model equation we can get <br>estimated values for all the relative measures independently. For <br>example, in order to determine the maximum allowable code <br>churn with respect to the file size (i.e. M1), say for a particular <br>software model we fix the maximum allowable system defect <br>density. We then can build a regression model with M2-M8 and <br>defect density as predictors and M1 as the dependent variable.  </span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:81"><nobr><span class="ft0">5.4 Discriminant Analysis  </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:81"><nobr><span class="ft16">Discriminant analysis, is a statistical technique used to categorize <br>programs into groups based on the metric values. It has been used <br>as a tool for the detection of fault-prone programs [13, 14, 18]. <br>The ANSI-IEEE Std. [1] defines a fault as an accidental condition <br>that causes a functional unit to fail to perform its required <br>function. We use discriminant analysis to identify binaries as <br>fault-prone or not fault-prone.  To classify if a binary is fault-<br>prone or not we use the system defect density in a normal <br>confidence interval calculation as shown in equation 1. <br>LB = µ</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:120"><nobr><span class="ft5">x</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:124"><nobr><span class="ft4">-z</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:135"><nobr><span class="ft5">/2</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:147"><nobr><span class="ft4">*Standard deviation of defect density... (1)  </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:226"><nobr><span class="ft4">      n  </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:315"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:369"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:423"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:81"><nobr><span class="ft4">where  </span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:135"><nobr><span class="ft4">LB is the lower bound on system defect density;  </span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:135"><nobr><span class="ft4">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:142"><nobr><span class="ft5">x</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:147"><nobr><span class="ft4"> is the mean of defect density;  </span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:135"><nobr><span class="ft4">Z</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:143"><nobr><span class="ft5">/2</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:155"><nobr><span class="ft4"> is the upper /2 quantile of the standard normal </span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:135"><nobr><span class="ft4">distribution;  </span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:108"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:135"><nobr><span class="ft4">n is the number of observations.  </span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:81"><nobr><span class="ft9">We conservatively classify all binaries that have a defect density <br>less than LB as not fault-prone and the remaining as fault-prone. <br>Table 10 shows the eigenvalue and overall classification ability of <br>using the eight measures and the three principal components. The <br>eigenvalue is a measure of the discriminative ability of the <br>discriminant function. The higher the eigenvalue the better is the <br>discriminative ability. For all measures, the function correctly <br>classifies nearly nine out of every ten binaries. </span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:134"><nobr><span class="ft4">Table 10. Overall Discriminant Function Fit </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:128"><nobr><span class="ft4">Model Eigenvalue </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:297"><nobr><span class="ft4">Classification </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:379"><nobr><span class="ft4">ability </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:110"><nobr><span class="ft4">All Measures </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:226"><nobr><span class="ft4">1.025 </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:304"><nobr><span class="ft4">2188/2465 (88.8%) </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:133"><nobr><span class="ft4">PCA 0.624 </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:304"><nobr><span class="ft4">2195/2465 </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:365"><nobr><span class="ft4">(89.0%) </span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:81"><nobr><span class="ft9"> <br>As before, we split the data set into 1645 programs to build the <br>discriminant function and the remaining 820 binaries to verify the <br>classification ability of the discriminant function. We perform this <br>analysis using all the measures and the principal components. The <br>results of this fit and classification are shown below in table 11. </span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:169"><nobr><span class="ft4">Table 11. Discriminant Analysis </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:121"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:178"><nobr><span class="ft4">For Model Fit (for 1645 </span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:167"><nobr><span class="ft4">binaries to build the model) </span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:347"><nobr><span class="ft4">For Test Data </span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:348"><nobr><span class="ft4">(820 binaries) </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:102"><nobr><span class="ft4">Model Eigen </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:177"><nobr><span class="ft4">value </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:246"><nobr><span class="ft4">Classification </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:266"><nobr><span class="ft4">ability </span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:348"><nobr><span class="ft4">Classification </span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:369"><nobr><span class="ft4">ability </span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:112"><nobr><span class="ft4">All </span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:95"><nobr><span class="ft4">Measures </span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:177"><nobr><span class="ft4">1.063 1464/1645 </span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:263"><nobr><span class="ft4">(90.0%) </span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:365"><nobr><span class="ft9">735/820 <br>(89.6%) </span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:107"><nobr><span class="ft4">PCA 0.601  1461/1645 </span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:263"><nobr><span class="ft4">(88.8%) </span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:365"><nobr><span class="ft9">739/820 <br>(90.1%) </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:476"><nobr><span class="ft9">Table 11 shows that the relative code churn measures have <br>effective discriminant ability (comparable to prior studies done on <br>industrial software [13]). We conclude that relative code churn <br>measures can be used to discriminate between fault and not fault-<br>prone binaries (H</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:573"><nobr><span class="ft5">4</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:577"><nobr><span class="ft4">). </span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:476"><nobr><span class="ft0">5.5 Limitations of Study </span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:476"><nobr><span class="ft9">Internal validity. Internal validity issues arise when there are <br>errors in measurement. This is negated to an extent by the fact that <br>the entire data collection process is automated via the version <br>control systems. However, the version control systems only <br>records data upon developer check-out or check-in of files. If a <br>developer made many overlapping edits to a file in a single check-<br>out/check-in period then a certain amount of churn will not be <br>visible.  A developer also might have a file checked out for a very <br>long period of time during which few changes were made, <br>inflating the "weeks of churn" measure.  </span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:476"><nobr><span class="ft9">These concerns are alleviated to some extent by the cross check <br>among the measures to identify abnormal values for any of the <br>measures and the huge size and diversity of our dataset.  </span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:476"><nobr><span class="ft9">In our case study we provide evidence for using all the relative <br>churn measures rather than a subset of values or principal <br>components. This is case study specific and should be refined <br>based on further results. </span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:476"><nobr><span class="ft9">External validity. External validity issues may arise from the fact <br>that all the data is from one software system (albeit one with many <br>different components) and that the software is very large (some 44 <br>million lines of code) as other software systems used for a similar <br>analysis might not be of comparable size. </span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:476"><nobr><span class="ft0">6. CONCLUSIONS AND FUTURE WORK </span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:476"><nobr><span class="ft9">We have shown how relative code churn metrics are excellent <br>predictors of defect density in a large industrial software system. <br>Our case study provides strong support for the following <br>conclusions:  </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:530"><nobr><span class="ft9">Increase in relative code churn measures is accompanied <br>by an increase in system defect density; </span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:530"><nobr><span class="ft9">Using relative values of code churn predictors is better <br>than using absolute values to explain the system defect <br>density; </span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:530"><nobr><span class="ft9">Relative code churn measures can be used as efficient <br>predictors of system defect density; and </span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:503"><nobr><span class="ft11">· </span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:530"><nobr><span class="ft9">Relative code churn measures can be used to <br>discriminate between fault and not fault-prone binaries.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:830"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:476"><nobr><span class="ft9">We plan to validate our approach on other products developed <br>inside Microsoft like SQL Server and Office. We also plan to <br>develop standards for all the measures to provide guidance to the <br>developers on the maximum allowable change. We also plan to <br>investigate how testing can more effectively be directed towards <br>churned code. </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:476"><nobr><span class="ft0">ACKNOWLEDGEMENTS </span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:476"><nobr><span class="ft9">We would like to express our appreciation to Brendan Murphy of <br>Microsoft Research for providing the Windows Server 2003 SP1 <br>data set. We would like to thank Madan Musuvathi of Microsoft <br>Research, for critical feedback on the relative churn measures. We <br>would like to thank Jim Larus of Microsoft Research, Laurie <br>Williams, Jason Osborne of North Carolina State University for </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">291</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:16px;line-height:29px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="207009.png" alt="background image">
+<DIV style="position:absolute;top:108;left:81"><nobr><span class="ft9">reviewing initial drafts of this paper and the anonymous referees <br>for their thoughtful comments on an earlier draft of this paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:81"><nobr><span class="ft17"> <br>REFERENCES </span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:81"><nobr><span class="ft4">[1]  ANSI/IEEE, &quot;IEEE Standard Glossary of Software </span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:119"><nobr><span class="ft4">Engineering Terminology, Standard 729,&quot; 1983. </span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:81"><nobr><span class="ft4">[2]  Basili, V., Shull, F.,Lanubile, F., &quot;Building Knowledge </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:119"><nobr><span class="ft9">through Families of Experiments,&quot; IEEE Transactions on <br>Software Engineering, Vol. Vol. 25, No.4, No., 1999. </span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:81"><nobr><span class="ft4">[3]  Boehm, B. W., Software Engineering Economics. </span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:119"><nobr><span class="ft4">Englewood Cliffs, NJ: Prentice-Hall, Inc., 1981. </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:81"><nobr><span class="ft4">[4] </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:119"><nobr><span class="ft9">Brace, N., Kemp, R., Snelgar, R., SPSS for Psychologists: <br>Palgrave Macmillan, 2003. </span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:81"><nobr><span class="ft4">[5] </span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:119"><nobr><span class="ft9">Brito e Abreu, F., Melo, W., &quot;Evaluating the Impact of <br>Object-Oriented Design on Software Quality,&quot; Proceedings <br>of Third International Software Metrics Symposium, 1996, <br>pp. 90-99. </span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:81"><nobr><span class="ft4">[6] </span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:119"><nobr><span class="ft9">Denaro, G., Pezze, M., &quot;An Empirical Evaluation of Fault-<br>Proneness Models,&quot; Proceedings of International <br>Conference on Software Engineering, 2002, pp. 241 - 251. </span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:81"><nobr><span class="ft4">[7] </span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:119"><nobr><span class="ft9">Fenton, N. E., Ohlsson, N., &quot;Quantitative analysis of faults <br>and failures in a complex software system,&quot; IEEE <br>Transactions on Software Engineering, Vol. 26, No. 8, pp. <br>797-814, 2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:81"><nobr><span class="ft4">[8] </span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:119"><nobr><span class="ft9">Fenton, N. E., Pfleeger, S.L., Software Metrics. Boston, <br>MA: International Thompson Publishing, 1997. </span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:81"><nobr><span class="ft4">[9] </span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:119"><nobr><span class="ft9">Graves, T. L., Karr, A.F., Marron, J.S., Siy, H., &quot;Predicting <br>Fault Incidence Using Software Change History,&quot; IEEE <br>Transactions on Software Engineering, Vol. 26, No. 7, pp. <br>653-661, 2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:81"><nobr><span class="ft4">[10]  Jackson, E. J., A User's Guide to Principal Components: </span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:119"><nobr><span class="ft4">John Wiley &amp; Sons, Inc., 1991. </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:81"><nobr><span class="ft4">[11]  Kaiser, H. F., &quot;An Index of Factorial Simplicity,&quot; </span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:119"><nobr><span class="ft4">Psychometrika, Vol. 39, No., pp. 31-36, 1974. </span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:81"><nobr><span class="ft4">[12]  Karunanithi, N., &quot;A Neural Network approach for Software </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:119"><nobr><span class="ft4">Reliability Growth Modeling in the Presence of Code </span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:514"><nobr><span class="ft9">Churn,&quot; Proceedings of International Symposium on <br>Software Reliability Engineering, 1993, pp. 310-317. </span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:476"><nobr><span class="ft4">[13]  Khoshgoftaar, T. M., Allen, E.B., Goel, N., Nandi, A., </span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:514"><nobr><span class="ft9">McMullan, J., &quot;Detection of Software Modules with high <br>Debug Code Churn in a very large Legacy System,&quot; <br>Proceedings of International Symposium on Software <br>Reliability Engineering, 1996, pp. 364-371. </span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:476"><nobr><span class="ft4">[14]  Khoshgoftaar, T. M., Allen, E.B., Kalaichelvan, K.S., </span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:514"><nobr><span class="ft9">Goel, N., Hudepohl, J.P., Mayrand, J., &quot;Detection of fault-<br>prone program modules in a very large telecommunications <br>system,&quot; Proceedings of International Symposium Software <br>Reliability Engineering, 1995, pp. 24-33. </span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:476"><nobr><span class="ft4">[15]  Khoshgoftaar, T. M., Szabo, R.M., &quot;Improving Code </span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:514"><nobr><span class="ft9">Churn Predictions During the System Test and <br>Maintenance Phases,&quot; Proceedings of IEEE International <br>Conference on Software Maintainence, 1994, pp. 58-67. </span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:476"><nobr><span class="ft4">[16]  Kleinbaum, D. G., Kupper, L.L., Muller, K.E., Applied </span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:514"><nobr><span class="ft9">Regression Analysis and Other Multivariable Methods. <br>Boston: PWS-KENT Publishing Company, 1987. </span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:476"><nobr><span class="ft4">[17]  Munson, J. C., Elbaum, S., &quot;Code Churn: A Measure for </span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:514"><nobr><span class="ft9">Estimating the Impact of Code Change,&quot; Proceedings of <br>IEEE International Conference on Software Maintenance, <br>1998, pp. 24-31. </span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:476"><nobr><span class="ft4">[18]  Munson, J. C., Khoshgoftaar, T.M., &quot;The Detection of </span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:514"><nobr><span class="ft9">Fault-Prone Programs,&quot; IEEE Transactions on Software <br>Engineering, Vol. 18, No. 5, pp. 423-433, 1992. </span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:476"><nobr><span class="ft4">[19]  Ohlsson, M. C., von Mayrhauser, A., McGuire, B., Wohlin, </span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:514"><nobr><span class="ft9">C., &quot;Code Decay Analysis of Legacy Software through <br>Successive Releases,&quot; Proceedings of IEEE Aerospace <br>Conference, 1999, pp. 69-81. </span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:476"><nobr><span class="ft4">[20]  Ostrand, T. J., Weyuker, E.J, Bell, R.M., &quot;Where the Bugs </span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:514"><nobr><span class="ft9">Are,&quot; Proceedings of the 2004 ACM SIGSOFT <br>International Symposium on Software Testing and <br>Analysis (ISSTA), 2004, pp. 86-96. </span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:476"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:476"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft7">292</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

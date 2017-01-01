@@ -1,0 +1,893 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\86</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-07-20T21:42:05+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft12{font-size:11px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86001.png" alt="background image">
+<DIV style="position:absolute;top:114;left:257"><nobr><span class="ft0"><b>Evaluating Similarity Measures:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:149"><nobr><span class="ft0"><b>A Large-Scale Study in the Orkut Social Network</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:236"><nobr><span class="ft1">Ellen Spertus</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:247"><nobr><span class="ft2">Mills College</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:217"><nobr><span class="ft2">5000 MacArthur Blvd.</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:224"><nobr><span class="ft2">Oakland, CA 94613</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:215"><nobr><span class="ft1">spertus@mills.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:485"><nobr><span class="ft1">Mehran Sahami, Orkut Buyukkokten</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:604"><nobr><span class="ft2">Google</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:535"><nobr><span class="ft2">1600 Amphitheatre Parkway</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:543"><nobr><span class="ft2">Mountain View, CA 94043</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:512"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:519"><nobr><span class="ft1">sahami, orkut</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:627"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:634"><nobr><span class="ft1">@google.com</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:82"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:82"><nobr><span class="ft9">Online information services have grown too large for users<br>to navigate without the help of automated tools such as col-<br>laborative filtering, which makes recommendations to users<br>based on their collective past behavior. While many similar-<br>ity measures have been proposed and individually evaluated,<br>they have not been evaluated relative to each other in a large<br>real-world environment. We present an extensive empirical<br>comparison of six distinct measures of similarity for recom-<br>mending online communities to members of the Orkut social<br>network. We determine the usefulness of the different rec-<br>ommendations by actually measuring users' propensity to<br>visit and join recommended communities. We also exam-<br>ine how the ordering of recommendations influenced user<br>selection, as well as interesting social issues that arise in<br>recommending communities within a real social network.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:82"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:82"><nobr><span class="ft9">H.2.8 [Database Management]: Database Applications--<br>data mining ; H.3.5 [Information Storage and Retrieval]:<br>Online Information Services; I.5 [Computing Methodolo-<br>gies]: Pattern Recognition</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:82"><nobr><span class="ft4"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:82"><nobr><span class="ft3">Algorithms, measurement, human factors</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:82"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:82"><nobr><span class="ft9">Data mining, collaborative filtering, recommender system,<br>similarity measure, online communities, social networks</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:82"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:114"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:96"><nobr><span class="ft3">The amount of information available online grows far faster</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:82"><nobr><span class="ft9">than an individual's ability to assimilate it. For example,<br>consider "communities" (user-created discussion groups) with-<br>in Orkut, a social-networking website (http://www.orkut.com)</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:82"><nobr><span class="ft10">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>KDD'05, </i>August 21­24, 2005, Chicago, Illinois, USA.<br>Copyright 2005 ACM 1-59593-135-X/05/0008 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1076;left:319"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:326"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:477"><nobr><span class="ft9">affiliated with Google. The original mechanisms for users<br>to find communities were labor-intensive, including search-<br>ing for keywords in community titles and descriptions or<br>browsing other users' memberships. Four months after its<br>January 2004 debut, Orkut had over 50,000 communities,<br>providing the necessity and opportunity for data-mining for<br>automated recommendations. There are now (May 2005)<br>over 1,500,000 communities.</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:490"><nobr><span class="ft3">While there are many forms of recommender systems [3],</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:477"><nobr><span class="ft9">we chose a collaborative filtering approach [13] based on<br>overlapping membership of pairs of communities. We did<br>not make use of semantic information, such as the descrip-<br>tion of or messages in a community (although this may be an<br>area of future work). Our recommendations were on a per-<br>community, rather than a per-user basis; that is, all mem-<br>bers of a given community would see the same recommen-<br>dations when visiting that community's page. We chose this<br>approach out of the belief, which was confirmed, that com-<br>munity memberships were rich enough to make very useful<br>recommendations without having to perform more compu-<br>tationally intensive operations, such as clustering of users or<br>communities or computing nearest neighbor relations among<br>users. Indeed, Sarwar et al. have found such item-based al-<br>gorithms to be both more efficient and successful than user-<br>based algorithms [13]. By measuring user acceptance of rec-<br>ommendations, we were able to evaluate the absolute and<br>relative utility of six different similarity measures on a large<br>volume of data.</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:477"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:508"><nobr><span class="ft4"><b>MEASURES OF SIMILARITY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:490"><nobr><span class="ft3">The input data came from the membership relation M =</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:477"><nobr><span class="ft12">{(u, c) | u  U , c  C} , where C is the set of communities<br>with at least 20 members and U the set of users belong-<br>ing to at least one such community. When we began our<br>experiment in May 2004, |C| = 19, 792, |U | = 181, 160, and<br>|M| = 2, 144, 435. Table 1 summarizes the distribution.</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:490"><nobr><span class="ft3">All of our measures of community similarity involve the</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:477"><nobr><span class="ft3">overlap between two communities, i.e., the number of com-</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:484"><nobr><span class="ft3">Table 1: Distribution of community memberships</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:656"><nobr><span class="ft3">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:696"><nobr><span class="ft3">max</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:739"><nobr><span class="ft3">median</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:810"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:485"><nobr><span class="ft3">Users per community</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:660"><nobr><span class="ft3">20</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:695"><nobr><span class="ft3">9077</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:754"><nobr><span class="ft3">50</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:799"><nobr><span class="ft3">230.5</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:485"><nobr><span class="ft3">Communities per user</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:664"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:695"><nobr><span class="ft3">4173</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:757"><nobr><span class="ft3">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:802"><nobr><span class="ft3">28.0</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">678</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:76"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:14px;font-family:Times;color:#000000;}
+	.ft14{font-size:6px;font-family:Times;color:#000000;}
+	.ft15{font-size:14px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86002.png" alt="background image">
+<DIV style="position:absolute;top:92;left:82"><nobr><span class="ft9">mon users. If a base community b and a (potentially) related<br>community r are considered as sets of users, the overlap is<br>|B  R|, where we use capital letters to represent the set con-<br>taining a community's members. Note that overlap cannot<br>be the sole factor in relatedness, as the size of communities<br>varies greatly. If we only considered overlap, practically ev-<br>ery community would be considered related to the "Linux"<br>community, which was the most popular, with 9,077 mem-<br>bers. The similarity measures in the next section normalize<br>the overlap in different ways.</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:82"><nobr><span class="ft4"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:123"><nobr><span class="ft4"><b>Similarity Measure Functions</b></span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:96"><nobr><span class="ft3">Each similarity measure we consider is presented as a (pos-</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:82"><nobr><span class="ft9">sibly asymmetric) function of b and r indicating how appro-<br>priate the related community r is as a recommendation for<br>the base community b.</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:238"><nobr><span class="ft3">We do not use the result of the</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:82"><nobr><span class="ft9">function as an absolute measure of similarity, only to rank<br>recommendations for a given base community.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:87"><nobr><span class="ft13"><i>2.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:136"><nobr><span class="ft13"><i>L1-Norm</i></span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:96"><nobr><span class="ft3">If we consider the base and related communities to be</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:82"><nobr><span class="ft3">vectors -</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:130"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:134"><nobr><span class="ft3">b and -</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:176"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:180"><nobr><span class="ft3">r , where the i</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:269"><nobr><span class="ft14">th</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:285"><nobr><span class="ft3">element of a vector is 1 if</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:82"><nobr><span class="ft9">user i is a member and 0 if not, we can measure the overlap<br>as the product of their L1-norms:</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:173"><nobr><span class="ft3">L1(-</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:195"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:199"><nobr><span class="ft3">b , -</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:215"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:218"><nobr><span class="ft3">r ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:283"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:283"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:287"><nobr><span class="ft3">b · -</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:306"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:310"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:265"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:265"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:269"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:289"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:299"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:318"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:318"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:322"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:342"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:82"><nobr><span class="ft9">This quantity can also be expressed in set notation, where<br>we use a capital letter to represent the set containing a com-<br>munity's members:</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:200"><nobr><span class="ft3">L1(B, R) = |B  R|</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:275"><nobr><span class="ft3">|B| · |R|</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:82"><nobr><span class="ft9">Note that this evaluates to the overlap between the two<br>groups divided by the product of their sizes.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:379"><nobr><span class="ft3">When the</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:82"><nobr><span class="ft9">base community is held constant (as when we determine the<br>base community's recommendations), this evaluates to the<br>overlap divided by the size of the related community, fa-<br>voring small communities. Kitts et al. [9] reported this to<br>be a successful measure of similarity in their recommender<br>system.</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:87"><nobr><span class="ft13"><i>2.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:136"><nobr><span class="ft13"><i>L2-Norm</i></span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:96"><nobr><span class="ft3">Similarly, we can measure the overlap with the product of</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:82"><nobr><span class="ft3">the L2-norms ("cosine distance" [3, 6, 12]) of -</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:360"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:364"><nobr><span class="ft3">b and -</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:405"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:409"><nobr><span class="ft3">r :</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:173"><nobr><span class="ft3">L2(-</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:195"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:199"><nobr><span class="ft3">b , -</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:215"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:218"><nobr><span class="ft3">r ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:283"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:283"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:287"><nobr><span class="ft3">b · -</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:306"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:310"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:265"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:265"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:269"><nobr><span class="ft3">b</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:289"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:299"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:318"><nobr><span class="ft3">-</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:318"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:322"><nobr><span class="ft3">r</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:342"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:82"><nobr><span class="ft3">In set notation:</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:193"><nobr><span class="ft3">L2(B, R) =</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:276"><nobr><span class="ft3">|B  R|</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:282"><nobr><span class="ft3">|B| · |R|</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:82"><nobr><span class="ft9">Note that the square-root in the denominator causes L2 to<br>penalize large communities less severely than L1.</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:96"><nobr><span class="ft3">Observe that the L2-norm presented here is equivalent to</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:82"><nobr><span class="ft9">the widely used cosine coefficient applied to binary data.<br>Moreover, while Pearson correlation has been used previ-<br>ously in recommender systems where ranking data is avail-<br>able, we did not use this measure here since it is generally<br>considered inappropriate for binary data.</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:481"><nobr><span class="ft13"><i>2.1.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:530"><nobr><span class="ft15"><i>Pointwise Mutual-Information: positive corre-<br>lations (MI1)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:490"><nobr><span class="ft3">Information theory motivates other measures of correla-</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:477"><nobr><span class="ft9">tion, such as "mutual information" [2]. We chose pointwise<br>mutual information where we only count "positive" corre-<br>lations (membership in both B and R). Such a formulation<br>essentially focuses on how membership in one group is pre-<br>dictive of membership in another (without considering how<br>base non-membership in a group effects membership in an-<br>other group), yielding:</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:554"><nobr><span class="ft3">M I1(b, r) = P(r, b) · lg</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:706"><nobr><span class="ft3">P(r, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:694"><nobr><span class="ft3">P(r) · P(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:481"><nobr><span class="ft13"><i>2.1.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:530"><nobr><span class="ft15"><i>Pointwise Mutual-Information: positive and<br>negative correlations (MI2)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:490"><nobr><span class="ft3">Similarly, we can compute the pointwise mutual infor-</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:477"><nobr><span class="ft9">mation with both positive and negative correlations (e.g.,<br>membership in both B and R, or non-membership in both<br>groups). Again, we don't compute the full expected mutual<br>information, since we believe cross-correlations (e.g., how<br>membership in B affects non-membership in R) tend to be<br>distortive with the recommendation task since such cross-<br>correlations are plentiful but not very informative.</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:809"><nobr><span class="ft3">This</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:477"><nobr><span class="ft3">yields:</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:481"><nobr><span class="ft3">M I2(b, r) = P(r, b) · lg</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:634"><nobr><span class="ft3">P(r, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:621"><nobr><span class="ft3">P(r) · P(b) + P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:717"><nobr><span class="ft3">r, ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:730"><nobr><span class="ft3">b) · lg</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:779"><nobr><span class="ft3">P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:793"><nobr><span class="ft3">r, ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:806"><nobr><span class="ft3">b)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:767"><nobr><span class="ft3">P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:781"><nobr><span class="ft3">r) · P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:818"><nobr><span class="ft3">b)</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:481"><nobr><span class="ft13"><i>2.1.5</i></span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:530"><nobr><span class="ft13"><i>Salton (IDF)</i></span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:490"><nobr><span class="ft3">Salton proposed a measure of similarity based on inverse</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:477"><nobr><span class="ft3">document frequency scaling (tf-idf) [12]:</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:562"><nobr><span class="ft3">IDF (b, r) = P (r|b) · (- lg P(r))</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:554"><nobr><span class="ft3">IDF (B, R) = |B  R|</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:656"><nobr><span class="ft3">|B|</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:692"><nobr><span class="ft3">· (- lg |R|</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:733"><nobr><span class="ft3">|U | )</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:481"><nobr><span class="ft13"><i>2.1.6</i></span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:530"><nobr><span class="ft13"><i>Log-Odds</i></span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:490"><nobr><span class="ft3">We first considered the standard log-odds function, which</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:477"><nobr><span class="ft9">measures the relative likelihood that presence or absence in<br>a base community predicts membership in a related commu-<br>nity:</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:575"><nobr><span class="ft3">LogOdds0(b, r) = lg P(r|b)</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:699"><nobr><span class="ft3">P(r|¯</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:725"><nobr><span class="ft3">b)</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:477"><nobr><span class="ft9">Empirically, we found this generated the exact same rank-<br>ings as using the L1-Norm, which makes sense because:</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:493"><nobr><span class="ft3">1. Logarithm is monotonic and, while affecting scores,</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:511"><nobr><span class="ft3">does not affect rankings.</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:493"><nobr><span class="ft3">2. Constant factors, such as |B|, do not affect rankings.</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:493"><nobr><span class="ft3">3. For |B|</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:576"><nobr><span class="ft3">|U |, P(r|¯</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:628"><nobr><span class="ft3">b)  P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:477"><nobr><span class="ft9">We formulated a different log-odds metric, which measures<br>whether membership in the base community is likelier to<br>predict membership or absence in the related community:</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:578"><nobr><span class="ft3">LogOdds(b, r) = lg P(r|b)</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:696"><nobr><span class="ft3">P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:711"><nobr><span class="ft3">r|b)</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">679</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:680"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:9px;font-family:Times;color:#000000;}
+	.ft17{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86003.png" alt="background image">
+<DIV style="position:absolute;top:101;left:82"><nobr><span class="ft9">Table 2: Average size of top-ranked community for<br>each measure</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:149"><nobr><span class="ft16">measure</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:258"><nobr><span class="ft16">Average size</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:220"><nobr><span class="ft16">rank 1</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:277"><nobr><span class="ft16">rank 2</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:335"><nobr><span class="ft16">rank 3</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:168"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:231"><nobr><span class="ft16">332</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:289"><nobr><span class="ft16">482</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:346"><nobr><span class="ft16">571</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:168"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:231"><nobr><span class="ft16">460</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:289"><nobr><span class="ft16">618</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:346"><nobr><span class="ft16">694</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:162"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:231"><nobr><span class="ft16">903</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:289"><nobr><span class="ft16">931</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:346"><nobr><span class="ft16">998</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:162"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:231"><nobr><span class="ft16">966</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:285"><nobr><span class="ft16">1003</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:343"><nobr><span class="ft16">1077</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:163"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:231"><nobr><span class="ft16">923</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:289"><nobr><span class="ft16">985</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:343"><nobr><span class="ft16">1074</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:147"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:231"><nobr><span class="ft16">357</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:289"><nobr><span class="ft16">513</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:346"><nobr><span class="ft16">598</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:82"><nobr><span class="ft9">Table 3: Agreement in top-ranked results between<br>measures. For example, MI1 and IDF rank the same<br>related community first for 98% of base communi-<br>ties. Correlations greater than 85% are in bold.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:129"><nobr><span class="ft17">L1<br>.70</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:163"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:129"><nobr><span class="ft16">.41</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:163"><nobr><span class="ft16">.60</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:195"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:129"><nobr><span class="ft16">.39</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:163"><nobr><span class="ft16">.57</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:199"><nobr><span class="ft16">.96</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:238"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:129"><nobr><span class="ft16">.41</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:163"><nobr><span class="ft16">.59</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:199"><nobr><span class="ft16">.98</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:242"><nobr><span class="ft16">.97</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:281"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:128"><nobr><span class="ft16">.88</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:163"><nobr><span class="ft16">.79</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:200"><nobr><span class="ft16">.46</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:243"><nobr><span class="ft16">.44</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:286"><nobr><span class="ft16">.46</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:323"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:82"><nobr><span class="ft4"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:123"><nobr><span class="ft4"><b>Discussion</b></span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:96"><nobr><span class="ft3">For a given measure, we refer to the related community</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:82"><nobr><span class="ft9">yielding the highest value to be the top-ranked related com-<br>munity relative to a base community.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:336"><nobr><span class="ft3">The average size</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:82"><nobr><span class="ft9">of top-ranked communities for each measure, which varies<br>greatly, is shown in Table 2. Table 3 shows how often two<br>functions yield the same top-ranking result. Table 4 shows<br>the top recommendations for the "I love wine" community.<br>Note that MI1, MI2, and IDF favor very large communities,<br>while L1 and LogOdds favor small communities.</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:96"><nobr><span class="ft3">Note that in addition to the obvious correlations between</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:82"><nobr><span class="ft9">the two mutual-information functions (96%), there is a very<br>strong correlation between IDF and the mutual-information<br>functions (97-98%). Manipulation of the formulas for MI1<br>and IDF shows:</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:82"><nobr><span class="ft3">M I1(b, r)</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:154"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:178"><nobr><span class="ft3">P(r, b) · lg</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:254"><nobr><span class="ft3">P(r, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:241"><nobr><span class="ft3">P(r) · P(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:154"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:178"><nobr><span class="ft3">P(r|b)·P(b) · lg P(r|b) - P(r|b)·P(b) · lg P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:154"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:178"><nobr><span class="ft3">P(r|b)·P(b) · lg P(r|b)</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:178"><nobr><span class="ft3">-P(r|b) · [1 - P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:278"><nobr><span class="ft3">b)] · lg P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:154"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:178"><nobr><span class="ft3">P(r|b)·[P(b) · lg P(r|b) + P(r|b)·P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:380"><nobr><span class="ft3">b) · lg P(r)]</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:178"><nobr><span class="ft3">-P(r|b) · lg P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:82"><nobr><span class="ft3">Substituting IDF (b, r) = -P (r|b) · lg P(r), we get:</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:94"><nobr><span class="ft3">M I1(b, r)</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:166"><nobr><span class="ft3">=</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:190"><nobr><span class="ft3">P(r|b) · P(b) · lg P(r|b) + P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:360"><nobr><span class="ft3">b) · lg P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:190"><nobr><span class="ft3">+IDF (b, r)</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:82"><nobr><span class="ft3">Since for virtually all communities b, P (b)</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:363"><nobr><span class="ft3">P (¯</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:379"><nobr><span class="ft3">b), we can</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:82"><nobr><span class="ft3">approximate:</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:124"><nobr><span class="ft3">M I1(b, r)  IDF (b, r) + P(r|b) · P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:338"><nobr><span class="ft3">b) · lg P(r)</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:96"><nobr><span class="ft3">Thus, MI1 yields a ranking that can be thought of as start-</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:82"><nobr><span class="ft9">ing with the ranking of IDF and perturbing the score of each<br>element in the ranking by P(r|b) · P(¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:299"><nobr><span class="ft3">b) · lg P(r), which gener-</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:82"><nobr><span class="ft3">ally is not great enough to change the relative ranking of the</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:477"><nobr><span class="ft9">top scores, leading to MI1 and IDF often giving the same<br>ranking to top-scoring communities. (Note that this pertur-<br>bation quantity is given only to explain the high correlation<br>between MI1 and IDF. Statistically, it is meaningless, since<br>b and ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:514"><nobr><span class="ft3">b cannot simultaneously hold.)</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:477"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:508"><nobr><span class="ft4"><b>EXPERIMENT DESIGN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:490"><nobr><span class="ft3">We designed an experiment to determine the relative value</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:477"><nobr><span class="ft9">of the recommendations produced by each similarity mea-<br>sure. This involved interleaving different pairs of recommen-<br>dations and tracking user clicks. Specifically, we measured<br>the efficacy of different similarity measures using pair-wise<br>binomial sign tests on click-through data rather than us-<br>ing traditional supervised learning measures such as preci-<br>sion/recall or accuracy since there is no "true" labeled data<br>for this task (i.e., we do not know what are the correct com-<br>munities that should be recommended to a user). Rather,<br>we focused on the task of determining which of the similar-<br>ity measures performs best on a relative performance scale<br>with regard to acceptance by users.</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:477"><nobr><span class="ft4"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:517"><nobr><span class="ft4"><b>Combination</b></span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:490"><nobr><span class="ft3">When a user viewed a community page, we hashed the</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:477"><nobr><span class="ft9">combined user and community identifiers to one of 30 val-<br>ues, specifying an ordered pair of similarity measures to<br>compare. Let S and T be the ordered lists of recommenda-<br>tions for the two measures, where S = (s</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:726"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:732"><nobr><span class="ft3">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:745"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:751"><nobr><span class="ft3">, . . . , s</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:788"><nobr><span class="ft14">|S|</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:803"><nobr><span class="ft3">) and</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:477"><nobr><span class="ft3">T = (t</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:516"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:522"><nobr><span class="ft3">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:533"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:539"><nobr><span class="ft3">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:575"><nobr><span class="ft14">|T |</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:591"><nobr><span class="ft3">) and |S| = |T |. The recommendations of</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:477"><nobr><span class="ft9">each measure are combined by Joachims' "Combined Rank-<br>ing" algorithm [7], restated in Figure 1. The resulting list is<br>guaranteed to contain the top k</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:670"><nobr><span class="ft14">S</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:683"><nobr><span class="ft3">and k</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:717"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:730"><nobr><span class="ft3">recommendations</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:477"><nobr><span class="ft3">for each measure, where k</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:634"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:647"><nobr><span class="ft3"> k</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:668"><nobr><span class="ft14">S</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:680"><nobr><span class="ft3"> k</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:702"><nobr><span class="ft14">T</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:714"><nobr><span class="ft3">+ 1 [7, Theorem 1].</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:477"><nobr><span class="ft4"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:517"><nobr><span class="ft4"><b>Measurements</b></span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:490"><nobr><span class="ft3">Whenever a user visited a community, two measures were</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:477"><nobr><span class="ft9">chosen and their recommendations interleaved, as discussed<br>above. This was done in a deterministic manner so that<br>a given user always saw the same recommendations for a<br>given community. To minimize feedback effects, we did not<br>regenerate recommendations after the experiment began.</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:490"><nobr><span class="ft3">A user who views a base community (e.g., "I love wine") is</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:477"><nobr><span class="ft9">either a member (denoted by "M") or non-member (denoted<br>by "n"). (We capitalize "M" but not "n" to make them eas-<br>ier to visually distinguish.) In either case, recommendations<br>are shown. When a user clicks on a recommendation, there<br>are three possibilities: (1) the user is already a member of<br>the recommended community ("M"), (2) the user joins the<br>recommended community ("j"), or (3) the user visits but<br>does not join the recommended community ("n"). The com-<br>bination of base and related community memberships can be<br>combined in six different ways. For example "Mj" denotes<br>a click where a member of the base community clicks on a<br>recommendation to another community to which she does<br>not belong and joins that community. Traditionally, anal-<br>yses of recommender systems focus on "Mj", also known<br>informally as "if you like this, you'll like that" or formally<br>as "similarity" or "conversion". "Mn" recommendations<br>are considered distracters, having negative utility, since they<br>waste a user's time with an item not of interest. Before run-<br>ning the experiment, we decided that the measures should<br>be judged on their "Mj" performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:490"><nobr><span class="ft3">Other interpretations are possible: "Mn" links could be</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:477"><nobr><span class="ft3">considered to have positive utility for any of the following</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">680</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:76"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86004.png" alt="background image">
+<DIV style="position:absolute;top:143;left:82"><nobr><span class="ft9">Table 4: Top recommendations for each measure for the "I love wine" community, with each recommended<br>community's overlap with the base community and size. The size of "I love wine" is 2400.</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:172"><nobr><span class="ft3">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:274"><nobr><span class="ft3">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:377"><nobr><span class="ft3">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:479"><nobr><span class="ft3">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:582"><nobr><span class="ft3">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:684"><nobr><span class="ft3">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:147"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:172"><nobr><span class="ft9">Ice Wine<br>(Eiswein)<br>(33/51)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:274"><nobr><span class="ft9">Red Wine<br>(208/690)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:377"><nobr><span class="ft9">Japanese<br>Food/Sushi<br>Lovers<br>(370/3206)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:479"><nobr><span class="ft9">Japanese<br>Food/Sushi<br>Lovers<br>(370/3206)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:582"><nobr><span class="ft9">Japanese<br>Food/Sushi<br>Lovers<br>(370/3206)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:684"><nobr><span class="ft9">Japanese<br>Food/Sushi<br>Lovers<br>(370/3206)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:147"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:172"><nobr><span class="ft9">California<br>Pinot Noir<br>(26/41)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:274"><nobr><span class="ft9">Cheeses of the<br>World<br>(200/675)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:377"><nobr><span class="ft9">Red Wine<br>(208/690)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:479"><nobr><span class="ft9">Red Wine<br>(208/690)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:582"><nobr><span class="ft9">Photography<br>(319/4679)</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:684"><nobr><span class="ft9">Photography<br>(319/4679)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:147"><nobr><span class="ft3">3</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:172"><nobr><span class="ft9">Winery<br>Visitor -<br>Worldwide<br>(44/74)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:274"><nobr><span class="ft9">I love red<br>wine!<br>(170/510)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:377"><nobr><span class="ft9">Cheeses of the<br>World<br>(200/675)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:479"><nobr><span class="ft9">Cheeses of the<br>World<br>(200/675)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:582"><nobr><span class="ft9">Red Wine<br>(208/690)</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:684"><nobr><span class="ft9">Linux<br>(299/9077)</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:266"><nobr><span class="ft3">Figure 1: Joachims' "Combine Rankings" algorithm [7]</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:156"><nobr><span class="ft3">Input:</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:214"><nobr><span class="ft3">ordered recommendation lists S = (s</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:436"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:443"><nobr><span class="ft3">, s</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:455"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:461"><nobr><span class="ft3">, . . . , s</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:499"><nobr><span class="ft14">|S|</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:513"><nobr><span class="ft3">) and T = (t</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:589"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:595"><nobr><span class="ft3">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:606"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:613"><nobr><span class="ft3">, . . . , t</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:648"><nobr><span class="ft14">|T |</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:664"><nobr><span class="ft3">) where |S| = |T |</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:160"><nobr><span class="ft3">Call:</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:214"><nobr><span class="ft3">combine (S, T, 0, 0, )</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:151"><nobr><span class="ft3">Output:</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:214"><nobr><span class="ft3">combined ordered recommendation list D</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:151"><nobr><span class="ft3">combine(S, T, k</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:251"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:257"><nobr><span class="ft3">, k</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:270"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:275"><nobr><span class="ft3">, D){</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:214"><nobr><span class="ft3">if (k</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:239"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:249"><nobr><span class="ft3">&lt; |S|  k</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:303"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:312"><nobr><span class="ft3">&lt; |T |)</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:284"><nobr><span class="ft3">if (k</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:309"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:319"><nobr><span class="ft3">= k</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:341"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:346"><nobr><span class="ft3">) {</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:379"><nobr><span class="ft3">if (S[k</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:417"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:426"><nobr><span class="ft3">+ 1] /</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:455"><nobr><span class="ft3"> D){D := D + S[k</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:575"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:584"><nobr><span class="ft3">+ 1]; }</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:379"><nobr><span class="ft3">combine(S, T, k</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:471"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:480"><nobr><span class="ft3">+ 1, k</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:514"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:519"><nobr><span class="ft3">, D);</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:284"><nobr><span class="ft3">} else {</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:379"><nobr><span class="ft3">if (T [k</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:418"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:426"><nobr><span class="ft3">+ 1] /</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:455"><nobr><span class="ft3"> D){D := D + T [k</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:575"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:584"><nobr><span class="ft3">+ 1]; }</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:379"><nobr><span class="ft3">combine(S, T, k</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:471"><nobr><span class="ft14">s</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:477"><nobr><span class="ft3">, k</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:490"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:498"><nobr><span class="ft3">+ 1, D);</span></nobr></DIV>
+<DIV style="position:absolute;top:693;left:284"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:214"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:171"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:82"><nobr><span class="ft9">Table 5: Clicks on recommendations, by membership status in the base and recommended communities, as<br>counts and as percentages of total clicks. The last column shows the conversion rate, defined as the percentage<br>of non-members clicking on a related community who then joined it (</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:577"><nobr><span class="ft14">j</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:569"><nobr><span class="ft14">n+j</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:591"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:107"><nobr><span class="ft3">membership in base community</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:344"><nobr><span class="ft9">membership in recommended community<br>M (member)</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:437"><nobr><span class="ft3">n (non-member)</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:571"><nobr><span class="ft3">j (join)</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:653"><nobr><span class="ft3">total</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:706"><nobr><span class="ft3">conversion rate</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:131"><nobr><span class="ft3">M (member): number of clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:365"><nobr><span class="ft3">36353</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:466"><nobr><span class="ft3">184214</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:571"><nobr><span class="ft3">212982</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:649"><nobr><span class="ft3">433549</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:747"><nobr><span class="ft3">54%</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:198"><nobr><span class="ft3">percent of total clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:374"><nobr><span class="ft3">4%</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:474"><nobr><span class="ft3">20%</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:579"><nobr><span class="ft3">24%</span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:657"><nobr><span class="ft3">48%</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:106"><nobr><span class="ft3">n (non-member): number of clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:369"><nobr><span class="ft3">8771</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:466"><nobr><span class="ft3">381241</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:575"><nobr><span class="ft3">77905</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:649"><nobr><span class="ft3">467917</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:747"><nobr><span class="ft3">17%</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:198"><nobr><span class="ft3">percent of total clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:374"><nobr><span class="ft3">1%</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:474"><nobr><span class="ft3">42%</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:583"><nobr><span class="ft3">9%</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:657"><nobr><span class="ft3">52%</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:187"><nobr><span class="ft3">total: number of clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:365"><nobr><span class="ft3">45124</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:466"><nobr><span class="ft3">565455</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:571"><nobr><span class="ft3">290887</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:649"><nobr><span class="ft3">901466</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:747"><nobr><span class="ft3">34%</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:198"><nobr><span class="ft3">percent of total clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:374"><nobr><span class="ft3">5%</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:474"><nobr><span class="ft3">63%</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:579"><nobr><span class="ft3">32%</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:653"><nobr><span class="ft3">100%</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">681</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:680"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86005.png" alt="background image">
+<DIV style="position:absolute;top:92;left:82"><nobr><span class="ft3">reasons:</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:99"><nobr><span class="ft3">1. As the user found the link sufficiently interesting to</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:116"><nobr><span class="ft9">click on, it was of more utility than a link not eliciting<br>a click.</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:99"><nobr><span class="ft3">2. The user is genuinely interested in the related com-</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:116"><nobr><span class="ft9">munity but does not want to proclaim her interest, as<br>membership information is public and some communi-<br>ties focus on taboo or embarrassing topics. For exam-<br>ple, a recommendation given for the popular "Choco-<br>late" community is "PMS". Note that this effect is spe-<br>cific to social networks and not, for example, Usenet<br>groups, where the user's list of communities is not re-<br>vealed to other users.</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:82"><nobr><span class="ft9">Similarly, it is unclear how to value clicks from a base com-<br>munity that the user does not belong to. Does an "nj"<br>click indicate failure, since the base community was not<br>joined by the user, but the recommended community was,<br>indicating a degree of dissimilarity?</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:321"><nobr><span class="ft3">Or is it of positive</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:82"><nobr><span class="ft9">utility, since it helped a user find a community of interest?<br>For these reasons, we tracked all clicks, recording the user's<br>membership status in the base and recommended commu-<br>nities for later analysis. (We did not track whether users<br>returned to communities in the future because of the log-<br>ging overhead that would be required.)</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:82"><nobr><span class="ft4"><b>3.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:123"><nobr><span class="ft4"><b>User Interface</b></span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:96"><nobr><span class="ft3">On community pages, our recommendations were pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:82"><nobr><span class="ft9">vided in a table, each cell of which contained a recommended<br>community's name, optional picture, and link (Figure 2).<br>Recommendations were shown by decreasing rank from left<br>to right, top to bottom, in up to 4 rows of 3. For aesthetic<br>reasons, we only showed entire rows; thus, no recommen-<br>dations were displayed if there were fewer than 3. We also<br>provided a control that allowed users to send us comments<br>on the recommendations.</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:82"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:114"><nobr><span class="ft4"><b>RESULTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:96"><nobr><span class="ft3">We analyzed all accesses between July 1, 2004, to July 18,</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:82"><nobr><span class="ft9">2004, of users who joined Orkut during that period. The sys-<br>tem served 4,106,050 community pages with recommenda-<br>tions, which provides a lower bound on the number of views.<br>(Unfortunately, we could not determine the total number of<br>views due to browser caching.) There were 901,466 clicks on<br>recommendations, 48% by members of the base community,<br>52% by non-members (Table 5). Clicks to related communi-<br>ties to which the user already belonged were rare, accounting<br>for only 5% of clicks. The most common case was for a non-<br>member of a base community to click through and not join<br>a related community (42%).</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:96"><nobr><span class="ft3">We defined conversion rate (also called precision) as the</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:82"><nobr><span class="ft9">percentage of non-members who clicked through to a com-<br>munity who then joined it. The conversion rate was three<br>times as high (54%) when the member belonged to the base<br>community (from which the recommendation came) than<br>not (17%).</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:82"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:123"><nobr><span class="ft4"><b>Relative performance of different measures</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:96"><nobr><span class="ft3">We compared each measure pairwise against every other</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:82"><nobr><span class="ft9">measure by analyzing clicks of their merged recommenda-<br>tions. If the click was on a recommendation ranked higher</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:477"><nobr><span class="ft9">by measure L2 than measure L1, for example, we consid-<br>ered it a "win" for L2 and a loss for L1. If both measures<br>ranked it equally, the result was considered to be a tie. Ta-<br>ble 6 shows the outcomes of all clicks, with conversions by<br>members ("Mj") and non-members of the base community<br>("nj") broken out separately.</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:490"><nobr><span class="ft3">We say that a measure dominates another if, in their pair-</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:477"><nobr><span class="ft9">wise comparison, the former has more "wins". For example,<br>L2 dominates L1. This definition, combined with the data<br>in Table 6, yielded a total order (to our surprise) among<br>the measures: L2, MI1, MI2, IDF, L1, LogOdds. The same<br>total order occurred if only "nj" clicks were considered.<br>The order was different if all clicks were considered: L2, L1,<br>MI1, MI2, IDF, LogOdds.</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:477"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:517"><nobr><span class="ft4"><b>Conversion rates</b></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:490"><nobr><span class="ft3">There was great variance in conversion rate by recom-</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:477"><nobr><span class="ft3">mended community.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:615"><nobr><span class="ft3">We examined the 93 recommended</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:477"><nobr><span class="ft9">communities that were clicked through to more than 1000<br>times. Unsurprisingly, the ten with the lowest conversion<br>rate all were about sex (e.g., Amateur Porn). Note that<br>members of the base community were far more willing than<br>non-members to join, perhaps because they had already<br>shown their willingness to join a sex-related community. At<br>the other extreme, none of the ten with the highest con-<br>version rate were sexual (e.g., Flamenco). Table 7 provides<br>selected data by each membership combination. Unsurpris-<br>ingly, for all 93 base communities, members were more likely<br>than non-members to join the recommended community.</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:477"><nobr><span class="ft4"><b>4.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:517"><nobr><span class="ft4"><b>User comments</b></span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:490"><nobr><span class="ft3">Users were also able to submit feedback on related com-</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:477"><nobr><span class="ft9">munities. Most of the feedback was from users who wanted<br>recommendations added or removed. Some complained a-<br>bout inappropriate recommendations of sexual or political<br>communities, especially if they found the displayed image<br>offensive. A few objected to our generating related commu-<br>nity recommendations at all, instead of allowing community<br>creators to specify them. In one case, poor recommenda-<br>tions destroyed a community: The creator of a feminist sex-<br>uality community disbanded it both because of the prurient<br>recommendations that appeared on her page and the disrup-<br>tive new members who joined as a result of recommendations<br>from such communities. We agreed with her that the recom-<br>mendations were problematic and offered to remove them.<br>While anecdotal, this example illustrates how a recommen-<br>dation can have unanticipated consequences that cannot be<br>captured in simple statistical measures. (An informal dis-<br>cussion of users' behavior when we allowed them to choose<br>related communities can be found elsewhere [14].)</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:477"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:508"><nobr><span class="ft4"><b>POSITIONAL EFFECTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:490"><nobr><span class="ft3">During the above experiment, we became curious how the</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:477"><nobr><span class="ft9">relative placement of recommendations affected users' selec-<br>tions and performed a second experiment.</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:477"><nobr><span class="ft4"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:517"><nobr><span class="ft4"><b>Design</b></span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:490"><nobr><span class="ft3">After determining that L2 was the best measure of simi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:477"><nobr><span class="ft9">larity, we recomputed the recommendations and studied the<br>effect of position on click-through. While in our original<br>experiment we displayed up to 12 recommendations in de-<br>creasing rank, for this experiment we displayed up to 9 rec-<br>ommendations in random order, again ensuring that each</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">682</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:76"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86006.png" alt="background image">
+<DIV style="position:absolute;top:101;left:82"><nobr><span class="ft9">Table 6: The relative performance of each measure in pairwise combination on clicks leading to joins, divided<br>by base community membership status, and on all clicks.</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:513"><nobr><span class="ft3">Except where numbers appear in italics, the</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:82"><nobr><span class="ft9">superioriority of one measure over another was statistically significant (p &lt; .01) using a binomial sign test<br>[10].</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:231"><nobr><span class="ft16">measures</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:356"><nobr><span class="ft16">M  j</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:489"><nobr><span class="ft16">n  j</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:618"><nobr><span class="ft16">all clicks</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:320"><nobr><span class="ft16">win</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:360"><nobr><span class="ft16">equal</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:409"><nobr><span class="ft16">loss</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:451"><nobr><span class="ft16">win</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:490"><nobr><span class="ft16">equal</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:539"><nobr><span class="ft16">loss</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:584"><nobr><span class="ft16">win</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:627"><nobr><span class="ft16">equal</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:680"><nobr><span class="ft16">loss</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:217"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:265"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:317"><nobr><span class="ft16">6899</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:362"><nobr><span class="ft16">2977</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:406"><nobr><span class="ft16">4993</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:448"><nobr><span class="ft16">2600</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:492"><nobr><span class="ft16">1073</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:536"><nobr><span class="ft16">1853</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:578"><nobr><span class="ft16">30664</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:626"><nobr><span class="ft16">12277</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:674"><nobr><span class="ft16">20332</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:217"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:265"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:317"><nobr><span class="ft16">6940</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:362"><nobr><span class="ft16">2743</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:406"><nobr><span class="ft16">5008</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:448"><nobr><span class="ft16">2636</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:492"><nobr><span class="ft16">1078</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:536"><nobr><span class="ft16">1872</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:578"><nobr><span class="ft16">31134</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:626"><nobr><span class="ft16">11260</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:674"><nobr><span class="ft16">19832</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:217"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:265"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:317"><nobr><span class="ft16">6929</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:362"><nobr><span class="ft16">2697</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:406"><nobr><span class="ft16">5064</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:448"><nobr><span class="ft16">2610</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:492"><nobr><span class="ft16">1064</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:536"><nobr><span class="ft16">1865</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:578"><nobr><span class="ft16">30710</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:626"><nobr><span class="ft16">11271</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:674"><nobr><span class="ft16">20107</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:217"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:269"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:317"><nobr><span class="ft16">7039</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:362"><nobr><span class="ft16">2539</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:406"><nobr><span class="ft16">4834</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:448"><nobr><span class="ft16">2547</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:495"><nobr><span class="ft16">941</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:536"><nobr><span class="ft16">1983</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:578"><nobr><span class="ft16">28506</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:626"><nobr><span class="ft16">13081</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:674"><nobr><span class="ft16">23998</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:217"><nobr><span class="ft16">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:251"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:317"><nobr><span class="ft16">8186</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:362"><nobr><span class="ft16">1638</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:406"><nobr><span class="ft16">4442</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:448"><nobr><span class="ft16">2852</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:495"><nobr><span class="ft16">564</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:536"><nobr><span class="ft16">1655</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:578"><nobr><span class="ft16">34954</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:629"><nobr><span class="ft16">6664</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:674"><nobr><span class="ft16">18631</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:212"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:265"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:317"><nobr><span class="ft16">3339</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:362"><nobr><span class="ft16">9372</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:406"><nobr><span class="ft16">1855</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:448"><nobr><span class="ft16">1223</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:492"><nobr><span class="ft16">3401</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:539"><nobr><span class="ft16">683</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:578"><nobr><span class="ft16">14812</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:626"><nobr><span class="ft16">37632</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:677"><nobr><span class="ft16">7529</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:212"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:265"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:317"><nobr><span class="ft16">3431</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:362"><nobr><span class="ft16">8854</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:406"><nobr><span class="ft16">1891</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:448"><nobr><span class="ft16">1139</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:492"><nobr><span class="ft16">3288</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:539"><nobr><span class="ft16">629</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:578"><nobr><span class="ft16">14671</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:626"><nobr><span class="ft16">37049</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:677"><nobr><span class="ft16">7758</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:212"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:251"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:317"><nobr><span class="ft16">7099</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:362"><nobr><span class="ft16">3546</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:406"><nobr><span class="ft16">3341</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:448"><nobr><span class="ft16">2514</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:492"><nobr><span class="ft16">1213</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:536"><nobr><span class="ft16">1193</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:578"><nobr><span class="ft16">29837</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:626"><nobr><span class="ft16">13869</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:674"><nobr><span class="ft16">13921</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:212"><nobr><span class="ft16">MI1</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:269"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:317"><nobr><span class="ft16">6915</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:362"><nobr><span class="ft16">1005</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:406"><nobr><span class="ft16">6059</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:448"><nobr><span class="ft16">2547</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:495"><nobr><span class="ft16">407</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:536"><nobr><span class="ft16">2338</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:578"><nobr><span class="ft16">27786</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:629"><nobr><span class="ft16">4308</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:674"><nobr><span class="ft16">29418</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:212"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:265"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:317"><nobr><span class="ft16">1564</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:358"><nobr><span class="ft16">11575</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:406"><nobr><span class="ft16">1031</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:451"><nobr><span class="ft16">533</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:492"><nobr><span class="ft16">4266</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:539"><nobr><span class="ft16">359</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:581"><nobr><span class="ft16">6003</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:626"><nobr><span class="ft16">47885</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:677"><nobr><span class="ft16">4490</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:212"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:251"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:317"><nobr><span class="ft16">6920</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:362"><nobr><span class="ft16">3959</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:406"><nobr><span class="ft16">3177</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:448"><nobr><span class="ft16">2484</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:492"><nobr><span class="ft16">1418</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:539"><nobr><span class="ft16">598</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:581"><nobr><span class="ft16">2881</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:626"><nobr><span class="ft16">15308</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:674"><nobr><span class="ft16">13188</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:212"><nobr><span class="ft16">MI2</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:269"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:317"><nobr><span class="ft16">6830</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:365"><nobr><span class="ft16">950</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:406"><nobr><span class="ft16">6419</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:448"><nobr><span class="ft16">2383</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:495"><nobr><span class="ft16">362</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:536"><nobr><span class="ft16">2333</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:578"><nobr><span class="ft16">26865</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:629"><nobr><span class="ft16">3872</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:674"><nobr><span class="ft16">29864</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:212"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:269"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:317"><nobr><span class="ft16">6799</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:362"><nobr><span class="ft16">1006</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:406"><nobr><span class="ft16">6304</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:448"><nobr><span class="ft16">2467</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:495"><nobr><span class="ft16">392</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:536"><nobr><span class="ft16">2352</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:578"><nobr><span class="ft16">27042</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:629"><nobr><span class="ft16">4069</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:674"><nobr><span class="ft16">29755</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:212"><nobr><span class="ft16">IDF</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:251"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:317"><nobr><span class="ft16">6691</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:362"><nobr><span class="ft16">3804</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:406"><nobr><span class="ft16">3096</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:448"><nobr><span class="ft16">2452</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:492"><nobr><span class="ft16">1378</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:536"><nobr><span class="ft16">1085</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:578"><nobr><span class="ft16">28224</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:626"><nobr><span class="ft16">15013</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:674"><nobr><span class="ft16">13330</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:217"><nobr><span class="ft16">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:251"><nobr><span class="ft16">LogOdds</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:317"><nobr><span class="ft16">6730</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:365"><nobr><span class="ft16">518</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:406"><nobr><span class="ft16">5975</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:448"><nobr><span class="ft16">2521</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:495"><nobr><span class="ft16">108</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:536"><nobr><span class="ft16">2059</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:578"><nobr><span class="ft16">31903</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:629"><nobr><span class="ft16">2097</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:674"><nobr><span class="ft16">24431</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:82"><nobr><span class="ft9">Table 7: Conversion rates by status of membership in base community, for communities to which more than<br>1000 clicks on recommendations occurred.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:345"><nobr><span class="ft16">member of base community</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:582"><nobr><span class="ft16">non-member of base community</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:131"><nobr><span class="ft16">Related community</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:306"><nobr><span class="ft16">MM</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:360"><nobr><span class="ft16">Mj</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:408"><nobr><span class="ft16">Mj</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:454"><nobr><span class="ft16">conversion rate</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:554"><nobr><span class="ft16">nM</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:607"><nobr><span class="ft16">nn</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:656"><nobr><span class="ft16">nM</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:704"><nobr><span class="ft16">conversion rate</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:131"><nobr><span class="ft17">10 communities with highest<br>conversion rates</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:315"><nobr><span class="ft16">583</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:361"><nobr><span class="ft16">2273</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:409"><nobr><span class="ft16">6984</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:484"><nobr><span class="ft16">75%</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:560"><nobr><span class="ft16">198</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:608"><nobr><span class="ft16">3454</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:659"><nobr><span class="ft16">2017</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:734"><nobr><span class="ft16">37%</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:131"><nobr><span class="ft17">10 communities with lowest<br>conversion rates</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:315"><nobr><span class="ft16">326</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:361"><nobr><span class="ft16">1984</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:413"><nobr><span class="ft16">826</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:484"><nobr><span class="ft16">29%</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:563"><nobr><span class="ft16">68</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:605"><nobr><span class="ft16">26287</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:662"><nobr><span class="ft16">472</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:732"><nobr><span class="ft16">1.8%</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:131"><nobr><span class="ft16">all 93 communities</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:308"><nobr><span class="ft16">13524</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:358"><nobr><span class="ft16">54415</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:406"><nobr><span class="ft16">52614</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:484"><nobr><span class="ft16">46%</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:557"><nobr><span class="ft16">3488</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:601"><nobr><span class="ft16">127819</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:656"><nobr><span class="ft16">19007</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:734"><nobr><span class="ft16">17%</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:82"><nobr><span class="ft9">user always saw the same ordering of recommendations for<br>a given community. By randomizing the position of recom-<br>mendations, we sought to measure ordering primacy effects<br>in the recommendations as opposed to their ranked quality.</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:82"><nobr><span class="ft4"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:123"><nobr><span class="ft4"><b>Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:96"><nobr><span class="ft3">We measured all 1,279,226 clicks on related community</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:82"><nobr><span class="ft9">recommendations from September 22, 2004, through Oc-<br>tober 21, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:191"><nobr><span class="ft3">Table 8 shows the relative likelihood of</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:82"><nobr><span class="ft9">clicks on each position. When there was only a single row,<br>the middle recommendation was clicked most, followed by<br>the leftmost, then rightmost recommendations, although the<br>differences were not statistically significant.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:368"><nobr><span class="ft3">When there</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:82"><nobr><span class="ft9">were two or three rows, the differences were very significant<br>(p &lt; .001), with preferences for higher rows. P-values were<br>computed using a Chi-Squared test comparing the observed<br>click-through rates with a uniform distribution over all po-<br>sitions [10].</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:82"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:114"><nobr><span class="ft4"><b>CONCLUSION AND FUTURE PLANS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:96"><nobr><span class="ft3">Orkut's large number of community memberships and us-</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:82"><nobr><span class="ft9">ers allowed us to evaluate the relative performance of six<br>different measures of similarity in a large-scale real-world<br>study. We are not aware of any comparable published large-<br>scale experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:207"><nobr><span class="ft3">We were surprised that a total order</span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:82"><nobr><span class="ft9">emerged among the similarity measures and that L2 vec-<br>tor normalization showed the best empirical results despite<br>other measures, such as log-odds and pointwise mutual in-</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:477"><nobr><span class="ft9">formation, which we found more intuitive. For future work,<br>we would like to see how recommendations handpicked by<br>community owners compare.</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:490"><nobr><span class="ft3">Just as we can estimate communities' similarity through</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:477"><nobr><span class="ft9">common users, we can estimate users' similarity through<br>common community memberships: i.e., user A might be<br>similar to user B because they belong to n of the same com-<br>munities. It will be interesting to see whether L2 also proves<br>superior in such a domain. We could also take advantage<br>of Orkut's being a social network [8], i.e., containing in-<br>formation on social connections between pairs of users. In<br>addition to considering common community memberships,<br>we could consider distance between users in the "friendship<br>graph". Users close to each other (e.g., friends or friends-<br>of-friends) might be judged more likely to be similar than<br>distant strangers, although some users might prefer the lat-<br>ter type of link, since it would introduce them to someone<br>they would be unlikely to meet otherwise, perhaps from a<br>different country or culture.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:490"><nobr><span class="ft3">Similarly, friendship graph information can be taken into</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:477"><nobr><span class="ft9">account when making community recommendations, which<br>would require that recommendations be computed on a per-<br>user (or per-clique), rather than per-community, basis. In<br>such a setting, we could make community recommendations<br>based on weighted community overlap vectors where weights<br>are determined based on the graph distances of other com-<br>munity members to a given user. This is a fertile area for<br>future work and yet another example of how the interaction</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">683</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:680"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1268;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1268" src="86007.png" alt="background image">
+<DIV style="position:absolute;top:101;left:211"><nobr><span class="ft3">Figure 2: Displays of recommendations for three different communities</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:82"><nobr><span class="ft9">Table 8: The relative likelihood of clicks on link by position when there are (a) one, (b) two, or (c) three<br>rows of three recommendations.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:155"><nobr><span class="ft3">(a) n=28108, p=.12</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:398"><nobr><span class="ft3">(b) n=24459, p&lt;.001</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:633"><nobr><span class="ft3">(c) n=1226659, p&lt;.001</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:143"><nobr><span class="ft3">1.00</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:205"><nobr><span class="ft3">1.01</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:268"><nobr><span class="ft3">.98</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:387"><nobr><span class="ft3">1.04</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:447"><nobr><span class="ft3">1.05</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:508"><nobr><span class="ft3">1.08</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:629"><nobr><span class="ft3">1.11</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:691"><nobr><span class="ft3">1.06</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:753"><nobr><span class="ft3">1.04</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:391"><nobr><span class="ft3">.97</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:450"><nobr><span class="ft3">.94</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:512"><nobr><span class="ft3">.92</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:629"><nobr><span class="ft3">1.01</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:694"><nobr><span class="ft3">.97</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:756"><nobr><span class="ft3">.99</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:629"><nobr><span class="ft3">1.01</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:694"><nobr><span class="ft3">.94</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:756"><nobr><span class="ft3">.87</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:82"><nobr><span class="ft9">of data mining and social networks is becoming an exciting<br>new research area [4] [11].</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:82"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:114"><nobr><span class="ft4"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:96"><nobr><span class="ft3">This work was performed while Ellen Spertus was on sab-</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:82"><nobr><span class="ft9">batical from Mills College and a visiting scientist at Google.<br>We are grateful to Patrick Barry, Alex Drobychev, Jen Fitz-<br>patrick, Julie Jalalpour, Dave Jeske, Katherine Lew, Marissa<br>Mayer, Tom Nielsen, Seva Petrov, Greg Reshko, Catherine<br>Rondeau, Adam Sawyer, Eric Sachs, and Lauren Simpson<br>for their help on the Orkut project and to Corey Anderson,<br>Alex Drobychev, Oren Etzioni, Alan Eustace, Keith Golden,<br>Carrie Grimes, Pedram Keyani, John Lamping, Tom Nielsen,<br>Peter Norvig, Kerry Rodden, Gavin Tachibana, and Yonatan<br>Zunger for their help on this research or its exposition.</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:82"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:114"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:91"><nobr><span class="ft16">[1] Breese, J.; Heckerman, D.; Kadie, C. Empirical Analysis of</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:111"><nobr><span class="ft17">Predictive Algorithms for Collaborative Filtering. In<br>Proceedings of the Fourteenth Conference on Uncertainty<br>in Artificial Intelligence (Madison, Wisconsin, 1998).<br>Morgan Kaufmann.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:91"><nobr><span class="ft16">[2] Cover, T.M., and Thomas, J.A. Elements of Information</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:111"><nobr><span class="ft16">Theory. Wiley, New York, 1991.</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:91"><nobr><span class="ft16">[3] Deshpande, M., and Karypis, G. Item-Based Top-N</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:111"><nobr><span class="ft17">Recommendation Algorithms. ACM Transactions on<br>Information Systems 22(1) (January 2004), 143-177.</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:91"><nobr><span class="ft16">[4] Domingos, P. Prospects and Challenges for</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:111"><nobr><span class="ft17">Multi-Relational Data Mining. ACM SIGKDD Exploration<br>Newsletter 5(1) (July 2003).</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:91"><nobr><span class="ft16">[5] Dumais, S.; Joachims, T.; Bharat, K.; Weigend, A. SIGIR</span></nobr></DIV>
+<DIV style="position:absolute;top:1060;left:111"><nobr><span class="ft17">2003 Workshop Report: Implicit Measures of User Interests<br>and Preferences. SIGIR Forum 37(2) (Fall 2003).</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:485"><nobr><span class="ft16">[6] Harman, D. Ranking Algorithms. In W. B. Frakes and R.</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:505"><nobr><span class="ft17">Baeza-Yates (ed.), Information Retrieval: Data Structures<br>&amp; Algorithms (chapter 14). Upper Saddle River, NJ, USA:<br>Prentice Hall, 1992.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:485"><nobr><span class="ft16">[7] Joachims, T. Evaluating Retrieval Performance Using</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:505"><nobr><span class="ft17">Clickthrough Data. In Proceedings of the SIGIR Workshop<br>on Mathematical/Formal Methods in Information<br>Retrieval (2002). ACM Press, New York, NY.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:485"><nobr><span class="ft16">[8] Kautz, H.; Selman, Bart; Shah, M. Referral Web:</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:505"><nobr><span class="ft17">Combining Social Networks and Collaborative Filtering.<br>Communications of the ACM 45(8) (March 1997).</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:485"><nobr><span class="ft16">[9] Kitts, B.; Freed, D.; Vrieze, M. Cross-Sell: A Fast</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:505"><nobr><span class="ft17">Promotion-Tunable Customer-Item Recommendation<br>Method based on Conditionally Independent Probabilities.<br>In Proceedings of the Sixth ACM SIGKDD International<br>Conference on Knowledge Discovery and Data Mining<br>(Boston, 2000). ACM Press, New York, NY, 437-446.</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:479"><nobr><span class="ft16">[10] Lehmann, E.L. Testing Statistical Hypotheses (second</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:505"><nobr><span class="ft16">edition). Springer-Verlag, 1986.</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:479"><nobr><span class="ft16">[11] Raghavan, P. Social Networks and the Web (Invited Talk).</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:505"><nobr><span class="ft17">In Advances in Web Intelligence: Proceedings of the<br>Second International Atlantic Web Intelligence<br>Conference, May 2004. Springer-Verlag, Heidelberg.</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:479"><nobr><span class="ft16">[12] Salton, G. Automatic Text Processing: The</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:505"><nobr><span class="ft17">Transformation, Analysis, and Retrieval of Information by<br>Computer. Addison Wesley, Reading, MA, 1989.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:479"><nobr><span class="ft16">[13] Sarwar, B.; Karypis, G.; Konstan, J.; Reidl, J. Item-Based</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:505"><nobr><span class="ft17">Collaborative Filtering Recommendation Algorithms. In<br>Proceedings of the Tenth International Conference on the<br>World Wide Web (WWW10) (Hong Kong, 2001). ACM<br>Press, New York, NY, 285-295.</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:479"><nobr><span class="ft16">[14] Spertus, Ellen. Too Much Information. Orkut Media</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:505"><nobr><span class="ft17">Selections, January 19, 2005. Available online at<br>"http://media.orkut.com/articles/0078.html".</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:449"><nobr><span class="ft8">684</span></nobr></DIV>
+<DIV style="position:absolute;top:43;left:76"><nobr><span class="ft7"><b>Research Track Poster</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

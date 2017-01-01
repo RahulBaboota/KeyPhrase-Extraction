@@ -1,0 +1,991 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>article.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2003-12-05T15:32:21+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:-1px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;font-family:Times;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;font-family:Times;color:#000000;}
+	.ft10{font-size:16px;font-family:Courier;color:#000000;}
+	.ft11{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:153"><nobr><span class="ft0"><b>Providing the Basis for Human-Robot-Interaction:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:146"><nobr><span class="ft0"><b>A Multi-Modal Attention System for a Mobile Robot</b></span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:220"><nobr><span class="ft1">Sebastian Lang, Marcus Kleinehagenbrock, Sascha Hohenner,</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:262"><nobr><span class="ft1">Jannik Fritsch, Gernot A. Fink, and Gerhard Sagerer</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:265"><nobr><span class="ft2">Bielefeld University, Faculty of Technology, Bielefeld, Germany</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:228"><nobr><span class="ft2">slang, mkleineh, sascha, jannik, gernot, sagerer @techfak.uni-bielefeld.de</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:93"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:93"><nobr><span class="ft11">In order to enable the widespread use of robots in home and office<br>environments, systems with natural interaction capabilities have to<br>be developed. A prerequisite for natural interaction is the robot's<br>ability to automatically recognize when and how long a person's<br>attention is directed towards it for communication. As in open en-<br>vironments several persons can be present simultaneously, the de-<br>tection of the communication partner is of particular importance.<br>In this paper we present an attention system for a mobile robot<br>which enables the robot to shift its attention to the person of in-<br>terest and to maintain attention during interaction. Our approach<br>is based on a method for multi-modal person tracking which uses<br>a pan-tilt camera for face recognition, two microphones for sound<br>source localization, and a laser range finder for leg detection. Shift-<br>ing of attention is realized by turning the camera into the direction<br>of the person which is currently speaking. From the orientation<br>of the head it is decided whether the speaker addresses the robot.<br>The performance of the proposed approach is demonstrated with an<br>evaluation. In addition, qualitative results from the performance of<br>the robot at the exhibition part of the ICVS'03 are provided.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:93"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:93"><nobr><span class="ft11">I.4.8 [<b>Image Processing and Computer Vision</b>]: Scene Anal-<br>ysis--<i>Sensor fusion, Tracking</i>; H.1.2 [<b>Models and Principles</b>]:<br>User/Machine Systems; I.5.5 [<b>Pattern Recognition</b>]: Implemen-<br>tation--<i>Interactive systems</i></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:93"><nobr><span class="ft4"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:93"><nobr><span class="ft5">Algorithms, Performance, Experimentation</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:93"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:93"><nobr><span class="ft5">Human-robot-interaction, Multi-modal person tracking, Attention</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:93"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:125"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:107"><nobr><span class="ft5">A prerequisite for the successful application of mobile service</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:93"><nobr><span class="ft11">robots in home and office environments is the development of sys-<br>tems with natural human-robot-interfaces. Much research focuses</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:93"><nobr><span class="ft12">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>ICMI'03, </i>November 5­7, 2003, Vancouver, British Columbia, Canada.<br>Copyright 2003 ACM 1-58113-621-8/03/0011 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:329"><nobr><span class="ft5">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:336"><nobr><span class="ft8">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:488"><nobr><span class="ft13"><b>Figure 1: Even in crowded situations (here at the ICVS'03) the<br>mobile robot BIRON is able to robustly track persons and shift<br>its attention to the speaker.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:488"><nobr><span class="ft11">on the communication process itself, e.g. speaker-independent<br>speech recognition or robust dialog systems. In typical tests of such<br>human-machine interfaces, the presence and position of the com-<br>munication partner is known beforehand as the user either wears a<br>close-talking microphone or stands at a designated position. On a<br>mobile robot that operates in an environment where several people<br>are moving around, it is not always obvious for the robot which<br>of the surrounding persons wants to interact with it. Therefore,<br>it is necessary to develop techniques that allow a mobile robot to<br>automatically recognize when and how long a user's attention is<br>directed towards it for communication.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:501"><nobr><span class="ft5">For this purpose some fundamental abilities of the robot are re-</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:488"><nobr><span class="ft11">quired. First of all, it must be able to detect persons in its vicinity<br>and to track their movements over time in order to differentiate<br>between persons. In previous work, we have demonstrated how<br>tracking of persons can be accomplished using a laser range finder<br>and a pan-tilt color camera [6].</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:501"><nobr><span class="ft5">As speech is the most important means of communication for</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:488"><nobr><span class="ft11">humans, we extended this framework to incorporate sound source<br>information for multi-modal person tracking and attention control.<br>This enables a mobile robot to detect and localize sound sources in<br>the robot's surroundings and, therfore, to observe humans and to<br>shift its attention to a person that is likely to communicate with the<br>robot. The proposed attention system is part of a larger research<br>effort aimed at building BIRON ­ the Bielefeld Robot Companion.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">28</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154002.png" alt="background image">
+<DIV style="position:absolute;top:87;left:107"><nobr><span class="ft5">BIRON has already performed attention control successfully</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:93"><nobr><span class="ft11">during several demonstrations. Figure 1 depicts a typical situation<br>during the exhibition of our mobile robot at the International Con-<br>ference on Computer Vision Systems (ICVS) 2003 in Graz.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:107"><nobr><span class="ft5">The paper is organized as follows: At first we discuss approaches</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:93"><nobr><span class="ft11">that are related to the detection of communication partners in sec-<br>tion 2. Then, in section 3 the robot hardware is presented. Next,<br>multi-modal person tracking is outlined in section 4, followed by<br>the explanation of the corresponding perceptual systems in sec-<br>tion 5. This is the basis of our approach for the detection of commu-<br>nication partners explained in section 6. In section 7 an extensive<br>evaluation of the system is presented. The paper concludes with a<br>short summary in section 8.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:93"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:125"><nobr><span class="ft4"><b>RELATED WORK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:107"><nobr><span class="ft5">As long as artificial systems interact with humans in static setups</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:93"><nobr><span class="ft11">the detection of communication partners can be achieved rather eas-<br>ily. For the interaction with an information kiosk the potential user<br>has to enter a definite space in front of it (cf. e.g. [14]). In intelligent<br>rooms usually the configuration of the sensors allows to monitor all<br>persons involved in a meeting simultaneously (cf. e.g. [18]).</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:107"><nobr><span class="ft5">In contrast to these scenarios a mobile robot does not act in a</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:93"><nobr><span class="ft11">closed or even controlled environment. A prototypical application<br>of such a system is its use as a tour guide in scientific laboratories<br>or museums (cf. e.g. [3]). All humans approaching or passing the<br>robot have to be considered to be potential communication part-<br>ners. In order to circumvent the problem of detecting humans in<br>an unstructured and potentially changing environment, in the ap-<br>proach presented in [3] a button on the robot itself has to be pushed<br>to start the interaction.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:107"><nobr><span class="ft5">Two examples for robots with advanced human-robot interfaces</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:93"><nobr><span class="ft11">are <i>SIG </i>[13] and <i>ROBITA </i>[12] which currently demonstrate their<br>capabilities in research labs. Both use a combination of visual face<br>recognition and sound source localization for the detection of a per-<br>son of interest. <i>SIG</i>'s focus of attention is directed towards the<br>person currently speaking that is either approaching the robot or<br>standing close to it. In addition to the detection of talking people,<br><i>ROBITA </i>is also able to determine the addressee of spoken utter-<br>ances. Thus, it can distinguish speech directed towards itself from<br>utterances spoken to another person. Both robots, <i>SIG </i>and <i>RO-<br>BITA</i>, can give feedback which person is currently considered to be<br>the communication partner. <i>SIG </i>always turns its complete body to-<br>wards the person of interest. <i>ROBITA </i>can use several combinations<br>of body orientation, head orientation, and eye gaze.</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:107"><nobr><span class="ft5">The multi-modal attention system for a mobile robot presented</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:93"><nobr><span class="ft11">in this paper is based on face recognition, sound source localization<br>and leg detection. In the following related work on these topics will<br>be reviewed.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:107"><nobr><span class="ft5">For human-robot interfaces tracking of the user's face is indis-</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:93"><nobr><span class="ft11">pensable. It provides information about the user's identity, state,<br>and intent. A first step for any face processing system is to de-<br>tect the locations of faces in the robot's camera image. However,<br>face detection is a challenging task due to variations in scale and<br>position within the image. In addition, it must be robust to differ-<br>ent lighting conditions and facial expressions. A wide variety of<br>techniques has been proposed, for example neural networks [15],<br>deformable templates [23], skin color detection [21], or principle<br>component analysis (PCA), the so-called Eigenface method [19].<br>For an overview the interested reader is referred to [22, 9].</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:107"><nobr><span class="ft5">In current research on sound or speaker localization mostly mi-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:93"><nobr><span class="ft11">crophone arrays with at least 3 microphones are used. Only a few<br>approaches employ just one pair of microphones. Fast and ro-<br>bust techniques for sound (and therefore speaker) localization are</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:488"><nobr><span class="ft11">e.g. the Generalized Cross-Correlation Method [11] or the Cross-<br>Powerspectrum Phase Analysis [8], which both can be applied for<br>microphone-arrays as well as for only one pair of microphones.<br>More complex algorithms for speaker localization like spectral sep-<br>aration and measurement fusion [2] or Linear-Correction Least-<br>Squares [10] are also very robust and can additionally estimate<br>the distance and the height of a speaker or separate different audio<br>sources. Such complex algorithms require more than one pair of<br>microphones to work adequately and also require substantial pro-<br>cessing power.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:501"><nobr><span class="ft5">In mobile robotics 2D laser range finders are often used, primar-</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:488"><nobr><span class="ft11">ily for robot localization and obstacle avoidance. A laser range<br>finder can also be applied to detect persons. In the approach pre-<br>sented in [16] for every object detected in a laser scan features like<br>diameter, shape, and distance are extracted. Then, fuzzy logic is<br>used to determine which of the objects are pairs of legs. In [17]<br>local minima in the range profile are considered to be pairs of legs.<br>Since other objects (e.g. trash bins) produce patterns similar to per-<br>sons, moving objects are distinguished from static objects, too.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:488"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:519"><nobr><span class="ft4"><b>ROBOT HARDWARE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:739"><nobr><span class="ft13"><b>Figure 2: The mo-<br>bile robot BIRON.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:501"><nobr><span class="ft5">The hardware platform for BIRON is</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:488"><nobr><span class="ft11">a Pioneer PeopleBot from ActivMedia<br>(Fig. 2) with an on-board PC (Pentium<br>III, 850 MHz) for controlling the motors<br>and the on-board sensors and for sound<br>processing. An additional PC (Pentium<br>III, 500 MHz) inside the robot is used<br>for image processing.</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:501"><nobr><span class="ft5">The two PC's running Linux are</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:488"><nobr><span class="ft11">linked with a 100 Mbit Ethernet and the<br>controller PC is equipped with wireless<br>Ethernet to enable remote control of the<br>mobile robot. For the interaction with a<br>user a 12" touch screen display is pro-<br>vided on the robot.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:501"><nobr><span class="ft5">A pan-tilt color camera (Sony EVI-</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:488"><nobr><span class="ft11">D31) is mounted on top of the robot at a<br>height of 141 cm for acquiring images of<br>the upper body part of humans interact-<br>ing with the robot. Two AKG far-field<br>microphones which are usually used for<br>hands free telephony are located at the<br>front of the upper platform at a height<br>of 106 cm, right below the touch screen<br>display. The distance between the mi-<br>crophones is 28.1 cm. A SICK laser<br>range finder is mounted at the front at<br>a height of approximately 30 cm.</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:501"><nobr><span class="ft5">For robot navigation we use the ISR (Intelligent Service Robot)</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:488"><nobr><span class="ft11">control software developed at the Center for Autonomous Systems,<br>KTH, Stockholm [1].</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:488"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:519"><nobr><span class="ft4"><b>MULTI-MODAL PERSON TRACKING</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:501"><nobr><span class="ft5">In order to enable a robot to direct its attention to a specific per-</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:488"><nobr><span class="ft11">son it must be able to distinguish between different persons. There-<br>fore, it is necessary for the robot to track all persons present as<br>robustly as possible.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:501"><nobr><span class="ft5">Person tracking with a mobile robot is a highly dynamic task. As</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:488"><nobr><span class="ft11">both, the persons tracked and the robot itself might be moving the<br>sensory perception of the persons is constantly changing. Another<br>difficulty arises from the fact that a complex object like a person</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">29</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:8px;font-family:Helvetica;color:#000000;}
+	.ft16{font-size:8px;font-family:Times;color:#000000;}
+	.ft17{font-size:5px;font-family:Helvetica;color:#000000;}
+	.ft18{font-size:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154003.png" alt="background image">
+<DIV style="position:absolute;top:87;left:93"><nobr><span class="ft11">usually cannot be captured completely by a single sensor system<br>alone. Therefore, we use the sensors presented in section 3 to ob-<br>tain different percepts of a person:</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:113"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:127"><nobr><span class="ft11">The camera is used to recognize faces. From a face detec-<br>tion step the distance, direction, and height of the observed<br>person are extracted, while an identification step provides the<br>identity of the person if it is known to the system beforehand<br>(see section 5.1).</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:113"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:127"><nobr><span class="ft11">Stereo microphones are applied to locate sound sources using<br>a method based on Cross-Powerspectrum Phase Analysis [8].<br>From the result of the analysis the direction relative to the<br>robot can be estimated (see section 5.2).</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:113"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:127"><nobr><span class="ft11">The laser range finder is used to detect legs. In range read-<br>ings pairs of legs of a human result in a characteristic pattern<br>that can be easily detected [6]. From detected legs the dis-<br>tance and direction of the person relative to the robot can be<br>extracted (see section 5.3).</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:93"><nobr><span class="ft11">The processes which are responsible for processing the data of<br>these sensors provide information about the same overall object:<br>the person. Consequently, this data has to be fused. We combine<br>the information from the different sensors in a multi-modal frame-<br>work which is described in the following section.</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:93"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:134"><nobr><span class="ft4"><b>Multi-Modal Anchoring</b></span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:107"><nobr><span class="ft5">In order to solve the problem of person tracking we apply <i>multi-</i></span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:93"><nobr><span class="ft11"><i>modal anchoring </i>[6]. This approach extends the idea of standard<br>anchoring as proposed in [4]. The goal of anchoring is defined as<br>establishing connections between processes that work on the level<br>of abstract representations of objects in the world (symbolic level)<br>and processes that are responsible for the physical observation of<br>these objects (sensory level). These connections, called <i>anchors</i>,<br>must be dynamic, since the same symbol must be connected to new<br>percepts every time a new observation of the corresponding object<br>is acquired.</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:107"><nobr><span class="ft5">Therefore, in standard anchoring at every time step</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:388"><nobr><span class="ft3">Ø</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:393"><nobr><span class="ft5">, an anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:93"><nobr><span class="ft11">contains three elements: a symbol, which is used to denote an ob-<br>ject, a percept of the same object, generated by the corresponding<br>perceptual system, and a signature, which is meant to provide an<br>estimate for the values of the observable properties of the object. If<br>the anchor is grounded at time</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:264"><nobr><span class="ft3">Ø</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:269"><nobr><span class="ft5">, it contains the percept perceived</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:93"><nobr><span class="ft5">at</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:108"><nobr><span class="ft3">Ø</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:117"><nobr><span class="ft5">as well as the updated signature. If the object is not observ-</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:93"><nobr><span class="ft5">able at</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:132"><nobr><span class="ft3">Ø</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:140"><nobr><span class="ft5">and therefore the anchor is ungrounded, then no percept is</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:93"><nobr><span class="ft11">stored in the anchor but the signature still contains the best avail-<br>able estimate.</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:107"><nobr><span class="ft5">Because standard anchoring only considers the special case of</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:93"><nobr><span class="ft11">connecting one symbol to the percepts acquired from one sensor,<br>the extension to multi-modal anchoring was necessary in order to<br>handle data from several sensors. Multi-modal anchoring allows<br>to link the symbolic description of a complex object to different<br>types of percepts, originating from different perceptual systems. It<br>enables distributed anchoring of individual percepts from multiple<br>modalities and copes with different spatio-temporal properties of<br>the individual percepts. Every part of the complex object which<br>is captured by one sensor is anchored by a single <i>component an-<br>choring process</i>. The composition of all component anchors is<br>realized by a <i>composite anchoring process </i>which establishes the<br>connection between the symbolic description of the complex ob-<br>ject and the percepts from the individual sensors. In the domain<br>of person tracking the person itself is the composite object while<br>its components are face, speech, and legs, respectively. In addition</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:576"><nobr><span class="ft15">Signature</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:591"><nobr><span class="ft15">list</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:690"><nobr><span class="ft15">Fusion</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:650"><nobr><span class="ft15">Motion</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:582"><nobr><span class="ft15">Composition</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:762"><nobr><span class="ft16"><i>Face region</i></span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:759"><nobr><span class="ft16"><i>Sound source</i></span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:765"><nobr><span class="ft16"><i>Laser legs</i></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:637"><nobr><span class="ft15">Anchoring</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:637"><nobr><span class="ft15">Anchoring</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:637"><nobr><span class="ft15">Anchoring</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:514"><nobr><span class="ft16"><i>person</i></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:542"><nobr><span class="ft16"><i>face</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:514"><nobr><span class="ft16"><i>speech</i></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:496"><nobr><span class="ft16"><i>legs</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:719"><nobr><span class="ft15">...</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:625"><nobr><span class="ft15">name, height,</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:706"><nobr><span class="ft16"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:709"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:712"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:684"><nobr><span class="ft16"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:687"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:695"><nobr><span class="ft16"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:698"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:700"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:573"><nobr><span class="ft15">Anchor</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:625"><nobr><span class="ft15">position, etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:583"><nobr><span class="ft15">Anchoring of composite object</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:617"><nobr><span class="ft15">Person models</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:508"><nobr><span class="ft15">Symbols</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:766"><nobr><span class="ft15">Percepts</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:587"><nobr><span class="ft15">Anchoring of component objects</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:539"><nobr><span class="ft6"><b>Figure 3: Multi-modal anchoring of persons.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:488"><nobr><span class="ft11">to standard anchoring, the composite anchoring module requires a<br><i>composition model</i>, a <i>motion model</i>, and a <i>fusion model</i>:</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:522"><nobr><span class="ft11">The composition model defines the spatial relationships of<br>the components with respect to the composite object. It is<br>used in the component anchoring processes to anchor only<br>those percepts that satisfy the composition model.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:522"><nobr><span class="ft11">The motion model describes the type of motion of the com-<br>plex object, and therefore allows to predict its position. Us-<br>ing the spatial relationships of the composition model, the<br>position of percepts can be predicted, too. This informa-<br>tion is used by the component anchoring processes in two<br>ways: 1. If multiple percepts are generated from one percep-<br>tual system the component anchoring process selects the per-<br>cept which is closest to the predicted position. 2. If the corre-<br>sponding perceptual system receives its data from a steerable<br>sensor with a limited field of view (e.g. pan-tilt camera), it<br>turns the sensor into the direction of the predicted position.</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:522"><nobr><span class="ft11">The fusion model defines how the perceptual data from the<br>component anchors has to be combined. It is important to<br>note, that the processing times of the different perceptual sys-<br>tems may differ significantly. Therefore, the perceptual data<br>may not arrive at the composite anchoring process in chrono-<br>logical order. Consequently, the composite anchor provides a<br>chronologically sorted list of the fused perceptual data. New<br>data from the component anchors is inserted in the list, and<br>all subsequent entries are updated.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:488"><nobr><span class="ft11">The anchoring of a single person is illustrated in Figure 3. It is<br>based on anchoring the three components <i>legs</i>, <i>face</i>, and <i>speech</i>.<br>For more details please refer to [6].</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:488"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:528"><nobr><span class="ft4"><b>Tracking Multiple Persons</b></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:501"><nobr><span class="ft5">If more than one person has to be tracked simultaneously, several</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:488"><nobr><span class="ft11">anchoring processes have to be run in parallel. In this case, multi-<br>modal anchoring as described in the previous section may lead to<br>the following conflicts between the individual composite anchoring<br>processes:</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:522"><nobr><span class="ft11">The anchoring processes try to control the pan-tilt unit of the<br>camera in a contradictory way.</span></nobr></DIV>
+<DIV style="position:absolute;top:1076;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:522"><nobr><span class="ft5">A percept is selected by more than one anchoring process.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">30</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft19{font-size:10px;font-family:Times;color:#000000;}
+	.ft20{font-size:10px;font-family:Times;color:#000000;}
+	.ft21{font-size:7px;font-family:Helvetica;color:#000000;}
+	.ft22{font-size:13px;font-family:Times;color:#000000;}
+	.ft23{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154004.png" alt="background image">
+<DIV style="position:absolute;top:87;left:93"><nobr><span class="ft11">In order to resolve these problems a <i>supervising module </i>is required,<br>which grants the access to the pan-tilt camera and controls the se-<br>lection of percepts.</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:107"><nobr><span class="ft5">The first problem is handled in the following way: The super-</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:93"><nobr><span class="ft11">vising module restricts the access to the pan-tilt unit of the camera<br>to only one composite anchoring process at a time. How access is<br>granted to the processes depends on the intended application. For<br>the task of detecting communication partners which is presented<br>in this paper, only the anchoring process corresponding to the cur-<br>rently selected person of interest controls the pan-tilt unit of the<br>camera (see section 6).</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:107"><nobr><span class="ft5">In order to avoid the second problem, the selection of percepts is</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:93"><nobr><span class="ft11">implemented as follows. Instead of selecting a specific percept de-<br>terministically, every component anchoring process assigns scores<br>to all percepts rating the proximity to the predicted position. After<br>all component anchoring processes have assigned scores, the super-<br>vising module computes the optimal non-contradictory assignment<br>of percepts to component anchors. Percepts that are not assigned<br>to any of the existing anchoring processes are used to establish new<br>anchors. Additionally, an anchor that was not updated for a certain<br>period of time will be removed by the supervising module.</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:93"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:125"><nobr><span class="ft4"><b>PERCEPTUAL SYSTEMS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:107"><nobr><span class="ft5">In order to supply the anchoring framework presented in 4.1 with</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:93"><nobr><span class="ft11">sensory information about observed persons, three different percep-<br>tual systems are used. These are outlined in the following subsec-<br>tions.</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:93"><nobr><span class="ft4"><b>5.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:134"><nobr><span class="ft4"><b>Face Recognition</b></span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:107"><nobr><span class="ft5">In our previous work [6], face detection was realized using a</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:93"><nobr><span class="ft11">method which combines adaptive skin-color segmentation with<br>face detection based on Eigenfaces [7]. The segmentation process<br>reduces the search space, so that only those sub-images which are<br>located at skin colored regions have to be verified with the Eigen-<br>face method. In order to cope with varying lighting conditions the<br>model for skin-color is continuously updated with pixels extracted<br>from detected faces. This circular process requires initialization,<br>which is realized by performing face detection using Eigenfaces on<br>the whole image, since initially no suitable model for skin-color is<br>available. This method has two major drawbacks: It is very sensi-<br>tive to false positive detections of faces, since then the skin-model<br>may adapt to a wrong color. In addition, initialization is computa-<br>tionally very expensive.</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:107"><nobr><span class="ft5">In our current system presented in this paper, the detection of</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:93"><nobr><span class="ft11">faces (in frontal view) is based on the framework proposed by Viola<br>and Jones [20]. This method allows to process images very rapidly<br>with high detection rates for the task of face detection. Therefore,<br>neither a time consuming initialization nor the restriction of the<br>search using a model of skin color is necessary.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:107"><nobr><span class="ft5">The detection is based on two types of features (Fig. 4), which</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:93"><nobr><span class="ft11">are the same as proposed in [24]. A feature is a scalar value which<br>is computed by the weighted sum of all intensities of pixels in rect-<br>angular regions. The computation can be realized very efficiently<br>using integral images (see [20]). The features have six degrees of<br>freedom for two-block features (</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:274"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:288"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:302"><nobr><span class="ft3">Û</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:339"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:360"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:368"><nobr><span class="ft5">) and seven de-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:93"><nobr><span class="ft5">grees of freedom for three-block features (</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:326"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:340"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:354"><nobr><span class="ft3">Û</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:391"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:412"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:433"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:440"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:444"><nobr><span class="ft5">).</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:93"><nobr><span class="ft11">With restrictions to the size of the rectangles and their distances we<br>obtain about 300.000 different features for sub-windows of a size<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:109"><nobr><span class="ft3">¾¼</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:126"><nobr><span class="ft3">¢</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:140"><nobr><span class="ft3">¾¼</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:158"><nobr><span class="ft5">pixels. Classifiers are constructed by selecting a small</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:93"><nobr><span class="ft11">number of important features using AdaBoost [5]. A cascade of<br>classifiers</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:149"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:164"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:211"><nobr><span class="ft3">Ò</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:219"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:227"><nobr><span class="ft5">of increasing complexity (increasing num-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft11">ber of features) forms the over-all face detector (Fig. 5). For face<br>detection an image is scanned, and every sub-image is classified</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:539"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:549"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:711"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:720"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:602"><nobr><span class="ft20"><i>dy</i></span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:609"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:619"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:746"><nobr><span class="ft20"><i>dx</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:781"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:790"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:763"><nobr><span class="ft20"><i>dy</i></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:716"><nobr><span class="ft20"><i>dx</i></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:729"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:760"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:770"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:764"><nobr><span class="ft20"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:789"><nobr><span class="ft20"><i>h</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:613"><nobr><span class="ft20"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:575"><nobr><span class="ft20"><i>dx</i></span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:638"><nobr><span class="ft20"><i>h</i></span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:519"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:524"><nobr><span class="ft20"><i>x y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:540"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:690"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:695"><nobr><span class="ft20"><i>x y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:711"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:488"><nobr><span class="ft13"><b>Figure 4: The two types of features used for face detection.<br>Each feature takes a value which is the weighted sum of all pix-<br>els in the rectangles.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:688"><nobr><span class="ft21">.....</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:608"><nobr><span class="ft15">Non-face</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:519"><nobr><span class="ft15">Non-face</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:544"><nobr><span class="ft15">No</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:633"><nobr><span class="ft15">No</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:498"><nobr><span class="ft15">Input Sub-Window</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:655"><nobr><span class="ft15">Yes</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:567"><nobr><span class="ft15">Yes</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:741"><nobr><span class="ft15">Non-face</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:815"><nobr><span class="ft15">Face</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:766"><nobr><span class="ft15">No</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:753"><nobr><span class="ft22"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:763"><nobr><span class="ft16"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:621"><nobr><span class="ft22"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:630"><nobr><span class="ft23">2</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:532"><nobr><span class="ft22"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:542"><nobr><span class="ft23">1</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:788"><nobr><span class="ft15">Yes</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:488"><nobr><span class="ft6"><b>Figure 5: A cascade of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:629"><nobr><span class="ft3">Ò</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:644"><nobr><span class="ft6"><b>classifiers of increasing complexity</b></span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:488"><nobr><span class="ft6"><b>enables fast face detection.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:488"><nobr><span class="ft5">with the first classifier</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:621"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:631"><nobr><span class="ft5">of the cascade. If classified as non-face,</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:488"><nobr><span class="ft11">the process continues with the next sub-image. Otherwise the cur-<br>rent sub-image is passed to the next classifier (</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:749"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:755"><nobr><span class="ft5">) and so on.</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:501"><nobr><span class="ft5">The first classifier of the cascade is based on only two features,</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:488"><nobr><span class="ft11">but rejects approximately 75 % of all sub-images. Therefore, the<br>detection process is very fast. The cascade used in our system con-<br>sists of 16 classifiers based on 1327 features altogether.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:501"><nobr><span class="ft5">In order to update the multi-modal anchoring process the posi-</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:488"><nobr><span class="ft11">tion of the face is extracted: With the orientation of the pan-tilt<br>camera, the angle of the face relative to the robot is calculated. The<br>size of the detected face is used to estimate the distance of the per-<br>son: Assuming that sizes of heads of adult humans only vary to a<br>minor degree, the distance is proportional to the reciprocal of the<br>size. The height of the face above the ground is also extracted by<br>using the distance and the camera position.</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:501"><nobr><span class="ft5">Since the approach presented so far does not provide face iden-</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:488"><nobr><span class="ft11">tification, a post-processing step is is required. Therefore, we use a<br>slightly enhanced version of the Eigenface method [19]. Each in-<br>dividual is represented in face space by a mixture of several Gaus-<br>sians with diagonal covariances. Practical experiments have shown<br>that the use of four to six Gaussians leads to a satisfying accuracy<br>in discriminating between a small set of known persons.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:488"><nobr><span class="ft4"><b>5.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:528"><nobr><span class="ft4"><b>Sound Source Localization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:501"><nobr><span class="ft5">In order to detect speaking persons, we realize the localization</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:488"><nobr><span class="ft11">of sound sources using a pair of microphones. Given a sound<br>source</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:528"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:539"><nobr><span class="ft5">in 3D space, the distances</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:694"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:704"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:736"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:746"><nobr><span class="ft5">between</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:796"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:807"><nobr><span class="ft5">and the</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:488"><nobr><span class="ft5">two microphones</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:588"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:600"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:611"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:636"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:648"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:660"><nobr><span class="ft5">generally differ by the amount of</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:488"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:538"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:548"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:569"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:580"><nobr><span class="ft5">(see Fig. 6). This difference</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:737"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:759"><nobr><span class="ft5">results in a time</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:488"><nobr><span class="ft5">delay</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:520"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:530"><nobr><span class="ft5">of the received signal between the left and the right channel</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:488"><nobr><span class="ft11">(microphone). Based on Cross-Powerspectrum Phase Analysis [8]<br>we first calculate a spectral correlation measure</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:577"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:590"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:625"><nobr><span class="ft3">Ì</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:635"><nobr><span class="ft3"> ½</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:672"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:681"><nobr><span class="ft3">Ä</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:689"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:703"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:711"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:721"><nobr><span class="ft3">£</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:720"><nobr><span class="ft3">Ê</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:729"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:742"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:668"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:677"><nobr><span class="ft3">Ä</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:685"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:699"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:715"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:724"><nobr><span class="ft3">Ê</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:733"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:746"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:831"><nobr><span class="ft5">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:488"><nobr><span class="ft5">where</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:525"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:534"><nobr><span class="ft3">Ä</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:542"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:556"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:566"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:590"><nobr><span class="ft3">Ë</span></nobr></DIV>
+<DIV style="position:absolute;top:1046;left:598"><nobr><span class="ft3">Ê</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:607"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:621"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:631"><nobr><span class="ft5">are the short-term power spectra of the</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:488"><nobr><span class="ft11">left and the right channel, respectively (calculated within a 43 ms<br>window from the signal sampled at 48 kHz). If only a single sound</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">31</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft24{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft25{font-size:8px;line-height:-5px;font-family:Helvetica;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154005.png" alt="background image">
+<DIV style="position:absolute;top:254;left:305"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:309"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:155"><nobr><span class="ft15">10 cm</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:270"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:270"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:270"><nobr><span class="ft15">=0</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:270"><nobr><span class="ft25">c<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:301"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:302"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:304"><nobr><span class="ft15">=5c</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:308"><nobr><span class="ft15">m</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:332"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:334"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:337"><nobr><span class="ft15">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:342"><nobr><span class="ft15">0c</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:347"><nobr><span class="ft15">m</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:383"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:388"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:394"><nobr><span class="ft15">= 2</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:404"><nobr><span class="ft15">0 c</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:414"><nobr><span class="ft15">m</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:374"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:379"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:387"><nobr><span class="ft15">= 25</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:408"><nobr><span class="ft15">cm</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:374"><nobr><span class="ft24"></span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:377"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:382"><nobr><span class="ft15">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:390"><nobr><span class="ft15">5 c</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:397"><nobr><span class="ft15">m</span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:181"><nobr><span class="ft16"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:318"><nobr><span class="ft16"><i>m</i></span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:326"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:217"><nobr><span class="ft16"><i>m</i></span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:224"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:211"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:212"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:262"><nobr><span class="ft16"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:264"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:246"><nobr><span class="ft16"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:254"><nobr><span class="ft15">= 28.1 cm</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:93"><nobr><span class="ft6"><b>Figure 6: The distances</b></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:240"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:251"><nobr><span class="ft6"><b>and</b></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:284"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:294"><nobr><span class="ft6"><b>between the sound source</b></span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:444"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:93"><nobr><span class="ft6"><b>and the two microphones</b></span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:242"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:257"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:267"><nobr><span class="ft6"><b>and</b></span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:293"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:307"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:318"><nobr><span class="ft6"><b>differ by the amount of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:93"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:115"><nobr><span class="ft6"><b>. All sound events with identical</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:299"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:323"><nobr><span class="ft6"><b>are located on one half</b></span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:93"><nobr><span class="ft6"><b>of a two-sheeted hyperboloid (gray).</b></span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:93"><nobr><span class="ft5">source is present the time delay</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:269"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:279"><nobr><span class="ft5">will be given by the argument</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:93"><nobr><span class="ft5">that maximizes the spectral correlations measure</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:370"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:383"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:389"><nobr><span class="ft5">:</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:219"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:251"><nobr><span class="ft3">Ö</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:266"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:284"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:308"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:321"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:436"><nobr><span class="ft5">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:93"><nobr><span class="ft11">Taking into account also local maxima delivered by equation (1),<br>we are able to detect several sound sources simultaneously.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:107"><nobr><span class="ft5">Even in the planar case, where all sound sources are on the same</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:93"><nobr><span class="ft5">level as the microphones, the position of</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:322"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:333"><nobr><span class="ft5">can be estimated only</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:93"><nobr><span class="ft11">if its distance is known or additional assumptions are made. In a<br>simplified geometry the microphone distance</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:356"><nobr><span class="ft5">is considered suf-</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:93"><nobr><span class="ft11">ficiently small compared to the distance of the source. Therefore,<br>the angles of incidence of the signals observed at the left or right<br>microphone, respectively, will be approximately equal and can be<br>calculated directly from</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:226"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:245"><nobr><span class="ft5">. In the 3D-case the observed time de-</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:93"><nobr><span class="ft11">lay not only depends on the direction and distance but also on the<br>relative elevation of the source with respect to the microphones.<br>Therefore, given only</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:213"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:236"><nobr><span class="ft5">the problem is under-determined.</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:107"><nobr><span class="ft5">All sound events which result in the same</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:333"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:355"><nobr><span class="ft5">are located on one</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:93"><nobr><span class="ft5">half of a two-sheeted hyperboloid, given by</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:200"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:207"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:207"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:217"><nobr><span class="ft3">·</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:231"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:237"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:237"><nobr><span class="ft3">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:181"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:190"><nobr><span class="ft3">´</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:201"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:211"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:224"><nobr><span class="ft3">´¡</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:249"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:254"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:260"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:270"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:302"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:308"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:308"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:288"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:295"><nobr><span class="ft3">´¡</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:319"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:325"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:351"><nobr><span class="ft3"> ½</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:436"><nobr><span class="ft5">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:93"><nobr><span class="ft5">where</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:132"><nobr><span class="ft3">´×</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:144"><nobr><span class="ft3">Ü</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:157"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:164"><nobr><span class="ft3">Ý</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:177"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:183"><nobr><span class="ft3">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:190"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:201"><nobr><span class="ft5">is the position of the sound source given in</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:93"><nobr><span class="ft11">Cartesian coordinates. The axis of symmetry of the hyperboloid co-<br>incides with the axis on which the microphones are located (y-axis).<br>Figure 6 shows the intersections of hyperboloids for different</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:434"><nobr><span class="ft3">¡</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:93"><nobr><span class="ft5">with the plane spanned by</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:243"><nobr><span class="ft3">×</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:249"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:257"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:269"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:275"><nobr><span class="ft5">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:307"><nobr><span class="ft3">Ñ</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:319"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:325"><nobr><span class="ft5">. Consequently, the lo-</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:93"><nobr><span class="ft11">calization of sound sources in 3D using two microphones requires<br>additional information.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:107"><nobr><span class="ft5">As in our scenario sound sources of interest correspond to per-</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:93"><nobr><span class="ft11">sons talking, the additional spatial information necessary can be<br>obtained from the other perceptual systems of the multi-modal an-<br>choring framework. Leg detection and face recognition provide<br>information about the direction, distance, and height of a person<br>with respect to the local coordinate system of the robot. Even if no<br>face was detected at all, the height of a person can be estimated as<br>the standard size of an adult.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:107"><nobr><span class="ft5">In order to decide whether a sound percept can be assigned to</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:93"><nobr><span class="ft11">a specific person, the sound source has to be located in 3D. For<br>this purpose it is assumed that the sound percept originates from</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:536"><nobr><span class="ft15">100 cm</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:654"><nobr><span class="ft15">Robot</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:488"><nobr><span class="ft6"><b>Figure 7: A sample laser scan. The arrow marks a pair of legs.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:488"><nobr><span class="ft11">the person and is therefore located at the same height and same dis-<br>tance. Then, the corresponding direction of the sound source can be<br>calculated from equation (3) transformed to cylindric coordinates.<br>Depending on the difference between this direction and the direc-<br>tion in which the person is located, the sound percept is assigned to<br>the person's sound anchor. Similar to other component anchors, the<br>direction of the speech is also fused with the position of the person.<br>Note that the necessity of positional attributes of a person for the<br>localization of speakers implies that speech can not be anchored<br>until the legs or the face of a person have been anchored.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:501"><nobr><span class="ft5">In conclusion, the use of only one pair of microphones is suffi-</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:488"><nobr><span class="ft11">cient for feasible speaker localization in the multi-modal anchoring<br>framework.</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:488"><nobr><span class="ft4"><b>5.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:528"><nobr><span class="ft4"><b>Leg Detection</b></span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:501"><nobr><span class="ft5">The laser range finder provides distance measures within a</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:488"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:502"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:508"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:519"><nobr><span class="ft5">field of view at leg-height. The angular resolution is</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:805"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:821"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:832"><nobr><span class="ft5">re-</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:488"><nobr><span class="ft11">sulting in 361 reading points for a single scan (see Fig. 7 for an ex-<br>ample). Usually, human legs result in a characteristic pattern which<br>can be easily detected. This is done as follows: At first, neighbor-<br>ing reading points with similar distance values are grouped into<br>segments. Then, these segments are classified as legs or non-legs<br>based on a set of features (see [6]). Finally, legs with a distance that<br>is below a threshold are grouped into pairs of legs.</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:488"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:519"><nobr><span class="ft4"><b>FOCUSING THE ATTENTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:501"><nobr><span class="ft5">For the detection of a person of interest from our mobile robot</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:488"><nobr><span class="ft11">we apply multi-modal person tracking, as described in section 4.<br>Every person in the vicinity of the robot is anchored and, therefore,<br>tracked by an individual anchoring process, as soon as the legs or<br>the face can be recognized by the system.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:501"><nobr><span class="ft5">If the robot detects that a person is talking, this individual be-</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:488"><nobr><span class="ft11">comes the person of interest and the robot directs its attention to-<br>wards it. This is achieved by turning the camera into the direction<br>of the person. The anchoring process corresponding to the person<br>of interest maintains access to the pan-tilt camera and keeps the<br>person in the center of the camera's field of view. If necessary, the<br>entire robot basis is turned in the direction of the person of interest.<br>If this person moves to far away from the robot, the robot will start<br>to follow the person. This behavior ensures that the sensors of the<br>robot do not loose track of this person. Moreover, the person can<br>guide the robot to a specific place.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:501"><nobr><span class="ft5">As long as the speech of the person of interest is anchored, other</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:488"><nobr><span class="ft11">people talking are ignored. This allows the person of interest to<br>take breath or make short breaks while speaking without loosing the<br>robots attention. When the person of interest stops talking for more<br>than two seconds, the person of interest looses its <i>speech </i>anchor.<br>Now, another person can become the person of interest. If no other<br>person is speaking in the vicinity of the robot, the person which</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">32</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft26{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154006.png" alt="background image">
+<DIV style="position:absolute;top:177;left:222"><nobr><span class="ft26">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:308"><nobr><span class="ft26">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:393"><nobr><span class="ft26">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:137"><nobr><span class="ft26">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:141"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:146"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:226"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:232"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:312"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:317"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:397"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:403"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:259"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:264"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:344"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:350"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:429"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:435"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:173"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:179"><nobr><span class="ft18">2</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:141"><nobr><span class="ft9"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:226"><nobr><span class="ft9"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:312"><nobr><span class="ft9"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:397"><nobr><span class="ft9"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:93"><nobr><span class="ft6"><b>Figure 8: Sample behavior with two persons</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:350"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:361"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:371"><nobr><span class="ft6"><b>and</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:396"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:406"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:416"><nobr><span class="ft6"><b>stand-</b></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:93"><nobr><span class="ft6"><b>ing near the robot</b></span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:198"><nobr><span class="ft3">Ê</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:210"><nobr><span class="ft6"><b>: In (1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:252"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:262"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:272"><nobr><span class="ft6"><b>is considered as communication</b></span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:93"><nobr><span class="ft6"><b>partner, thus the robot directs its attention towards</b></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:395"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:406"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:413"><nobr><span class="ft6"><b>. Then</b></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:93"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:103"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:114"><nobr><span class="ft6"><b>stops speaking but remains person of interest (2). In (3)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:435"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:445"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:93"><nobr><span class="ft6"><b>begins to speak. Therefore the robot's attention shifts to</b></span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:435"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:445"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:93"><nobr><span class="ft6"><b>by turning its camera (4). Since</b></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:286"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:296"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:307"><nobr><span class="ft6"><b>is facing the robot,</b></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:422"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:432"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:443"><nobr><span class="ft6"><b>is</b></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:93"><nobr><span class="ft6"><b>considered as new communication partner.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:93"><nobr><span class="ft11">is in the focus of attention of the robot remains person of interest.<br>Only a person that is speaking can take over the role of the person<br>of interest. Notice, that a person which is moving fast in front of<br>the robot is considered as a passer-by, and hence is definitely no<br>person of interest even if this person is speaking.</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:107"><nobr><span class="ft5">In addition to the attention system described so far, which en-</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:93"><nobr><span class="ft11">ables the robot to detect the person of interest and to maintain its<br>attention during interaction, the robot decides whether the person of<br>interest is addressing the robot and, therefore, is considered as com-<br>munication partner. This decision is based on the orientation of the<br>person's head, as it is assumed that humans face their addressees for<br>most of the time while they are talking to them. Whether a tracked<br>person faces the robot or not is derived from the face recognition<br>system. If the face of the person of interest is detected for more than<br>20 % of the time the person is speaking, this person is considered<br>to be the communication partner.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:107"><nobr><span class="ft5">A sample behavior of the robot is depicted in Figure 8.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:93"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:125"><nobr><span class="ft4"><b>SYSTEM PERFORMANCE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:107"><nobr><span class="ft5">In order to analyze the performance of the proposed approach,</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:93"><nobr><span class="ft11">we present results from three different types of evaluation. At<br>first, we study the accuracy of sound source localization indepen-<br>dently. The second part deals with a quantitative evaluation of our<br>approach for a multi-modal attention system. Finally, qualitative<br>results from a performance of the robot at the exhibition part of the<br>ICVS'03 are presented.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:93"><nobr><span class="ft4"><b>7.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:134"><nobr><span class="ft4"><b>Evaluation of Sound Source Localization</b></span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:107"><nobr><span class="ft5">The objective of this evaluation was to analyze the accuracy of</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:93"><nobr><span class="ft11">locating speakers with a pair of microphones using the method de-<br>scribed in section 5.2 independently from the multi-modal anchor-<br>ing framework. In order to be able to estimate the arrival angle rel-<br>ative to the microphones, the setup for the experiment was arranged<br>such that the sound source (mouth of the speaker) was always at the<br>same height as the microphones. Therefore, the simplified geomet-<br>ric model mentioned in section 5.2 can be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:107"><nobr><span class="ft5">The experiments were carried out with five subjects. Every sub-</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:93"><nobr><span class="ft5">ject was positioned at six different angles (</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:326"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:333"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:339"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:346"><nobr><span class="ft3">½¼</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:360"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:366"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:374"><nobr><span class="ft3">¾¼</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:387"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:394"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:408"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:415"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:421"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:435"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:442"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:449"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:93"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:124"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:130"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:137"><nobr><span class="ft5">), and at two different distances (100 cm and 200 cm), re-</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:93"><nobr><span class="ft11">spectively, resulting in 12 positions altogether. At every position<br>a subject had to read out one specific sentence which took about<br>8 seconds. During every utterance the position of the speaker was<br>calculated every 50 ms.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:107"><nobr><span class="ft5">Based on the angles estimated by our localization algorithm we</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:93"><nobr><span class="ft11">calculated the mean angle and the variance for every speaker. It is<br>important to note, that in our setup it is almost impossible to posi-<br>tion the test speaker accurately on the target angle. For this reason,</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:608"><nobr><span class="ft5">Distance between speaker and robot</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:517"><nobr><span class="ft5">Angle</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:619"><nobr><span class="ft5">100 cm</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:751"><nobr><span class="ft5">200 cm</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:527"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:533"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:593"><nobr><span class="ft5">-0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:614"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:661"><nobr><span class="ft5">0.56</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:726"><nobr><span class="ft5">-0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:747"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:794"><nobr><span class="ft5">0.81</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:524"><nobr><span class="ft5">10</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:537"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:595"><nobr><span class="ft5">9.1</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:612"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:661"><nobr><span class="ft5">0.34</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:728"><nobr><span class="ft5">9.2</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:745"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:794"><nobr><span class="ft5">0.37</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:524"><nobr><span class="ft5">20</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:537"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:592"><nobr><span class="ft5">18.9</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:615"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:661"><nobr><span class="ft5">0.21</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:725"><nobr><span class="ft5">19.3</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:748"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:794"><nobr><span class="ft5">0.27</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:524"><nobr><span class="ft5">40</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:537"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:592"><nobr><span class="ft5">38.2</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:615"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:661"><nobr><span class="ft5">0.50</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:725"><nobr><span class="ft5">38.8</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:748"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:794"><nobr><span class="ft5">0.22</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:524"><nobr><span class="ft5">60</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:537"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:592"><nobr><span class="ft5">57.7</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:615"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:661"><nobr><span class="ft5">0.40</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:725"><nobr><span class="ft5">57.5</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:748"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:794"><nobr><span class="ft5">0.64</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:524"><nobr><span class="ft5">80</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:537"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:592"><nobr><span class="ft5">74.0</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:615"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:661"><nobr><span class="ft5">2.62</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:725"><nobr><span class="ft5">73.3</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:748"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:794"><nobr><span class="ft5">2.18</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:488"><nobr><span class="ft6"><b>Table 1: Averaged estimated speaker positions</b></span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:770"><nobr><span class="ft6"><b>and averaged</b></span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:488"><nobr><span class="ft6"><b>variances</b></span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:559"><nobr><span class="ft6"><b>for the acoustic speaker localization.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:488"><nobr><span class="ft11">we used the mean estimated angle for every speaker instead of the<br>target angle to calculate the variance. Following the calculation of<br>mean angle and variance for every speaker we averaged for every<br>position the mean angle and the variance across all speakers.</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:501"><nobr><span class="ft5">Table 1 shows the results of our experiments. First, the results</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:488"><nobr><span class="ft11">suggest that the robot was not correctly aligned, because especially<br>for small angles (0</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:591"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:602"><nobr><span class="ft5">to 20</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:630"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:637"><nobr><span class="ft5">) the averaged angle differs constantly</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:488"><nobr><span class="ft5">from the target angle about 1</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:649"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:655"><nobr><span class="ft5">. Under this justifiable assumption</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:488"><nobr><span class="ft5">the speaker localization works very well for angles between 0</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:818"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:827"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:488"><nobr><span class="ft5">40</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:501"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:508"><nobr><span class="ft5">. The estimated angle is nearly equivalent to the actual angle</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:488"><nobr><span class="ft11">and the variance is also very low. Furthermore, the acoustic po-<br>sition estimation works equally well for 100 cm and for 200 cm.<br>For angles greater than 40</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:628"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:638"><nobr><span class="ft5">the difference between estimated angle</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:488"><nobr><span class="ft11">and target angle as well as the variance increases. This means that<br>the accuracy of the acoustic position estimation decreases with an<br>increasing target angle. The main reason for this behavior is the<br>directional characteristic of the microphones.</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:501"><nobr><span class="ft5">However, the evaluation has shown that the time delay estima-</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:488"><nobr><span class="ft11">tion works reasonably well. Thus the sound source localization<br>provides important information for the detection and localization<br>of the current person of interest.</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:488"><nobr><span class="ft4"><b>7.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:528"><nobr><span class="ft4"><b>Evaluation of the Attention System</b></span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:501"><nobr><span class="ft5">The objective of this evaluation was to analyze the performance</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:488"><nobr><span class="ft11">of the attention system presented in this paper. On the one hand,<br>the capability of the robot to successfully shift its attention on the<br>speaker, and to recognize when it was addressed was investigated.<br>On the other hand, details about the perceptual sub-systems were<br>of interest.</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:501"><nobr><span class="ft5">The experiment was carried out in an office room (Fig. 9). Four</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:488"><nobr><span class="ft11">persons were standing around the robot at designated positions. In<br>reference to the local coordinate system of the robot, person</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:833"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:840"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:488"><nobr><span class="ft5">was located at a distance of</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:647"><nobr><span class="ft3">½¾¼</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:673"><nobr><span class="ft5">cm and an angle of</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:799"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:805"><nobr><span class="ft5">, where</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:488"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:495"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:506"><nobr><span class="ft5">is defined as the direction ahead of the robot. Person</span></nobr></DIV>
+<DIV style="position:absolute;top:880;left:807"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:815"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:826"><nobr><span class="ft5">was</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:488"><nobr><span class="ft5">located at</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:544"><nobr><span class="ft3">´½</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:563"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:573"><nobr><span class="ft5">cm</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:596"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:602"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:609"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:614"><nobr><span class="ft5">, person</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:661"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:669"><nobr><span class="ft3">¿</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:679"><nobr><span class="ft5">at</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:692"><nobr><span class="ft3">´½</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:712"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:722"><nobr><span class="ft5">cm</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:744"><nobr><span class="ft3"> ¿¼</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:769"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:776"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:781"><nobr><span class="ft5">, and person</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:488"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:506"><nobr><span class="ft5">at</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:519"><nobr><span class="ft3">´½</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:539"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:549"><nobr><span class="ft5">cm</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:572"><nobr><span class="ft3"> </span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:589"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:596"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:603"><nobr><span class="ft3">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:608"><nobr><span class="ft5">. The subjects were asked to speak for about</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:488"><nobr><span class="ft11">10 seconds, one after another. They had to either address the robot<br>or one of the other persons by turning their heads into the corre-<br>sponding direction. There were no restrictions on how to stand.<br>The order in which the persons were speaking was predetermined<br>(see Table 2). The experiment was carried out three times with nine<br>different subjects altogether.</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:501"><nobr><span class="ft5">The following results were achieved:</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:508"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:522"><nobr><span class="ft11">The attention system was always able to determine the cor-<br>rect person of interest within the time the person was speak-<br>ing. However, in some situations either the reference to the</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">33</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+	.ft27{font-size:8px;font-family:Times;color:#000001;}
+	.ft28{font-size:8px;font-family:Times;color:#000001;}
+	.ft29{font-size:12px;font-family:Times;color:#000000;}
+	.ft30{font-size:12px;font-family:Times;color:#000000;}
+	.ft31{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154007.png" alt="background image">
+<DIV style="position:absolute;top:117;left:266"><nobr><span class="ft27"><i>P</i>2</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:279"><nobr><span class="ft27"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:326"><nobr><span class="ft27"><i>P</i>3</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:363"><nobr><span class="ft27"><i>P</i>4</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:203"><nobr><span class="ft27"><i>P</i>1</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:108"><nobr><span class="ft6"><b>Figure 9: Setup for the evaluation of the attention system.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:106"><nobr><span class="ft23">Person</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:130"><nobr><span class="ft23">Step</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:160"><nobr><span class="ft29">1</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:184"><nobr><span class="ft29">2</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:208"><nobr><span class="ft29">3</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:232"><nobr><span class="ft29">4</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:257"><nobr><span class="ft29">5</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:281"><nobr><span class="ft29">6</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:305"><nobr><span class="ft29">7</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:329"><nobr><span class="ft29">8</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:353"><nobr><span class="ft29">9</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:397"><nobr><span class="ft29">11 12</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:373"><nobr><span class="ft29">10</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:121"><nobr><span class="ft30"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:129"><nobr><span class="ft23">4</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:121"><nobr><span class="ft30"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:129"><nobr><span class="ft23">3</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:121"><nobr><span class="ft30"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:129"><nobr><span class="ft23">2</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:121"><nobr><span class="ft30"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:129"><nobr><span class="ft23">1</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:93"><nobr><span class="ft13"><b>Table 2: Order in which the persons were speaking, either to<br>the robot (steps 1­4 and 9­12) or to another person (steps 5­8).</b></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:127"><nobr><span class="ft11">last person of interest was sustained too long or an incorrect<br>person of interest was selected intermediately. A diagram of<br>the robot's focus of attention is shown in Figure 10. The er-<br>roneous behavior occurred in 4 of the 36 time slices: In these<br>cases, the robot shifted its attention to a person which was<br>currently not speaking (see column 5 in all experiments and<br>column 4 in the last experiment in Fig. 10). Note that in all<br>failure cases person</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:242"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:250"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:256"><nobr><span class="ft5">, which was located in front of the</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:127"><nobr><span class="ft11">robot, was selected as person of interest. In addition, there<br>were two shifts which were correct but had a very long de-<br>lay (eighth time slice of the first and the third experiment).<br>Again, the person in front of the robot (</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:353"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:361"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:368"><nobr><span class="ft5">) was involved.</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:127"><nobr><span class="ft11">All errors occurred because a sound source was located in the<br>direction of</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:194"><nobr><span class="ft3">¼</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:201"><nobr><span class="ft3">Æ</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:208"><nobr><span class="ft5">, although person</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:306"><nobr><span class="ft3">È</span></nobr></DIV>
+<DIV style="position:absolute;top:751;left:315"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:325"><nobr><span class="ft5">was not speaking. This</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:127"><nobr><span class="ft11">can be explained with the noise of the robot itself, which is<br>interpreted as a sound source in the corresponding direction.<br>This error could be suppressed using voice activity detection,<br>which distinguishes speech from noise. This will be part of<br>our future work.<br>As the diagram in Fig. 10 shows, every shift of attention had<br>a delay of approximately 2 seconds. This results from the<br>anchoring framework: The anchor for the sound source is<br>removed after a period of 2 seconds with no new assigned<br>percepts. Now, if another person is talking it becomes the<br>person of interest.</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:113"><nobr><span class="ft3">¯</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:127"><nobr><span class="ft11">The decision whether the current person of interest was ad-<br>dressing the robot or not was made as described in section 6.<br>It was correct for all persons in all runs. This means that the<br>robot always determined himself as addressee in steps 1­4<br>and 9­12, and never in steps 5­8.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:93"><nobr><span class="ft11">These results prove that the presented approach for a multi-modal<br>attention system on a mobile robot is capable to identify communi-<br>cation partners successfully.</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:100;left:519"><nobr><span class="ft31">1</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:519"><nobr><span class="ft31">3</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:519"><nobr><span class="ft31">4</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:519"><nobr><span class="ft31">2</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:539"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:565"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:592"><nobr><span class="ft8">3</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:618"><nobr><span class="ft8">4</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:644"><nobr><span class="ft8">5</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:670"><nobr><span class="ft8">6</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:697"><nobr><span class="ft8">7</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:723"><nobr><span class="ft8">8</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:749"><nobr><span class="ft8">9</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:773"><nobr><span class="ft8">10</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:799"><nobr><span class="ft8">11</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:825"><nobr><span class="ft8">12</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:490"><nobr><span class="ft8">1st</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:519"><nobr><span class="ft31">1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:519"><nobr><span class="ft31">2</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:519"><nobr><span class="ft31">3</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:519"><nobr><span class="ft31">4</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:490"><nobr><span class="ft8">3rd</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:519"><nobr><span class="ft31">1</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:519"><nobr><span class="ft31">2</span></nobr></DIV>
+<DIV style="position:absolute;top:188;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:519"><nobr><span class="ft31">3</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:513"><nobr><span class="ft9"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:519"><nobr><span class="ft31">4</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:488"><nobr><span class="ft8">2nd</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:488"><nobr><span class="ft13"><b>Figure 10: Diagram for the three runs of the experiment. Every<br>person is assigned a track (light-gray) which is shaded while the<br>person was speaking. The solid line shows which person was in<br>focus of the robot's attention.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:501"><nobr><span class="ft5">In addition the following measurements concerning the anchor-</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:488"><nobr><span class="ft11">ing framework were extracted during the experiments: The atten-<br>tion system and the face recognition were running on one PC (Pen-<br>tium III, 500 MHz), while the sound source localization and the<br>robot control software were running on the other PC (Pentium III,<br>850 MHz). Face recognition was performed on images of a size of</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:488"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:512"><nobr><span class="ft3">¢</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:526"><nobr><span class="ft3">½</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:540"><nobr><span class="ft3">¾</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:551"><nobr><span class="ft5">at a rate of 9.6 Hz. Localization of sound sources was</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:488"><nobr><span class="ft11">running at a rate of 5.5 Hz. The laser range finder provided new<br>data at a rate of 4.7 Hz while the processing time for the detection<br>of legs was negligible.</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:501"><nobr><span class="ft5">The anchoring processes of the persons which were currently</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:488"><nobr><span class="ft11">speaking to the robot were updated with percepts at a rate of<br>15.4 Hz. Face percepts were assigned to the corresponding an-<br>chor at 71.4 % of the time. Note, that after a new person of interest<br>is selected it takes up to approximately 1 second until the camera<br>is turned and the person is in the field of view. During this time,<br>no face percept for the person of interest can be generated. Sound<br>percepts were assigned at 69.5 % of the time, and leg percepts at<br>99.9 % of the time.</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:501"><nobr><span class="ft5">The multi-modal anchoring framework was able to quantify the</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:488"><nobr><span class="ft5">body heights of all subjects with an accuracy of at least</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:805"><nobr><span class="ft3">¦</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:816"><nobr><span class="ft5">5 cm,</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:488"><nobr><span class="ft11">which was sufficient to precisely locate sound sources in 3D (see<br>section 5.2).</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:488"><nobr><span class="ft4"><b>7.3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:528"><nobr><span class="ft4"><b>Performance at an Exhibition</b></span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:501"><nobr><span class="ft5">In the beginning of April 2003 our robot was presented at the</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:488"><nobr><span class="ft11">exhibition part of the International Conference on Computer Vi-<br>sion Systems (ICVS) in Graz. There we were able to demonstrate<br>the robot's capabilities in multi-modal person tracking, and also in<br>following people. BIRON was continuously running without any<br>problems.</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:501"><nobr><span class="ft5">On the two exhibition days, the robot was running 9:20 hours</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:488"><nobr><span class="ft11">and 6:30 hours, respectively, tracking about 2240 persons on the<br>first day, and about 1400 persons on the second day. The large<br>amount of persons tracked results from the following condition:<br>Every person which came in the vicinity of the robot was counted<br>once. However, if a person left the observed area and came back<br>later, it was counted again as a new person.</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:501"><nobr><span class="ft5">Since the coffee breaks of the conference took place in the ex-</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:488"><nobr><span class="ft11">hibition room, there were extremely busy phases. Even then, the<br>robot was able to track up to 10 persons simultaneously. Despite<br>the high noise level, the sound source localization worked reliably,<br>even though it was necessary to talk slightly louder to attract the<br>robot's attention.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">34</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:928;height:1263;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="928" height="1263" src="154008.png" alt="background image">
+<DIV style="position:absolute;top:84;left:93"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:125"><nobr><span class="ft4"><b>SUMMARY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:107"><nobr><span class="ft5">In this paper we presented a multi-modal attention system for</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:93"><nobr><span class="ft11">a mobile robot. The system is able to observe several persons in<br>the vicinity of the robot and to decide based on a combination of<br>acoustic and visual cues whether one of these is willing to engage<br>in a communication with the robot. This attentional behavior is re-<br>alized by combining an approach for multi-modal person tracking<br>with the localization of sound sources and the detection of head<br>orientation derived from a face recognition system. Note that due<br>to the integration of cues from multiple modalities it is possible to<br>verify the position of a speech source in 3D space using a single<br>pair of microphones only. Persons that are observed by the robot<br>and are also talking are considered persons of interest. If a person<br>of interest is also facing the robot it will become the current com-<br>munication partner. Otherwise the robot assumes that the speech<br>was addressed to another person present.</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:107"><nobr><span class="ft5">The performance of our approach and its robustness even in real</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:93"><nobr><span class="ft11">world situations were demonstrated by quantitative evaluations in<br>our lab and a qualitative evaluation during the exhibition of the<br>mobile robot system at the ICVS'03.</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:93"><nobr><span class="ft4"><b>9.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:125"><nobr><span class="ft4"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:107"><nobr><span class="ft5">This work has been supported by the German Research Founda-</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:93"><nobr><span class="ft11">tion within the Collaborative Research Center 'Situated Artificial<br>Communicators' and the Graduate Programs 'Task Oriented Com-<br>munication' and 'Strategies and Optimization of Behavior'.</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:93"><nobr><span class="ft4"><b>10.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:134"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:100"><nobr><span class="ft5">[1] M. Andersson, A. Oreb¨ack, M. Lindstrom, and H. I.</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:123"><nobr><span class="ft11">Christensen. ISR: An intelligent service robot. In H. I.<br>Christensen, H. Bunke, and H. Noltmeier, editors, <i>Sensor<br>Based Intelligent Robots; International Workshop Dagstuhl<br>Castle, Germany, September/October 1998, Selected Papers</i>,<br>volume 1724 of <i>Lecture Notes in Computer Science</i>, pages<br>287­310. Springer, New York, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:100"><nobr><span class="ft5">[2] B. Berdugo, J. Rosenhouse, and H. Azhari. Speakers'</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:123"><nobr><span class="ft11">direction finding using estimated time delays in the<br>frequency domain. <i>Signal Processing</i>, 82:19­30, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:100"><nobr><span class="ft5">[3] W. Burgard, A. B. Cremers, D. Fox, D. H¨ahnel,</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:123"><nobr><span class="ft11">G. Lakemeyer, D. Schulz, W. Steiner, and S. Thrun. The<br>interactive museum tour-guide robot. In <i>Proc. Nat. Conf. on<br>Artificial Intelligence (AAAI)</i>, pages 11­18, Madison,<br>Wisconsin, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:100"><nobr><span class="ft5">[4] S. Coradeschi and A. Saffiotti. Perceptual anchoring of</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:123"><nobr><span class="ft14">symbols for action. In <i>Proc. Int. Conf. on Artificial<br>Intelligence</i>, pages 407­412, Seattle, WA, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:100"><nobr><span class="ft5">[5] Y. Freund and R. E. Shapire. A decision-theoretic</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:123"><nobr><span class="ft11">generalization of on-line learning and an application to<br>boosting. <i>Computational Learning Theory: Eurocolt '95</i>,<br>pages 23­27, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:100"><nobr><span class="ft5">[6] J. Fritsch, M. Kleinehagenbrock, S. Lang, T. Pl¨otz, G. A.</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:123"><nobr><span class="ft14">Fink, and G. Sagerer. Multi-modal anchoring for<br>human-robot-interaction. <i>Robotics and Autonomous Systems,<br>Special issue on Anchoring Symbols to Sensor Data in Single<br>and Multiple Robot Systems</i>, 43(2­3):133­147, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:100"><nobr><span class="ft5">[7] J. Fritsch, S. Lang, M. Kleinehagenbrock, G. A. Fink, and</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:123"><nobr><span class="ft14">G. Sagerer. Improving adaptive skin color segmentation by<br>incorporating results from face detection. In <i>Proc. IEEE Int.<br>Workshop on Robot and Human Interactive Communication<br>(ROMAN)</i>, pages 337­343, Berlin, Germany, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:100"><nobr><span class="ft5">[8] D. Giuliani, M. Omologo, and P. Svaizer. Talker localization</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:123"><nobr><span class="ft5">and speech recognition using a microphone array and a</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:517"><nobr><span class="ft11">cross-powerspectrum phase analysis. In <i>Proc. Int. Conf. on<br>Spoken Language Processing</i>, volume 3, pages 1243­1246,<br>Yokohama, Japan, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:495"><nobr><span class="ft5">[9] E. Hjelm°as and B. K. Low. Face detection: A survey.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:517"><nobr><span class="ft11"><i>Computer Vision and Image Understanding</i>, 83(3):236­274,<br>2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:488"><nobr><span class="ft5">[10] Y. Huang, J. Benesty, G. W. Elko, and R. M. Mersereau.</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:517"><nobr><span class="ft14">Real-time passiv source localization: A practical<br>linear-correction least-square approach. <i>IEEE Trans. on<br>Speech and Audio Processing</i>, 9(8):943­956, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:488"><nobr><span class="ft5">[11] C. H. Knapp and G. C. Carter. The generalized correlation</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:517"><nobr><span class="ft11">method for estimation of time delay. <i>IEEE Trans. on<br>Acoustics, Speech and Signal Processing</i>,<br>ASSP-24(4):320­327, 1976.</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:488"><nobr><span class="ft5">[12] Y. Matsusaka, S. Fujie, and T. Kobayashi. Modeling of</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:517"><nobr><span class="ft11">conversational strategy for the robot participating in the<br>group conversation. In <i>Proc. European Conf. on Speech<br>Communication and Technology</i>, pages 2173­2176, Aalborg,<br>Denmark, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:488"><nobr><span class="ft5">[13] H. G. Okuno, K. Nakadai, and H. Kitano. Social interaction</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:517"><nobr><span class="ft11">of humanoid robot based on audio-visual tracking. In <i>Proc.<br>Int. Conf. on Industrial and Engineering Applications of<br>Artificial Intelligence and Expert Systems</i>, Cairns, Australia,<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:488"><nobr><span class="ft5">[14] V. Pavlovi´c, A. Garg, J. Rehg, and T. Huang. Multimodal</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:517"><nobr><span class="ft14">speaker detection using error feedback dynamic bayesian<br>networks. In <i>Proc. Int. Conf. on Computer Vision and Pattern<br>Recognition</i>, pages 34­43, Los Alamitos, CA, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:488"><nobr><span class="ft5">[15] H. Rowley, S. Baluja, and T. Kanade. Neural network-based</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:517"><nobr><span class="ft14">face detection. <i>IEEE Trans. on Pattern Analysis and Machine<br>Intelligence</i>, 20(1):23­38, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:488"><nobr><span class="ft5">[16] R. D. Schraft, B. Graf, A. Traub, and D. John. A mobile</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:517"><nobr><span class="ft14">robot platform for assistance and entertainment. <i>Industrial<br>Robot</i>, 28(1):29­34, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:488"><nobr><span class="ft5">[17] D. Schulz, W. Burgard, D. Fox, and A. B. Cremers. Tracking</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:517"><nobr><span class="ft11">multiple moving objects with a mobile robot. In <i>Proc. Int.<br>Conf. on Computer Vision and Pattern Recognition</i>,<br>volume 1, pages 371­377, Kauwai, Hawaii, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:488"><nobr><span class="ft5">[18] R. Stiefelhagen, J. Yang, and A. Waibel. Estimating focus of</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:517"><nobr><span class="ft14">attention based on gaze and sound. In <i>Workshop on<br>Perceptive User Interfaces</i>, Orlando, FL, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:488"><nobr><span class="ft5">[19] M. Turk and A. Pentland. Eigenfaces for recognition.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:517"><nobr><span class="ft7"><i>Journal of Cognitive Neuro Science</i>, 3(1):71­86, 1991.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:488"><nobr><span class="ft5">[20] P. Viola and M. Jones. Robust real-time object detection. In</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:517"><nobr><span class="ft14"><i>Proc. IEEE Int. Workshop on Statistical and Computational<br>Theories of Vision</i>, Vancouver, Canada, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:488"><nobr><span class="ft5">[21] J. Yang and A. Waibel. A real-time face tracker. In <i>Proc.</i></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:517"><nobr><span class="ft11"><i>IEEE Workshop on Applications of Computer Vision</i>, pages<br>142­147, Sarasota, Florida, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:488"><nobr><span class="ft5">[22] M. H. Yang, D. J. Kriegman, and N. Ahuja. Detecting faces</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:517"><nobr><span class="ft14">in images: A survey. <i>IEEE Trans. on Pattern Analysis and<br>Machine Intelligence</i>, 24(1):34­58, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:488"><nobr><span class="ft5">[23] A. L. Yuille, P. W. Hallinan, and D. S. Cohen. Feature</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:517"><nobr><span class="ft14">extraction from faces using deformable templates. <i>Int.<br>Journal of Computer Vision</i>, 8(2):99­111, 1992.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:488"><nobr><span class="ft5">[24] Z. Zhang, L. Zhu, S. Z. Li, and H. Zhang. Real-time</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:517"><nobr><span class="ft14">multi-view face detection. In <i>Proc. Int. Conf. on Automatic<br>Face and Gesture Recognition</i>, Washington, DC, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:463"><nobr><span class="ft5">35</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

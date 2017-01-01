@@ -1,0 +1,1518 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Microsoft Word - FVA-MIR2003-final.doc</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Administrator">
+<META name="date" content="2004-03-09T09:01:32+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:25px;font-family:Times;color:#000000;}
+	.ft1{font-size:16px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:16px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:11px;font-family:Times;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:8px;font-family:Times;color:#000000;}
+	.ft8{font-size:7px;font-family:Times;color:#000000;}
+	.ft9{font-size:-1px;font-family:Times;color:#000000;}
+	.ft10{font-size:19px;font-family:Times;color:#000000;}
+	.ft11{font-size:10px;font-family:Times;color:#000000;}
+	.ft12{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft13{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft14{font-size:16px;line-height:24px;font-family:Times;color:#000000;}
+	.ft15{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72001.png" alt="background image">
+<DIV style="position:absolute;top:115;left:156"><nobr><span class="ft0"><b>Distance Measures for MPEG-7-based Retrieval </b></span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:386"><nobr><span class="ft1">Horst Eidenberger </span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:159"><nobr><span class="ft2">Vienna University of Technology, Institute of Software Technology and Interactive Systems </span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:302"><nobr><span class="ft2">Favoritenstrasse 9-11 ­ A-1040 Vienna, Austria </span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:378"><nobr><span class="ft2">Tel. + 43-1-58801-18853 </span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:337"><nobr><span class="ft1">eidenberger@ims.tuwien.ac.at</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:179"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:81"><nobr><span class="ft13">In visual information retrieval the careful choice of suitable <br>proximity measures is a crucial success factor. The evaluation <br>presented in this paper aims at showing that the distance measures <br>suggested by the MPEG-7 group for the visual descriptors can be <br>beaten by general-purpose measures. Eight visual MPEG-7 <br>descriptors were selected and 38 distance measures implemented. <br>Three media collections were created and assessed, performance <br>indicators developed and more than 22500 tests performed. <br>Additionally, a quantisation model was developed to be able to <br>use predicate-based distance measures on continuous data as well. <br>The evaluation shows that the distance measures recommended in <br>the MPEG-7-standard are among the best but that other measures <br>perform even better. </span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:352"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:81"><nobr><span class="ft13">H.3.3 [<b>Information Storage and Retrieval</b>]: Information Search <br>and Retrieval ­ <i>Information filtering, Query formulation</i>, <br><i>Retrieval models.</i>  </span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:197"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:81"><nobr><span class="ft4">Algorithms,</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:145"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:148"><nobr><span class="ft4">Measurement,</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:225"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:228"><nobr><span class="ft4">Experimentation,</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:321"><nobr><span class="ft8"> </span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:323"><nobr><span class="ft4">Performance, Theory.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:441"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:81"><nobr><span class="ft13">Visual Information Retrieval, Content-based Image Retrieval, <br>Content-based Video Retrieval, Similarity Measurement, Distance <br>Measurement, Similarity Perception, MPEG-7. </span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:81"><nobr><span class="ft3"><b>1. INTRODUCTION </b></span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:81"><nobr><span class="ft13">The MPEG-7 standard defines ­ among others ­ a set of <br>descriptors for visual media. Each descriptor consists of a feature <br>extraction mechanism, a description (in binary and XML format) <br>and guidelines that define how to apply the descriptor on different <br>kinds of media (e.g. on temporal media). The MPEG-7 descriptors <br>have been carefully designed to meet ­ partially complementary ­ <br>requirements of different application domains: archival, browsing, <br>retrieval, etc. [9]. In the following, we will exclusively deal with </span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:477"><nobr><span class="ft4">the <i>visual</i> MPEG-7 descriptors in the context of media <i>retrieval</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:477"><nobr><span class="ft13">The visual MPEG-7 descriptors fall in five groups: colour, <br>texture, shape, motion and others (e.g. face description) and sum <br>up to 16 basic descriptors. For retrieval applications, a rule for <br>each descriptor is mandatory that defines how to measure the <br>similarity of two descriptions. Common rules are distance <br>functions, like the Euclidean distance and the Mahalanobis <br>distance. Unfortunately, the MPEG-7 standard does not include <br>distance measures in the normative part, because it was not <br>designed to be (and should not exclusively understood to be) <br>retrieval-specific. However, the MPEG-7 authors give <br>recommendations, which distance measure to use on a particular <br>descriptor. These recommendations are based on accurate <br>knowledge of the descriptors' behaviour and the description <br>structures. </span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:477"><nobr><span class="ft13">In the present study a large number of successful distance <br>measures from different areas (statistics, psychology, medicine, <br>social and economic sciences, etc.) were implemented and applied <br>on MPEG-7 data vectors to <i>verify</i> whether or not the <br>recommended MPEG-7 distance measures are really the best for <br>any reasonable class of media objects. From the MPEG-7 tests <br>and the recommendations it does not become clear, how many and <br>which distance measures have been tested on the visual <br>descriptors and the MPEG-7 test datasets. The hypothesis is that <br>analytically derived distance measures may be good in general but <br>only a quantitative analysis is capable to identify the <i>best</i> distance <br>measure for a specific feature extraction method. </span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:477"><nobr><span class="ft13">The paper is organised as follows. Section 2 gives a minimum of <br>background information on the MPEG-7 descriptors and distance <br>measurement in visual information retrieval (VIR, see [3], [16]). <br>Section 3 gives an overview over the implemented distance <br>measures. Section 4 describes the test setup, including the test <br>data and the implemented evaluation methods. Finally, Section 5 <br>presents the results per descriptor and over all descriptors. </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:477"><nobr><span class="ft14"><b>2. BACKGROUND <br>2.1  MPEG-7: visual descriptors </b></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:477"><nobr><span class="ft13">The visual part of the MPEG-7 standard defines several <br>descriptors. Not all of them are really descriptors in the sense that <br>they extract properties from visual media. Some of them are just <br>structures for descriptor aggregation or localisation. The basic <br>descriptors are Color Layout, Color Structure, Dominant Color, <br>Scalable Color, Edge Histogram, Homogeneous Texture, Texture <br>Browsing, Region-based Shape, Contour-based Shape, Camera <br>Motion, Parametric Motion and Motion Activity. </span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:477"><nobr><span class="ft13">Other descriptors are based on low-level descriptors or semantic <br>information: Group-of-Frames/Group-of-Pictures Color (based on </span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:81"><nobr><span class="ft10"> </span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:81"><nobr><span class="ft15">Permission to make digital or hard copies of all or part of this work for <br>personal or classroom use is granted without fee provided that copies are <br>not made or distributed for profit or commercial advantage and that <br>copies bear this notice and the full citation on the first page. To copy <br>otherwise, or republish, to post on servers or to redistribute to lists, <br>requires prior specific permission and/or a fee. <br>MIR'03, November 7, 2003, Berkeley, California, USA. <br>Copyright 2003 ACM 1-58113-778-8/03/00011...$5.00. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">130</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72002.png" alt="background image">
+<DIV style="position:absolute;top:111;left:81"><nobr><span class="ft13">Scalable Color), Shape 3D (based on 3D mesh information), <br>Motion Trajectory (based on object segmentation) and Face <br>Recognition (based on face extraction).  </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft13">Descriptors for spatiotemporal aggregation and localisation are: <br>Spatial 2D Coordinates, Grid Layout, Region Locator (spatial), <br>Time Series, Temporal Interpolation (temporal) and <br>SpatioTemporal Locator (combined). Finally, other structures <br>exist for colour spaces, colour quantisation and multiple 2D views <br>of 3D objects. </span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:81"><nobr><span class="ft13">These additional structures allow combining the basic descriptors <br>in multiple ways and on different levels. But they do not change <br>the  <i>characteristics</i> of the extracted information. Consequently, <br>structures for aggregation and localisation were not considered in <br>the work described in this paper. </span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:81"><nobr><span class="ft3"><b>2.2 Similarity measurement on visual data </b></span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:81"><nobr><span class="ft13">Generally, similarity measurement on visual information aims at <br>imitating human visual similarity perception. Unfortunately, <br>human perception is much more complex than any of the existing <br>similarity models (it includes perception, recognition and <br>subjectivity).  </span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:81"><nobr><span class="ft13">The common approach in visual information retrieval is <br>measuring  <i>dis-</i>similarity as <i>distance</i>. Both, query object and <br>candidate object are represented by their corresponding feature <br>vectors. The distance between these objects is measured by <br>computing the distance between the two vectors. Consequently, <br>the process is independent of the employed querying paradigm <br>(e.g. query by example). The query object may be natural (e.g. a <br>real object) or artificial (e.g. properties of a group of objects).  </span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:81"><nobr><span class="ft13">Goal of the measurement process is to express a relationship <br>between the two objects by their distance. Iteration for multiple <br>candidates allows then to define a partial order over the <br>candidates and to address those in a (to be defined) <br>neighbourhood being <i>similar</i> to the query object. At this point, it <br>has to be mentioned that in a multi-descriptor environment ­ <br>especially in MPEG-7 ­ we are only half way towards a statement <br>on similarity. If multiple descriptors are used (e.g. a descriptor <br>scheme), a rule has to be defined how to combine all distances to <br>a global value for each object. Still, distance measurement is the <br>most important first step in similarity measurement. </span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:81"><nobr><span class="ft13">Obviously, the main task of good distance measures is to <br><i>reorganise</i> descriptor space in a way that media objects with the <br>highest similarity are nearest to the query object. If distance is <br>defined minimal, the query object is always in the origin of <br>distance space and similar candidates should form clusters around <br>the origin that are as large as possible. Consequently, many well <br>known distance measures are based on geometric assumptions of <br>descriptor space (e.g. Euclidean distance is based on the metric <br>axioms). Unfortunately, these measures do not fit ideally with <br>human similarity perception (e.g. due to human subjectivity). To <br>overcome this shortage, researchers from different areas have <br>developed alternative models that are mostly predicate-based <br>(descriptors are assumed to contain just binary elements, e.g. <br>Tversky's Feature Contrast Model [17]) and fit better with human <br>perception. In the following distance measures of both groups of <br>approaches will be considered. </span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:81"><nobr><span class="ft3"><b>3. DISTANCE MEASURES </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:81"><nobr><span class="ft4">The distance measures used in this work have been collected from </span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:477"><nobr><span class="ft13">various areas (Subsection 3.1). Because they work on differently <br>quantised data, Subsection 3.2 sketches a model for unification on <br>the basis of quantitative descriptions. Finally, Subsection 3.3 <br>introduces the distance measures as well as their origin and the <br>idea they implement. </span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:477"><nobr><span class="ft3"><b>3.1 Sources </b></span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:477"><nobr><span class="ft13">Distance measurement is used in many research areas such as <br>psychology, sociology (e.g. comparing test results), medicine (e.g. <br>comparing parameters of test persons), economics (e.g. comparing <br>balance sheet ratios), etc. Naturally, the character of data available <br>in these areas differs significantly. Essentially, there are two <br>extreme cases of data vectors (and distance measures): predicate-<br>based (all vector elements are binary, e.g. {0, 1}) and quantitative <br>(all vector elements are continuous, e.g. [0, 1]). </span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:477"><nobr><span class="ft13">Predicates express the <i>existence</i> of properties and represent high-<br>level information while quantitative values can be used to measure <br>and mostly represent low-level information. Predicates are often <br>employed in psychology, sociology and other human-related <br>sciences and most predicate-based distance measures were <br>therefore developed in these areas. Descriptions in visual <br>information retrieval are nearly ever (if they do not integrate <br>semantic information) quantitative. Consequently, mostly <br>quantitative distance measures are used in visual information <br>retrieval. </span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:477"><nobr><span class="ft13">The goal of this work is to compare the MPEG-7 distance <br>measures with the most powerful distance measures developed in <br>other areas. Since MPEG-7 descriptions are purely quantitative <br>but some of the most sophisticated distance measures are defined <br>exclusively on predicates, a model is mandatory that allows the <br>application of predicate-based distance measures on quantitative <br>data. The model developed for this purpose is presented in the <br>next section. </span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:477"><nobr><span class="ft3"><b>3.2 Quantisation model </b></span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:477"><nobr><span class="ft13">The goal of the quantisation model is to redefine the set operators <br>that are usually used in predicate-based distance measures on <br>continuous data. The first in visual information retrieval to follow <br>this approach were Santini and Jain, who tried to apply Tversky's <br>Feature Contrast Model [17] to content-based image retrieval <br>[12], [13]. They interpreted continuous data as fuzzy predicates <br>and used fuzzy set operators. Unfortunately, their model suffered <br>from several shortcomings they described in [12], [13] (for <br>example, the quantitative model worked only for one specific <br>version of the original predicate-based measure). </span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:477"><nobr><span class="ft13">The main idea of the presented quantisation model is that set <br>operators are replaced by <i>statistical</i> functions. In [5] the authors <br>could show that this interpretation of set operators is reasonable.  </span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:477"><nobr><span class="ft13">The model offers a solution for the descriptors considered in the <br>evaluation. It is not specific to one distance measure, but can be <br>applied to any predicate-based measure. Below, it will be shown <br>that the model does not only work for predicate data but for <br>quantitative data as well. Each measure implementing the model <br>can</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:496"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:498"><nobr><span class="ft4">be</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:511"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:514"><nobr><span class="ft4">used</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:539"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:541"><nobr><span class="ft4">as</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:552"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:555"><nobr><span class="ft4">a</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:561"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:564"><nobr><span class="ft4">substitute</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:616"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:618"><nobr><span class="ft4">for</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:634"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:637"><nobr><span class="ft4">the</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:653"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:656"><nobr><span class="ft4">original</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:698"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:701"><nobr><span class="ft4">predicate-based measure. </span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:477"><nobr><span class="ft13">Generally, binary properties of two objects (e.g. media objects) <br>can exist in both objects (denoted as <i>a</i>), in just one (<i>b</i>,  <i>c</i>) or in <br>none of them (<i>d</i>). The operator needed for these relationships are <br><i>UNION</i>,  <i>MINUS</i> and <i>NOT</i>. In the quantisation model they are <br>replaced as follows (see [5] for further details). </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">131</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:17px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;font-family:Times;color:#000000;}
+	.ft18{font-size:5px;font-family:Times;color:#000000;}
+	.ft19{font-size:5px;font-family:Times;color:#000000;}
+	.ft20{font-size:11px;font-family:Times;color:#1a1a1a;}
+	.ft21{font-size:20px;font-family:Times;color:#000000;}
+	.ft22{font-size:10px;font-family:Times;color:#000000;}
+	.ft23{font-size:10px;font-family:Times;color:#000000;}
+	.ft24{font-size:18px;font-family:Times;color:#000000;}
+	.ft25{font-size:13px;font-family:Times;color:#000000;}
+	.ft26{font-size:5px;font-family:Times;color:#000000;}
+	.ft27{font-size:7px;font-family:Times;color:#000000;}
+	.ft28{font-size:21px;font-family:Times;color:#000000;}
+	.ft29{font-size:11px;font-family:Times;color:#000000;}
+	.ft30{font-size:7px;font-family:Times;color:#000000;}
+	.ft31{font-size:11px;line-height:4px;font-family:Times;color:#000000;}
+	.ft32{font-size:11px;line-height:11px;font-family:Times;color:#000000;}
+	.ft33{font-size:10px;line-height:4px;font-family:Times;color:#000000;}
+	.ft34{font-size:10px;line-height:11px;font-family:Times;color:#000000;}
+	.ft35{font-size:10px;line-height:-10px;font-family:Times;color:#000000;}
+	.ft36{font-size:10px;line-height:-9px;font-family:Times;color:#000000;}
+	.ft37{font-size:11px;line-height:12px;font-family:Times;color:#000000;}
+	.ft38{font-size:11px;line-height:10px;font-family:Times;color:#000000;}
+	.ft39{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft40{font-size:11px;line-height:-10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72003.png" alt="background image">
+<DIV style="position:absolute;top:126;left:179"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:245"><nobr><span class="ft31"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:245"><nobr><span class="ft32"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:245"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:404"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:372"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:342"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:272"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:234"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:168"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:134"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:104"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:184"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:392"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:361"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:292"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:261"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:225"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:202"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:161"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:126"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:361"><nobr><span class="ft6"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:384"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:354"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:326"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:314"><nobr><span class="ft6"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:283"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:254"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:219"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:195"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:148"><nobr><span class="ft6"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:116"><nobr><span class="ft6"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:94"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:274"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:373"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:273"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:208"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:422"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:415"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:132;left:431"><nobr><span class="ft20"> </span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:333"><nobr><span class="ft21">(</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:381"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:333"><nobr><span class="ft21">(</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:380"><nobr><span class="ft21">)</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:191"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:170"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:170"><nobr><span class="ft1"></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:254"><nobr><span class="ft33"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:254"><nobr><span class="ft34"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:254"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:407"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:376"><nobr><span class="ft22">+</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:306"><nobr><span class="ft22">+</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:276"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:243"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:180"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:152"><nobr><span class="ft22">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:139"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:113"><nobr><span class="ft22">¬</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:103"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:233"><nobr><span class="ft36"><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:385"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:355"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:323"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:259"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:222"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:159"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:131"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:101"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:233"><nobr><span class="ft35"><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:386"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:354"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:323"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:258"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:223"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:160"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:130"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:102"><nobr><span class="ft22">=</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:196"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:395"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:365"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:325"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:295"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:235"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:212"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:173"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:132"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:175"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:372"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:344"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:277"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:249"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:214"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:192"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:152"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:124"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:175"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:373"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:343"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:277"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:247"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:214"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:192"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:153"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:123"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:378"><nobr><span class="ft23"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:387"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:359"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:345"><nobr><span class="ft23"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:317"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:289"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:261"><nobr><span class="ft23"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:229"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:206"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:161"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:122"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:93"><nobr><span class="ft23"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:343"><nobr><span class="ft23"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:366"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:336"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:308"><nobr><span class="ft23"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:296"><nobr><span class="ft23"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:270"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:241"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:208"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:185"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:142"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:112"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:93"><nobr><span class="ft23"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:343"><nobr><span class="ft23"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:364"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:337"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:308"><nobr><span class="ft23"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:296"><nobr><span class="ft23"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:269"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:241"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:208"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:186"><nobr><span class="ft23"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:141"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:113"><nobr><span class="ft23"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:92"><nobr><span class="ft23"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:294"><nobr><span class="ft11">0</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:377"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:307"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:218"><nobr><span class="ft11">,</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:259"><nobr><span class="ft11">0</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:197"><nobr><span class="ft11">,</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:259"><nobr><span class="ft11">0</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:198"><nobr><span class="ft11">,</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:424"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:403"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:404"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:417"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:395"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:395"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:432"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:81"><nobr><span class="ft4">with: </span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:135"><nobr><span class="ft24">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:213"><nobr><span class="ft24">[</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:266"><nobr><span class="ft24">]</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:359"><nobr><span class="ft24">(</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:402"><nobr><span class="ft24">)</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:154"><nobr><span class="ft25">{ }</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:159"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:148"><nobr><span class="ft4">\</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:365"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:164"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:159"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:341"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:164"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:157"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:237"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:406"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:114"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:415;left:114"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:176"><nobr><span class="ft19">min</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:140"><nobr><span class="ft19">max</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:250"><nobr><span class="ft19">max</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:224"><nobr><span class="ft19">min</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:138"><nobr><span class="ft26">+</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:117"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:376"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:304"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:133"><nobr><span class="ft31"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:133"><nobr><span class="ft37"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:133"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:230"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:190"><nobr><span class="ft38"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:190"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:154"><nobr><span class="ft38"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:154"><nobr><span class="ft17"> -</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:122"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:308"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:132"><nobr><span class="ft31"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:132"><nobr><span class="ft37"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:132"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:231"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:190"><nobr><span class="ft38"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:190"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:153"><nobr><span class="ft38"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:153"><nobr><span class="ft17"> -</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:121"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:158"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:122"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:202"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:125"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:325"><nobr><span class="ft16"> </span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:319"><nobr><span class="ft16"> </span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:129"><nobr><span class="ft6"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:108"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:368"><nobr><span class="ft6"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:361"><nobr><span class="ft6"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:387"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:257"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:218"><nobr><span class="ft6"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:221"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:207"><nobr><span class="ft6"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:180"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:141"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:344"><nobr><span class="ft6"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:337"><nobr><span class="ft6"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:355"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:260"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:219"><nobr><span class="ft6"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:221"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:207"><nobr><span class="ft6"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:180"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:140"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:169"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:133"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:107"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:243"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:217"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:185"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:159"><nobr><span class="ft6"><i>with</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:139"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:107"><nobr><span class="ft6"><i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:331"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:348"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:393"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:326"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:342"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:362"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:192"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:145"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:118"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:365"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:292"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:240"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:178"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:106"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:296"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:243"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:179"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:106"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:418"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:81"><nobr><span class="ft6"><i>a</i> selects properties that are present in both data vectors (<i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:419"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:421"><nobr><span class="ft4">,  <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:439"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:441"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:81"><nobr><span class="ft13">representing media objects), <i>b</i> and <i>c</i> select properties that are <br>present in just one of them and <i>d</i> selects properties that are present <br>in neither of the two data vectors. Every property is selected by <br>the  <i>extent</i> to which it is present (<i>a</i> and <i>d</i>: mean, <i>b</i> and <i>c</i>: <br>difference) and only if the amount to which it is present exceeds a <br>certain threshold (depending on the mean and standard deviation <br>over all elements of descriptor space). </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:81"><nobr><span class="ft4">The</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:102"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:104"><nobr><span class="ft4">implementation</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:189"><nobr><span class="ft7"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:192"><nobr><span class="ft4">of</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:203"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:206"><nobr><span class="ft4">these</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:234"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:237"><nobr><span class="ft4">operators</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:287"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:290"><nobr><span class="ft4">is</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:299"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:302"><nobr><span class="ft4">based</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:333"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:336"><nobr><span class="ft4">on one assumption. </span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:81"><nobr><span class="ft13">It is assumed that vector elements measure on  interval scale. That <br>means, each element expresses that the measured property is <br>&quot;more or less&quot; present (&quot;<i>0</i>&quot;: not at all, &quot;<i>M</i>&quot;: fully present). This is <br>true for most visual descriptors and all MPEG-7 descriptors. A <br>natural origin as it is assumed here (&quot;<i>0</i>&quot;) is not needed. </span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:81"><nobr><span class="ft39">Introducing  <i>p</i> (called discriminance-defining parameter) for the <br>thresholds</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:165"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:147"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:152"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:157"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:139"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:173"><nobr><span class="ft4">has the positive consequence that <i>a, b, c, d</i> can </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:81"><nobr><span class="ft13">then<i>  </i>be controlled through a <i>single</i> parameter. <i>p</i> is an additional <br>criterion for the behaviour of a distance measure and determines <br>the thresholds used in the operators<i>.</i> It expresses how accurate <br>data items are present (quantisation) and consequently, how <br>accurate they should be investigated. <i>p</i> can be set by the user or <br>automatically. Interesting are the limits: </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:191"><nobr><span class="ft4">1. </span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:315"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:209"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:298"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:247"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:235"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:219"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:289"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:271"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:276"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:281"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:263"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:331"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft13">In this case, all elements (=properties) are assumed to be <br>continuous (high quantisation). In consequence, all properties of a <br>descriptor are used by the operators. Then, the distance measure is <br><i>not</i> discriminant for properties.  </span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:197"><nobr><span class="ft4">2. </span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:314"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:277"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:242"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:289"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:272"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:298"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:250"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:226"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:281"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:265"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:215"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:325"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:81"><nobr><span class="ft13">In this case, all properties are assumed to be predicates. In <br>consequence, only binary elements (=predicates) are used by the </span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:477"><nobr><span class="ft13">operators (1-bit quantisation). The distance measure is then highly <br>discriminant for properties.  </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:477"><nobr><span class="ft13">Between these limits, a distance measure that uses the <br>quantisation model is ­ depending on <i>p</i> ­ more or less <br>discriminant for properties. This means, it selects a subset of all <br>available description vector elements for distance measurement. </span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:477"><nobr><span class="ft13">For both predicate data and quantitative data it can be shown that <br>the quantisation model is reasonable. If description vectors consist <br>of binary elements only, <i>p</i> should be used as follows (for example, <br><i>p</i> can easily be set automatically): </span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:726"><nobr><span class="ft16">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:744"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:731"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:624"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:607"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:740"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:705"><nobr><span class="ft4">min</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:679"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:667"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:657"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:651"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:620"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:584"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:632"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:615"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:694"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:640"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:593"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:568"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:685"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:671"><nobr><span class="ft6"><i>g</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:662"><nobr><span class="ft6"><i>e</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:558"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:760"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:477"><nobr><span class="ft13">In this case, <i>a</i>, <i>b</i>, <i>c</i>, <i>d</i> measure like the set operators they replace. <br>For example, Table 1 shows their behaviour for two one-<br>dimensional feature vectors <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:653"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:655"><nobr><span class="ft4"> and <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:700"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:702"><nobr><span class="ft4">. As can be seen, the </span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:477"><nobr><span class="ft13">statistical measures work like set operators. Actually, the <br>quantisation model works accurate on predicate data for any <i>p</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:477"><nobr><span class="ft13">To show that the model is reasonable for quantitative data the <br>following fact is used. It is easy to show that for predicate data <br>some quantitative distance measures degenerate to predicate-<br>based measures. For example, the <i>L</i></span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:681"><nobr><span class="ft27"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:685"><nobr><span class="ft4"> metric (Manhattan metric) </span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:477"><nobr><span class="ft4">degenerates to the Hamming distance (from [9], without weights): </span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:727"><nobr><span class="ft6"><i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:671"><nobr><span class="ft6"><i>Hamming</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:650"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:631"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:599"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:571"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:530"><nobr><span class="ft6"><i>L</i></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:557"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:607"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:578"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:659"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:640"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:620"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:588"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:541"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:552"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:537"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:787"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:477"><nobr><span class="ft13">If it can be shown that the quantisation model is able to <br><i>reconstruct</i> the quantitative measure from the degenerated <br>predicate-based measure, the model is obviously able to <i>extend</i> <br>predicate-based measures to the quantitative domain. This is easy <br>to illustrate. For purely quantitative feature vectors, <i>p</i> should be <br>used as follows (again, <i>p</i> can easily be set automatically): </span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:702"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:672"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:684"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:667"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:693"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:645"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:634"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:619"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:676"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:660"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:608"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:710"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:477"><nobr><span class="ft4">Then, <i>a</i> and <i>d</i> become continuous functions: </span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:647"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:674"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:785"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:755"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:729"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:637"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:611"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:577"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:551"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:519"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:785"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:755"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:663"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:637"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:603"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:577"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:546"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:516"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:653"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:804"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:774"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:721"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:671"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:539"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:509"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:679"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:804"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:774"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:747"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:697"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:565"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:535"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:796"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:768"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:740"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:714"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:679"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:665"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:626"><nobr><span class="ft6"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:587"><nobr><span class="ft6"><i>true</i></span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:561"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:530"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:502"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:796"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:768"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:741"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:705"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:691"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:654"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:613"><nobr><span class="ft6"><i>true</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:588"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:557"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:528"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:500"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:786"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:521"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:786"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:547"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:817"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:477"><nobr><span class="ft6"><i>b</i> and <i>c</i> can be made continuous for the following expressions: </span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:549"><nobr><span class="ft28">(</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:597"><nobr><span class="ft28">)</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:549"><nobr><span class="ft28">(</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:597"><nobr><span class="ft28">)</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:577"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:557"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:557"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:689"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:659"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:566"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:548"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:523"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:649"><nobr><span class="ft40"><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:775"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:746"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:676"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:638"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:546"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:523"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:685"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:656"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:627"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:602"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:571"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:539"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:649"><nobr><span class="ft40"><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:775"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:745"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:675"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:639"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:547"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:523"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:685"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:655"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:627"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:602"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:570"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:539"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:582"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:708"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:678"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:650"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:600"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:562"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:764"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:736"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:694"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:666"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:630"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:580"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:674"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:646"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:589"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:561"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:563"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:765"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:735"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:694"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:664"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:630"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:581"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:674"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:644"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:589"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:559"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:700"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:672"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:644"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:609"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:595"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:558"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:539"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:742"><nobr><span class="ft6"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:757"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:728"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:714"><nobr><span class="ft6"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:687"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:657"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:624"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:589"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:574"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:538"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:667"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:638"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:613"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:582"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:552"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:523"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:743"><nobr><span class="ft6"><i>else</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:756"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:728"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:715"><nobr><span class="ft6"><i>if</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:686"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:658"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:624"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:589"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:575"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:538"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:666"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:638"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:613"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:580"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:552"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:523"><nobr><span class="ft6"><i>M</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:676"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:785"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:695"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:676"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:785"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:695"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:794"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:516"><nobr><span class="ft5"><b>Table 1. Quantisation model on predicate vectors. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:574"><nobr><span class="ft29"><i><b>X</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:583"><nobr><span class="ft30"><i><b>i</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:586"><nobr><span class="ft29"><i><b> </b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:610"><nobr><span class="ft29"><i><b>X</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:619"><nobr><span class="ft30"><i><b>j</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:622"><nobr><span class="ft29"><i><b>  a b c d </b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:574"><nobr><span class="ft39">(1) (1) 1 0 0 0 <br>(1) (0) 0 1 0 0 <br>(0) (1) 0 0 1 0 <br>(0) (0) 0 0 0 1 </span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:479"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">132</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft41{font-size:17px;font-family:Times;color:#000000;}
+	.ft42{font-size:11px;line-height:16px;font-family:Times;color:#000000;}
+	.ft43{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72004.png" alt="background image">
+<DIV style="position:absolute;top:425;left:214"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:214"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:342"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:308"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:201"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:178"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:340"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:308"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:201"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:179"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:220"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:362"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:330"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:297"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:241"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:220"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:362"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:329"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:297"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:241"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:355"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:321"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:290"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:250"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:234"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:190"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:169"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:353"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:321"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:290"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:250"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:234"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:190"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:169"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:375"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:81"><nobr><span class="ft13">This means, for sufficiently high <i>p</i> every predicate-based distance <br>measure that is either not using <i>b</i> and <i>c</i> or just as <i>b+c</i>, <i>b-c</i> or <i>c-b</i>, <br>can be transformed into a continuous quantitative distance <br>measure. For example, the Hamming distance (again, without <br>weights): </span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:398"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:392"><nobr><span class="ft6"><i>L</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:360"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:332"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:281"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:253"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:225"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:190"><nobr><span class="ft6"><i>where</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:175"><nobr><span class="ft6"><i>s</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:139"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:120"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:318"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:369"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:339"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:163"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:289"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:259"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:231"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:181"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:381"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:349"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:302"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:270"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:240"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:147"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:129"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:312"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:158"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:405"><nobr><span class="ft20"> </span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:81"><nobr><span class="ft4">The quantisation model successfully reconstructs the <i>L</i></span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:396"><nobr><span class="ft27"><i>1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:400"><nobr><span class="ft4"> metric </span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:81"><nobr><span class="ft13">and no distance measure-specific modification has to be made to <br>the model. This demonstrates that the model is reasonable. In the <br>following it will be used to extend successful predicate-based <br>distance measures on the quantitative domain. </span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:81"><nobr><span class="ft13">The major advantages of the quantisation model are: (1) it is <br>application domain independent, (2) the implementation is <br>straightforward, (3) the model is easy to use and finally, (4) the <br>new parameter <i>p</i> allows to control the similarity measurement <br>process in a new way (discriminance on property level). </span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft3"><b>3.3  Implemented measures  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:81"><nobr><span class="ft13">For the evaluation described in this work next to predicate-based <br>(based on the quantisation model) and quantitative measures, the <br>distance measures recommended in the MPEG-7 standard were <br>implemented (all together 38 different distance measures).  </span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:81"><nobr><span class="ft13">Table 2 summarises those predicate-based measures that <br>performed best in the evaluation (in sum 20 predicate-based <br>measures were investigated). For these measures, <i>K</i> is the number <br>of predicates in the data vectors <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:269"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:272"><nobr><span class="ft4"> and <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:309"><nobr><span class="ft27"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:311"><nobr><span class="ft4">. In P1, the <i>sum</i> is used </span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:81"><nobr><span class="ft4">for Tversky's <i>f()</i> (as Tversky himself does in [17]) and <i>,  </i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:418"><nobr><span class="ft41"> </span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:425"><nobr><span class="ft4">are </span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:81"><nobr><span class="ft13">weights for element <i>b</i> and <i>c</i>. In [5] the author's investigated <br>Tversky's Feature Contrast Model and found <i>=1,  </i><i>=0</i> to be the <br>optimum parameters.  </span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:81"><nobr><span class="ft13">Some of the predicate-based measures are very simple (e.g. P2, <br>P4) but have been heavily exploited in psychological research. <br>Pattern difference (P6) ­ a very powerful measure ­ is used in the <br>statistics package SPSS for cluster analysis. P7 is a correlation <br>coefficient for predicates developed by Pearson. </span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:477"><nobr><span class="ft39">Table 3 shows the best quantitative distance measures that were <br>used. Q1 and Q2 are metric-based and were implemented as <br>representatives for the entire group of Minkowski distances. The <br><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:486"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:488"><nobr><span class="ft4"> are weights. In Q5, </span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:638"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:620"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:629"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:612"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:624"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:655"><nobr><span class="ft4">are mean and standard deviation </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:477"><nobr><span class="ft4">for the elements of descriptor <i>X</i></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:654"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:656"><nobr><span class="ft4">. In Q6, <i>m</i> is  2<i>M </i>(=0.5). Q3, the </span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:477"><nobr><span class="ft13">Canberra metric, is a normalised form of Q1. Similarly, Q4, <br>Clark's divergence coefficient is a normalised version of Q2. Q6 is <br>a further-developed correlation coefficient that is invariant against <br>sign changes. This measure is used even though its particular <br>properties are of minor importance for this application domain. <br>Finally, Q8 is a measure that takes the differences between <br>adjacent vector elements into account. This makes it structurally <br>different from all other measures.  </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:477"><nobr><span class="ft13">Obviously, one important distance measure is missing. The <br>Mahalanobis distance was not considered, because different <br>descriptors would require different covariance matrices and for <br>some descriptors it is simply impossible to define a covariance <br>matrix. If the identity matrix was used in this case, the <br>Mahalanobis distance would degenerate to a Minkowski distance. </span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:477"><nobr><span class="ft39">Additionally, the recommended MPEG-7 distances were <br>implemented with the following parameters: In the distance <br>measure of the Color Layout descriptor all weights were set to &quot;1&quot; <br>(as in all other implemented measures). In the distance measure of <br>the Dominant Color descriptor the following parameters were <br>used: </span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:675"><nobr><span class="ft4">20</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:643"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:637"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:609"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:603"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:600"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:593"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:559"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:552"><nobr><span class="ft4">7</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:549"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:542"><nobr><span class="ft4">0</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:574"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:523"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:665"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:627"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:582"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:532"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:655"><nobr><span class="ft18"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:647"><nobr><span class="ft6"><i>T</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:564"><nobr><span class="ft6"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:515"><nobr><span class="ft6"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:614"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:692"><nobr><span class="ft4">(as recommended). In the </span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:477"><nobr><span class="ft4">Homogeneous Texture descriptor's distance all </span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:754"><nobr><span class="ft25">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:757"><nobr><span class="ft6"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:743"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:771"><nobr><span class="ft4"> were set to </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:477"><nobr><span class="ft4">&quot;1&quot; and matching was done rotation- and scale-invariant.  </span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:477"><nobr><span class="ft13">Important! Some of the measures presented in this section are <br><i>distance</i> measures while others are <i>similarity</i> measures. For the <br>tests, it is important to notice, that all similarity measures were <br><i>inverted</i> to distance measures. </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:477"><nobr><span class="ft3"><b>4. TEST SETUP </b></span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:477"><nobr><span class="ft13">Subsection 4.1 describes the descriptors (including parameters) <br>and the collections (including ground truth information) that were <br>used in the evaluation. Subsection 4.2 discusses the evaluation <br>method that was implemented and Subsection 4.3 sketches the test <br>environment used for the evaluation process. </span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:477"><nobr><span class="ft3"><b>4.1 Test data </b></span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:477"><nobr><span class="ft13">For the evaluation eight MPEG-7 descriptors were used. All <br>colour descriptors: Color Layout, Color Structure, Dominant <br>Color, Scalable Color, all texture descriptors: Edge Histogram, <br>Homogeneous Texture, Texture Browsing and one shape <br>descriptor: Region-based Shape. Texture Browsing was used even <br>though the MPEG-7 standard suggests that it is not suitable for <br>retrieval. The other basic shape descriptor, Contour-based Shape, <br>was not used, because it produces structurally different <br>descriptions that cannot be transformed to data vectors with <br>elements measuring on interval-scales. The motion descriptors <br>were not used, because they integrate the temporal dimension of <br>visual media and would only be comparable, if the basic colour, <br>texture and shape descriptors would be aggregated over time. This <br>was not done. Finally, no high-level descriptors were used <br>(Localisation, Face Recognition, etc., see Subsection 2.1), <br>because ­ to the author's opinion ­ the behaviour of the basic <br>descriptors on elementary media objects should be evaluated <br><i>before</i> conclusions on aggregated structures can be drawn. </span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:135"><nobr><span class="ft5"><b>Table 2. Predicate-based distance measures.  </b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:92"><nobr><span class="ft42"><b>No.  Measure Comment <br></b>P1 </span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:194"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:159"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:127"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:191"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:156"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:181"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:146"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:168"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:137"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:204"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:289"><nobr><span class="ft13">Feature Contrast Model, <br>Tversky 1977 [17] </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:92"><nobr><span class="ft4">P2 </span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:127"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:138"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:289"><nobr><span class="ft4">No. of co-occurrences  </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:92"><nobr><span class="ft4">P3 </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:146"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:127"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:136"><nobr><span class="ft17">+  </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:289"><nobr><span class="ft4">Hamming distance </span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:92"><nobr><span class="ft4">P4 </span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:129"><nobr><span class="ft6"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:130"><nobr><span class="ft6"><i>a </i> </span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:289"><nobr><span class="ft4">Russel 1940 [14] </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:92"><nobr><span class="ft4">P5 </span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:148"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:128"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:138"><nobr><span class="ft43"><i>a<br></i>+  </span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:289"><nobr><span class="ft4">Kulczvnski 1927 [14] </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:92"><nobr><span class="ft4">P6 </span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:140"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:129"><nobr><span class="ft6"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:131"><nobr><span class="ft6"><i>bc </i> </span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:289"><nobr><span class="ft4">Pattern difference [14] </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:92"><nobr><span class="ft4">P7 </span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:137"><nobr><span class="ft25">(</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:167"><nobr><span class="ft25">)(</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:201"><nobr><span class="ft25">)(</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:235"><nobr><span class="ft25">)(</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:269"><nobr><span class="ft25">)</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:261"><nobr><span class="ft6"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:242"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:227"><nobr><span class="ft6"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:208"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:194"><nobr><span class="ft6"><i>c</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:175"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:161"><nobr><span class="ft6"><i>b</i></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:141"><nobr><span class="ft6"><i>a</i></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:209"><nobr><span class="ft6"><i>bc</i></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:181"><nobr><span class="ft6"><i>ad</i></span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:251"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:217"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:184"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:151"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:199"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:279"><nobr><span class="ft4">  Pearson 1926 [11] </span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">133</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft44{font-size:3px;font-family:Times;color:#000000;}
+	.ft45{font-size:27px;font-family:Times;color:#000000;}
+	.ft46{font-size:22px;font-family:Times;color:#000000;}
+	.ft47{font-size:15px;font-family:Times;color:#000000;}
+	.ft48{font-size:15px;font-family:Times;color:#000000;}
+	.ft49{font-size:14px;font-family:Times;color:#000000;}
+	.ft50{font-size:9px;font-family:Times;color:#000000;}
+	.ft51{font-size:4px;font-family:Times;color:#000000;}
+	.ft52{font-size:9px;font-family:Times;color:#000000;}
+	.ft53{font-size:4px;font-family:Times;color:#000000;}
+	.ft54{font-size:10px;line-height:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72005.png" alt="background image">
+<DIV style="position:absolute;top:422;left:81"><nobr><span class="ft13">The Texture Browsing descriptions had to be transformed from <br>five bins to an eight bin representation in order that all elements <br>of the descriptor measure on an interval scale. A Manhattan metric <br>was used to measure proximity (see [6] for details). </span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:81"><nobr><span class="ft13">Descriptor extraction was performed using the MPEG-7 reference <br>implementation. In the extraction process each descriptor was <br>applied on the entire content of each media object and the <br>following extraction parameters were used. Colour in Color <br>Structure was quantised to 32 bins. For Dominant Color colour <br>space was set to YCrCb, 5-bit default quantisation was used and <br>the default value for spatial coherency</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:300"><nobr><span class="ft8"> </span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:305"><nobr><span class="ft4">was used.</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:359"><nobr><span class="ft44"> </span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:363"><nobr><span class="ft4">Homogeneous </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:81"><nobr><span class="ft13">Texture was quantised to 32 components. Scalable Color values <br>were quantised to <i>sizeof(int)-3</i> bits and 64 bins were used. Finally, <br>Texture Browsing was used with five components. </span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:81"><nobr><span class="ft13">These descriptors were applied on three media collections with <br>image content: the Brodatz dataset (112 images, 512x512 pixel), a <br>subset of the Corel dataset (260 images, 460x300 pixel, portrait <br>and landscape) and a dataset with coats-of-arms images (426 <br>images, 200x200 pixel). Figure 1 shows examples from the three <br>collections. </span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:81"><nobr><span class="ft13">Designing appropriate test sets for a visual evaluation is a highly <br>difficult task (for example, see the TREC video 2002 report [15]). <br>Of course, for identifying the best distance measure for a <br>descriptor, it should be tested on an infinite number of media <br>objects. But this is not the aim of this study. It is just evaluated if <br>­ for likely image collections ­ better proximity measures than <br>those suggested by the MPEG-7 group can be found. Collections <br>of this relatively small size were used in the evaluation, because <br>the applied evaluation methods are above a certain minimum size <br>invariant against collection size and for smaller collections it is <br>easier to define a high-quality ground truth. Still, the average ratio <br>of ground truth size to collection size is at least 1:7. Especially, no <br>collection from the MPEG-7 dataset was used in the evaluation <br>because the evaluations should show, how well the descriptors <br>and the recommended distance measures perform on &quot;unknown&quot; <br>material.  </span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:81"><nobr><span class="ft13">When the descriptor extraction was finished, the resulting XML <br>descriptions were transformed into a data matrix with 798 lines <br>(media objects) and 314 columns (descriptor elements). To be <br>usable with distance measures that do not integrate domain </span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:477"><nobr><span class="ft13">knowledge, the elements of this data matrix were normalised to <br>[0, 1]. </span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:477"><nobr><span class="ft13">For the distance evaluation ­ next to the normalised data matrix ­ <br>human similarity judgement is needed. In this work, the ground <br>truth is built of twelve groups of similar images (four for each <br>dataset). Group membership was rated by humans based on <br>semantic criterions. Table 4 summarises the twelve groups and the <br>underlying descriptions. It has to be noticed, that some of these <br>groups (especially 5, 7 and 10) are much harder to find with low-<br>level descriptors than others. </span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:477"><nobr><span class="ft3"><b>4.2 Evaluation method </b></span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:477"><nobr><span class="ft13">Usually, retrieval evaluation is performed based on a ground truth <br>with  <i>recall</i> and <i>precision</i> (see, for example, [3], [16]). In multi-<br>descriptor environments this leads to a problem, because the <br>resulting recall and precision values are strongly influenced by the <br>method used to merge the distance values for one media object. <br>Even though it is nearly impossible to say, how big the influence <br>of a single distance measure was on the resulting recall and <br>precision values, this problem has been almost ignored so far. </span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:477"><nobr><span class="ft13">In Subsection 2.2 it was stated that the major task of a distance <br>measure is to bring the relevant media objects <i>as close</i> to the <br>origin (where the query object lies) <i>as possible</i>. Even in a multi-<br>descriptor environment it is then simple to identify the similar <br>objects in a large distance space. Consequently, it was decided to </span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:343"><nobr><span class="ft5"><b>Table 3. Quantitative distance measures. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:578"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:94"><nobr><span class="ft5"><b>No. Measure </b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:288"><nobr><span class="ft5"><b>Comment </b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:398"><nobr><span class="ft5"><b>No.  Measure </b></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:735"><nobr><span class="ft5"><b>Comment </b></span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:94"><nobr><span class="ft4">Q1 </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:135"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:186"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:175;left:140"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:205"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:176"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:161"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:197"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:169"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:152"><nobr><span class="ft6"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:219"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:288"><nobr><span class="ft13">City block <br>distance (L</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:348"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:353"><nobr><span class="ft4">) </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:398"><nobr><span class="ft4">Q2 </span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:503"><nobr><span class="ft45">(</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:577"><nobr><span class="ft45">)</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:455"><nobr><span class="ft46"></span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:535"><nobr><span class="ft47">-</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:464"><nobr><span class="ft27"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:564"><nobr><span class="ft27"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:519"><nobr><span class="ft27"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:496"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:552"><nobr><span class="ft48"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:509"><nobr><span class="ft48"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:482"><nobr><span class="ft48"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:582"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:599"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:735"><nobr><span class="ft13">Euclidean <br>distance (L</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:795"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:799"><nobr><span class="ft4">) </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:94"><nobr><span class="ft4">Q3 </span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:135"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:171"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:171"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:140"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:191"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:161"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:191"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:161"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:182"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:154"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:182"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:154"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:204"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:288"><nobr><span class="ft13">Canberra metric, <br>Lance, Williams <br>1967 [8] </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:398"><nobr><span class="ft4">Q4 </span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:483"><nobr><span class="ft28">(</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:532"><nobr><span class="ft28">)</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:465"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:508"><nobr><span class="ft17">+</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:504"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:470"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:527"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:497"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:523"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:494"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:519"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:490"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:515"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:487"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:442"><nobr><span class="ft6"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:536"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:443"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:548"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:735"><nobr><span class="ft13">Divergence <br>coefficient, <br>Clark 1952 [1] </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:94"><nobr><span class="ft4">Q5 </span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:168"><nobr><span class="ft47">(</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:207"><nobr><span class="ft47">)</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:210"><nobr><span class="ft16">(</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:252"><nobr><span class="ft16">)</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:158"><nobr><span class="ft47">(</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:197"><nobr><span class="ft47">)</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:220"><nobr><span class="ft16">(</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:262"><nobr><span class="ft16">)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:143"><nobr><span class="ft49"></span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:206"><nobr><span class="ft49"></span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:154"><nobr><span class="ft49"></span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:240"><nobr><span class="ft50">-</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:176"><nobr><span class="ft50">-</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:229"><nobr><span class="ft50">-</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:186"><nobr><span class="ft50">-</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:148"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:211"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:258"><nobr><span class="ft51"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:231"><nobr><span class="ft51"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:193"><nobr><span class="ft51"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:167"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:158"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:248"><nobr><span class="ft51"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:220"><nobr><span class="ft51"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:203"><nobr><span class="ft51"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:177"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:224"><nobr><span class="ft52"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:161"><nobr><span class="ft52"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:213"><nobr><span class="ft52"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:171"><nobr><span class="ft52"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:266"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:201"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:250"><nobr><span class="ft22">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:186"><nobr><span class="ft22">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:239"><nobr><span class="ft22">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:196"><nobr><span class="ft22">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:276"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:288"><nobr><span class="ft13">Correlation <br>coefficient </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:398"><nobr><span class="ft4">Q6 </span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:711"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:711"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:575"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:575"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:655"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:619"><nobr><span class="ft22">+</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:569"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:569"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:449"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:449"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:527"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:491"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:663"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:663"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:584"><nobr><span class="ft54"><br></span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:584"><nobr><span class="ft22"></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:622"><nobr><span class="ft22">+</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:566"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:537"><nobr><span class="ft22">-</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:680"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:581"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:454"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:490"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:631"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:590"><nobr><span class="ft47"></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:685"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:703"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:586"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:605"><nobr><span class="ft51"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:561"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:459"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:477"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:494"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:636"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:656"><nobr><span class="ft51"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:595"><nobr><span class="ft51"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:612"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:527"><nobr><span class="ft51"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:512"><nobr><span class="ft51"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:697"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:671"><nobr><span class="ft23"><i>m</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:629"><nobr><span class="ft23"><i>Km</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:597"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:555"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:542"><nobr><span class="ft23"><i>m</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:501"><nobr><span class="ft23"><i>Km</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:471"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:648"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:606"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:575"><nobr><span class="ft23"><i>m</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:546"><nobr><span class="ft23"><i>Km</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:519"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:506"><nobr><span class="ft23"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:664"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:573"><nobr><span class="ft11">.</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:551"><nobr><span class="ft11">.</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:536"><nobr><span class="ft11">2</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:647"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:612"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:519"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:483"><nobr><span class="ft53">2</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:721"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:735"><nobr><span class="ft4">Cohen 1969 [2] </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:94"><nobr><span class="ft4">Q7 </span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:136"><nobr><span class="ft16"> </span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:151"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:142"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:180"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:201"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:161"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:156"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:192"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:175"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:193"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:154"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:183"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:168"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:208"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:168"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:219"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:288"><nobr><span class="ft13">Angular distance, <br>Gower 1967 [7] </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:398"><nobr><span class="ft4">Q8 </span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:460"><nobr><span class="ft24">(</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:514"><nobr><span class="ft24">)</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:530"><nobr><span class="ft28">(</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:587"><nobr><span class="ft28">)</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:457"><nobr><span class="ft28">(</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:590"><nobr><span class="ft28">)</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:440"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:447"><nobr><span class="ft26">-</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:577"><nobr><span class="ft26">+</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:505"><nobr><span class="ft26">+</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:552"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:519"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:481"><nobr><span class="ft17">-</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:451"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:593"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:581"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:509"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:441"><nobr><span class="ft18"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:445"><nobr><span class="ft18"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:571"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:541"><nobr><span class="ft18"><i>jk</i></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:499"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:470"><nobr><span class="ft18"><i>ik</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:563"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:533"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:492"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:464"><nobr><span class="ft6"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:602"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:735"><nobr><span class="ft13">Meehl Index <br>[10] </span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:555"><nobr><span class="ft5"><b>Table 4. Ground truth information. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:483"><nobr><span class="ft5"><b>Coll. No  Images  Description </b></span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:536"><nobr><span class="ft4">1 </span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:577"><nobr><span class="ft4">19 </span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:615"><nobr><span class="ft4">Regular, chequered patterns </span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:536"><nobr><span class="ft4">2 </span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:577"><nobr><span class="ft4">38 </span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:615"><nobr><span class="ft4">Dark white noise </span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:536"><nobr><span class="ft4">3 33 </span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:615"><nobr><span class="ft4">Moon-like </span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:676"><nobr><span class="ft4">surfaces </span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:483"><nobr><span class="ft4">Brodatz </span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:536"><nobr><span class="ft4">4 35 </span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:615"><nobr><span class="ft4">Water-like </span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:676"><nobr><span class="ft4">surfaces </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:536"><nobr><span class="ft4">5 </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:577"><nobr><span class="ft4">73 </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:615"><nobr><span class="ft4">Humans in nature (difficult) </span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:536"><nobr><span class="ft4">6 </span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:577"><nobr><span class="ft4">17 </span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:615"><nobr><span class="ft4">Images with snow (mountains, skiing) </span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:536"><nobr><span class="ft4">7 </span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:577"><nobr><span class="ft4">76 </span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:615"><nobr><span class="ft4">Animals in nature (difficult) </span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:483"><nobr><span class="ft4">Corel </span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:536"><nobr><span class="ft4">8 </span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:577"><nobr><span class="ft4">27 </span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:615"><nobr><span class="ft4">Large coloured flowers </span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:536"><nobr><span class="ft4">9 </span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:577"><nobr><span class="ft4">12 </span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:615"><nobr><span class="ft4">Bavarian communal arms </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:536"><nobr><span class="ft4">10 </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:577"><nobr><span class="ft4">10 </span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:615"><nobr><span class="ft4">All Bavarian arms (difficult) </span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:536"><nobr><span class="ft4">11 </span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:577"><nobr><span class="ft4">18 </span></nobr></DIV>
+<DIV style="position:absolute;top:1041;left:615"><nobr><span class="ft4">Dark objects / light unsegmented shield </span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:483"><nobr><span class="ft4">Arms </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:536"><nobr><span class="ft4">12 </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:577"><nobr><span class="ft4">14 </span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:615"><nobr><span class="ft4">Major charges on blue or red shield </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">134</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft55{font-size:3px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72006.png" alt="background image">
+<DIV style="position:absolute;top:409;left:81"><nobr><span class="ft13">use indicators measuring the distribution in distance space of <br>candidates similar to the query object for this evaluation instead <br>of recall and precision. Identifying clusters of similar objects <br>(based on the given ground truth) is relatively easy, because the <br>resulting distance space for one descriptor and any distance <br>measure is always <i>one-dimensional</i>.</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:296"><nobr><span class="ft20"> </span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:306"><nobr><span class="ft4">Clusters are found by </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:81"><nobr><span class="ft13">searching from the <i>origin</i> of distance space to the first similar <br>object, grouping all following similar objects in the cluster, <br>breaking off the cluster with the first un-similar object and so <br>forth. </span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft13">For the evaluation two indicators were defined. The first measures <br>the average distance of all cluster means to the origin: </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:305"><nobr><span class="ft6"><i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:273"><nobr><span class="ft6"><i>avg</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:228"><nobr><span class="ft6"><i>clusters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:202"><nobr><span class="ft6"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:308"><nobr><span class="ft6"><i>size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:259"><nobr><span class="ft6"><i>cluster</i></span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:285"><nobr><span class="ft6"><i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:228"><nobr><span class="ft18"><i>clusters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:213"><nobr><span class="ft18"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:231"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:328"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:283"><nobr><span class="ft18"><i>size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:255"><nobr><span class="ft18"><i>cluster</i></span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:275"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:331"><nobr><span class="ft18"><i>ij</i></span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:180"><nobr><span class="ft18"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:294"><nobr><span class="ft55"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:295"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:269"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:218"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:299"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:223"><nobr><span class="ft19">_</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:277"><nobr><span class="ft19">_</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:225"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:268"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:190"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:172"><nobr><span class="ft2">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:355"><nobr><span class="ft20"> </span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:81"><nobr><span class="ft4">where <i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:162"><nobr><span class="ft27"><i>ij</i></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:167"><nobr><span class="ft4"> is the distance value of the <i>j</i>-th element in the <i>i</i>-th </span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:81"><nobr><span class="ft4">cluster, </span></nobr></DIV>
+<DIV style="position:absolute;top:759;left:237"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:228"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:267"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:205"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:226"><nobr><span class="ft18"><i>CLUSTERS</i></span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:243"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:322"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:217"><nobr><span class="ft18"><i>CLUSTERS</i></span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:234"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:281"><nobr><span class="ft18"><i>size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:255"><nobr><span class="ft18"><i>cluster</i></span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:274"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:329"><nobr><span class="ft18"><i>ij</i></span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:302"><nobr><span class="ft6"><i>size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:253"><nobr><span class="ft6"><i>cluster</i></span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:284"><nobr><span class="ft6"><i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:158"><nobr><span class="ft6"><i>distance</i></span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:127"><nobr><span class="ft6"><i>avg</i></span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:292"><nobr><span class="ft51"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:766;left:293"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:149"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:276"><nobr><span class="ft19">_</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:339"><nobr><span class="ft4">, <i>no_clusters</i> is the </span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:81"><nobr><span class="ft4">number of found clusters and <i>cluster_size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:315"><nobr><span class="ft27"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:318"><nobr><span class="ft4"> is the size of the <i>i</i>-th </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:81"><nobr><span class="ft13">cluster. The resulting indicator is normalised by the distribution <br>characteristics of the distance measure (<i>avg_distance</i>). <br>Additionally, the standard deviation is used. In the evaluation <br>process this measure turned out to produce valuable results and to <br>be relatively robust against parameter <i>p</i> of the quantisation model. </span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:81"><nobr><span class="ft13">In Subsection 3.2 we noted that <i>p</i> affects the discriminance of a <br>predicate-based distance measure: The smaller <i>p</i> is set the larger <br>are the resulting clusters because the quantisation model is then <br>more discriminant against properties and less elements of the data <br>matrix are used. This causes a side-effect that is measured by the <br>second indicator: more and more un-similar objects come out with <br><i>exactly</i> the same distance value as similar objects (a problem that <br>does not exist for large <i>p</i>'s) and become <i>indiscernible</i> from similar <br>objects. Consequently, they are (false) cluster members. This <br>phenomenon (conceptually similar to the &quot;false negatives&quot; <br>indicator) was named &quot;cluster pollution&quot; and the indicator </span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:477"><nobr><span class="ft4">measures the average cluster pollution over all clusters: </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:660"><nobr><span class="ft6"><i>clusters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:636"><nobr><span class="ft6"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:692"><nobr><span class="ft6"><i>doubles</i></span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:667"><nobr><span class="ft6"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:572"><nobr><span class="ft6"><i>cp</i></span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:612"><nobr><span class="ft18"><i>clusters</i></span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:599"><nobr><span class="ft18"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:616"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:664"><nobr><span class="ft18"><i>size</i></span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:638"><nobr><span class="ft18"><i>cluster</i></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:657"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:734"><nobr><span class="ft18"><i>ij</i></span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:675"><nobr><span class="ft51"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:651"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:683"><nobr><span class="ft4">_</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:607"><nobr><span class="ft19">_</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:659"><nobr><span class="ft19">_</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:610"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:650"><nobr><span class="ft16"></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:587"><nobr><span class="ft17">=</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:745"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:477"><nobr><span class="ft4">where  <i>no_doubles</i></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:580"><nobr><span class="ft27"><i>ij</i></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:586"><nobr><span class="ft4"> is the number of indiscernible un-similar </span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:477"><nobr><span class="ft4">objects associated with the <i>j</i>-th element of cluster <i>i</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:477"><nobr><span class="ft13">Remark: Even though there is a certain influence, it could be <br>proven in [5] that no significant correlation exists between <br>parameter <i>p</i> of the quantisation model and cluster pollution. </span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:477"><nobr><span class="ft3"><b>4.3 Test environment </b></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:477"><nobr><span class="ft13">As pointed out above, to generate the descriptors, the MPEG-7 <br>reference implementation in version 5.6 was used (provided by <br>TU Munich). Image processing was done with Adobe Photoshop <br>and normalisation and all evaluations were done with Perl. The <br>querying process was performed in the following steps: (1) <br>random selection of a ground truth group, (2) random selection of <br>a query object from this group, (3) distance comparison for all <br>other objects in the dataset, (4) clustering of the resulting distance <br>space based on the ground truth and finally, (5) evaluation. </span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:477"><nobr><span class="ft13">For each combination of dataset and distance measure 250 queries <br>were issued and evaluations were aggregated over all datasets and <br>descriptors. The next section shows the ­ partially surprising ­ <br>results. </span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:477"><nobr><span class="ft3"><b>5. RESULTS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:477"><nobr><span class="ft13">In the results presented below the first indicator from Subsection <br>4.2 was used to evaluate distance measures. In a first step <br>parameter  <i>p</i> had to be set in a way that all measures are <i>equally</i> <br>discriminant. Distance measurement is fair if the following <br>condition holds true for any predicate-based measure <i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:784"><nobr><span class="ft27"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:789"><nobr><span class="ft4"> and any </span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:477"><nobr><span class="ft4">continuous measure <i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:595"><nobr><span class="ft27"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:601"><nobr><span class="ft4">: </span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:622"><nobr><span class="ft24">(</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:654"><nobr><span class="ft24">) ( )</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:694"><nobr><span class="ft18"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:634"><nobr><span class="ft18"><i>P</i></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:686"><nobr><span class="ft6"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:670"><nobr><span class="ft6"><i>cp</i></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:647"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:625"><nobr><span class="ft6"><i>d</i></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:609"><nobr><span class="ft6"><i>cp</i></span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:660"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:640"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:708"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:477"><nobr><span class="ft13">Then, it is guaranteed that predicate-based measures do not create <br>larger clusters (with a higher number of similar objects) for the <br>price of higher cluster pollution. In more than 1000 test queries <br>the optimum value was found to be <i>p=1</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:477"><nobr><span class="ft4">Results are organised as follows: Subsection 5.1 summarises the </span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:836"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:194"><nobr><span class="ft5"><b>Figure 1. Test datasets. </b></span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:330"><nobr><span class="ft4">Left: Brodatz dataset, middle: Corel dataset, right: coats-of-arms dataset.<b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">135</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72007.png" alt="background image">
+<DIV style="position:absolute;top:420;left:81"><nobr><span class="ft13">best distance measures per descriptor, Section 5.2 shows the best <br>overall distance measures and Section 5.3 points out other <br>interesting results (for example, distance measures that work <br>particularly good on specific ground truth groups). </span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:81"><nobr><span class="ft3"><b>5.1  Best measure per descriptor </b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:81"><nobr><span class="ft13">Figure 2 shows the evaluation results for the first indicator. For <br>each descriptor the best measure and the performance of the <br>MPEG-7 recommendation are shown. The results are aggregated <br>over the tested datasets.  </span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:81"><nobr><span class="ft13">On first sight, it becomes clear that the MPEG-7 <br>recommendations are mostly relatively good but <i>never</i> the best. <br>For Color Layout the difference between MP7 and the best <br>measure, the Meehl index (Q8), is just 4% and the MPEG-7 <br>measure has a smaller standard deviation. The reason why the <br>Meehl index is better may be that this descriptors generates <br>descriptions with elements that have very similar variance. <br>Statistical analysis confirmed that (see [6]).  </span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:81"><nobr><span class="ft13">For Color Structure, Edge Histogram, Homogeneous Texture, <br>Region-based Shape and Scalable Color by far the best measure is <br>pattern difference (P6). Psychological research on human visual <br>perception has revealed that in many situation differences between <br>the query object and a candidate weigh much stronger than <br>common properties. The pattern difference measure implements <br>this insight in the most consequent way. In the author's opinion, <br>the reason why pattern difference performs so extremely well on <br>many descriptors is due to this fact. Additional advantages of <br>pattern difference are that it usually has a very low variance and ­ <br>because it is a predicate-based measure ­ its discriminance (and <br>cluster structure) can be tuned with parameter <i>p</i>. </span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:81"><nobr><span class="ft13">The best measure for Dominant Color turned out to be Clark's <br>Divergence coefficient (Q4). This is a similar measure to pattern <br>difference on the continuous domain. The Texture Browsing <br>descriptor is a special problem. In the MPEG-7 standard it is <br>recommended to use it exclusively for browsing. After testing it <br>for retrieval on various distance measures the author supports this <br>opinion. It is very difficult to find a good distance measure for <br>Texture Browsing. The proposed Manhattan metric, for example, <br>performs very bad. The best measure is predicate-based (P7). It <br>works on common properties (<i>a</i>,  <i>d</i>) but produces clusters with </span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:477"><nobr><span class="ft13">very high cluster pollution. For this descriptor the second <br>indicator is up to eight times higher than for predicate-based <br>measures on other descriptors. </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:477"><nobr><span class="ft3"><b>5.2  Best overall measures </b></span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:477"><nobr><span class="ft13">Figure 3 summarises the results over all descriptors and media <br>collections. The diagram should give an indication on the <i>general <br>potential</i> of the investigated distance measures for visual <br>information retrieval. </span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:477"><nobr><span class="ft13">It can be seen that the best overall measure is a predicate-based <br>one. The top performance of pattern difference (P6) proves that <br>the quantisation model is a reasonable method to extend <br>predicate-based distance measures on the continuous domain. The <br>second best group of measures are the MPEG-7 <br>recommendations, which have a slightly higher mean but a lower <br>standard deviation than pattern difference. The third best measure <br>is the Meehl index (Q8), a measure developed for psychological <br>applications but because of its characteristic properties tailor-<br>made for certain (homogeneous) descriptors. </span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:477"><nobr><span class="ft13">Minkowski metrics are also among the best measures: the average <br>mean and variance of the Manhattan metric (Q1) and the <br>Euclidean metric (Q2) are in the range of Q8. Of course, these <br>measures do not perform particularly well for any of the <br>descriptors. Remarkably for a predicate-based measure, Tversky's <br>Feature Contrast Model (P1) is also in the group of very good <br>measures (even though it is not among the best) that ends with <br>Q5, the correlation coefficient. The other measures either have a <br>significantly higher mean or a very large standard deviation. </span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:477"><nobr><span class="ft3"><b>5.3  Other interesting results </b></span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:477"><nobr><span class="ft13">Distance measures that perform in average worse than others may <br>in certain situations (e.g. on specific content) still perform better. <br>For Color Layout, for example, Q7 is a very good measure on <br>colour photos. It performs as good as Q8 and has a lower standard <br>deviation. For artificial images the pattern difference and the <br>Hamming distance produce comparable results as well.  </span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:477"><nobr><span class="ft13">If colour information is available in media objects, pattern <br>difference performs well on Dominant Color (just 20% worse Q4) <br>and in case of difficult ground truth (group 5, 7, 10) the Meehl <br>index is as strong as P6.  </span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:233"><nobr><span class="ft7">0,000</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:233"><nobr><span class="ft7">0,001</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:233"><nobr><span class="ft7">0,002</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:233"><nobr><span class="ft7">0,003</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:233"><nobr><span class="ft7">0,004</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:233"><nobr><span class="ft7">0,005</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:233"><nobr><span class="ft7">0,006</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:233"><nobr><span class="ft7">0,007</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:233"><nobr><span class="ft7">0,008</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:278"><nobr><span class="ft7">Q8</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:305"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:305"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:331"><nobr><span class="ft7">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:358"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:358"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:384"><nobr><span class="ft7">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:411"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:411"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:437"><nobr><span class="ft7">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:464"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:464"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:490"><nobr><span class="ft7">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:517"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:517"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:544"><nobr><span class="ft7">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:570"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:570"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:597"><nobr><span class="ft7">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:623"><nobr><span class="ft7">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:623"><nobr><span class="ft7">7</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:650"><nobr><span class="ft7">P7</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:676"><nobr><span class="ft7">Q2</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:275"><nobr><span class="ft11">Color</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:272"><nobr><span class="ft11">Layout</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:328"><nobr><span class="ft11">Color</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:320"><nobr><span class="ft11">Structure</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:371"><nobr><span class="ft11">Dominant</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:381"><nobr><span class="ft11">Color</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:436"><nobr><span class="ft11">Edge</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:422"><nobr><span class="ft11">Histogram</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:481"><nobr><span class="ft11">Homog.</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:482"><nobr><span class="ft11">Texture</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:536"><nobr><span class="ft11">Region</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:539"><nobr><span class="ft11">Shape</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:586"><nobr><span class="ft11">Scalable</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:593"><nobr><span class="ft11">Color</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:641"><nobr><span class="ft11">Texture</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:636"><nobr><span class="ft11">Browsing</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:693"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:81"><nobr><span class="ft5"><b>Figure 2. Results per measure and descriptor.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:359"><nobr><span class="ft4"> The horizontal axis shows the best measure and the performance of the MPEG-7 </span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:81"><nobr><span class="ft13">recommendation for each descriptor. The vertical axis shows the values for the first indicator (smaller value = better cluster structure). <br>Shades have the following meaning: black=<i>µ-</i> (good cases), black + dark grey=<i>µ</i> (average) and black + dark grey + light grey=<i>µ+</i> (bad). </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">136</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft56{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="72008.png" alt="background image">
+<DIV style="position:absolute;top:386;left:81"><nobr><span class="ft3"><b>6. CONCLUSION </b></span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:81"><nobr><span class="ft13">The evaluation presented in this paper aims at testing the <br>recommended distance measures and finding better ones for the <br>basic visual MPEG-7 descriptors. Eight descriptors were selected, <br>38 distance measures were implemented, media collections were <br>created and assessed, performance indicators were defined and <br>more than 22500 tests were performed. To be able to use <br>predicate-based distance measures next to quantitative measures a <br>quantisation model was defined that allows the application of <br>predicate-based measures on continuous data. </span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:81"><nobr><span class="ft13">In the evaluation the best overall distance measures for visual <br>content ­ as extracted by the visual MPEG-7 descriptors ­ turned <br>out to be the pattern difference measure and the Meehl index (for <br>homogeneous descriptions). Since these two measures perform <br>significantly better than the MPEG-7 recommendations they <br>should be further tested on large collections of image and video <br>content (e.g. from [15]).</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:212"><nobr><span class="ft20"> </span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft13">The choice of the right distance function for similarity <br>measurement depends on the descriptor, the queried media <br>collection and the semantic level of the user's idea of similarity. <br>This work offers suitable distance measures for various situations. <br>In consequence, the distance measures identified as the best will <br>be implemented in the open MPEG-7 based visual information <br>retrieval framework VizIR [4]. </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:81"><nobr><span class="ft3"><b>ACKNOWLEDGEMENTS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:81"><nobr><span class="ft13">The author would like to thank Christian Breiteneder for his <br>valuable comments and suggestions for improvement. The work <br>presented in this paper is part of the VizIR project funded by the <br>Austrian Scientific Research Fund FWF under grant no. P16111.  </span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:81"><nobr><span class="ft3"><b>REFERENCES </b></span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:81"><nobr><span class="ft4">[1]  Clark, P.S. An extension of the coefficient of divergence for </span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:106"><nobr><span class="ft4">use with multiple characters. Copeia, 2 (1952), 61-64. </span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:81"><nobr><span class="ft4">[2]  Cohen, J. A profile similarity coefficient invariant over </span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:106"><nobr><span class="ft13">variable reflection. Psychological Bulletin, 71 (1969), 281-<br>284. </span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:81"><nobr><span class="ft4">[3]  Del Bimbo, A. Visual information retrieval. Morgan </span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:106"><nobr><span class="ft4">Kaufmann Publishers, San Francisco CA, 1999. </span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:81"><nobr><span class="ft4">[4]  Eidenberger, H., and Breiteneder, C. A framework for visual </span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:106"><nobr><span class="ft13">information retrieval. In Proceedings Visual Information <br>Systems Conference (HSinChu Taiwan, March 2002), LNCS <br>2314, Springer Verlag, 105-116. </span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:477"><nobr><span class="ft4">[5]  Eidenberger, H., and Breiteneder, C. Visual similarity </span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:502"><nobr><span class="ft13">measurement with the Feature Contrast Model. In <br>Proceedings SPIE Storage and Retrieval for Media Databases <br>Conference (Santa Clara CA, January 2003), SPIE Vol. <br>5021, 64-76. </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:477"><nobr><span class="ft4">[6]  Eidenberger, H., How good are the visual MPEG-7 features? </span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:502"><nobr><span class="ft13">In Proceedings SPIE Visual Communications and Image <br>Processing Conference (Lugano Switzerland, July 2003), <br>SPIE Vol. 5150, 476-488. </span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:477"><nobr><span class="ft4">[7]  Gower, J.G. Multivariate analysis and multidimensional </span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:502"><nobr><span class="ft4">geometry. The Statistician, 17 (1967),13-25. </span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:477"><nobr><span class="ft4">[8]  Lance, G.N., and Williams, W.T. Mixed data classificatory </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:502"><nobr><span class="ft13">programs. Agglomerative Systems Australian Comp. Journal, <br>9 (1967), 373-380. </span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:477"><nobr><span class="ft4">[9]  Manjunath, B.S., Ohm, J.R., Vasudevan, V.V., and Yamada, </span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:502"><nobr><span class="ft13">A. Color and texture descriptors. In Special Issue on MPEG-<br>7. IEEE Transactions on Circuits and Systems for Video <br>Technology, 11/6 (June 2001), 703-715. </span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:477"><nobr><span class="ft4">[10] Meehl, P. E. The problem is epistemology, not statistics: </span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:502"><nobr><span class="ft13">Replace significance tests by confidence intervals and <br>quantify accuracy of risky numerical predictions. In Harlow, <br>L.L., Mulaik, S.A., and Steiger, J.H. (Eds.). What if there <br>were no significance tests? Erlbaum, Mahwah NJ, 393-425. </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:477"><nobr><span class="ft4">[11] Pearson, K. On the coefficients of racial likeness. Biometrica, </span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:502"><nobr><span class="ft4">18 (1926), 105-117. </span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:477"><nobr><span class="ft4">[12] Santini, S., and Jain, R. Similarity is a geometer. Multimedia </span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:502"><nobr><span class="ft4">Tools and Application, 5/3 (1997), 277-306. </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:477"><nobr><span class="ft4">[13] Santini, S., and Jain, R. Similarity measures. IEEE </span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:502"><nobr><span class="ft13">Transactions on Pattern Analysis and Machine Intelligence, <br>21/9 (September 1999), 871-883. </span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:477"><nobr><span class="ft4">[14] Sint, P.P. Similarity structures and similarity measures. </span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:502"><nobr><span class="ft13">Austrian Academy of Sciences Press, Vienna Austria, 1975 <br>(in German). </span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:477"><nobr><span class="ft4">[15] Smeaton, A.F., and Over, P. The TREC-2002 video track </span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:502"><nobr><span class="ft13">report. NIST Special Publication SP 500-251 (March 2003), <br>available from: http://trec.nist.gov/pubs/trec11/papers/ <br>VIDEO.OVER.pdf (last visited: 2003-07-29) </span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:477"><nobr><span class="ft4">[16] Smeulders, A.W.M., Worring, M., Santini, S., Gupta, A., and </span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:502"><nobr><span class="ft13">Jain, R. Content-based image retrieval at the end of the early <br>years. IEEE Transactions on Pattern Analysis and Machine <br>Intelligence, 22/12 (December 2000), 1349-1380. </span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:477"><nobr><span class="ft4">[17] Tversky, A. Features of similarity. Psychological Review, </span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:502"><nobr><span class="ft4">84/4 (July 1977), 327-351. </span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:81"><nobr><span class="ft9"> </span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:258"><nobr><span class="ft56">0,000</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:258"><nobr><span class="ft56">0,002</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:258"><nobr><span class="ft56">0,004</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:258"><nobr><span class="ft56">0,006</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:258"><nobr><span class="ft56">0,008</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:258"><nobr><span class="ft56">0,010</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:258"><nobr><span class="ft56">0,012</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:258"><nobr><span class="ft56">0,014</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:258"><nobr><span class="ft56">0,016</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:258"><nobr><span class="ft56">0,018</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:258"><nobr><span class="ft56">0,020</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:307"><nobr><span class="ft56">P6</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:330"><nobr><span class="ft56">MP</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:330"><nobr><span class="ft56">7</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:353"><nobr><span class="ft56">Q8</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:376"><nobr><span class="ft56">Q1</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:376"><nobr><span class="ft56"> </span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:399"><nobr><span class="ft56">Q4</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:423"><nobr><span class="ft56">Q2</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:445"><nobr><span class="ft56">P2</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:469"><nobr><span class="ft56">P4</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:492"><nobr><span class="ft56">Q6</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:516"><nobr><span class="ft56">Q3</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:538"><nobr><span class="ft56">Q7</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:561"><nobr><span class="ft56">P1</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:585"><nobr><span class="ft56">Q5</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:608"><nobr><span class="ft56">P3</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:631"><nobr><span class="ft56">P5</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:654"><nobr><span class="ft56">P7</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:669"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:83"><nobr><span class="ft5"><b>Figure 3. Overall results (ordered by the first indicator). </b></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:409"><nobr><span class="ft4">The vertical axis shows the values for the first indicator (smaller value = better </span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:113"><nobr><span class="ft4">cluster structure). Shades have the following meaning: black=<i>µ-</i>, black + dark grey=<i>µ</i> and black + dark grey + light grey=<i>µ+</i>.<b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1120;left:446"><nobr><span class="ft12">137</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

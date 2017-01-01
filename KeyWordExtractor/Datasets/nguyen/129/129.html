@@ -1,0 +1,721 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\129</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2004-06-16T12:17:13+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:19px;font-family:Times;color:#000000;}
+	.ft2{font-size:14px;font-family:Times;color:#000000;}
+	.ft3{font-size:12px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft6{font-size:12px;line-height:20px;font-family:Times;color:#000000;}
+	.ft7{font-size:14px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129001.png" alt="background image">
+<DIV style="position:absolute;top:63;left:135"><nobr><span class="ft0">Journal of Machine Learning Research 5 (2004) 143-151</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:523"><nobr><span class="ft0">Submitted 1/03; Revised 8/03; Published 2/04</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:282"><nobr><span class="ft1">Lossless Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:135"><nobr><span class="ft2">Herbert K. H. Lee</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:625"><nobr><span class="ft3">herbie@ams.ucsc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:135"><nobr><span class="ft5">Department of Applied Math and Statistics<br>School of Engineering<br>University of California, Santa Cruz<br>Santa Cruz, CA 95064, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:135"><nobr><span class="ft2">Merlise A. Clyde</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:624"><nobr><span class="ft3">clyde@stat.duke.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:135"><nobr><span class="ft6">Institute of Statistics and Decision Sciences<br>Box 90251<br>Duke University<br>Durham, NC 27708, USA</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:135"><nobr><span class="ft3">Editor: Bin Yu</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:420"><nobr><span class="ft4">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:165"><nobr><span class="ft5">Bagging frequently improves the predictive performance of a model. An online version<br>has recently been introduced, which attempts to gain the benefits of an online algorithm<br>while approximating regular bagging. However, regular online bagging is an approximation<br>to its batch counterpart and so is not lossless with respect to the bagging operation. By<br>operating under the Bayesian paradigm, we introduce an online Bayesian version of bagging<br>which is exactly equivalent to the batch Bayesian version, and thus when combined with<br>a lossless learning algorithm gives a completely lossless online bagging algorithm. We also<br>note that the Bayesian formulation resolves a theoretical problem with bagging, produces<br>less variability in its estimates, and can improve predictive performance for smaller data<br>sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:165"><nobr><span class="ft3">Keywords: Classification Tree, Bayesian Bootstrap, Dirichlet Distribution</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:135"><nobr><span class="ft4">1. Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:135"><nobr><span class="ft7">In a typical prediction problem, there is a trade-off between bias and variance, in that after<br>a certain amount of fitting, any increase in the precision of the fit will cause an increase in<br>the prediction variance on future observations. Similarly, any reduction in the prediction<br>variance causes an increase in the expected bias for future predictions. Breiman (1996)<br>introduced bagging as a method of reducing the prediction variance without affecting the<br>prediction bias. As a result, predictive performance can be significantly improved.</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:160"><nobr><span class="ft2">Bagging, short for "Bootstrap AGGregatING", is an ensemble learning method. Instead</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:135"><nobr><span class="ft7">of making predictions from a single model fit on the observed data, bootstrap samples<br>are taken of the data, the model is fit on each sample, and the predictions are averaged<br>over all of the fitted models to get the bagged prediction. Breiman (1996) explains that<br>bagging works well for unstable modeling procedures, i.e. those for which the conclusions<br>are sensitive to small changes in the data. He also gives a theoretical explanation of how<br>bagging works, demonstrating the reduction in mean-squared prediction error for unstable</span></nobr></DIV>
+<DIV style="position:absolute;top:1090;left:139"><nobr><span class="ft0">c 2004 Herbert K. H. Lee and Merlise A. Clyde.</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft8{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129002.png" alt="background image">
+<DIV style="position:absolute;top:61;left:401"><nobr><span class="ft3">Lee and Clyde</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:135"><nobr><span class="ft7">procedures. Breiman (1994) demonstrated that tree models, among others, are empirically<br>unstable.</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:160"><nobr><span class="ft2">Online bagging (Oza and Russell, 2001) was developed to implement bagging sequen-</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:135"><nobr><span class="ft7">tially, as the observations appear, rather than in batch once all of the observations have<br>arrived. It uses an asymptotic approximation to mimic the results of regular batch bagging,<br>and as such it is not a lossless algorithm. Online algorithms have many uses in modern<br>computing. By updating sequentially, the update for a new observation is relatively quick<br>compared to re-fitting the entire database, making real-time calculations more feasible.<br>Such algorithms are also advantageous for extremely large data sets where reading through<br>the data just once is time-consuming, so batch algorithms which would require multiple<br>passes through the data would be infeasible.</span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:160"><nobr><span class="ft2">In this paper, we consider a Bayesian version of bagging (Clyde and Lee, 2001) based</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:135"><nobr><span class="ft7">on the Bayesian bootstrap (Rubin, 1981). This overcomes a technical difficulty with the<br>usual bootstrap in bagging. It also leads to a theoretical reduction in variance over the<br>bootstrap for certain classes of estimators, and a significant reduction in observed variance<br>and error rates for smaller data sets. We present an online version which, when combined<br>with a lossless online model-fitting algorithm, continues to be lossless with respect to the<br>bagging operation, in contrast to ordinary online bagging. The Bayesian approach requires<br>the learning base algorithm to accept weighted samples.</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:160"><nobr><span class="ft2">In the next section we review the basics of the bagging algorithm, of online bagging,</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:135"><nobr><span class="ft7">and of Bayesian bagging. Next we introduce our online Bayesian bagging algorithm. We<br>then demonstrate its efficacy with classification trees on a variety of examples.</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:135"><nobr><span class="ft4">2. Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:135"><nobr><span class="ft7">In ordinary (batch) bagging, bootstrap re-sampling is used to reduce the variability of an<br>unstable estimator. A particular model or algorithm, such as a classification tree, is specified<br>for learning from a set of data and producing predictions. For a particular data set X</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:766"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:778"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:135"><nobr><span class="ft2">denote the vector of predictions (at the observed sites or at new locations) by G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:757"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:771"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:135"><nobr><span class="ft2">Denote the observed data by X = (x</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:421"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:429"><nobr><span class="ft2">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:482"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:492"><nobr><span class="ft2">). A bootstrap sample of the data is a</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:135"><nobr><span class="ft2">sample with replacement, so that X</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:402"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:424"><nobr><span class="ft2">= (x</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:465"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:478"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:486"><nobr><span class="ft2">, . . . , x</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:538"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:552"><nobr><span class="ft8">n</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:561"><nobr><span class="ft2">), where m</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:643"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:656"><nobr><span class="ft2"> {1, . . . , n} with</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:135"><nobr><span class="ft2">repetitions allowed. X</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:299"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:318"><nobr><span class="ft2">can also be thought of as a re-weighted version of X, where the</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:135"><nobr><span class="ft2">weights, </span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:208"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:207"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:234"><nobr><span class="ft2">are drawn from the set {0,</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:425"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:424"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:434"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:443"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:799;left:443"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:452"><nobr><span class="ft2">, . . . , 1}, i.e., n</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:565"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:564"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:591"><nobr><span class="ft2">is the number of times that</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:135"><nobr><span class="ft2">x</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:146"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:156"><nobr><span class="ft2">appears in the mth bootstrap sample. We denote the weighted sample as (X, </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:715"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:811;left:740"><nobr><span class="ft2">). For</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:135"><nobr><span class="ft2">each bootstrap sample, the model produces predictions G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:578"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:592"><nobr><span class="ft2">) = G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:657"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:670"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:676"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:683"><nobr><span class="ft2">, . . . , G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:753"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:766"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:772"><nobr><span class="ft0">P</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:135"><nobr><span class="ft7">where P is the number of prediction sites. M total bootstrap samples are used. The bagged<br>predictor for the jth element is then</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:318"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:314"><nobr><span class="ft2">M</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:343"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:336"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:347"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:366"><nobr><span class="ft2">G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:399"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:412"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:419"><nobr><span class="ft0">j</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:434"><nobr><span class="ft2">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:458"><nobr><span class="ft2">M</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:487"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:480"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:491"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:510"><nobr><span class="ft2">G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:563"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:589"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:595"><nobr><span class="ft0">j</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:602"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:135"><nobr><span class="ft7">or in the case of classification, the jth element is predicted to belong to the most frequently<br>predicted category by G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:329"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:337"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:343"><nobr><span class="ft0">j</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:350"><nobr><span class="ft2">, . . . , G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:420"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:434"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:441"><nobr><span class="ft0">j</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:447"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:160"><nobr><span class="ft2">A version of pseudocode for implementing bagging is</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:155"><nobr><span class="ft2">1. For m  {1, . . . , M },</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">144</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129003.png" alt="background image">
+<DIV style="position:absolute;top:61;left:326"><nobr><span class="ft3">Lossless Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:183"><nobr><span class="ft2">(a) Draw a bootstrap sample, X</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:418"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:431"><nobr><span class="ft2">, from X.</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:182"><nobr><span class="ft2">(b) Find predicted values G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:409"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:423"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:155"><nobr><span class="ft2">2. The bagging predictor is</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:362"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:359"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:394"><nobr><span class="ft9">M<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:221;left:405"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:425"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:440"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:462"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:476"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:135"><nobr><span class="ft2">Equivalently, the bootstrap sample can be converted to a weighted sample (X, </span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:704"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:730"><nobr><span class="ft2">) where</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:135"><nobr><span class="ft2">the weights </span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:229"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:228"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:254"><nobr><span class="ft2">are found by taking the number of times x</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:548"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:558"><nobr><span class="ft2">appears in the bootstrap sample</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:135"><nobr><span class="ft2">and dividing by n. Thus the weights will be drawn from {0,</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:582"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:581"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:591"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:600"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:600"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:609"><nobr><span class="ft2">, . . . , 1} and will sum to</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:135"><nobr><span class="ft2">1. The bagging predictor using the weighted formulation is</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:589"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:585"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:620"><nobr><span class="ft9">M<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:632"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:651"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:666"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:689"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:703"><nobr><span class="ft2">, </span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:723"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:749"><nobr><span class="ft2">) for</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:135"><nobr><span class="ft2">regression, or the plurality vote for classification.</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:135"><nobr><span class="ft2">2.1 Online Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:135"><nobr><span class="ft7">Online bagging (Oza and Russell, 2001) was recently introduced as a sequential approxima-<br>tion to batch bagging. In batch bagging, the entire data set is collected, and then bootstrap<br>samples are taken from the whole database. An online algorithm must process observations<br>as they arrive, and thus each observation must be resampled a random number of times<br>when it arrives. The algorithm proposed by Oza and Russell resamples each observation<br>according to a Poisson random variable with mean 1, i.e., P (K</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:580"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:597"><nobr><span class="ft2">= k) = exp(-1)/k!, where</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:135"><nobr><span class="ft2">K</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:149"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:167"><nobr><span class="ft2">is the number of resamples in "bootstrap sample" m, K</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:574"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:592"><nobr><span class="ft2"> {0, 1, . . .}. Thus as each</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:135"><nobr><span class="ft2">observation arrives, it is added K</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:373"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:391"><nobr><span class="ft2">times to X</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:468"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:481"><nobr><span class="ft2">, and then G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:597"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:611"><nobr><span class="ft2">) is updated, and this is</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:135"><nobr><span class="ft2">done for m  {1, . . . , M }.</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:160"><nobr><span class="ft2">Pseudocode for online bagging is</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:176"><nobr><span class="ft2">For i  {1, . . . , n},</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:191"><nobr><span class="ft2">1. For m  {1, . . . , M },</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:213"><nobr><span class="ft2">(a) Draw a weight K</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:367"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:385"><nobr><span class="ft2">from a Poisson(1) random variable and add K</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:722"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:740"><nobr><span class="ft2">copies</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:243"><nobr><span class="ft2">of x</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:270"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:281"><nobr><span class="ft2">to X</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:315"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:328"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:213"><nobr><span class="ft2">(b) Find predicted values G(X</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:439"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:453"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:191"><nobr><span class="ft2">2. The current bagging predictor is</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:455"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:452"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:487"><nobr><span class="ft9">M<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:498"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:518"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:532"><nobr><span class="ft2">(X</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:555"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:569"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:135"><nobr><span class="ft2">Ideally, step 1(b) is accomplished with a lossless online update that incorporates the K</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:771"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:135"><nobr><span class="ft7">new points without refitting the entire model. We note that n may not be known ahead of<br>time, but the bagging predictor is a valid approximation at each step.</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:160"><nobr><span class="ft2">Online bagging is not guaranteed to produce the same results as batch bagging. In</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:135"><nobr><span class="ft7">particular, it is easy to see that after n points have been observed, there is no guarantee<br>that X</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:185"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:204"><nobr><span class="ft2">will contain exactly n points, as the Poisson weights are not constrained to add</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:135"><nobr><span class="ft7">up to n like a regular bootstrap sample. While it has been shown (Oza and Russell, 2001)<br>that these samples converge asymptotically to the appropriate bootstrap samples, there<br>may be some discrepancy in practice. Thus while it can be combined with a lossless online<br>learning algorithm (such as for a classification tree), the bagging part of the online ensemble<br>procedure is not lossless.</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">145</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:14px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129004.png" alt="background image">
+<DIV style="position:absolute;top:61;left:401"><nobr><span class="ft3">Lee and Clyde</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:135"><nobr><span class="ft2">2.2 Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:135"><nobr><span class="ft7">Ordinary bagging is based on the ordinary bootstrap, which can be thought of as replacing<br>the original weights of</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:302"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:301"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:316"><nobr><span class="ft2">on each point with weights from the set {0,</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:633"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:632"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:642"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:651"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:651"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:660"><nobr><span class="ft2">, . . . , 1}, with the</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:135"><nobr><span class="ft10">total of all weights summing to 1. A variation is to replace the ordinary bootstrap with<br>the Bayesian bootstrap (Rubin, 1981). The Bayesian approach treats the vector of weights<br></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:153"><nobr><span class="ft2">as unknown parameters and derives a posterior distribution for , and hence G(X, ).</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:135"><nobr><span class="ft2">The non-informative prior</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:340"><nobr><span class="ft9">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:344"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:364"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:375"><nobr><span class="ft0">-1</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:374"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:392"><nobr><span class="ft2">, when combined with the multinomial likelihood, leads</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:135"><nobr><span class="ft2">to a Dirichlet</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:232"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:240"><nobr><span class="ft2">(1, . . . , 1) distribution for the posterior distribution of . The full posterior</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:135"><nobr><span class="ft2">distribution of G(X, ) can be estimated by Monte Carlo methods: generate </span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:718"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:750"><nobr><span class="ft2">from</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:135"><nobr><span class="ft2">a Dirichlet</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:213"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:221"><nobr><span class="ft2">(1, . . . , 1) distribution and then calculate G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:584"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:610"><nobr><span class="ft2">) for each sample. The</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:135"><nobr><span class="ft2">average of G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:273"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:298"><nobr><span class="ft2">) over the M samples corresponds to the Monte Carlo estimate of</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:135"><nobr><span class="ft7">the posterior mean of G(X, ) and can be viewed as a Bayesian analog of bagging (Clyde<br>and Lee, 2001).</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:160"><nobr><span class="ft2">In practice, we may only be interested in a point estimate, rather than the full posterior</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:135"><nobr><span class="ft7">distribution. In this case, the Bayesian bootstrap can be seen as a continuous version of<br>the regular bootstrap. Thus Bayesian bagging can be achieved by generating M Bayesian<br>bootstrap samples, and taking the average or majority vote of the G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:685"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:711"><nobr><span class="ft2">). This is</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:135"><nobr><span class="ft7">identical to regular bagging except that the weights are continuous-valued on (0, 1), instead<br>of being restricted to the discrete set {0,</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:430"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:430"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:439"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:449"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:448"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:458"><nobr><span class="ft2">, . . . , 1}. In both cases, the weights must sum</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:135"><nobr><span class="ft2">to 1. In both cases, the expected value of a particular weight is</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:602"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:601"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:616"><nobr><span class="ft2">for all weights, and the</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:135"><nobr><span class="ft7">expected correlation between weights is the same (Rubin, 1981). Thus Bayesian bagging<br>will generally have the same expected point estimates as ordinary bagging. The variability<br>of the estimate is slightly smaller under Bayesian bagging, as the variability of the weights<br>is</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:161"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:153"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:161"><nobr><span class="ft0">+1</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:184"><nobr><span class="ft2">times that of ordinary bagging. As the sample size grows large, this factor becomes</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:135"><nobr><span class="ft7">arbitrarily close to one, but we do note that it is strictly less than one, so the Bayesian<br>approach does give a further reduction in variance compared to the standard approach. In<br>practice, for smaller data sets, we often find a significant reduction in variance, possibly<br>because the use of continuous-valued weights leads to fewer extreme cases than discrete-<br>valued weights.</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:160"><nobr><span class="ft2">Pseudocode for Bayesian bagging is</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:155"><nobr><span class="ft2">1. For m  {1, . . . , M },</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:183"><nobr><span class="ft2">(a) Draw random weights </span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:386"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:417"><nobr><span class="ft2">from a Dirichlet</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:531"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:539"><nobr><span class="ft2">(1, . . . , 1) to produce the Bayesian</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:212"><nobr><span class="ft2">bootstrap sample (X, </span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:385"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:410"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:182"><nobr><span class="ft2">(b) Find predicted values G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:430"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:455"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:155"><nobr><span class="ft2">2. The bagging predictor is</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:362"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:359"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:394"><nobr><span class="ft9">M<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:405"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:428"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:442"><nobr><span class="ft2">(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:486"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:511"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:160"><nobr><span class="ft2">Use of the Bayesian bootstrap does have a major theoretical advantage, in that for</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:135"><nobr><span class="ft7">some problems, bagging with the regular bootstrap is actually estimating an undefined<br>quantity. To take a simple example, suppose one is bagging the fitted predictions for a<br>point y from a least-squares regression problem. Technically, the full bagging estimate is</span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:143"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:137"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:149"><nobr><span class="ft8">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:177"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:193"><nobr><span class="ft2">^</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:192"><nobr><span class="ft2">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:200"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:219"><nobr><span class="ft2">where m ranges over all possible bootstrap samples, M</span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:626"><nobr><span class="ft0">0</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:640"><nobr><span class="ft2">is the total number</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:135"><nobr><span class="ft2">of possible bootstrap samples, and ^</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:390"><nobr><span class="ft2">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:399"><nobr><span class="ft0">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:417"><nobr><span class="ft2">is the predicted value from the model fit using the</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:135"><nobr><span class="ft2">mth bootstrap sample. The issue is that one of the possible bootstrap samples contains the</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">146</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129005.png" alt="background image">
+<DIV style="position:absolute;top:61;left:326"><nobr><span class="ft3">Lossless Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:135"><nobr><span class="ft7">first data point replicated n times, and no other data points. For this bootstrap sample,<br>the regression model is undefined (since at least two different points are required), and so</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:136"><nobr><span class="ft2">^</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:135"><nobr><span class="ft7">y and thus the bagging estimator are undefined. In practice, only a small sample of the<br>possible bootstrap samples is used, so the probability of drawing a bootstrap sample with an<br>undefined prediction is very small. Yet it is disturbing that in some problems, the bagging<br>estimator is technically not well-defined. In contrast, the use of the Bayesian bootstrap<br>completely avoids this problem. Since the weights are continuous-valued, the probability<br>that any weight is exactly equal to zero is zero. Thus with probability one, all weights<br>are strictly positive, and the Bayesian bagging estimator will be well-defined (assuming the<br>ordinary estimator on the original data is well-defined).</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:160"><nobr><span class="ft2">We note that the Bayesian approach will only work with models that have learning al-</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:135"><nobr><span class="ft7">gorithms that handle weighted samples. Most standard models either have readily available<br>such algorithms, or their algorithms are easily modified to accept weights, so this restriction<br>is not much of an issue in practice.</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:135"><nobr><span class="ft4">3. Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:135"><nobr><span class="ft7">Regular online bagging cannot be exactly equivalent to the batch version because the Poisson<br>counts cannot be guaranteed to sum to the number of actual observations. Gamma random<br>variables can be thought of as continuous analogs of Poisson counts, which motivates our<br>derivation of Bayesian online bagging. The key is to recall a fact from basic probability -- a<br>set of independent gamma random variables divided by its sum has a Dirichlet distribution,<br>i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:179"><nobr><span class="ft2">If w</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:208"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:217"><nobr><span class="ft2"> (</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:261"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:267"><nobr><span class="ft2">, 1), then</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:361"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:373"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:372"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:384"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:391"><nobr><span class="ft2">, w</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:421"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:420"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:432"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:438"><nobr><span class="ft2">, . . . , w</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:497"><nobr><span class="ft0">k</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:497"><nobr><span class="ft2">w</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:508"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:532"><nobr><span class="ft2"> Dirichlet</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:611"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:620"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:637"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:644"><nobr><span class="ft2">, </span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:661"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:669"><nobr><span class="ft2">, . . . , </span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:715"><nobr><span class="ft0">k</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:723"><nobr><span class="ft2">) .</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:135"><nobr><span class="ft7">(See for example, Hogg and Craig, 1995, pp. 187­188.) This relationship is a common<br>method for generating random draws from a Dirichlet distribution, and so is also used in<br>the implementation of batch Bayesian bagging in practice.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:160"><nobr><span class="ft2">Thus in the online version of Bayesian bagging, as each observation arrives, it has a</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:135"><nobr><span class="ft7">realization of a Gamma(1) random variable associated with it for each bootstrap sample,<br>and the model is updated after each new weighted observation. If the implementation of the<br>model requires weights that sum to one, then within each (Bayesian) bootstrap sample, all<br>weights can be re-normalized with the new sum of gammas before the model is updated. At<br>any point in time, the current predictions are those aggregated across all bootstrap samples,<br>just as with batch bagging. If the model is fit with an ordinary lossless online algorithm, as<br>exists for classification trees (Utgoff et al., 1997), then the entire online Bayesian bagging<br>procedure is completely lossless relative to batch Bayesian bagging. Furthermore, since<br>batch Bayesian bagging gives the same mean results as ordinary batch bagging, online<br>Bayesian bagging also has the same expected results as ordinary batch bagging.</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:160"><nobr><span class="ft2">Pseudocode for online Bayesian bagging is</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:176"><nobr><span class="ft2">For i  {1, . . . , n},</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:191"><nobr><span class="ft2">1. For m  {1, . . . , M },</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">147</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129006.png" alt="background image">
+<DIV style="position:absolute;top:61;left:401"><nobr><span class="ft3">Lee and Clyde</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:213"><nobr><span class="ft2">(a) Draw a weight </span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:363"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:363"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:391"><nobr><span class="ft2">from a Gamma(1, 1) random variable, associate weight</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:243"><nobr><span class="ft2">with x</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:289"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:294"><nobr><span class="ft2">, and add x</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:377"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:388"><nobr><span class="ft2">to X.</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:213"><nobr><span class="ft2">(b) Find predicted values G(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:460"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:486"><nobr><span class="ft2">) (renormalizing weights if necessary).</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:191"><nobr><span class="ft2">2. The current bagging predictor is</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:455"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:452"><nobr><span class="ft0">M</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:487"><nobr><span class="ft9">M<br>m</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:498"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:518"><nobr><span class="ft2">G</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:532"><nobr><span class="ft2">(X, </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:576"><nobr><span class="ft0">(m)</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:602"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:135"><nobr><span class="ft7">In step 1(b), the weights may need to be renormalized (by dividing by the sum of all<br>current weights) if the implementation requires weights that sum to one. We note that for<br>many models, such as classification trees, this renormalization is not a major issue; for a<br>tree, each split only depends on the relative weights of the observations at that node, so<br>nodes not involving the new observation will have the same ratio of weights before and<br>after renormalization and the rest of the tree structure will be unaffected; in practice, in<br>most implementations of trees (including that used in this paper), renormalization is not<br>necessary. We discuss the possibility of renormalization in order to be consistent with the<br>original presentation of the bootstrap and Bayesian bootstrap, and we note that ordinary<br>online bagging implicitly deals with this issue equivalently.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:160"><nobr><span class="ft2">The computational requirements of Bayesian versus ordinary online bagging are com-</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:135"><nobr><span class="ft7">parable. The procedures are quite similar, with the main difference being that the fitting<br>algorithm must handle non-integer weights for the Bayesian version. For models such as<br>trees, there is no significant additional computational burden for using non-integer weights.</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:135"><nobr><span class="ft4">4. Examples</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:135"><nobr><span class="ft7">We demonstrate the effectiveness of online Bayesian bagging using classification trees. Our<br>implementation uses the lossless online tree learning algorithms (ITI) of Utgoff et al. (1997)<br>(available at http://www.cs.umass.edu/lrn/iti/). We compared Bayesian bagging to<br>a single tree, ordinary batch bagging, and ordinary online bagging, all three of which were<br>done using the minimum description length criterion (MDL), as implemented in the ITI<br>code, to determine the optimal size for each tree. To implement Bayesian bagging, the code<br>was modified to account for weighted observations.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:160"><nobr><span class="ft2">We use a generalized MDL to determine the optimal tree size at each stage, replacing all</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:135"><nobr><span class="ft7">counts of observations with the sum of the weights of the observations at that node or leaf<br>with the same response category. Replacing the total count directly with the sum of the<br>weights is justified by looking at the multinomial likelihood when written as an exponential<br>family in canonical form; the weights enter through the dispersion parameter and it is easily<br>seen that the unweighted counts are replaced by the sums of the weights of the observations<br>that go into each count. To be more specific, a decision tree typically operates with a<br>multinomial likelihood,</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:382"><nobr><span class="ft2">leaves</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:428"><nobr><span class="ft0">j</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:442"><nobr><span class="ft2">classes</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:494"><nobr><span class="ft0">k</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:503"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:512"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:519"><nobr><span class="ft8">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:512"><nobr><span class="ft0">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:532"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:135"><nobr><span class="ft2">where p</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:191"><nobr><span class="ft0">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:210"><nobr><span class="ft2">is the true probability that an observation in leaf j will be in class k, and n</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:753"><nobr><span class="ft0">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:772"><nobr><span class="ft2">is</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:135"><nobr><span class="ft7">the count of data points in leaf j in class k. This is easily re-written as the product over<br>all observations,</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:273"><nobr><span class="ft9">n<br>i</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:278"><nobr><span class="ft0">=1</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:297"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:305"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:305"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:319"><nobr><span class="ft2">where if observation i is in leaf j and a member of class k then</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:135"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:143"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:143"><nobr><span class="ft0">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:157"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:185"><nobr><span class="ft0">jk</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:198"><nobr><span class="ft2">. For simplicity, we consider the case k = 2 as the generalization to larger k is</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:135"><nobr><span class="ft7">straightforward. Now consider a single point, y, which takes values 0 or 1 depending on<br>which class is it a member of. Transforming to the canonical parameterization, let  =</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:762"><nobr><span class="ft0">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:754"><nobr><span class="ft0">1-p</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:778"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">148</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:14px;line-height:23px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129007.png" alt="background image">
+<DIV style="position:absolute;top:61;left:326"><nobr><span class="ft3">Lossless Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:135"><nobr><span class="ft11">where p is the true probability that y = 1. Writing the likelihood in exponential family<br>form gives exp</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:263"><nobr><span class="ft2">y + log</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:349"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:325"><nobr><span class="ft0">1+exp{}</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:407"><nobr><span class="ft2">a where a is the dispersion parameter, which would</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:135"><nobr><span class="ft11">be equal to 1 for a standard data set, but would be the reciprocal of the weight for that<br>observation in a weighted data set. Thus the likelihood for an observation y with weight<br>w is exp</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:224"><nobr><span class="ft2">y + log</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:310"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:286"><nobr><span class="ft0">1+exp{}</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:368"><nobr><span class="ft2">(1/w)</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:428"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:458"><nobr><span class="ft0">wy</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:474"><nobr><span class="ft2">(1 - p)</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:526"><nobr><span class="ft0">w</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:536"><nobr><span class="ft0">(1-y)</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:577"><nobr><span class="ft2">and so returning to the full</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:135"><nobr><span class="ft7">multinomial, the original counts are simply replaced by the weighted counts. As MDL is a<br>penalized likelihood criterion, we thus use the weighted likelihood and replace each count<br>with a sum of weights. We note that for ordinary online bagging, using a single Poisson<br>weight K with our generalized MDL is exactly equivalent to including K copies of the data<br>point in the data set and using regular MDL.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:160"><nobr><span class="ft2">Table 1 shows the data sets we used for classification problems, the number of classes in</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:135"><nobr><span class="ft7">each data set, and the sizes of their respective training and test partitions. Table 2 displays<br>the results of our comparison study. All of the data sets, except the final one, are avail-<br>able online at http://www.ics.uci.edu/mlearn/MLRepository.html, the UCI Machine<br>Learning Repository. The last data set is described in Lee (2001). We compare the results<br>of training a single classification tree, ordinary batch bagging, online bagging, and Bayesian<br>online bagging (or equivalently Bayesian batch). For each of the bagging techniques, 100<br>bootstrap samples were used. For each data set, we repeated 1000 times the following pro-<br>cedure: randomly choose a training/test partition; fit a single tree, a batch bagged tree, an<br>online bagged tree, and a Bayesian bagged tree; compute the misclassification error rate for<br>each fit. Table 2 reports the average error rate for each method on each data set, as well as<br>the estimated standard error of this error rate.</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:528"><nobr><span class="ft2">Size of</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:610"><nobr><span class="ft2">Size of</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:417"><nobr><span class="ft2">Number of</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:515"><nobr><span class="ft2">Training</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:626"><nobr><span class="ft2">Test</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:261"><nobr><span class="ft2">Data Set</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:430"><nobr><span class="ft2">Classes</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:512"><nobr><span class="ft2">Data Set</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:593"><nobr><span class="ft2">Data Set</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:261"><nobr><span class="ft2">Breast cancer (WI)</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:451"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:551"><nobr><span class="ft2">299</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:632"><nobr><span class="ft2">400</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:261"><nobr><span class="ft2">Contraceptive</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:451"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:551"><nobr><span class="ft2">800</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:632"><nobr><span class="ft2">673</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:261"><nobr><span class="ft2">Credit (German)</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:451"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:551"><nobr><span class="ft2">200</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:632"><nobr><span class="ft2">800</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:261"><nobr><span class="ft2">Credit (Japanese)</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:451"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:551"><nobr><span class="ft2">290</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:632"><nobr><span class="ft2">400</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:261"><nobr><span class="ft2">Dermatology</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:451"><nobr><span class="ft2">6</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:551"><nobr><span class="ft2">166</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:632"><nobr><span class="ft2">200</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:261"><nobr><span class="ft2">Glass</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:452"><nobr><span class="ft2">7</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:551"><nobr><span class="ft2">164</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:640"><nobr><span class="ft2">50</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:261"><nobr><span class="ft2">House votes</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:551"><nobr><span class="ft2">185</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:632"><nobr><span class="ft2">250</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:261"><nobr><span class="ft2">Ionosphere</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:551"><nobr><span class="ft2">200</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:632"><nobr><span class="ft2">151</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:261"><nobr><span class="ft2">Iris</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:452"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:559"><nobr><span class="ft2">90</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:640"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:261"><nobr><span class="ft2">Liver</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:452"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:551"><nobr><span class="ft2">145</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:632"><nobr><span class="ft2">200</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:261"><nobr><span class="ft2">Pima diabetes</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:551"><nobr><span class="ft2">200</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:632"><nobr><span class="ft2">332</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:261"><nobr><span class="ft2">SPECT</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:559"><nobr><span class="ft2">80</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:632"><nobr><span class="ft2">187</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:261"><nobr><span class="ft2">Wine</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:452"><nobr><span class="ft2">3</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:559"><nobr><span class="ft2">78</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:632"><nobr><span class="ft2">100</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:261"><nobr><span class="ft2">Mushrooms</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:542"><nobr><span class="ft2">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:624"><nobr><span class="ft2">7124</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:261"><nobr><span class="ft2">Spam</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:452"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:542"><nobr><span class="ft2">2000</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:624"><nobr><span class="ft2">2601</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:261"><nobr><span class="ft2">Credit (American)</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:451"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:542"><nobr><span class="ft2">4000</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:624"><nobr><span class="ft2">4508</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:319"><nobr><span class="ft2">Table 1: Sizes of the example data sets</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">149</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129008.png" alt="background image">
+<DIV style="position:absolute;top:61;left:401"><nobr><span class="ft3">Lee and Clyde</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:685"><nobr><span class="ft2">Bayesian</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:367"><nobr><span class="ft2">Single</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:488"><nobr><span class="ft2">Batch</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:586"><nobr><span class="ft2">Online</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:651"><nobr><span class="ft2">Online/Batch</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:170"><nobr><span class="ft2">Data Set</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:379"><nobr><span class="ft2">Tree</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:472"><nobr><span class="ft2">Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:575"><nobr><span class="ft2">Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:690"><nobr><span class="ft2">Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:170"><nobr><span class="ft2">Breast cancer (WI)</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:325"><nobr><span class="ft2">0.055 (.020)</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:446"><nobr><span class="ft2">0.045 (.010)</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:548"><nobr><span class="ft2">0.045 (.010)</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:663"><nobr><span class="ft2">0.041 (.009)</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:170"><nobr><span class="ft2">Contraceptive</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:325"><nobr><span class="ft2">0.522 (.019)</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:446"><nobr><span class="ft2">0.499 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:548"><nobr><span class="ft2">0.497 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:663"><nobr><span class="ft2">0.490 (.016)</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:170"><nobr><span class="ft2">Credit (German)</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:325"><nobr><span class="ft2">0.318 (.022)</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:446"><nobr><span class="ft2">0.295 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:548"><nobr><span class="ft2">0.294 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:663"><nobr><span class="ft2">0.285 (.015)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:170"><nobr><span class="ft2">Credit (Japanese)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:325"><nobr><span class="ft2">0.155 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:446"><nobr><span class="ft2">0.148 (.014)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:548"><nobr><span class="ft2">0.147 (.014)</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:663"><nobr><span class="ft2">0.145 (.014)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:170"><nobr><span class="ft2">Dermatology</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:325"><nobr><span class="ft2">0.099 (.033)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:446"><nobr><span class="ft2">0.049 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:548"><nobr><span class="ft2">0.053 (.021)</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:663"><nobr><span class="ft2">0.047 (.019)</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:170"><nobr><span class="ft2">Glass</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:326"><nobr><span class="ft2">0.383 (.081)</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:446"><nobr><span class="ft2">0.357 (.072)</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:548"><nobr><span class="ft2">0.361 (.074)</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:663"><nobr><span class="ft2">0.373 (.075)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:170"><nobr><span class="ft2">House votes</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:326"><nobr><span class="ft2">0.052 (.011)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:446"><nobr><span class="ft2">0.049 (.011)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:548"><nobr><span class="ft2">0.049 (.011)</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:663"><nobr><span class="ft2">0.046 (.010)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:170"><nobr><span class="ft2">Ionosphere</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:326"><nobr><span class="ft2">0.119 (.026)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:446"><nobr><span class="ft2">0.094 (.022)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:548"><nobr><span class="ft2">0.099 (.022)</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:663"><nobr><span class="ft2">0.096 (.021)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:170"><nobr><span class="ft2">Iris</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:326"><nobr><span class="ft2">0.062 (.029)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:446"><nobr><span class="ft2">0.057 (.026)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:548"><nobr><span class="ft2">0.060 (.025)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:664"><nobr><span class="ft2">0.058 (.025)</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:170"><nobr><span class="ft2">Liver</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:326"><nobr><span class="ft2">0.366 (.036)</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:446"><nobr><span class="ft2">0.333 (.032)</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:548"><nobr><span class="ft2">0.336 (.034)</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:663"><nobr><span class="ft2">0.317 (.033)</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:170"><nobr><span class="ft2">Pima diabetes</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:326"><nobr><span class="ft2">0.265 (.027)</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:446"><nobr><span class="ft2">0.250 (.020)</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:548"><nobr><span class="ft2">0.247 (.021)</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:663"><nobr><span class="ft2">0.232 (.017)</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:170"><nobr><span class="ft2">SPECT</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:326"><nobr><span class="ft2">0.205 (.029)</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:446"><nobr><span class="ft2">0.200 (.030)</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:548"><nobr><span class="ft2">0.202 (.031)</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:663"><nobr><span class="ft2">0.190 (.027)</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:170"><nobr><span class="ft2">Wine</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:326"><nobr><span class="ft2">0.134 (.042)</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:446"><nobr><span class="ft2">0.094 (.037)</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:548"><nobr><span class="ft2">0.101 (.037)</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:663"><nobr><span class="ft2">0.085 (.034)</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:170"><nobr><span class="ft2">Mushrooms</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:326"><nobr><span class="ft2">0.004 (.003)</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:446"><nobr><span class="ft2">0.003 (.002)</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:548"><nobr><span class="ft2">0.003 (.002)</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:663"><nobr><span class="ft2">0.003 (.002)</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:170"><nobr><span class="ft2">Spam</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:326"><nobr><span class="ft2">0.099 (.008)</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:446"><nobr><span class="ft2">0.075 (.005)</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:548"><nobr><span class="ft2">0.077 (.005)</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:664"><nobr><span class="ft2">0.077 (.005)</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:170"><nobr><span class="ft2">Credit (American)</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:325"><nobr><span class="ft2">0.350 (.007)</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:446"><nobr><span class="ft2">0.306 (.005)</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:548"><nobr><span class="ft2">0.306 (.005)</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:663"><nobr><span class="ft2">0.305 (.006)</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:178"><nobr><span class="ft2">Table 2: Comparison of average classification error rates (with standard error)</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:160"><nobr><span class="ft2">We note that in all cases, both online bagging techniques produce results similar to</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:135"><nobr><span class="ft7">ordinary batch bagging, and all bagging methods significantly improve upon the use of a<br>single tree. However, for smaller data sets (all but the last three), online/batch Bayesian<br>bagging typically both improves prediction performance and decreases prediction variability.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:135"><nobr><span class="ft4">5. Discussion</span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:135"><nobr><span class="ft7">Bagging is a useful ensemble learning tool, particularly when models sensitive to small<br>changes in the data are used. It is sometimes desirable to be able to use the data in<br>an online fashion. By operating in the Bayesian paradigm, we can introduce an online<br>algorithm that will exactly match its batch Bayesian counterpart. Unlike previous versions<br>of online bagging, the Bayesian approach produces a completely lossless bagging algorithm.<br>It can also lead to increased accuracy and decreased prediction variance for smaller data<br>sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:135"><nobr><span class="ft4">Acknowledgments</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:135"><nobr><span class="ft7">This research was partially supported by NSF grants DMS 0233710, 9873275, and 9733013.<br>The authors would like to thank two anonymous referees for their helpful suggestions.</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">150</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="129009.png" alt="background image">
+<DIV style="position:absolute;top:61;left:326"><nobr><span class="ft3">Lossless Online Bayesian Bagging</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:135"><nobr><span class="ft4">References</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:135"><nobr><span class="ft2">L. Breiman. Heuristics of instability in model selection. Technical report, University of</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:151"><nobr><span class="ft2">California at Berkeley, 1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:135"><nobr><span class="ft2">L. Breiman. Bagging predictors. Machine Learning, 26(2):123­140, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:135"><nobr><span class="ft2">M. A. Clyde and H. K. H. Lee. Bagging and the Bayesian bootstrap. In T. Richardson and</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:151"><nobr><span class="ft2">T. Jaakkola, editors, Artificial Intelligence and Statistics 2001, pages 169­174, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:135"><nobr><span class="ft2">R. V. Hogg and A. T. Craig. Introduction to Mathematical Statistics. Prentice-Hall, Upper</span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:151"><nobr><span class="ft2">Saddle River, NJ, 5th edition, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:135"><nobr><span class="ft2">H. K. H. Lee. Model selection for neural network classification. Journal of Classification,</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:151"><nobr><span class="ft2">18:227­243, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:135"><nobr><span class="ft2">N. C. Oza and S. Russell. Online bagging and boosting. In T. Richardson and T. Jaakkola,</span></nobr></DIV>
+<DIV style="position:absolute;top:442;left:151"><nobr><span class="ft2">editors, Artificial Intelligence and Statistics 2001, pages 105­112, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:135"><nobr><span class="ft2">D. B. Rubin. The Bayesian bootstrap. Annals of Statistics, 9:130­134, 1981.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:135"><nobr><span class="ft2">P. E. Utgoff, N. C. Berkman, and J. A. Clouse. Decision tree induction based on efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:151"><nobr><span class="ft2">tree restructuring. Machine Learning, 29:5­44, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:448"><nobr><span class="ft3">151</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

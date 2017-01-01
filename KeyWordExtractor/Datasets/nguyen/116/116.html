@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>%!PS-Adobe-3.0</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Keith Instone">
+<META name="date" content="2002-12-23T12:11:57+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:12px;font-family:Times;color:#000000;}
+	.ft1{font-size:25px;font-family:Times;color:#000000;}
+	.ft2{font-size:16px;font-family:Times;color:#000000;}
+	.ft3{font-size:14px;font-family:Times;color:#000000;}
+	.ft4{font-size:13px;font-family:Times;color:#000000;}
+	.ft5{font-size:10px;font-family:Times;color:#000000;}
+	.ft6{font-size:16px;font-family:Courier;color:#000000;}
+	.ft7{font-size:11px;font-family:Times;color:#000000;}
+	.ft8{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:19px;font-family:Times;color:#000000;}
+	.ft10{font-size:11px;line-height:20px;font-family:Times;color:#000000;}
+	.ft11{font-size:12px;line-height:23px;font-family:Times;color:#000000;}
+	.ft12{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116001.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:276"><nobr><span class="ft1"><b>Interactive Machine Learning </b></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:323"><nobr><span class="ft2">Jerry Alan Fails,  Dan R. Olsen, Jr. </span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:359"><nobr><span class="ft0">Computer Science Department </span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:375"><nobr><span class="ft0">Brigham Young University </span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:398"><nobr><span class="ft0">Provo, Utah 84602</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:519"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:358"><nobr><span class="ft2">{failsj, olsen}@cs.byu.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:257"><nobr><span class="ft2"> </span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:662"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:81"><nobr><span class="ft3"><b>ABSTRACT </b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:81"><nobr><span class="ft8">Perceptual user interfaces (PUIs) are an important part of <br>ubiquitous computing.  Creating such interfaces is difficult <br>because of the image and signal processing knowledge <br>required for creating classifiers.  We propose an interactive <br>machine-learning (IML) model that allows users to train, <br>classify/view and correct the classifications.  The concept and <br>implementation details of IML are discussed and contrasted <br>with classical machine learning models.  Evaluations of two <br>algorithms are also presented.  We also briefly describe <br>Image Processing with Crayons (Crayons), which is a tool for <br>creating new camera-based interfaces using a simple painting <br>metaphor.  The Crayons tool embodies our notions of <br>interactive machine learning. </span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:81"><nobr><span class="ft10"><b>Categories: H.5.2, D.2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:81"><nobr><span class="ft10"><b>General Terms: Design, Experimentation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:157"><nobr><span class="ft0">Keywords: Machine learning, perceptive user interfaces, </span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:81"><nobr><span class="ft0">interaction, image processing, classification</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:334"><nobr><span class="ft3"></span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:81"><nobr><span class="ft3"><b>INTRODUCTION </b></span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:81"><nobr><span class="ft8">Perceptual user interfaces (PUIs) are establishing the need for <br>machine learning in interactive settings.  PUIs like <br>VideoPlace [8], Light Widgets [3], and Light Table [15,16] <br>all use cameras as their perceptive medium.  Other systems <br>use sensors other than cameras such as depth scanners and <br>infrared sensors [13,14,15].  All of these PUIs require <br>machine learning and computer vision techniques to create <br>some sort of a classifier.  This classification component of the <br>UI often demands great effort and expense.  Because most <br>developers have little knowledge on how to implement <br>recognition in their UIs this becomes problematic.  Even <br>those who do have this knowledge would benefit if the <br>classifier building expense were lessened.  We suggest the <br>way to decrease this expense is through the use of a visual <br>image classifier generator, which would allow developers to <br>add intelligence to interfaces without forcing additional <br>programming.  Similar to how Visual Basic allows simple <br>and fast development, this tool would allow for fast <br>integration of recognition or perception into a UI. </span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:445"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:477"><nobr><span class="ft8">Implementation of such a tool, however, poses many <br>problems.  First and foremost is the problem of rapidly <br>creating a satisfactory classifier.  The simple solution is to <br>using behind-the-scenes machine learning and image <br>processing. <br>Machine learning allows automatic creation of classifiers, <br>however, the classical models are generally slow to train, and <br>not interactive.  The classical machine-learning (CML) model <br>is summarized in Figure 1.  Prior to the training of the <br>classifier, features need to be selected.  Training is then <br>performed "off-line" so that classification can be done <br>quickly and efficiently.  In this model classification is <br>optimized at the expense of longer training time.  Generally, <br>the classifier will run quickly so it can be done real-time.  The <br>assumption is that training will be performed only once and <br>need not be interactive.  Many machine-learning algorithms <br>are very sensitive to feature selection and suffer greatly if <br>there are very many features. </span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:518"><nobr><span class="ft4">Feature </span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:513"><nobr><span class="ft4">Selection</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:639"><nobr><span class="ft4">Train </span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:735"><nobr><span class="ft4">Classify</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:716"><nobr><span class="ft4">Interactive Use </span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:819"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:526"><nobr><span class="ft0">Figure 1 ­ Classical machine learning model </span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:477"><nobr><span class="ft8">With CML, it is infeasible to create an interactive tool to <br>create classifiers.  CML requires the user to choose the <br>features and wait an extended amount of time for the <br>algorithm to train.  The selection of features is very <br>problematic for most interface designers.  If one is designing <br>an interactive technique involving laser spot tracking, most <br>designers understand that the spot is generally red.  They are <br>not prepared to deal with how to sort out this spot from red <br>clothing, camera noise or a variety of other problems.  There <br>are well-known image processing features for handling these <br>problems, but very few interface designers would know how <br>to carefully select them in a way that the machine learning <br>algorithms could handle.  <br>The current approach requires too much technical knowledge <br>on the part of the interface designer.  What we would like to <br>do is replace the classical machine-learning model with the <br>interactive model shown in Figure 2.  This interactive training <br>allows the classifier to be coached along until the desired <br>results are met.  In this model the designer is correcting and </span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:84"><nobr><span class="ft3"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:84"><nobr><span class="ft12">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies<br>are not made or distributed for profit or commercial advantage and<br>that copies bear this notice and the full citation on the first page. To<br>copy otherwise, or republish, to post on servers or to redistribute to<br>lists, requires prior specific permission and/or a fee. <br>IUI'03, January 12­15, 2003, Miami, Florida, USA. <br>Copyright 2003 ACM 1-58113-586-6/03/0001...$5.00. </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">39</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116002.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft8">teaching the classifier and the classifier must perform the <br>appropriate feature selection.  </span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:81"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:104"><nobr><span class="ft4">Feature </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:99"><nobr><span class="ft4">Selection </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:225"><nobr><span class="ft4">Train </span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:321"><nobr><span class="ft4">Classify</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:302"><nobr><span class="ft4">Interactive Use </span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:282"><nobr><span class="ft4">Feedback To</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:296"><nobr><span class="ft4">Designer </span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:162"><nobr><span class="ft4">Manual </span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:152"><nobr><span class="ft4">Correction </span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:427"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:105"><nobr><span class="ft0">Figure 2 ­ Interactive machine learning (IML) model </span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:81"><nobr><span class="ft8">The pre-selection of features can be eliminated and <br>transferred to the learning part of the IML if the learning <br>algorithm used performs feature selection.  This means that a <br>large repository of features are initially calculated and fed to <br>the learning algorithm so it can learn the best features for the <br>classification problem at hand.  The idea is to feed a very <br>large number of features into the classifier training and let the <br>classifier do the filtering rather than the human.  The human <br>designer then is focused on rapidly creating training data that <br>will correct the errors of the classifier. <br>In classical machine learning, algorithms are evaluated on <br>their inductive power.  That is, how well the algorithm will <br>perform on new data based on the extrapolations made on the <br>training data.  Good inductive power requires careful analysis <br>and a great deal of computing time.  This time is frequently <br>exponential in the number of features to be considered.  We <br>believe that using the IML model a simple visual tool can be <br>designed to build classifiers quickly.  We hypothesize that <br>when using the IML, having a very fast training algorithm is <br>more important than strong induction.  In place of careful <br>analysis of many feature combinations we provide much <br>more human input to correct errors as they appear.  This <br>allows the interactive cycle to be iterated quickly so it can be <br>done more frequently. <br>The remainder of the paper is as follows.  The next section <br>briefly discusses the visual tool we created using the IML <br>model, called Image Processing with Crayons (Crayons).  <br>This is done to show one application of the IML model's <br>power and versatility.  Following the explanation of Crayons, <br>we explore the details of the IML model by examining its <br>distinction from CML, the problems it must overcome, and its <br>implementation details.  Finally we present some results from <br>some tests between two of the implemented machine learning <br>algorithms.  From these results we base some preliminary <br>conclusions of IML as it relates to Crayons. </span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:81"><nobr><span class="ft3"><b>IMAGE PROCESSING WITH CRAYONS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:81"><nobr><span class="ft8">Crayons is a system we created that uses IML to create image <br>classifiers.  Crayons is intended to aid UI designers who do <br>not have detailed knowledge of image processing and </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:477"><nobr><span class="ft8">machine learning.  It is also intended to accelerate the efforts <br>of more knowledgeable programmers. <br>There are two primary goals for the Crayons tool: 1) to allow <br>the user to create an image/pixel classifier quickly, and 2) to <br>allow the user to focus on the classification problem rather <br>than image processing or algorithms.  Crayons is successful if <br>it takes minutes rather than weeks or months to create an <br>effective classifier.  For simplicity sake, we will refer to this <br>as the UI principle of fast and focused.  This principle refers <br>to enabling the designer to quickly accomplish his/her task <br>while remaining focused solely on that task. <br>Figure 3 shows the Crayons design process.  Images are input <br>into the Crayons system, which can then export the generated <br>classifier.  It is assumed the user has already taken digital <br>pictures and saved them as files to import into the system, or <br>that a camera is set up on the machine running Crayons, so it <br>can capture images from it.  Exporting the classifier is equally <br>trivial, since our implementation is written in Java.  The <br>classifier object is simply serialized and output to a file using <br>the standard Java mechanisms. </span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:837"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:549"><nobr><span class="ft0">Figure 3 ­ Classifier Design Process </span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:477"><nobr><span class="ft8">An overview of the internal architecture of Crayons is shown <br>in Figure 4.  Crayons receives images upon which the user <br>does some manual classification, a classifier is created, then <br>feedback is displayed. The user can then refine the classifier <br>by adding more manual classification or, if the classifier is <br>satisfactory, the user can export the classifier.  The internal <br>loop shown in Figure 4 directly correlates to the <br>aforementioned train, feedback, correct cycle of the IML (see <br>Figure 2).  To accomplish the fast and focused UI principle, <br>this loop must be easy and quick to cycle through. To be <br>interactive the training part of the loop must take less than <br>five seconds and generally much faster.  The cycle can be <br>broken down into two components: the UI and the Classifier.  <br>The UI component needs to be simple so the user can remain <br>focused on the classification problem at hand.  The classifier <br>creation needs to be fast and efficient so the user gets <br>feedback as quickly as possible, so they are not distracted <br>from the classification problem. </span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:837"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:537"><nobr><span class="ft0">Figure 4 ­ The classification design loop </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">40</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:12px;font-family:Symbol;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116003.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft8">Although the IML and the machine-learning component of <br>Crayons are the primary discussion of this paper it is notable <br>to mention that Crayons has profited from work done by <br>Viola and Jones [19] and Jaimes and Chang [5,6,7].  Also a <br>brief example of how Crayons can be used is illustrative.  The <br>sequence of images in Figure 5 shows the process of creating <br>a classifier using Crayons. </span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:440"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:440"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:440"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:147"><nobr><span class="ft0">Figure 5 ­ Crayons interaction process </span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:261"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:81"><nobr><span class="ft8">Figure 5 illustrates how the user initially paints very little <br>data, views the feedback provided by the resulting classifier, <br>corrects by painting additional class pixels and then iterates <br>through the cycle.  As seen in the first image pair in Figure 5, <br>only a little data can generate a classifier that roughly learns <br>skin and background.  The classifier, however, over-<br>generalizes in favor of background; therefore, in the second <br>image pair you can see skin has been painted where the <br>classifier previously did poorly at classifying skin.  The <br>resulting classifier shown on the right of the second image <br>pair shows the new classifier classifying most of the skin on <br>the hand, but also classifying some of the background as skin.  <br>The classifier is corrected again, and the resulting classifier is <br>shown as the third image pair in the sequence.  Thus, in only <br>a few iterations, a skin classifier is created. <br>The simplicity of the example above shows the power that <br>Crayons has due to the effectiveness of the IML model.  The <br>key issue in the creation of such a tool lies in quickly </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:477"><nobr><span class="ft8">generating effective classifiers so the interactive design loop <br>can be utilized. </span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:477"><nobr><span class="ft3"><b>MACHINE LEARNING </b></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:477"><nobr><span class="ft8">For the IML model to function, the classifier must be <br>generated quickly and be able to generalize well.  As such we <br>will first discuss the distinctions between IML and CML, <br>followed by the problems IML must overcome because of its <br>interactive setting, and lastly its implementation details <br>including specific algorithms. </span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:477"><nobr><span class="ft3"><b>CML vs. IML </b></span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:477"><nobr><span class="ft8">Classical machine learning generally has the following <br>assumptions. </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:490"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:517"><nobr><span class="ft0">There are relatively few carefully chosen features,  </span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:490"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:517"><nobr><span class="ft0">There is limited training data,  </span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:490"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:364;left:517"><nobr><span class="ft8">The classifier must amplify that limited training data <br>into excellent performance on new training data,  </span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:490"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:517"><nobr><span class="ft8">Time to train the classifier is relatively unimportant as <br>long as it does not take too many days. </span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:477"><nobr><span class="ft8">None of these assumptions hold in our interactive situation.  <br>Our UI designers have no idea what features will be <br>appropriate.  In fact, we are trying to insulate them from <br>knowing such things.  In our current Crayons prototype there <br>are more than 150 features per pixel.  To reach the breadth of <br>application that we desire for Crayons we project over 1,000 <br>features will be necessary. The additional features will handle <br>texture, shape and motion over time.  For any given problem <br>somewhere between three and fifteen of those features will <br>actually be used, but the classifier algorithm must <br>automatically make this selection.  The classifier we choose <br>must therefore be able to accommodate such a large number <br>of features, and/or select only the best features.  <br>In Crayons, when a designer begins to paint classes on an <br>image a very large number of training examples is quickly <br>generated.  With 77K pixels per image and 20 images one <br>can rapidly generate over a million training examples.  In <br>practice, the number stays in the 100K examples range <br>because designers only paint pixels that they need to correct <br>rather than all pixels in the image.  What this means, <br>however, is that designers can generate a huge amount of <br>training data very quickly.  CML generally focuses on the <br>ability of a classifier to predict correct behavior on new data.  <br>In IML, however, if the classifier's predictions for new data <br>are wrong, the designer can rapidly make those corrections.  <br>By rapid feedback and correction the classifier is quickly (in <br>a matter of minutes) focused onto the desired behavior.  The <br>goal of the classifier is not to predict the designer's intent into <br>new situations but rapidly reflect intent as expressed in <br>concrete examples. <br>Because additional training examples can be added so <br>readily, IML's bias differs greatly from that of CML.  <br>Because it extrapolates a little data to create a classifier that <br>will be frequently used in the future, CML is very concerned <br>about overfit.  Overfit is where the trained classifier adheres </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">41</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116004.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft8">too closely to the training data rather than deducing general <br>principles. Cross-validation and other measures are generally <br>taken to minimize overfit. These measures add substantially <br>to the training time for CML algorithms.  IML's bias is to <br>include the human in the loop by facilitating rapid correction <br>of mistakes.  Overfit can easily occur, but it is also readily <br>perceived by the designer and instantly corrected by the <br>addition of new training data in exactly the areas that are most <br>problematic.  This is shown clearly in Figure 5 where a <br>designer rapidly provides new data in the edges of the hand <br>where the generalization failed. <br>Our interactive classification loop requires that the classifier <br>training be very fast.  To be effective, the classifier must be <br>generated from the training examples in under five seconds.  <br>If the classifier takes minutes or hours, the process of `train-<br>feedback-correct' is no longer interactive, and much less <br>effective as a design tool.  Training on 100,000 examples <br>with 150 features each in less than five seconds is a serious <br>challenge for most CML algorithms. <br>Lastly, for this tool to be viable the final classifier will need <br>to be able to classify 320 x 240 images in less than a fourth of <br>a second.  If the resulting classifier is much slower than this it <br>becomes impossible to use it to track interactive behavior in a <br>meaningful way.   </span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:81"><nobr><span class="ft3"><b>IML Implementation </b></span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:81"><nobr><span class="ft8">Throughout our discussion thus far, many requirements for <br>the machine-learning algorithm in IML have been made.  The <br>machine-learning algorithm must: </span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:108"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:135"><nobr><span class="ft0">learn/train very quickly, </span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:108"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:135"><nobr><span class="ft0">accommodate 100s to 1000s of features, </span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:108"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:135"><nobr><span class="ft0">perform feature selection, </span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:108"><nobr><span class="ft13">· </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:135"><nobr><span class="ft8">allow for tens to hundreds of thousands of training <br>examples. </span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:81"><nobr><span class="ft8">These requirements put firm bounds on what kind of a <br>learning algorithm can be used in IML.  They invoke the <br>fundamental question of which machine-learning algorithm <br>fits all of these criteria.  We discuss several options and the <br>reason why they are not viable before we settle on our <br>algorithm of choice: decision trees (DT). <br>Neural Networks [12] are a powerful and often used <br>machine-learning algorithm.  They can provably approximate <br>any function in two layers.  Their strength lies in their <br>abilities to intelligently integrate a variety of features.  Neural <br>networks also produce relatively small and efficient <br>classifiers, however, there are not feasible in IML.  The <br>number of features used in systems like Crayons along with <br>the number of hidden nodes required to produce the kinds of <br>classifications that are necessary completely overpowers this <br>algorithm.  Even more debilitating is the training time for <br>neural networks.  The time this algorithm takes to converge is <br>far to long for interactive use. For 150 features this can take <br>hours or days. </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:477"><nobr><span class="ft8">The nearest-neighbor algorithm [1] is easy to train but not <br>very effective.  Besides not being able to discriminate <br>amongst features, nearest-neighbor has serious problems in <br>high dimensional feature spaces of the kind needed in IML <br>and Crayons.  Nearest-neighbor generally has a classification <br>time that is linear in the number of training examples which <br>also makes it unacceptably slow.  <br>There are yet other algorithms such as boosting that do well <br>with feature selection, which is a desirable characteristic.  <br>While boosting has shown itself to be very effective on tasks <br>such as face tracing [18], its lengthy training time is <br>prohibitive for interactive use in Crayons. <br>There are many more machine-learning algorithms, however, <br>this discussion is sufficient to preface to our decision of the <br>use of decision trees.  All the algorithms discussed above <br>suffer from the curse of dimensionality.  When many features <br>are used (100s to 1000s), their creation and execution times <br>dramatically increase.  In addition, the number of training <br>examples required to adequately cover such high dimensional <br>feature spaces would far exceed what designers can produce.  <br>With just one decision per feature the size of the example set <br>must approach 2</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:577"><nobr><span class="ft14">100</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:591"><nobr><span class="ft0">, which is completely unacceptable.  We </span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:477"><nobr><span class="ft8">need a classifier that rapidly discards features and focuses on <br>the 1-10 features that characterize a particular problem.   <br>Decision trees [10] have many appealing properties that <br>coincide with the requirements of IML.  First and foremost is <br>that the DT algorithm is fundamentally a process of feature <br>selection.  The algorithm operates by examining each feature <br>and selecting a decision point for dividing the range of that <br>feature.  It then computes the "impurity" of the result of <br>dividing the training examples at that decision point.  One can <br>think of impurity as measuring the amount of confusion in a <br>given set.  A set of examples that all belong to one class <br>would be pure (zero impurity).  There are a variety of <br>possible impurity measures [2].  The feature whose partition <br>yields the least impurity is the one chosen, the set is divided <br>and the algorithm applied recursively to the divided subsets.  <br>Features that do not provide discrimination between classes <br>are quickly discarded. The simplicity of DTs also provides <br>many implementation advantages in terms of speed and space <br>of the resulting classifier. <br>Quinlan's original DT algorithm [10] worked only on <br>features that were discrete (a small number of choices).  Our <br>image features do not have that property.  Most of our <br>features are continuous real values.  Many extensions of the <br>original DT algorithm, ID3, have been made to allow use of <br>real­valued data [4,11].  All of these algorithms either <br>discretize the data or by selecting a threshold T for a given <br>feature  F divide the training examples into two sets where <br>F&lt;T and F&gt;=T.  The trick is for each feature to select a value <br>T that gives the lowest impurity (best classification <br>improvement).  The selection of T  from a large number of <br>features and a large number of training examples is very slow <br>to do correctly. </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">42</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft15{font-size:12px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116005.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft8">We have implemented two algorithms, which employ <br>different division techniques. These two algorithms also <br>represent the two approaches of longer training time with <br>better generalization vs. shorter training time with poorer <br>generalization. The first strategy slightly reduces interactivity <br>and relies more on learning performance.  The second relies <br>on speed and interactivity.  The two strategies are Center <br>Weighted (CW) and Mean Split (MS). <br>Our first DT attempt was to order all of the training examples <br>for each feature and step through all of the examples <br>calculating the impurity as if the division was between each <br>of the examples.  This yielded a minimum impurity split, <br>however, this generally provided a best split close to the <br>beginning or end of the list of examples, still leaving a large <br>number of examples in one of the divisions.  Divisions of this <br>nature yield deeper and more unbalanced trees, which <br>correlate to slower classification times.  To improve this <br>algorithm, we developed Center Weighted (CW), which does <br>the same as above, except that it more heavily weights central <br>splits (more equal divisions).  By insuring that the split <br>threshold is generally in the middle of the feature range, the <br>resulting tree tends to be more balanced and the sizes of the <br>training sets to be examined at each level of the tree drops <br>exponentially.   <br>CW DTs do, however, suffer from an initial sort of all <br>training examples for each feature, resulting in a O(f * N log <br>N) cost  up front, where f is the number of features and N the <br>number of training examples.  Since in IML, we assume that <br>both f and N are large, this can be extremely costly. <br>Because of the extreme initial cost of sorting all N training <br>examples  f times, we have extended Center Weighted with <br>CWSS.  The `SS' stand for sub-sampled.  Since the iteration <br>through training examples is purely to find a good split, we <br>can sample the examples to find a statistically sound split.  <br>For example, say N is 100,000, if we sample 1,000 of the <br>original N, sort those and calculate the best split then our <br>initial sort is 100 times faster.  It is obvious that a better <br>threshold could be computed using all of the training data, but <br>this is mitigated by the fact that those data items will still be <br>considered in lower levels of the tree.  When a split decision <br>is made, all of the training examples are split, not just the sub-<br>sample.  The sub-sampling means that each node's split <br>decision is never greater than O(f*1000*5), but that <br>eventually all training data will be considered. <br>Quinlan used a sampling technique called "windowing".  <br>Windowing initially used a small sample of training examples <br>and increased the number of training examples used to create <br>the DT, until all of the original examples were classified <br>correctly [11].  Our technique, although similar, differs in that <br>the number of samples is fixed.  At each node in the DT a <br>new sample of fixed size is drawn, allowing misclassified <br>examples in a higher level of the DT to be considered at a <br>lower level. </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:477"><nobr><span class="ft15">The use of sub-sampling in CWSS produced very slight <br>differences in classification accuracy as compared to CW, but <br>reduced training time by a factor of at least two (for training <br>sets with N </span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:551"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:136;left:559"><nobr><span class="ft0"> 5,000).  This factor however will continue to </span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:477"><nobr><span class="ft8">grow as N increases.  (For N = 40,000 CWSS is <br>approximately 5 times faster than CW; 8 for N = 80,000.) <br>The CW and CWSS algorithms spend considerable <br>computing resources in trying to choose a threshold value for <br>each feature.  The Mean Split (MS) algorithm spends very <br>little time on such decisions and relies on large amounts of <br>training data to correct decisions at lower levels of the tree.  <br>The MS algorithm uses T=mean(F) as the threshold for <br>dividing each feature F and compares the impurities of the <br>divisions of all features.  This is very efficient and produces <br>relatively shallow decision trees by generally dividing the <br>training set in half at each decision point.  Mean split, <br>however, does not ensure that the division will necessarily <br>divide the examples at points that are meaningful to correct <br>classification.  Successive splits at lower levels of the tree <br>will eventually correctly classify the training data, but may <br>not generalize as well. <br>The resulting MS decision trees are not as good as those <br>produced by more careful means such as CW or CWSS.  <br>However, we hypothesized, that the speedup in classification <br>would improve interactivity and thus reduce the time for <br>designers to train a classifier.  We believe designers make up <br>for the lower quality of the decision tree with the ability to <br>correct more rapidly.  The key is in optimizing designer <br>judgment rather than classifier predictions.  MSSS is a sub-<br>sampled version of MS in the same manner as CWSS.  In <br>MSSS, since we just evaluate the impurity at the mean, and <br>since the mean is a simple statistical value, the resulting <br>divisions are generally identical to those of straight MS. <br>As a parenthetical note, another important bottleneck that is <br>common to all of the classifiers is the necessity to calculate <br>all features initially to create the classifier.  We made the <br>assumption in IML that all features are pre-calculated and <br>that the learning part will find the distinguishing features.  <br>Although, this can be optimized so it is faster, all algorithms <br>will suffer from this bottleneck.  <br>There are many differences between the performances of <br>each of the algorithms.  The most important is that the CW <br>algorithms train slower than the MS algorithms, but tend to <br>create better classifiers.  Other differences are of note though.  <br>For example, the sub sampled versions, CWSS and MSSS, <br>generally allowed the classifiers to be generated faster.  More <br>specifically, CWSS was usually twice as fast as CW, as was <br>MSSS compared to MS. <br>Because of the gains in speed and lack of loss of <br>classification power, only CWSS and MSSS will be used for <br>comparisons.  The critical comparison is to see which <br>algorithm allows the user to create a satisfactory classifier the <br>fastest.  User tests comparing these algorithms are outlined <br>and presented in the next section. </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">43</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116006.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft3"><b>EVALUATIONS </b></span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:81"><nobr><span class="ft11">User tests were conducted to evaluate the differences between <br>CWSS and MSSS.  When creating a new perceptual interface <br>it is not classification time that is the real issue.  The <br>important issue is designer time.  As stated before, <br>classification creation time for CWSS is longer than MSSS, <br>but the center-weighted algorithms tend to generalize better <br>than the mean split algorithms.  The CWSS generally takes 1-<br>10 seconds to train on training sets of 10,000-60,000 <br>examples, while MSSS is approximately twice as fast on the <br>same training sets.  These differences are important; as our <br>hypothesis was that faster classifier creation times can <br>overcome poorer inductive strength and thus reduce overall <br>designer time. <br>To test the difference between CWSS and MSSS we used <br>three key measurements: wall clock time to create the <br>classifier, number of classify/correct iterations, and structure <br>of the resulting tree (depth and number of nodes).  The latter <br>of these three corresponds to the amount of time the classifier <br>takes to classify an image in actual usage.   <br>In order to test the amount of time a designer takes to create a <br>good classifier, we need a standard to define "good <br>classifier".  A "gold standard" was created for four different <br>classification problems: skin-detection, paper card tracking, <br>robot car tracking and laser tracking.  These gold standards <br>were created by carefully classifying pixels until, in human <br>judgment, the best possible classification was being <br>performed on the test images for each problem. The resulting <br>classifier was then saved as a standard. <br>Ten total test subjects were used and divided into two groups.  <br>The first five did each task using the CWSS followed by the <br>MSSS and the remaining five MSSS followed by CWSS.  <br>The users were given each of the problems in turn and asked <br>to build a classifier.  Each time the subject requested a <br>classifier to be built that classifier's performance was <br>measured against the performance of the standard classifier <br>for that task. When the subject's classifier agreed with the <br>standard on more than 97.5% of the pixels, the test was <br>declared complete.   <br>Table 1, shows the average times and iterations for the first <br>group, Table 2, the second group. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:129"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:224"><nobr><span class="ft0">CWSS MSSS </span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:89"><nobr><span class="ft0">Problem Time </span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:242"><nobr><span class="ft0">Iterations </span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:321"><nobr><span class="ft0">Time </span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:372"><nobr><span class="ft0">Iterations</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:89"><nobr><span class="ft0">Skin 03:06 </span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:263"><nobr><span class="ft0">4.4 </span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:321"><nobr><span class="ft0">10:35 </span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:390"><nobr><span class="ft0">12.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:89"><nobr><span class="ft0">Paper Cards </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:188"><nobr><span class="ft0">02:29 </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:263"><nobr><span class="ft0">4.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:321"><nobr><span class="ft0">02:23 </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:393"><nobr><span class="ft0">5.0 </span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:89"><nobr><span class="ft0">Robot Car </span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:188"><nobr><span class="ft0">00:50 </span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:263"><nobr><span class="ft0">1.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:321"><nobr><span class="ft0">01:00 </span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:393"><nobr><span class="ft0">1.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:89"><nobr><span class="ft0">Laser 00:46 </span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:263"><nobr><span class="ft0">1.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:321"><nobr><span class="ft0">00:52 </span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:393"><nobr><span class="ft0">1.4 </span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:153"><nobr><span class="ft0">Table 1 ­ CWSS followed by MSSS </span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:525"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:621"><nobr><span class="ft0">MSSS CWSS </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:485"><nobr><span class="ft0">Problem Time </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:638"><nobr><span class="ft0">Iterations </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:717"><nobr><span class="ft0">Time </span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:768"><nobr><span class="ft0">Iterations</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:485"><nobr><span class="ft0">Skin 10:26 </span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:655"><nobr><span class="ft0">11.4 </span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:717"><nobr><span class="ft0">03:51 </span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:789"><nobr><span class="ft0">3.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:485"><nobr><span class="ft0">Paper Cards </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:584"><nobr><span class="ft0">04:02 </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:659"><nobr><span class="ft0">5.0 </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:717"><nobr><span class="ft0">02:37 </span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:789"><nobr><span class="ft0">2.6 </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:485"><nobr><span class="ft0">Robot Car </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:584"><nobr><span class="ft0">01:48 </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:659"><nobr><span class="ft0">1.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:717"><nobr><span class="ft0">01:37 </span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:789"><nobr><span class="ft0">1.2 </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:485"><nobr><span class="ft0">Laser 01:29 </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:659"><nobr><span class="ft0">1.0 </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:717"><nobr><span class="ft0">01:16 </span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:789"><nobr><span class="ft0">1.0 </span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:549"><nobr><span class="ft0">Table 2 ­ MSSS followed by CWSS </span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:477"><nobr><span class="ft8">The laser tracker is a relatively simple classifier because of <br>the uniqueness of bright red spots [9]. The robot car was <br>contrasted with a uniform colored carpet and was similarly <br>straightforward. Identifying colored paper cards against a <br>cluttered background was more difficult because of the <br>diversity of the background. The skin tracker is the hardest <br>because of the diversity of skin color, camera over-saturation <br>problems and cluttered background [20].  <br>As can be seen in tables 1 and 2, MSSS takes substantially <br>more designer effort on the hard problems than CWSS. All <br>subjects specifically stated that CWSS was "faster" than <br>MSSS especially in the Skin case.  (Some did not notice a <br>difference between the two algorithms while working on the <br>other problems.)  We did not test any of the slower <br>algorithms such as neural nets or nearest-neighbor. </span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:841"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:477"><nobr><span class="ft11">Interactively these are so poor that the results are self-evident.  <br>We also did not test the full CW algorithm.  Its classification <br>times tend into minutes and clearly could not compete with <br>the times shown in tables 1 and 2.  It is clear from our <br>evaluations that a classification algorithm must get under the <br>10-20 second barrier in producing a new classification, but <br>that once under that barrier, the designer's time begins to <br>dominate.  Once the designer's time begins to dominate the <br>total time, then the classifier with better generalization wins. <br>We also mentioned the importance of the tree structure as it <br>relates to the classification time of an image.  Table 3 shows <br>the average tree structures (tree depth and number of nodes) <br>as well as the average classification time (ACT) in <br>milliseconds over the set of test images. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:471"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:595"><nobr><span class="ft0">CWSS MSSS </span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:471"><nobr><span class="ft0">Problem  Depth Nodes ACT Depth Nodes ACT</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:471"><nobr><span class="ft0">Skin 16.20 </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:609"><nobr><span class="ft0">577 </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:660"><nobr><span class="ft0">243 </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:705"><nobr><span class="ft0">25.60 </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:758"><nobr><span class="ft0">12530 </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:817"><nobr><span class="ft0">375 </span></nobr></DIV>
+<DIV style="position:absolute;top:887;left:471"><nobr><span class="ft8">Paper <br>Cards </span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:548"><nobr><span class="ft0">15.10 1661 201 16.20 2389  329 </span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:471"><nobr><span class="ft0">Car </span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:548"><nobr><span class="ft0">13.60 1689 235 15.70 2859  317 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:471"><nobr><span class="ft0">Laser 13.00 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:605"><nobr><span class="ft0">4860 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:660"><nobr><span class="ft0">110 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:709"><nobr><span class="ft0">8.20 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:765"><nobr><span class="ft0">513 </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:817"><nobr><span class="ft0">171 </span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:487"><nobr><span class="ft0">Table 3 ­ Tree structures and average classify time (ACT) </span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:477"><nobr><span class="ft8">As seen in Table 3, depth, number of nodes and ACT, were <br>all lower in CWSS than in MSSS.  This was predicted as <br>CWSS provides better divisions between the training <br>examples. </span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">44</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="116007.png" alt="background image">
+<DIV style="position:absolute;top:55;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft8">While testing we observed that those who used the MSSS <br>which is fast but less accurate, first, ended up using more <br>training data, even when they used the CWSS, which usually <br>generalizes better and needs less data.  Those who used the <br>CWSS first, were pleased with the interactivity of CWSS and <br>became very frustrated when they used MSSS, even though it <br>could cycle faster through the interactive loop.  In actuality, <br>because of the poor generalization of the mean split <br>algorithm, even though the classifier generation time for <br>MSSS was quicker than CWSS, the users felt it necessary to <br>paint more using the MSSS, so the overall time increased <br>using MSSS.  </span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:81"><nobr><span class="ft3"><b>CONCLUSION </b></span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:81"><nobr><span class="ft8">When using machine learning in an interactive design setting, <br>feature selection must be automatic rather than manual and <br>classifier training-time must be relatively fast. Decision Trees <br>using a sub-sampling technique to improve training times are <br>very effective for both of these purposes. Once interactive <br>speeds are achieved, however, the quality of the classifier's <br>generalization becomes important. Using tools like Crayons, <br>demonstrates that machine learning can form an appropriate <br>basis for the design tools needed to create new perceptual <br>user interfaces. </span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:81"><nobr><span class="ft3"><b>REFERENCES </b></span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:81"><nobr><span class="ft0">1. Cover, T., and Hart, P. "Nearest Neighbor Pattern </span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:102"><nobr><span class="ft8">Classification."  IEEE Transactions on Information <br>Theory, 13, (1967) 21-27. </span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:81"><nobr><span class="ft0">2. Duda, R. O., Hart, P. E., and Stork, D. G., Pattern </span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:102"><nobr><span class="ft0">Classification. (2001). </span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:81"><nobr><span class="ft0">3.  Fails, J.A., Olsen, D.R.  "LightWidgets: Interacting in </span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:102"><nobr><span class="ft8">Everyday Spaces."   Proceedings of IUI '02 (San <br>Francisco CA, January 2002). </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:81"><nobr><span class="ft0">4.  Fayyad, U.M. and Irani, K. B.   "On the Handling of </span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:102"><nobr><span class="ft8">Continuous-valued Attributes in Decision Tree <br>Generation." Machine Learning, 8, 87-102,(1992). </span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:81"><nobr><span class="ft0">5.  Jaimes, A. and Chang, S.-F.  "A Conceptual Framework </span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:102"><nobr><span class="ft8">for Indexing Visual Information at Multiple Levels."  <br>IS&amp;T/SPIE Internet Imaging 2000,  (San Jose CA, <br>January 2000). </span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:81"><nobr><span class="ft0">6.  Jaimes, A. and Chang, S.-F.  "Automatic Selection of </span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:102"><nobr><span class="ft8">Visual Features and Classifier."  Storage and Retrieval <br>for Image and Video Databases VIII, IS&amp;T/SPIE (San <br>Jose CA, January 2000). </span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:81"><nobr><span class="ft0">7. Jaimes, A. and Chang, S.-F.  "Integrating Multiple </span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:102"><nobr><span class="ft8">Classifiers in Visual Object Detectors Learned from User <br>Input."  Invited paper, session on Image and Video </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:497"><nobr><span class="ft8">Databases, 4th Asian Conference on Computer Vision <br>(ACCV 2000), Taipei, Taiwan, January 8-11, 2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:477"><nobr><span class="ft0">8.  Krueger,  M. W., Gionfriddo. T., and Hinrichsen, K.,  </span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:497"><nobr><span class="ft8">"VIDEOPLACE -- an artificial reality". Human Factors <br>in Computing Systems, CHI '85 Conference Proceedings, <br>ACM Press, 1985, 35-40. </span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:477"><nobr><span class="ft0">9. Olsen, D.R., Nielsen, T.  "Laser Pointer Interaction."  </span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:497"><nobr><span class="ft0">Proceedings of CHI '01 (Seattle WA, March 2001). </span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:477"><nobr><span class="ft0">10. Quinlan, J. R.  "Induction of Decision Trees." Machine </span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:497"><nobr><span class="ft0">Learning, 1(1); 81-106, (1986). </span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:477"><nobr><span class="ft0">11. Quinlan, J. R.  "C4.5: Programs for machine learning."  </span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:497"><nobr><span class="ft0">Morgan Kaufmann, San Mateo, CA, 1993. </span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:477"><nobr><span class="ft0">12. Rumelhart, D., Widrow, B., and Lehr, M. "The Basic </span></nobr></DIV>
+<DIV style="position:absolute;top:334;left:497"><nobr><span class="ft8">Ideas in Neural Networks." Communications of the ACM, <br>37(3), (1994), pp 87-92. </span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:477"><nobr><span class="ft0">13. Schmidt, A.  "Implicit Human Computer Interaction </span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:497"><nobr><span class="ft8">Through Context."  Personal Technologies, Vol 4(2), <br>June 2000. </span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:477"><nobr><span class="ft0">14. Starner, T., Auxier, J. and Ashbrook, D.  "The Gesture </span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:497"><nobr><span class="ft8">Pendant: A Self-illuminating, Wearable, Infrared <br>Computer Vision System for Home Automation Control <br>and Medical Monitoring."  International Symposium on <br>Wearable Computing (Atlanta GA, October 2000). </span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:477"><nobr><span class="ft0">15. Triggs, B.  "Model-based Sonar Localisation for Mobile </span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:497"><nobr><span class="ft8">Robots."  Intelligent Robotic Systems '93, Zakopane, <br>Poland, 1993. </span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:477"><nobr><span class="ft0">16. Underkoffler, J. and Ishii H.  "Illuminating Light: An </span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:497"><nobr><span class="ft8">Optical Design Tool with a Luminous-Tangible <br>Interface."  Proceedings of CHI '98 (Los Angeles CA, <br>April 1998). </span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:477"><nobr><span class="ft0">17. Underkoffler, J., Ullmer, B. and Ishii, H.  "Emancipated </span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:497"><nobr><span class="ft8">Pixels: Real-World Graphics in the Luminous Room."  <br>Proceedings of SIGGRAPH '99 (Los Angeles CA, 1999), <br>ACM Press, 385-392. </span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:477"><nobr><span class="ft0">18. Vailaya, A., Zhong, Y., and Jain, A. K.  "A hierarchical </span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:497"><nobr><span class="ft8">system for efficient image retrieval." In Proc. Int. Conf. <br>on Patt. Recog. (August 1996). </span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:477"><nobr><span class="ft0">19. Viola, P. and Jones, M.  "Robust real-time object </span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:497"><nobr><span class="ft8">detection."  Technical Report 2001/01, Compaq CRL, <br>February 2001.  </span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:477"><nobr><span class="ft0">20. Yang, M.H. and Ahuja, N.  "Gaussian Mixture Model for </span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:497"><nobr><span class="ft8">Human Skin Color and Its Application in Image and <br>Video Databases."  Proceedings of SPIE '99 (San Jose <br>CA, Jan 1999), 458-466.</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:459"><nobr><span class="ft1"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft1"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft7">45</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,1223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>sasn03-lee.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-11-10T12:26:57+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:16px;font-family:Courier;color:#000000;}
+	.ft6{font-size:11px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18001.png" alt="background image">
+<DIV style="position:absolute;top:108;left:82"><nobr><span class="ft0"><b>A Resilient Packet-Forwarding Scheme against Maliciously</b></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:177"><nobr><span class="ft0"><b>Packet-Dropping Nodes in Sensor Networks</b></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:325"><nobr><span class="ft1">Suk-Bok Lee and Yoon-Hwa Choi</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:333"><nobr><span class="ft2">Department of Computer Engineering</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:399"><nobr><span class="ft2">Hongik University</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:385"><nobr><span class="ft2">121-791 Seoul, Korea</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:330"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:336"><nobr><span class="ft1">sblee, yhchoi</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:440"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:447"><nobr><span class="ft1">@cs.hongik.ac.kr</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft7">This paper focuses on defending against compromised nodes'<br>dropping of legitimate reports and investigates the misbe-<br>havior of a maliciously packet-dropping node in sensor net-<br>works. We present a resilient packet-forwarding scheme us-<br>ing Neighbor Watch System (NWS), specifically designed<br>for hop-by-hop reliable delivery in face of malicious nodes<br>that drop relaying packets, as well as faulty nodes that<br>fail to relay packets. Unlike previous work with multipath<br>data forwarding, our scheme basically employs single-path<br>data forwarding, which consumes less power than multipath<br>schemes. As the packet is forwarded along the single-path<br>toward the base station, our scheme, however, converts into<br>multipath data forwarding at the location where NWS de-<br>tects relaying nodes' misbehavior. Simulation experiments<br>show that, with the help of NWS, our forwarding scheme<br>achieves a high success ratio in face of a large number of<br>packet-dropping nodes, and effectively adjusts its forwarding<br>style, depending on the number of packet-dropping nodes<br>en-route to the base station.</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:81"><nobr><span class="ft7">C.2.0 [Computer-Communication Networks]: General--<br>Security and protection</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:81"><nobr><span class="ft1">General Terms</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:81"><nobr><span class="ft3">Security, Algorithm, Reliability</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:81"><nobr><span class="ft1">Keywords</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:81"><nobr><span class="ft7">Sensor Network Security, Reliable Delivery, Packet-dropping<br>Attacks, Secure Routing</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:81"><nobr><span class="ft1">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:112"><nobr><span class="ft1">INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:94"><nobr><span class="ft3">Wireless sensor networks consist of hundreds or even thou-</span></nobr></DIV>
+<DIV style="position:absolute;top:915;left:81"><nobr><span class="ft3">sands of small devices each with sensing, processing, and</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft8">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br>SASN'06, October 30, 2006, Alexandria, Virginia, USA.<br>Copyright 2006 ACM 1-59593-554-1/06/0010 ...</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:315"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:322"><nobr><span class="ft4">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:475"><nobr><span class="ft7">communicating capabilities to monitor the real-world envi-<br>ronment. They are envisioned to play an important role<br>in a wide variety of areas ranging from critical military-<br>surveillance applications to forest fire monitoring and the<br>building security monitoring in the near future. In such a<br>network, a large number of sensor nodes are distributed to<br>monitor a vast field where the operational conditions are<br>harsh or even hostile. To operate in such environments, se-<br>curity is an important aspect for sensor networks and secu-<br>rity mechanisms should be provided against various attacks<br>such as node capture, physical tampering, eavesdropping,<br>denial of service, etc [23, 33, 38].</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:489"><nobr><span class="ft3">Previous research efforts against outsider attacks in key-</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:475"><nobr><span class="ft7">management schemes [4, 13, 32] and secure node-to-node<br>communication mechanisms [24, 32] in sensor networks are<br>well-defined.</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:564"><nobr><span class="ft3">Those security protections, however, break</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:475"><nobr><span class="ft7">down when even a single legitimate node is compromised.<br>It turns out to be relatively easy to compromise a legiti-<br>mate node [14], which is to extract all the security infor-<br>mation from the captured node and to make malicious code<br>running for the attacker's purpose.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:489"><nobr><span class="ft3">Even a small number of compromised nodes can pose</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:475"><nobr><span class="ft7">severe security threats on the entire part of the network,<br>launching several attacks such as dropping legitimate re-<br>ports, injecting bogus sensing reports, advertising inconsis-<br>tent routing information, eavesdropping in-network commu-<br>nication using exposed keys, etc. Such disruption by the<br>insider attacks can be devastating unless proper security<br>countermeasures against each type of attacks are provided.<br>In reality, detecting all of the compromised nodes in the<br>network is not always possible, so we should pursue grace-<br>ful degradation [35], with a small number of compromised<br>nodes. The fundamental principle for defense against the<br>insider attacks is to restrict the security impact of a node<br>compromise as close to the vicinity of the compromised node<br>as possible.</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:489"><nobr><span class="ft3">When the attacker compromises a legitimate node, it may</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:475"><nobr><span class="ft7">first try to replicate the captured node indefinitely with the<br>same ID and spread them over the network. Against such<br>attacks, a distributed detection mechanism (based on emer-<br>gent properties [11]) has been proposed by Parno et al. [31].<br>In addition, Newsome et al. [30] have presented the tech-<br>niques that prevent the adversary from arbitrarily creating<br>new IDs for nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:489"><nobr><span class="ft3">Using cryptographic information obtained from a cap-</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:475"><nobr><span class="ft7">tured node, attackers can establish pairwise keys with any<br>legitimate nodes in order to eavesdrop communication any-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">59</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">where in the network. Localized key-establishment scheme<br>by Zhu et al. [46] is a good solution against such an in-<br>sider attack. Since the scheme does not allow a cloned node<br>(by inside-attackers) to establish pairwise keys with any le-<br>gitimate nodes except the neighbors of the compromised<br>nodes, the cryptographic keys extracted from the compro-<br>mised node are of no use for attackers.</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:94"><nobr><span class="ft3">Compromised nodes can also inject false sensing reports</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:81"><nobr><span class="ft7">to the network (i.e. report fabrication attacks [39]), which<br>causes false alarms at the base station or the aggregation<br>result to far deviate from the true measurement. Proposed<br>en-route filtering mechanisms [8, 39, 41, 44, 47] that de-<br>tect and drop such false reports effectively limit the impact<br>of this type of attacks. Also, proposed secure aggregation<br>protocols [34, 40] have addressed the problem of false data<br>injection, and they ensure that the aggregated result is a<br>good approximation to the true value in the presence of a<br>small number of compromised nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:94"><nobr><span class="ft3">Advertising inconsistent routing information by compro-</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:81"><nobr><span class="ft7">mised nodes can disrupt the whole network topology. Hu et<br>al. [19, 20] have proposed SEAD, a secure ad-hoc network<br>routing protocol that uses efficient one-way hash functions<br>to prevent any inside attackers from injecting inconsistent<br>route updates. A few secure routing protocols [6, 27] in sen-<br>sor networks have been proposed to detect and exclude the<br>compromised nodes injecting inconsistent route updates.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:94"><nobr><span class="ft3">Compromised nodes also can silently drop legitimate re-</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft7">ports (i.e. selective forwarding attacks [23]), instead of for-<br>warding them to the next-hop toward the base station. Since<br>data reports are delivered over multihop wireless paths to<br>the base station, even a small number of strategically-placed<br>packet-dropping nodes can deteriorate the network through-<br>put significantly. In order to bypass such nodes, most work<br>on secure routing and reliable delivery in sensor networks re-<br>lies on multipath forwarding scheme [5, 6, 7, 10], or interleaved-<br>mesh forwarding scheme [26, 29, 39, 42].</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:94"><nobr><span class="ft3">Among the insider attacks described above, this paper fo-</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:81"><nobr><span class="ft7">cuses on defense against compromised nodes' dropping of le-<br>gitimate reports and we present a resilient packet-forwarding<br>scheme using Neighbor Watch System (NWS) against ma-<br>liciously packet-dropping nodes in sensor networks. We in-<br>vestigate the misbehavior of a maliciously packet-dropping<br>node and show that an acknowledgement (ACK) that its<br>packets were correctly received at the next-hop node does<br>not guarantee reliable delivery from the security perspective.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:94"><nobr><span class="ft3">NWS is specifically designed for hop-by-hop reliable de-</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:81"><nobr><span class="ft7">livery in face of malicious nodes that drop relaying packets,<br>as well as faulty nodes that fail to relay packets. Unlike pre-<br>vious work [10, 29, 42] with multipath data forwarding, our<br>scheme basically employs single-path data forwarding, which<br>consumes less power than multipath schemes. As the packet<br>is forwarded along the single-path toward the base station,<br>our scheme, however, converts into multipath data forward-<br>ing at the location where NWS detects relaying nodes' mis-<br>behavior.</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:94"><nobr><span class="ft3">NWS exploits the dense deployment of large-scale static</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:81"><nobr><span class="ft7">sensor networks and the broadcast nature of communication<br>pattern to overhear neighbors' communication for free.</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:94"><nobr><span class="ft3">The contribution of this paper is two-fold. First, we in-</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:81"><nobr><span class="ft7">vestigate the misbehavior of a maliciously packet-dropping<br>node and propose a resilient packet-forwarding scheme, which<br>basically employs single-path data forwarding, in face of<br>such nodes, as well as faulty nodes. Second, our scheme</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft7">can work with any existing routing protocols. Since it is<br>designed not for securing specific protocols but for universal<br>protocols, it can be applied to any existing routing protocols<br>as a security complement.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:489"><nobr><span class="ft3">The rest of paper is organized as follows. Background is</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:475"><nobr><span class="ft7">given in Section 2. We present our resilient packet-forwarding<br>scheme in Section 3. An evaluation of the scheme is given<br>and discussed in Section 4. We present conclusions and fu-<br>ture work in Section 5.</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:475"><nobr><span class="ft1">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:507"><nobr><span class="ft1">BACKGROUND</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft1">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:515"><nobr><span class="ft1">Network Model</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:489"><nobr><span class="ft3">Sensor networks typically comprise one or multiple base</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:475"><nobr><span class="ft7">stations and hundreds or thousands of inexpensive, small,<br>static, and resource-constrained nodes scattered over a wide<br>area.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:517"><nobr><span class="ft3">An inexpensive sensor node cannot afford tamper-</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:475"><nobr><span class="ft7">resistant packaging. We assume that a large number of sen-<br>sor nodes are deployed in high density over a vast field, such<br>that the expected degree of a node is high; each sensor has<br>multiple neighbors within its communication range. Sensing<br>data or aggregated data are sent along the multihop route<br>to the base station. We assume that each sensor node has<br>a constant transmission range, and communication links are<br>bidirectional.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:489"><nobr><span class="ft3">Our sensor network model employs a key-establishment</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:475"><nobr><span class="ft7">scheme that extends the one in LEAP [46] where the im-<br>pact of a node compromise is localized in the immediate<br>neighborhood of the compromised node, and our scheme is<br>based on it. To evolve from LEAP, we will describe it briefly<br>in Section 2.4.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:475"><nobr><span class="ft1">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:515"><nobr><span class="ft1">Threat Model</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:489"><nobr><span class="ft3">The attacks launched from outsiders hardly cause much</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft7">damage to the network, since the rouge node, which does not<br>possesses the legitimate credentials (e.g. the predistributed<br>key ring from the key pool [13]), fails to participate in the<br>network. On the other hand, there may be multiple attacks<br>from insiders (e.g.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:601"><nobr><span class="ft3">dropping legitimate reports, injecting</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft7">false sensing reports, advertising inconsistent route infor-<br>mation, and eavesdropping in-network communication us-<br>ing exposed keys, etc), and the combination of such attacks<br>can lead to disruption of the whole network. Thus, proper<br>security countermeasures (specifically designed to protect<br>against each type of the attacks) should be provided.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:489"><nobr><span class="ft3">Among them, in this paper, we focus on defending against</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft7">compromised nodes' dropping of legitimate reports; Other<br>attacks mentioned above are effectively dealt with by several<br>proposed schemes as described in the previous section.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:489"><nobr><span class="ft3">We consider a packet-dropping node as not merely a faulty</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft7">node, but also an arbitrarily malicious node. Some previous<br>work [3, 29, 36] on reliable delivery uses an acknowledge-<br>ment (ACK) that its packets were correctly received at the<br>next-hop node, in order to find out unreliable links. How-<br>ever, in the presence of maliciously packet-dropping nodes,<br>simply receiving ACK from a next-hop node does not guar-<br>antee that the packet will be really forwarded by the next-<br>hop node. For example, node u forwards a packet to com-<br>promised node v, and node u waits for ACK from node v.<br>Node v sends back ACK to node u, and then node v silently<br>drops the packet. This simple example shows that receiving<br>ACK is not enough for reliable delivery in face of maliciously<br>packet-dropping nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">60</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+	.ft10{font-size:5px;font-family:Times;color:#000000;}
+	.ft11{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18003.png" alt="background image">
+<DIV style="position:absolute;top:86;left:94"><nobr><span class="ft3">For more reliability, we should check whether the next-</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft7">hop node really forwards the relaying packet to its proper<br>next-hop node. Fortunately, due to the broadcast nature of<br>communication pattern in sensor networks, we can overhear<br>neighbors' communication for free (for now per-link encryp-<br>tion is ignored). After forwarding a packet to next-hop node<br>v and buffering recently-sent packets, by listening in on node<br>v's traffic, we can tell whether node v really transmits the<br>packet. Watchdog [28] mechanism (extension to DSR [22]),<br>implicit ACK in M</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:202"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:208"><nobr><span class="ft3">RC [29], and local monitoring in DI-</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft7">CAS [25] detect misbehaving nodes in this way. However,<br>this kind of simple overhearing schemes does not guarantee<br>reliable delivery, either.</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:94"><nobr><span class="ft3">With arbitrarily malicious nodes, we should be assured</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft7">that the node, to which the next-hop node forwards the<br>relaying packet, is really a neighbor of the next-hop node.<br>For example, node u forwards a packet to compromised node<br>v, and node u listens in on node v's traffic to compare each<br>overheard packet with the packet in the buffer.</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:394"><nobr><span class="ft3">Node v</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:81"><nobr><span class="ft7">transmits the relaying packet whose intended next-hop id<br>marked with any id in the network such as x that is not a<br>neighbor of v. Then node u overhears this packet from node<br>v, and considers it forwarded correctly despite the fact that<br>none actually receives the packet. The packet is eventually<br>dropped without being detected. We refer to this attack as<br>blind letter attack.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:94"><nobr><span class="ft3">We consider packet-dropping attacks to be addressed in</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft7">this paper as ones ranging from the naive case (e.g. a faulty<br>node) to the most malicious one (e.g.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:332"><nobr><span class="ft3">a node launching</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:81"><nobr><span class="ft7">blind letter attack). We focus on developing a solution to<br>such attacks.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:81"><nobr><span class="ft1">2.3</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:121"><nobr><span class="ft1">Notation</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:94"><nobr><span class="ft3">We use the following notation throughout the paper:</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:101"><nobr><span class="ft3">· u, v are principals, such as communicating nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:101"><nobr><span class="ft3">· R</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:125"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:137"><nobr><span class="ft3">is a random number generated by u.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:101"><nobr><span class="ft3">· f</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:121"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:136"><nobr><span class="ft3">is a family of pseudo-random function [12].</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:101"><nobr><span class="ft3">· MAC(K, M</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:187"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:193"><nobr><span class="ft3">|M</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:210"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:217"><nobr><span class="ft3">) denotes the message authentication</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:114"><nobr><span class="ft3">code (MAC) of message - concatenation of M</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:381"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:390"><nobr><span class="ft3">and M</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:429"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:436"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:114"><nobr><span class="ft3">with MAC key K.</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:81"><nobr><span class="ft1">2.4</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:121"><nobr><span class="ft1">Key-Establishment Scheme in LEAP</span></nobr></DIV>
+<DIV style="position:absolute;top:814;left:94"><nobr><span class="ft3">LEAP supports the establishment of four types of keys for</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:81"><nobr><span class="ft7">each sensor node - an individual key shared with the base<br>station, a pairwise key shared with its neighbor, a cluster<br>key shared with its surrounding neighbors, and a group key<br>shared by all the nodes in the networks.</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:94"><nobr><span class="ft3">It assumes that the time interval T</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:299"><nobr><span class="ft9">est</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:318"><nobr><span class="ft3">for a newly deployed</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft7">sensor node to complete the neighbor discovery phase (e.g.<br>tens of seconds) is smaller than the time interval T</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:377"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:401"><nobr><span class="ft3">that is</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:81"><nobr><span class="ft7">necessary for the attacker to compromise a legitimate node<br>(i.e. T</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:122"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:150"><nobr><span class="ft3">&gt; T</span></nobr></DIV>
+<DIV style="position:absolute;top:960;left:175"><nobr><span class="ft9">est</span></nobr></DIV>
+<DIV style="position:absolute;top:956;left:190"><nobr><span class="ft3">). Some existing work [1, 39] has made</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:81"><nobr><span class="ft3">similar assumptions, which are believed to be reasonable.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:94"><nobr><span class="ft3">The four steps for a newly added node u to establish a</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:81"><nobr><span class="ft3">pairwise key with each of its neighbors are as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:97"><nobr><span class="ft3">1. Key Pre-distribution. Each node u is loaded with</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:114"><nobr><span class="ft3">a common initial key K</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:262"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:268"><nobr><span class="ft3">, and derives its master key</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:114"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:126"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:137"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:158"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:168"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:174"><nobr><span class="ft3">(u).</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:491"><nobr><span class="ft3">2. Neighbor Discovery. Once deployed, node u sets</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:509"><nobr><span class="ft3">up a timer to fire after time T</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:698"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:719"><nobr><span class="ft3">, broadcasts its id,</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:509"><nobr><span class="ft7">and waits for each neighbor v's ACK. The ACK from<br>v is authenticated using the master key K</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:763"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:774"><nobr><span class="ft3">of node v.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:509"><nobr><span class="ft3">Since node u knows K</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:644"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:651"><nobr><span class="ft3">, it can derive K</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:751"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:761"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:782"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:155;left:791"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:798"><nobr><span class="ft3">(v).</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:573"><nobr><span class="ft3">u -  :</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:652"><nobr><span class="ft3">u, R</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:677"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:685"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:573"><nobr><span class="ft3">v - u :</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:652"><nobr><span class="ft3">v, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:719"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:726"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:742"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:750"><nobr><span class="ft3">|v).</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:491"><nobr><span class="ft3">3. Pairwise Key Establishment. Node u computes its</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:509"><nobr><span class="ft3">pairwise key with v, K</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:650"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:663"><nobr><span class="ft3">, as K</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:702"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:720"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:743"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:752"><nobr><span class="ft10">v</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:759"><nobr><span class="ft3">(u). Node v</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:509"><nobr><span class="ft3">also computes K</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:613"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:632"><nobr><span class="ft3">in the same way. K</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:760"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:780"><nobr><span class="ft3">serves as</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:509"><nobr><span class="ft3">their pairwise key.</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:491"><nobr><span class="ft3">4. Key Erasure. When its timer expires, node u erases</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:509"><nobr><span class="ft3">K</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:521"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:533"><nobr><span class="ft3">and all the master keys of its neighbors. Every</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:509"><nobr><span class="ft7">node, however, keeps its own master key, in order to<br>establish pairwise keys with later-deployed nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:489"><nobr><span class="ft3">Once erasing K</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:585"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:591"><nobr><span class="ft3">, a node will not be able to establish a</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:475"><nobr><span class="ft3">pairwise key with any other nodes that have also erased K</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:824"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:830"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:475"><nobr><span class="ft3">Without K</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:542"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:548"><nobr><span class="ft3">, a cloned node (by an attacker compromising a</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:475"><nobr><span class="ft3">legitimate node after T</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:616"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:638"><nobr><span class="ft3">) fails to establish pairwise keys</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft7">with any nodes except the neighbors of the compromised<br>node. In such a way, LEAP localizes the security impact of<br>a node compromise.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:475"><nobr><span class="ft1">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:507"><nobr><span class="ft11">A RESILIENT PACKET-FORWARDING<br>SCHEME USING NEIGHBOR WATCH SYS-<br>TEM</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:489"><nobr><span class="ft3">In this section, we present our resilient packet-forwarding</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:475"><nobr><span class="ft7">scheme using Neighbor Watch System (NWS). NWS works<br>with the information provided by Neighbor List Verification<br>(NLV) to be described in Section 3.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:475"><nobr><span class="ft1">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:515"><nobr><span class="ft1">Neighbor Watch System</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:489"><nobr><span class="ft3">Our scheme seeks to achieve hop-by-hop reliable delivery</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:475"><nobr><span class="ft7">in face of maliciously packet-dropping nodes, basically em-<br>ploying single-path forwarding. To the best of our knowl-<br>edge, proposed works so far rely on multipath forwarding<br>or diffusion-based forwarding, exploiting a large number of<br>nodes in order to deliver a single packet. ACK-based tech-<br>nique is not a proper solution at all as explained in the<br>previous section.</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:489"><nobr><span class="ft3">With NWS, we can check whether the next-hop node re-</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:475"><nobr><span class="ft7">ally forwards the relaying packet to the actual neighbor of<br>the next-hop node. The basic idea of our scheme is as fol-<br>lows:</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:491"><nobr><span class="ft3">1. Neighbor List Verification. After deployment, dur-</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:509"><nobr><span class="ft7">ing neighbor discovery phase, every node u gets to<br>know of not only its immediate neighbors, but also the<br>neighbors' respective neighbor lists (i.e. u's neighbors'<br>neighbor lists). The lists are verified using Neighbor<br>List Verification to be described in Section 3.2. Every<br>node stores its neighbors' neighbor lists in the neighbor<br>table.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:491"><nobr><span class="ft3">2. Packet Forwarding to Next-hop. If node u has</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:509"><nobr><span class="ft7">a packet to be relayed, it buffers the packet and for-<br>wards the packet (encrypted with cluster key of node<br>u so that neighbors of node u can overhear it) to its<br>next-hop node v. As in LEAP, a cluster key is a key<br>shared by a node and all its neighbors, for passive par-<br>ticipation.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">61</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:10px;font-family:Times;color:#000000;}
+	.ft13{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18004.png" alt="background image">
+<DIV style="position:absolute;top:169;left:226"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:276"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:340"><nobr><span class="ft12">?</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:283"><nobr><span class="ft1">w</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:230"><nobr><span class="ft1">y</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:81"><nobr><span class="ft3">Figure 1:</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:164"><nobr><span class="ft3">Neighbor Watch System.</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:367"><nobr><span class="ft3">Sub-watch</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft7">nodes w and y, as well as primary-watch node u lis-<br>ten in on v's traffic.</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:97"><nobr><span class="ft3">3. Designation of Watch Nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:339"><nobr><span class="ft3">Overhearing the</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:114"><nobr><span class="ft7">packet from node u to node v, among neighbors of<br>node u, the nodes that are also neighbors of node v (in<br>Figure 1, nodes w and y) are designated as sub-watch<br>nodes and store the packet in the buffer. Other nodes<br>(that are not neighbors of node v) discard the packet.<br>Node u itself is a primary-watch node. A primary-<br>watch node knows which nodes are sub-watch nodes,<br>since every node has the knowledge of not only its<br>neighbors but also their respective neighbor lists.</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:97"><nobr><span class="ft3">4. Neighbor Watch by Sub-Watch Node. Sub-watch</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:114"><nobr><span class="ft7">nodes w and y listen in on node v's traffic to compare<br>each overheard packet with the packet in the buffer.<br>To defend against blind letter attack, each of them<br>also checks whether the packet's intended next-hop is<br>a verified neighbor of node v, by looking up the neigh-<br>bor table. If all correct, the packet in the buffer is<br>removed and the role of the sub-watch node is over.<br>If the packet has remained in the buffer for longer<br>than a certain timeout, sub-watch nodes w and y for-<br>ward the packet (encrypted with their respective clus-<br>ter keys) to their respective next-hop nodes other than<br>node v. Then the role of a sub-watch node is over (each<br>of them is now designated as a primary-watch node for<br>the packet it has forwarded).</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:97"><nobr><span class="ft3">5. Neighbor Watch by Primary-Watch Node. Primary-</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:114"><nobr><span class="ft7">watch node u does the same job as sub-watch nodes.<br>The only difference, however, is that it listens in on<br>not only node v's traffic, but also sub-watch nodes w's<br>and y's. If the packet is correctly forwarded on by at<br>least one of them (nodes v, w, or y), primary-watch<br>node u removes the packet in the buffer and the role<br>of the primary-watch node is over.<br>Otherwise, after a certain timeout, primary-watch node<br>u forwards the packet (encrypted with its cluster key)<br>to its next-hop other than node v.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft7">As the packet is forwarded on, this procedure (except for<br>Neighbor List Verification) of NWS is performed at each<br>hop so that hop-by-hop reliable delivery can be achieved<br>with mainly depending on single-path forwarding. On the<br>other hand, in the previous approaches [29, 39, 42], when<br>forwarding a packet, a node broadcasts the packet with no<br>designated next-hop, and all neighbors with smaller costs</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:433"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:81"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:88"><nobr><span class="ft3">The cost at a node is the minimum energy overhead to</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:792"><nobr><span class="ft4">Base </span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:788"><nobr><span class="ft4">Station</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:654"><nobr><span class="ft1">u</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:678"><nobr><span class="ft1">v</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:734"><nobr><span class="ft3">?</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:614"><nobr><span class="ft3">?</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:475"><nobr><span class="ft3">Figure 2:</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:557"><nobr><span class="ft3">An example of our packet-forwarding</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:475"><nobr><span class="ft7">scheme. Only the nodes that relay the packet are<br>presented. With the help of sub-watch nodes (grey<br>ones), our scheme bypasses two packet-dropping<br>nodes en-route to the base station.</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:475"><nobr><span class="ft7">or within a specific geographic region continue forwarding<br>the packet anyway. For example, in Figure 1, if nodes v,<br>w, and y have smaller costs than node u in the previous<br>approaches, they all forward</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:650"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:662"><nobr><span class="ft3">the packet from node u. In</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft7">our scheme, however, sub-watch nodes w and y are just on<br>watch in designated next-hop node v, instead of uncondi-<br>tionally forwarding the packet. If no packet-dropping occurs<br>en-route to the base station, the packet may be forwarded<br>along single-path all the way through.</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:489"><nobr><span class="ft3">However, a packet-dropping triggers the multipath for-</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:475"><nobr><span class="ft7">warding for the dropped packet. If the designated next-hop<br>node v in Figure 1 has not forwarded the relaying packet to<br>its certified neighbor by a certain timeout, sub-watch nodes<br>w and y forward the packet to their respective next-hop.<br>At the point, the packet is sent over multiple paths. Since<br>the location where the packet-dropping occurs is likely in<br>an unreliable region, this prompt reaction of the conver-<br>sion to multipath forwarding augments the robustness in our<br>scheme. The degree of multipath depends on the number of<br>the sub-watch nodes. Figure 2 shows an example of our<br>packet-forwarding scheme, bypassing two packet-dropping<br>nodes en-route to the base station. If a node utilizes a cache<br>[16, 21] for recently-received packets, it can suppress the<br>same copy of previously-received one within a certain time-<br>out, as nodes u and v in Figure 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:489"><nobr><span class="ft3">Our scheme requires that a relaying packet should be en-</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:475"><nobr><span class="ft7">crypted with a cluster key of a forwarding node, in order<br>that all its neighbors can decrypt and overhear it. In fact,<br>per-link encryption provides better robustness to a node<br>compromise, since a compromised node can decrypt only<br>the packets addressed to it. Thus, there exists a tradeoff<br>between resiliency against packet-dropping and robustness<br>to a node compromise. However, encryption with a cluster<br>key provides an intermediate level of robustness to a node<br>compromise [24] (a compromised node can overhear only<br>its immediate neighborhood), and also supports local broad-<br>cast (i.e. resiliency against packet-dropping), so that we can<br>achieve graceful degradation in face of compromised nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:475"><nobr><span class="ft3">forward a packet from this node to the base station.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:476"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:482"><nobr><span class="ft3">It is the broadcast transmission with no designated next-</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:475"><nobr><span class="ft13">hop, and, if needed, the packet should be encrypted with a<br>cluster key in order for all neighbors to overhear it.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">62</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft14{font-size:-1px;font-family:Times;color:#000000;}
+	.ft15{font-size:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18005.png" alt="background image">
+<DIV style="position:absolute;top:86;left:94"><nobr><span class="ft3">To make our scheme work (against blind letter attack), we</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:81"><nobr><span class="ft7">must address the problem of how a node proves that it re-<br>ally has the claimed neighbors. It is the identical problem of<br>how a node verifies the existence of its neighbors' neighbors.<br>Apparently, a node has the knowledge of its direct neigh-<br>bors by neighbor discovery and pairwise key establishment<br>phases. However, in the case of two-hop away neighbors,<br>as in Figure 1, malicious node v can inform its neighbor u<br>that it also has neighbor node x (any possible id in the net-<br>work) which in fact is not a neighbor of node v. Node u has<br>to believe it, since node x is not a direct neighbor of node<br>u, and only the node v itself knows its actual surrounding<br>neighbors. Then, how do we verify the neighbors' neigh-<br>bors? The answer to this critical question is described in<br>the next subsection.</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:81"><nobr><span class="ft1">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:121"><nobr><span class="ft1">Neighbor List Verification</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:94"><nobr><span class="ft3">To verify neighbors' neighbors, we present Neighbor List</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:81"><nobr><span class="ft7">Verification (NLV) which extends the pairwise key estab-<br>lishment in LEAP. During neighbor discovery in LEAP, two<br>messages are exchanged between neighbors to identify each<br>other. On the other hand, NLV adopts three-way handshak-<br>ing neighbor discovery, in order to identify not only com-<br>municating parties but also their respective neighbors.</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:94"><nobr><span class="ft3">NLV has two cases of neighbor discovery. One is that</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:81"><nobr><span class="ft7">neighbor discovery between two nodes that are both still<br>within the initial T</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:194"><nobr><span class="ft9">min3</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:226"><nobr><span class="ft3">(referred as pure nodes). The other</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:81"><nobr><span class="ft7">is that neighbor discovery between a newly-deployed node<br>within the initial T</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:195"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:221"><nobr><span class="ft3">and an existing node over the initial</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:81"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:89"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:115"><nobr><span class="ft3">(referred as an adult node).</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft7">Neighbor Discovery between Pure Nodes. Neighbor<br>list verification process between pure nodes is quite simple.<br>If a pure node broadcasts its neighbor list before the elapse of<br>its initial T</span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:145"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:167"><nobr><span class="ft3">, we can accept the list as verifiable. Thus, the</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:81"><nobr><span class="ft3">key point here is to keep track of each other's T</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:370"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:392"><nobr><span class="ft3">, and to</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:81"><nobr><span class="ft7">make sure that both broadcast their respective neighbor lists<br>before their respective T</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:225"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:247"><nobr><span class="ft3">. The following shows the three-</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:81"><nobr><span class="ft7">way handshaking neighbor discovery between pure node u<br>and v:</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:128"><nobr><span class="ft3">u -  : u, R</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:219"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:227"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:128"><nobr><span class="ft3">v - u : v, T</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:216"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:223"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:239"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:215"><nobr><span class="ft14">ßÞ</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:212"><nobr><span class="ft9">M</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:222"><nobr><span class="ft10">v</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:246"><nobr><span class="ft3">, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:305"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:312"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:329"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:336"><nobr><span class="ft3">|K</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:351"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:359"><nobr><span class="ft3">|M</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:376"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:383"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:128"><nobr><span class="ft3">u - v : u, T</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:217"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:204"><nobr><span class="ft14">ßÞ</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:201"><nobr><span class="ft9">M</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:211"><nobr><span class="ft10">u</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:224"><nobr><span class="ft3">, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:284"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:297"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:313"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:320"><nobr><span class="ft3">|M</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:337"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:345"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:81"><nobr><span class="ft3">where T</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:130"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:143"><nobr><span class="ft3">and T</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:180"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:193"><nobr><span class="ft3">are the amount of time remaining until</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:81"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:89"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:115"><nobr><span class="ft3">of v and T</span></nobr></DIV>
+<DIV style="position:absolute;top:850;left:177"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:203"><nobr><span class="ft3">of u, respectively. Once deployed, node</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:81"><nobr><span class="ft3">u sets up a timer to fire after time T</span></nobr></DIV>
+<DIV style="position:absolute;top:865;left:293"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:861;left:314"><nobr><span class="ft3">. Then, it broadcasts</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:81"><nobr><span class="ft7">its id, and waits for each neighbor v's ACK. The ACK from<br>every neighbor v is authenticated using the master key K</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:418"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:428"><nobr><span class="ft3">of</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:81"><nobr><span class="ft3">node v. Since node u knows K</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:261"><nobr><span class="ft9">I 4</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:274"><nobr><span class="ft3">, it can derive K</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:370"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:380"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:402"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:411"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:418"><nobr><span class="ft3">(v).</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:81"><nobr><span class="ft3">The ACK from node v contains T</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:298"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:305"><nobr><span class="ft3">, the amount of time</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:81"><nobr><span class="ft3">remaining until T</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:188"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:215"><nobr><span class="ft3">of node v. If T</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:308"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:320"><nobr><span class="ft3">is a non-zero value,</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft3">node v claims to be a pure node. K</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:301"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:313"><nobr><span class="ft3">in MAC proves node</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:81"><nobr><span class="ft3">v to be a pure node, since pure node v should know K</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:433"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:81"><nobr><span class="ft3">and derive K</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:164"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:178"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:203"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:212"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:219"><nobr><span class="ft3">(u). Node u records </span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:355"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:363"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:377"><nobr><span class="ft3">(T</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:390"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:986;left:403"><nobr><span class="ft3">added</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:81"><nobr><span class="ft9">3</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:88"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:96"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:121"><nobr><span class="ft3">is the time interval, necessary for the attacker to com-</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:81"><nobr><span class="ft3">promise a legitimate node as in LEAP [46].</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft9">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:88"><nobr><span class="ft3">Each node u is loaded with a common initial key K</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:402"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:408"><nobr><span class="ft3">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:81"><nobr><span class="ft3">derives its master key K</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:228"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:239"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:260"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:270"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:276"><nobr><span class="ft3">(u). After time T</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:381"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:402"><nobr><span class="ft3">, node</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">u erases K</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:145"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:156"><nobr><span class="ft3">and all the master keys of its neighbors.</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:646"><nobr><span class="ft15"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:675"><nobr><span class="ft15"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:691"><nobr><span class="ft15"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:597"><nobr><span class="ft15"><i>x</i></span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:718"><nobr><span class="ft15"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:732"><nobr><span class="ft15"><i>z</i></span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:562"><nobr><span class="ft15"><i>r</i></span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:567"><nobr><span class="ft15"><i>q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:475"><nobr><span class="ft7">Figure 3: Neighbor Discovery between Pure node x<br>and Adult node u. Grey and white nodes represent<br>adult and pure nodes, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:475"><nobr><span class="ft7">to the current time of node u) in the entry for node v in<br>the neighbor table. Node u computes its pairwise key with<br>v, K</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:504"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:523"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:546"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:556"><nobr><span class="ft10">v</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:563"><nobr><span class="ft3">(u).</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:586"><nobr><span class="ft9">5</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:602"><nobr><span class="ft3">Node u also generates M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:797"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:803"><nobr><span class="ft3">, v|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:475"><nobr><span class="ft7">(which means that v certifies u as an immediate neighbor),<br>and stores it as a certificate.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:489"><nobr><span class="ft3">The ACK from node u also contains T</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:729"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:736"><nobr><span class="ft3">, the amount of</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:475"><nobr><span class="ft3">time remaining until T</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:612"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:637"><nobr><span class="ft3">of u. This ACK is authenticated</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:475"><nobr><span class="ft3">using their pairwise key K</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:639"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:652"><nobr><span class="ft3">, which proves node u a pure</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:475"><nobr><span class="ft3">node and u's identity. Node v then records </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:750"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:758"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:771"><nobr><span class="ft3">(T</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:785"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:798"><nobr><span class="ft3">added</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:475"><nobr><span class="ft7">to the current time of v) in the entry for u in the neighbor<br>table. It also generates M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:680"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:688"><nobr><span class="ft3">, u|v) and stores it as a</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft3">certificate. Then, the three-way handshaking is done.</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:489"><nobr><span class="ft3">Every pure node u broadcasts its neighbor list just prior</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:475"><nobr><span class="ft3">to T</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:500"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:526"><nobr><span class="ft3">of u. Each receiving neighbor v checks whether the</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:475"><nobr><span class="ft3">receiving time at v is prior to </span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:663"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:671"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:684"><nobr><span class="ft3">in the neighbor table. If</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:475"><nobr><span class="ft3">yes, the neighbor list of u is now certified by each neighbor v.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:475"><nobr><span class="ft7">Neighbor Discovery between A Pure Node and An<br>Adult node. After most nodes have completed bootstrap-<br>ping phase, new nodes can be added in the network. Con-<br>sider Figure 3. The issue here is how adult node u can as-<br>sure its existing neighbors (v and w) of the existence of its<br>newly-added neighbor x. This is a different situation from<br>the above neighbor list verification case between two pure<br>nodes. Thus, the messages exchanged during the three-way<br>handshaking are somewhat different in this case. The fol-<br>lowing shows the three-way handshaking neighbor discovery<br>between pure node x and adult node u:</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:475"><nobr><span class="ft3">x-  :</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:542"><nobr><span class="ft3">x, R</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:566"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:573"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:475"><nobr><span class="ft3">u- x :</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:543"><nobr><span class="ft3">u, T</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:565"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:572"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:589"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:596"><nobr><span class="ft3">, v,</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:633"><nobr><span class="ft9">certif icate</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:615"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:700"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:615"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:669"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:675"><nobr><span class="ft3">, v|u), w,</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:748"><nobr><span class="ft9">certif icate</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:728"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:818"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:728"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:781"><nobr><span class="ft9">w</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:790"><nobr><span class="ft3">, w|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:677"><nobr><span class="ft14">ßÞ</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:674"><nobr><span class="ft9">M</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:685"><nobr><span class="ft10">u</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:566"><nobr><span class="ft3">, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:625"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:633"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:649"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:656"><nobr><span class="ft3">|M</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:673"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:681"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:475"><nobr><span class="ft3">x- u :</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:483"><nobr><span class="ft3">x, T</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:505"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:512"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:536"><nobr><span class="ft9">certif icate</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:518"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:604"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:518"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:572"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:579"><nobr><span class="ft3">, x|u), v,</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:636"><nobr><span class="ft9">one-time cert.</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:629"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:714"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:629"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:682"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:689"><nobr><span class="ft3">, x|u), w,</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:750"><nobr><span class="ft9">one-time cert.</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:743"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:830"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:743"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:796"><nobr><span class="ft9">w</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:805"><nobr><span class="ft3">, x|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:654"><nobr><span class="ft14">ßÞ</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:651"><nobr><span class="ft9">M</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:661"><nobr><span class="ft10">x</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:566"><nobr><span class="ft3">, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:625"><nobr><span class="ft9">xu</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:639"><nobr><span class="ft3">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:656"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:980;left:663"><nobr><span class="ft3">|M</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:680"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:687"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:479"><nobr><span class="ft3">Newly-added node x sets up a timer to fire after time T</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:809"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:830"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:475"><nobr><span class="ft3">Then, it broadcasts its id, and waits for each neighbor u's</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:476"><nobr><span class="ft9">5</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:482"><nobr><span class="ft3">Node v also computes K</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:629"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:647"><nobr><span class="ft3">in the same way. K</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:764"><nobr><span class="ft9">uv</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:782"><nobr><span class="ft3">serves as</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">their pairwise key.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">63</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18006.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">ACK. The ACK from every neighbor u is authenticated us-<br>ing the master key K</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:211"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:224"><nobr><span class="ft3">of node u. Since node x knows K</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:429"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:436"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:81"><nobr><span class="ft3">it can derive K</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:172"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:183"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:204"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:213"><nobr><span class="ft10">I</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:220"><nobr><span class="ft3">(u). The ACK from node u contains</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:89"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:96"><nobr><span class="ft3">, the amount of time remaining until T</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:334"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:360"><nobr><span class="ft3">of u. If T</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:418"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:430"><nobr><span class="ft3">is</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft7">zero, node u is an adult node that may already have mul-<br>tiple neighbors as in Figure 3. Node u reports its certified<br>neighbor list (v and w) to x by including their respective<br>certificates in the ACK. Node x verifies u's neighbor list by<br>examining each certificate, since x can generate any certifi-<br>cate with K</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:151"><nobr><span class="ft9">I</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:157"><nobr><span class="ft3">. If all correct, x computes its pairwise key with</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:81"><nobr><span class="ft3">u, K</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:108"><nobr><span class="ft9">xu</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:125"><nobr><span class="ft3">= f</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:146"><nobr><span class="ft9">K</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:156"><nobr><span class="ft10">u</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:163"><nobr><span class="ft3">(x). Node x also generates M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:375"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:383"><nobr><span class="ft3">, u|x) and</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:81"><nobr><span class="ft3">stores it as a certificate.</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:94"><nobr><span class="ft3">The ACK from x also contains T</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:301"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:308"><nobr><span class="ft3">, the amount of time</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:81"><nobr><span class="ft3">remaining until T</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:185"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:210"><nobr><span class="ft3">of x. This ACK is authenticated using</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft3">their pairwise key K</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:208"><nobr><span class="ft9">xu</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:222"><nobr><span class="ft3">, which proves node x a pure node</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:81"><nobr><span class="ft3">and x's identity. Node u then records </span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:316"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:324"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:336"><nobr><span class="ft3">(T</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:350"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:362"><nobr><span class="ft3">added to the</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft7">current time of u) in the entry for x in the neighbor table.<br>Since adult node u cannot generate M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:347"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:354"><nobr><span class="ft3">, x|u) by itself,</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:81"><nobr><span class="ft7">pure node x provides the certificate for u in the ACK. Node<br>x also provides one-time certificates</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:294"><nobr><span class="ft9">6</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:304"><nobr><span class="ft3">for each of u's certified</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:81"><nobr><span class="ft7">neighbors (v and w). Then, the three-way handshaking is<br>done.</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:94"><nobr><span class="ft3">After that, adult node u broadcasts one-time certificates</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:81"><nobr><span class="ft7">(from newly-discovered pure node x), in order to assure u's<br>existing neighbors (v and w) of the discovery of new neighbor<br>x. The packet containing one-time certificates is as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:88"><nobr><span class="ft3">u-  :</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:154"><nobr><span class="ft3">u, x, v,</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:202"><nobr><span class="ft9">one-time cert.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:195"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:281"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:195"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:249"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:255"><nobr><span class="ft3">, x|u), w,</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:317"><nobr><span class="ft9">one-time cert.</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:309"><nobr><span class="ft14">Þ</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:396"><nobr><span class="ft14">ß</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:309"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:362"><nobr><span class="ft9">w</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:371"><nobr><span class="ft3">, x|u), K</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:421"><nobr><span class="ft9">A</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:420"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:286"><nobr><span class="ft14">ßÞ</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:283"><nobr><span class="ft9">M</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:294"><nobr><span class="ft10">u</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:179"><nobr><span class="ft3">, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:239"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:238"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:245"><nobr><span class="ft3">, M</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:265"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:272"><nobr><span class="ft3">).</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:81"><nobr><span class="ft3">where x is a new neighbor of u, K</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:287"><nobr><span class="ft9">A</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:286"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:300"><nobr><span class="ft3">is a local broadcast au-</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:81"><nobr><span class="ft3">thentication key in u's one-way key chain, K</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:351"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:350"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:362"><nobr><span class="ft3">is the cluster</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:81"><nobr><span class="ft7">key of u. Each receiving neighbor v of u verifies u's new<br>neighbor x by examining the one-time certificate designated<br>for v, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:169"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:176"><nobr><span class="ft3">, x|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:207"><nobr><span class="ft9">6</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:213"><nobr><span class="ft3">. If ok, node x is now certified by each</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:81"><nobr><span class="ft7">neighbor v of u. Then, one-time certificates can be erased,<br>since they are of no use any more.</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:94"><nobr><span class="ft3">Broadcast authentication only with symmetric keys such</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:81"><nobr><span class="ft3">as cluster key K</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:181"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:180"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:193"><nobr><span class="ft3">fails to prevent an impersonation attack,</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:81"><nobr><span class="ft7">since every neighbor of u shares the cluster key of u. Thus,<br>we employ the reverse disclosure of one-way key chain K</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:430"><nobr><span class="ft9">A</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:429"><nobr><span class="ft9">u</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:81"><nobr><span class="ft3">as in LEAP.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:94"><nobr><span class="ft3">Just prior to T</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:182"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:208"><nobr><span class="ft3">of x, pure node x broadcasts its neigh-</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:81"><nobr><span class="ft7">bor list. Each receiving neighbor u of x checks whether the<br>receiving time at u is prior to </span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:269"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:277"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:289"><nobr><span class="ft3">in the neighbor table. If</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:81"><nobr><span class="ft3">yes, the neighbor list of x is now certified by each neighbor u.</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:94"><nobr><span class="ft3">In summary, through the proposed three-way handshak-</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:81"><nobr><span class="ft7">ing neighbor discovery process, pure node u identifies each<br>immediate neighbor v and v's certified neighbor list (if v is<br>an adult node), and keeps track of T</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:312"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:340"><nobr><span class="ft3">of v. Just prior</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:81"><nobr><span class="ft3">to T</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:107"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:134"><nobr><span class="ft3">of u, node u broadcasts its direct neighbor list so</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:81"><nobr><span class="ft7">that every neighbor of u accepts the list as verifiable. Then,<br>node u becomes an adult node. After that, if newly-added<br>node x initiates neighbor discovery with adult node u, node<br>u identifies pure node x, keeps track of T</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:330"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:983;left:357"><nobr><span class="ft3">of x, provides</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:81"><nobr><span class="ft7">u's certified neighbor list to x, and, in return, takes one-time<br>certificates from x. Node u then broadcasts these one-time</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft9">6</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:88"><nobr><span class="ft3">One-time certificate, for instance M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:349"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:356"><nobr><span class="ft3">, x|u), assures</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:81"><nobr><span class="ft3">v that x is an immediate neighbor of u. It is generated by</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">pure node x with master key of v.</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:484"><nobr><span class="ft3">Table 1: An example of the Neighbor Table of u.</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:486"><nobr><span class="ft3">Neighbor ID</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:594"><nobr><span class="ft3">Certificate</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:689"><nobr><span class="ft3">Verified Neighbor List</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:520"><nobr><span class="ft3">v</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:580"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:633"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:640"><nobr><span class="ft3">, v|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:738"><nobr><span class="ft3">u, w, t</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:519"><nobr><span class="ft3">w</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:577"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:631"><nobr><span class="ft9">w</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:640"><nobr><span class="ft3">, w|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:739"><nobr><span class="ft3">u, v, z</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:520"><nobr><span class="ft3">x</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:580"><nobr><span class="ft3">M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:633"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:640"><nobr><span class="ft3">, x|u)</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:740"><nobr><span class="ft3">u, r, q</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:475"><nobr><span class="ft7">certificates, in order to assure u's existing neighbors of the<br>discovery of new neighbor x. Thus, every time adult node u<br>discovers newly-added node x through three-way handshak-<br>ing, node u informs (by broadcasting) its existing neighbors<br>of the discovery of new neighbor x. Also, whenever receiv-<br>ing neighbor list information from pure neighbor x, node u<br>checks whether the receiving time at u is prior to </span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:779"><nobr><span class="ft3">T</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:787"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:314;left:798"><nobr><span class="ft3">in the</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:475"><nobr><span class="ft7">neighbor table. If yes, u now accepts the neighbor list of x<br>as verifiable.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:489"><nobr><span class="ft3">Through the above neighbor list verification in the boot-</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:475"><nobr><span class="ft7">strapping phase, every node gets the knowledge of its neigh-<br>bors' certified neighbors. Our Neighbor Watch System makes<br>use of this information to prevent blind letter attack. With<br>this knowledge, watch nodes are able to check whether the<br>relaying packet's intended next-hop is a verified neighbor of<br>the forwarding node.</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:475"><nobr><span class="ft1">3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:516"><nobr><span class="ft1">Neighbor Table Maintenance</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:489"><nobr><span class="ft3">The information obtained through neighbor list verifica-</span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:475"><nobr><span class="ft7">tion (e.g. its direct neighbors, corresponding certificates,<br>neighbors' neighbor lists, etc) is stored in the neighbor table<br>of each node. Table 1 shows an example of the neighbor<br>table of node u. In densely-deployed sensor networks, the<br>expected degree of a node is high. However, in this example,<br>for simplicity, node u has only three neighbors v, w, and x<br>as in Figure 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:489"><nobr><span class="ft3">The entries in the neighbor table are accessed and main-</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:475"><nobr><span class="ft7">tained with immediate neighbor IDs. For example, if node<br>u overhears the packet sent from w to v, node u begins to<br>listen in on v's traffic as a sub-watch node (since the neigh-<br>bor table of u has both v's and w's entries in it). Unless v<br>forwards the packet to a node of the Verified Neighbor List<br>in v's entry by a certain timeout, sub-watch node u will for-<br>ward the packet to its next-hop other than v; many existing<br>routing protocols [5, 18, 21, 27, 37, 43] enable each node to<br>maintain multiple potential next-hop. Once forwarding the<br>packet, sub-watch node u becomes a primary-watch node<br>and begins to listen in on its next-hop's traffic as described<br>above.</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:489"><nobr><span class="ft3">If newly-added node y initiates the three-way handshaking</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:475"><nobr><span class="ft7">with u, node u provides its neighbor list to y by sending<br>certificates in the neighbor table. Node u, in return from<br>node y, takes the certificate for y and one-time certificates<br>for u's existing neighbors. Then, node u stores the certificate<br>in the new entry for y. However, node u does not store the<br>one-time certificates but broadcasts them to its neighbors.<br>If new neighbor y broadcasts its neighbor list within T</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:809"><nobr><span class="ft9">min</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:830"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:475"><nobr><span class="ft3">node u stores the list in the entry for y.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:489"><nobr><span class="ft3">If node u is compromised, not only cryptographic key</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft7">information but also certificates in the neighbor table are<br>exposed. However, the attacker cannot misuse these cer-<br>tificates for other purposes. Since a certificate only attests<br>neighborship between two specific nodes, it cannot be ap-<br>plied to any other nodes. In fact, it can be made even public.<br>However, colluding nodes can deceive a pure node anyway,</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">64</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18007.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">by fabricating a bogus certificate. We will describe this lim-<br>itation in Section 4.4.</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:81"><nobr><span class="ft1">4.</span></nobr></DIV>
+<DIV style="position:absolute;top:138;left:112"><nobr><span class="ft1">EVALUATION</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:94"><nobr><span class="ft3">In this section, we evaluate the communication and stor-</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:81"><nobr><span class="ft7">age cost, and analyze the security of our resilient forwarding<br>scheme (Neighbor Watch System) as well as Neighbor List<br>Verification. We then present the simulation results of our<br>forwarding scheme.</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:81"><nobr><span class="ft1">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:121"><nobr><span class="ft1">Communication Cost</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:94"><nobr><span class="ft3">Unlike the previously proposed diffusion-based reliable-</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:81"><nobr><span class="ft7">forwarding schemes [21, 29, 39, 42] that exploit a large num-<br>ber of nodes to deliver a single packet, our scheme requires<br>only the designated next-hop node to relay the packet, un-<br>der the supervision of watch nodes. We note that, like over-<br>hearing by watch nodes in our scheme, those diffusion-based<br>schemes require each node to listen to all its neighbors, since<br>they forward a packet by broadcasting with no designated<br>next-hop. With a smaller number of relaying nodes, our<br>scheme makes a report successfully reach the base station.<br>Thus, the average communication cost of our forwarding<br>scheme for delivery of a single packet is smaller than those<br>of the previous schemes.</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:94"><nobr><span class="ft3">Our neighbor list verification during the bootstrapping</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:81"><nobr><span class="ft7">phase requires the three-way handshaking neighbor discov-<br>ery. Unlike the neighbor discovery between two pure nodes,<br>the size of the messages exchanged between a pure and an<br>adult node varies with the degree of the adult node. A large<br>number of certificates caused by the high degree can be over-<br>burdensome to a single TinyOS packet which provides 29<br>bytes for data. Considering 8-byte certificates and a 4-byte</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:433"><nobr><span class="ft9">7</span></nobr></DIV>
+<DIV style="position:absolute;top:601;left:81"><nobr><span class="ft7">message authentication code (MAC), the adult node is able<br>to include at most two neighbors' information in a single<br>TinyOS packet. Thus, when the entire neighbor list cannot<br>be accommodated within a single packet, the node should<br>allot the list to several packets and send them serially. In a<br>network of size N with the expected degree d of each node,<br>the average number of packets invoked by a newly-added<br>node per each node is nearly (d - 1)</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:300"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:307"><nobr><span class="ft3">/2(N - 1).</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:94"><nobr><span class="ft3">Therefore, as node density d grows, the total number</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:81"><nobr><span class="ft7">of packets transmitted from adult nodes to a newly-added<br>node increases. However, neighbor discovery between a pure<br>and an adult node occurs much less than between two pure<br>nodes, since most neighbor discoveries throughout the net-<br>work are between two pure nodes in the early stage of the<br>network. Neighbor discovery between a pure and an adult<br>node occurs generally when a new node is added to the net-<br>work.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:81"><nobr><span class="ft1">4.2</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:121"><nobr><span class="ft1">Storage Overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:94"><nobr><span class="ft3">In LEAP, each node keeps four types of keys and a man-</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:81"><nobr><span class="ft7">ageable length of hash chain, which is found to be scalable.<br>In our scheme, each node needs to additionally store its di-<br>rect neighbors' certificates and their respective neighbor lists<br>as in Table 1. Thus, for a network of the expected degree<br>d and the byte size l of node ID, the additional storage re-<br>quirement for each node is d · (8 + ld) bytes.</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:94"><nobr><span class="ft3">Although our storage requirement for these neighbor lists</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:81"><nobr><span class="ft3">is O(d</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:118"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:125"><nobr><span class="ft3">), for a reasonable degree d, memory overhead does</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:81"><nobr><span class="ft9">7</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:88"><nobr><span class="ft3">4-byte MAC is found to be not detrimental in sensor net-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">works as in TinySec [24] which employs 4-byte MAC.</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:537"><nobr><span class="ft2">u</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:578"><nobr><span class="ft2">v</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:627"><nobr><span class="ft4">?</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:722"><nobr><span class="ft2">u</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:780"><nobr><span class="ft2">v</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:830"><nobr><span class="ft4">?</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:555"><nobr><span class="ft15"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:567"><nobr><span class="ft16"><i><b>1</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:750"><nobr><span class="ft15"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:761"><nobr><span class="ft16"><i><b>2</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:494"><nobr><span class="ft3">Figure 4: Examples of critical area C</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:752"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:764"><nobr><span class="ft3">and C</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:804"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:810"><nobr><span class="ft3">.</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:475"><nobr><span class="ft7">not exceed 1 KB (a Berkeley MICA2 Mote with 128 KB<br>flash memory and 4 KB SRAM). For example, when d = 20<br>and l = 2, a node needs 960 bytes of memory to store such<br>information.</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:489"><nobr><span class="ft3">If node density of a network is so high that the required</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:475"><nobr><span class="ft7">space for those neighbor lists significantly increases and the<br>storage utilization becomes an issue, we can employ a storage-<br>reduction technique such as Bloom filter [2]. For example,<br>when d = 30 and l = 2, a node requires 2,040 bytes of addi-<br>tional space mainly for the neighbor lists. Instead of storing<br>neighbors' neighbor lists, applying each of the neighbor lists<br>(480 bits) to a Bloom filter (of 5 hash functions mapping to<br>a 256 bit vector), a node needs the reduced space of 1,200<br>bytes for such information (with the false positive probabil-<br>ity = 0.02).</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft1">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:516"><nobr><span class="ft1">Resilience to Packet-Dropping Attacks</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:489"><nobr><span class="ft3">In face of maliciously packet-dropping nodes, the higher</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:475"><nobr><span class="ft7">degree of multipath we provide, the more resiliency our<br>scheme achieves against such attacks. The average degree<br>of multipath depends on the number of sub-watch nodes<br>around a packet-dropping node. Sub-watch nodes should<br>be located in the region within the communication range of<br>both forwarding node u and designated next-hop v. We re-<br>fer to such a region as critical area. As in Figure 4, if nodes<br>u and v are located farther away, the size of critical area C</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:828"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:475"><nobr><span class="ft3">gets smaller than that of C</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:642"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:648"><nobr><span class="ft3">, and the probability (p</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:792"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:798"><nobr><span class="ft3">) that</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:475"><nobr><span class="ft7">at least one sub-watch node exists in the critical area goes<br>down. The probability (p</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:629"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:721;left:634"><nobr><span class="ft3">) is</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:595"><nobr><span class="ft3">p</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:602"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:611"><nobr><span class="ft3">= 1</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:636"><nobr><span class="ft3">- (1 - c)</span></nobr></DIV>
+<DIV style="position:absolute;top:744;left:690"><nobr><span class="ft9">d-1</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:711"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:475"><nobr><span class="ft7">where c is the ratio of the critical area size to the node's com-<br>munication range, and the expected degree d of the node.</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:489"><nobr><span class="ft3">To determine the appropriate degree d, we set the smallest</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:475"><nobr><span class="ft3">critical area C</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:561"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:571"><nobr><span class="ft3">in Figure 4 as a lower bound case (c = 0.4).</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:475"><nobr><span class="ft7">Figure 5 shows that, even in the lower bound critical area,<br>with d = 6 and d = 10, probability p</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:692"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:701"><nobr><span class="ft3">is above 0.9 and above</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:475"><nobr><span class="ft3">0.99, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:489"><nobr><span class="ft3">Since, in a network of degree d, the probability that there</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:475"><nobr><span class="ft3">exist m sub-watch nodes in the critical area of the ratio c is</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:554"><nobr><span class="ft3">p(m) =</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:613"><nobr><span class="ft3">d - 1</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:623"><nobr><span class="ft3">m</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:655"><nobr><span class="ft3">c</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:661"><nobr><span class="ft9">m</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:672"><nobr><span class="ft3">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:687"><nobr><span class="ft3">- c)</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:712"><nobr><span class="ft9">d-m-1</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:751"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:475"><nobr><span class="ft7">the expected number of sub-watch nodes, m, in the critical<br>area is given by</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:604"><nobr><span class="ft3">E[m] = (d - 1)c.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft7">Thus, in the lower bound (c = 0.4) critical area, when d =<br>10, 15, 20, the number of sub-watch nodes (i.e. the degree<br>of multipath) is 3.6, 5.6, 7.6 on average, respectively. This</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">65</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft17{font-size:7px;font-family:Times;color:#000000;}
+	.ft18{font-size:4px;font-family:Times;color:#000000;}
+	.ft19{font-size:7px;line-height:-5px;font-family:Times;color:#000000;}
+	.ft20{font-size:7px;line-height:-4px;font-family:Times;color:#000000;}
+	.ft21{font-size:7px;line-height:-2px;font-family:Times;color:#000000;}
+	.ft22{font-size:7px;line-height:-3px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18008.png" alt="background image">
+<DIV style="position:absolute;top:283;left:146"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:139"><nobr><span class="ft9">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:139"><nobr><span class="ft9">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:139"><nobr><span class="ft9">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:139"><nobr><span class="ft9">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:139"><nobr><span class="ft9">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:139"><nobr><span class="ft9">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:139"><nobr><span class="ft9">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:139"><nobr><span class="ft9">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:139"><nobr><span class="ft9">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:146"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:155"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:205"><nobr><span class="ft9">5</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:266"><nobr><span class="ft9">10</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:328"><nobr><span class="ft9">15</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:391"><nobr><span class="ft9">20</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:242"><nobr><span class="ft17"><b>Degree of a node</b></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:131"><nobr><span class="ft20"><b>P<br>r<br>ob</b></span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:131"><nobr><span class="ft17"><b>ab</b></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:131"><nobr><span class="ft19"><b>i<br>l<br>i<br>t<br>y<br>  <br>p</b></span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:132"><nobr><span class="ft18"><i><b>c</b></i></span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:81"><nobr><span class="ft3">Figure 5:</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:159"><nobr><span class="ft3">Probability (p</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:258"><nobr><span class="ft9">c</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:264"><nobr><span class="ft3">) that at least one sub-</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:81"><nobr><span class="ft7">watch node exists in the lower bound (c = 0.4) criti-<br>cal area.</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:81"><nobr><span class="ft7">shows that the higher degree of each node has, our scheme<br>has the higher degree of multipath and resiliency against<br>packet-dropping nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:81"><nobr><span class="ft1">4.4</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:121"><nobr><span class="ft1">The Security of Neighbor List Verification</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:94"><nobr><span class="ft3">Our Neighbor List Verification(NLV) keeps the nice prop-</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:81"><nobr><span class="ft7">erties of LEAP. Adult nodes fail to establish pairwise keys<br>with any adult nodes in arbitrary locations, so that the im-<br>pact of a node compromise is localized. NLV performs the<br>three-way handshaking neighbor discovery, instead of two-<br>message exchange in LEAP. The three-way handshaking en-<br>ables each node to verify not only its direct neighbors but<br>also their respective neighbor lists.</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:94"><nobr><span class="ft3">Moreover, this this three-way handshaking can be a po-</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:81"><nobr><span class="ft7">tential solution to deal with irregularity of radio range [15,<br>37, 45]. In reality, due to the noise and some environmen-<br>tal factors, radio range of each node is not exactly circu-<br>lar. So, communication links among nodes are asymmetric;<br>node u can hear node v which is unable to hear u. With<br>two-message exchange, only the node initiating the neigh-<br>bor discovery is assured of the link's bidirectionality. By the<br>three-way handshaking, both of neighbors can be assured of<br>their symmetric connectivity.</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:94"><nobr><span class="ft3">With NLV, only the verified lists are stored and utilized</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:81"><nobr><span class="ft7">for our packet-forwarding scheme. NLV verifies the neighbor<br>list of an adult node with certificates.</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:333"><nobr><span class="ft3">These certificates</span></nobr></DIV>
+<DIV style="position:absolute;top:838;left:81"><nobr><span class="ft7">merely attest neighborship between two specific nodes. Even<br>if a node is compromised, the attacker fails to abuse the<br>certificates of the captured node for other purpose.</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:94"><nobr><span class="ft3">However, collusion among compromised nodes can fab-</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:81"><nobr><span class="ft7">ricate bogus certificates in order to deceive a newly-added<br>node. For example, consider two colluding nodes u and v at<br>the different locations. When compromised node u discovers<br>newly-added node x, node u provides x with u's neighbor<br>list (maliciously including v in it). Even though node v is<br>not an actual neighbor of u, colluding node v can generate<br>the bogus certificate for u, M AC(K</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:300"><nobr><span class="ft9">v</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:307"><nobr><span class="ft3">, v|u). Then, x falsely</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:81"><nobr><span class="ft7">believes that v is a direct neighbor of u. This attack, how-<br>ever, affects only the one newly-added node x. Thus, when<br>compromised node u tries to launch the blind letter attack</span></nobr></DIV>
+<DIV style="position:absolute;top:1037;left:429"><nobr><span class="ft9">8</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:436"><nobr><span class="ft3">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:81"><nobr><span class="ft9">8</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:88"><nobr><span class="ft3">Compromised node u transmits the relaying packet with its</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft7">other surrounding adult neighbors of u can still detect it<br>anyway.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:489"><nobr><span class="ft3">The more serious case is that colluding nodes exploit a</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:475"><nobr><span class="ft7">newly-added node to generate bogus one-time certificates.<br>For example, consider two colluding nodes u and v that<br>share all their secret information as well as all their certifi-<br>cates. When newly-added node x initiates the three-way<br>handshaking with u, compromised node u pretends to be<br>v and provides x with v' neighbor list. Then, x in return<br>provides u with one-time certificates for each neighbor of<br>v; these one-time certificates falsely attest that v has new<br>neighbor x. Node u sends this information to v over the<br>covert channel. Then, v broadcasts these one-time certifi-<br>cates, and neighbors of v falsely believe that x is a direct<br>neighbor of v.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:489"><nobr><span class="ft3">Unfortunately, we do not provide a proper countermea-</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:475"><nobr><span class="ft7">sure to defend against this type of man-in-the-middle at-<br>tacks. However, we point out that this type of attacks has<br>to be launched in the passive manner. The adversary has<br>to get the chance of discovery of a newly-added node. In<br>other words, compromised nodes wait for the initiation of<br>the three-way handshaking from a newly-added node. Since<br>the attacker does not know where the new nodes will be<br>added, it has to compromise a sufficient number of legiti-<br>mate nodes in order to increase the probability of discovery<br>of newly-added nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:489"><nobr><span class="ft3">As an active defense against such man-in-the-middle at-</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:475"><nobr><span class="ft7">tacks, we can apply a node replication detection mechanism<br>such as Randomized or Line-Selected Multicast [31], which<br>revokes the same ID node at the different location claims.<br>To successfully launch such man-in-the-middle attacks, two<br>colluding nodes should pretend to be each other so that each<br>of them claims to be at two different locations with the same<br>ID. Location-binding key-assignment scheme by Yang et al.<br>[39] with a little modification also can be a good solution<br>to such attacks. Since it binds secret keys with nodes' geo-<br>graphic locations, the key bound to the particular location<br>cannot be used at any arbitrary locations. Adopting this,<br>NLV can check whether the claimed neighbors are really lo-<br>cated within geographically two hops away.</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:475"><nobr><span class="ft1">4.5</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:516"><nobr><span class="ft1">Simulations</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:489"><nobr><span class="ft3">To further evaluate the performance of our resilient for-</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:475"><nobr><span class="ft7">warding scheme, we run simulations of our scheme in the<br>presence of packet-dropping nodes on a network simulator,<br>ns-2 [9].</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:479"><nobr><span class="ft15"><i>4.5.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:529"><nobr><span class="ft15"><i>Simulation Model</i></span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:489"><nobr><span class="ft3">In our simulations, we deploy N sensor nodes uniformly at</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:475"><nobr><span class="ft3">random within 500</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:592"><nobr><span class="ft3">× 500m</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:639"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:650"><nobr><span class="ft3">target field, with N = 300 and</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:475"><nobr><span class="ft7">600. Each sensor node has a constant transmission range of<br>30m, so that the degree of each node is approximately 10<br>(N = 300) and 20 (N = 600) on average. We position a base<br>station and a source node in opposite corners of the field, at<br>a fixed point (50, 50) and (450, 450), respectively. They are<br>located approximately 18 hops away from each other.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:489"><nobr><span class="ft3">We distribute compromised nodes over an inner square</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:475"><nobr><span class="ft7">area with 200m each side (from 150m to 350m of each side<br>of the 500</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:538"><nobr><span class="ft3">× 500m</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:585"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:596"><nobr><span class="ft3">target area). Thus, compromised nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:475"><nobr><span class="ft7">are strategically-placed in between the base station and the<br>source node. In the simulations, those compromised nodes<br>drop all the relaying packets.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">next-hop id as v, so that x considers it forwarded correctly.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">66</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft23{font-size:7px;line-height:-8px;font-family:Times;color:#000000;}
+	.ft24{font-size:7px;line-height:-7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18009.png" alt="background image">
+<DIV style="position:absolute;top:133;left:373"><nobr><span class="ft17"><b>( 300 nodes )</b></span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:151"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:145"><nobr><span class="ft10">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:145"><nobr><span class="ft10">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:145"><nobr><span class="ft10">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:145"><nobr><span class="ft10">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:145"><nobr><span class="ft10">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:145"><nobr><span class="ft10">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:145"><nobr><span class="ft10">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:145"><nobr><span class="ft10">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:145"><nobr><span class="ft10">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:151"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:160"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:188"><nobr><span class="ft10">5</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:215"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:243"><nobr><span class="ft10">15</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:271"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:300"><nobr><span class="ft10">25</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:328"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:356"><nobr><span class="ft10">35</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:384"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:413"><nobr><span class="ft10">45</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:441"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:234"><nobr><span class="ft17"><b> Number of Packet-dropping Nodes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:138"><nobr><span class="ft23"><b>S<br>u<br>cc<br>ess R</b></span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:138"><nobr><span class="ft21"><b>a<br>t<br>i<br>o</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:234"><nobr><span class="ft17"><b>Single Path Forwarding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:351"><nobr><span class="ft17"><b>with NWS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:167"><nobr><span class="ft3">(a) Success ratio (N = 300, x = 0  50)</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:711"><nobr><span class="ft17"><b>( 600 nodes )</b></span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:490"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:484"><nobr><span class="ft10">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:484"><nobr><span class="ft10">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:484"><nobr><span class="ft10">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:484"><nobr><span class="ft10">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:484"><nobr><span class="ft10">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:484"><nobr><span class="ft10">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:484"><nobr><span class="ft10">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:484"><nobr><span class="ft10">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:484"><nobr><span class="ft10">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:490"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:498"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:525"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:553"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:581"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:609"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:638"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:666"><nobr><span class="ft10">60</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:694"><nobr><span class="ft10">70</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:722"><nobr><span class="ft10">80</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:750"><nobr><span class="ft10">90</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:776"><nobr><span class="ft10">100</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:572"><nobr><span class="ft17"><b> Number of Packet-dropping Nodes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:477"><nobr><span class="ft23"><b>S<br>u<br>cc<br>ess R</b></span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:477"><nobr><span class="ft21"><b>a<br>t<br>i<br>o</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:572"><nobr><span class="ft17"><b>Single Path Forwarding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:689"><nobr><span class="ft17"><b>with NWS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:502"><nobr><span class="ft3">(b) Success ratio (N = 600, x = 0  100)</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:373"><nobr><span class="ft17"><b>( 300 nodes )</b></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:153"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:149"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:149"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:149"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:149"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:149"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:149"><nobr><span class="ft10">60</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:149"><nobr><span class="ft10">70</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:149"><nobr><span class="ft10">80</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:149"><nobr><span class="ft10">90</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:145"><nobr><span class="ft10">100</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:161"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:189"><nobr><span class="ft10">5</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:215"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:244"><nobr><span class="ft10">15</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:272"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:300"><nobr><span class="ft10">25</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:328"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:356"><nobr><span class="ft10">35</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:385"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:413"><nobr><span class="ft10">45</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:441"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:234"><nobr><span class="ft17"><b> Number of Packet-Dropping Nodes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:138"><nobr><span class="ft22"><b>N<br>u<br>m<br>b<br>e<br>r<br> of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:138"><nobr><span class="ft19"><b> R<br>e<br>l<br>a<br>yi<br>n<br>g<br> N</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:138"><nobr><span class="ft22"><b>o<br>d<br>e<br>s<br>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:235"><nobr><span class="ft17"><b>Single Path Forwarding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:352"><nobr><span class="ft17"><b>with NWS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:143"><nobr><span class="ft3">(c) The number of relaying nodes with N = 300</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:701"><nobr><span class="ft17"><b>( 600 nodes )</b></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:491"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:488"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:488"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:488"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:488"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:488"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:488"><nobr><span class="ft10">60</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:488"><nobr><span class="ft10">70</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:488"><nobr><span class="ft10">80</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:488"><nobr><span class="ft10">90</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:484"><nobr><span class="ft10">100</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:500"><nobr><span class="ft10">0</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:526"><nobr><span class="ft10">10</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:554"><nobr><span class="ft10">20</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:582"><nobr><span class="ft10">30</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:610"><nobr><span class="ft10">40</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:638"><nobr><span class="ft10">50</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:666"><nobr><span class="ft10">60</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:694"><nobr><span class="ft10">70</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:722"><nobr><span class="ft10">80</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:750"><nobr><span class="ft10">90</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:776"><nobr><span class="ft10">100</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:573"><nobr><span class="ft17"><b> Number of Packet-dropping Nodes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:477"><nobr><span class="ft22"><b>N<br>u<br>m<br>b<br>e<br>r<br> of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:477"><nobr><span class="ft19"><b> R<br>e<br>l<br>a<br>yi<br>n<br>g<br> N</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:477"><nobr><span class="ft22"><b>o<br>d<br>e<br>s<br>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:573"><nobr><span class="ft17"><b>Single Path Forwarding</b></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:689"><nobr><span class="ft17"><b>with NWS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:481"><nobr><span class="ft3">(d) The number of relaying nodes with N = 600</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:266"><nobr><span class="ft3">Figure 6: Simulation Results (averaged over 100 runs).</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:94"><nobr><span class="ft3">We use the typical TinyOS beaconing [17] with a little</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:81"><nobr><span class="ft7">modification as a base routing protocol in our simulations.<br>We add a hop count value in a beacon message</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:372"><nobr><span class="ft9">9</span></nobr></DIV>
+<DIV style="position:absolute;top:789;left:379"><nobr><span class="ft3">. To have</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:81"><nobr><span class="ft7">multiple potential next-hops, when receiving a beacon with<br>the same or better hop count than the parent node's, each<br>node marks the node sending the beacon as a potential next-<br>hop.</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:94"><nobr><span class="ft3">Each simulation experiment is conducted using 100 differ-</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:81"><nobr><span class="ft7">ent network topologies, and each result is averaged over 100<br>runs of different network topologies.</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:85"><nobr><span class="ft15"><i>4.5.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:134"><nobr><span class="ft15"><i>Simulation Results</i></span></nobr></DIV>
+<DIV style="position:absolute;top:947;left:94"><nobr><span class="ft3">In the presence of compromised node dropping all the re-</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:81"><nobr><span class="ft7">laying packets, we measure the success ratio (i.e. the per-<br>centage of the packets that successfully reach the base sta-<br>tion from the source) and the number of relaying nodes by<br>the primitive single-path forwarding and with NWS in a<br>network of size N, with N = 300 and 600.</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:81"><nobr><span class="ft9">9</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:88"><nobr><span class="ft3">The base station initiates the beacon-broadcasting, which</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">floods through the network, in order to set up a routing tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:489"><nobr><span class="ft3">Figure 6(a) shows the success ratio in face of x packet-</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:475"><nobr><span class="ft7">dropping nodes (varying x=0 to 50) in a 300-sensor-node<br>network with the approximate degree d = 10. Although<br>the success ratio gently decreases with x, it keeps up above<br>0.8 even with x = 30, with the help of NWS. This ten-<br>dency of decreasing success ratio can be attributed to the<br>degree d = 10 (3.6 sub-watch nodes on average) as well as<br>an increasing number of packet-dropping nodes. Due to the<br>strategically-placement of compromised nodes in our sim-<br>ulations, as x increases on, it is likely that a forwarding<br>node's all potential sub-watch nodes themselves are packet-<br>dropping nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:586"><nobr><span class="ft3">Figure 6(c) shows the number of nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:475"><nobr><span class="ft7">that relay the packet from the source to the base station<br>in the same experiments. Since the source is located about<br>18 hops away from the base station, the number of relaying<br>nodes only with the single-path forwarding remains at 18.<br>With NWS, the number of relaying nodes increases with x,<br>in order to bypass an increasing number of packet-dropping<br>nodes. In face of such nodes, our scheme converts single-<br>path forwarding into multipath data forwarding, with the</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">67</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18010.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft7">help of sub-watch nodes around such packet-dropping nodes.<br>Utilizing a cache for recently-received packets can suppress<br>the same copy within a certain timeout, which reduces the<br>number of relaying nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:94"><nobr><span class="ft3">Figure 6(b) shows the success ratio in a 600-sensor-node</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:81"><nobr><span class="ft7">network with the approximate degree d = 20 with x packet-<br>dropping nodes (varying x=0 to 100). Unlike that with N =<br>300, the success ratio stays constantly at around 0.99 even<br>with x = 100, with the help of NWS. This tendency of high<br>success ratio can be mainly attributed to the degree d = 20<br>(7.6 sub-watch nodes on average in the lower bound case),<br>which is found to be high enough to bypass a large number<br>of packet-dropping nodes. Figure 6(d) shows the number<br>of relaying nodes from the source to the base station in the<br>same experiments. With NWS, the increase in the number<br>of relaying nodes with x is more conspicuous than that with<br>N = 300, since more than twice as many as sub-watch nodes<br>help forward the packets so that it can bypass a large number<br>of packet-dropping nodes anyway.</span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:94"><nobr><span class="ft3">In the simulation results, we note that our forwarding</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:81"><nobr><span class="ft7">scheme dynamically adjusts its forwarding style, depending<br>on the number of packet-dropping nodes en-route to the base<br>station. As in Figures 6(c) and 6(d), while there exist none<br>or a small number of packet-dropping nodes on the way, our<br>scheme works almost like the single-path forwarding with<br>the help of a few additional relaying nodes. On the other<br>hand, when confronting a large number of packet-dropping<br>nodes, our scheme makes full use of the help from additional<br>relaying nodes, in order to successfully deliver the packet to<br>the base station at any cost to the best efforts.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:81"><nobr><span class="ft1">5.</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:112"><nobr><span class="ft1">CONCLUSIONS AND FUTURE WORK</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:94"><nobr><span class="ft3">In this paper we focus on defending against compromised</span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:81"><nobr><span class="ft7">nodes' dropping of legitimate reports. We have presented<br>a resilient packet-forwarding scheme using Neighbor Watch<br>System (NWS) against maliciously packet-dropping nodes in<br>sensor networks. In face of such nodes, NWS is specifically<br>designed for hop-by-hop reliable delivery, and the prompt<br>reaction of the conversion from single-path to multipath for-<br>warding augments the robustness in our scheme so that the<br>packet successfully reach the base station.</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:94"><nobr><span class="ft3">In future work, we plan on further improving NLV to de-</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft7">fend against the man-in-the-middle attacks, collusion among<br>compromised nodes. Such attacks can be prevented by using<br>a master key derived with not only a node ID but also its<br>geographic information. We will also seek to address O(d</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:428"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:434"><nobr><span class="ft3">)</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft7">storage requirement for the neighbors' neighbor lists. Fi-<br>nally, we would like to perform an intensive experimental<br>evaluation to compare our scheme with other reliable deliv-<br>ery protocols [10, 29, 42].</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:81"><nobr><span class="ft1">6.</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:112"><nobr><span class="ft1">ACKNOWLEDGMENTS</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:94"><nobr><span class="ft3">This work was supported by grant No.R01-2006-000-10073-</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:81"><nobr><span class="ft7">0 from the Basic Research Program of the Korea Science and<br>Engineering Foundation.</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:81"><nobr><span class="ft1">7.</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:112"><nobr><span class="ft1">REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:88"><nobr><span class="ft3">[1] R. Anderson, H. Chan, and A. Perrig, Key Infection:</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:109"><nobr><span class="ft3">Smart Trust for Smart Dust, IEEE ICNP 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:88"><nobr><span class="ft3">[2] Burton H. Bloom, Space/Time Trade-offs in Hash</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:109"><nobr><span class="ft7">Coding with Allowable Errors, Communication of the<br>ACM, vol. 13, 422-426, 1970</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft3">[3] B. Carbunar, I. Ioannidis, and C. Nita-Rotaru,</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft7">JANUS: Towards Robust and Malicious Resilient<br>Routing in Hybrid Wireless Networks, ACM workshop<br>on Wireless security (WiSe'04), Oct. 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:482"><nobr><span class="ft3">[4] H. Chan, A. Perrig, and D. Song, Random Key</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft7">Predistribution Schemes for Sensor Networks, IEEE<br>Symposium on Security and Privacy, pp. 197-213, May<br>2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:482"><nobr><span class="ft3">[5] B. Deb, S. Bhatnagar, and B. Nath, ReInForM:</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:503"><nobr><span class="ft7">Reliable Information Forwarding Using Multiple Paths<br>in Sensor Networks, IEEE Local Computer Networks<br>(LCN 2003), pp. 406-415, Oct. 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:482"><nobr><span class="ft3">[6] J. Deng, R. Han, and S. Mishra, A Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:503"><nobr><span class="ft7">Evaluation of Intrusion- Tolerant Routing in Wireless<br>Sensor Networks, 2nd International Workshop on<br>Information Processing in Sensor Networks (IPSN 03),<br>pp. 349-364, Apr. 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:482"><nobr><span class="ft3">[7] J. Deng, R. Han, and S. Mishra, Intrusion Tolerance</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:503"><nobr><span class="ft7">and Anti-Traffic Analysis Strategies for Wireless<br>Sensor Networks, IEEE International Conference on<br>Dependable Systems and Networks (DSN), pp.<br>594-603, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:482"><nobr><span class="ft3">[8] J. Deng, R. Han, and S. Mishra, Defending against</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:503"><nobr><span class="ft7">Path-based DoS Attacks in Wireless Sensor Networks,<br>ACM Workshop on Security of Ad-Hoc and Sensor<br>Networks (SASN'05) , Nov, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:482"><nobr><span class="ft3">[9] K. Fall and K. Varadhan (editors), NS notes and</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:503"><nobr><span class="ft7">documentation, The VINT project, LBL, Feb 2000,<br>http://www.isi.edu/nsnam/ns/</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:475"><nobr><span class="ft3">[10] D. Ganesan, R. Govindan, S. Shenker, and D. Estrin,</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:503"><nobr><span class="ft7">Highly Resilient, Energy-Efficient Multipath Routing<br>in Wireless Sensor Networks, Computing and<br>Communications Review (MC2R) Vol 1., pp. 11-25,<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:475"><nobr><span class="ft3">[11] V. D. Gligor, Security of Emergent Properties in</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:503"><nobr><span class="ft7">Ad-Hoc Networks, International Workshop on Security<br>Protocols, Apr. 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:475"><nobr><span class="ft3">[12] O. Goldreich, S. Goldwasser, and S. Micali, How to</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:503"><nobr><span class="ft7">Construct Random Functions, Journal of the ACM,<br>Vol. 33, No. 4, 210-217, 1986</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:475"><nobr><span class="ft3">[13] L. Eschenauer and V. D. Gligor, A Key-Management</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:503"><nobr><span class="ft7">Scheme for Distributed Sensor Networks, 9th ACM<br>Conference on Computer and Communication<br>Security (CCS), pp. 41-47, Nov. 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft3">[14] C. Hartung, J. Balasalle, and R. Han, Node</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:503"><nobr><span class="ft7">Compromise in Sensor Networks: The Need for Secure<br>Systems, Technical Report CU-CS-990-05,<br>Department of Computer Science University of<br>Colorado at Boulder, Jan. 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:873;left:475"><nobr><span class="ft3">[15] T. He, S. Krishnamurthy, J. A. Stankovic, T. F.</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:503"><nobr><span class="ft7">Abdelzaher, L. Luo, R. Stoleru, T. Yan, L. Gu, J. Hui,<br>and B. Krogh, An Energy-Efficient Surveillance<br>System Using Wireless Sensor Networks, ACM<br>MobiSys'04, June, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:953;left:475"><nobr><span class="ft3">[16] W.R. Heinzelman, J. Kulik, H. Balakrishnan, Adaptive</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:503"><nobr><span class="ft7">Protocols for Information Dissemination in Wireless<br>Sensor Networks, ACM MobiCom99, pp. 174.185,<br>1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:475"><nobr><span class="ft3">[17] J. Hill, R. Szewczyk, A. Woo, S. Hollar, D. Culler, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:503"><nobr><span class="ft7">K. Pister, System Architecture Directions for<br>Networked Sensors, ACU ASPLOS IX, November<br>2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">68</span></nobr></DIV>
+</DIV>
+<!-- Page 11 -->
+<a name="11"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="18011.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft3">[18] X. Hong, M. Gerla, W. Hanbiao, and L. Clare, Load</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:109"><nobr><span class="ft7">Balanced, Energy-Aware Communications for Mars<br>Sensor Networks, IEEE Aerospace Conference, vol.3,<br>1109-1115, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:81"><nobr><span class="ft3">[19] Y.-C. Hu, D. B. Johnson, and A. Perrig, SEAD:</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:109"><nobr><span class="ft7">Secure Efficient Distance Vector Routing for Mobile<br>Wireless Ad Hoc Networks, IEEE Workshop on Mobile<br>Computing Systems and Applications, pp. 3-13, Jun.<br>2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:81"><nobr><span class="ft3">[20] Y.-C. Hu, A. Perrig, and D. B. Johnson, Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:109"><nobr><span class="ft7">Security Mechanisms for Routing Protocols, NDSS<br>2003, pp. 57-73, Feb. 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:81"><nobr><span class="ft3">[21] C. Intanagonwiwat, R. Govindan and D. Estrin,</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:109"><nobr><span class="ft7">Directed Diffusion: A Scalable and Robust<br>Communication Paradigm for Sensor Networks,<br>MobiCom'00, Aug. 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:81"><nobr><span class="ft3">[22] D. Johnson, D.A. Maltz, and J. Broch, The Dynamic</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:109"><nobr><span class="ft7">Source Routing Protocol for Mobile Ad Hoc Networks<br>(Internet-Draft), Mobile Ad-hoc Network (MANET)<br>Working Group, IETF, Oct. 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:81"><nobr><span class="ft3">[23] C. Karlof and D. Wagner, Secure Routing in Wireless</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:109"><nobr><span class="ft7">Sensor Networks: Attacks and Countermeasures, The<br>First IEEE International Workshop on Sensor Network<br>Protocols and Applications, pp. 113-127, May 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:81"><nobr><span class="ft3">[24] C. Karlof, N. Sastry, and D. Wagner, TinySec: A Link</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:109"><nobr><span class="ft7">Layer Security Architecture for Wireless Sensor<br>Networks, ACM SensSys'04, pp. 162-175, Nov. 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:81"><nobr><span class="ft3">[25] I. Khalil, S. Bagchi, and C. Nina-Rotaru, DICAS:</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:109"><nobr><span class="ft7">Detection, Diagnosis and Isolation of Control Attacks<br>in Sensor Networks, IEEE SecureComm 2005, pp. 89 -<br>100, Sep. 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:81"><nobr><span class="ft3">[26] Y. Liu and W. K.G. Seah, A Priority-Based</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:109"><nobr><span class="ft7">Multi-Path Routing Protocol for Sensor Networks,<br>15th IEEE International Symposium on Volume 1, 216<br>- 220, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:81"><nobr><span class="ft3">[27] S.-B. Lee and Y.-H. Choi, A Secure Alternate Path</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:109"><nobr><span class="ft7">Routing in Sensor Networks, Computer<br>Communications (2006),<br>doi:10.1016/j.comcom.2006.08.006.</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:81"><nobr><span class="ft3">[28] S. Marti, T.J. Giuli, K. Lai, and M. Baker, Mitigating</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:109"><nobr><span class="ft7">Routing Misbehavior in Mobile Ad Hoc Networks,<br>ACM/IEEE International Conference on Mobile<br>Computing and Networking, pp. 255-265, 2000</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:81"><nobr><span class="ft3">[29] H. Morcos, I. Matta, and A. Bestavros, M</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:366"><nobr><span class="ft9">2</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:372"><nobr><span class="ft3">RC:</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:109"><nobr><span class="ft7">Multiplicative-Increase/Additive-Decrease Multipath<br>Routing Control for Wireless Sensor Networks, ACM<br>SIGBED Review, Vol. 2, Jan 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:81"><nobr><span class="ft3">[30] J. Newsome, E. Shi, D. Song, and A. Perrig, The Sybil</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:109"><nobr><span class="ft7">Attack in Sensor Networks: Analysis and Defenses,<br>IEEE IPSN'04, pp. 259-268, Apr. 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft3">[31] B. Parno, A. Perrig, and V. D. Gligor, Distributed</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:109"><nobr><span class="ft7">Detection of Node Replication Attacks in Sensor<br>Networks, the 2005 IEEE Symposium on Security and<br>Privacy, pp. 49-63, May 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:81"><nobr><span class="ft3">[32] A. Perrig, R. Szewczyk, V. Wen, D. Culler, and</span></nobr></DIV>
+<DIV style="position:absolute;top:970;left:109"><nobr><span class="ft7">J. Tygar, SPINS: Security Protocols for Sensor<br>Networks, ACM MobiCom'01, pp. 189-199, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft3">[33] A. Perrig, J. Stankovic, and D. Wagner, Security in</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft7">Wireless Sensor Networks, Communications of the<br>ACM, 47(6), Special Issue on Wireless sensor<br>networks, pp.53- 57, Jun. 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:475"><nobr><span class="ft3">[34] B. Przydatek, D. Song, and A. Perrig, SIA: Secure</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft7">Information Aggregation in Sensor Networks, 1st<br>International Conference on Embedded Networked<br>Sensor Systems, 255-256, 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:475"><nobr><span class="ft3">[35] E. Shi and A. Perrig, Designing Secure Sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:503"><nobr><span class="ft7">Networks, Wireless Communications, IEEE Volume<br>11, Issue 6, pp. 38-43, Dec. 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:475"><nobr><span class="ft3">[36] D. Tian and N.D. Georganas, Energy Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:503"><nobr><span class="ft7">Routing with Guaranteed Delivery in Wireless Sensor<br>Networks, IEEE Wireless Communications and<br>Networking (WCNC 2003), IEEE Volume 3, 1923 -<br>1929, March 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:475"><nobr><span class="ft3">[37] A. Woo, T. Tong, and D. Culler, Taming the</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:503"><nobr><span class="ft7">Underlying Challenges of Reliable Multhop Routing in<br>Sensor Networks, ACM SenSys03, Nov, 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:475"><nobr><span class="ft3">[38] A. Wood and J. Stankovic, Denial of Service in Sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:503"><nobr><span class="ft3">Networks, IEEE Computer, Vol.35, 54-62, Oct. 2002</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:475"><nobr><span class="ft3">[39] H.Yang, F. Ye, Y. Yuan, S. Lu and W. Arbough,</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:503"><nobr><span class="ft7">Toward Resilient Security in Wireless Sensor<br>Networks, ACM MobiHoc'05, 34-45, May 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:475"><nobr><span class="ft3">[40] Y. Yang, X. Wang, S. Zhu, and G. Cao SDAP: A</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:503"><nobr><span class="ft7">Secure Hop-by-Hop Data Aggregation Protocol for<br>Sensor Networks, ACM MobiHoc'06 May 2006</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:475"><nobr><span class="ft3">[41] F. Ye, H. Luo, S. Lu and L. Zhang, Statictial En-route</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:503"><nobr><span class="ft7">Filtering of Injected False Data in Sensor Networks,<br>IEEE INFOCOM, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:475"><nobr><span class="ft3">[42] F. Ye, G. Zhong, S. Lu and L. Zhang, GRAdient</span></nobr></DIV>
+<DIV style="position:absolute;top:586;left:503"><nobr><span class="ft7">Broadcast: A Robust Data Delivery Protocol for Large<br>Scale Sensor Networks, ACM Wireless Networks<br>(WINET), March 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:635;left:475"><nobr><span class="ft3">[43] Y. Yu, R. Govindan, and D. Estrin, Geographical and</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:503"><nobr><span class="ft7">Energy Aware Routing: a recursive data dissemination<br>protocol for wireless sensor networks, UCLA<br>Computer Science Department Technical Report<br>UCLA/CSD-TR-01-0023, May 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:475"><nobr><span class="ft3">[44] W. Zhang and G. Cao, Group Rekeying for Filtering</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:503"><nobr><span class="ft7">False Data in Sensor Networks: A Predistribution and<br>Local Collaboration-Based Approach, IEEE<br>INFOCOM'05. Vol. 1, 503-514, March 2005</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:475"><nobr><span class="ft3">[45] G. Zhou, T. He, S. Krishnamurthy, and J. A.</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:503"><nobr><span class="ft7">Stankovic, Impact of radio irregularity on wireless<br>sensor networks, the 2nd International Conference on<br>Mobile Systems, Applications, and Services<br>(MobiSys04), June, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:475"><nobr><span class="ft3">[46] S. Zhu, S. Setia, and S. Jajodia, LEAP: Efficient</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:503"><nobr><span class="ft7">Security Mechanisms for Large-Scale Distributed<br>Sensor Networks, The 10th ACM Conference on<br>Computer and Communications Security (CCS '03),<br>62-72, 2003</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:475"><nobr><span class="ft3">[47] S.Zhu, S. Setia, S. Jajodia, and P. Ning, An</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:503"><nobr><span class="ft7">Interleaved Hop-by-Hop Authentication Scheme for<br>Filtering False Data in Sensor Networks, IEEE<br>Symposium on Security and Privacy, 2004</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:452"><nobr><span class="ft6">69</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

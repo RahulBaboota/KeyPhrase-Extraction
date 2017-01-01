@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>er49-woollard.dvi</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2006-05-14T08:59:20+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:15px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="30001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:84"><nobr><span class="ft0"><b>An Architectural Style for High-Performance Asymmetrical</b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:316"><nobr><span class="ft0"><b>Parallel Computations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:228"><nobr><span class="ft1">David Woollard</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:181"><nobr><span class="ft2">University of Southern California</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:185"><nobr><span class="ft2">Computer Science Department</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:188"><nobr><span class="ft2">Los Angeles, California 90089</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:214"><nobr><span class="ft1">woollard@usc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:553"><nobr><span class="ft1">Nenad Medvidovic</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:520"><nobr><span class="ft2">University of Southern California</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:524"><nobr><span class="ft2">Computer Science Department</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:527"><nobr><span class="ft2">Los Angeles, California 90089</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:566"><nobr><span class="ft1">neno@usc.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:81"><nobr><span class="ft3"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:81"><nobr><span class="ft9">Researchers with deep knowledge of scientific domains are<br>now developing highly-adaptive and irregular (asymmetri-<br>cal ) parallel computations, leading to challenges in both de-<br>livery of data for computation and mapping of processes to<br>physical resources. Using software engineering principles, we<br>have developed a new communications protocol and archi-<br>tectural style for asymmetrical parallel computations called<br>ADaPT.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:94"><nobr><span class="ft4">Utilizing the support of architecturally-aware middleware,</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:81"><nobr><span class="ft9">we show that ADaPT provides a more efficient solution in<br>terms of message passing and load balancing than asym-<br>metrical parallel computations using collective calls in the<br>Message-Passing Interface (MPI) or more advanced frame-<br>works implementing explicit load-balancing policies.</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:417"><nobr><span class="ft4">Ad-</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:81"><nobr><span class="ft9">ditionally, developers using ADaPT gain significant wind-<br>fall from good practices in software engineering, including<br>implementation-level support of architectural artifacts and<br>separation of computational loci from communication pro-<br>tocols.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:81"><nobr><span class="ft3"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:81"><nobr><span class="ft4">D.2.11 [Software Engineering]: Software Architectures</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:81"><nobr><span class="ft3"><b>General Terms</b></span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:81"><nobr><span class="ft4">Design, Performance</span></nobr></DIV>
+<DIV style="position:absolute;top:773;left:81"><nobr><span class="ft3"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:81"><nobr><span class="ft9">High-Performance Computing, Asymmetrical Parallel Com-<br>putations, ADaPT.</span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:846;left:112"><nobr><span class="ft3"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:94"><nobr><span class="ft4">In recent years, as the cost-to-performance ratio of con-</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:81"><nobr><span class="ft9">sumer hardware has continued to decrease, computational<br>clusters consisting of fast networks and commodity hardware<br>have become a common sight in research laboratories. A</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:81"><nobr><span class="ft10">Copyright is held by the author/owner.<br><i>ICSE'06, </i>May 20­28, 2006, Shanghai, China.<br>ACM 1-59593-085-X/06/0005.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:475"><nobr><span class="ft9">growing number of physicists, biologists, chemists, and com-<br>puter scientists have developed highly-adaptive and irregu-<br>lar parallel applications that are characterized by compu-<br>tational intensity, loosely-synchronous parallelism and dy-<br>namic computation. Because the computation time of each<br>parallel process varies significantly for this class of compu-<br>tation, we shall refer to them as asymmetrical parallel com-<br>putations.</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:548"><nobr><span class="ft4">Adaptive mesh refinements for the simulation</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:475"><nobr><span class="ft9">of crack growth, combinatorial search applications used in<br>artificial intelligence, and partial differential equation field<br>solvers [2] are examples of asymmetrical computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:489"><nobr><span class="ft4">While supercomputing platforms available to us continue</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:475"><nobr><span class="ft9">to increase performance, our ability to build software ca-<br>pable of matching theoretical limits is lacking [8]. At the<br>same time, researchers with significant depth of knowledge<br>in a scientific domain but with limited software experience<br>are confounded by the interface bloat of libraries such the<br>Message-Passing Interface (MPI), which has 12 different rou-<br>tines for point-to-point communications alone [5].</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:489"><nobr><span class="ft4">Would-be practitioners of high-performance computing are</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:475"><nobr><span class="ft9">introduced early to the mantra of optimization. The myth<br>that high-level concepts inherent to software engineering<br>principles, such as "separation of concerns," result in in-<br>efficiencies at the performance level has caused these re-<br>searchers to eschew best practices of traditional software<br>development in favor of highly-optimized library routines.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:489"><nobr><span class="ft4">We contend that a sound software engineering solution to</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:475"><nobr><span class="ft9">asymmetrical parallel computations provides decoupling of<br>connectors from computational loci and reduces the com-<br>plexity of development for the programmer while still pro-<br>viding an efficient solution both in terms of load-balancing<br>and message-delivery. In this paper, we present such a so-<br>lution.</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:489"><nobr><span class="ft4">In the next section, we will discuss our motivations for cre-</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:475"><nobr><span class="ft9">ating the ADaPT protocol and architecture, including the<br>load-balancing inefficiencies of "optimized" communications<br>libraries when computing asymmetrical parallel computa-<br>tions. We will then present ADaPT, a communications pro-<br>tocol and associated software architecture for asymmetrical<br>computations. Additionally, we will present analysis which<br>shows ADaPT's ability to outperform both MPI and other<br>load-balancing frameworks using traditional work-sharing<br>strategies. We conclude with an overview of future research<br>opportunities afforded by ADaPT.</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:475"><nobr><span class="ft3"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:507"><nobr><span class="ft3"><b>MOTIVATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft4">This work has been motivated by our experience with</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft4">two key classes of existing approaches: use of optimized</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">857</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:14px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="30002.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">communications libraries such as MPI [4], and message-<br>passing frameworks which implement load-balancing strate-<br>gies based on work sharing.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:81"><nobr><span class="ft3"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:121"><nobr><span class="ft3"><b>Message-Passing Interface</b></span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:94"><nobr><span class="ft4">High-performance communications libraries such as MPI</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:81"><nobr><span class="ft9">are optimized to reduce the bandwidth needed to commu-<br>nicate a large amount of data to subprocesses. In order to<br>accomplish this reduction, collective calls in MPI are syn-<br>chronous, causing barriers at data-distribution points in the<br>software. When used to compute uniform parallel compu-<br>tations barriers are unobtrusive. In asymmetrical computa-<br>tions, however, an effective mapping of processes to physical<br>resources contributes more significantly to wall-clock time to<br>completion than efficient communications. For these compu-<br>tations, asynchronous communications are needed, despite<br>increased bandwidth.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:94"><nobr><span class="ft4">To illustrate this phenomena, let us consider a mapping</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:81"><nobr><span class="ft9">of a large normalized population of computation times with<br>a high level of variance onto a significantly smaller number<br>of physical nodes (a strategy known as overaggregation).</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:94"><nobr><span class="ft4">The MPI library offers developers efficient use of band-</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:81"><nobr><span class="ft9">width via collective scatter and gather commands. While<br>bandwidth is conserved using these collective calls, analy-<br>ses made by Gropp, et. al. and Skjellum [10, 4] suggest<br>that most implementations of MPI's scatter are built on top<br>of MPI's rendezvous protocol and result in a synchronous<br>barrier at each subsequent distribution of data.</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:94"><nobr><span class="ft4">Since each process has variable computation time, a num-</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:81"><nobr><span class="ft9">ber of subprocesses will remain idle until the longest process<br>completes during each of the scatters. In [1] we have shown<br>that the smallest contribution to overall wall-clock time to<br>completion made by this idle time is given as</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:353"><nobr><span class="ft4">n× ¯µ, where n</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:81"><nobr><span class="ft4">is the number of subprocesses and ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:287"><nobr><span class="ft4">µ is the mean of the com-</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:81"><nobr><span class="ft9">putation times. In comparison, the wall-clock time saved<br>using the collective calls to reduce bandwidth is negligible.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:94"><nobr><span class="ft4">While these collective calls only consider bandwidth opti-</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft9">mizations, it is clear that in asymmetrical parallel computa-<br>tions, process load-balancing across subprocesses is a more<br>important optimization to pursue.</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:81"><nobr><span class="ft3"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:121"><nobr><span class="ft3"><b>Load-Balancing Frameworks</b></span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:94"><nobr><span class="ft4">Attempts to develop message-passing frameworks that can</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:81"><nobr><span class="ft9">assist computational scientists in the development of asym-<br>metrical parallel computations can be divided into two groups:<br>static load-balancing frameworks and dynamic load-balancing<br>frameworks. Because a priori knowledge of the computation<br>involved in asymmetrical parallel computations is required<br>of static load balancers, such frameworks are inapplicable to<br>this class of problems.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:94"><nobr><span class="ft4">Unlike static load balancers, dynamic load-balancing frame-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:81"><nobr><span class="ft9">works do not require information a priori and are able to re-<br>deploy balanced distributions of data during program execu-<br>tion. Notable examples of parallel development frameworks<br>which provide dynamic load-balancing are PREMA [2] and<br>Charm++ [6]. Unfortunately, these frameworks often in-<br>cur significant performance losses due to the introduction of<br>barriers for load-balancing. Additionally, these frameworks<br>do not provide explicit support for consistency of structure<br>and development.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft4">A software architectural solution can provide a number of</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">benefits in addition to load balancing. Employing a sound<br>software engineering principle, the separation of communica-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">tion from computational elements shields the developer from<br>the need to optimize communications and provides enforce-<br>ment of architectural constraints. An added benefit is that<br>architectural components reified as explicit implementation-<br>level artifacts allow for easy reconfiguration of software in<br>principle. We will revisit this point below.</span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:475"><nobr><span class="ft3"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:197;left:507"><nobr><span class="ft3"><b>A NOVEL PROTOCOL</b></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:489"><nobr><span class="ft4">Two overlooked aspects of performance optimizations that</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:475"><nobr><span class="ft9">must be addressed in order to provide a truly efficient solu-<br>tion are asynchronous load-balancing and event pattern op-<br>timization. In addition to simply providing a load-balanced<br>distribution, asynchronous load-balancing provides a best<br>effort redistribution of processes without introducing a bar-<br>rier to computation.</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:489"><nobr><span class="ft4">Event pattern optimization suggests that a protocol is ca-</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:475"><nobr><span class="ft9">pable of utilizing the predictability of future messages given<br>analysis of past messages. During overaggregated parallel<br>computations, a number of computations need to be dis-<br>tributed to each of the subprocesses over the course of the<br>parallel computation, causing a pattern to emerge.</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:489"><nobr><span class="ft4">In order to incorporate each of these optimizations into a</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:475"><nobr><span class="ft9">high-performance communications protocol, we have devel-<br>oped ADaPT, an Adaptive Data-parallel Publication/ Sub-<br>scription Transport protocol and software architecture. The<br>thesis of ADaPT is that it is possible to exploit the sequence<br>that emerges from sending multiple messages to each parallel<br>process in order to reduce the overall wall clock time to com-<br>pletion of the computation while still making a best-effort<br>to avoid sending messages to each subprocess to quickly for<br>the process to buffer.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:475"><nobr><span class="ft3"><b>3.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:515"><nobr><span class="ft3"><b>ADaPT Defined</b></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:489"><nobr><span class="ft4">We feel that for the purposes of this paper it is most help-</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:475"><nobr><span class="ft9">ful to define ADaPT's protocol, architectural elements, and<br>implementation.</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:475"><nobr><span class="ft11"><i>3.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:525"><nobr><span class="ft11"><i>Protocol</i></span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:489"><nobr><span class="ft4">ADaPT views each parallel process as an independent</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:475"><nobr><span class="ft9">software component (Worker) residing on a physical node<br>capable of performing computations on data. Each Worker<br>initiates computation by subscribing to a coordination com-<br>ponent (Master).</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:489"><nobr><span class="ft4">An important distinction between ADaPT and traditional</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:475"><nobr><span class="ft9">publication/subscription systems is that unlike traditional<br>pub/sub systems, ADaPT does not duplicate messages to<br>service multiple downstream requests. Rather, it distributes<br>messages uniquely from a queue in a round-robin fashion.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:489"><nobr><span class="ft4">Upon receipt of a subscription, the Master publishes a</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft9">message to the Worker. There is another divergence from<br>traditional pub/sub systems at this point. The Master waits<br>for another request from the subscribed Worker before pub-<br>lishing another message to that Worker. Using data from<br>each subscribed Worker on its computation time, or</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:797"><nobr><span class="ft4">µ, the</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft4">Master tracks an average processing time, or ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:750"><nobr><span class="ft4">µ.</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft4">Because the protocol is adaptive, when a predetermined</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:475"><nobr><span class="ft4">number of messages have been sent to the Workers and a ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:825"><nobr><span class="ft4">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft9">has been calculated, the Master switches from this conser-<br>vative phase to an aggressive phase during which it sends<br>messages of the requested type to the process at the regular<br>interval dictated by ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:600"><nobr><span class="ft4">µ. The protocol exploits the emerging</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft9">event pattern to reduce the overall processing time at each<br>physical node.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">858</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:6px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="30003.png" alt="background image">
+<DIV style="position:absolute;top:249;left:155"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:205"><nobr><span class="ft12">5</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:255"><nobr><span class="ft12"> </span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:209"><nobr><span class="ft12">0  100 150 200 </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:151"><nobr><span class="ft12">0 </span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:151"><nobr><span class="ft12">5 </span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:147"><nobr><span class="ft12">10 </span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:147"><nobr><span class="ft12">15 </span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:147"><nobr><span class="ft12">20 </span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:226"><nobr><span class="ft12">Number of Workers </span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:140"><nobr><span class="ft12">% Overhead </span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:203"><nobr><span class="ft12">Computation Time Variance = 10 </span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:403"><nobr><span class="ft12">LBF </span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:403"><nobr><span class="ft12">MP I </span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:403"><nobr><span class="ft12">ADaPT </span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:159"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:209"><nobr><span class="ft12">50</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:259"><nobr><span class="ft12">100</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:310"><nobr><span class="ft12">150</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:362"><nobr><span class="ft12">200</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:155"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:155"><nobr><span class="ft12">5</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:151"><nobr><span class="ft12">10</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:151"><nobr><span class="ft12">15</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:151"><nobr><span class="ft12">20</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:231"><nobr><span class="ft12">Number of Workers</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:144"><nobr><span class="ft12">% Overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:207"><nobr><span class="ft12">Computation Time Variance = 50</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:406"><nobr><span class="ft12">LBF</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:406"><nobr><span class="ft12">MPI</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:406"><nobr><span class="ft12">ADaPT</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:504"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:554"><nobr><span class="ft12">50</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:603"><nobr><span class="ft12">100</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:655"><nobr><span class="ft12">150</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:707"><nobr><span class="ft12">200</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:500"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:500"><nobr><span class="ft12">5</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:496"><nobr><span class="ft12">10</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:496"><nobr><span class="ft12">15</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:496"><nobr><span class="ft12">20</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:575"><nobr><span class="ft12">Number of Workers</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:489"><nobr><span class="ft12">% Overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:83;left:550"><nobr><span class="ft12">Computation Time Variance = 100</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:751"><nobr><span class="ft12">LBF</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:751"><nobr><span class="ft12">MPI</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:751"><nobr><span class="ft12">ADaPT</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:508"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:558"><nobr><span class="ft12">50</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:607"><nobr><span class="ft12">100</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:659"><nobr><span class="ft12">150</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:711"><nobr><span class="ft12">200</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:503"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:503"><nobr><span class="ft12">5</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:499"><nobr><span class="ft12">10</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:499"><nobr><span class="ft12">15</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:499"><nobr><span class="ft12">20</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:579"><nobr><span class="ft12">Number of Workers</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:493"><nobr><span class="ft12">% Overhead</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:553"><nobr><span class="ft12">Computation Time Variance = 200</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:755"><nobr><span class="ft12">LBF</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:755"><nobr><span class="ft12">MPI</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:755"><nobr><span class="ft12">ADaPT</span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:81"><nobr><span class="ft4">Figure 1: Monte Carlo simulations of overhead for asymmetrical computations exhibiting multiple variances.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:94"><nobr><span class="ft4">Similar to MPI's eager protocol, this phase of ADaPT can</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:81"><nobr><span class="ft9">be too aggressive, flooding the process's buffer (datasets in<br>high-performance computing tend to be very large causing<br>memory limitations to surface frequently). If the number<br>of messages in the Worker's buffer reaches a maximum, the<br>Worker unsubscribes from the Master. After the Worker has<br>computed each of the messages in its buffer, it re-subscribes<br>to the Master, starting once again with the conservative<br>phase of delivery as described above.</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:81"><nobr><span class="ft11"><i>3.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:130"><nobr><span class="ft11"><i>Architectural Model and Implementation</i></span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:94"><nobr><span class="ft4">We have further codified ADaPT in a software architec-</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft4">tural style [9].</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:184"><nobr><span class="ft4">In addition to Master and Worker com-</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft9">ponents, the ADaPT connector utilizes an adaptive dis-<br>patcher to deliver messages to each subscribed Worker us-<br>ing the ADaPT protocol. The dispatcher uses a priority-<br>based round-robin algorithm which utilizes the calculated ¯</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:431"><nobr><span class="ft4">µ</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft9">and attempts to saturate each Worker's computation load<br>without flooding the Worker's buffer. This handler auto-<br>matically switches between the conservative and aggressive<br>phases. The key contribution of this connector is the encap-<br>sulation of underlying protocols, allowing the developer to<br>focus instead on the computations to be performed.</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:94"><nobr><span class="ft4">Similar to the C2 software architecture [3], messages trig-</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:81"><nobr><span class="ft9">gering computation travel downstream from one or more<br>Masters to the ADaPT connector. Messages typed as re-<br>sults originating at Workers travel upstream through the<br>ADaPT connector back to the Masters.</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft4">We have implemented these architectural rules through</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft9">extensions to the Prism framework [7]. Prism-MW, a mid-<br>dleware designed to enforce architectural rules at the level<br>of software artifacts, is a light-weight event-based frame-<br>work consisting of a core set of functionality with handles<br>to extensible components, connectors, and event handlers.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:475"><nobr><span class="ft9">Topological rules for each architectural style are also en-<br>forced through overloaded methods for connecting artifacts.</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:475"><nobr><span class="ft3"><b>3.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:515"><nobr><span class="ft3"><b>Performance Analysis</b></span></nobr></DIV>
+<DIV style="position:absolute;top:612;left:489"><nobr><span class="ft4">In analyzing ADaPT's performance in comparison to load-</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:475"><nobr><span class="ft9">balancing frameworks as well as synchronous scatters and<br>gathers using MPI, it is first important to define a base<br>metric with which to compare protocols. This metric, the<br>"natural rate" of parallel computation, is the sum of all indi-<br>vidual computations to be completed divided by the number<br>of nodes in the parallel computation. In this section we will<br>present comparisons of protocols as measured by percentage<br>overhead (calculated as the wall-clock time for the parallel<br>process to complete minus the natural rate, divided by the<br>natural rate).</span></nobr></DIV>
+<DIV style="position:absolute;top:784;left:489"><nobr><span class="ft4">In order to properly compare ADaPT's ability to reduce</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:475"><nobr><span class="ft9">message traffic as well as to efficiently map asymmetrical<br>computations to physical resources, we developed a Monte<br>Carlo simulation in which a normalized population of com-<br>putations was delivered to virtual processors via three differ-<br>ent communications policies/architectures and the percent-<br>age overhead was calculated for each. All massage-passing<br>costs were uniform across the network for each policy imple-<br>mented.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:489"><nobr><span class="ft4">MPI (collective calls) - Costs of synchronous scatters</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:475"><nobr><span class="ft9">and gathers using MPI were modeled using equations from<br>[10, 4]. In this policy each worker receives a computation via<br>a scatter and returns via a gather before scattering the next<br>subset until all computations are completed. This process<br>is known as a multi-part scatter [1].</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:489"><nobr><span class="ft4">Load-balancing framework - The Monte Carlo sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:475"><nobr><span class="ft9">ulation of the load-balancing framework uses work-sharing<br>methods. All events are delivered to workers before they be-<br>gin processing and a barrier is periodically introduced. At</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">859</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="30004.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">this barrier, the workload is redistributed evenly between all<br>processors. In order to idealize load balancing, the cost of<br>this calculation was treated as negligible.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:94"><nobr><span class="ft4">ADaPT implementation - Using the routing policies</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:81"><nobr><span class="ft9">of ADaPT, this implementation assumes that workers are<br>capable of buffering only two events and each worker is ho-<br>mogeneous. We made each of these assumptions in order to<br>conservatively profile ADaPT's performance.</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:94"><nobr><span class="ft4">In each of four simulations, a normalized population of</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:81"><nobr><span class="ft9">1000 computations was generated with a mean computation<br>time of 100 milliseconds and a variance of 10 milliseconds</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:429"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:81"><nobr><span class="ft4">50 milliseconds</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:172"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:179"><nobr><span class="ft4">, 100 milliseconds</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:287"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:293"><nobr><span class="ft4">, and 200 milliseconds</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:429"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:436"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft9">respectively. For each simulation, the aggregation of the par-<br>allel computation (i.e, the ratio of workers to computations)<br>was varied from 1:500 to 1:5.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:94"><nobr><span class="ft4">Results of this comparison are shown in Figure 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft3"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:112"><nobr><span class="ft3"><b>DISCUSSION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:81"><nobr><span class="ft3"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:385;left:121"><nobr><span class="ft3"><b>Analysis and Evaluation Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:94"><nobr><span class="ft4">It can be seen in these plots that while ADaPT performs</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:81"><nobr><span class="ft4">uniformly at all aggregations smaller than 1:100 (i.e.,</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:404"><nobr><span class="ft4">&gt;=10</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:81"><nobr><span class="ft9">workers), MPI collective commands and load-balancing frame-<br>works decrease performance as the aggregation is reduced.<br>For load-balancing frameworks, this is due to the increased<br>volume of messaging required in order to re-balance the load<br>across all processors at each barrier. In the presence of load-<br>balancing, the idle time is significantly reduced, but the cost<br>of rerouting messages to new processors makes ADaPT the<br>better performer especially in high variance computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:94"><nobr><span class="ft4">From these initial results, we feel that our implementa-</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft9">tion of ADaPT outperforms collective calls via MPI as well<br>as load-balancing frameworks employing a full worksharing<br>scheme for significantly varied aggregations and computa-<br>tion time variances. In Monte Carlo simulations, ADaPT<br>produced a better mapping of computations to resources,<br>reducing computational overhead to under 1% for aggre-<br>gations less than 1:100. In the simulations of aggregations<br>greater than 1:100, ADaPT does not perform as well as MPI<br>or other load-balancing frameworks due to the increased per-<br>centage of time each worker's buffer remains empty before<br>another event is pushed to the Worker at the calculated rate<br>of computation. This situation seems of little consequence,<br>however, in that data sets are seldom overagreggated to this<br>extreme.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:94"><nobr><span class="ft4">ADaPT offers a significant decrease in overhead for event</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:81"><nobr><span class="ft9">delivery in parallel computations and also outperforms es-<br>tablished load-balancing techniques for use with asymmet-<br>rical parallel computations. Additionally, ADaPT, through<br>its implementation in Prism, offers developers architectural<br>artifacts at the level of implementation, clear division be-<br>tween the computation loci (in the form of extensible Work-<br>ers) and communications algorithms, and reduction of com-<br>munications knowledge needed by the developer in order to<br>implement asymmetrical parallel computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:81"><nobr><span class="ft3"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:121"><nobr><span class="ft3"><b>Future Work</b></span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:94"><nobr><span class="ft4">While ADaPT is clearly an applicable architectural style</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:81"><nobr><span class="ft9">to high-performance computing, we make no claim as to its<br>monopoly of the field. In future work, we hope to build a<br>more substantial architectural framework for high-performance<br>computing which provides more underlying protocol choices<br>and further assists developers in code migration to new plat-</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">forms including SMP and other shared-memory machines.<br>We hope to demonstrate the ease of system design and im-<br>plementation via architectures to the high-performance com-<br>munity without serious performance degradation, as is cur-<br>rently the prevalent though.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:489"><nobr><span class="ft4">Further enhancements to the ADaPT protocol and archi-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:475"><nobr><span class="ft9">tecture will include refinement of its topological constraints<br>to encapsulate both data-parallel stages of computation and<br>higher-level workflow stages using multiple layers of mas-<br>ters and workers connected between more advanced ADaPT<br>connectors (themselves perhaps distributed across multiple<br>physical nodes). Also, we hope to further investigate the<br>tradeoffs associated with alternate unsubscription policies<br>and the effects of "pumping" the parallel computation by<br>modifying delivery rates to be faster than average computa-<br>tion rates.</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:489"><nobr><span class="ft4">This work was supported by the NSF 0312780 grant. Any</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:475"><nobr><span class="ft9">opinions, findings and conclusions or recommendations ex-<br>pressed in this material are those of the authors and do not<br>necessarily reflect those of the National Science Foundation.<br>The authors also wish to thank the anonymous reviewers for<br>their helpful comments.</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:475"><nobr><span class="ft3"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:507"><nobr><span class="ft3"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:482"><nobr><span class="ft4">[1] D. Woollard et. al. Adapt: Event-passing protocol for</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:503"><nobr><span class="ft9">reducing delivery costs in scatter-gather parallel<br>processes. In Proceeding of the Workshop on Patterns<br>in High Performance Computing, Urbana, Illinois,<br>May 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:482"><nobr><span class="ft4">[2] K. Barker et. al. A load balancing framework for</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:503"><nobr><span class="ft9">adaptive and asynchronous applications. Parallel and<br>Distributed Systems, IEEE Transactions on,<br>15:183­192, 2004.</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:482"><nobr><span class="ft4">[3] R. Taylor et. al. A component- and message-based</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:503"><nobr><span class="ft9">architectural style for gui software. IEEE Transactions<br>on Software Engineering, June, 1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:482"><nobr><span class="ft4">[4] W. Gropp, E. Lusk, and A. Skjellum. Using MPI:</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:503"><nobr><span class="ft9">Portable Programming with the Message Passing<br>Interface. MIT Press, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:482"><nobr><span class="ft4">[5] S. Guyer and C. Lin. Broadway: A software</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:503"><nobr><span class="ft9">architecture for scientific computing. In Proceedings of<br>the IFIP TC2/WG2.5 Working Conference on the<br>Architecture of Scientific Software, pages 175­192,<br>Deventer, The Netherlands, The Netherlands, 2001.<br>Kluwer, B.V.</span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:482"><nobr><span class="ft4">[6] L. Kale and S. Krishnan. CHARM++: A Portable</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:503"><nobr><span class="ft9">Concurrent Object Oriented System Based on C++.<br>In A. Paepcke, editor, Proceedings of OOPSLA'93,<br>pages 91­108. ACM Press, September 1993.</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:482"><nobr><span class="ft4">[7] S. Malek, M. Mikic-Rakic, and N. Medvidovic. A</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:503"><nobr><span class="ft9">style-aware architectural middleware for<br>resource-constrained, distributed systems. IEEE<br>Transactions on Software Engineering, March, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:482"><nobr><span class="ft4">[8] D. Post and L. Votta. Computational science demands</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:503"><nobr><span class="ft4">a new paradigm. Physics Today, 58(1):35­41, 2005.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:482"><nobr><span class="ft4">[9] M. Shaw and D. Garlan. Software Architecture:</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:503"><nobr><span class="ft9">Perspectives on an Emerging Discipline. Prentice-Hall,<br>1996.</span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:475"><nobr><span class="ft4">[10] A. Skjellum. High performance mpi: Extending the</span></nobr></DIV>
+<DIV style="position:absolute;top:1038;left:503"><nobr><span class="ft9">message passing interface for higher performance and<br>higher predictability, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">860</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

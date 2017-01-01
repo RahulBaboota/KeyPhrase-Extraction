@@ -1,0 +1,899 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Using Web Helper Agent Profiles in Query Generation</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Gabriel L. Somlo; Adele E. Howe">
+<META name="keywords" content="information agents; user odeling; query generation">
+<META name="date" content="2003-06-20T15:19:22+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft1{font-size:15px;font-family:Helvetica;color:#000000;}
+	.ft2{font-size:12px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:11px;font-family:Times;color:#000000;}
+	.ft4{font-size:15px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:16px;font-family:Courier;color:#000000;}
+	.ft8{font-size:11px;font-family:Times;color:#000000;}
+	.ft9{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;line-height:25px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:115"><nobr><span class="ft0"><b>Using Web Helper Agent Profiles in Query Generation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:306"><nobr><span class="ft1">Gabriel L. Somlo and Adele E. Howe</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:354"><nobr><span class="ft2">Computer Science Department</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:373"><nobr><span class="ft2">Colorado State University</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:356"><nobr><span class="ft2">Fort Collins, CO 80523, U.S.A.</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:327"><nobr><span class="ft3">{</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:334"><nobr><span class="ft1">somlo, howe</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:434"><nobr><span class="ft3">}</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:440"><nobr><span class="ft1">@cs.colostate.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:312;left:81"><nobr><span class="ft4"><b>ABSTRACT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:81"><nobr><span class="ft9">Personalized information agents can help overcome some of<br>the limitations of communal Web information sources such<br>as portals and search engines. Two important components<br>of these agents are: user profiles and information filtering<br>or gathering services. Ideally, these components can be sep-<br>arated so that a single user profile can be leveraged for a<br>variety of information services. Toward that end, we are<br>building an information agent called SurfAgent;in previous<br>studies, we have developed and tested methods for automat-<br>ically learning a user profile [20]. In this paper, we evaluate<br>alternative methods for recommending new documents to a<br>user by generating queries from the user profile and submit-<br>ting them to a popular search engine. Our study focuses on<br>three questions: How do different algorithms for query gen-<br>eration perform relative to each other? Is positive relevance<br>feedback adequate to support the task? Can a user profile<br>be learned independent of the service? We found that three<br>algorithms appear to excel and that using only positive feed-<br>back does degrade the results somewhat. We conclude with<br>the results of a pilot user study for assessing interaction of<br>the profile and the query generation mechanisms.</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:81"><nobr><span class="ft4"><b>Categories and Subject Descriptors</b></span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:81"><nobr><span class="ft9">H.3.3 [Information storage and retrieval]: Information<br>Search and Retrieval--Query formulation, Search process,<br>Information filtering</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:81"><nobr><span class="ft4"><b>Keywords</b></span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:81"><nobr><span class="ft3">information agents, user modeling, query generation</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:81"><nobr><span class="ft4"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:112"><nobr><span class="ft4"><b>INTRODUCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:94"><nobr><span class="ft3">The Web has become an indispensable source of informa-</span></nobr></DIV>
+<DIV style="position:absolute;top:868;left:81"><nobr><span class="ft9">tion for many people. Based on surveys of the most popular<br>Web sites [14], users deal with the overwhelming amount and<br>constantly updating nature of the information by routinely<br>visiting hub sites (e.g., Netscape, Yahoo, CNN) and making</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:81"><nobr><span class="ft10">Permission to make digital or hard copies of all or part of this work for<br>personal or classroom use is granted without fee provided that copies are<br>not made or distributed for profit or commercial advantage and that copies<br>bear this notice and the full citation on the first page. To copy otherwise, to<br>republish, to post on servers or to redistribute to lists, requires prior specific<br>permission and/or a fee.<br><i>AAMAS'03, </i>July 14-18, 2003, Melbourne, Australia<br>Copyright 2003 ACM 1-58113-683-8/03/0007 ..</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:313"><nobr><span class="ft3">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:320"><nobr><span class="ft5">5.00</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:475"><nobr><span class="ft9">copious use of search engines (e.g., AltaVista, Excite, Mag-<br>ellan). Users have derived tremendous leverage from shared<br>information resources such as those just mentioned. Hubs or<br>portals provide communally useful information about peren-<br>nial (e.g., financial management, child rearing) and timely<br>(e.g., September 11 events, stock quote) topics. Search en-<br>gines satisfy specific, spontaneous information needs.</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:489"><nobr><span class="ft3">As our appetite for information increases, so does its avail-</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:475"><nobr><span class="ft9">ability on the Web. Studies (e.g., [21, 12]) have identified<br>limitations with these tools for satisfying users' needs;for<br>example, users appear to lack the motivation to learn how to<br>formulate complex queries or to view long lists of potential<br>matches. Meta-search engines, such as Meta-Crawler [18],<br>SavvySearch [6], and NECI [11], propose to overcome the<br>Web coverage problem by combining the indexing power of<br>multiple stand-alone search engines. However, because they<br>leverage the capabilities of many search engines, they tend<br>to generalize the search task: limiting the access to search-<br>engine-specific advanced search capabilities and, perhaps,<br>introducing even more noise into the return results.</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:489"><nobr><span class="ft3">One promising approach to compensating for the limi-</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:475"><nobr><span class="ft9">tations is to personalize the tools. Pretschner and Gauch<br>divide personalization into two types: personalized access<br>to resources and filtering/ranking [15].</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:728"><nobr><span class="ft3">For example, My</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:475"><nobr><span class="ft9">Yahoo (http://my.yahoo.com) provides personalized access<br>by allowing users to design their own Yahoo page with per-<br>tinent information;many search and meta-search engines<br>support some customization (e.g., types of search, return<br>amount, and search engine selection). "Softbot"s or infor-<br>mation agents augment searching and information gathering<br>(filtering/ranking). Personalized information agents, such<br>as Letizia [13], WebWatcher [1, 10], and WebMate [5], can<br>provide a range of services from automatically retrieving<br>Web pages to assisting in formulating queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:489"><nobr><span class="ft3">These agents generally comply with the architecture pre-</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:475"><nobr><span class="ft9">sented in Figure 1. The agent intercedes between the user<br>and their Web access, monitoring the user's activities to<br>construct a model of user requests (the profile) to be used<br>for specific information services (e.g., modifying requests<br>and/or filtering results). In our research, we adopt the prin-<br>ciple that user overhead needs to be minimized:</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:495"><nobr><span class="ft3">· The profile should be learned by asking the user to</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:509"><nobr><span class="ft9">simply click on a feedback button positioned on the<br>bottom of each page to indicate interest.</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:495"><nobr><span class="ft11">· Learning should track changes in user interests.<br>· The profile should support multiple information ser-</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:509"><nobr><span class="ft3">vices.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">812</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210002.png" alt="background image">
+<DIV style="position:absolute;top:145;left:269"><nobr><span class="ft12">monitor</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:261"><nobr><span class="ft12">generate</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:261"><nobr><span class="ft12">request for</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:261"><nobr><span class="ft12">doc. stream</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:279"><nobr><span class="ft12">filter</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:99"><nobr><span class="ft12">user</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:394"><nobr><span class="ft12">Web</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:182"><nobr><span class="ft12">user</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:182"><nobr><span class="ft12">profile</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:336"><nobr><span class="ft12">document flow</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:336"><nobr><span class="ft12">command flow</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:81"><nobr><span class="ft9">Figure 1: Architecture of a Web information helper<br>agent</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:94"><nobr><span class="ft3">In previous papers, we have assessed some alternative ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:81"><nobr><span class="ft9">proaches to learning user profiles [20, 19]. In this paper,<br>we examine alternative approaches to one of the services:<br>query generation to find new documents (i.e., automatically<br>retrieving Web pages that match a user's interests by sub-<br>mitting queries to a Web search engine). In particular, we<br>are interested in answering the following questions:</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:97"><nobr><span class="ft3">1. How do different algorithms for query generation per-</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:114"><nobr><span class="ft9">form relative to each other? For our case, query gener-<br>ation involves constructing queries from a user profile<br>that are submitted to a search engine for the purpose<br>of harvesting documents.</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:97"><nobr><span class="ft3">2. Is positive relevance feedback adequate to support the</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:114"><nobr><span class="ft3">task?</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:158"><nobr><span class="ft3">To minimize user overhead, we have solicited</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:114"><nobr><span class="ft9">only positive relevance feedback. Obviously, this pro-<br>vides relatively weak knowledge, requiring the profiling<br>mechanism to self-organize the categories of interest<br>and to trade-off precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:97"><nobr><span class="ft3">3. Can a user profile be learned independent of the ser-</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:114"><nobr><span class="ft9">vice? If so, then user overhead can be minimized and<br>multiple services provided as part of the same agent.</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:81"><nobr><span class="ft9">This paper describes a framework for evaluating alternative<br>algorithms for information gathering agents and a study that<br>was designed to address the three questions above. In sum-<br>mary, we found: Three algorithms perform best in terms of<br>extracting sufficient numbers of documents from the search<br>engine and in terms of the relevance of the links returned.<br>We did find evidence that soliciting only positive feedback<br>hampers query generation;however, it is not clear that the<br>degradation in performance is worth the cost of obtaining<br>the negative feedback. As often happens, the study raised<br>some issues that are still to be resolved (particularly about<br>the evaluation criteria and the interaction of profiling and<br>query generation);we conclude with a pilot study in which<br>we investigate how to resolve these issues.</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft4"><b>2.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:112"><nobr><span class="ft4"><b>SURFAGENT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:94"><nobr><span class="ft3">SurfAgent [19] is a personalized Web information agent,</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft9">which follows the basic architecture in Figure 1. It is de-<br>signed as a testbed for expediting plug-and-play and evalua-<br>tion of alternative algorithms, front-ends, and service tasks.<br>Its two primary components are the user profile and the<br>module which generates requests for document streams. Mon-<br>itoring should be simple and unobtrusive. Filtering depends</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">on the representation and construction of the user profile,<br>forcing a relatively tight coupling of those two components.<br>This section provides an overview of its user profiling and<br>document stream generation.</span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:475"><nobr><span class="ft4"><b>2.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:162;left:515"><nobr><span class="ft4"><b>Building User Profiles and Filtering</b></span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:489"><nobr><span class="ft3">The user profile maintained by a Web helper agent is a</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:475"><nobr><span class="ft9">model of what documents the user finds relevant. Like most<br>other personal Web helper agents, SurfAgent uses TF-IDF<br>vectors [17] as the basis of its user profile representation.<br>One such vector is used to represent each of the several dif-<br>ferent topics of interest associated with each user.</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:489"><nobr><span class="ft3">Over time, topic descriptions are learned from user-supplied</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:475"><nobr><span class="ft9">examples of relevant documents, which are added to the ex-<br>isting TF-IDF vectors in what is known as relevance feedback<br>[16]. Associated with each vector is a dissemination thresh-<br>old, which is used when new documents are filtered by the<br>agent: if the similarity between the new document's vector<br>and a vector in the profile exceeds the associated dissemi-<br>nation threshold, the document is considered relevant and<br>shown to the user. We found that learning the appropriate<br>dissemination threshold was critical to filtering performance<br>and that one could be learned with relatively little feedback<br>(i.e., 10 relevance judgments) [19].</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:489"><nobr><span class="ft3">TF-IDF vectors and their associated dissemination thresh-</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:475"><nobr><span class="ft9">olds are known in the Information Retrieval (IR) literature<br>as filtering queries. This type of query is distinguished from<br>a typical retrieval query (used with search engines or at a<br>library) by a few characteristics. Filtering queries tend to<br>be used repeatedly over a long period of time, during which<br>they can be improved and maintained through learning and<br>relevance feedback, whereas retrieval queries are typically<br>used only once. Also, filtering queries typically contain lots<br>of terms with complex weighting schemes, whereas retrieval<br>queries tend to be a boolean combination of relatively few<br>terms, with no weighting at all.</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:489"><nobr><span class="ft3">Each filtering query in SurfAgent's user profile corresponds</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:475"><nobr><span class="ft9">to a distinct topic of interest. User profiles are learned in one<br>of two ways. First, relevant documents provided as train-<br>ing by the user can be explicitly associated with the topic<br>of interest. Alternatively, to minimize overhead to the user,<br>incremental clustering can be used by the agent to automati-<br>cally classify relevant examples into internally learned topics<br>[20, 5]. In the latter situation, the user only needs to prompt<br>the agent when a relevant document has been encountered,<br>without having to associate it with a particular topic of in-<br>terest. To minimize user disruption, we request only positive<br>examples. We augmented existing IR clustering techniques<br>to accommodate Web needs (i.e., avoid storing the docu-<br>ments themselves, require minimal user overhead and be<br>associated with a user). In our earlier study, we found that<br>a tuned version of the Doubling algorithm [4] achieved high<br>recall, without a great sacrifice on precision.</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:475"><nobr><span class="ft4"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:515"><nobr><span class="ft4"><b>Incoming Document Streams</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:489"><nobr><span class="ft3">Personal information agents use a wide range of tech-</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:475"><nobr><span class="ft3">niques to generate incoming streams.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:721"><nobr><span class="ft3">Letizia pre-fetches</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:475"><nobr><span class="ft9">Web pages by exploring the links in the Web page cur-<br>rently being viewed. Similarly, WebWatcher analyzes text<br>in and around links in the current page to predict relevant<br>links worth following. Fab builds a list of likely to be rel-<br>evant documents through best-first search;documents that<br>pass the filtering phase are then included in a list of recom-</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">813</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:10px;font-family:Times;color:#000000;}
+	.ft14{font-size:6px;font-family:Times;color:#000000;}
+	.ft15{font-size:10px;line-height:14px;font-family:Times;color:#000000;}
+	.ft16{font-size:15px;line-height:20px;font-family:Times;color:#000000;}
+	.ft17{font-size:11px;line-height:18px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210003.png" alt="background image">
+<DIV style="position:absolute;top:133;left:105"><nobr><span class="ft13">User</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:176"><nobr><span class="ft13">User Profile</span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:276"><nobr><span class="ft13">Extract Query</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:380"><nobr><span class="ft15">Search<br>Engine</span></nobr></DIV>
+<DIV style="position:absolute;top:182;left:212"><nobr><span class="ft13">Filter Documents</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:81"><nobr><span class="ft9">Figure 2: Incoming document streams generated by<br>querying a search engine</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:81"><nobr><span class="ft9">mended links. Finally, WebMate filters articles found on a<br>list of well-known news sources in order to compile a per-<br>sonal newspaper for its user.</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:94"><nobr><span class="ft3">Our goals are to maximize the quality of the incoming</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:81"><nobr><span class="ft9">document stream generated for SurfAgent, while at the same<br>time minimizing effort. For this purpose, a promising tech-<br>nique appears to be the construction of queries that are suit-<br>able for a large-scale search engine such as Google [3]. Well-<br>formulated queries have the potential to off-load significant<br>portions of the filtering task to the search engine, which<br>should provide the agent with a document stream consist-<br>ing of more relevant documents.</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:94"><nobr><span class="ft3">In this paper, we explore several methods of generating</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:81"><nobr><span class="ft9">search engine queries from the user profile of a personal<br>Web helper agent. We wish to find both the method and<br>the query length that would optimize the relevance of the<br>documents returned by the search engine with respect to the<br>user profile. This process is illustrated in Figure 2.</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:81"><nobr><span class="ft4"><b>3.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:112"><nobr><span class="ft16"><b>TECHNIQUES FOR QUERY GENERA-<br>TION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:94"><nobr><span class="ft3">Filtering queries are not directly suitable for being submit-</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:81"><nobr><span class="ft9">ted to a search engine. They are complex models represent-<br>ing a possibly large collection of documents;they contain a<br>large number of terms with associated weights, which would<br>overly restrict the range of documents a search engine might<br>return.</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:94"><nobr><span class="ft3">Query generation techniques have evolved from the more</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft9">general query refinement mechanism of relevance feedback<br>[16]. For instance, in [9, 7] search engine queries are ex-<br>tended with features extracted from positive and negative<br>examples in order to bias them toward a more relevant sub-<br>topic. Several other researchers have been concerned with<br>extracting only a few highly representative terms from the<br>representation of a large document cluster. For WebACE<br>[2], the authors propose a mechanism for generating queries<br>from a cluster of documents based on the average word count<br>(term frequency, TF) of the terms contained in the doc-<br>uments of the cluster, and the document frequency (DF),<br>i.e., the number of documents in the cluster that contain<br>a specified term. A set of</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:254"><nobr><span class="ft3">k terms with the highest TF,</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft3">and another set of</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:194"><nobr><span class="ft3">k terms with the highest DF are selected</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:81"><nobr><span class="ft9">from the cluster. The intersection of these two sets was sub-<br>mitted to Yahoo search as a query, yielding a total of 2280<br>results, which were later refined to 372 by augmenting the<br>query with terms resulting from the difference between the<br>TF and DF sets.</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:94"><nobr><span class="ft3">CorpusBuilder [8] uses automatic query generation to col-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:81"><nobr><span class="ft9">lect documents in a specified language (Slovenian) from the<br>Web, with the purpose of building a corpus in that language.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">The point is to preserve computation power by avoiding a<br>brute-force crawl of the Web where an expensive classifier<br>would have to be run on each encountered document. By<br>generating queries from the already existing corpus, the au-<br>thors hope to significantly increase the likelihood that the<br>resulting documents would already be in Slovenian, thus<br>speeding up document collection. Several methods for gen-<br>erating queries are used interchangeably:</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:495"><nobr><span class="ft3">· uniform ­ select n terms from the relevant documents</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:509"><nobr><span class="ft3">with equal probability;</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:495"><nobr><span class="ft3">· term-frequency ­ select n most frequent terms from</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:509"><nobr><span class="ft3">the relevant documents;</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:495"><nobr><span class="ft3">· probabilistic term-frequency ­ select n terms from the</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:509"><nobr><span class="ft9">relevant documents with probability proportional to<br>their term frequency;</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:495"><nobr><span class="ft3">· odds-ratio ­ select n terms with highest odds-ratio</span></nobr></DIV>
+<DIV style="position:absolute;top:401;left:509"><nobr><span class="ft3">scores, as given by the formula:</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:518"><nobr><span class="ft3">OR</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:539"><nobr><span class="ft14">t</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:548"><nobr><span class="ft3">= log</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:581"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:591"><nobr><span class="ft17">P (t|relevant) · (1 - P (t|nonrelevant))<br>P (t|nonrelevant) · (1 - P (t|relevant))</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:509"><nobr><span class="ft3">where</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:547"><nobr><span class="ft3">t is the term, and P (t|relevant) and P (t|nonrelevant)</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:509"><nobr><span class="ft3">are the probabilities of</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:654"><nobr><span class="ft3">t appearing in a relevant and</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:509"><nobr><span class="ft3">non-relevant document, respectively;</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:495"><nobr><span class="ft3">· probabilistic odds-ratio ­ select n terms with proba-</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:509"><nobr><span class="ft3">bility proportional to their odds-ratio score;</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft3">The authors report best results with</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:703"><nobr><span class="ft3">n = 4 and the simple</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:475"><nobr><span class="ft9">odds-ratio method. However, this method is not necessarily<br>applicable to our task because identifying relevance with<br>respect to a query cluster is somewhat more subtle than<br>determining whether a returned document is in a particular<br>language such as Slovenian.</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:475"><nobr><span class="ft4"><b>4.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:506"><nobr><span class="ft4"><b>OUR STUDY OF QUERY GENERATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:489"><nobr><span class="ft3">The purpose of this study is to examine the role of query</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:475"><nobr><span class="ft9">generation technique for a Web information agent: what<br>techniques work well, how much user overhead is warranted<br>and how query generation interacts with profiling. These<br>three factors correspond to the three questions articulated<br>in the Introduction.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:475"><nobr><span class="ft4"><b>4.1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:515"><nobr><span class="ft4"><b>Experiment Design</b></span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:489"><nobr><span class="ft3">The basic protocol for our study was as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:491"><nobr><span class="ft3">1. construct user profiles,</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:491"><nobr><span class="ft3">2. generate queries from those profiles using each of the</span></nobr></DIV>
+<DIV style="position:absolute;top:926;left:509"><nobr><span class="ft3">query generation methods,</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:491"><nobr><span class="ft3">3. submit queries of different lengths to Google,</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:491"><nobr><span class="ft3">4. evaluate the results.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft9">This led to a factorial experiment in which the independent<br>variables were query generation method and query length<br>and the dependent variables were two evaluation metrics:<br>return count and relevance.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">814</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:14px;font-family:Times;color:#000000;}
+	.ft19{font-size:11px;line-height:13px;font-family:Times;color:#000000;}
+	.ft20{font-size:11px;line-height:12px;font-family:Times;color:#000000;}
+	.ft21{font-size:11px;line-height:19px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210004.png" alt="background image">
+<DIV style="position:absolute;top:84;left:81"><nobr><span class="ft18"><i>4.1.1</i></span></nobr></DIV>
+<DIV style="position:absolute;top:84;left:130"><nobr><span class="ft18"><i>Constructing the profiles</i></span></nobr></DIV>
+<DIV style="position:absolute;top:106;left:94"><nobr><span class="ft3">To expedite experimental control and data collection, we</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:81"><nobr><span class="ft3">constructed two user profiles from TREC</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:331"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:342"><nobr><span class="ft3">disk #5. TREC</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:81"><nobr><span class="ft9">data consist of a large number of articles (over 250,000), of<br>which a large portion have been judged as either relevant<br>or non-relevant with respect to a set of 450 different topics.<br>Our first topic is on airport security measures, and was con-<br>structed based on 46 relevant documents which appeared in<br>the Los Angeles Times over the course of two years (1989-<br>1990);this topic will be referred to as LATIMES. The second<br>topic is on genetic research, and was constructed based on<br>55 relevant documents from the Foreign Broadcasting Infor-<br>mation Service appeared in 1996;this topic will be referred<br>to as FBIS. One topic was picked randomly from each of the<br>two document collection on the TREC disk.</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:94"><nobr><span class="ft3">We used synthetically generated topics in order to test the</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:81"><nobr><span class="ft9">hypothetical scenario in which negative feedback is available.<br>By default, SurfAgent does not collect negative feedback in<br>the form of documents which are non-relevant to a given<br>topic. Thus, we are interested in how much performance<br>might be sacrificed by restricting feedback to only positive<br>examples. The number of positive documents used in the<br>construction of each topic (46 and 55, respectively) is realis-<br>tic compared to what a human user would have been capable<br>of providing while building her profile in real life.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:81"><nobr><span class="ft18"><i>4.1.2</i></span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:130"><nobr><span class="ft18"><i>Generating Queries</i></span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:94"><nobr><span class="ft3">We implemented several methods, including both meth-</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:81"><nobr><span class="ft9">ods which use such negative examples (e.g., odds-ratio) against<br>methods which do not (e.g., Boley's method [2] and term<br>frequency based methods).</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:94"><nobr><span class="ft3">In addition to the methods mentioned in Section 3, we</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:81"><nobr><span class="ft9">add two methods: deterministic extraction of highest weight<br>terms for SurfAgent's TF-IDF profile vectors and proba-<br>bilistic weighted extraction from the TF-IDF profile vectors.<br>The complete list of methods used is given below:</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:81"><nobr><span class="ft3">Uniform (Unif ) baseline case, select</span></nobr></DIV>
+<DIV style="position:absolute;top:667;left:326"><nobr><span class="ft3">n terms with uni-</span></nobr></DIV>
+<DIV style="position:absolute;top:686;left:114"><nobr><span class="ft3">form probability;</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:81"><nobr><span class="ft3">Boley select the intersection of the</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:312"><nobr><span class="ft3">k top ranking terms</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:114"><nobr><span class="ft9">according to term frequency in one set, and document<br>frequency in the other;</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:81"><nobr><span class="ft3">TF select</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:145"><nobr><span class="ft3">n top ranking terms according to term frequency;</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:81"><nobr><span class="ft3">Probabilistic TF (P-TF) select</span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:293"><nobr><span class="ft3">n terms with probability</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:114"><nobr><span class="ft3">proportional to their term frequency;</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:81"><nobr><span class="ft3">OR select the top ranking</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:246"><nobr><span class="ft3">n terms according to their odds-</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:114"><nobr><span class="ft3">ratio score;</span></nobr></DIV>
+<DIV style="position:absolute;top:903;left:81"><nobr><span class="ft3">Probabilistic OR (P-OR) select</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:301"><nobr><span class="ft3">n terms with probabil-</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:114"><nobr><span class="ft3">ity proportional to their odds-ratio score;</span></nobr></DIV>
+<DIV style="position:absolute;top:950;left:81"><nobr><span class="ft3">TFIDF select</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:177"><nobr><span class="ft3">n terms with the highest TF-IDF weight</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:114"><nobr><span class="ft3">from the profile vector;</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:81"><nobr><span class="ft3">Probabilistic TF-IDF (P-TFIDF) select</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:358"><nobr><span class="ft3">n terms with</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:114"><nobr><span class="ft3">probability proportional to their TF-IDF weights;</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:81"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:88"><nobr><span class="ft3">Text REtrieval Conference: TREC benchmark disks are</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:81"><nobr><span class="ft19">publicly available and can be ordered from the conference<br>homepage at http://trec.nist.gov</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:475"><nobr><span class="ft9">The probabilistic versions were included because injection of<br>small amounts of randomness has been found to be helpful<br>in other search problems.</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:489"><nobr><span class="ft3">Code from SurfAgent was modified to collect the data</span></nobr></DIV>
+<DIV style="position:absolute;top:149;left:475"><nobr><span class="ft9">required by all query generation methods employed. For<br>each topic, we collected the following data:</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:495"><nobr><span class="ft3">· average term frequencies for terms in relevant docu-</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:509"><nobr><span class="ft3">ments;</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:495"><nobr><span class="ft3">· document frequencies for terms in relevant documents;</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:495"><nobr><span class="ft3">· TF-IDF vector built from relevant documents;</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:495"><nobr><span class="ft3">· odds-ratio scores for terms in relevant documents (odds-</span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:509"><nobr><span class="ft9">ratio scores are based on both relevant and non-relevant<br>documents related to the topic).</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:475"><nobr><span class="ft9">From these data, we generated queries of seven lengths (two<br>to eight terms) for each of the eight methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:787"><nobr><span class="ft3">For the</span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:475"><nobr><span class="ft9">four probabilistic methods, we generated 10 queries of each<br>length, which means their reported results will be averages<br>over those 10 queries.</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:489"><nobr><span class="ft3">For Boley's method, we repeatedly computed the intersec-</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:475"><nobr><span class="ft3">tion of the sets consisting of the top</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:700"><nobr><span class="ft3">k ranking terms w.r.t.</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:475"><nobr><span class="ft3">TF and DF, while incrementing</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:673"><nobr><span class="ft3">k. We retained all distinct</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:475"><nobr><span class="ft21">queries of length between 2 and 8. For FBIS, no value of<br>k generated a query of length 6. Similarly, for LATIMES,<br>there was no value of</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:608"><nobr><span class="ft3">k resulting in a query of length 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:475"><nobr><span class="ft18"><i>4.1.3</i></span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:524"><nobr><span class="ft18"><i>Submit the Queries</i></span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:489"><nobr><span class="ft3">The previous step resulted in 614 queries (307 for each</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:475"><nobr><span class="ft9">topic). We submitted these queries to the Google search en-<br>gine and collected back the first page of results. By default,<br>a page can contain up to 10 responses.</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:475"><nobr><span class="ft18"><i>4.1.4</i></span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:524"><nobr><span class="ft18"><i>Collect the results</i></span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:489"><nobr><span class="ft3">The results of the queries (the URLs returned) were parsed</span></nobr></DIV>
+<DIV style="position:absolute;top:666;left:475"><nobr><span class="ft9">out of the page returned by Google, and their corresponding<br>documents were retrieved from the Web and stored locally.<br>We discarded (and decremented our hit count accordingly)<br>all dead links and all hits that were in a format other than<br>ASCII</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:514"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:526"><nobr><span class="ft3">or PDF: a total of 312 out of 2917 hits were dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:475"><nobr><span class="ft9">carded. The PDF documents were converted into ASCII<br>using the pdftotext utility.</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:475"><nobr><span class="ft4"><b>4.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:515"><nobr><span class="ft4"><b>Results</b></span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:489"><nobr><span class="ft3">For each valid hit, we computed the similarity between</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:475"><nobr><span class="ft9">the document's TF-IDF vector and the TF-IDF vector of<br>the appropriate topic, which is a measure of the document's<br>relevance. For each combination of query generation method<br>and query length, we recorded the number of hits received,<br>the relevance of the best hit, and the average relevance over<br>all hits received. For the probabilistic methods, these mea-<br>surements represent average values obtained over the ten<br>repetitions for each combination of parameters. The results<br>are summarized in Table 1 for the FBIS topic, and Table 2<br>for the LATIMES topic. The three rows corresponding to<br>each method indicate average relevance (top), maximum rel-<br>evance, and number of returned hits (bottom).</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:489"><nobr><span class="ft3">All methods return at least seven documents with query</span></nobr></DIV>
+<DIV style="position:absolute;top:1028;left:475"><nobr><span class="ft3">lengths of 2, but most taper off in the number returned</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:476"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:482"><nobr><span class="ft3">ASCII includes all variants and versions of HTML, XML,</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">etc.</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">815</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft22{font-size:9px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210005.png" alt="background image">
+<DIV style="position:absolute;top:82;left:278"><nobr><span class="ft22">query length</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:97"><nobr><span class="ft22">method</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:207"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:241"><nobr><span class="ft22">3</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:276"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:310"><nobr><span class="ft22">5</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:345"><nobr><span class="ft22">6</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:379"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:414"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:199"><nobr><span class="ft22">.022</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:233"><nobr><span class="ft22">.046</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:267"><nobr><span class="ft22">.059</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:302"><nobr><span class="ft22">.018</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:406"><nobr><span class="ft22">.011</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:106"><nobr><span class="ft22">Unif</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:199"><nobr><span class="ft22">.051</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:233"><nobr><span class="ft22">.077</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:267"><nobr><span class="ft22">.101</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:302"><nobr><span class="ft22">.019</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:406"><nobr><span class="ft22">.011</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:202"><nobr><span class="ft22">7.7</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:236"><nobr><span class="ft22">4.3</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:271"><nobr><span class="ft22">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:305"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:409"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:199"><nobr><span class="ft22">.026</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:233"><nobr><span class="ft22">.054</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:267"><nobr><span class="ft22">.044</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:302"><nobr><span class="ft22">.053</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:337"><nobr><span class="ft22">.069</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:371"><nobr><span class="ft22">.091</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:406"><nobr><span class="ft22">.082</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:103"><nobr><span class="ft22">P-TF</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:199"><nobr><span class="ft22">.059</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:233"><nobr><span class="ft22">.096</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:267"><nobr><span class="ft22">.079</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:302"><nobr><span class="ft22">.102</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:337"><nobr><span class="ft22">.120</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:371"><nobr><span class="ft22">.192</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:406"><nobr><span class="ft22">.138</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:202"><nobr><span class="ft22">8.9</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:236"><nobr><span class="ft22">7.7</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:271"><nobr><span class="ft22">7.9</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:305"><nobr><span class="ft22">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:340"><nobr><span class="ft22">6.5</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:374"><nobr><span class="ft22">7.2</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:409"><nobr><span class="ft22">6.3</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:199"><nobr><span class="ft22">.039</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:233"><nobr><span class="ft22">.047</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:272"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:302"><nobr><span class="ft22">.019</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:102"><nobr><span class="ft22">P-OR</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:199"><nobr><span class="ft22">.099</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:233"><nobr><span class="ft22">.090</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:272"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:302"><nobr><span class="ft22">.019</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:202"><nobr><span class="ft22">9.0</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:236"><nobr><span class="ft22">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:276"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:305"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:199"><nobr><span class="ft22">.045</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:233"><nobr><span class="ft22">.058</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:267"><nobr><span class="ft22">.088</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:302"><nobr><span class="ft22">.069</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:337"><nobr><span class="ft22">.035</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:371"><nobr><span class="ft22">.034</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:406"><nobr><span class="ft22">.030</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:92"><nobr><span class="ft22">P-TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:199"><nobr><span class="ft22">.100</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:233"><nobr><span class="ft22">.110</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:267"><nobr><span class="ft22">.178</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:302"><nobr><span class="ft22">.097</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:337"><nobr><span class="ft22">.054</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:371"><nobr><span class="ft22">.035</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:406"><nobr><span class="ft22">.055</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:202"><nobr><span class="ft22">9.1</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:236"><nobr><span class="ft22">6.1</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:271"><nobr><span class="ft22">8.4</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:305"><nobr><span class="ft22">2.4</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:340"><nobr><span class="ft22">2.7</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:374"><nobr><span class="ft22">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:260;left:409"><nobr><span class="ft22">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:199"><nobr><span class="ft22">.053</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:233"><nobr><span class="ft22">.077</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:267"><nobr><span class="ft22">.090</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:302"><nobr><span class="ft22">.081</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:371"><nobr><span class="ft22">.111</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:406"><nobr><span class="ft22">.088</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:103"><nobr><span class="ft22">Boley</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:199"><nobr><span class="ft22">.120</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:233"><nobr><span class="ft22">.112</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:267"><nobr><span class="ft22">.136</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:302"><nobr><span class="ft22">.168</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:371"><nobr><span class="ft22">.239</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:406"><nobr><span class="ft22">.239</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:207"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:241"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:273"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:310"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:379"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:414"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:199"><nobr><span class="ft22">.036</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:233"><nobr><span class="ft22">.031</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:267"><nobr><span class="ft22">.048</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:302"><nobr><span class="ft22">.082</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:337"><nobr><span class="ft22">.081</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:371"><nobr><span class="ft22">.087</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:406"><nobr><span class="ft22">.083</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:109"><nobr><span class="ft22">TF</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:199"><nobr><span class="ft22">.065</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:233"><nobr><span class="ft22">.059</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:267"><nobr><span class="ft22">.129</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:302"><nobr><span class="ft22">.134</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:337"><nobr><span class="ft22">.103</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:371"><nobr><span class="ft22">.130</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:406"><nobr><span class="ft22">.135</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:203"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:241"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:272"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:310"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:345"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:376"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:414"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:199"><nobr><span class="ft22">.123</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:233"><nobr><span class="ft22">.186</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:267"><nobr><span class="ft22">.102</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:307"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:356;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:109"><nobr><span class="ft22">OR</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:199"><nobr><span class="ft22">.155</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:233"><nobr><span class="ft22">.361</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:267"><nobr><span class="ft22">.190</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:307"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:369;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:207"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:241"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:276"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:310"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:199"><nobr><span class="ft22">.100</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:233"><nobr><span class="ft22">.144</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:267"><nobr><span class="ft22">.160</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:302"><nobr><span class="ft22">.176</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:337"><nobr><span class="ft22">.214</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:371"><nobr><span class="ft22">.278</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:406"><nobr><span class="ft22">.242</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:98"><nobr><span class="ft22">TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:199"><nobr><span class="ft22">.377</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:233"><nobr><span class="ft22">.377</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:267"><nobr><span class="ft22">.377</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:302"><nobr><span class="ft22">.279</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:337"><nobr><span class="ft22">.399</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:371"><nobr><span class="ft22">.404</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:406"><nobr><span class="ft22">.242</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:207"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:238"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:272"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:310"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:341"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:379"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:414"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:81"><nobr><span class="ft3">Table 1:</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:151"><nobr><span class="ft3">Average relevance, Maximum relevance,</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:81"><nobr><span class="ft9">and count of returned hits for the FBIS topic on<br>genetic technology</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:278"><nobr><span class="ft22">query length</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:97"><nobr><span class="ft22">method</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:207"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:241"><nobr><span class="ft22">3</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:276"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:310"><nobr><span class="ft22">5</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:345"><nobr><span class="ft22">6</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:379"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:414"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:199"><nobr><span class="ft22">.012</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:233"><nobr><span class="ft22">.012</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:267"><nobr><span class="ft22">.012</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:302"><nobr><span class="ft22">.013</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:337"><nobr><span class="ft22">.004</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:106"><nobr><span class="ft22">Unif</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:199"><nobr><span class="ft22">.024</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:233"><nobr><span class="ft22">.024</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:267"><nobr><span class="ft22">.028</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:302"><nobr><span class="ft22">.019</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:337"><nobr><span class="ft22">.006</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:202"><nobr><span class="ft22">8.0</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:236"><nobr><span class="ft22">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:271"><nobr><span class="ft22">3.9</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:305"><nobr><span class="ft22">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:340"><nobr><span class="ft22">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:199"><nobr><span class="ft22">.017</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:233"><nobr><span class="ft22">.026</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:267"><nobr><span class="ft22">.025</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:302"><nobr><span class="ft22">.028</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:337"><nobr><span class="ft22">.032</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:371"><nobr><span class="ft22">.024</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:406"><nobr><span class="ft22">.010</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:103"><nobr><span class="ft22">P-TF</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:199"><nobr><span class="ft22">.042</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:233"><nobr><span class="ft22">.073</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:267"><nobr><span class="ft22">.062</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:302"><nobr><span class="ft22">.061</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:337"><nobr><span class="ft22">.046</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:371"><nobr><span class="ft22">.042</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:406"><nobr><span class="ft22">.011</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:202"><nobr><span class="ft22">9.1</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:236"><nobr><span class="ft22">9.5</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:271"><nobr><span class="ft22">6.0</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:305"><nobr><span class="ft22">6.5</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:340"><nobr><span class="ft22">2.0</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:374"><nobr><span class="ft22">4.0</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:409"><nobr><span class="ft22">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:199"><nobr><span class="ft22">.017</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:233"><nobr><span class="ft22">.018</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:267"><nobr><span class="ft22">.016</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:302"><nobr><span class="ft22">.011</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:371"><nobr><span class="ft22">.007</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:102"><nobr><span class="ft22">P-OR</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:199"><nobr><span class="ft22">.052</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:233"><nobr><span class="ft22">.039</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:267"><nobr><span class="ft22">.029</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:302"><nobr><span class="ft22">.013</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:371"><nobr><span class="ft22">.007</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:202"><nobr><span class="ft22">8.2</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:236"><nobr><span class="ft22">8.3</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:271"><nobr><span class="ft22">4.0</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:305"><nobr><span class="ft22">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:374"><nobr><span class="ft22">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:199"><nobr><span class="ft22">.026</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:233"><nobr><span class="ft22">.036</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:267"><nobr><span class="ft22">.064</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:302"><nobr><span class="ft22">.063</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:337"><nobr><span class="ft22">.059</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:371"><nobr><span class="ft22">.020</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:406"><nobr><span class="ft22">.010</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:92"><nobr><span class="ft22">P-TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:199"><nobr><span class="ft22">.058</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:233"><nobr><span class="ft22">.103</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:267"><nobr><span class="ft22">.125</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:302"><nobr><span class="ft22">.156</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:337"><nobr><span class="ft22">.106</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:371"><nobr><span class="ft22">.036</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:406"><nobr><span class="ft22">.014</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:202"><nobr><span class="ft22">9.2</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:236"><nobr><span class="ft22">8.1</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:271"><nobr><span class="ft22">8.1</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:305"><nobr><span class="ft22">5.7</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:340"><nobr><span class="ft22">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:374"><nobr><span class="ft22">1.3</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:409"><nobr><span class="ft22">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:199"><nobr><span class="ft22">.040</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:233"><nobr><span class="ft22">.098</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:267"><nobr><span class="ft22">.135</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:302"><nobr><span class="ft22">.193</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:337"><nobr><span class="ft22">.199</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:406"><nobr><span class="ft22">.167</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:103"><nobr><span class="ft22">Boley</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:199"><nobr><span class="ft22">.086</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:233"><nobr><span class="ft22">.199</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:267"><nobr><span class="ft22">.299</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:302"><nobr><span class="ft22">.343</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:337"><nobr><span class="ft22">.359</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:733;left:406"><nobr><span class="ft22">.299</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:207"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:241"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:276"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:310"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:345"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:414"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:199"><nobr><span class="ft22">.107</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:233"><nobr><span class="ft22">.058</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:267"><nobr><span class="ft22">.030</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:302"><nobr><span class="ft22">.048</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:337"><nobr><span class="ft22">.041</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:371"><nobr><span class="ft22">.069</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:109"><nobr><span class="ft22">TF</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:199"><nobr><span class="ft22">.222</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:233"><nobr><span class="ft22">.093</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:267"><nobr><span class="ft22">.051</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:302"><nobr><span class="ft22">.075</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:337"><nobr><span class="ft22">.069</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:371"><nobr><span class="ft22">.069</span></nobr></DIV>
+<DIV style="position:absolute;top:774;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:207"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:238"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:272"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:310"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:345"><nobr><span class="ft22">6</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:379"><nobr><span class="ft22">1</span></nobr></DIV>
+<DIV style="position:absolute;top:787;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:199"><nobr><span class="ft22">.048</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:233"><nobr><span class="ft22">.036</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:267"><nobr><span class="ft22">.348</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:307"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:109"><nobr><span class="ft22">OR</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:199"><nobr><span class="ft22">.122</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:233"><nobr><span class="ft22">.096</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:267"><nobr><span class="ft22">.402</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:307"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:341"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:376"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:411"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:207"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:241"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:276"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:310"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:345"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:379"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:414"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:164"><nobr><span class="ft22">avg:</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:199"><nobr><span class="ft22">.115</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:233"><nobr><span class="ft22">.144</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:267"><nobr><span class="ft22">.155</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:302"><nobr><span class="ft22">.171</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:337"><nobr><span class="ft22">.144</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:371"><nobr><span class="ft22">.153</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:406"><nobr><span class="ft22">.143</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:98"><nobr><span class="ft22">TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:159"><nobr><span class="ft22">max:</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:199"><nobr><span class="ft22">.331</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:233"><nobr><span class="ft22">.331</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:267"><nobr><span class="ft22">.357</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:302"><nobr><span class="ft22">.299</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:337"><nobr><span class="ft22">.276</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:371"><nobr><span class="ft22">.349</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:406"><nobr><span class="ft22">.349</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:166"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:207"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:241"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:276"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:310"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:345"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:379"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:414"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:81"><nobr><span class="ft3">Table 2:</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:151"><nobr><span class="ft3">Average relevance, Maximum relevance,</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:81"><nobr><span class="ft9">and count of returned hits for the LATIMES topic<br>on airport security</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft9">with longer query lengths. For the deterministic methods,<br>the relevance increases as the query length increases (until 7<br>or 8), but the relevance for the probabilistic methods tends<br>to plateau early.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:94"><nobr><span class="ft3">All methods consistently outperform the baseline uniform</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:81"><nobr><span class="ft3">term selection. Probabilistic methods are outperformed by</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:475"><nobr><span class="ft9">Figure 3: Box plot of relevance by method for FBIS<br>topic at query length 2</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:475"><nobr><span class="ft9">Figure 4: Box plot of relevance by method for FBIS<br>topic at query length 3</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:475"><nobr><span class="ft9">the non-probabilistic ones, which is consistent with the ob-<br>servations in [8]. The best results for the FBIS topic were<br>obtained using TFIDF at query length 7: a total of 4 hits<br>were returned, with an average relevance of</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:735"><nobr><span class="ft3">.278, and a max-</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:475"><nobr><span class="ft3">imum relevance of</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:590"><nobr><span class="ft3">.404. The best results for the LATIMES</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:475"><nobr><span class="ft9">topic were obtained using OR at query length 4: two hits<br>were returned, with average relevance of</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:719"><nobr><span class="ft3">.348 and maximum</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:475"><nobr><span class="ft3">relevance of</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:550"><nobr><span class="ft3">.402.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:489"><nobr><span class="ft3">Query lengths 2 and 3 were the only ones where all meth-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:475"><nobr><span class="ft3">ods lead to non-empty returns for both topics.</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:788"><nobr><span class="ft3">To test</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:475"><nobr><span class="ft9">whether the differences between the methods were signif-<br>icant, we ran an analysis of variance (ANOVA) study on<br>each topic at query lengths 2 and 3, with the query gener-<br>ation method as the independent variable, and relevance as<br>the dependent. The effects were significant in each case: for<br>FBIS, we obtained</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:591"><nobr><span class="ft3">F = 14.007, p &lt; 0.001 at query length 2,</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:475"><nobr><span class="ft3">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:502"><nobr><span class="ft3">F = 8.692, p &lt; 0.001 at query length 3;for LATIMES,</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:475"><nobr><span class="ft3">we obtained</span></nobr></DIV>
+<DIV style="position:absolute;top:1016;left:554"><nobr><span class="ft3">F = 24.027, p &lt; 0.001 at query length 2, and</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:475"><nobr><span class="ft3">F = 20.277, p &lt; 0.001 at query length 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:489"><nobr><span class="ft3">Box plots of relevance by method for query lengths 2 and</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:475"><nobr><span class="ft3">3 are given in Figures 3 and 4 for FBIS, and Figures 5 and</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">816</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210006.png" alt="background image">
+<DIV style="position:absolute;top:362;left:81"><nobr><span class="ft9">Figure 5: Box plot of relevance by method for LA-<br>TIMES topic at query length 2</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:81"><nobr><span class="ft9">Figure 6: Box plot of relevance by method for LA-<br>TIMES topic at query length 3</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:81"><nobr><span class="ft9">6 for LATIMES. Note that medians rather than means are<br>marked on the graph. These plots illustrate several points<br>obscured by the previous table. First, while TFIDF returns<br>the best match and second best median in all cases, overall<br>better results are obtained using OR for FBIS, and TF and<br>Boley for LATIMES. Second, each method can show high<br>variance in the results, although TFIDF tends generally to<br>higher variance. Additionally, the results for query length 3<br>have higher variance than those for query length 2. Finally,<br>the distributions are often skewed. For example, Boley con-<br>sistently has a higher median than mean.</span></nobr></DIV>
+<DIV style="position:absolute;top:925;left:94"><nobr><span class="ft3">Because relevance for all returned documents is measured</span></nobr></DIV>
+<DIV style="position:absolute;top:941;left:81"><nobr><span class="ft9">against the TF-IDF vector of the corresponding topic, the<br>experiments are slightly biased in favor of the TFIDF query<br>generation method.</span></nobr></DIV>
+<DIV style="position:absolute;top:973;left:215"><nobr><span class="ft3">Our experiments cannot prove that</span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:81"><nobr><span class="ft9">TFIDF query generation is sufficient, but its good perfor-<br>mance coupled with the not always good performance of OR<br>suggest that we do not incur a significant loss by leaving out<br>negative feedback. Collecting other information based on<br>positive feedback in addition to TF-IDF topic vectors may<br>be required with SurfAgent: e.g., straight TF vectors and</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:676"><nobr><span class="ft22">query length</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:498"><nobr><span class="ft22">method</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:611"><nobr><span class="ft22">2</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:643"><nobr><span class="ft22">3</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:675"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:708"><nobr><span class="ft22">5</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:740"><nobr><span class="ft22">6</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:772"><nobr><span class="ft22">7</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:805"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:500"><nobr><span class="ft22">TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:565"><nobr><span class="ft22">nrel:</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:611"><nobr><span class="ft22">8</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:643"><nobr><span class="ft22">3</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:675"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:708"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:740"><nobr><span class="ft22">4</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:769"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:802"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:569"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:607"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:640"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:672"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:704"><nobr><span class="ft22">10</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:740"><nobr><span class="ft22">9</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:772"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:805"><nobr><span class="ft22">0</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:493"><nobr><span class="ft22">P-TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:565"><nobr><span class="ft22">nrel:</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:606"><nobr><span class="ft22">1.0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:638"><nobr><span class="ft22">1.8</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:670"><nobr><span class="ft22">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:703"><nobr><span class="ft22">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:735"><nobr><span class="ft22">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:767"><nobr><span class="ft22">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:801"><nobr><span class="ft22">--</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:569"><nobr><span class="ft22">cnt:</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:606"><nobr><span class="ft22">9.5</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:638"><nobr><span class="ft22">8.1</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:670"><nobr><span class="ft22">7.7</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:703"><nobr><span class="ft22">4.1</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:735"><nobr><span class="ft22">1.3</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:767"><nobr><span class="ft22">1.3</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:800"><nobr><span class="ft22">0.0</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:475"><nobr><span class="ft9">Table 3: Number of relevant documents and count of<br>returned hits for the user-generated topic on stress<br>relief</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:475"><nobr><span class="ft9">topic-specific document frequency information would allow<br>us to use TF and Boley query generation in addition to the<br>TFIDF method. As the results show, sometimes TF and<br>Boley perform better than OR and TFIDF.</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:489"><nobr><span class="ft3">Both Boley and TFIDF consistently result in many links</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:475"><nobr><span class="ft9">being returned, even for long query lengths. Many hits are<br>desirable when the agent will be pruning out previously vis-<br>ited sites and filtering the returned links according to a fil-<br>tering threshold.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:489"><nobr><span class="ft3">The computation time required for query generation by</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:475"><nobr><span class="ft9">each of the studied methods is negligible when compared to<br>the network-related delays incurred while downloading the<br>actual documents.</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:475"><nobr><span class="ft4"><b>5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:506"><nobr><span class="ft4"><b>PILOT USER STUDY</b></span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:489"><nobr><span class="ft3">To gain an understanding of the performance of TFIDF</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:475"><nobr><span class="ft9">query generation without the bias present in our experi-<br>ments with synthetically generated topics, we have also per-<br>formed a pilot study with a user-generated topic, containing<br>34 documents on stress relief. Since SurfAgent only collects<br>TF-IDF information at this time, query generation was lim-<br>ited to the TFIDF and P-TFIDF methods. We followed the<br>same protocol as with the synthetically generated topics:<br>query lengths were between 2 and 8, and results were aver-<br>aged over ten trials for the probabilistic version P-TFIDF.<br>A total of 343 distinct URLs were returned by Google. We<br>shuffled these URLs and asked the user to examine each one<br>of them, and mark the ones she found to be relevant to her<br>topic. 56 documents out of the total of 343 were found rel-<br>evant. Table 3 presents the number of relevant documents<br>and the number of hits returned for each parameter combi-<br>nation.</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:489"><nobr><span class="ft3">This pilot study supports the hypothesis that TFIDF based</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:475"><nobr><span class="ft9">queries will generate an adequate incoming stream: queries<br>of length up to six returned at least nine hits from Google.<br>Unlike the previous study, the shorter queries yielded lower<br>relevance, which could be due to the way the user was judg-<br>ing relevance or to the nature of the topic.</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:489"><nobr><span class="ft3">As a followup, we will be designing a user study that in-</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:475"><nobr><span class="ft9">cludes the three apparently best methods (TF, TFIDF, and<br>Boley). We will focus on three issues: Does method per-<br>formance vary among users and topics (as is suggested by<br>our current study)?</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:610"><nobr><span class="ft3">Should profile construction incorpo-</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:475"><nobr><span class="ft9">rate more information? Does relevance assessment change<br>as profiles become more mature? Can the best query length<br>be determined a priori?</span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:475"><nobr><span class="ft4"><b>6.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:506"><nobr><span class="ft4"><b>CONCLUSIONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:489"><nobr><span class="ft3">We studied several methods for generating queries from a</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:475"><nobr><span class="ft9">user profile to answer three questions related to the design<br>of Web information agents. First, how do different query</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">817</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="210007.png" alt="background image">
+<DIV style="position:absolute;top:86;left:81"><nobr><span class="ft9">generation algorithms perform relative to each other? In<br>fact, we observed significantly different performance among<br>the eight methods tested. Overall, Boley, TFIDF and to a<br>lesser extent TF provided a good number of hits and rela-<br>tively high relevance.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:94"><nobr><span class="ft3">Second, is positive relevance feedback adequate to sup-</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:81"><nobr><span class="ft9">port the task? We found that leaving out negative train-<br>ing examples does not incur a significant performance loss.<br>Odds-Ratio was found to excel on one topic, but its compet-<br>itive advantage does not appear to be worth the additional<br>overhead expected from the user. TFIDF and Boley, requir-<br>ing only positive relevance feedback, generated queries that<br>resulted in relevant hits.</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:94"><nobr><span class="ft3">Third, can user profiles be learned independently of the</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:81"><nobr><span class="ft9">service? The results from TFIDF and the pilot experiment<br>do suggest it. However, the pilot study also suggests that ei-<br>ther user relevance judgments may be a bit lower (harsher)<br>than the automated method or that the profile may not<br>adequately reflect the users' interests. In fact, the good per-<br>formance of Boley and TF indicates that in some cases it<br>might be worthwhile to collect more than TF-IDF informa-<br>tion from the user-supplied positive training examples. This<br>last question will be examined in more detail in the future.</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:94"><nobr><span class="ft3">Our study confirmed that additional user burden in the</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:81"><nobr><span class="ft9">form of negative feedback appears unwarranted to support<br>document generation and that queries generated based on<br>automatically learned profiles can guide harvesting of new<br>documents of interest. This last result is excellent news for<br>the development of agents that leverage a single learned pro-<br>file to personalize a multitude of web information services.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:81"><nobr><span class="ft4"><b>7.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:112"><nobr><span class="ft4"><b>ACKNOWLEDGMENTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:94"><nobr><span class="ft3">This research was supported in part by National Science</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:81"><nobr><span class="ft9">Foundation Career Award IRI-9624058. The United States<br>Government is authorized to reproduce and distribute reprints<br>for governmental purposes notwithstanding any copyright<br>notation herein.</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:81"><nobr><span class="ft4"><b>8.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:112"><nobr><span class="ft4"><b>REFERENCES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:88"><nobr><span class="ft3">[1] R. Armstrong, D. Freitag, T. Joachims, and</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:109"><nobr><span class="ft9">T. Mitchell. WebWatcher: A Learning Apprentice for<br>the World Wide Web. In Proceedings of the AAAI<br>Spring Symposium on Information Gathering from<br>Heterogeneous, Distributed Resources, Stanford, CA,<br>1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:88"><nobr><span class="ft3">[2] D. Boley, M. Gini, R. Gross, E. Han,</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:109"><nobr><span class="ft9">K. Hastingsand G. Karypis, V. Kumar, M. Bamshad,<br>and J. Moore. Document Categorization and Query<br>Generation on the World Wide Web Using WebAce.<br>AI Review, 13(5-6):365­391, 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:88"><nobr><span class="ft3">[3] S. Brin and L. Page. The Anatomy of a Large-scale</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:109"><nobr><span class="ft9">Hypertextual Web Search Engine. Computer Networks<br>and ISDN Systems, pages 107­117, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:955;left:88"><nobr><span class="ft3">[4] M. Charikar, C. Chekuri, T. Feder, and R. Motwani.</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:109"><nobr><span class="ft9">Incremental Clustering and Dynamic Information<br>Retrieval. Proceedings of the 29th ACM Symposium on<br>Theory of Computing, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:88"><nobr><span class="ft3">[5] L. Chen and Katia Sycara. WebMate: A Personal</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:109"><nobr><span class="ft9">Agent for Browsing and Searching. In Proceedings of<br>the Second International Conference on Autonomous<br>Agents, Minneapolis, MN, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:482"><nobr><span class="ft3">[6] D. Dreilinger and A.E. Howe. Experiences with</span></nobr></DIV>
+<DIV style="position:absolute;top:102;left:503"><nobr><span class="ft9">selecting search engines using meta-search. ACM<br>Transactions on Information Systems, 15(3):195­222,<br>1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:151;left:482"><nobr><span class="ft3">[7] G.W. Flake, E.J. Glover, S. Lawrence, and C.L. Giles</span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:503"><nobr><span class="ft9">Extracting Query Modifications from Nonlinear<br>SVMs. In Proceedings of the Eleventh International<br>World Wide Web Conference (WWW 2002),<br>Honolulu, HI, U.S.A., 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:482"><nobr><span class="ft3">[8] R. Ghani, R. Jones, and D. Mladenic. On-line learning</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:503"><nobr><span class="ft9">for query generation: Finding documents matching a<br>minority concept on the web. In Proc. of the First<br>Asia-Pacific Conference on Web Intelligence, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:482"><nobr><span class="ft3">[9] E.J. Glover, G.W. Flake, S. Lawrence,</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:503"><nobr><span class="ft9">W.P. Birmingham, A. Kruger, C.L. Giles, and<br>D. Pennock. Improving Category Specific Web Search<br>by Learning Query Modifications. In Proceedings of<br>the IEEE Symposium on Applications and the Internet<br>(SAINT 2001), San Diego, CA, U.S.A., 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:475"><nobr><span class="ft3">[10] T. Joachims, D. Freitag, and T. Mitchell.</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:503"><nobr><span class="ft9">WebWatcher: A Tour Guide for the World Wide Web.<br>In Proc. of the 15th International Joint Conference on<br>Artificial Intelligence, Nagoya, Japan, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:475"><nobr><span class="ft3">[11] S. Lawrence and C.L. Giles. Context and page</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:503"><nobr><span class="ft9">analysis for improved web search. IEEE Internet<br>Computing, 2(4):38­46, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:475"><nobr><span class="ft3">[12] S. Lawrence and C.L. Giles. Searching the world wide</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:503"><nobr><span class="ft3">web. Science, 280:98­100, April 3 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:475"><nobr><span class="ft3">[13] H. Lieberman. Letizia: An agent that assists web</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:503"><nobr><span class="ft9">browsing. In Proceedings of the 14th International<br>Joint Conference on Artificial Intelligence (IJCAI-95),<br>Montreal, Canada, 1995.</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:475"><nobr><span class="ft3">[14] Inc. Netmation. 100 most popular web sites.</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:503"><nobr><span class="ft3">http://netmation.com/list100.htm.</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:475"><nobr><span class="ft3">[15] A. Pretschner and S. Gauch. Personalization on the</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:503"><nobr><span class="ft9">web. Technical Report ITTC-FY2000-TR-13591-01,<br>Dept. of Electrical Engineering and Computer Science,<br>University of Kansas, December 1999.</span></nobr></DIV>
+<DIV style="position:absolute;top:698;left:475"><nobr><span class="ft3">[16] J.J. Rocchio. Relevance feedback in information</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:503"><nobr><span class="ft9">retrieval. In G. Salton, editor, The SMART Retrieval<br>System: Experiments in Automatic Document<br>Processing. Prentice-Hall, 1971.</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:475"><nobr><span class="ft3">[17] G. Salton. Automatic Text Processing: The</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:503"><nobr><span class="ft9">Transformation, Analysis, and Retrieval of<br>Information by Computer. Addison-Wesley, 1988.</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:475"><nobr><span class="ft3">[18] E. Selberg and O. Etzioni. The metacrawler</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:503"><nobr><span class="ft9">architecture for resource aggregation on the web.<br>IEEE Expert, 12(1):8­14, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:475"><nobr><span class="ft3">[19] G.L. Somlo and A.E. Howe. Adaptive lightweight text</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:503"><nobr><span class="ft9">filtering. In Proceedings of the 2001 Conference on<br>Intelligent Data Analysis (IDA '01), Lisbon, Portugal,<br>September 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:475"><nobr><span class="ft3">[20] Gabriel L. Somlo and Adele E. Howe. Incremental</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:503"><nobr><span class="ft9">clustering for profile maintenance in information<br>gathering web agents. In Proceedings of the 2001<br>International Conference on Autonomous Agents<br>(AGENTS'01), Montreal, Canada, May 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:1003;left:475"><nobr><span class="ft3">[21] A. Spink, J. Bateman, and B.J. Jansen. Searching</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:503"><nobr><span class="ft9">heterogeneous collections on the web: Behavior of<br>excite users. Information Research: An Electronic<br>Journal, 5(2), 1998.<br>http://www.shef.ac.uk/~is/publications/infers</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:449"><nobr><span class="ft8">818</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

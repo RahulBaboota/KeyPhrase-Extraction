@@ -1,0 +1,1320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Indexing Multi-Dimensional Time-Series with Support for Multiple Distance Measures</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Marios Hadjieleftheriou, Dimitrios Gunopulos, Eamonn Keogh">
+<META name="date" content="2003-11-26T08:44:25+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:24px;font-family:Times;color:#000000;}
+	.ft1{font-size:15px;font-family:Times;color:#000000;}
+	.ft2{font-size:6px;font-family:Times;color:#000000;}
+	.ft3{font-size:14px;font-family:Times;color:#000000;}
+	.ft4{font-size:11px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:14px;font-family:Times;color:#000000;}
+	.ft7{font-size:11px;line-height:15px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:15px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110001.png" alt="background image">
+<DIV style="position:absolute;top:109;left:95"><nobr><span class="ft0"><b>Indexing Multi-Dimensional Time-Series with Support for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:281"><nobr><span class="ft0"><b>Multiple Distance Measures</b></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:101"><nobr><span class="ft1">Michail Vlachos</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:262"><nobr><span class="ft1">Marios Hadjieleftheriou</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:481"><nobr><span class="ft1">Dimitrios Gunopulos</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:649"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:691"><nobr><span class="ft1">Eamonn Keogh</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:246"><nobr><span class="ft3">UC Riverside,</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:351"><nobr><span class="ft3">{mvlachos, marioh, dg, eamonn}@cs.ucr.edu</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:81"><nobr><span class="ft1">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:85"><nobr><span class="ft4">Although most time-series data mining research has concen-</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:81"><nobr><span class="ft7">trated on providing solutions for a single distance function,<br>in this work we motivate the need for a single index structure<br>that can support multiple distance measures. Our specific<br>area of interest is the efficient retrieval and analysis of tra-<br>jectory similarities. Trajectory datasets are very common<br>in environmental applications, mobility experiments, video<br>surveillance and are especially important for the discovery<br>of certain biological patterns. Our primary similarity mea-<br>sure is based on the Longest Common Subsequence (LCSS)<br>model, that offers enhanced robustness, particularly for noisy<br>data, which are encountered very often in real world applica-<br>tions. However, our index is able to accommodate other dis-<br>tance measures as well, including the ubiquitous Euclidean<br>distance, and the increasingly popular Dynamic Time Warp-<br>ing (DTW). While other researchers have advocated one or<br>other of these similarity measures, a major contribution of<br>our work is the ability to support all these measures without<br>the need to restructure the index. Our framework guaran-<br>tees no false dismissals and can also be tailored to provide<br>much faster response time at the expense of slightly reduced<br>precision/recall. The experimental results demonstrate that<br>our index can help speed-up the computation of expensive<br>similarity measures such as the LCSS and the DTW.</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:81"><nobr><span class="ft1">Categories and Subject Descriptors</span></nobr></DIV>
+<DIV style="position:absolute;top:728;left:81"><nobr><span class="ft4">H.2.8 [Database Man-</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:81"><nobr><span class="ft8">agement]: Database Applications, Data Mining</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:81"><nobr><span class="ft8">Keywords: Trajectories, Longest Common Subsequence, Dy-<br>namic Time Warping</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:81"><nobr><span class="ft1">1. INTRODUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:94"><nobr><span class="ft4">In this work we present an efficient and compact, external</span></nobr></DIV>
+<DIV style="position:absolute;top:843;left:81"><nobr><span class="ft7">memory index for fast detection of similar trajectories. Tra-<br>jectory data are prevalent in diverse fields of interest such<br>as meteorology, GPS tracking, wireless applications, video<br>tracking [5] and motion capture [18]. Recent advances in<br>mobile computing, sensor and GPS technology have made it<br>possible to collect large amounts of spatiotemporal data and</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:81"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:91"><nobr><span class="ft5">The research of this author was supported by NSF ITR 0220148, NSF</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:81"><nobr><span class="ft5">CAREER 9907477, NSF IIS 9984729, and NRDRP</span></nobr></DIV>
+<DIV style="position:absolute;top:982;left:81"><nobr><span class="ft5">Permission to make digital or hard copies of all or part of this work for</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:81"><nobr><span class="ft5">personal or classroom use is granted without fee provided that copies are</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:81"><nobr><span class="ft5">not made or distributed for profit or commercial advantage and that copies</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:81"><nobr><span class="ft5">bear this notice and the full citation on the first page. To copy otherwise, or</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:81"><nobr><span class="ft5">republish, to post on servers or to redistribute to lists, requires prior specific</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:81"><nobr><span class="ft5">permission and/or a fee. SIGKDD '03, August 24-27, 2003, Washington,</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:81"><nobr><span class="ft5">DC, USA.</span></nobr></DIV>
+<DIV style="position:absolute;top:1076;left:81"><nobr><span class="ft5">Copyright 2003 ACM 1-58113-737-0/03/0008...</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:312"><nobr><span class="ft4">$</span></nobr></DIV>
+<DIV style="position:absolute;top:1076;left:319"><nobr><span class="ft5">5.00.</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:475"><nobr><span class="ft7">there is increasing interest in performing data analysis tasks<br>over such data [17]. In mobile computing, users equipped<br>with mobile devices move in space and register their loca-<br>tion at different time instances to spatiotemporal databases<br>via wireless links. In environmental information systems,<br>tracking animals and weather conditions is very common<br>and large datasets can be created by storing locations of ob-<br>served objects over time. Human motion data generated by<br>tracking simultaneously various body joints are also multi-<br>dimensional trajectories. In this field of computer graph-<br>ics fundamental operations include the clustering of similar<br>movements, leading to a multitude of applications such as in-<br>teractive generation of motions [2]. Spatiotemporal data are<br>also produced by migrating particles in biological sciences,<br>where the focus can be on the discovery of subtle patterns<br>during cellular mitoses [19]. In general, any dataset that<br>involves storage of multiple streams (attributes) of data can<br>be considered and treated as a multidimensional trajectory.</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:489"><nobr><span class="ft4">One very common task for such data is the discovery of</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:475"><nobr><span class="ft7">objects that follow a certain motion pattern, for purposes<br>of clustering or classification. The objective here is to effi-<br>ciently organize trajectories on disk, so that we can quickly<br>answer k-Nearest-Neighbors (kNN) queries. A frequent ob-<br>stacle in the analysis of spatiotemporal data, is the presence<br>of noise, which can be introduced due to electromagnetic<br>anomalies, transceiver problems etc. Another impediment<br>is that objects may move in a similar way, but at different<br>speeds. So, we would like our similarity model to be robust<br>to noise, support elastic and imprecise matches.</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:489"><nobr><span class="ft4">Choosing the Euclidean distance as the similarity model</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:475"><nobr><span class="ft7">is unrealistic, since its performance degrades rapidly in the<br>presence of noise and this measure is also sensitive to small<br>variations in the time axis. We concentrate on two simi-<br>larity models: the first is an extension of Dynamic Time<br>Warping for higher dimensions. We note that DTW has<br>been used so far for one-dimensional time series. Here we<br>present a formulation for sequences of arbitrary dimensions.<br>The second distance measure is a modification of the Longest<br>Common Subsequence (LCSS), specially adapted for contin-<br>uous values. Both measures represent a significant improve-<br>ment compared to the Euclidean distance. However, LCSS<br>is more robust than DTW under noisy conditions [20] as fig-<br>ure 1 shows. Euclidean matching completely disregards the<br>variations in the time axis, while DTW performs excessive<br>matchings, therefore distorting the true distance between se-<br>quences. The LCSS produces the most robust and intuitive<br>correspondence between points.</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:489"><nobr><span class="ft4">By incorporating warping in time as a requirement to</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:447"><nobr><span class="ft6">216</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:4px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110002.png" alt="background image">
+<DIV style="position:absolute;top:266;left:103"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:137"><nobr><span class="ft9">20</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:173"><nobr><span class="ft9">40</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:208"><nobr><span class="ft9">60</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:244"><nobr><span class="ft9">80</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:278"><nobr><span class="ft9">100</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:314"><nobr><span class="ft9">120</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:186"><nobr><span class="ft9">Euclidean Matching</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:344"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:378"><nobr><span class="ft9">20</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:414"><nobr><span class="ft9">40</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:450"><nobr><span class="ft9">60</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:485"><nobr><span class="ft9">80</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:520"><nobr><span class="ft9">100</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:555"><nobr><span class="ft9">120</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:429"><nobr><span class="ft9">Time Warping</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:585"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:620"><nobr><span class="ft9">20</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:655"><nobr><span class="ft9">40</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:691"><nobr><span class="ft9">60</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:727"><nobr><span class="ft9">80</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:761"><nobr><span class="ft9">100</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:797"><nobr><span class="ft9">120</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:662"><nobr><span class="ft9">Longest Common Subsequence</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:81"><nobr><span class="ft7">Figure 1: A lucid example about the quality matching of the LCSS compared to other distance functions.<br>The Euclidean distance performs an inflexible matching, while the DTW gives many superfluous and spurious<br>matchings, in the presence of noise.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:81"><nobr><span class="ft7">our model, our algorithms are automatically challenged with<br>quadratic execution time. Moreover, these flexible functions<br>are typically non-metric, which makes difficult the design of<br>indexing structures. To speed up the execution of a similar-<br>ity function, one can devise a low cost, upper bounding func-<br>tion (since the LCSS model captures the similarity, which<br>is inversely analogous to the distance). We utilize a fast<br>prefiltering scheme that will return upper bound estimates<br>for the LCSS similarity between the query and the indexed<br>trajectories. In addition to providing similarity measures<br>that guarantee no false dismissals, we also propose approxi-<br>mate similarity estimates that significantly reduce the index<br>response time. Finally, we show that the same index can<br>support other distance measures as well.</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:94"><nobr><span class="ft4">Our technique works by splitting the trajectories in multi-</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:81"><nobr><span class="ft7">dimensional MBRs and storing them in an R-tree. For a<br>given query, we construct a Minimum Bounding Envelope<br>(MBE) that covers all the possible matching areas of the<br>query under warping conditions. This MBE is decomposed<br>into MBRs and then probed in the R-tree index. Using the<br>index we can discover which trajectories could potentially<br>be similar to the query. The index size is compact and its<br>construction time scales well with the trajectory length and<br>the database size, therefore our method can be utilized for<br>massive datamining tasks.</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:94"><nobr><span class="ft4">The main contributions of the paper are:</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:108"><nobr><span class="ft4">We present the first external memory index for mul-</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:81"><nobr><span class="ft7">tidimensional trajectories, that supports multiple distance<br>functions (such as LCSS, DTW and Euclidean), without the<br>need to rebuild the index.</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:106"><nobr><span class="ft4">We give efficient techniques for upper(lower) bounding</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:81"><nobr><span class="ft7">and for approximating the LCSS(DTW) for a set of trajec-<br>tories. We incorporate these techniques in the design of an<br>efficient indexing structure for the LCSS and the DTW.</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:107"><nobr><span class="ft4">We provide a flexible method that allows the user to</span></nobr></DIV>
+<DIV style="position:absolute;top:911;left:81"><nobr><span class="ft7">specify queries of variable warping length, and the technique<br>can be tuned to optimize the retrieval time or the accuracy<br>of the solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:81"><nobr><span class="ft1">2. RELATED WORK</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:94"><nobr><span class="ft4">There has been a wealth of papers that use an L</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:405"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:418"><nobr><span class="ft4">dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:81"><nobr><span class="ft7">tance family function to perform similarity matching for<br>1D time-series. Work on multidimensional sequences can<br>be found in [14, 9]. However, they support only Euclidean<br>distance, which, as mentioned in the introduction, cannot<br>capture flexible similarities.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:489"><nobr><span class="ft4">Although the vast majority of database/data mining re-</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:475"><nobr><span class="ft7">search on time series data mining has focused on Euclidean<br>distance, virtually all real world systems that use time series<br>matching as a subroutine, use a similarity measure which al-<br>lows warping. In retrospect, this is not very surprising, since<br>most real world processes, particularly biological processes,<br>can evolve at varying rates. For example, in bioinformat-<br>ics, it is well understood that functionally related genes will<br>express themselves in similar ways, but possibly at different<br>rates. Because of this, DTW is used for gene expression data<br>mining [1, 3]. Dynamic Time Warping is a ubiquitous tool<br>in the biometric/surveillance community. It has been used<br>for tracking time series extracted from video [7], classifying<br>handwritten text [16] and even fingerprint indexing [13].</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:489"><nobr><span class="ft4">While the above examples testify to the utility of a time</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:475"><nobr><span class="ft7">warped distance measure, they all echo the same complaint;<br>DTW has serious scalability issues. Work that attempted to<br>mitigate the large computational cost has appeared in [12]<br>and [21], where the authors use lower bounding measures to<br>speed up the execution of DTW. However, the lower bounds<br>can be loose approximations of the original distance, when<br>the data are normalized. In [15] a different approach is used<br>for indexing Time Warping, by using suffix trees. Nonethe-<br>less, the index requires excessive disk space (about 10 times<br>the size of the original data).</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:489"><nobr><span class="ft4">The flexibility provided by DTW is very important, how-</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:475"><nobr><span class="ft7">ever its efficiency deteriorates for noisy data, since by match-<br>ing all the points, it also matches the outliers distorting the<br>true distance between the sequences. An alternative ap-<br>proach is the use of Longest Common Subsequence (LCSS),<br>which is a variation of the edit distance. The basic idea is<br>to match two sequences by allowing them to stretch, with-<br>out rearranging the order of the elements but allowing some<br>elements to be unmatched.</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:657"><nobr><span class="ft4">Using the LCSS of two se-</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:475"><nobr><span class="ft7">quences, one can define the distance using the length of this<br>subsequence [6]. In [20] an internal memory index for the<br>LCSS has been proposed. It also demonstrated that while<br>the LCSS presents similar advantages to DTW, it does not<br>share its volatile performance in the presence of outliers.</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:489"><nobr><span class="ft4">Closest in spirit to our approach, is the work of [10] which,</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:475"><nobr><span class="ft7">however, only addresses 1D time-series. The author uses<br>constrained DTW as the distance function, and surrounds<br>the possible matching regions by a modified version of a<br>Piecewise Approximation, which is later stored as equi-length<br>MBRs in an R-tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:616"><nobr><span class="ft4">However, by using DTW, such an</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:475"><nobr><span class="ft4">approach is susceptible to high bias of outliers. Also, the</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:447"><nobr><span class="ft6">217</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft10{font-size:9px;line-height:10px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:3px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:21px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110003.png" alt="background image">
+<DIV style="position:absolute;top:93;left:81"><nobr><span class="ft7">fixed MBR size (although simplifies the index operations)<br>can lead to degenerate approximations of the original se-<br>quence. Moreover, the embedding of the envelope in the<br>indexed sequences can slow the index construction time and<br>limit the user's query capabilities to a predefined warping<br>length. The use of LCSS as our primary similarity measure,<br>lends itself to a more natural use of the R-tree, where the<br>similarity estimates are simply computed by calculating the<br>MBR intersection areas. Since the index is not constructed<br>for a specific warping window, the user can pose queries with<br>variable warping length.</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:94"><nobr><span class="ft4">The purpose of this paper is to reconcile the best of both</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:81"><nobr><span class="ft7">worlds. We provide a framework that can support in the<br>same index, the LCSS, DTW and Euclidean distance func-<br>tions. The only aspect that changes, is the different repre-<br>sentation of the query for each distance measure.</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:81"><nobr><span class="ft1">3. DISTANCE MEASURES</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:94"><nobr><span class="ft4">In this section we present details of how the Dynamic</span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:81"><nobr><span class="ft7">Time Warping and the LCSS model can be extended to de-<br>scribe the similarity between trajectories.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:81"><nobr><span class="ft1">3.1 Dynamic Time Warping for 2D trajecto-</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:121"><nobr><span class="ft1">ries</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:94"><nobr><span class="ft4">We describe an extension in 2D of the original DTW func-</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:81"><nobr><span class="ft7">tion as described by Berndt and Clifford [4]. Let A and B<br>be two trajectories of moving objects with size n and m<br>respectively, where A = ((a</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:258"><nobr><span class="ft2">x,1</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:274"><nobr><span class="ft4">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:287"><nobr><span class="ft2">y,1</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:303"><nobr><span class="ft4">), . . . , (a</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:352"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:369"><nobr><span class="ft4">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:383"><nobr><span class="ft2">y,n</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:400"><nobr><span class="ft4">)) and</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:81"><nobr><span class="ft4">B = ((b</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:131"><nobr><span class="ft2">x,1</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:147"><nobr><span class="ft4">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:159"><nobr><span class="ft2">y,1</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:175"><nobr><span class="ft4">), . . . , (b</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:222"><nobr><span class="ft2">x,m</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:242"><nobr><span class="ft4">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:254"><nobr><span class="ft2">y,m</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:274"><nobr><span class="ft4">)). For a trajectory A, let</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:81"><nobr><span class="ft4">Head(A) = ((a</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:172"><nobr><span class="ft2">x,1</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:188"><nobr><span class="ft4">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:201"><nobr><span class="ft2">y,1</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:217"><nobr><span class="ft4">), . . . , (a</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:266"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:282"><nobr><span class="ft4">­</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:289"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:295"><nobr><span class="ft4">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:309"><nobr><span class="ft2">y,n</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:325"><nobr><span class="ft4">­</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:332"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:338"><nobr><span class="ft4">)).</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:96"><nobr><span class="ft4">Definition 1. The Time Warping between 2-dimensional</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:81"><nobr><span class="ft4">sequences A and B is:</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:103"><nobr><span class="ft5">DT W (A, B)</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:185"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:209"><nobr><span class="ft5">L</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:217"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:224"><nobr><span class="ft5">((a</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:240"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:258"><nobr><span class="ft5">, a</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:270"><nobr><span class="ft2">y,n</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:287"><nobr><span class="ft5">), (b</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:308"><nobr><span class="ft2">x,m</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:328"><nobr><span class="ft5">, b</span></nobr></DIV>
+<DIV style="position:absolute;top:609;left:339"><nobr><span class="ft2">y,m</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:359"><nobr><span class="ft5">)) +</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:209"><nobr><span class="ft5">min</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:232"><nobr><span class="ft5">{DTW(Head(A),</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:241"><nobr><span class="ft5">Head(B)), DT W (Head(A), B),</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:241"><nobr><span class="ft5">DT W (A, Head(B))</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:350"><nobr><span class="ft5">}</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:423"><nobr><span class="ft5">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:81"><nobr><span class="ft4">where L</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:130"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:141"><nobr><span class="ft4">is any p-Norm. Using dynamic programming and</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:81"><nobr><span class="ft7">constraining the matching region within , the time required<br>to compute DTW is O((n + m)). In order to represent an<br>accurate relationship of distances between sequences with<br>different lengths, the quantity in equation 1 is normalized<br>by the length of the warping path. The extension to n di-<br>mensions is similar. In figure 2 we show an example of time<br>warping for two trajectories.</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:81"><nobr><span class="ft1">3.2 LCSS model for 2D trajectories</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:94"><nobr><span class="ft4">The original LCSS model refers to 1D sequences, we must</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:81"><nobr><span class="ft7">therefore extend it to the 2D case. In addition, the LCSS<br>paradigm matches discrete values, however in our model we<br>want to allow a matching, when the values are within a<br>certain range in space and time (note that like this, we also<br>avoid distant and degenerate matchings).</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:96"><nobr><span class="ft4">Definition 2. Given an integer  and a real number 0 &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:90"><nobr><span class="ft4">&lt; 1, we define the LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:242"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:256"><nobr><span class="ft4">(A, B) as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:103"><nobr><span class="ft5">LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:138"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:152"><nobr><span class="ft5">(A, B) =</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:204"><nobr><span class="ft11"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:222"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:242"><nobr><span class="ft5">if A or B is empty</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:222"><nobr><span class="ft5">1 + LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:278"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:292"><nobr><span class="ft5">(Head(A), Head(B))</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:243"><nobr><span class="ft5">if</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:272"><nobr><span class="ft5">|a</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:283"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:300"><nobr><span class="ft5">­ b</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:317"><nobr><span class="ft2">x,m</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:337"><nobr><span class="ft5">| &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:243"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:271"><nobr><span class="ft5">|a</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:281"><nobr><span class="ft2">y,n</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:298"><nobr><span class="ft5">­ b</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:315"><nobr><span class="ft2">y,m</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:335"><nobr><span class="ft5">| &lt;</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:243"><nobr><span class="ft5">and</span></nobr></DIV>
+<DIV style="position:absolute;top:1031;left:271"><nobr><span class="ft5">|n ­ m|  </span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:222"><nobr><span class="ft5">max(LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:287"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1050;left:300"><nobr><span class="ft5">(Head(A), B),</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:250"><nobr><span class="ft5">LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:285"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:298"><nobr><span class="ft5">(A, Head(B))),</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:264"><nobr><span class="ft5">otherwise</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:515"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:582"><nobr><span class="ft9">50</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:649"><nobr><span class="ft9">100</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:720"><nobr><span class="ft9">150</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:741"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:761"><nobr><span class="ft9">500</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:780"><nobr><span class="ft9">1000</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:800"><nobr><span class="ft9">1500</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:505"><nobr><span class="ft9">100</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:505"><nobr><span class="ft9">200</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:505"><nobr><span class="ft9">300</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:505"><nobr><span class="ft9">400</span></nobr></DIV>
+<DIV style="position:absolute;top:193;left:505"><nobr><span class="ft9">500</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:505"><nobr><span class="ft9">600</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:780"><nobr><span class="ft9">X movement</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:653"><nobr><span class="ft9">Time</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:499"><nobr><span class="ft9">Y movement</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:475"><nobr><span class="ft7">Figure 2: The support of flexible matching in spa-<br>tiotemporal queries is very important. However, we<br>can observe that Dynamic Time Warping matches<br>all points (so the outliers as well), therefore distort-<br>ing the true distance. In contrast, the LCSS model<br>can efficiently ignore the noisy parts.</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:475"><nobr><span class="ft7">where sequences A and Head(A) are defined similarly as<br>before. The constant  controls the flexibility of matching<br>in time and constant</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:620"><nobr><span class="ft4">is the matching threshold is space.</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:475"><nobr><span class="ft7">The aforementioned LCSS model has the same O((n+m))<br>computational complexity as the DTW, when we only allow<br>a matching window  in time [6].</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:489"><nobr><span class="ft4">The value of LCSS is unbounded and depends on the</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:475"><nobr><span class="ft7">length of the compared sequences. We need to normalize<br>it, in order to support sequences of variable length. The<br>distance derived from the LCSS similarity can be defined as<br>follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:490"><nobr><span class="ft4">Definition 3. The distance D</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:682"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:702"><nobr><span class="ft4">expressed in terms of</span></nobr></DIV>
+<DIV style="position:absolute;top:655;left:475"><nobr><span class="ft7">the LCSS similarity between two trajectories A and B is<br>given by:</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:562"><nobr><span class="ft5">D</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:572"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:586"><nobr><span class="ft5">(A, B) = 1 ­ LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:697"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:710"><nobr><span class="ft5">(A, B)</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:676"><nobr><span class="ft5">min(n, m)</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:818"><nobr><span class="ft5">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:475"><nobr><span class="ft1">4. INDEX CONSTRUCTION</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:489"><nobr><span class="ft4">Even though imposing a matching window  can help</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:475"><nobr><span class="ft7">speed up the execution, the computation can still be quadratic<br>when  is a significant portion of the sequence's length.<br>Therefore, comparing a query to all the trajectories becomes<br>intractable for large databases. We are seeking ways to avoid<br>examining the trajectories that are very distant to our query.<br>This can be accomplished by discovering a close match to<br>our query, as early as possible. A fast pre-filtering step is<br>employed that eliminates the majority of distant matches.<br>Only for some qualified sequences will we execute the costly<br>(but accurate) quadratic time algorithm. This philosophy<br>has also been successfully used in [21, 10]. There are certain<br>preprocessing steps that we follow:</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:489"><nobr><span class="ft4">1. The trajectories are segmented into MBRs, which are</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:475"><nobr><span class="ft4">stored in an Rtree T.</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:489"><nobr><span class="ft4">2. Given a query Q, we discover the areas of possible</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:475"><nobr><span class="ft7">matching by constructing its Minimum Bounding Envelope<br>(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:517"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:526"><nobr><span class="ft4">).</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:489"><nobr><span class="ft4">3. M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:543"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:558"><nobr><span class="ft4">is decomposed into MBRs that are probed in</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:475"><nobr><span class="ft4">the index T.</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:447"><nobr><span class="ft6">218</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:5px;font-family:Times;color:#000000;}
+	.ft14{font-size:8px;font-family:Times;color:#000000;}
+	.ft15{font-size:8px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110004.png" alt="background image">
+<DIV style="position:absolute;top:93;left:94"><nobr><span class="ft4">4. Based on the MBR intersections, similarity estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft7">are computed and the exact LCSS (or DTW) is performed<br>only on the qualified trajectories.</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:81"><nobr><span class="ft7">The above notions are illustrated in figure 3 and we explain<br>in detail how they can be applied for the LCSS case in the<br>sections that follow.</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:166"><nobr><span class="ft2">E. LCSS Upper Bound Estimate = L1+L2+L3</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:102"><nobr><span class="ft2">A. Query Q</span></nobr></DIV>
+<DIV style="position:absolute;top:292;left:102"><nobr><span class="ft2">C. Envelope Splitting</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:301"><nobr><span class="ft2">B. Query Envelope</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:302"><nobr><span class="ft2">D. Sequence MBRs</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:176"><nobr><span class="ft2">L1</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:228"><nobr><span class="ft2">L2</span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:253"><nobr><span class="ft2">L3</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:81"><nobr><span class="ft7">Figure 3: An example of our approach (in 1D for<br>clarity); A query is extended into a bounding en-<br>velope, which in turn is also split into the resulting<br>MBRs. Overlap between the query and the index<br>MBRs suggest areas of possible matching.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:81"><nobr><span class="ft1">4.1 Bounding the Matching Regions</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:94"><nobr><span class="ft4">Let us first consider a 1D time-series and let a sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:81"><nobr><span class="ft4">A be (a</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:127"><nobr><span class="ft2">x,1</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:143"><nobr><span class="ft4">, . . . , a</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:181"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:199"><nobr><span class="ft4">). Ignoring for now the parameter , we</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:81"><nobr><span class="ft4">would like to perform a very fast LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:334"><nobr><span class="ft2"></span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:347"><nobr><span class="ft4">match between</span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:81"><nobr><span class="ft7">sequence A and some query Q. Suppore that we replicate<br>each point Q</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:160"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:170"><nobr><span class="ft4">for  time instances before and after time i.</span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:81"><nobr><span class="ft7">The envelope that includes all these points defines the areas<br>of possible matching. Everything outside this envelope can<br>never be matched.</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:134"><nobr><span class="ft13">10</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:177"><nobr><span class="ft13">20</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:219"><nobr><span class="ft13">30</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:262"><nobr><span class="ft13">40</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:305"><nobr><span class="ft13">50</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:347"><nobr><span class="ft13">60</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:390"><nobr><span class="ft13">70</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:183"><nobr><span class="ft13">40 pts</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:400"><nobr><span class="ft13">6 pts</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:149"><nobr><span class="ft13">2</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:153"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:156"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:339"><nobr><span class="ft13">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:244"><nobr><span class="ft13">A</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:81"><nobr><span class="ft7">Figure 4: The Minimum Bounding Envelope (MBE)<br>within  in time and</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:244"><nobr><span class="ft4">in space of a sequence. Ev-</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:81"><nobr><span class="ft7">erything that lies outside this envelope can never be<br>matched.</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:94"><nobr><span class="ft4">We call this envelope, the Minimum Bounding Envelope</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:81"><nobr><span class="ft4">(MBE) of a sequence. Also, once we incorporate the match-</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:475"><nobr><span class="ft4">ing within</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:555"><nobr><span class="ft4">in space, this envelope should extent</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:799"><nobr><span class="ft4">above</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:475"><nobr><span class="ft7">and below the original envelope (figure 4). The notion of the<br>bounding envelope can be trivially extended in more dimen-<br>sions, where M BE(, ) for a 2D trajectory Q = ((q</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:778"><nobr><span class="ft2">x,1</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:794"><nobr><span class="ft4">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:807"><nobr><span class="ft2">y,1</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:822"><nobr><span class="ft4">),</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:475"><nobr><span class="ft4">. . . , (q</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:511"><nobr><span class="ft2">x,n</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:529"><nobr><span class="ft4">, q</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:541"><nobr><span class="ft2">y,n</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:558"><nobr><span class="ft4">) covers the area between the following time-</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:475"><nobr><span class="ft4">series:</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:535"><nobr><span class="ft5">EnvLow</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:587"><nobr><span class="ft5"> MBE(, )  EnvHigh, where:</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:528"><nobr><span class="ft5">EnvHigh[i] = max(Q[j] + epsilon)</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:737"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:742"><nobr><span class="ft5">|i­j|  </span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:528"><nobr><span class="ft5">EnvLow[j] = min(Q[j] ­ epsilon)</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:737"><nobr><span class="ft5">,</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:742"><nobr><span class="ft5">|i­j|  </span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:475"><nobr><span class="ft7">The LCSS similarity between the envelope of Q and a se-<br>quence A is defined as:</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:501"><nobr><span class="ft5">LCSS(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:574"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:583"><nobr><span class="ft5">, A) =</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:626"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:621"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:657"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:677"><nobr><span class="ft5">if A[i] within envelope</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:657"><nobr><span class="ft5">0</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:677"><nobr><span class="ft5">otherwise</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:475"><nobr><span class="ft4">For example, in figure 4 the LCSS similarity between M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:829"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:475"><nobr><span class="ft7">and sequence A is 46, as indicated in the figure. This value<br>represents an upper bound for the similarity of Q and A.<br>We can use the M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:612"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:627"><nobr><span class="ft4">to compute a lower bound on the</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:475"><nobr><span class="ft4">distance between trajectories:</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:490"><nobr><span class="ft4">Lemma 1. For any two trajectories Q and A the following</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:475"><nobr><span class="ft4">holds: D</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:528"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:541"><nobr><span class="ft4">(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:583"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:592"><nobr><span class="ft4">, A)</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:618"><nobr><span class="ft4"> D</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:644"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:657"><nobr><span class="ft4">(Q, A),</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:475"><nobr><span class="ft4">Proof (Sketch): D</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:598"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:611"><nobr><span class="ft4">(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:653"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:662"><nobr><span class="ft4">, A) = 1 ­</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:727"><nobr><span class="ft2">LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:758"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:771"><nobr><span class="ft2">(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:803"><nobr><span class="ft13">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:812"><nobr><span class="ft2">,A)</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:746"><nobr><span class="ft2">min(</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:771"><nobr><span class="ft2">|Q|,|A|)</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:830"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:475"><nobr><span class="ft4">therefore it is sufficient to show that: LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:733"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:747"><nobr><span class="ft4">(M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:788"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:798"><nobr><span class="ft4">, A)</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:824"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:475"><nobr><span class="ft4">LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:513"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:527"><nobr><span class="ft4">(Q, A). This is true since M BE</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:725"><nobr><span class="ft2">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:739"><nobr><span class="ft4">by construction</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:475"><nobr><span class="ft4">contains all possible areas within  and</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:737"><nobr><span class="ft4">of the query Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:475"><nobr><span class="ft4">Therefore, no possible matching points will be missed. 2</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:489"><nobr><span class="ft4">The previous lemma provides us with the power to create</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:475"><nobr><span class="ft7">an index that guarantees no false dismissals. However, this<br>lower bound refers to the raw data. In the sections that fol-<br>low, we will 'split' the M BE of a trajectory, into a number<br>of Minimum Bounding Rectangles (MBRs), to accommo-<br>date their storage into a multidimensional R-tree. We will<br>show that the above inequality still holds between trajectory<br>MBRs.</span></nobr></DIV>
+<DIV style="position:absolute;top:729;left:489"><nobr><span class="ft4">The MBR generation procedure is orthogonal to our ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:475"><nobr><span class="ft7">proach, since any segmentation methodology can be applied<br>to our framework. Therefore, the description of the poten-<br>tial MBR generation methods (and of our implementation<br>choice) will be delayed until later.</span></nobr></DIV>
+<DIV style="position:absolute;top:820;left:475"><nobr><span class="ft1">5. QUICK PRUNING OF DISSIMILAR TRA-</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:507"><nobr><span class="ft1">JECTORIES</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:489"><nobr><span class="ft4">Suppose that we have an index with the segmented tra-</span></nobr></DIV>
+<DIV style="position:absolute;top:883;left:475"><nobr><span class="ft7">jectories and the user provides a query Q. Our goal is the<br>discovery of the k closest trajectories to the given query, ac-<br>cording to the LCSS similarity. A prefiltering step will aid<br>the quick discovery of a close match to the query, helping<br>us discard the distant trajectories without using the costly<br>quadratic algorithm. Therefore, in this phase, we compute<br>upper bound estimates of the similarity between the query<br>and the indexed sequences using their MBRs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:489"><nobr><span class="ft4">Below we describe the algorithm to find the closest tra-</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:475"><nobr><span class="ft4">jectory to a given query:</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:475"><nobr><span class="ft15">Input: Query Q, Index I with trajectory MBRs, Method<br>Output: Most similar trajectory to Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:447"><nobr><span class="ft6">219</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft16{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+	.ft17{font-size:4px;line-height:8px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110005.png" alt="background image">
+<DIV style="position:absolute;top:95;left:81"><nobr><span class="ft14">Box Env = constructM BE</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:226"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:240"><nobr><span class="ft14">(Q);</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:81"><nobr><span class="ft14">Vector V</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:126"><nobr><span class="ft13">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:138"><nobr><span class="ft14">= CreateM BRs(Env);</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:93"><nobr><span class="ft14">// V</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:116"><nobr><span class="ft13">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:128"><nobr><span class="ft14">contains a number of boxes.</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:81"><nobr><span class="ft14">Priority queue P Q</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:182"><nobr><span class="ft14"> ;</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:93"><nobr><span class="ft15">// P Q keeps one entry per trajectory sorted<br>// according to the similarity estimate</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:81"><nobr><span class="ft14">for each box B in V</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:186"><nobr><span class="ft13">Q</span></nobr></DIV>
+<DIV style="position:absolute;top:179;left:195"><nobr><span class="ft14">:</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:93"><nobr><span class="ft14">V = I.intersectionQuery(B);</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:105"><nobr><span class="ft14">// V contains all trajectory MBRs that intersect with B.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:93"><nobr><span class="ft14">if Method == Exact: // upper bound</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:105"><nobr><span class="ft14">P Q</span></nobr></DIV>
+<DIV style="position:absolute;top:239;left:127"><nobr><span class="ft14"> computeL-SimilarityEstimates(V, B);</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:93"><nobr><span class="ft14">else: // approximate</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:105"><nobr><span class="ft14">P Q</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:127"><nobr><span class="ft14"> computeV-SimilarityEstimates(V, B);</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:81"><nobr><span class="ft14">BestSoF ar = 0; Best</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:199"><nobr><span class="ft14"> ;</span></nobr></DIV>
+<DIV style="position:absolute;top:299;left:81"><nobr><span class="ft14">while P Q not empty:</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:93"><nobr><span class="ft14">E</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:105"><nobr><span class="ft14"> PQ.top;</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:93"><nobr><span class="ft15">if E.estimate &lt; BestSoF ar: break;<br>else:</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:105"><nobr><span class="ft14">D = computeLCCS</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:210"><nobr><span class="ft13">,</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:223"><nobr><span class="ft14">(Q, E); // exact</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:105"><nobr><span class="ft14">if D &gt; BestSoF ar:</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:116"><nobr><span class="ft14">BestSoF ar = D; Best</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:239"><nobr><span class="ft14"> E;</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:81"><nobr><span class="ft14">Report Best;</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:94"><nobr><span class="ft4">The above algorithm can be adjusted to return the k-</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:81"><nobr><span class="ft4">NN sequences, simply by comparing with the k</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:360"><nobr><span class="ft2">th</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:375"><nobr><span class="ft4">bestSoF ar</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:81"><nobr><span class="ft7">match. Next, we examine the possible similarity estimates.<br>Some of them guarantee that will find the best match (they<br>lower bound the original distance or upper bound the origi-<br>nal similarity), while other estimates provide faster but ap-<br>proximate results.</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:81"><nobr><span class="ft1">5.1 Similarity Estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:94"><nobr><span class="ft4">Here we will show how to compute estimates of the LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:81"><nobr><span class="ft7">similarity, based on the geometric properties of the trajec-<br>tory MBRs and their intersection. An upper bound estimate<br>is provided by the length of the MBR intersection and an<br>approximate estimate is given as a parameter of the inter-<br>secting volume. To formalize these notions, first we present<br>several operators. Then we will use these operators to derive<br>the estimates.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:85"><nobr><span class="ft3">5.1.1 Estimates for the LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:94"><nobr><span class="ft4">Each trajectory T can be decomposed into a number of</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:81"><nobr><span class="ft4">MBRs. The i</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:171"><nobr><span class="ft2">th</span></nobr></DIV>
+<DIV style="position:absolute;top:742;left:190"><nobr><span class="ft4">3D MBR of T consists of six numbers:</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:81"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:94"><nobr><span class="ft2">T,i</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:116"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:132"><nobr><span class="ft4">{t</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:144"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:149"><nobr><span class="ft4">, t</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:160"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:167"><nobr><span class="ft4">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:181"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:185"><nobr><span class="ft4">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:199"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:207"><nobr><span class="ft4">, y</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:219"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:758;left:224"><nobr><span class="ft4">, y</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:237"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:244"><nobr><span class="ft4">}. Now, let us define the oper-</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:81"><nobr><span class="ft4">ators</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:127"><nobr><span class="ft16">(c)<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:142"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:163"><nobr><span class="ft16">(p)<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:183"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:222"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:237"><nobr><span class="ft4">between two 3D MBRs M</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:396"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:776;left:417"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:81"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:94"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:112"><nobr><span class="ft4">, belonging to objects P and R, respectively:</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:97"><nobr><span class="ft4">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:126"><nobr><span class="ft16">(c)<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:140"><nobr><span class="ft4">(M</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:159"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:174"><nobr><span class="ft4">, M</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:194"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:211"><nobr><span class="ft4">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:235"><nobr><span class="ft4">||Intersection||</span></nobr></DIV>
+<DIV style="position:absolute;top:829;left:328"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:333"><nobr><span class="ft4">,</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:114"><nobr><span class="ft4">where M</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:168"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:185"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:197"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:205"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:233"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:248"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:260"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:268"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:296"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:314"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:844;left:325"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:337"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:153"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:167"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:184"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:196"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:204"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:232"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:248"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:259"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:270"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:298"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:316"><nobr><span class="ft4">.x</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:328"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:339"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:153"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:167"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:184"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:195"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:203"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:231"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:247"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:257"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:265"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:293"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:311"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:876;left:322"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:333"><nobr><span class="ft4">and</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:153"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:167"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:184"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:195"><nobr><span class="ft2">l</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:203"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:231"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:247"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:257"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:268"><nobr><span class="ft4"> M</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:296"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:314"><nobr><span class="ft4">.y</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:325"><nobr><span class="ft2">h</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:114"><nobr><span class="ft4">or similarly by rotating M</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:273"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:312"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:326"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:114"><nobr><span class="ft7">Therefore, this operator computes the time intersec-<br>tion of two MBR when one fully contains the other in<br>the x,y dimensions.</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:97"><nobr><span class="ft4">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:126"><nobr><span class="ft16">(p)<br>t</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:141"><nobr><span class="ft4">(M</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:160"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:175"><nobr><span class="ft4">, M</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:195"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:212"><nobr><span class="ft4">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:236"><nobr><span class="ft4">||Intersection||</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:328"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:333"><nobr><span class="ft4">, otherwise</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:97"><nobr><span class="ft4">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:126"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:135"><nobr><span class="ft4">(M</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:154"><nobr><span class="ft2">P,i</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:170"><nobr><span class="ft4">, M</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:189"><nobr><span class="ft2">R,j</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:207"><nobr><span class="ft4">) =</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:230"><nobr><span class="ft4">||Intersection||</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:323"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:328"><nobr><span class="ft4">||Intersection||</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:427"><nobr><span class="ft2">x</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:434"><nobr><span class="ft4"></span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:114"><nobr><span class="ft4">||Intersection||</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:207"><nobr><span class="ft2">y</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:81"><nobr><span class="ft7">We can use upper bound or approximate estimates for the<br>similarity:</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:562"><nobr><span class="ft9">Common Volume Intersection</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:674"><nobr><span class="ft17">The Intersection of MBRs is fully <br>contained within one MBR</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:544"><nobr><span class="ft9">Intersection between two MBRs</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:742"><nobr><span class="ft9">time</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:710"><nobr><span class="ft9">y</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:685"><nobr><span class="ft9">x</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:475"><nobr><span class="ft4">Figure 5:</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:555"><nobr><span class="ft4">Top left:</span></nobr></DIV>
+<DIV style="position:absolute;top:269;left:630"><nobr><span class="ft4">Intersection recorded in list</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:475"><nobr><span class="ft4">L</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:485"><nobr><span class="ft2">t,partial</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:528"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:548"><nobr><span class="ft4">Top right: Intersection recorded in list</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:475"><nobr><span class="ft4">L</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:485"><nobr><span class="ft2">t,complete</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:537"><nobr><span class="ft4">. Bottom left: Percentage of Volume In-</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:475"><nobr><span class="ft4">tersection kept in L</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:612"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:622"><nobr><span class="ft4">.</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:475"><nobr><span class="ft7">1. Upper bound estimates (L-similarity estimate).<br>Such estimates are computed using the following data-structures:</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:487"><nobr><span class="ft4">The list L</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:548"><nobr><span class="ft2">t,complete</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:606"><nobr><span class="ft4">, an element L(P ) of which is defined</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:475"><nobr><span class="ft4">as:</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:556"><nobr><span class="ft4">L(P ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:611"><nobr><span class="ft2">m</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:635"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:650"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:664"><nobr><span class="ft2">Q,m</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:704"><nobr><span class="ft2">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:458;left:704"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:446;left:721"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:734"><nobr><span class="ft2">P,n</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:475"><nobr><span class="ft7">where Q is a query and P is a trajectory in the index. So the<br>list stores for each trajectory the total time that its MBRs<br>intersected with the query's MBRs. We record into this list<br>only the intersections, where a query MBR is fully contained<br>in all spatial dimensions by a trajectory MBR (or vice versa<br>-it is equivalent. See figure 5, top right).</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:486"><nobr><span class="ft4">The list L</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:546"><nobr><span class="ft2">t,partial</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:590"><nobr><span class="ft4">, an element L(P ) of which is defined as:</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:556"><nobr><span class="ft4">L(P ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:610"><nobr><span class="ft2">m</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:634"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:650"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:663"><nobr><span class="ft2">Q,m</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:704"><nobr><span class="ft2">(p)</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:704"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:615;left:721"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:734"><nobr><span class="ft2">P,n</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:489"><nobr><span class="ft4">This list records for each sequence the total intersection</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:475"><nobr><span class="ft7">in time for those query MBRs that are not fully contained<br>within the x,y dimensions by the trajectory MBRs (or vice<br>versa. Figure 5, top left).</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:489"><nobr><span class="ft4">Regarding a query Q, for any trajectory P the sum of</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:475"><nobr><span class="ft4">L</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:484"><nobr><span class="ft2">t,complete</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:537"><nobr><span class="ft4">(P ) + L</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:588"><nobr><span class="ft2">t,partial</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:631"><nobr><span class="ft4">(P ) will provide an upper bound</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:475"><nobr><span class="ft4">on the similarity of P and Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:489"><nobr><span class="ft4">The reason for the distinction of the L-similarity estimate</span></nobr></DIV>
+<DIV style="position:absolute;top:772;left:475"><nobr><span class="ft7">in two separate lists derives from the fact that the esti-<br>mates stored in list L</span></nobr></DIV>
+<DIV style="position:absolute;top:793;left:607"><nobr><span class="ft2">t,partial</span></nobr></DIV>
+<DIV style="position:absolute;top:788;left:655"><nobr><span class="ft4">can significantly overestimate</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:475"><nobr><span class="ft7">the LCSS similarity. If one wishes to relax the accuracy,<br>in favor of enhanced performance, it is instructive to give a<br>weight 0 &lt; w</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:558"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:569"><nobr><span class="ft4">&lt; 1 to all estimates in list L</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:747"><nobr><span class="ft2">t,partial</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:791"><nobr><span class="ft4">. Even</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:475"><nobr><span class="ft7">though now we may miss the best match to our query, we<br>are going to find a close match in less time. This weighted<br>approach is used when we are seeking for approximate, but<br>very good quality answers, however it will not be explained<br>further due to space limitations.</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:475"><nobr><span class="ft7">2. Approximate estimates (V-similarity estimate).<br>This second estimate is based on the intersecting volume of<br>the MBRs. This type of estimates are stored in list L</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:799"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:809"><nobr><span class="ft4">:</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:486"><nobr><span class="ft4">Any element L</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:575"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:584"><nobr><span class="ft4">(P ) of list L</span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:656"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:670"><nobr><span class="ft4">records similarity estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:475"><nobr><span class="ft7">between trajectory P and query Q, based on the total vol-<br>ume intersection between the MBRs of P and Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:497"><nobr><span class="ft4">L(P ) =</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:575"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:549"><nobr><span class="ft4">length(P )</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:618"><nobr><span class="ft2">m</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:642"><nobr><span class="ft2">n</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:660"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:673"><nobr><span class="ft2">Q,m</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:709"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:721"><nobr><span class="ft4">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:735"><nobr><span class="ft2">P,n</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:676"><nobr><span class="ft4">||M</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:697"><nobr><span class="ft2">Q,m</span></nobr></DIV>
+<DIV style="position:absolute;top:1071;left:719"><nobr><span class="ft4">||</span></nobr></DIV>
+<DIV style="position:absolute;top:1077;left:727"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:755"><nobr><span class="ft4">||M</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:776"><nobr><span class="ft2">Q,m</span></nobr></DIV>
+<DIV style="position:absolute;top:1062;left:798"><nobr><span class="ft4">||</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:806"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:446"><nobr><span class="ft6">220</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110006.png" alt="background image">
+<DIV style="position:absolute;top:93;left:81"><nobr><span class="ft4">where</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:121"><nobr><span class="ft4">||M||</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:151"><nobr><span class="ft2">V</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:165"><nobr><span class="ft4">denotes the volume of MBR M and</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:385"><nobr><span class="ft4">||M||</span></nobr></DIV>
+<DIV style="position:absolute;top:98;left:415"><nobr><span class="ft2">t</span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:425"><nobr><span class="ft4">its</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:81"><nobr><span class="ft4">length on the time axis.</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:94"><nobr><span class="ft4">The L-similarity overestimates the LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:346"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:125;left:365"><nobr><span class="ft4">between two</span></nobr></DIV>
+<DIV style="position:absolute;top:140;left:81"><nobr><span class="ft7">sequences A and B and so it can be deployed for the design<br>of an index structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:96"><nobr><span class="ft4">Lemma 2. The use of the L-similarity estimate upper bounds</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:81"><nobr><span class="ft4">the LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:142"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:201;left:160"><nobr><span class="ft4">similarity between two sequences A and B and</span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:81"><nobr><span class="ft4">therefore does not introduce any false dismissals.</span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:94"><nobr><span class="ft4">The V-similarity estimate can be used for approximate</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:81"><nobr><span class="ft7">query answering. Even though it does not guarantee the<br>absence of false dismissals, the results will be close to the<br>optimal ones with high probability. Also, because this es-<br>timate provides a tighter approximation to the original dis-<br>tance, we expect faster response time. Indeed, as we show in<br>the experimental section, the index performance is boosted,<br>while the error in similarity is frequently less then 5%.</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:81"><nobr><span class="ft1">5.2 Estimates for the DTW</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:94"><nobr><span class="ft4">When the distance function used is the Time Warping,</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:81"><nobr><span class="ft7">using the index we obtain a lower bound of the actual dis-<br>tance. In this case we have the inverse situation from the<br>LCSS; instead of calculating the degree of overlap between<br>the MBRs of the indexed trajectories and the query, we eval-<br>uate the distance between the MBRs. The overall distance<br>between the MBRs underestimates the true distance of the<br>trajectories, and no false dismissals are introduced. Using<br>the MBRs we can also calculate upper bound estimates on<br>the distance, which hadn't been exploited in previous work<br>[10, 22]. Sequences with lower bound larger than the small-<br>est upper bound can be pruned. With this additional pre-<br>filtering step we can gain on average an additional 10-15%<br>speedup in the total execution time.</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:94"><nobr><span class="ft4">Due to space limitations only a visual representation of</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:81"><nobr><span class="ft4">this approach is provided in figure 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft1">6. MBR GENERATION</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:94"><nobr><span class="ft4">Given a multidimensional time-series (or an MBE) our</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:81"><nobr><span class="ft7">objective is to minimize the volume of the sequence using<br>k MBRs. Clearly, the best approximation of a trajectory<br>(or an MBE) using a fixed number of MBRs is the set of<br>MBRs that completely contain the sequence and minimize<br>the volume consumption. We can show the following lemma:</span></nobr></DIV>
+<DIV style="position:absolute;top:803;left:96"><nobr><span class="ft4">Lemma 3. Minimizing the volume of the Minimum Bound-</span></nobr></DIV>
+<DIV style="position:absolute;top:818;left:81"><nobr><span class="ft7">ing Envelope, minimizes the expected similarity approxima-<br>tion error.</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:94"><nobr><span class="ft4">Three different approaches are considered:</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:81"><nobr><span class="ft7">1. k-Optimal. We can discover the k MBRs of a sequence<br>that take up the least volume, using a dynamic programming<br>algorithm that requires O(n</span></nobr></DIV>
+<DIV style="position:absolute;top:919;left:255"><nobr><span class="ft2">2</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:261"><nobr><span class="ft4">k) time ([8]), where n is the</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:81"><nobr><span class="ft7">length of the given sequence. Since this approach is not<br>reasonable for large databases, we are motivated to consider<br>approximate and faster solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:81"><nobr><span class="ft7">2. Equi-Split. This technique produces MBRs of fixed<br>length l. It is a simple approach with cost linear in the<br>length of a sequence. However, in pathological cases in-<br>creasing the number of splits can result to larger space uti-<br>lization,therefore the choice of the MBR length becomes a<br>critical parameter (see figure 7 for an example).</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:479"><nobr><span class="ft2">A. Query Q</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:676"><nobr><span class="ft2">B. Query Envelope</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:479"><nobr><span class="ft2">C. Envelope Splitting</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:676"><nobr><span class="ft2">D. Sequence MBRs</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:479"><nobr><span class="ft2">E. MINDIST(Q,R)</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:676"><nobr><span class="ft2">F. MAXDIST(Q,R)</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:475"><nobr><span class="ft7">Figure 6: A visual intuition of the DTW indexing<br>technique (the one-dimensional case is shown for<br>clarity).</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:545"><nobr><span class="ft4">The original query (A) is enclosed in a</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:475"><nobr><span class="ft7">minimum-bounding envelope (B) like the LCSS ap-<br>proach. The MBE is split into its MBRs using equi<br>or greedy split (fig. (C)). The candidate sequences<br>in the database have their MBRs stored in the in-<br>dex (D). Between the query and any sequence in<br>the index, the minimum and maximum distance can<br>be quickly determined by examining the distance<br>between the MBRs and the query's bounding enve-<br>lope, as represented by the arrows in (E) and (F).</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:475"><nobr><span class="ft7">3. Greedy-Split. The Greedy approach is our implemen-<br>tation choice in this paper. Initially we assign an MBR to<br>each of the n sequence points and at each subsequent step<br>we merge the consecutive MBRs that will introduce the least<br>volume consumption. The algorithm has a running time of<br>O(nlogn). We can see a sketch of the method in fig. 8. Al-<br>ternatively, instead of assigning the same number of splits<br>to all objects, according to our space requirements we can<br>assign a total of K splits to be distributed among all objects.<br>This method can provide better results, since we can assign<br>more splits for the objects that will yield more space gain.<br>Also, this approach is more appropriate when one is dealing<br>with sequences of different lengths. The complexity of this<br>approach is O(K + N logN ), for a total of N objects ([8]).</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:480"><nobr><span class="ft15">Input: A spatiotemporal trajectory T and an integer k denoting<br>the number of final MBRs.</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:492"><nobr><span class="ft14">For 0</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:526"><nobr><span class="ft14"> i &lt; n compute the volume of the MBR produced by</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:480"><nobr><span class="ft14">merging T</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:533"><nobr><span class="ft13">i</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:541"><nobr><span class="ft14">and T</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:572"><nobr><span class="ft13">i+1</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:589"><nobr><span class="ft14">. The results are stored in a priority queue.</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:492"><nobr><span class="ft14">While #M BRs &lt; k: Using the priority queue, merge the pair</span></nobr></DIV>
+<DIV style="position:absolute;top:898;left:480"><nobr><span class="ft15">of consecutive MBRs that yield the smallest increase in volume.<br>Delete the two merged MBRs and insert the new one in the priority<br>queue.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:480"><nobr><span class="ft14">Output: A set of MBRs that cover T .</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:475"><nobr><span class="ft7">Figure 8: The greedy algorithm for producing k<br>MBRs that cover the trajectory T .</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:489"><nobr><span class="ft4">After a trajectory is segmented the MBRs can be stored</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:475"><nobr><span class="ft7">in a 3D-Rtree. Using the greedy split each additional split<br>will always lead to smaller (or equal) volume (figure 7). A<br>similar greedy split algorithm is also used for splitting the<br>MBE of the query trajectory Q.</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:446"><nobr><span class="ft6">221</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft18{font-size:3px;font-family:Times;color:#000000;}
+	.ft19{font-size:2px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110007.png" alt="background image">
+<DIV style="position:absolute;top:224;left:182"><nobr><span class="ft18">(a)</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:148"><nobr><span class="ft18">Equi-Split, 8 MBRs, Gain = 5.992</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:367"><nobr><span class="ft18">(b)</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:333"><nobr><span class="ft18">Equi-Split, 9 MBRs, Gain = 5.004</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:555"><nobr><span class="ft18">(c)</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:521"><nobr><span class="ft18">Greedy-Split, 8MBRs, Gain = 9.157</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:739"><nobr><span class="ft18">(d)</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:705"><nobr><span class="ft18">Greedy-Split, 9MBRs, Gain = 10.595</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:81"><nobr><span class="ft7">Figure 7: (a): 8 MBRs produced using equi-Split. The volume gain over having 1 MBR is 5.992. (b):<br>Segmenting into 9 MBRs decreases the volume gain to 5.004. So, disk space is wasted without providing<br>a better approximation of the trajectory. (c): 8 MBRs using greedy-Split. The volume gain over having 1<br>MBR is 9.157. (d): Every additional split will yield better space utilization. Segmentation into 9 MBRs<br>increases volume gain to 10.595.</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:81"><nobr><span class="ft1">7. SUPPORTING MULTIPLE MEASURES</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:94"><nobr><span class="ft4">The application of the Minimum Bounding Envelope only</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:81"><nobr><span class="ft7">on the query suggests that user queries are not confined to<br>a predefined and rigid matching window . The user can<br>pose queries of variable warping in time. In some datasets,<br>there is no need to perform warping, since the Euclidean<br>distance performs acceptably [11]. In other datasets, by<br>using the Euclidean distance we can find quickly some very<br>close matches, while using warping we can distinguish more<br>flexible similarities. So, we can start by using a query with<br> = 0 (no bounding envelope), and increase it progressively<br>in order to find more flexible matches (figure 9).</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:94"><nobr><span class="ft4">Therefore, our framework offers the unique advantage that</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:81"><nobr><span class="ft7">multiple distance functions can be supported in a single in-<br>dex. The index sequences have been segmented without any<br>envelope applied on them and never have to be adjusted<br>again. For different measures, the aspects that change are,<br>the creation of the query envelope and the type of operation<br>between MBRs. In order to pose queries based on Euclidean<br>distance we follow the steps:</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:106"><nobr><span class="ft4">The query is segmented with no envelope applied on it.</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:105"><nobr><span class="ft4">The minDist and maxDist estimators for the Euclidean</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:81"><nobr><span class="ft7">distance are derived by calculating the distance between the<br>query and index MBRs, just like in the DTW case.</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:148"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:179"><nobr><span class="ft18">50</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:210"><nobr><span class="ft18">100</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:243"><nobr><span class="ft18">150</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:275"><nobr><span class="ft18">200</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:308"><nobr><span class="ft18">250</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:340"><nobr><span class="ft18">300</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:373"><nobr><span class="ft18">350</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:139"><nobr><span class="ft18">200</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:139"><nobr><span class="ft18">150</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:139"><nobr><span class="ft18">100</span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:139"><nobr><span class="ft18">50</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:145"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:142"><nobr><span class="ft18">50</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:139"><nobr><span class="ft18">100</span></nobr></DIV>
+<DIV style="position:absolute;top:743;left:335"><nobr><span class="ft18">Index Trajectory</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:335"><nobr><span class="ft18">Query</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:81"><nobr><span class="ft7">Figure 9: By incorporating the bounding envelope<br>on the query, our approach can support Euclidean<br>distance, constrained or full warping. This is accom-<br>plished by progressively expanding the MBE.</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:81"><nobr><span class="ft1">8. EXPERIMENTAL EVALUATION</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:94"><nobr><span class="ft4">In this section we compare the effectiveness of various</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:81"><nobr><span class="ft7">splitting methods and we demonstrate the superiority of our<br>lower bounding technique (for the DTW) compared to other<br>proposed lower bounds. We describe the datasets we used</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:475"><nobr><span class="ft7">and present comprehensive experiments regarding the index<br>performance for the two similarity estimates. In addition,<br>we evaluate the accuracy of the approximate estimates. All<br>experiments conducted were run on an AMD Athlon 1.4 Ghz<br>with 1GB RAM and 60GB of hard drive.</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:516"><nobr><span class="ft13">1. ASL</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:587"><nobr><span class="ft13">2. Buoy Sensor</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:670"><nobr><span class="ft13">3. Video Track 1</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:766"><nobr><span class="ft13">4. Flutter</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:496"><nobr><span class="ft13">5. Marine Mammals</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:584"><nobr><span class="ft13">6. Word Tracking</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:670"><nobr><span class="ft13">7. Random Walk</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:754"><nobr><span class="ft13">8. Video Track 2</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:475"><nobr><span class="ft7">Figure 10: Datasets used for testing the efficiency<br>of various MBR generation methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:475"><nobr><span class="ft1">8.1 MBR Generation Comparison</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:488"><nobr><span class="ft4">The purpose of our first experiment is to test the space</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:475"><nobr><span class="ft7">consumption of the presented MBR generation methods. We<br>have used eight datasets with diverse characteristics, in or-<br>der to provide objective results.</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:488"><nobr><span class="ft4">We evaluate the space consumption, by calculating the</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:475"><nobr><span class="ft7">"Average Volume Gain" (AvgV olGain), which is defined<br>as the percentage of volume when using i MBRs, over the<br>volume when using only 1 MBR, normalized by the maxi-<br>mum gain provided over all methods (for various number of<br>splits).</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:740"><nobr><span class="ft19">Random</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:748"><nobr><span class="ft19">Equi</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:756"><nobr><span class="ft19">Greedy</span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:567"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:587"><nobr><span class="ft19">2</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:606"><nobr><span class="ft19">3</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:626"><nobr><span class="ft19">4</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:646"><nobr><span class="ft19">5</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:665"><nobr><span class="ft19">6</span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:685"><nobr><span class="ft19">7</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:704"><nobr><span class="ft19">8</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:546"><nobr><span class="ft19">0</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:542"><nobr><span class="ft19">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:542"><nobr><span class="ft19">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:542"><nobr><span class="ft19">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:542"><nobr><span class="ft19">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:906;left:542"><nobr><span class="ft19">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:896;left:542"><nobr><span class="ft19">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:885;left:542"><nobr><span class="ft19">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:542"><nobr><span class="ft19">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:542"><nobr><span class="ft19">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:545"><nobr><span class="ft19">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1001;left:647"><nobr><span class="ft19">Dataset</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:540"><nobr><span class="ft19">Average Volume Gain</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:475"><nobr><span class="ft7">Figure 11: The greedy-split MBR generation algo-<br>rithm presents the highest volume gain, by produc-<br>ing MBRs that consume consistently less space, over<br>a number of datasets and for diverse number of gen-<br>erated MBRs</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:446"><nobr><span class="ft6">222</span></nobr></DIV>
+</DIV>
+<!-- Page 8 -->
+<a name="8"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110008.png" alt="background image">
+<DIV style="position:absolute;top:92;left:111"><nobr><span class="ft14">DATASET</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:186"><nobr><span class="ft14">EQ</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:204"><nobr><span class="ft13">s20,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:250"><nobr><span class="ft14">GR</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:269"><nobr><span class="ft13">s20,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:315"><nobr><span class="ft14">EQ</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:334"><nobr><span class="ft13">s40,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:380"><nobr><span class="ft14">GR</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:398"><nobr><span class="ft13">s40,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:447"><nobr><span class="ft14">EQ</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:465"><nobr><span class="ft13">s20,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:511"><nobr><span class="ft14">GR</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:530"><nobr><span class="ft13">s20,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:576"><nobr><span class="ft14">EQ</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:595"><nobr><span class="ft13">s40,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:641"><nobr><span class="ft14">GR</span></nobr></DIV>
+<DIV style="position:absolute;top:96;left:659"><nobr><span class="ft13">s40,d5</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:708"><nobr><span class="ft14">LB-Kim</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:769"><nobr><span class="ft14">LB-Yi</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:290"><nobr><span class="ft14">LCSS</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:551"><nobr><span class="ft14">DTW</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:111"><nobr><span class="ft14">ASL</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:196"><nobr><span class="ft14">0.732</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:261"><nobr><span class="ft14">0.799</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:325"><nobr><span class="ft14">0.825</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:388"><nobr><span class="ft14">0.856</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:457"><nobr><span class="ft14">0.449</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:522"><nobr><span class="ft14">0.632</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:586"><nobr><span class="ft14">0.588</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:649"><nobr><span class="ft14">0.756</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:711"><nobr><span class="ft14">0.1873</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:767"><nobr><span class="ft14">0.2530</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:110"><nobr><span class="ft14">VT1</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:196"><nobr><span class="ft14">0.260</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:261"><nobr><span class="ft14">0.339</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:325"><nobr><span class="ft14">0.453</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:388"><nobr><span class="ft14">0.511</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:457"><nobr><span class="ft14">0.087</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:521"><nobr><span class="ft14">0.136</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:586"><nobr><span class="ft14">0.230</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:648"><nobr><span class="ft14">0.266</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:711"><nobr><span class="ft14">0.0838</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:767"><nobr><span class="ft14">0.1692</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:110"><nobr><span class="ft14">Marine</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:196"><nobr><span class="ft14">0.719</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:260"><nobr><span class="ft14">0.750</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:325"><nobr><span class="ft14">0.804</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:387"><nobr><span class="ft14">0.814</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:456"><nobr><span class="ft14">0.226</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:521"><nobr><span class="ft14">0.506</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:585"><nobr><span class="ft14">0.308</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:648"><nobr><span class="ft14">0.608</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:711"><nobr><span class="ft14">0.2587</span></nobr></DIV>
+<DIV style="position:absolute;top:161;left:766"><nobr><span class="ft14">0.4251</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:110"><nobr><span class="ft14">Word</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:196"><nobr><span class="ft14">0.627</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:260"><nobr><span class="ft14">0.666</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:325"><nobr><span class="ft14">0.761</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:387"><nobr><span class="ft14">0.774</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:456"><nobr><span class="ft14">0.311</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:521"><nobr><span class="ft14">0.361</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:585"><nobr><span class="ft14">0.466</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:647"><nobr><span class="ft14">0.499</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:710"><nobr><span class="ft14">0.0316</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:766"><nobr><span class="ft14">0.2116</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:110"><nobr><span class="ft14">Random</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:196"><nobr><span class="ft14">0.596</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:260"><nobr><span class="ft14">0.652</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:324"><nobr><span class="ft14">0.701</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:387"><nobr><span class="ft14">0.741</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:456"><nobr><span class="ft14">0.322</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:520"><nobr><span class="ft14">0.384</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:585"><nobr><span class="ft14">0.440</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:647"><nobr><span class="ft14">0.491</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:710"><nobr><span class="ft14">0.1389</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:765"><nobr><span class="ft14">0.2067</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:110"><nobr><span class="ft14">VT2</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:195"><nobr><span class="ft14">0.341</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:260"><nobr><span class="ft14">0.431</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:324"><nobr><span class="ft14">0.498</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:387"><nobr><span class="ft14">0.569</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:456"><nobr><span class="ft14">0.210</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:520"><nobr><span class="ft14">0.296</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:584"><nobr><span class="ft14">0.363</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:648"><nobr><span class="ft14">0.437</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:709"><nobr><span class="ft14">0.2100</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:763"><nobr><span class="ft14">0.5321</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:80"><nobr><span class="ft7">Table 1: Some indicative results of how close our similarity estimates are to the exact value (for 20 and 40<br>splits, &amp;  = 5%). For all datasets the greedy-split approach provides the closest similarity estimates to the<br>actual similarity.</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:94"><nobr><span class="ft4">AvgV olGain is a number between 0 and 1, where higher</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:80"><nobr><span class="ft7">numbers indicate increased volume gain (or less space con-<br>sumption) against the competitive methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:366"><nobr><span class="ft4">In figure 11</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:80"><nobr><span class="ft7">we observe the average volume gain for the eight datasets.<br>The greedy-split algorithm produced MBRs that took at<br>least half the space, compared to equi-split. The equi-split<br>offers slightly better results, than producing MBRs at ran-<br>dom positions. The volume gain of greedy-split was less,<br>only for the buoy sensor, which is a very busy and unstruc-<br>tured signal. This experiment validates that our choice to<br>use the greedy-split method was correct. Since, the indexed<br>MBR trajectories will take less space, we also expect tighter<br>similarity estimates, therefore fewer false positives.</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:80"><nobr><span class="ft1">8.2 Tightness of Bounds</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:94"><nobr><span class="ft4">In table 1 we show how close our similarity estimates are</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:80"><nobr><span class="ft7">(for LCSS and DTW) to the actual similarity between se-<br>quences. Numbers closer to 1, indicate higher similarity<br>to the value returned by the exact algorithm. To our best<br>knowledge, this paper introduces the first upper bounding<br>technique for the LCSS. For DTW there have been a few<br>approaches to provide a lower bound of the distance; we re-<br>fer to them as LB-Kim [12] and LB-Yi [21]. These lower<br>bounds originally referred to 1D time-series; here we extend<br>them in more dimensions, in order to provide unambiguous<br>results about the tightness of our estimates. Note that the<br>previously proposed methods operate on the raw data. Our<br>approach can still provide tighter estimates, while operat-<br>ing only on the trajectory MBRs. Using the raw data our<br>experiments indicate that we are consistently 2-3 times bet-<br>ter than the best alternative approach. However, since our<br>index operates on the segmented time-series we only report<br>the results on the MBRs.</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:94"><nobr><span class="ft4">The greedy-split method approximates the similarity con-</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:80"><nobr><span class="ft7">sistently tighter than the equi-split. In table 1 only the<br>results for  = 5% of the query's length are reported, but<br>similar results are observed for increasing values of . It is<br>evident from the table that using our method we can provide<br>very tight lower bounds of the actual distance.</span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:80"><nobr><span class="ft1">8.3 Matching Quality</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:94"><nobr><span class="ft4">We demonstrate the usefulness of our similarity measures</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:80"><nobr><span class="ft7">in a real world dataset. The Library of Congress maintains<br>thousands of handwritten manuscripts, and there is an in-<br>creasing interest to perform automatic transcribing of these<br>documents. Given the multiple variations of each word and<br>due to the manuscript degradations, this is a particularly<br>challenging task and the need for a flexible and robust dis-<br>tance function is essential.</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:94"><nobr><span class="ft4">We have applied the LCSS and DTW measures on word</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:473"><nobr><span class="ft4">Figure 12:</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:562"><nobr><span class="ft4">Results for a real world application.</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:473"><nobr><span class="ft7">3NN reported for each query, using Dynamic Time<br>Warping to match features extracted from scanned<br>manuscript words.</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:473"><nobr><span class="ft7">images extracted from a 10 page scanned manuscript. 4-<br>dimensional time-series features have originally been extracted<br>for each word. Here we maintain the 2 least correlated time-<br>series features and treat each word as a trajectory. In figure<br>12 we observe the 3-KNN results using DT W for various<br>word queries. The results are very good, showing high ac-<br>curacy even for similarly looking words. Analogous results<br>have been obtained using the LCSS.</span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:473"><nobr><span class="ft1">8.4 Index performance</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:486"><nobr><span class="ft4">We tested the performance of our index using the upper</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:473"><nobr><span class="ft7">bound and the approximate similarity estimates, and com-<br>pared it to the sequential scan. Because of limited space,<br>the majority of the figures record the index performance us-<br>ing the LCSS as a similarity measure. The performance<br>measure used is the total computation time required for the<br>index and the sequential scan to return the nearest neigh-<br>bor for the same one hundred queries. For the linear scan,<br>one can also perform early termination of the LCSS (or the<br>DTW) computation. Therefore, the LCSS execution can<br>be stopped at the point where one is sure that the current<br>sequence will not be more similar to the query than the<br>bestSoFar. We call this optimistic linear scan. Pessimistic<br>linear scan, is the one than does not reuse the previously<br>computed similarity values and can be an accurate time<br>estimate, when the query match resides at the end of the<br>dataset. We demonstrate the index performance relative to</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:444"><nobr><span class="ft6">223</span></nobr></DIV>
+</DIV>
+<!-- Page 9 -->
+<a name="9"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft20{font-size:11px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110009.png" alt="background image">
+<DIV style="position:absolute;top:238;left:130"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:167"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:205"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:242"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:278"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:316"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:132"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:127"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:127"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:127"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:127"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:132"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:127"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:127"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:213"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:125"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:223"><nobr><span class="ft18">=5%</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:156"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:156"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:156"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:360"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:398"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:435"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:473"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:509"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:546"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:363"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:358"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:358"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:358"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:358"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:363"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:358"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:358"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:444"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:355"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:451"><nobr><span class="ft18">=10%</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:387"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:387"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:387"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:591"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:628"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:666"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:704"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:739"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:777"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:234;left:593"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:588"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:588"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:588"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:588"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:145;left:594"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:588"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:588"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:674"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:586"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:682"><nobr><span class="ft18">=20%</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:618"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:618"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:618"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:81"><nobr><span class="ft7">Figure 13: Index performance. For small warping windows the index can be up to 5 times faster than<br>sequential scan without compromising accuracy. The gray regions indicate the range of potential speedup.</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:130"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:167"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:205"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:242"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:278"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:316"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:132"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:127"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:127"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:127"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:127"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:132"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:127"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:127"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:213"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:125"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:223"><nobr><span class="ft18">=5%</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:156"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:156"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:156"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:360"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:398"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:435"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:473"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:509"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:546"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:363"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:358"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:358"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:358"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:358"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:363"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:358"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:358"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:444"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:355"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:451"><nobr><span class="ft18">=10%</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:387"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:387"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:387"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:591"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:628"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:666"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:704"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:739"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:777"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:593"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:588"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:588"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:588"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:588"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:594"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:588"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:588"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:674"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:586"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:682"><nobr><span class="ft18">=20%</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:618"><nobr><span class="ft18">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:618"><nobr><span class="ft18">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:618"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:87"><nobr><span class="ft4">Figure 14: Using the approximate similarity estimates the response time can be more than 7 times faster.</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:81"><nobr><span class="ft7">both types of linear scan, because this provides a realistic<br>upper or lower bound on the index speedup.</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:94"><nobr><span class="ft4">The dataset we used contained 2</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:285"><nobr><span class="ft2">10</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:299"><nobr><span class="ft4">. . . 2</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:324"><nobr><span class="ft2">16</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:339"><nobr><span class="ft4">trajectories. Tak-</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:81"><nobr><span class="ft7">ing under consideration that the average trajectory size is<br>around 500 points, this resulted to a database with more<br>than 16 million 2D points. The trajectories have been nor-<br>malized by subtracting the average value in each direction of<br>movement. All data and queries can be obtained by emailing<br>the first author.<br>Mixed two-dimensional Time-series (2D-Mixed). This<br>second dataset consists of time-series of variable length, rang-<br>ing from less than 100 points to over 1000 points. The<br>dataset is comprised by the aggregation of the eight datasets<br>we used for comparing the MBR generation methods. Since<br>the total number of these trajectories is less than 200, we<br>have used them as seeds to generate increasingly larger datasets.<br>We create multiple copies of the original trajectories by in-<br>corporating the following features:</span></nobr></DIV>
+<DIV style="position:absolute;top:805;left:107"><nobr><span class="ft4">Addition of small variations in the original trajectory</span></nobr></DIV>
+<DIV style="position:absolute;top:821;left:81"><nobr><span class="ft4">pattern</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:106"><nobr><span class="ft4">Addition of random compression and decompression in</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:81"><nobr><span class="ft4">time</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:94"><nobr><span class="ft4">The small variations in the pattern were added by interpo-</span></nobr></DIV>
+<DIV style="position:absolute;top:888;left:81"><nobr><span class="ft7">lating peaks of Gaussian noise using splines. In this manner<br>we are able to create the smooth variations that existed in<br>the original datasets.</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:85"><nobr><span class="ft3">8.4.1 Results on the upper bound Estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:94"><nobr><span class="ft4">The index performance is influenced be three parameters:</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:81"><nobr><span class="ft7">the size of the dataset, the warping length  (as a percentage<br>of the query's length) and the number of splits. For all<br>experiments the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:265"><nobr><span class="ft4">(matching in space) was set</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:81"><nobr><span class="ft7">to std/2 of the query, which provided good and intuitive<br>results.</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:108"><nobr><span class="ft4">Dataset size: In figure 13 we can observe how the</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:81"><nobr><span class="ft4">performance of the index scales with the database size (for</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:475"><nobr><span class="ft7">various lengths of matching window). We record the index<br>response time relative to both optimistic and pessimistic lin-<br>ear scan. Therefore, the gray region in the figures indicates<br>the range of possible speedup. It is evident that the early<br>termination feature of the sequential scan can significantly<br>assist its performance. The usefulness of an index becomes<br>obvious for large dataset sizes, where the quadratic compu-<br>tational cost dominates the I/O cost of the index. For these<br>cases our approach can be up to 5 times faster than linear<br>scan. In figure 15 we also demonstrate the pruning power of<br>the index, as a true indicator (not biased by any implemen-<br>tation details) about the efficacy of our index. Using the<br>index we perform 2-5 times fewer LCSS computations than<br>the linear scan. We observe similar speedup when using the<br>DTW as the distance function in figure 17.</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:503"><nobr><span class="ft4">Parameter : The index performance is better for</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:475"><nobr><span class="ft7">smaller warping lengths (parameter ). The experiments<br>record the performance for warping from 5% to 20% of the<br>query's length. Increasing  values signify larger bounding<br>envelopes around the query, therefore larger space of search<br>and less accurate similarity estimates. The graphs suggest<br>that an index cannot not be useful under full warping (when<br>the data are normalized).</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:499"><nobr><span class="ft4">Number of Splits: Although greater number of MBRs</span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:475"><nobr><span class="ft7">for each trajectory implies better volume utilization, nonethe-<br>less more MBRs also lead to increased I/O cost. When we<br>are referring to x% splits, it means that we have assigned a<br>total of 100/x(</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:581"><nobr><span class="ft16">n<br>i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:600"><nobr><span class="ft4">(</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:605"><nobr><span class="ft4">||T</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:621"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:625"><nobr><span class="ft4">||)) splits, for all sequences T</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:804"><nobr><span class="ft2">i</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:809"><nobr><span class="ft4">. In</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:475"><nobr><span class="ft7">our figures we provide the 5% splits scenario for the MBRs,<br>which offers better performance than 10% and 20% splits,<br>since for the last two cases the I/O cost negates the effect of<br>the better query approximation. The index space require-<br>ments for 5% splits is less than a quarter of the dataset size.</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:479"><nobr><span class="ft3">8.4.2 Results on the approximate Estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:1058;left:489"><nobr><span class="ft4">Here we present the index performance when the volume</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:475"><nobr><span class="ft4">intersections of the MBRs are used as estimates of the sim-</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:446"><nobr><span class="ft6">224</span></nobr></DIV>
+</DIV>
+<!-- Page 10 -->
+<a name="10"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="110010.png" alt="background image">
+<DIV style="position:absolute;top:253;left:106"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:143"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:180"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:216"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:252"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:288"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:108"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:104"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:104"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:104"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:104"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:108"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:104"><nobr><span class="ft18">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:123;left:104"><nobr><span class="ft18">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:104"><nobr><span class="ft18">1.6</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:190"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:102"><nobr><span class="ft18">Ratio of LCSS performed by the index</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:159"><nobr><span class="ft18">Pruning Power compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:110;left:264"><nobr><span class="ft18">5% splits</span></nobr></DIV>
+<DIV style="position:absolute;top:115;left:264"><nobr><span class="ft18">10% splits</span></nobr></DIV>
+<DIV style="position:absolute;top:121;left:264"><nobr><span class="ft18">20% splits</span></nobr></DIV>
+<DIV style="position:absolute;top:127;left:264"><nobr><span class="ft18">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:296"><nobr><span class="ft19"> =5%</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:296"><nobr><span class="ft19"> =10%</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:296"><nobr><span class="ft19"> =20%</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:86"><nobr><span class="ft7">Figure 15: Each gray band indi-<br>cates (for a certain warping win-<br>dow ) the percentage of LCSS<br>computations conducted by the in-<br>dex compared to linear scan.</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:360"><nobr><span class="ft18">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:398"><nobr><span class="ft18">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:252;left:436"><nobr><span class="ft18">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:474"><nobr><span class="ft18">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:510"><nobr><span class="ft18">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:548"><nobr><span class="ft18">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:361"><nobr><span class="ft18">0</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:357"><nobr><span class="ft18">0.1</span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:357"><nobr><span class="ft18">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:357"><nobr><span class="ft18">0.3</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:357"><nobr><span class="ft18">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:357"><nobr><span class="ft18">0.5</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:357"><nobr><span class="ft18">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:357"><nobr><span class="ft18">0.7</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:357"><nobr><span class="ft18">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:114;left:357"><nobr><span class="ft18">0.9</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:361"><nobr><span class="ft18">1</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:446"><nobr><span class="ft18">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:355"><nobr><span class="ft18">Average similarity Error</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:430"><nobr><span class="ft18">Similarity Error, 5% splits</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:534"><nobr><span class="ft18">=5%</span></nobr></DIV>
+<DIV style="position:absolute;top:111;left:534"><nobr><span class="ft18">=10%</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:534"><nobr><span class="ft18">=20%</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:339"><nobr><span class="ft7">Figure 16: Using the V-similarity<br>estimate, we can retrieve answers<br>faster with very high accuracy.<br>The LCSS similarity is very close<br>(2-10%) to the exact answer re-<br>turned by the sequential scan.</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:613"><nobr><span class="ft9">1024</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:650"><nobr><span class="ft9">2048</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:687"><nobr><span class="ft9">4096</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:725"><nobr><span class="ft9">8192</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:761"><nobr><span class="ft9">16384</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:798"><nobr><span class="ft9">32768</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:615"><nobr><span class="ft9">0</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:609"><nobr><span class="ft9">0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:609"><nobr><span class="ft9">0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:609"><nobr><span class="ft9">0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:609"><nobr><span class="ft9">0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:614"><nobr><span class="ft9">1</span></nobr></DIV>
+<DIV style="position:absolute;top:128;left:609"><nobr><span class="ft9">1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:609"><nobr><span class="ft9">1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:696"><nobr><span class="ft9">Dataset size</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:608"><nobr><span class="ft9">Time Ratio Compared to Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:705"><nobr><span class="ft9">=5%</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:639"><nobr><span class="ft9">Optimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:112;left:639"><nobr><span class="ft9">Pessimistic</span></nobr></DIV>
+<DIV style="position:absolute;top:119;left:639"><nobr><span class="ft9">Linear Scan</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:591"><nobr><span class="ft7">Figure 17: Index Performance us-<br>ing DTW as the distance measure.<br>( = 5%). We can observe up to 5<br>times speedup.</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:81"><nobr><span class="ft7">ilarity and the results are shown in figure 14. We observe<br>that using this approximate similarity estimate, our index<br>performance is boosted up. The use of the V-similarity es-<br>timate leads to more tight approximations of the original<br>similarity compared to the L-similarity estimate, however<br>now we may miss finding the best match.</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:94"><nobr><span class="ft4">Naturally, comes the question of the quality of the re-</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:81"><nobr><span class="ft7">sults. We capture this by calculating the absolute difference<br>between the similarity of the best match returned by the<br>index, and the best match found by the sequential scan for<br>each query. Then we average the results over a number of<br>queries</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:128"><nobr><span class="ft4">|q|. Therefore, the Average Similarity Error (ASE)</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:81"><nobr><span class="ft4">is:</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:90"><nobr><span class="ft5">ASE =</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:140"><nobr><span class="ft2">1</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:137"><nobr><span class="ft2">|q|</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:166"><nobr><span class="ft2">|q|</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:166"><nobr><span class="ft2">i=1</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:185"><nobr><span class="ft5">(</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:190"><nobr><span class="ft5">|BestMatch</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:257"><nobr><span class="ft2">index</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:291"><nobr><span class="ft5">­ BestM atch</span></nobr></DIV>
+<DIV style="position:absolute;top:611;left:365"><nobr><span class="ft2">exhaustive</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:422"><nobr><span class="ft5">|)</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:94"><nobr><span class="ft4">The results are shown in figure 16. We can see that the</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:81"><nobr><span class="ft7">similarity returned by the V-similarity estimate is approxi-<br>mately within 5% of the actual similarity (5% splits used).<br>Therefore, by providing two similarity estimates the user<br>can decide for the trade-off between the expedited execution<br>time and the quality of results. Since by using the latter es-<br>timator we can significantly increase the performance of the<br>index, this is the approach we recommend for mining large<br>datasets.</span></nobr></DIV>
+<DIV style="position:absolute;top:775;left:81"><nobr><span class="ft1">9. CONCLUSIONS AND FUTURE WORK</span></nobr></DIV>
+<DIV style="position:absolute;top:801;left:94"><nobr><span class="ft4">In this paper we have presented an external memory in-</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:81"><nobr><span class="ft7">dexing method for discovering similar multidimensional time-<br>series. The unique advantage of our approach is that it<br>can accommodate multiple distance measures. The method<br>guarantees no false dismissals and depicts a significant ex-<br>ecution speed up for the LCSS and DTW compared to se-<br>quential scan. We have shown the tightness of our similarity<br>estimates and demonstrated the usefulness of our measures<br>for challenging real world applications. We hope that our<br>effort can act as a bridge between metric and non-metric<br>functions, as well as a tool for understanding better their<br>strengths and weaknesses. In the future we plan to investi-<br>gate the combination of several heuristics, in order to pro-<br>vide even tighter estimates.</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:81"><nobr><span class="ft7">Acknowledgements: We would like to thank Margrit Betke<br>for providing us the Video Track I and II datasets. We also<br>feel obliged to T. Rath and R. Manmatha for kindly provid-<br>ing the manuscript words dataset.</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:475"><nobr><span class="ft1">10. REFERENCES</span></nobr></DIV>
+<DIV style="position:absolute;top:416;left:481"><nobr><span class="ft14">[1] J. Aach and G. Church. Aligning gene expression time series</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:501"><nobr><span class="ft14">with time warping algorithms. In Bioinformatics, Volume 17,</span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:501"><nobr><span class="ft14">pages 495­508, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:481"><nobr><span class="ft14">[2] O. Arikan and D. Forsyth. Interactive motion generation from</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:501"><nobr><span class="ft14">examples. In Proc. of ACM SIGGRAPH, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:481"><nobr><span class="ft14">[3] Z. Bar-Joseph, G. Gerber, D. Gifford, T. Jaakkola, and</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:501"><nobr><span class="ft14">I. Simon. A new approach to analyzing gene expression time</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:501"><nobr><span class="ft14">series data. In Proc. of 6th RECOMB, pages 39­48, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:481"><nobr><span class="ft14">[4] D. Berndt and J. Clifford. Using Dynamic Time Warping to</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:501"><nobr><span class="ft14">Find Patterns in Time Series. In Proc. of KDD Workshop,</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:501"><nobr><span class="ft14">1994.</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:481"><nobr><span class="ft14">[5] M. Betke, J. Gips, and P. Fleming. The camera mouse: Visual</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:501"><nobr><span class="ft14">tracking of body features to provide computer access for people</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:501"><nobr><span class="ft14">with severe disabilities. In IEEE Transactions on Neural</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:501"><nobr><span class="ft14">Systems and Rehabilitation Engineering, Vol. 10, No. 1, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:581;left:481"><nobr><span class="ft14">[6] G. Das, D. Gunopulos, and H. Mannila. Finding Similar Time</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:501"><nobr><span class="ft14">Series. In Proc. of the First PKDD Symp., pages 88­100, 1997.</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:481"><nobr><span class="ft14">[7] D. Gavrila and L. Davis. Towards 3-d model-based tracking</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:501"><nobr><span class="ft14">and recognition of human movement: a multi-view approach. In</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:501"><nobr><span class="ft14">Int. Workshop on Face and Gesture Recognition.</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:481"><nobr><span class="ft14">[8] M. Hadjieleftheriou, G. Kollios, V. Tsotras, and D. Gunopulos.</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:501"><nobr><span class="ft14">Efficient indexing of spatiotemporal objects. In Proc. of 8th</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:501"><nobr><span class="ft14">EDBT, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:481"><nobr><span class="ft14">[9] T. Kahveci, A. Singh, and A. Gurel. Similarity searching for</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:501"><nobr><span class="ft14">multi-attribute sequences. In Proc. of SSDBM, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:475"><nobr><span class="ft14">[10] E. Keogh. Exact indexing of dynamic time warping. In Proc. of</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:501"><nobr><span class="ft14">VLDB, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:475"><nobr><span class="ft14">[11] E. Keogh and S. Kasetty. On the need for time series data</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:501"><nobr><span class="ft14">mining benchmarks: A survey and empirical demonstration. In</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:501"><nobr><span class="ft14">Proc. of SIGKDD, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:475"><nobr><span class="ft14">[12] S. Kim, S. Park, and W. Chu. An index-based approach for</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:501"><nobr><span class="ft14">similarity search supporting time warping in large sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:768;left:501"><nobr><span class="ft14">databases. In In Proc. of 17th ICDE, 2001.</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:475"><nobr><span class="ft14">[13] Z. Kov´</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:536"><nobr><span class="ft14">acs-Vajna. A fingerprint verification system based on</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:501"><nobr><span class="ft14">triangular matching and dynamic time warping. In IEEE</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:501"><nobr><span class="ft14">Transactions on PAMI, Vol. 22, No. 11.</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:475"><nobr><span class="ft14">[14] S.-L. Lee, S.-J. Chun, D.-H. Kim, J.-H. Lee, and C.-W. Chung.</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:501"><nobr><span class="ft14">Similarity Search for Multidimensional Data Sequences. Proc.</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:501"><nobr><span class="ft14">of ICDE, pages 599­608, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:475"><nobr><span class="ft14">[15] S. Park, W. Chu, J. Yoon, and C. Hsu. Efficient Searches for</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:501"><nobr><span class="ft14">Similar Subsequences of Different Lengths in Sequence</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:501"><nobr><span class="ft14">Databases. In Proc. of ICDE, pages 23­32, 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:475"><nobr><span class="ft14">[16] T. Rath and R. Manmatha. Word image matching using</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:501"><nobr><span class="ft14">dynamic time warping. In Tec Report MM-38. Center for</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:501"><nobr><span class="ft14">Intelligent Information Retrieval, University of</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:501"><nobr><span class="ft14">Massachusetts Amherst, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:475"><nobr><span class="ft14">[17] J. F. Roddick and K. Hornsby. Temporal, Spatial and</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:501"><nobr><span class="ft14">Spatio-Temporal Data Mining. 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:475"><nobr><span class="ft14">[18] M. Shimada and K. Uehara. Discovery of correlation from</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:501"><nobr><span class="ft14">multi-stream of human motion. In Discovery Science 2000.</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:475"><nobr><span class="ft14">[19] R. E. Valdes-Perez and C. A. Stone. Systematic detection of</span></nobr></DIV>
+<DIV style="position:absolute;top:977;left:501"><nobr><span class="ft14">subtle spatio-temporal patterns in time-lapse imaging ii.</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:501"><nobr><span class="ft14">particle migrations. In Bioimaging 6(2), pages 71­78, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:475"><nobr><span class="ft14">[20] M. Vlachos, G. Kollios, and D. Gunopulos. Discovering similar</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:501"><nobr><span class="ft14">multidimensional trajectories. In Proc. of ICDE, 2002.</span></nobr></DIV>
+<DIV style="position:absolute;top:1022;left:475"><nobr><span class="ft14">[21] B.-K. Yi, H. V. Jagadish, and C. Faloutsos. Efficient retrieval</span></nobr></DIV>
+<DIV style="position:absolute;top:1032;left:501"><nobr><span class="ft14">of similar time sequences under time warping. In Proc. of</span></nobr></DIV>
+<DIV style="position:absolute;top:1043;left:501"><nobr><span class="ft14">ICDE, pages 201­208, 1998.</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:475"><nobr><span class="ft14">[22] Y. Zhu and D. Shasha. Query by humming: a time series</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:501"><nobr><span class="ft14">database approach. In Proc. of SIGMOD, 2003.</span></nobr></DIV>
+<DIV style="position:absolute;top:1110;left:447"><nobr><span class="ft6">225</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

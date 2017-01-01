@@ -1,0 +1,759 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>ENTER TITLE HERE (14 PT TYPE SIZE, UPPERCASED, BOLD AND CENTERED OVER TWO COLUMNS)</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="author" content="Yong Yang">
+<META name="date" content="2005-12-19T12:41:34+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:13px;font-family:Times;color:#000000;}
+	.ft1{font-size:18px;font-family:Times;color:#000000;}
+	.ft2{font-size:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:16px;font-family:Times;color:#000000;}
+	.ft4{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft5{font-size:12px;font-family:Times;color:#000000;}
+	.ft6{font-size:13px;line-height:17px;font-family:Times;color:#000000;}
+	.ft7{font-size:13px;line-height:17px;font-family:Times;color:#000000;}
+	.ft8{font-size:16px;line-height:20px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24001.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft6"> <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:92"><nobr><span class="ft1"><b>A WEIGHTED RANKING ALGORITHM FOR FACET-BASED COMPONENT </b></span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:351"><nobr><span class="ft1"><b>RETRIEVAL SYSTEM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:567"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:299"><nobr><span class="ft0">Yong Yang, Weishi Zhang, Xiuguo Zhang, Jinyu Shi </span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:181"><nobr><span class="ft0">Department of Computer Science and Technology, Dalian Maritime University, Dalian 116026   </span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:309"><nobr><span class="ft0">{dmuyy, teesiv, zhangxg, sjy1967}@dlmu.edu.cn </span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:459"><nobr><span class="ft3">ABSTRACT</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:81"><nobr><span class="ft6">Facet-based component retrieval techniques have been <br>proved to be an effective way for retrieving. These <br>Techniques are widely adopted by component library <br>systems, but they usually simply list out all the retrieval <br>results without any kind of ranking. In our work, we focus <br>on the problem that how to determine the ranks of the <br>components retrieved by user. Factors which can <br>influence the ranking are extracted and identified through <br>the analysis of ER-Diagram of facet-based component <br>library system. In this paper, a mathematical model of <br>weighted ranking algorithm is proposed and the timing of <br>ranks calculation is discussed. Experiment results show <br>that this algorithm greatly improves the efficiency of <br>component retrieval system. </span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:459"><nobr><span class="ft3">KEYWORDS</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:459"><nobr><span class="ft6">Weighted ranking algorithm, matching degree, facet, <br>component retrieval, and component library <br></span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:81"><nobr><span class="ft3"><b>1.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:81"><nobr><span class="ft3"><b>Motivations </b></span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:81"><nobr><span class="ft6"> <br>A high efficiency retrieval system for software <br>component library is important for the reuse of software <br>components. The point of high efficiency is not that the <br>time performance in one matching or retrieving process <br>which can be measured by how many seconds or how <br>many milliseconds elapsed, but that the efficiency to <br>make the component consumers be able to find what they <br>need as soon as possible, even though the former is the <br>basis of the latter. </span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:96"><nobr><span class="ft0">No matter accuracy matching or fuzzy matching, our </span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:81"><nobr><span class="ft6">component retrieval system usually simply lists out all the <br>retrieval results without any kind of ranking, or at least <br>without a systematic ranking. Users have to view the <br>detail information of all the retrieval results one by one to <br>find out which is the best to fit their requirements, or else <br>they have to adjust their query conditions to retrieve again. <br>If there are a large number of components retrieved from <br>the component library, it could be a tough and torturous <br>experience to find a proper component. However, it's a <br>fact that there's a matching degree between the query <br>conditions and retrieval results. The matching degree is <br>just the similarity and relevancy between the query <br>condition and its retrieval results. Only when we rank the <br>retrieval results by the matching degree as the Web search </span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:486"><nobr><span class="ft6">engines can component consumers easily find what they <br>need. They only have to compare the first several retrieval <br>results but not all of them. </span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:501"><nobr><span class="ft0">According to the discussion above, it's clear that a </span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:486"><nobr><span class="ft6">formula to calculate the matching degree and its <br>corresponding ranking algorithm, which can greatly <br>improve the retrieval efficiency for software component <br>library, are needed. In this paper, we propose a weighted <br>ranking algorithm for facet-based component retrieval <br>system. This algorithm has been implemented in a <br>software component library, called DLCL, and greatly <br>improves the efficiency of the retrieval system. <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:486"><nobr><span class="ft8"><b>2.  Introduction to Retrieval Methods for <br>Component Library <br> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:486"><nobr><span class="ft6"><b>2.1 Existing Retrieval Methods for Component <br>Library <br></b> <br>Retrieval of software components is a core technique of <br>component library. Today there are lots of retrieval <br>methods for software component library. The main are as <br>follows [1, 2]: (1) Specification matching method; (2) AI <br>Based method; (3) Information science method; (4) <br>Hypertext browsing method. As to the four methods, each <br>has its own features and there's no a general formula to <br>calculate the matching degree. For example, specification <br>matching method uses formal specifications to describe <br>the behavior of software components</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:736"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:747"><nobr><span class="ft0">and relies on </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:486"><nobr><span class="ft6">theorem proving to determine match and mismatch. AI <br>Based method relies on the use of AI planning techniques <br>to automatically search software components in <br>component library. So we have to use different <br>calculating strategies to calculate the matching degree of <br>each retrieval method. </span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:501"><nobr><span class="ft0">Among the retrieval methods discussed above, </span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:486"><nobr><span class="ft6">information science method is widely used in practice. <br>Information science method usually comprises several <br>different retrieval methods which are attribute-value, <br>enumerated, faceted, and keyword method. Of the four <br>methods, facet-based component retrieval method has <br>been proved to be an effective way for retrieving and has <br>been widely adopted by component library systems. In the <br>following section, we'll discuss the facet-based retrieval <br>method. <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1134;left:82"><nobr><span class="ft5"><b>505-049</b></span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>274</b></span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft9{font-size:13px;font-family:Helvetica;color:#000000;}
+	.ft10{font-size:16px;font-family:Times;color:#000000;}
+	.ft11{font-size:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24002.png" alt="background image">
+<DIV style="position:absolute;top:82;left:81"><nobr><span class="ft2"><b>2.2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:100"><nobr><span class="ft9"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:108"><nobr><span class="ft2"><b>Facet-based Retrieval Method </b></span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:81"><nobr><span class="ft6">A component classification is a set of {facet, facet term} <br>pairs, also called descriptors [3]. Reusable software <br>components (RSC) are classified by assigning appropriate <br>facet terms for all applicable facets. The objective in <br>classifying the RSC is to make it possible for all users <br>who might use the RSC to retrieve it as a result of their <br>requests. Faceted classification scheme is an effective <br>way for classifying the components and widely adopted <br>by component library systems. </span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:96"><nobr><span class="ft0">Correspondingly, there are several retrieving </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:81"><nobr><span class="ft6">algorithms for faceted classification scheme. Some <br>systems use the traditional database query techniques in <br>facet-based retrieval. Wang YF proposed a tree matching <br>algorithm in his PH.D dissertation [4]. This algorithm <br>maps the component facets into a facet tree and maps the <br>query conditions into a query tree. The matching <br>algorithm deals with the match of the facet tree and query <br>tree and calculates the matching cost. This algorithm <br>bases on the tree matching theories, such as tree <br>embedding, tree inclusion, and tree containment. These <br>three tree matching methods are becoming more and more <br>elastic in order to improve the retrieving recall while <br>maintaining the precision to a certain extent. Matching <br>cost of the tree matching will be calculated to measure the <br>approximate degree between the facet trees of the <br>components and the query tree. The data structure of a </span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:486"><nobr><span class="ft6">tree is represented by a three-tuple: T= (V, E, root (T)), V <br>represents a limited set of vectors, root (T) represents the <br>root of the tree, E represents the set of edges. <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:486"><nobr><span class="ft8"><b>3. Weighted Ranking Algorithm for Facet-<br>based Component Retrieval System </b></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:486"><nobr><span class="ft6"> <br>There's no a general formula to calculate the matching <br>degree due to the different feature of each retrieval <br>method. Facet-based retrieval method has been widely <br>adopted by existing component library systems, such as <br>REBOOT, Proteus, Asset Library, and JBCL [5]. It has <br>been proved to be an effective method to the retrieval of <br>component library system. And therefore, it makes great <br>sense to propose a component ranking algorithm for facet-<br>based retrieval system. <br> <br><b>3.1 ER-Diagram of Software Component Library <br></b> <br>The extraction and identification of the influential factors <br>which are used to calculate the matching degree is the <br>first step to establish a mathematical model. To Analyze <br>the ER-Diagram of software component library is an <br>effective way to extract the factors. An ER-diagram of <br>facet-based component library was given below:</span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:81"><nobr><span class="ft10"> </span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:761"><nobr><span class="ft2"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:169"><nobr><span class="ft0">Producer </span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:293"><nobr><span class="ft0">Provide </span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:688"><nobr><span class="ft11">Consume</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:739"><nobr><span class="ft0">r </span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:430"><nobr><span class="ft0">Component </span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:578"><nobr><span class="ft0">Reuse </span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:169"><nobr><span class="ft0">Facet </span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:389"><nobr><span class="ft0">Term</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:386"><nobr><span class="ft0">Describe </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:571"><nobr><span class="ft11">Feedback </span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:688"><nobr><span class="ft0">Summary </span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:688"><nobr><span class="ft0">Feedback </span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:247"><nobr><span class="ft11">1 </span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:382"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:226"><nobr><span class="ft11">1 </span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:656"><nobr><span class="ft11">1 </span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:466"><nobr><span class="ft11">1 1 </span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:355"><nobr><span class="ft10">n </span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:536"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:655"><nobr><span class="ft10">n </span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:394"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:420"><nobr><span class="ft10">m</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:655"><nobr><span class="ft10">m </span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:442"><nobr><span class="ft0">Relate </span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:414"><nobr><span class="ft10">n</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:504"><nobr><span class="ft10">m</span></nobr></DIV>
+<DIV style="position:absolute;top:738;left:266"><nobr><span class="ft0">Include </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:573"><nobr><span class="ft0">Describe </span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:81"><nobr><span class="ft2"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:781;left:319"><nobr><span class="ft2"><b>Fig. 1.</b>  <b>ER-Diagram of Component Library </b></span></nobr></DIV>
+<DIV style="position:absolute;top:798;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:96"><nobr><span class="ft0">Entities list: </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:92"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:112"><nobr><span class="ft6">Component: component is the basic and primary <br>entity in component library. Besides the attributes, <br>there are facet-term pairs and information summary <br>to describe a component. </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:92"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:902;left:112"><nobr><span class="ft6">User Feedback: an opinion, a comment or a score <br>provided by users after they have used a component. </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:92"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:112"><nobr><span class="ft6">Component Summary: an information summary to <br>describe a component which enables users to know <br>well the component quickly. </span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:92"><nobr><span class="ft4"> </span></nobr></DIV>
+<DIV style="position:absolute;top:988;left:112"><nobr><span class="ft6">Facet: facet and its terms are used to classify and <br>represent the components. </span></nobr></DIV>
+<DIV style="position:absolute;top:796;left:487"><nobr><span class="ft6"> <br><b>3.2 Factors of Weighted Ranking Algorithm </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:81"><nobr><span class="ft6"> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:486"><nobr><span class="ft6">As to a facet-based component library system, facet is the <br>most important method to classify and represent the <br>components. Correspondingly, facet-based retrieval <br>methods, such as facet tree matching method, are <br>important for the component retrieval system. The <br>matching degree between facet tree and query tree is of <br>much importance for ranking. However, matching degree <br>of facet is not the only factor which is able to influence <br>the ranking. </span></nobr></DIV>
+<DIV style="position:absolute;top:990;left:501"><nobr><span class="ft0">Retrieval system of component library usually has two </span></nobr></DIV>
+<DIV style="position:absolute;top:1007;left:486"><nobr><span class="ft6">search modes: simple query and complex query. Simple <br>query just simply uses the traditional database query <br>method to match the Attribute-Valued pairs. In contrast, <br>complex query is a much more effective way which <br>combines several query methods together to match <br>different kinds of component information. And therefore, </span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>275</b></span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:7px;font-family:Times;color:#000000;}
+	.ft13{font-size:25px;font-family:Times;color:#000000;}
+	.ft14{font-size:8px;font-family:Times;color:#000000;}
+	.ft15{font-size:8px;font-family:Times;color:#000000;}
+	.ft16{font-size:16px;font-family:Times;color:#000000;}
+	.ft17{font-size:23px;font-family:Times;color:#000000;}
+	.ft18{font-size:7px;font-family:Times;color:#000000;}
+	.ft19{font-size:14px;font-family:Times;color:#000000;}
+	.ft20{font-size:14px;font-family:Times;color:#000000;}
+	.ft21{font-size:24px;font-family:Times;color:#000000;}
+	.ft22{font-size:15px;font-family:Times;color:#000000;}
+	.ft23{font-size:15px;font-family:Times;color:#000000;}
+	.ft24{font-size:25px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24003.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft6">we should take other factors into account besides the facet <br>for ranking the retrieval results. According to the analysis <br>of ER-Diagram above, we can extract some other factors <br>which are able to influence the ranking of component <br>retrieval results while using the complex query. </span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:96"><nobr><span class="ft0">Attributes of component, such as component name, can </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:81"><nobr><span class="ft6">be used to match the keywords in the query conditions. <br>The matching degree of Attribute-Valued pairs should be <br>an influential factor for ranking. </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:96"><nobr><span class="ft0">Summary of component can also be used to match the </span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:81"><nobr><span class="ft6">query conditions. Query conditions usually consist of <br>several keywords. The density, prominence, and position <br>of keywords within the component summary will <br>influence the ranking of components. The keyword <br>density is just the number of occurrences of the keywords <br>within the component summary divided by the total <br>number of words. Keyword prominence is related to the <br>location of keywords in the summary. For example, <br>keywords placed at the beginning of the summary maybe <br>carry more weight than those towards the end of it. </span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:96"><nobr><span class="ft0">User feedback of a component is very useful for other </span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:81"><nobr><span class="ft6">users who want to use it to evaluate the quality and other <br>features of the component. They can acquire much more <br>objective description and useful information about the <br>component besides the component attributes and <br>summary. </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:96"><nobr><span class="ft0">How many times the component information has been </span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:81"><nobr><span class="ft6">visited and how many times the component has been <br>downloaded for reusing should also be taken into account <br>as the factors to calculate the matching degree for ranking. <br>They reflect the popularity and reusability of the <br>component from another aspect. <br> <br><b>3.3 Mathematical Model <br></b> <br>Retrieval results consist of a collection of components <br>matching the query conditions: </span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:96"><nobr><span class="ft0">Definition 1: Components (C</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:273"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:278"><nobr><span class="ft0">, C</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:296"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:301"><nobr><span class="ft0">, ......, C</span></nobr></DIV>
+<DIV style="position:absolute;top:727;left:357"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:359"><nobr><span class="ft0">, ......, Cn); </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:81"><nobr><span class="ft0">(n N, n1)</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:94"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:155"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:754;left:96"><nobr><span class="ft0">It makes no sense to discuss the circumstance of empty </span></nobr></DIV>
+<DIV style="position:absolute;top:771;left:81"><nobr><span class="ft6">retrieval results, since that we are going to discuss the <br>ranking of component lists. </span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:96"><nobr><span class="ft6">Accordingly, each component has a rank value: <br>Definition 2: Ranks (R</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:233"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:238"><nobr><span class="ft0">, R</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:256"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:260"><nobr><span class="ft0">, ......, R</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:316"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:823;left:318"><nobr><span class="ft0">, ......, Rn); (n N, </span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:406"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:81"><nobr><span class="ft0">n1) </span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:96"><nobr><span class="ft0">The query condition consists of a collection of </span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:81"><nobr><span class="ft0">keywords: </span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:96"><nobr><span class="ft0">Definition 3: Keywords (K</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:261"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:266"><nobr><span class="ft0">, K</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:285"><nobr><span class="ft12"> 2</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:293"><nobr><span class="ft0">, ......, K</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:350"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:353"><nobr><span class="ft0">, ......, K</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:411"><nobr><span class="ft12"> n0</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:423"><nobr><span class="ft0">); </span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:81"><nobr><span class="ft0">(n</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:94"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:113"><nobr><span class="ft0">N, n</span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:98"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:139"><nobr><span class="ft12">0</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:144"><nobr><span class="ft0">1) </span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:96"><nobr><span class="ft0">Each component is described by a set of Attribute-</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:81"><nobr><span class="ft0">Valued pairs: </span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:96"><nobr><span class="ft0">Definition 4: Attributes (A</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:262"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:267"><nobr><span class="ft0">, A</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:287"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:292"><nobr><span class="ft0">, ......, A</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:351"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:354"><nobr><span class="ft0">, ......, A</span></nobr></DIV>
+<DIV style="position:absolute;top:968;left:413"><nobr><span class="ft12">n1</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:423"><nobr><span class="ft0">); </span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:81"><nobr><span class="ft0">(n</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:94"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:113"><nobr><span class="ft0">N, </span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:98"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:132"><nobr><span class="ft0">n</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:139"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:144"><nobr><span class="ft0">1) </span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:96"><nobr><span class="ft0">Besides with Attribute-Valued pairs, components are </span></nobr></DIV>
+<DIV style="position:absolute;top:1013;left:81"><nobr><span class="ft6">also classified and represented by a set of facets and their <br>terms: </span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:96"><nobr><span class="ft0">Definition 5: Facets (F</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:249"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:254"><nobr><span class="ft0">, F</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:276"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:281"><nobr><span class="ft0">, ......, F</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:346"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:348"><nobr><span class="ft0">, ......, F</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:413"><nobr><span class="ft12">n2</span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:423"><nobr><span class="ft0">); </span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:81"><nobr><span class="ft0">(n</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:94"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:113"><nobr><span class="ft0">N, n</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:98"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:139"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:144"><nobr><span class="ft0">1) </span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:501"><nobr><span class="ft0">Summary of component information differs from </span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:486"><nobr><span class="ft6">Attribute-Valued pairs. It provides a comprehensive <br>description of a component in context. </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:501"><nobr><span class="ft6">Definition 6: Summary (S); <br>User feedback includes all the comments and feedback </span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:486"><nobr><span class="ft0">to a specific component: </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:501"><nobr><span class="ft0">Definition 7: User Feedback (U</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:700"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:705"><nobr><span class="ft0">, U</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:725"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:730"><nobr><span class="ft0">, ......, U</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:791"><nobr><span class="ft12">i</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:793"><nobr><span class="ft0">, ......, </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:486"><nobr><span class="ft0">U</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:497"><nobr><span class="ft12">n3</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:507"><nobr><span class="ft0">); (n</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:532"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:552"><nobr><span class="ft0">N, n</span></nobr></DIV>
+<DIV style="position:absolute;top:203;left:537"><nobr><span class="ft0"></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:578"><nobr><span class="ft12">3</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:583"><nobr><span class="ft0">1) </span></nobr></DIV>
+<DIV style="position:absolute;top:219;left:501"><nobr><span class="ft0">User feedback must be analyzed and evaluated to a </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:486"><nobr><span class="ft6">relative number. We use E to represent the Evaluation <br>number of user feedback.  </span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:501"><nobr><span class="ft6">Definition 8: E = Evaluate (User Feedback). <br>Definition 9: Visited times of a component: Visited </span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:486"><nobr><span class="ft0">times (V); </span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:501"><nobr><span class="ft6">Definition 10: Downloaded times of a component: <br>Downloaded times (D); <br>We have listed out all the influential factors above, </span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:486"><nobr><span class="ft0">which constitute a six-tuple: </span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:501"><nobr><span class="ft6">Factors (A, F, S, U, V, D); <br>Their influential weights differ from each other </span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:486"><nobr><span class="ft0">according to their feature and importance: </span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:501"><nobr><span class="ft0">Definition 11: Weights (W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:662"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:669"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:691"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:696"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:718"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:723"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:745"><nobr><span class="ft12">U</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:752"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:774"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:781"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:802"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:809"><nobr><span class="ft0">);  </span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:486"><nobr><span class="ft0">(0W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:521"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:528"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:579"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:585"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:636"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:642"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:693"><nobr><span class="ft12">U</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:700"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:752"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:759"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:811"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:818"><nobr><span class="ft0">1, </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:486"><nobr><span class="ft0">W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:500"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:507"><nobr><span class="ft0">+W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:530"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:535"><nobr><span class="ft0">+W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:558"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:563"><nobr><span class="ft0">+W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:586"><nobr><span class="ft12">U</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:593"><nobr><span class="ft0">+W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:616"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:623"><nobr><span class="ft0">+W</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:645"><nobr><span class="ft12">D </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:655"><nobr><span class="ft0">= 1) </span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:501"><nobr><span class="ft0">W</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:515"><nobr><span class="ft12">A </span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:526"><nobr><span class="ft0">represents the weight of Attributes; W</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:765"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:770"><nobr><span class="ft0"> represents </span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:486"><nobr><span class="ft0">the weight of Facets; W</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:631"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:636"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:658"><nobr><span class="ft12">U</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:665"><nobr><span class="ft0">, W</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:688"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:695"><nobr><span class="ft0">, and W</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:742"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:750"><nobr><span class="ft0"> also represent </span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:486"><nobr><span class="ft0">the weight of corresponding factor discussed above. </span></nobr></DIV>
+<DIV style="position:absolute;top:547;left:501"><nobr><span class="ft0">There are several functions for calculating the matching </span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:486"><nobr><span class="ft6">degree of some factors. The core calculating formula of <br>each function relies on its corresponding matching <br>algorithm. </span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:489"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:572"><nobr><span class="ft2"><b>Functions Formulas </b></span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:489"><nobr><span class="ft2"><b>Summary  </b>F</span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:581"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:586"><nobr><span class="ft0"> (Keywords, </span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:595"><nobr><span class="ft0">Summary) </span></nobr></DIV>
+<DIV style="position:absolute;top:650;left:686"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:692"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:690"><nobr><span class="ft15"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:688"><nobr><span class="ft15"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:782"><nobr><span class="ft16"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:758"><nobr><span class="ft16"><i>Ki</i></span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:707"><nobr><span class="ft16"><i>match</i></span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:697"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:793"><nobr><span class="ft10">)</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:776"><nobr><span class="ft10">,</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:751"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:661;left:801"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:489"><nobr><span class="ft2"><b>Facets </b></span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:572"><nobr><span class="ft0">F</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:581"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:586"><nobr><span class="ft0"> (Keywords, </span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:595"><nobr><span class="ft0">Facets) </span></nobr></DIV>
+<DIV style="position:absolute;top:703;left:685"><nobr><span class="ft17"></span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:692"><nobr><span class="ft12">=</span></nobr></DIV>
+<DIV style="position:absolute;top:731;left:713"><nobr><span class="ft12">=</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:689"><nobr><span class="ft18"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:688"><nobr><span class="ft18"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:709"><nobr><span class="ft18"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:709"><nobr><span class="ft18"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:797"><nobr><span class="ft19"><i>Fj</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:774"><nobr><span class="ft19"><i>Ki</i></span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:726"><nobr><span class="ft19"><i>match</i></span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:696"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:715"><nobr><span class="ft12">2</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:718"><nobr><span class="ft12">1</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:813"><nobr><span class="ft20">)</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:790"><nobr><span class="ft20">,</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:767"><nobr><span class="ft20">(</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:821"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:489"><nobr><span class="ft2"><b>Attributes</b></span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:572"><nobr><span class="ft0">F</span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:581"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:746;left:588"><nobr><span class="ft0"> (Keywords, </span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:595"><nobr><span class="ft0">Attributes) </span></nobr></DIV>
+<DIV style="position:absolute;top:753;left:686"><nobr><span class="ft21"></span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:692"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:715"><nobr><span class="ft14">=</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:690"><nobr><span class="ft15"><i>no</i></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:688"><nobr><span class="ft15"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:712"><nobr><span class="ft15"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:711"><nobr><span class="ft15"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:804"><nobr><span class="ft22"><i>Aj</i></span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:779"><nobr><span class="ft22"><i>Ki</i></span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:728"><nobr><span class="ft22"><i>match</i></span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:697"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:717"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:783;left:720"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:821"><nobr><span class="ft23">)</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:797"><nobr><span class="ft23">,</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:772"><nobr><span class="ft23">(</span></nobr></DIV>
+<DIV style="position:absolute;top:802;left:518"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:501"><nobr><span class="ft0">Match function of component summary uses the </span></nobr></DIV>
+<DIV style="position:absolute;top:835;left:486"><nobr><span class="ft6">content-based similarity measurement algorithm of the <br>search engine techniques. A Best-First algorithm was <br>proposed by Cho [6]. This algorithm uses a vector space <br>model to calculate the similarity between the keywords <br>and the content. Its formula is given as following: </span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:618"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:694"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:639"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:642"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:718"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:663"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:590"><nobr><span class="ft10">=</span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:650"><nobr><span class="ft15"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:637"><nobr><span class="ft15"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:725"><nobr><span class="ft15"><i>q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:713"><nobr><span class="ft15"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:756"><nobr><span class="ft15"><i>kq</i></span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:681"><nobr><span class="ft15"><i>kp</i></span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:679"><nobr><span class="ft15"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:670"><nobr><span class="ft15"><i>q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:658"><nobr><span class="ft15"><i>k</i></span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:724"><nobr><span class="ft15"><i>kp</i></span></nobr></DIV>
+<DIV style="position:absolute;top:930;left:700"><nobr><span class="ft15"><i>kq</i></span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:730"><nobr><span class="ft24"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:655"><nobr><span class="ft24"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:710"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:923;left:685"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:570"><nobr><span class="ft16"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:552"><nobr><span class="ft16"><i>q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:520"><nobr><span class="ft16"><i>sim</i></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:756"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:681"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:938;left:675"><nobr><span class="ft14">|</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:580"><nobr><span class="ft10">)</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:562"><nobr><span class="ft10">,</span></nobr></DIV>
+<DIV style="position:absolute;top:940;left:546"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:772"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:501"><nobr><span class="ft0">The variable q represents the collection of keywords, p </span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:486"><nobr><span class="ft0">represents the content, and W</span></nobr></DIV>
+<DIV style="position:absolute;top:1017;left:667"><nobr><span class="ft12">kp</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:677"><nobr><span class="ft0"> represents the importance </span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:486"><nobr><span class="ft6">of k to a specific topic. In our mathematical model, <br>variable q represents the query condition, and the variable <br>p represents the summary of the component information. </span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>276</b></span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft25{font-size:21px;font-family:Times;color:#000000;}
+	.ft26{font-size:17px;font-family:Times;color:#000000;}
+	.ft27{font-size:16px;line-height:-14px;font-family:Times;color:#000000;}
+	.ft28{font-size:16px;line-height:-17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24004.png" alt="background image">
+<DIV style="position:absolute;top:81;left:96"><nobr><span class="ft0">Facet-based retrieving method usually adopts the facet </span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:81"><nobr><span class="ft6">tree matching. And therefore, its match function <br>calculates the matching degree between the facet tree of <br>component and the query tree. A formula to calculate the <br>matching cost of tree containment matching was given by <br>Xu [7]: </span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:96"><nobr><span class="ft0">Q=(V,E,root(Q)), D=(W,F,root(D)) are two unordered </span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:81"><nobr><span class="ft6">label tree, TCostM(Q, D) represents the tree containment <br>matching cost from tree Q to tree D. </span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:255"><nobr><span class="ft25">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:239"><nobr><span class="ft25">{</span></nobr></DIV>
+<DIV style="position:absolute;top:230;left:364"><nobr><span class="ft25">}</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:351"><nobr><span class="ft22"><i>D</i></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:311"><nobr><span class="ft22"><i>Q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:292"><nobr><span class="ft22"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:264"><nobr><span class="ft22"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:328"><nobr><span class="ft23"></span></nobr></DIV>
+<DIV style="position:absolute;top:236;left:197"><nobr><span class="ft23">=</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:304"><nobr><span class="ft23">:</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:282"><nobr><span class="ft23">|</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:211"><nobr><span class="ft23">min</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:174"><nobr><span class="ft23">D)</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:88"><nobr><span class="ft23">TCostM(Q,</span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:84"><nobr><span class="ft23"> </span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:244"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:374"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:94"><nobr><span class="ft25">( )</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:186"><nobr><span class="ft25">(</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:358"><nobr><span class="ft25">)</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:142"><nobr><span class="ft25">(</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:242"><nobr><span class="ft25">)</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:344"><nobr><span class="ft25">(</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:313"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:111"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:155"><nobr><span class="ft13"></span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:332"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:269"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:102"><nobr><span class="ft14">-</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:88"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:139"><nobr><span class="ft14"></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:364"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:249"><nobr><span class="ft10">+</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:209"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:366"><nobr><span class="ft10">+</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:253"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:121"><nobr><span class="ft10">=</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:378"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:366"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:328"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:315"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:153"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:141"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:191"><nobr><span class="ft14">)</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:178"><nobr><span class="ft14">(</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:437"><nobr><span class="ft10">)</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:422"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:199"><nobr><span class="ft10">)</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:184"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:345"><nobr><span class="ft10">))</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:331"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:311"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:243"><nobr><span class="ft10">)</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:229"><nobr><span class="ft10">(</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:372"><nobr><span class="ft15"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:338"><nobr><span class="ft15"><i>Range</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:322"><nobr><span class="ft15"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:276"><nobr><span class="ft15"><i>spectrum</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:263"><nobr><span class="ft15"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:147"><nobr><span class="ft15"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:108"><nobr><span class="ft15"><i>domain</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:94"><nobr><span class="ft15"><i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:84"><nobr><span class="ft15"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:185"><nobr><span class="ft15"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:146"><nobr><span class="ft15"><i>domain</i></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:135"><nobr><span class="ft15"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:429"><nobr><span class="ft16"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:385"><nobr><span class="ft16"><i>label</i></span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:190"><nobr><span class="ft16"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:147"><nobr><span class="ft16"><i>label</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:337"><nobr><span class="ft16"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:321"><nobr><span class="ft16"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:274"><nobr><span class="ft16"><i>label</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:235"><nobr><span class="ft16"><i>v</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:191"><nobr><span class="ft16"><i>label</i></span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:102"><nobr><span class="ft16"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:349"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:333"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:230"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:131"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:176"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:83"><nobr><span class="ft26"></span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:444"><nobr><span class="ft25">)</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:81"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:96"><nobr><span class="ft0">If f is a tree containment matching from tree Q to tree </span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:81"><nobr><span class="ft6">D, and  (f) = TCostM(Q, D), then f is the tree <br>containment matching which obtains the minimum <br>matching cost from tree Q to tree D. This definition could <br>be also applied to the containment matching between tree <br>and forest or between forest and forest. </span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:96"><nobr><span class="ft0">As to the match function of component attributes, we </span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:81"><nobr><span class="ft6">just use the traditional database query methods to deal <br>with it. </span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:96"><nobr><span class="ft0">E, V, and D are three ranking factors without any </span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:81"><nobr><span class="ft6">relation to query keywords. Even though they are <br>numbers, we could not use them directly for ranking. <br>Functions should be provided to transform them. </span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:113"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:119"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:302"><nobr><span class="ft2"><b>Functions </b></span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:119"><nobr><span class="ft2"><b>Evaluation of Feedback </b></span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:302"><nobr><span class="ft0">F</span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:311"><nobr><span class="ft12">E</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:317"><nobr><span class="ft0"> (E) </span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:119"><nobr><span class="ft2"><b>Visited Times </b></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:302"><nobr><span class="ft0">F</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:311"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:318"><nobr><span class="ft0"> (V) </span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:119"><nobr><span class="ft2"><b>Downloaded Times </b></span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:302"><nobr><span class="ft0">F</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:311"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:318"><nobr><span class="ft0"> (D) </span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:113"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:739;left:96"><nobr><span class="ft0">According to the discussion above, we finally draw out </span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:81"><nobr><span class="ft6">a very simple formula to calculate the rank for each <br>component: </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:95"><nobr><span class="ft11">Rank = F</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:145"><nobr><span class="ft12">A </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:154"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:177"><nobr><span class="ft12">A</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:184"><nobr><span class="ft11"> + F</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:206"><nobr><span class="ft12">F </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:213"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:237"><nobr><span class="ft12">F</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:242"><nobr><span class="ft11">  + F</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:267"><nobr><span class="ft12">S </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:274"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:298"><nobr><span class="ft12">S</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:303"><nobr><span class="ft11"> + F</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:325"><nobr><span class="ft12">E </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:333"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:356"><nobr><span class="ft12">E</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:362"><nobr><span class="ft11"> + F</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:384"><nobr><span class="ft12">V </span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:392"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:416"><nobr><span class="ft12">V</span></nobr></DIV>
+<DIV style="position:absolute;top:791;left:423"><nobr><span class="ft11">  </span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:81"><nobr><span class="ft11">+ F</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:100"><nobr><span class="ft12">D </span></nobr></DIV>
+<DIV style="position:absolute;top:806;left:108"><nobr><span class="ft11">× W</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:132"><nobr><span class="ft12">D</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:96"><nobr><span class="ft0">We can use matrix operation to represent the </span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:81"><nobr><span class="ft6">calculation of rank value for each component in the <br>retrieval results. There are n components and 6 influential <br>factors. F</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:138"><nobr><span class="ft12">6×n</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:153"><nobr><span class="ft0"> × W</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:183"><nobr><span class="ft12">1×6</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:198"><nobr><span class="ft0"> = R</span></nobr></DIV>
+<DIV style="position:absolute;top:881;left:224"><nobr><span class="ft12">1×n</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:239"><nobr><span class="ft0">: </span></nobr></DIV>
+<DIV style="position:absolute;top:891;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:431"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:431"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:431"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:405"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:405"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:405"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:390"><nobr><span class="ft10">=</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:378"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:378"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:378"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:349"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:349"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:349"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:975;left:336"><nobr><span class="ft10">×</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:326"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:326"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:326"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:84"><nobr><span class="ft28"><br><br><br><br><br><br><br></span></nobr></DIV>
+<DIV style="position:absolute;top:1047;left:84"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:84"><nobr><span class="ft10"></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:425"><nobr><span class="ft15"><i>n</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:426"><nobr><span class="ft15"><i>i</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:370"><nobr><span class="ft15"><i>D</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:370"><nobr><span class="ft15"><i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:370"><nobr><span class="ft15"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:971;left:371"><nobr><span class="ft15"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:370"><nobr><span class="ft15"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:371"><nobr><span class="ft15"><i>A</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:312"><nobr><span class="ft15"><i>Dn</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:270"><nobr><span class="ft15"><i>Vn</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:228"><nobr><span class="ft15"><i>En</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:187"><nobr><span class="ft15"><i>Sn</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:145"><nobr><span class="ft15"><i>Fn</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:103"><nobr><span class="ft15"><i>An</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:313"><nobr><span class="ft15"><i>Di</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:271"><nobr><span class="ft15"><i>Vi</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:229"><nobr><span class="ft15"><i>Ei</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:188"><nobr><span class="ft15"><i>Si</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:146"><nobr><span class="ft15"><i>Fi</i></span></nobr></DIV>
+<DIV style="position:absolute;top:998;left:104"><nobr><span class="ft15"><i>Ai</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:312"><nobr><span class="ft15"><i>D</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:269"><nobr><span class="ft15"><i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:227"><nobr><span class="ft15"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:186"><nobr><span class="ft15"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:144"><nobr><span class="ft15"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:103"><nobr><span class="ft15"><i>A</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:313"><nobr><span class="ft15"><i>D</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:270"><nobr><span class="ft15"><i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:228"><nobr><span class="ft15"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:187"><nobr><span class="ft15"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:145"><nobr><span class="ft15"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:104"><nobr><span class="ft15"><i>A</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:414"><nobr><span class="ft16"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:415"><nobr><span class="ft16"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:413"><nobr><span class="ft16"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:414"><nobr><span class="ft16"><i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:355"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:355"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:355"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:356"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:355"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:356"><nobr><span class="ft16"><i>W</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:301"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:259"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:217"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:176"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:134"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1045;left:92"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:302"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:260"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:218"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:177"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:135"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:93"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:301"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:258"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:216"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:175"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:133"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:92"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:302"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:259"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:217"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:176"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:134"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:910;left:93"><nobr><span class="ft16"><i>F</i></span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:419"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:419"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:310"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:267"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:225"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:183"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:142"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:100"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:310"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:267"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:225"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:183"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:142"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:100"><nobr><span class="ft10">M</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:425"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:425"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:320"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:278"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:235"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:193"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:152"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:110"><nobr><span class="ft14">2</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:320"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:277"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:235"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:193"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:152"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:917;left:110"><nobr><span class="ft14">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:81"><nobr><span class="ft11"> </span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:501"><nobr><span class="ft0">We specify the weights with experiential values at the </span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:486"><nobr><span class="ft6">very beginning, and then use the data mining technology <br>to analyze the user logs to dynamically and iteratively <br>adjust those values. <br> <br><b>3.4 Timing of Ranks Calculation <br></b> <br>It's time for us to determine when to deal with the <br>calculation of ranks, since that we have designed how to <br>deal with it. It's just the matter of the timing of rank <br>calculation. There are two probable times for calculation: <br>calculating after the retrieving process has been finished; <br>calculating during the process of retrieving. Both of the <br>probable times have their own advantages and <br>disadvantages. </span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:501"><nobr><span class="ft0">If we calculate the rank after the retrieving process has </span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:486"><nobr><span class="ft6">been finished, we can deal with the retrieving and ranking <br>separately. It will be much easier for us to design and <br>maintain the system, since the retrieving and ranking <br>process are independent. However, it costs much more <br>time and space to calculate the rank. It needs a lot of <br>memory space to store a large number of retrieval results <br>temporally before they are ranked, and costs much more <br>time to manage the transmission of data between storage <br>devices and CPU. On the contrary, if we calculate the <br>rank during the process of retrieving, we have to combine <br>the retrieving with the ranking process completely or <br>partly. Undoubtedly, it will be hard for us to implement <br>and maintain the system, but it can greatly improve the <br>time and the space performances. </span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:501"><nobr><span class="ft0">According to the discussion above, we can choose a </span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:486"><nobr><span class="ft6">proper time to calculate the ranks. Which solution we <br>should choose depends on the requirements of the system. <br>The solution which calculates the ranks during the <br>retrieving process should be adopted if the time and the <br>space performances are rigorously required. <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:486"><nobr><span class="ft3"><b>4.  Implementation </b></span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:486"><nobr><span class="ft6"> <br>Our component library system, named DLCL, is <br>implemented with J2EE platform. The mathematical <br>model and its algorithm we discussed above have been <br>implemented in this system with Java. Java is an object-<br>oriented language. Its implementation consists of several <br>core interfaces and classes. The core interfaces, classes <br>and the relationship between them are demonstrated in the <br>UML class diagram: </span></nobr></DIV>
+<DIV style="position:absolute;top:1092;left:486"><nobr><span class="ft0">          </span></nobr></DIV>
+<DIV style="position:absolute;top:1092;left:803"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>277</b></span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24005.png" alt="background image">
+<DIV style="position:absolute;top:82;left:144"><nobr><span class="ft2"><b>Fig. 2.</b> <b> Class Diagram of Ranking Module </b></span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:279"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:96"><nobr><span class="ft0">We calculate the ranks during the retrieving process to </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft6">improve the time and space performances, and therefore, <br>we have to combine the ranking module partly with the <br>retrieving module. In order to lower the coupled degree <br>between these two modules, a callback mechanism was <br>adopted. We define an interface Rank, which consists of <br>only one method to calculate the ranks. <br>RankComponentImpl is a class implementing the <br>interface Rank to calculate the ranks of those components <br>retrieved by users. The method of its concrete object can <br>be executed by the searcher during the retrieving process. <br>Class Component encapsulates those methods which <br>provide the component information. <br>ComponentMatchingDegree is a class providing those <br>methods for calculating the matching degree between the <br>query keywords and component. Each influential factor <br>has its own strategy for calculation. There's also a class <br>Weight, which provides the methods to get the influential <br>weight of each factor. <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:81"><nobr><span class="ft3"><b>5.  Experiment and its Results </b></span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:81"><nobr><span class="ft6"> <br>In order to verify the efficiency of the component <br>retrieving system which adoptes our weighted ranking <br>algorithm, we design an experiment and carry out this <br>experiment in our component library system, named <br>DLCL. There are more than 1000 components in this <br>system. Retrieving system of DLCL splits the retrieval <br>results into several pages if there are too many <br>components retrieved, and lists out 10 components per <br>page. </span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:96"><nobr><span class="ft0">The experiment separates the users into two groups, </span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:81"><nobr><span class="ft6">group 1 and group 2. Each group consists of 10 persons. <br>All the users know about the knowledge of component <br>reuse to a certain extent. Both groups use the facet-based <br>component retrieving method to retrieve the components. <br>Retrieval results of group 1 are listed out without any <br>ranking, however, those of group 2 are ranked by our <br>weighted ranking algorithm. </span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:96"><nobr><span class="ft0">There are several aspects to measure the efficiency of </span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:81"><nobr><span class="ft6">each group: how many pages they turned; how many <br>times they had to adjust the query condition; and the most <br>important, how many time was elapsed during the whole <br>retrieving process. The experimental results are given in <br>the following table: </span></nobr></DIV>
+<DIV style="position:absolute;top:913;left:96"><nobr><span class="ft2"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:107"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:281"><nobr><span class="ft2"><b>Group 1  Group 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:107"><nobr><span class="ft7"><b>Average Turned Pages <br>(pages) </b></span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:296"><nobr><span class="ft0">2.7 1.4 </span></nobr></DIV>
+<DIV style="position:absolute;top:992;left:107"><nobr><span class="ft7"><b>Average Adjusted Times <br>(times) </b></span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:296"><nobr><span class="ft0">2.3 1.1 </span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:107"><nobr><span class="ft7"><b>Average Time elapsed <br>(minutes) </b></span></nobr></DIV>
+<DIV style="position:absolute;top:1026;left:296"><nobr><span class="ft0">26.6 9.5 </span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:81"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:501"><nobr><span class="ft0">The experimental results obviously shows that the </span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:486"><nobr><span class="ft6">efficiency of group 2 is greatly higher than group 1. By <br>applying the weighted ranking algorithm into the <br>retrieving system of DLCL, users needn't turn too many <br>pages to view and compare the component information or <br>to adjust the query condition to improve the query <br>precision. Only to view the first page of retrieval results <br>will be enough most of the time. And therefore, it greatly <br>saves the time and retrieval costs. </span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:486"><nobr><span class="ft3"><b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:486"><nobr><span class="ft0"> </span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:486"><nobr><span class="ft3"><b>6.  Related Works </b></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:486"><nobr><span class="ft6"> <br>The idea of Component Rank comes from computing fair <br>impact factors of published papers [8]. Google is a web <br>search engine. Its method can be considered as an HTML <br>extension of the method proposed for counting impact of <br>publications, called influence weight in [8]. Google <br>computes the ranks (called PageRanks) for HTML <br>documents in the Internet [9, 10]. In reference [11], the <br>authors present the Component Rank model for ranking <br>software components, and show a system for computing <br>Component Rank. In this model, a collection of software <br>components is represented as a weighted directed graph <br>whose nodes correspond to the components and edges <br>correspond to the usage relations. Similar components are <br>clustered into one node so that effect of simply duplicated <br>nodes is removed. The nodes in the graph are ranked by <br>their weights which are defined as the elements of the <br>eigenvector of an adjacent matrix for the directed graph. <br>A major distinction of Component Rank model in [11] <br>from PageRank and the influence weight in [9, 10] is that <br>Component Rank model explores similarity between <br>components before the weight computation. </span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:501"><nobr><span class="ft0">In this paper, we also propose a weighted ranking </span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:486"><nobr><span class="ft6">algorithm for component retrieval system. This weighted <br>ranking algorithm uses different calculating strategies <br>according to the feature of facet-based retrieval methods. <br>While in [11], the authors employed only statical use <br>relations.<b> <br></b> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:813;left:486"><nobr><span class="ft3"><b>7.  Conclusion </b></span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:486"><nobr><span class="ft6"> <br>In this paper, a mathematical model of weighted ranking <br>algorithm is proposed and the timing of ranks calculation <br>is discussed. We have applied this ranking algorithm into <br>our component library system, named DLCL. The <br>experiment we carried out shows that this algorithm <br>greatly improves the efficiency of component retrieving <br>system, saving the time and retrieval costs for component <br>reusing. <br> <br> </span></nobr></DIV>
+<DIV style="position:absolute;top:1023;left:486"><nobr><span class="ft8"><b>Acknowledgement <br></b> </span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>278</b></span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:918;height:1188;">
+<STYLE type="text/css">
+<!--
+	.ft29{font-size:13px;font-family:Times;color:#000000;}
+	.ft30{font-size:13px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="918" height="1188" src="24006.png" alt="background image">
+<DIV style="position:absolute;top:81;left:81"><nobr><span class="ft6">This research is partially supported by the National High <br>Technology Development 863 Program under Grant No. <br>2004AA116010.<b> </b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:81"><nobr><span class="ft8"><b> <br> <br>References </b></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:81"><nobr><span class="ft6"> <br>[1] Frakes WB, Pole TP, An empirical study of <br>representation methods for reusable software components, <br><i>IEEE Transactions on Software Engineering</i>, 1994, l20(8), <br>pp617-630 <br>[2] H. Mili, R. Rada, W. Wang, K. Strickland, C. <br>Boldyreff, L. Olsen, J. Witt, J. Heger, W. Scherr, and P. <br>Elzer, Practitioner and SoftClass: A Comparative Study of <br>Two Software Reuse Research Projects, <i>J. Systems and <br>Software</i>, 1994, 27(5) <br>[3] NEC Software Engineering Laboratory, NATO <br>Standard for Management of a Reusable Software <br>Component Library, <i>NATO Communications and <br>Information Systems Agency</i>, 1991 <br>[4] Wang YF. Research on retrieving reusable <br>components classified in faceted scheme<i>  </i>[<i>Ph.D. Thesis</i>]. <br>Shanghai: Fudan University, 2002. <br>[5] Chang JC, et al. Representation and Retrieval of <br>Reusable Software Components [J].<i>Computer Science</i>, <br>1999, 26(5):41-48. <br>[6] Cho J, Garcia-Molina H, Page L. Efficient Crawling <br>Through URL Ordering [J]. <i>Computer Networks</i>, 1998, <br>30(1~7):161-172 <br>[7] Xu RZ, et al. Research on Matching Algorithm for <br>XML-Based Software Component Query, <i>Journal of <br>Software</i>, 2003, 14(7):1195-1202. <br>[8] G. Pinski and F. Narin. "Citation Influence for Journal <br>Aggregates of Scientific Publications: Theory, with <br>Application to the Literature of Physics". <i>Information <br>Processing and Management</i>, 12(5):297.312, 1976. <br>[9] L. Page, S. Brin, R. Motwani, and T. Winograd. "The <br>PageRank Citation Ranking: Bringing Order to the Web". <br>Technical Report of Stanford Digital Library <br>Technologies Project, 1998. <i>"http://www-<br>db.stanford.edu/.backrub/ pageranksub.ps"</i>. <br>[10] J. Kleinberg. "Authoritative Sources in a <br>Hyperlinked Environment". <i>Journal of the ACM</i>, <br>46(5):604.632, 1999. <br>[11] Katsuro Inoue, Reishi Yokomori, Hikaru Fujiwara, <br>Tetsuo Yamamoto, Makoto Matsushita, Shinji Kusumoto: <br>Component Rank: Relative Significance Rank for <br>Software Component Search. <i>ICSE 2003</i>: 14-24 </span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:449"><nobr><span class="ft5"><b>279</b></span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

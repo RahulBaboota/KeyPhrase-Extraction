@@ -1,0 +1,1619 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>D:\Paper\HTML\106</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="generator" content="pdftohtml 0.35beta">
+<META name="date" content="2005-10-28T18:56:26+00:00">
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<!-- Page 1 -->
+<a name="1"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:19px;font-family:Times;color:#000000;}
+	.ft1{font-size:14px;font-family:Times;color:#000000;}
+	.ft2{font-size:12px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:12px;line-height:21px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106001.png" alt="background image">
+<DIV style="position:absolute;top:86;left:107"><nobr><span class="ft0">Improvements of TLAESA Nearest Neighbour Search Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:237"><nobr><span class="ft0">and Extension to Approximation Search</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:206"><nobr><span class="ft1">Ken Tokoro</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:356"><nobr><span class="ft1">Kazuaki Yamaguchi</span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:572"><nobr><span class="ft1">Sumio Masuda</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:396"><nobr><span class="ft2">Kobe University,</span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:295"><nobr><span class="ft2">1-1, Rokkodai, Nada-ku, Kobe 657-8501 Japan,</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:368"><nobr><span class="ft2">Email: ky@kobe-u.ac.jp</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:91"><nobr><span class="ft1">Abstract</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:91"><nobr><span class="ft2">Nearest neighbour (NN) searches and k nearest neigh-</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:91"><nobr><span class="ft2">bour (k-NN) searches are widely used in pattern</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:91"><nobr><span class="ft2">recognition and image retrieval.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:330"><nobr><span class="ft2">An NN (k-NN)</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:91"><nobr><span class="ft2">search finds the closest object (closest k objects) to a</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:91"><nobr><span class="ft2">query object. Although the definition of the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:91"><nobr><span class="ft2">between objects depends on applications, its compu-</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:91"><nobr><span class="ft2">tation is generally complicated and time-consuming.</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:91"><nobr><span class="ft2">It is therefore important to reduce the number of dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:91"><nobr><span class="ft2">tance computations. TLAESA (Tree Linear Approx-</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:91"><nobr><span class="ft2">imating and Eliminating Search Algorithm) is one of</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:91"><nobr><span class="ft2">the fastest algorithms for NN searches. This method</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:91"><nobr><span class="ft2">reduces distance computations by using a branch and</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:91"><nobr><span class="ft2">bound algorithm. In this paper we improve both the</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:91"><nobr><span class="ft2">data structure and the search algorithm of TLAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:91"><nobr><span class="ft2">The proposed method greatly reduces the number of</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:91"><nobr><span class="ft2">distance computations. Moreover, we extend the im-</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:91"><nobr><span class="ft2">proved method to an approximation search algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:91"><nobr><span class="ft2">which ensures the quality of solutions. Experimental</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:91"><nobr><span class="ft2">results show that the proposed method is efficient and</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:91"><nobr><span class="ft2">finds an approximate solution with a very low error</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:91"><nobr><span class="ft2">rate.</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:91"><nobr><span class="ft1">Keywords:</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:175"><nobr><span class="ft2">Nearest Neighbour Search, k Nearest</span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:91"><nobr><span class="ft2">Neighbour Search, TLAESA, Approximation Search,</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:91"><nobr><span class="ft2">Distance Computaion.</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:91"><nobr><span class="ft1">1</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:117"><nobr><span class="ft1">Introduction</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:91"><nobr><span class="ft2">NN and k-NN searches are techniques which find the</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:91"><nobr><span class="ft2">closest object (closest k objects) to a query object</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:91"><nobr><span class="ft2">from a database. These are widely used in pattern</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:91"><nobr><span class="ft2">recognition and image retrieval. We can see exam-</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:91"><nobr><span class="ft2">ples of their applications to handwritten character</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:91"><nobr><span class="ft2">recognition in (Rico-Juan &amp; Mic´o 2003) and (Mic´o</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:91"><nobr><span class="ft2">&amp; Oncina 1998), and so on. In this paper we consider</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:91"><nobr><span class="ft2">NN (k-NN) algorithms that can work in any metric</span></nobr></DIV>
+<DIV style="position:absolute;top:874;left:91"><nobr><span class="ft2">space. For any x, y, z in a metric space, the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:889;left:91"><nobr><span class="ft2">function d(·, ·) satisfies the following properties:</span></nobr></DIV>
+<DIV style="position:absolute;top:921;left:180"><nobr><span class="ft4">d(x, y) = 0  x = y,<br>d(x, y) = d(y, x),<br>d(x, z)  d(x, y) + d(y, z).</span></nobr></DIV>
+<DIV style="position:absolute;top:995;left:91"><nobr><span class="ft2">Although the definition of the distance depends on</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:91"><nobr><span class="ft2">applications, its calculation is generally complicated</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:91"><nobr><span class="ft2">and time-consuming. We particularly call the calcu-</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:91"><nobr><span class="ft2">lation of d(·, ·) a distance computation.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:91"><nobr><span class="ft5">Copyright c 2006, Australian Computer Society, Inc. This pa-<br>per appeared at Twenty-Ninth Australasian Computer Science<br>Conference (ACSC2006), Hobart, Tasmania, Australia, Jan-<br>uary 2006. Conferences in Research and Practice in Informa-<br>tion Technology, Vol. 48. Vladimir Estivill-Castro and Gill<br>Dobbie, Ed. Reproduction for academic, not-for profit pur-<br>poses permitted provided this text is included.</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:484"><nobr><span class="ft2">For the NN and k-NN searches in metric spaces,</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:464"><nobr><span class="ft2">some methods that can manage a large set of ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:464"><nobr><span class="ft2">jects efficiently have been introduced(Hjaltason &amp;</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:464"><nobr><span class="ft2">Samet 2003). They are categorized into two groups.</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:464"><nobr><span class="ft2">The methods in the first group manage objects with</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:464"><nobr><span class="ft2">a tree structure such as vp-tree(Yianilos 1993), M-</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:464"><nobr><span class="ft2">tree(Ciaccia, Patella &amp; Zezula 1997), sa-tree (Navarro</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:464"><nobr><span class="ft2">2002) and so forth. The methods in the second group</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:464"><nobr><span class="ft2">manage objects with a distance matrix, which stores</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:464"><nobr><span class="ft2">the distances between objects. The difference be-</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:464"><nobr><span class="ft2">tween two groups is caused by their approaches to</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:464"><nobr><span class="ft2">fast searching. The former aims at reducing the com-</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:464"><nobr><span class="ft2">putational tasks in the search process by managing</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:464"><nobr><span class="ft2">objects effectively. The latter works toward reducing</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:464"><nobr><span class="ft2">the number of distance computations because gen-</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:464"><nobr><span class="ft2">erally their costs are higher than the costs of other</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:464"><nobr><span class="ft2">calculations. In this paper we consider the latter ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:464"><nobr><span class="ft2">proach.</span></nobr></DIV>
+<DIV style="position:absolute;top:572;left:484"><nobr><span class="ft2">AESA (Approximating and Eliminating Search</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:464"><nobr><span class="ft2">Algorithm)(Vidal 1986) is one of the fastest algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:602;left:464"><nobr><span class="ft2">rithms for NN searches in the distance matrix group.</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:464"><nobr><span class="ft2">The number of distance computations is bounded by</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:464"><nobr><span class="ft2">a constant, but the space complexity is quadratic.</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:464"><nobr><span class="ft2">LAESA (Linear AESA)(Mic´o, Oncina &amp; Vidal 1994)</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:464"><nobr><span class="ft2">was introduced in order to reduce this large space</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:464"><nobr><span class="ft2">complexity. Its space complexity is linear and its</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:464"><nobr><span class="ft2">search performance is almost the same as that of</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:464"><nobr><span class="ft2">AESA. Although LAESA is more practical than</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:464"><nobr><span class="ft2">AESA, it is impractical for a large database be-</span></nobr></DIV>
+<DIV style="position:absolute;top:737;left:464"><nobr><span class="ft2">cause calculations other than distance computations</span></nobr></DIV>
+<DIV style="position:absolute;top:752;left:464"><nobr><span class="ft2">increase. TLAESA (Tree LAESA)(Mic´o, Oncina &amp;</span></nobr></DIV>
+<DIV style="position:absolute;top:767;left:464"><nobr><span class="ft2">Carrasco 1996) is an improvement of LAESA and re-</span></nobr></DIV>
+<DIV style="position:absolute;top:782;left:464"><nobr><span class="ft2">duces the time complexity to sublinear. It uses two</span></nobr></DIV>
+<DIV style="position:absolute;top:797;left:464"><nobr><span class="ft2">kinds of data structures: a distance matrix and a bi-</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:464"><nobr><span class="ft2">nary tree, called a search tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:826;left:484"><nobr><span class="ft2">In this paper, we propose some improvements</span></nobr></DIV>
+<DIV style="position:absolute;top:841;left:464"><nobr><span class="ft2">of the search algorithm and the data structures of</span></nobr></DIV>
+<DIV style="position:absolute;top:856;left:464"><nobr><span class="ft2">TLAESA in order to reduce the number of distance</span></nobr></DIV>
+<DIV style="position:absolute;top:871;left:464"><nobr><span class="ft2">computations. The search algorithm follows the best</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:464"><nobr><span class="ft2">first algorithm. The search tree is transformed to a</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:464"><nobr><span class="ft2">multiway tree from a binary tree. We also improve</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:464"><nobr><span class="ft2">the selection method of the root object in the search</span></nobr></DIV>
+<DIV style="position:absolute;top:931;left:464"><nobr><span class="ft2">tree. These improvements are simple but very effec-</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:464"><nobr><span class="ft2">tive. We then introduce the way to perform a k-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:464"><nobr><span class="ft2">search in the improved TLAESA. Moreover, we pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:976;left:464"><nobr><span class="ft2">pose an extension to an approximation search algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:991;left:464"><nobr><span class="ft2">rithm that can ensure the quality of solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:1006;left:484"><nobr><span class="ft2">This paper is organized as follows. In section 2,</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:464"><nobr><span class="ft2">we describe the details of the search algorithm and</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:464"><nobr><span class="ft2">the data structures of TLAESA. In section 3, we pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:464"><nobr><span class="ft2">pose some improvements of TLAESA. In section 4,</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:464"><nobr><span class="ft2">we present an extension to an approximation search</span></nobr></DIV>
+<DIV style="position:absolute;top:1081;left:464"><nobr><span class="ft2">algorithm. In section 5, we show some experimental</span></nobr></DIV>
+<DIV style="position:absolute;top:1095;left:464"><nobr><span class="ft2">results. Finally, in section 6, we conclude this paper.</span></nobr></DIV>
+</DIV>
+<!-- Page 2 -->
+<a name="2"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft6{font-size:8px;font-family:Times;color:#000000;}
+	.ft7{font-size:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106002.png" alt="background image">
+<DIV style="position:absolute;top:234;left:91"><nobr><span class="ft2">Figure 1: An example of the data structures in</span></nobr></DIV>
+<DIV style="position:absolute;top:249;left:91"><nobr><span class="ft2">TLAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:91"><nobr><span class="ft1">2</span></nobr></DIV>
+<DIV style="position:absolute;top:305;left:117"><nobr><span class="ft1">TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:91"><nobr><span class="ft2">TLAESA uses two kinds of data structures: the dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:91"><nobr><span class="ft2">tance matrix and the search tree. The distance matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:91"><nobr><span class="ft2">stores the distances from each object to some selected</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:91"><nobr><span class="ft2">objects. The search tree manages hierarchically all</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:91"><nobr><span class="ft2">objects. During the execution of the search algorithm,</span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:91"><nobr><span class="ft2">the search tree is traversed and the distance matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:91"><nobr><span class="ft2">is used to avoid exploring some branches.</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:91"><nobr><span class="ft2">2.1</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:131"><nobr><span class="ft2">Data Structures</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:91"><nobr><span class="ft2">We explain the data structures in TLAESA. Let P</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:91"><nobr><span class="ft2">be the set of all objects and B be a subset consisting</span></nobr></DIV>
+<DIV style="position:absolute;top:515;left:91"><nobr><span class="ft2">of selected objects called base prototypes. The dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:91"><nobr><span class="ft2">tance matrix M is a two-dimensional array that stores</span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:91"><nobr><span class="ft2">the distances between all objects and base prototypes.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:91"><nobr><span class="ft2">The search tree T is a binary tree such that each node</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:91"><nobr><span class="ft2">t corresponds to a subset S</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:275"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:286"><nobr><span class="ft2"> P . Each node t has</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:91"><nobr><span class="ft2">a pointer to the representative object p</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:353"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:363"><nobr><span class="ft2"> S</span></nobr></DIV>
+<DIV style="position:absolute;top:595;left:388"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:399"><nobr><span class="ft2">which</span></nobr></DIV>
+<DIV style="position:absolute;top:604;left:91"><nobr><span class="ft2">is called a pivot, a pointer to a left child node l, a</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:91"><nobr><span class="ft2">pointer to a right child node r and a covering radius</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:91"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:98"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:104"><nobr><span class="ft2">. The covering radius is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:208"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:214"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:224"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:240"><nobr><span class="ft6">pS</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:262"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:270"><nobr><span class="ft2">d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:305"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:311"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:418"><nobr><span class="ft2">(1)</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:91"><nobr><span class="ft2">The pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:168"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:180"><nobr><span class="ft2">of r is defined as p</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:301"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:312"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:336"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:341"><nobr><span class="ft2">. On the other</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:91"><nobr><span class="ft2">hand, the pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:204"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:719;left:214"><nobr><span class="ft2">of l is determined so that</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:197"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:205"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:214"><nobr><span class="ft2">= argmax</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:240"><nobr><span class="ft6">pS</span></nobr></DIV>
+<DIV style="position:absolute;top:769;left:262"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:280"><nobr><span class="ft2">d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:316"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:321"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:418"><nobr><span class="ft2">(2)</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:91"><nobr><span class="ft2">Hence, we have the following equality:</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:221"><nobr><span class="ft2">r</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:227"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:237"><nobr><span class="ft2">= d(p</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:274"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:279"><nobr><span class="ft2">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:828;left:293"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:298"><nobr><span class="ft2">).</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:418"><nobr><span class="ft2">(3)</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:91"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:101"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:112"><nobr><span class="ft2">is partitioned into two disjoint subsets S</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:381"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:393"><nobr><span class="ft2">and S</span></nobr></DIV>
+<DIV style="position:absolute;top:858;left:432"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:91"><nobr><span class="ft2">as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:158"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:167"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:178"><nobr><span class="ft2">= {p  S</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:236"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:241"><nobr><span class="ft2">|d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:281"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:287"><nobr><span class="ft2">) &lt; d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:900;left:348"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:353"><nobr><span class="ft2">)},</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:160"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:169"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:178"><nobr><span class="ft2">= S</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:203"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:211"><nobr><span class="ft2">- S</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:235"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:242"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:418"><nobr><span class="ft2">(4)</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:91"><nobr><span class="ft2">Note that if t is a leaf node, S</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:297"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:308"><nobr><span class="ft2">= {p</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:341"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:346"><nobr><span class="ft2">} and r</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:396"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:408"><nobr><span class="ft2">= 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:91"><nobr><span class="ft2">Fig. 1 shows an example of the data structures.</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:91"><nobr><span class="ft2">2.2</span></nobr></DIV>
+<DIV style="position:absolute;top:997;left:131"><nobr><span class="ft2">Construction of the Data Structures</span></nobr></DIV>
+<DIV style="position:absolute;top:1021;left:91"><nobr><span class="ft2">We first explain the construction process of the search</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:91"><nobr><span class="ft2">tree T . The pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:224"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1036;left:234"><nobr><span class="ft2">of the root node t is randomly</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:91"><nobr><span class="ft2">selected and S</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:187"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:198"><nobr><span class="ft2">is set to P . The pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:361"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:1051;left:371"><nobr><span class="ft2">of the left</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:91"><nobr><span class="ft2">child node and the covering radius r</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:332"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1066;left:343"><nobr><span class="ft2">are defined by</span></nobr></DIV>
+<DIV style="position:absolute;top:1081;left:91"><nobr><span class="ft2">Eqs. (2) and (3). The pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:1087;left:282"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1081;left:293"><nobr><span class="ft2">of the right child node</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:91"><nobr><span class="ft2">is set to p</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:158"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:163"><nobr><span class="ft2">. S</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:186"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:197"><nobr><span class="ft2">is partitioned into S</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:331"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:343"><nobr><span class="ft2">and S</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:383"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:393"><nobr><span class="ft2">by Eq.</span></nobr></DIV>
+<DIV style="position:absolute;top:1111;left:91"><nobr><span class="ft2">(4). These operations are recursively repeated until</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:91"><nobr><span class="ft2">|S</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:105"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1126;left:110"><nobr><span class="ft2">| = 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:1141;left:112"><nobr><span class="ft2">The distance matrix M is constructed by selecting</span></nobr></DIV>
+<DIV style="position:absolute;top:1156;left:91"><nobr><span class="ft2">base prototypes. This selection is important because</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:559"><nobr><span class="ft2">Figure 2: Lower bound.</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:464"><nobr><span class="ft2">base prototypes are representative objects which are</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:464"><nobr><span class="ft2">used to avoid some explorations of the tree.</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:484"><nobr><span class="ft2">The ideal selection of them is that each object is</span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:464"><nobr><span class="ft2">as far away as possible from other objects. In (Mic´o</span></nobr></DIV>
+<DIV style="position:absolute;top:301;left:464"><nobr><span class="ft2">et al. 1994), a greedy algorithm is proposed for this</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:464"><nobr><span class="ft2">selection. This algorithm chooses an object that max-</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:464"><nobr><span class="ft2">imizes the sum of distances from the other base pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:464"><nobr><span class="ft2">totypes which have already been selected. In (Mic´o &amp;</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:464"><nobr><span class="ft2">Oncina 1998), another algorithm is proposed, which</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:464"><nobr><span class="ft2">chooses an object that maximizes the minimum dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:464"><nobr><span class="ft2">tance to the preselected base prototypes. (Mic´o &amp;</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:464"><nobr><span class="ft2">Oncina 1998) shows that the latter algorithm is more</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:464"><nobr><span class="ft2">effective than the former one. Thus, we use the later</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:464"><nobr><span class="ft2">algorithm for the selection of base prototypes.</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:484"><nobr><span class="ft2">The search efficiency depends not only on the se-</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:464"><nobr><span class="ft2">lection of base prototypes but also on the number</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:464"><nobr><span class="ft2">of them. There is a trade-off between the search</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:464"><nobr><span class="ft2">efficiency and the size of distance matrix, i.e. the</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:464"><nobr><span class="ft2">memory capacity. The experimental results in (Mic´o</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:464"><nobr><span class="ft2">et al. 1994) show that the optimal number of base</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:464"><nobr><span class="ft2">prototypes depends on the dimensionality dm of the</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:464"><nobr><span class="ft2">space. For example, the optimal numbers are 3, 16</span></nobr></DIV>
+<DIV style="position:absolute;top:570;left:464"><nobr><span class="ft2">and 24 if dm = 2, 4 and 8, respectively. The exper-</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:464"><nobr><span class="ft2">imental results also show that the optimal number</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:464"><nobr><span class="ft2">does not depend on the number of objects.</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:464"><nobr><span class="ft2">2.3</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:503"><nobr><span class="ft2">Search Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:660;left:464"><nobr><span class="ft2">The search algorithm follows the branch and bound</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:464"><nobr><span class="ft2">strategy. It traverses the search tree T in the depth</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:464"><nobr><span class="ft2">first order. The distance matrix M is referred when-</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:464"><nobr><span class="ft2">ever each node is visited in order to avoid unnecessary</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:464"><nobr><span class="ft2">traverse of the tree T . The distance are computed</span></nobr></DIV>
+<DIV style="position:absolute;top:735;left:464"><nobr><span class="ft2">only when a leaf node is reached.</span></nobr></DIV>
+<DIV style="position:absolute;top:750;left:484"><nobr><span class="ft2">Given a query object q, the distance between q and</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:464"><nobr><span class="ft2">the base prototypes are computed. These results are</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:464"><nobr><span class="ft2">stored in an array D. The object which is the closest</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:464"><nobr><span class="ft2">to q in B is selected as the nearest neighbour candi-</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:464"><nobr><span class="ft2">date p</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:505"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:527"><nobr><span class="ft2">, and the distance d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:816;left:685"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:708"><nobr><span class="ft2">) is recorded as</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:464"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:831;left:471"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:494"><nobr><span class="ft2">. Then, the traversal of the search tree T starts</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:464"><nobr><span class="ft2">at the root node. The lower bound for the left child</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:464"><nobr><span class="ft2">node l is calculated whenever each node t is reached if</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:464"><nobr><span class="ft2">it is not a leaf node. The lower bound of the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:464"><nobr><span class="ft2">between q and an object x is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:548"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:555"><nobr><span class="ft6">x</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:567"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:585"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:613"><nobr><span class="ft2">|d(q, b) - d(b, x)|.</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:790"><nobr><span class="ft2">(5)</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:464"><nobr><span class="ft2">See Fig. 2. Recall that d(q, b) was precomputed be-</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:464"><nobr><span class="ft2">fore the traversals and was stored in D. In addition,</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:464"><nobr><span class="ft2">the value d(b, x) was also computed during the con-</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:464"><nobr><span class="ft2">struction process and stored in the distance matrix</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:464"><nobr><span class="ft2">M . Therefore, g</span></nobr></DIV>
+<DIV style="position:absolute;top:1020;left:578"><nobr><span class="ft6">x</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:592"><nobr><span class="ft2">is calculated without any actual</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:464"><nobr><span class="ft2">distance computations. The lower bound g</span></nobr></DIV>
+<DIV style="position:absolute;top:1035;left:739"><nobr><span class="ft6">x</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:750"><nobr><span class="ft2">is not ac-</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:464"><nobr><span class="ft2">tual distance d(q, x). Thus, it does not ensure that the</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:464"><nobr><span class="ft2">number of visited nodes in the search becomes mini-</span></nobr></DIV>
+<DIV style="position:absolute;top:1073;left:464"><nobr><span class="ft2">mum. Though, this evaluation hardly costs, hence it</span></nobr></DIV>
+<DIV style="position:absolute;top:1088;left:464"><nobr><span class="ft2">is possible to search fast. The search process accesses</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:464"><nobr><span class="ft2">the left child node l if g</span></nobr></DIV>
+<DIV style="position:absolute;top:1109;left:627"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1114;left:633"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:644"><nobr><span class="ft2"> g</span></nobr></DIV>
+<DIV style="position:absolute;top:1109;left:670"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1113;left:676"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:682"><nobr><span class="ft2">, or the right child</span></nobr></DIV>
+<DIV style="position:absolute;top:1118;left:464"><nobr><span class="ft2">node r if g</span></nobr></DIV>
+<DIV style="position:absolute;top:1124;left:538"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:544"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:1118;left:556"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:1124;left:582"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1128;left:588"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:1118;left:595"><nobr><span class="ft2">. When a leaf node is reached,</span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:464"><nobr><span class="ft2">the distance is computed and both p</span></nobr></DIV>
+<DIV style="position:absolute;top:1139;left:699"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:726"><nobr><span class="ft2">and d</span></nobr></DIV>
+<DIV style="position:absolute;top:1139;left:762"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1133;left:789"><nobr><span class="ft2">are</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:464"><nobr><span class="ft2">updated if the distance is less than d</span></nobr></DIV>
+<DIV style="position:absolute;top:1154;left:705"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:728"><nobr><span class="ft2">.</span></nobr></DIV>
+</DIV>
+<!-- Page 3 -->
+<a name="3"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft8{font-size:16px;font-family:Times;color:#000000;}
+	.ft9{font-size:13px;font-family:Times;color:#000000;}
+	.ft10{font-size:7px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106003.png" alt="background image">
+<DIV style="position:absolute;top:107;left:341"><nobr><span class="ft8"><i>q</i></span></nobr></DIV>
+<DIV style="position:absolute;top:54;left:353"><nobr><span class="ft9"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:65;left:362"><nobr><span class="ft10"><i>min</i></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:203"><nobr><span class="ft9"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:212"><nobr><span class="ft10"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:195"><nobr><span class="ft9"><i>r</i></span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:203"><nobr><span class="ft10"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:52;left:168"><nobr><span class="ft9"><i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:177"><nobr><span class="ft10"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:176"><nobr><span class="ft2">Figure 3: Pruning Process.</span></nobr></DIV>
+<DIV style="position:absolute;top:227;left:91"><nobr><span class="ft2">procedure NN search(q)</span></nobr></DIV>
+<DIV style="position:absolute;top:262;left:100"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:117"><nobr><span class="ft2">t  root of T</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:100"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:117"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:125"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:152"><nobr><span class="ft2">= , g</span></nobr></DIV>
+<DIV style="position:absolute;top:279;left:196"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:202"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:212"><nobr><span class="ft2">= 0</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:100"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:288;left:117"><nobr><span class="ft2">for b  B do</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:100"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:132"><nobr><span class="ft2">D[b] = d(q, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:100"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:132"><nobr><span class="ft2">if D[b] &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:204"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:232"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:100"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:147"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:154"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:181"><nobr><span class="ft2">= b, d</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:218"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:245"><nobr><span class="ft2">= D[b]</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:100"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:132"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:100"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:117"><nobr><span class="ft2">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:100"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:117"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:124"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:130"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:140"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:158"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:186"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:283"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:288"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:406;left:96"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:118"><nobr><span class="ft2">search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:191"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:412;left:197"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:203"><nobr><span class="ft2">, q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:231"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:254"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:268"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:291"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:96"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:118"><nobr><span class="ft2">return p</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:184"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:96"><nobr><span class="ft2">Figure 4: Algorithm for an NN search in TLAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:112"><nobr><span class="ft2">We explain the pruning process. Fig. 3 shows the</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:91"><nobr><span class="ft2">pruning situation. Let t be the current node. If the</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:91"><nobr><span class="ft2">inequality</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:201"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:208"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:235"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:256"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:266"><nobr><span class="ft2">&lt; d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:317"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:322"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:418"><nobr><span class="ft2">(6)</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:91"><nobr><span class="ft2">is satisfied, we can see that no object exists in S</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:431"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:91"><nobr><span class="ft2">which is closer to q than p</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:273"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:303"><nobr><span class="ft2">and the traversal to</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:91"><nobr><span class="ft2">node t is not necessary. Since g</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:299"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:305"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:316"><nobr><span class="ft2"> d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:367"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:372"><nobr><span class="ft2">), Eq. (6)</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:91"><nobr><span class="ft2">can be replaced with</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:212"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:220"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:246"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:268"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:277"><nobr><span class="ft2">&lt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:300"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:306"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:312"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:418"><nobr><span class="ft2">(7)</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:91"><nobr><span class="ft2">Figs.</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:146"><nobr><span class="ft2">4 and 5 show the details of the search</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:91"><nobr><span class="ft2">algorithm(Mic´o et al. 1996).</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:91"><nobr><span class="ft1">3</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:117"><nobr><span class="ft1">Improvements of TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:91"><nobr><span class="ft2">In this section, we propose some improvements of</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:91"><nobr><span class="ft2">TLAESA in order to reduce the number of distance</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:91"><nobr><span class="ft2">computations.</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:91"><nobr><span class="ft2">3.1</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:131"><nobr><span class="ft2">Tree Structure and Search Algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:854;left:91"><nobr><span class="ft2">If we can evaluate the lower bounds g in the ascending</span></nobr></DIV>
+<DIV style="position:absolute;top:869;left:91"><nobr><span class="ft2">order of their values, the search algorithm runs very</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:91"><nobr><span class="ft2">fast. However, this is not guaranteed in TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:91"><nobr><span class="ft2">since the evaluation order is decided according to the</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:91"><nobr><span class="ft2">tree structure. We show such an example in Fig. 6.</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:91"><nobr><span class="ft2">In this figure, u, v and w are nodes. If g</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:372"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:378"><nobr><span class="ft7">v</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:392"><nobr><span class="ft2">&lt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:935;left:417"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:423"><nobr><span class="ft7">w</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:433"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:91"><nobr><span class="ft2">it is desirable that v is evaluated before w. But, if</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:91"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:99"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:105"><nobr><span class="ft7">v</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:116"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:965;left:139"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:145"><nobr><span class="ft7">u</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:153"><nobr><span class="ft2">, w might be evaluated before v.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:112"><nobr><span class="ft2">We propose the use of a multiway tree and the</span></nobr></DIV>
+<DIV style="position:absolute;top:989;left:91"><nobr><span class="ft2">best first order search instead of a binary tree and</span></nobr></DIV>
+<DIV style="position:absolute;top:1004;left:91"><nobr><span class="ft2">the depth first search. During the best first search</span></nobr></DIV>
+<DIV style="position:absolute;top:1019;left:91"><nobr><span class="ft2">process, we can traverse preferentially a node whose</span></nobr></DIV>
+<DIV style="position:absolute;top:1034;left:91"><nobr><span class="ft2">subset may contain the closest object. Moreover, we</span></nobr></DIV>
+<DIV style="position:absolute;top:1049;left:91"><nobr><span class="ft2">can evaluate more nodes at one time by using of the</span></nobr></DIV>
+<DIV style="position:absolute;top:1064;left:91"><nobr><span class="ft2">multiway tree. The search tree in TLAESA has many</span></nobr></DIV>
+<DIV style="position:absolute;top:1079;left:91"><nobr><span class="ft2">nodes which have a pointer to the same object. In the</span></nobr></DIV>
+<DIV style="position:absolute;top:1094;left:91"><nobr><span class="ft2">proposed structure, we treat such nodes as one node.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:91"><nobr><span class="ft2">Each node t corresponds to a subset S</span></nobr></DIV>
+<DIV style="position:absolute;top:1115;left:344"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:353"><nobr><span class="ft2"> P and has</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:91"><nobr><span class="ft2">a pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:153"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:159"><nobr><span class="ft2">, a covering radius r</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:298"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:310"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:330"><nobr><span class="ft6">pS</span></nobr></DIV>
+<DIV style="position:absolute;top:1141;left:351"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:360"><nobr><span class="ft2">d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:395"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1123;left:400"><nobr><span class="ft2">) and</span></nobr></DIV>
+<DIV style="position:absolute;top:1148;left:91"><nobr><span class="ft2">pointers to its children nodes.</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:464"><nobr><span class="ft2">procedure search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:617"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:68;left:623"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:629"><nobr><span class="ft2">, q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:657"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:680"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:694"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:717"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:472"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:489"><nobr><span class="ft2">if t is a leaf then</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:472"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:504"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:528"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:534"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:544"><nobr><span class="ft2">&lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:567"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:595"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:472"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:519"><nobr><span class="ft2">d = d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:582"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:587"><nobr><span class="ft2">) {distance computation}</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:472"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:519"><nobr><span class="ft2">if d &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:571"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:599"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:472"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:534"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:541"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:568"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:592"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:597"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:611"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:639"><nobr><span class="ft2">= d</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:472"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:519"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:472"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:504"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:472"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:489"><nobr><span class="ft2">else</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:472"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:504"><nobr><span class="ft2">r is a right child of t</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:468"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:505"><nobr><span class="ft2">l is a left child of t</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:468"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:505"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:512"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:519"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:530"><nobr><span class="ft2">= g</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:552"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:559"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:468"><nobr><span class="ft6">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:505"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:512"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:519"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:528"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:546"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:574"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:263;left:671"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:676"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:468"><nobr><span class="ft6">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:505"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:529"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:535"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:544"><nobr><span class="ft2">&lt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:567"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:291;left:574"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:585"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:468"><nobr><span class="ft6">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:520"><nobr><span class="ft2">if d</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:545"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:571"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:593"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:601"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:624"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:630"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:641"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:468"><nobr><span class="ft6">15:</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:535"><nobr><span class="ft2">search(l, g</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:607"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:613"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:618"><nobr><span class="ft2">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:633"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:656"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:670"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:693"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:468"><nobr><span class="ft6">16:</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:468"><nobr><span class="ft6">17:</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:520"><nobr><span class="ft2">if d</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:545"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:571"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:593"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:603"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:626"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:633"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:343;left:644"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:468"><nobr><span class="ft6">18:</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:535"><nobr><span class="ft2">search(r, g</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:609"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:615"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:622"><nobr><span class="ft2">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:636"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:659"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:673"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:696"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:468"><nobr><span class="ft6">19:</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:468"><nobr><span class="ft6">20:</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:505"><nobr><span class="ft2">else</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:468"><nobr><span class="ft6">21:</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:520"><nobr><span class="ft2">if d</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:545"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:571"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:593"><nobr><span class="ft6">r</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:603"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:626"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:633"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:644"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:468"><nobr><span class="ft6">22:</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:535"><nobr><span class="ft2">search(r, g</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:609"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:615"><nobr><span class="ft7">r</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:622"><nobr><span class="ft2">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:636"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:659"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:673"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:696"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:468"><nobr><span class="ft6">23:</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:455;left:468"><nobr><span class="ft6">24:</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:520"><nobr><span class="ft2">if d</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:545"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:571"><nobr><span class="ft2">+ r</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:593"><nobr><span class="ft6">l</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:601"><nobr><span class="ft2">&gt; g</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:624"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:630"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:641"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:468"><nobr><span class="ft6">25:</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:535"><nobr><span class="ft2">search(l, g</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:607"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:613"><nobr><span class="ft7">l</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:618"><nobr><span class="ft2">, p</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:633"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:656"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:670"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:693"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:468"><nobr><span class="ft6">26:</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:468"><nobr><span class="ft6">27:</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:505"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:468"><nobr><span class="ft6">28:</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:490"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:464"><nobr><span class="ft2">Figure 5: A recursive procedure for an NN search in</span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:464"><nobr><span class="ft2">TLAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:464"><nobr><span class="ft2">Figure 6: A case in which the search algorithm in</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:464"><nobr><span class="ft2">TLAESA does not work well.</span></nobr></DIV>
+<DIV style="position:absolute;top:812;left:484"><nobr><span class="ft2">We show a method to construct the tree structure</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:464"><nobr><span class="ft2">in Fig. 7. We first select randomly the pivot p</span></nobr></DIV>
+<DIV style="position:absolute;top:833;left:785"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:827;left:797"><nobr><span class="ft2">of</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:464"><nobr><span class="ft2">the root node t and set S</span></nobr></DIV>
+<DIV style="position:absolute;top:848;left:626"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:842;left:635"><nobr><span class="ft2">to P . Then we execute the</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:464"><nobr><span class="ft2">procedure makeTree(t, p</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:632"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:637"><nobr><span class="ft2">, S</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:653"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:857;left:658"><nobr><span class="ft2">) in Fig. 7.</span></nobr></DIV>
+<DIV style="position:absolute;top:872;left:484"><nobr><span class="ft2">We explain the search process in the proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:464"><nobr><span class="ft2">structure. The proposed method maintains a priority</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:464"><nobr><span class="ft2">queue Q that stores triples (node t, lower bound g</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:793"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:799"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:805"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:464"><nobr><span class="ft2">covering radius r</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:573"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:579"><nobr><span class="ft2">) in the increasing order of g</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:764"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:928;left:770"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:778"><nobr><span class="ft2">- r</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:799"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:918;left:805"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:933;left:464"><nobr><span class="ft2">Given a query object q, we calculate the distances be-</span></nobr></DIV>
+<DIV style="position:absolute;top:948;left:464"><nobr><span class="ft2">tween q and base prototypes and store their values in</span></nobr></DIV>
+<DIV style="position:absolute;top:963;left:464"><nobr><span class="ft2">D. Then the search process starts at the root of T .</span></nobr></DIV>
+<DIV style="position:absolute;top:978;left:464"><nobr><span class="ft2">The following steps are recursively repeated until Q</span></nobr></DIV>
+<DIV style="position:absolute;top:993;left:464"><nobr><span class="ft2">becomes empty. When t is a leaf node, the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:464"><nobr><span class="ft2">d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:499"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:504"><nobr><span class="ft2">) is computed if g</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:623"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:629"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:641"><nobr><span class="ft2">&lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:1014;left:666"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1008;left:689"><nobr><span class="ft2">. If t is not a leaf</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:464"><nobr><span class="ft2">node and its each child node t satisfies the inequality</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:582"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:589"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1065;left:595"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:605"><nobr><span class="ft2">&lt; r</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:628"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:640"><nobr><span class="ft2">+ d</span></nobr></DIV>
+<DIV style="position:absolute;top:1061;left:663"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:686"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:790"><nobr><span class="ft2">(8)</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:464"><nobr><span class="ft2">the lower bound g</span></nobr></DIV>
+<DIV style="position:absolute;top:1091;left:598"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1096;left:604"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1085;left:625"><nobr><span class="ft2">is calculated and a triple</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:464"><nobr><span class="ft2">(t , g</span></nobr></DIV>
+<DIV style="position:absolute;top:1109;left:493"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:1114;left:499"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:509"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:1109;left:522"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:1103;left:531"><nobr><span class="ft2">) is added to Q. Figs. 8 and 9 show the</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:464"><nobr><span class="ft2">details of the algorithm.</span></nobr></DIV>
+</DIV>
+<!-- Page 4 -->
+<a name="4"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106004.png" alt="background image">
+<DIV style="position:absolute;top:58;left:91"><nobr><span class="ft2">procedure makeTree(t, p</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:271"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:276"><nobr><span class="ft2">, S</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:292"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:298"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:100"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:117"><nobr><span class="ft2">t  new child node of t</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:100"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:117"><nobr><span class="ft2">if |S</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:147"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:152"><nobr><span class="ft2">| = 1 then</span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:100"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:132"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:139"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:153"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:176"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:186"><nobr><span class="ft2">and S</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:225"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:238"><nobr><span class="ft2">= {p</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:269"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:278"><nobr><span class="ft2">}</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:100"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:117"><nobr><span class="ft2">else</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:100"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:132"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:139"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:153"><nobr><span class="ft2">= argmax</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:180"><nobr><span class="ft6">pS</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:201"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:220"><nobr><span class="ft2">d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:255"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:148;left:260"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:181;left:100"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:132"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:141"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:154"><nobr><span class="ft2">= {p  S</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:213"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:218"><nobr><span class="ft2">|d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:257"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:267"><nobr><span class="ft2">) &lt; d(p, p</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:328"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:333"><nobr><span class="ft2">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:100"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:132"><nobr><span class="ft2">S</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:141"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:150"><nobr><span class="ft2">= S</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:175"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:184"><nobr><span class="ft2">- S</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:208"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:100"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:132"><nobr><span class="ft2">makeTree(t , p</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:235"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:244"><nobr><span class="ft2">, S</span></nobr></DIV>
+<DIV style="position:absolute;top:213;left:260"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:269"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:100"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:132"><nobr><span class="ft2">makeTree(t, p</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:231"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:236"><nobr><span class="ft2">, S</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:252"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:257"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:96"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:118"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:91"><nobr><span class="ft2">Figure 7: Method to construct the proposed tree</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:91"><nobr><span class="ft2">structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:91"><nobr><span class="ft2">procedure NN search(q)</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:100"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:117"><nobr><span class="ft2">t  root of T</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:100"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:117"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:125"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:152"><nobr><span class="ft2">= , g</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:196"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:202"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:373;left:212"><nobr><span class="ft2">= 0</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:100"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:117"><nobr><span class="ft2">for b  B do</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:100"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:132"><nobr><span class="ft2">D[b] = d(q, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:100"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:132"><nobr><span class="ft2">if D[b] &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:204"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:232"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:100"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:147"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:154"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:181"><nobr><span class="ft2">= b, d</span></nobr></DIV>
+<DIV style="position:absolute;top:439;left:218"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:245"><nobr><span class="ft2">= D[b]</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:100"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:132"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:100"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:117"><nobr><span class="ft2">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:100"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:117"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:124"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:133"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:491;left:152"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:180"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:484;left:276"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:478;left:281"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:96"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:118"><nobr><span class="ft2">Q  {(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:186"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:192"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:198"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:211"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:216"><nobr><span class="ft2">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:96"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:118"><nobr><span class="ft2">while Q is not empty do do</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:96"><nobr><span class="ft6">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:133"><nobr><span class="ft2">(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:158"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:164"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:170"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:183"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:189"><nobr><span class="ft2">)  element in Q</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:96"><nobr><span class="ft6">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:133"><nobr><span class="ft2">search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:206"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:212"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:218"><nobr><span class="ft2">, q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:246"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:269"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:283"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:549;left:306"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:96"><nobr><span class="ft6">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:118"><nobr><span class="ft2">end while</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:96"><nobr><span class="ft6">15:</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:118"><nobr><span class="ft2">return p</span></nobr></DIV>
+<DIV style="position:absolute;top:585;left:184"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:107"><nobr><span class="ft2">Figure 8: Proposed algorithm for an NN search.</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:91"><nobr><span class="ft2">3.2</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:131"><nobr><span class="ft2">Selection of Root Object</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:91"><nobr><span class="ft2">We focus on base prototypes in order to reduce node</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:91"><nobr><span class="ft2">accesses. The lower bound of the distance between a</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:91"><nobr><span class="ft2">query q and a base prototype b is</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:180"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:187"><nobr><span class="ft6">b</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:197"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:215"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:757;left:243"><nobr><span class="ft2">|d(q, b) - d(b, b)|</span></nobr></DIV>
+<DIV style="position:absolute;top:786;left:197"><nobr><span class="ft2">= d(q, b).</span></nobr></DIV>
+<DIV style="position:absolute;top:817;left:91"><nobr><span class="ft2">This value is not an estimated distance but an actual</span></nobr></DIV>
+<DIV style="position:absolute;top:832;left:91"><nobr><span class="ft2">distance.</span></nobr></DIV>
+<DIV style="position:absolute;top:847;left:112"><nobr><span class="ft2">If we can use an actual distance in the search pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:862;left:91"><nobr><span class="ft2">cess, we can evaluate more effectively which nodes</span></nobr></DIV>
+<DIV style="position:absolute;top:877;left:91"><nobr><span class="ft2">are close to q. This fact means that the search is effi-</span></nobr></DIV>
+<DIV style="position:absolute;top:892;left:91"><nobr><span class="ft2">ciently performed if many base prototypes are visited</span></nobr></DIV>
+<DIV style="position:absolute;top:907;left:91"><nobr><span class="ft2">in the early stage. In other words, it is desirable that</span></nobr></DIV>
+<DIV style="position:absolute;top:922;left:91"><nobr><span class="ft2">more base prototypes are arranged in the upper part</span></nobr></DIV>
+<DIV style="position:absolute;top:937;left:91"><nobr><span class="ft2">of the search tree. Thus, in the proposed algorithm,</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:91"><nobr><span class="ft2">we choose the first base prototype b</span></nobr></DIV>
+<DIV style="position:absolute;top:958;left:327"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:952;left:339"><nobr><span class="ft2">as the root ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:967;left:91"><nobr><span class="ft2">ject.</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:91"><nobr><span class="ft2">3.3</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:131"><nobr><span class="ft2">Extension to a k-NN Search</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:91"><nobr><span class="ft2">LAESA was developed to perform NN searches and</span></nobr></DIV>
+<DIV style="position:absolute;top:1042;left:91"><nobr><span class="ft2">(Moreno-Seco, Mic´o &amp; Oncina 2002) extended it so</span></nobr></DIV>
+<DIV style="position:absolute;top:1057;left:91"><nobr><span class="ft2">that k-NN searches can be executed. In this section,</span></nobr></DIV>
+<DIV style="position:absolute;top:1072;left:91"><nobr><span class="ft2">we extend the improved TLAESA to a k-NN search</span></nobr></DIV>
+<DIV style="position:absolute;top:1087;left:91"><nobr><span class="ft2">algorithm. The extension is simple modifications of</span></nobr></DIV>
+<DIV style="position:absolute;top:1102;left:91"><nobr><span class="ft2">the algorithm described above. We use a priority</span></nobr></DIV>
+<DIV style="position:absolute;top:1117;left:91"><nobr><span class="ft2">queue V for storing k nearest neighbour candidates</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:91"><nobr><span class="ft2">and modify the definition of d</span></nobr></DIV>
+<DIV style="position:absolute;top:1138;left:300"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:1132;left:323"><nobr><span class="ft2">. V stores pairs</span></nobr></DIV>
+<DIV style="position:absolute;top:1147;left:91"><nobr><span class="ft2">(object p, distance d(q, p)) in the increasing order of</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:464"><nobr><span class="ft2">procedure search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:617"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:68;left:623"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:629"><nobr><span class="ft2">, q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:657"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:680"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:694"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:717"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:472"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:489"><nobr><span class="ft2">if t is a leaf then</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:472"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:504"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:528"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:534"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:544"><nobr><span class="ft2">&lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:567"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:595"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:472"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:519"><nobr><span class="ft2">d = d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:582"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:587"><nobr><span class="ft2">) {distance computation}</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:472"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:519"><nobr><span class="ft2">if d &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:571"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:599"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:472"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:534"><nobr><span class="ft2">p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:541"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:568"><nobr><span class="ft2">= p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:592"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:597"><nobr><span class="ft2">, d</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:611"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:639"><nobr><span class="ft2">= d</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:472"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:519"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:472"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:504"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:472"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:489"><nobr><span class="ft2">else</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:472"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:504"><nobr><span class="ft2">for each child t of t do</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:468"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:520"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:544"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:550"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:560"><nobr><span class="ft2">&lt; r</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:583"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:595"><nobr><span class="ft2">+ d</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:618"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:646"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:468"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:535"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:542"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:253;left:549"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:562"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:581"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:608"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:705"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:714"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:271;left:468"><nobr><span class="ft6">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:535"><nobr><span class="ft2">Q  Q  {(t , g</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:635"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:642"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:651"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:665"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:674"><nobr><span class="ft2">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:468"><nobr><span class="ft6">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:468"><nobr><span class="ft6">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:298;left:505"><nobr><span class="ft2">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:468"><nobr><span class="ft6">15:</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:490"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:464"><nobr><span class="ft2">Figure 9: A procedure used in the proposed algorithm</span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:464"><nobr><span class="ft2">for an NN search.</span></nobr></DIV>
+<DIV style="position:absolute;top:404;left:464"><nobr><span class="ft2">procedure k-NN search(q, k)</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:472"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:489"><nobr><span class="ft2">t  root of T</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:472"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:489"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:497"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:524"><nobr><span class="ft2">= , g</span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:568"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:460;left:575"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:584"><nobr><span class="ft2">= 0</span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:472"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:489"><nobr><span class="ft2">for b  B do</span></nobr></DIV>
+<DIV style="position:absolute;top:483;left:472"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:479;left:504"><nobr><span class="ft2">D[b] = d(q, b)</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:472"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:504"><nobr><span class="ft2">if D[b] &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:576"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:604"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:472"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:519"><nobr><span class="ft2">V  V  {(b, D[b])}</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:472"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:519"><nobr><span class="ft2">if |V | = k + 1 then</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:472"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:539;left:534"><nobr><span class="ft2">remove (k + 1)th pair from V</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:472"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:519"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:573;left:468"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:520"><nobr><span class="ft2">if |V | = k then</span></nobr></DIV>
+<DIV style="position:absolute;top:588;left:468"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:535"><nobr><span class="ft2">(c, d(q, c))  kth pair of V</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:468"><nobr><span class="ft6">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:535"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:543"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:570"><nobr><span class="ft2">= d(q, c)</span></nobr></DIV>
+<DIV style="position:absolute;top:618;left:468"><nobr><span class="ft6">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:520"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:468"><nobr><span class="ft6">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:505"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:468"><nobr><span class="ft6">15:</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:490"><nobr><span class="ft2">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:663;left:468"><nobr><span class="ft6">16:</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:490"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:498"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:504"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:514"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:532"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:560"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:656"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:661"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:468"><nobr><span class="ft6">17:</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:490"><nobr><span class="ft2">Q  {(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:558"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:694;left:564"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:570"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:583"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:588"><nobr><span class="ft2">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:468"><nobr><span class="ft6">18:</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:490"><nobr><span class="ft2">while Q is not empty do</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:468"><nobr><span class="ft6">19:</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:505"><nobr><span class="ft2">(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:530"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:724;left:536"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:542"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:556"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:561"><nobr><span class="ft2">)  element in Q</span></nobr></DIV>
+<DIV style="position:absolute;top:734;left:468"><nobr><span class="ft6">20:</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:505"><nobr><span class="ft2">search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:578"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:584"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:590"><nobr><span class="ft2">, q, V, d</span></nobr></DIV>
+<DIV style="position:absolute;top:736;left:634"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:730;left:657"><nobr><span class="ft2">, k)</span></nobr></DIV>
+<DIV style="position:absolute;top:749;left:468"><nobr><span class="ft6">21:</span></nobr></DIV>
+<DIV style="position:absolute;top:745;left:490"><nobr><span class="ft2">end while</span></nobr></DIV>
+<DIV style="position:absolute;top:764;left:468"><nobr><span class="ft6">22:</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:490"><nobr><span class="ft2">return k objects  V</span></nobr></DIV>
+<DIV style="position:absolute;top:808;left:473"><nobr><span class="ft2">Figure 10: Proposed algorithm for a k-NN search.</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:464"><nobr><span class="ft2">d(q, p). d</span></nobr></DIV>
+<DIV style="position:absolute;top:859;left:523"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:853;left:551"><nobr><span class="ft2">is defined as</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:547"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:901;left:555"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:582"><nobr><span class="ft2">= </span></nobr></DIV>
+<DIV style="position:absolute;top:886;left:664"><nobr><span class="ft2">(|V | &lt; k)</span></nobr></DIV>
+<DIV style="position:absolute;top:904;left:609"><nobr><span class="ft2">d(q, c) (|V | = k)</span></nobr></DIV>
+<DIV style="position:absolute;top:895;left:790"><nobr><span class="ft2">(9)</span></nobr></DIV>
+<DIV style="position:absolute;top:936;left:464"><nobr><span class="ft2">where c is the object of the kth pair in V .</span></nobr></DIV>
+<DIV style="position:absolute;top:951;left:484"><nobr><span class="ft2">We show in Figs. 10 and 11 the details of the k-</span></nobr></DIV>
+<DIV style="position:absolute;top:966;left:464"><nobr><span class="ft2">NN search algorithm. The search strategy essentially</span></nobr></DIV>
+<DIV style="position:absolute;top:981;left:464"><nobr><span class="ft2">follows the algorithm in Figs. 8 and 9, but the k-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:464"><nobr><span class="ft2">search algorithm uses V instead of p</span></nobr></DIV>
+<DIV style="position:absolute;top:1002;left:702"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:996;left:725"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:484"><nobr><span class="ft2">(Moreno-Seco et al. 2002) shows that the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:464"><nobr><span class="ft2">number of base prototypes depends on not only the</span></nobr></DIV>
+<DIV style="position:absolute;top:1040;left:464"><nobr><span class="ft2">dimensionality of the space but also the value of k and</span></nobr></DIV>
+<DIV style="position:absolute;top:1055;left:464"><nobr><span class="ft2">that the number of distance computations increases</span></nobr></DIV>
+<DIV style="position:absolute;top:1070;left:464"><nobr><span class="ft2">as k increases.</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:464"><nobr><span class="ft1">4</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:489"><nobr><span class="ft1">Extension to an Approximation Search</span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:464"><nobr><span class="ft2">In this section, we propose an extension to an ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:1152;left:464"><nobr><span class="ft2">proximation k-NN search algorithm which ensures the</span></nobr></DIV>
+</DIV>
+<!-- Page 5 -->
+<a name="5"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft11{font-size:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106005.png" alt="background image">
+<DIV style="position:absolute;top:58;left:91"><nobr><span class="ft2">procedure search(t, g</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:245"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:68;left:251"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:257"><nobr><span class="ft2">, q, V, d</span></nobr></DIV>
+<DIV style="position:absolute;top:64;left:301"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:58;left:324"><nobr><span class="ft2">, k)</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:100"><nobr><span class="ft6">1:</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:117"><nobr><span class="ft2">if t is a leaf then</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:100"><nobr><span class="ft6">2:</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:132"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:156"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:113;left:162"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:172"><nobr><span class="ft2">&lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:195"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:223"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:124;left:100"><nobr><span class="ft6">3:</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:147"><nobr><span class="ft2">d = d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:209"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:215"><nobr><span class="ft2">) {distance computation}</span></nobr></DIV>
+<DIV style="position:absolute;top:139;left:100"><nobr><span class="ft6">4:</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:147"><nobr><span class="ft2">if d &lt; d</span></nobr></DIV>
+<DIV style="position:absolute;top:141;left:199"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:227"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:154;left:100"><nobr><span class="ft6">5:</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:162"><nobr><span class="ft2">V  V  {(p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:246"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:252"><nobr><span class="ft2">, d(q, p</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:293"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:299"><nobr><span class="ft2">))}</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:100"><nobr><span class="ft6">6:</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:162"><nobr><span class="ft2">if |V | = k + 1 then</span></nobr></DIV>
+<DIV style="position:absolute;top:184;left:100"><nobr><span class="ft6">7:</span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:177"><nobr><span class="ft2">remove (k + 1)th pair from V</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:100"><nobr><span class="ft6">8:</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:162"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:100"><nobr><span class="ft6">9:</span></nobr></DIV>
+<DIV style="position:absolute;top:210;left:162"><nobr><span class="ft2">if |V | = k then</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:96"><nobr><span class="ft6">10:</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:178"><nobr><span class="ft2">(c, d(q, c))  kth pair of V</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:96"><nobr><span class="ft6">11:</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:178"><nobr><span class="ft2">d</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:186"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:240;left:213"><nobr><span class="ft2">= d(q, c)</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:96"><nobr><span class="ft6">12:</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:163"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:96"><nobr><span class="ft6">13:</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:148"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:96"><nobr><span class="ft6">14:</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:133"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:96"><nobr><span class="ft6">15:</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:118"><nobr><span class="ft2">else</span></nobr></DIV>
+<DIV style="position:absolute;top:318;left:96"><nobr><span class="ft6">16:</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:133"><nobr><span class="ft2">for each child t of t do</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:96"><nobr><span class="ft6">17:</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:148"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:172"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:178"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:188"><nobr><span class="ft2">&lt; r</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:210"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:223"><nobr><span class="ft2">+ d</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:246"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:330;left:274"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:96"><nobr><span class="ft6">18:</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:163"><nobr><span class="ft2">g</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:170"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:176"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:190"><nobr><span class="ft2">= max</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:209"><nobr><span class="ft6">bB</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:236"><nobr><span class="ft2">|(D[b] - M [b, p</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:333"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:347;left:342"><nobr><span class="ft2">])|</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:96"><nobr><span class="ft6">19:</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:163"><nobr><span class="ft2">Q  Q  {(t , g</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:263"><nobr><span class="ft6">p</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:269"><nobr><span class="ft7">t</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:279"><nobr><span class="ft2">, r</span></nobr></DIV>
+<DIV style="position:absolute;top:377;left:293"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:302"><nobr><span class="ft2">)}</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:96"><nobr><span class="ft6">20:</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:148"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:96"><nobr><span class="ft6">21:</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:133"><nobr><span class="ft2">end for</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:96"><nobr><span class="ft6">22:</span></nobr></DIV>
+<DIV style="position:absolute;top:418;left:118"><nobr><span class="ft2">end if</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:91"><nobr><span class="ft2">Figure 11: A procedure used in the proposed algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:91"><nobr><span class="ft2">rithm for a k-NN search.</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:91"><nobr><span class="ft2">quality of solutions. Consider the procedure in Fig.</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:91"><nobr><span class="ft2">11. We replace the 4th line with</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:197"><nobr><span class="ft2">if d &lt;  · d</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:270"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:298"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:91"><nobr><span class="ft2">and the 17th line with</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:178"><nobr><span class="ft2">if g</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:201"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:211"><nobr><span class="ft2">&lt; r</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:233"><nobr><span class="ft6">t</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:246"><nobr><span class="ft2">+  · d</span></nobr></DIV>
+<DIV style="position:absolute;top:633;left:289"><nobr><span class="ft6">min</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:317"><nobr><span class="ft2">then</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:91"><nobr><span class="ft2">where  is real number such that 0 &lt;   1. The</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:91"><nobr><span class="ft2">pruning process gets more efficient as these conditions</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:91"><nobr><span class="ft2">become tighter.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:112"><nobr><span class="ft2">The proposed method ensures the quality of solu-</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:91"><nobr><span class="ft2">tions. We can show the approximation ratio to an</span></nobr></DIV>
+<DIV style="position:absolute;top:732;left:91"><nobr><span class="ft2">optimal solution using . Let a be the nearest neigh-</span></nobr></DIV>
+<DIV style="position:absolute;top:747;left:91"><nobr><span class="ft2">bour object and a be the nearest neighbour candi-</span></nobr></DIV>
+<DIV style="position:absolute;top:762;left:91"><nobr><span class="ft2">date object. If our method misses a and give a as</span></nobr></DIV>
+<DIV style="position:absolute;top:777;left:91"><nobr><span class="ft2">the answer, the equation</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:201"><nobr><span class="ft2">g(q, a)   · d(q, a )</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:410"><nobr><span class="ft2">(10)</span></nobr></DIV>
+<DIV style="position:absolute;top:836;left:91"><nobr><span class="ft2">is satisfied. Then a will be eliminated from targeted</span></nobr></DIV>
+<DIV style="position:absolute;top:851;left:91"><nobr><span class="ft2">objects. Since g(q, a)  d(q, a), we can obtain the</span></nobr></DIV>
+<DIV style="position:absolute;top:866;left:91"><nobr><span class="ft2">following equation:</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:202"><nobr><span class="ft2">d(q, a )  1</span></nobr></DIV>
+<DIV style="position:absolute;top:916;left:269"><nobr><span class="ft2"> d(q, a).</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:410"><nobr><span class="ft2">(11)</span></nobr></DIV>
+<DIV style="position:absolute;top:945;left:91"><nobr><span class="ft2">Thus, the approximate solution are suppressed by</span></nobr></DIV>
+<DIV style="position:absolute;top:943;left:428"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:427"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:962;left:91"><nobr><span class="ft2">times of the optimal solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:91"><nobr><span class="ft1">5</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:117"><nobr><span class="ft1">Experiments</span></nobr></DIV>
+<DIV style="position:absolute;top:1029;left:91"><nobr><span class="ft2">In this section we show some experimental results and</span></nobr></DIV>
+<DIV style="position:absolute;top:1044;left:91"><nobr><span class="ft2">discuss them. We tested on an artificial set of random</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:91"><nobr><span class="ft2">points in the 8-dimensional euclidean space. We also</span></nobr></DIV>
+<DIV style="position:absolute;top:1074;left:91"><nobr><span class="ft2">used the euclidean distance as the distance function.</span></nobr></DIV>
+<DIV style="position:absolute;top:1089;left:91"><nobr><span class="ft2">We evaluated the number of distance computations</span></nobr></DIV>
+<DIV style="position:absolute;top:1104;left:91"><nobr><span class="ft2">and the number of accesses to the distance matrix in</span></nobr></DIV>
+<DIV style="position:absolute;top:1119;left:91"><nobr><span class="ft2">1-NN and 10-NN searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:507"><nobr><span class="ft6"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:501"><nobr><span class="ft6"> 50</span></nobr></DIV>
+<DIV style="position:absolute;top:190;left:495"><nobr><span class="ft6"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:158;left:495"><nobr><span class="ft6"> 150</span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:495"><nobr><span class="ft6"> 200</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:495"><nobr><span class="ft6"> 250</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:495"><nobr><span class="ft6"> 300</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:517"><nobr><span class="ft6"> 0  10  20  30  40  50  60  70  80  90  100  110  120</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:483"><nobr><span class="ft11">Number of Distance Computations</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:574"><nobr><span class="ft11">Number of Base Prototypes</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:670"><nobr><span class="ft6">TLAESA(1-NN)</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:665"><nobr><span class="ft6">TLAESA(10-NN)</span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:666"><nobr><span class="ft6">Proposed(1-NN)</span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:660"><nobr><span class="ft6">Proposed(10-NN)</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:464"><nobr><span class="ft2">Figure 12: Relation of the number of distance com-</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:464"><nobr><span class="ft2">putations to the number of base prototypes.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:626"><nobr><span class="ft2">1-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:677"><nobr><span class="ft2">10-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:548"><nobr><span class="ft2">TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:636"><nobr><span class="ft2">40</span></nobr></DIV>
+<DIV style="position:absolute;top:391;left:690"><nobr><span class="ft2">80</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:549"><nobr><span class="ft2">Proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:636"><nobr><span class="ft2">25</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:690"><nobr><span class="ft2">60</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:475"><nobr><span class="ft2">Table 1: The optimal number of base prototypes.</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:464"><nobr><span class="ft2">5.1</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:503"><nobr><span class="ft2">The Optimal Number of Base Prototypes</span></nobr></DIV>
+<DIV style="position:absolute;top:523;left:464"><nobr><span class="ft2">We first determined experimentally the optimal num-</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:464"><nobr><span class="ft2">ber of base prototypes.</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:647"><nobr><span class="ft2">The number of objects</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:464"><nobr><span class="ft2">was fixed to 10000. We executed 1-NN and 10-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:464"><nobr><span class="ft2">searches for various numbers of base prototypes, and</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:464"><nobr><span class="ft2">counted the number of distance computations. Fig.</span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:464"><nobr><span class="ft2">12 shows the results. From this figure, we chose the</span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:464"><nobr><span class="ft2">number of base prototypes as shown in Table. 1.</span></nobr></DIV>
+<DIV style="position:absolute;top:628;left:484"><nobr><span class="ft2">We can see that the values in the proposed method</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:464"><nobr><span class="ft2">are fewer than those in TLAESA. This means that</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:464"><nobr><span class="ft2">the proposed method can achieve better performance</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:464"><nobr><span class="ft2">with smaller size of distance matrix. We used the</span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:464"><nobr><span class="ft2">values in Table. 1 in the following experiments.</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:464"><nobr><span class="ft2">5.2</span></nobr></DIV>
+<DIV style="position:absolute;top:723;left:503"><nobr><span class="ft2">Evaluation of Improvements</span></nobr></DIV>
+<DIV style="position:absolute;top:748;left:464"><nobr><span class="ft2">We tested the effects of our improvements described</span></nobr></DIV>
+<DIV style="position:absolute;top:763;left:464"><nobr><span class="ft2">in 3.1 and 3.2. We counted the numbers of distance</span></nobr></DIV>
+<DIV style="position:absolute;top:778;left:464"><nobr><span class="ft2">computations in 1-NN and 10-NN searches for various</span></nobr></DIV>
+<DIV style="position:absolute;top:792;left:464"><nobr><span class="ft2">numbers of objects. The results are shown in Figs.</span></nobr></DIV>
+<DIV style="position:absolute;top:807;left:464"><nobr><span class="ft2">13 and 14. Similar to TLAESA, the number of the</span></nobr></DIV>
+<DIV style="position:absolute;top:822;left:464"><nobr><span class="ft2">distance computations in the proposed method does</span></nobr></DIV>
+<DIV style="position:absolute;top:837;left:464"><nobr><span class="ft2">not depend on the number of objects. In both of 1-NN</span></nobr></DIV>
+<DIV style="position:absolute;top:852;left:464"><nobr><span class="ft2">and 10-NN searches, it is about 60% of the number of</span></nobr></DIV>
+<DIV style="position:absolute;top:867;left:464"><nobr><span class="ft2">distance computations in TLAESA. Thus we can see</span></nobr></DIV>
+<DIV style="position:absolute;top:882;left:464"><nobr><span class="ft2">that our improvements are very effective.</span></nobr></DIV>
+<DIV style="position:absolute;top:897;left:484"><nobr><span class="ft2">In the search algorithms of TLAESA and the pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:912;left:464"><nobr><span class="ft2">posed methods, various calculations are performed</span></nobr></DIV>
+<DIV style="position:absolute;top:927;left:464"><nobr><span class="ft2">other than distance computations. The costs of the</span></nobr></DIV>
+<DIV style="position:absolute;top:942;left:464"><nobr><span class="ft2">major part of such calculations are proportional to</span></nobr></DIV>
+<DIV style="position:absolute;top:957;left:464"><nobr><span class="ft2">the number of accesses to the distance matrices. We</span></nobr></DIV>
+<DIV style="position:absolute;top:972;left:464"><nobr><span class="ft2">therefore counted the numbers of accesses to the dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:987;left:464"><nobr><span class="ft2">tance matrices. We examined the following two cases:</span></nobr></DIV>
+<DIV style="position:absolute;top:1012;left:470"><nobr><span class="ft2">(i) TLAESA vs. TLAESA with the improvement of</span></nobr></DIV>
+<DIV style="position:absolute;top:1027;left:493"><nobr><span class="ft2">selection of the root object.</span></nobr></DIV>
+<DIV style="position:absolute;top:1052;left:466"><nobr><span class="ft2">(ii) Proposed method only with improvement of tree</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:493"><nobr><span class="ft2">structure and search algorithm vs.</span></nobr></DIV>
+<DIV style="position:absolute;top:1067;left:750"><nobr><span class="ft2">proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:1082;left:493"><nobr><span class="ft2">method only with the improvement of selection</span></nobr></DIV>
+<DIV style="position:absolute;top:1097;left:493"><nobr><span class="ft2">of the root object.</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:464"><nobr><span class="ft2">In the case (i), the number of accesses to the distance</span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:464"><nobr><span class="ft2">matrix is reduced by 12% in 1-NN searches and 4.5%</span></nobr></DIV>
+<DIV style="position:absolute;top:1152;left:464"><nobr><span class="ft2">in 10-NN searches. In the case (ii), it is reduced by</span></nobr></DIV>
+<DIV style="position:absolute;top:1167;left:464"><nobr><span class="ft2">6.8% in 1-NN searches and 2.7% in 10-NN searches.</span></nobr></DIV>
+</DIV>
+<!-- Page 6 -->
+<a name="6"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft12{font-size:10px;line-height:-10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106006.png" alt="background image">
+<DIV style="position:absolute;top:243;left:132"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:124"><nobr><span class="ft11"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:124"><nobr><span class="ft11"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:124"><nobr><span class="ft11"> 30</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:124"><nobr><span class="ft11"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:124"><nobr><span class="ft11"> 50</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:124"><nobr><span class="ft11"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:124"><nobr><span class="ft11"> 70</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:124"><nobr><span class="ft11"> 80</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:124"><nobr><span class="ft11"> 90</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:117"><nobr><span class="ft11"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:145"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:186"><nobr><span class="ft11"> 2000  4000</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:289"><nobr><span class="ft11"> 6000  8000  10000</span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:114"><nobr><span class="ft11">Number of Distance Computations</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:226"><nobr><span class="ft11">Number of Objects</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:302"><nobr><span class="ft11">TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:296"><nobr><span class="ft11">Proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:91"><nobr><span class="ft2">Figure 13: The number of distance computations in</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:91"><nobr><span class="ft2">1-NN searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:145"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:137"><nobr><span class="ft11"> 30</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:137"><nobr><span class="ft11"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:137"><nobr><span class="ft11"> 90</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:130"><nobr><span class="ft11"> 120</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:130"><nobr><span class="ft11"> 150</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:130"><nobr><span class="ft11"> 180</span></nobr></DIV>
+<DIV style="position:absolute;top:426;left:130"><nobr><span class="ft11"> 210</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:130"><nobr><span class="ft11"> 240</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:130"><nobr><span class="ft11"> 270</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:130"><nobr><span class="ft11"> 300</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:158"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:196"><nobr><span class="ft11"> 2000  4000  6000  8000  10000</span></nobr></DIV>
+<DIV style="position:absolute;top:557;left:114"><nobr><span class="ft11">Number of Distance Computations</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:232"><nobr><span class="ft11">Number of Objects</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:302"><nobr><span class="ft11">TLAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:296"><nobr><span class="ft11">Proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:91"><nobr><span class="ft2">Figure 14: The number of distance computations in</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:91"><nobr><span class="ft2">10-NN searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:91"><nobr><span class="ft2">Thus we can see that this improvement about selec-</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:91"><nobr><span class="ft2">tion of the root object is effective.</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:91"><nobr><span class="ft2">5.3</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:131"><nobr><span class="ft2">Evaluation of Approximation Search</span></nobr></DIV>
+<DIV style="position:absolute;top:765;left:91"><nobr><span class="ft2">We tested the performance of the approximation</span></nobr></DIV>
+<DIV style="position:absolute;top:780;left:91"><nobr><span class="ft2">search algorithm. We compared the proposed method</span></nobr></DIV>
+<DIV style="position:absolute;top:795;left:91"><nobr><span class="ft2">to Ak-LAESA, which is the approximation search al-</span></nobr></DIV>
+<DIV style="position:absolute;top:810;left:91"><nobr><span class="ft2">gorithm proposed in (Moreno-Seco, Mic´o &amp; Oncina</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:91"><nobr><span class="ft2">2003).</span></nobr></DIV>
+<DIV style="position:absolute;top:825;left:147"><nobr><span class="ft2">Each time a distance is computed in Ak-</span></nobr></DIV>
+<DIV style="position:absolute;top:840;left:91"><nobr><span class="ft2">LAESA, the nearest neighbour candidate is updated</span></nobr></DIV>
+<DIV style="position:absolute;top:855;left:91"><nobr><span class="ft2">and its value is stored. When the nearest neighbour</span></nobr></DIV>
+<DIV style="position:absolute;top:870;left:91"><nobr><span class="ft2">object is found, the best k objects are chosen from the</span></nobr></DIV>
+<DIV style="position:absolute;top:884;left:91"><nobr><span class="ft2">stored values. In Ak-LAESA, the number of distance</span></nobr></DIV>
+<DIV style="position:absolute;top:899;left:91"><nobr><span class="ft2">computations of the k-NN search is exactly the same</span></nobr></DIV>
+<DIV style="position:absolute;top:914;left:91"><nobr><span class="ft2">as that of the NN search.</span></nobr></DIV>
+<DIV style="position:absolute;top:929;left:112"><nobr><span class="ft2">To compare the proposed method with Ak-</span></nobr></DIV>
+<DIV style="position:absolute;top:944;left:91"><nobr><span class="ft2">LAESA, we examined how many objects in the ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:959;left:91"><nobr><span class="ft2">proximate solutions exist in the optimal solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:974;left:91"><nobr><span class="ft2">Thus, we define the error rate E as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:105"><nobr><span class="ft2">E[%] = |{x</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:180"><nobr><span class="ft6">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:185"><nobr><span class="ft2">|x</span></nobr></DIV>
+<DIV style="position:absolute;top:1011;left:197"><nobr><span class="ft6">i</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:208"><nobr><span class="ft2">/</span></nobr></DIV>
+<DIV style="position:absolute;top:1005;left:206"><nobr><span class="ft2"> Opt, i = 1, 2, · · · , k}|</span></nobr></DIV>
+<DIV style="position:absolute;top:1025;left:253"><nobr><span class="ft2">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:359"><nobr><span class="ft2">× 100 (12)</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:91"><nobr><span class="ft2">where {x</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:151"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:157"><nobr><span class="ft2">, x</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:172"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:179"><nobr><span class="ft2">, · · · , x</span></nobr></DIV>
+<DIV style="position:absolute;top:1059;left:223"><nobr><span class="ft6">k</span></nobr></DIV>
+<DIV style="position:absolute;top:1053;left:231"><nobr><span class="ft2">} is a set of k objects which are</span></nobr></DIV>
+<DIV style="position:absolute;top:1068;left:91"><nobr><span class="ft2">obtained by an approximation algorithm and Opt is</span></nobr></DIV>
+<DIV style="position:absolute;top:1083;left:91"><nobr><span class="ft2">a set of k closest objects to the query object.</span></nobr></DIV>
+<DIV style="position:absolute;top:1098;left:112"><nobr><span class="ft2">Fig. 15 shows the error rate when the value of  is</span></nobr></DIV>
+<DIV style="position:absolute;top:1112;left:91"><nobr><span class="ft2">changed in 10-NN searches. Fig. 16 also shows the re-</span></nobr></DIV>
+<DIV style="position:absolute;top:1127;left:91"><nobr><span class="ft2">lation of the number of distance computations to the</span></nobr></DIV>
+<DIV style="position:absolute;top:1142;left:91"><nobr><span class="ft2">value of  in 10-NN searches. In the range   0.5,</span></nobr></DIV>
+<DIV style="position:absolute;top:1157;left:91"><nobr><span class="ft2">the proposed method shows the lower error rate than</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:517"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:510"><nobr><span class="ft11"> 10</span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:510"><nobr><span class="ft11"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:510"><nobr><span class="ft11"> 30</span></nobr></DIV>
+<DIV style="position:absolute;top:171;left:510"><nobr><span class="ft11"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:510"><nobr><span class="ft11"> 50</span></nobr></DIV>
+<DIV style="position:absolute;top:135;left:510"><nobr><span class="ft11"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:510"><nobr><span class="ft11"> 70</span></nobr></DIV>
+<DIV style="position:absolute;top:99;left:510"><nobr><span class="ft11"> 80</span></nobr></DIV>
+<DIV style="position:absolute;top:81;left:510"><nobr><span class="ft11"> 90</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:502"><nobr><span class="ft11"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:530"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:574"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:623"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:672"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:721"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:776"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:486"><nobr><span class="ft11">Error Rate </span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:486"><nobr><span class="ft12"><br>[%]</span></nobr></DIV>
+<DIV style="position:absolute;top:278;left:654"><nobr><span class="ft11"></span></nobr></DIV>
+<DIV style="position:absolute;top:73;left:662"><nobr><span class="ft11">Ak-LAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:668"><nobr><span class="ft11">Proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:503"><nobr><span class="ft2">Figure 15: Error rate in 10-NN searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:517"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:510"><nobr><span class="ft11"> 20</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:510"><nobr><span class="ft11"> 40</span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:510"><nobr><span class="ft11"> 60</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:510"><nobr><span class="ft11"> 80</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:502"><nobr><span class="ft11"> 100</span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:502"><nobr><span class="ft11"> 120</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:502"><nobr><span class="ft11"> 140</span></nobr></DIV>
+<DIV style="position:absolute;top:360;left:502"><nobr><span class="ft11"> 160</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:530"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:574"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:623"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:672"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:721"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:776"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:542;left:486"><nobr><span class="ft11">Number of distance computations</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:654"><nobr><span class="ft11"></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:544"><nobr><span class="ft11">Ak-LAESA</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:550"><nobr><span class="ft11">Proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:464"><nobr><span class="ft2">Figure 16: Relation of the number of distance com-</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:464"><nobr><span class="ft2">putations to the value of  in 10-NN searches.</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:464"><nobr><span class="ft2">Ak-LAESA. In particular, the error rate of the pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:464"><nobr><span class="ft2">posed method is almost 0 in range   0.9. From two</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:464"><nobr><span class="ft2">figures, we can control the error rate and the number</span></nobr></DIV>
+<DIV style="position:absolute;top:725;left:464"><nobr><span class="ft2">of distance computations by changing the value of .</span></nobr></DIV>
+<DIV style="position:absolute;top:740;left:464"><nobr><span class="ft2">For example, the proposed method with  = 0.9 re-</span></nobr></DIV>
+<DIV style="position:absolute;top:755;left:464"><nobr><span class="ft2">duces abount 28.6% of distance computations and its</span></nobr></DIV>
+<DIV style="position:absolute;top:770;left:464"><nobr><span class="ft2">error rate is almost 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:785;left:484"><nobr><span class="ft2">Then we examined the accuracy of the approx-</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:464"><nobr><span class="ft2">imate solutions.</span></nobr></DIV>
+<DIV style="position:absolute;top:800;left:589"><nobr><span class="ft2">We used  = 0.5 for the pro-</span></nobr></DIV>
+<DIV style="position:absolute;top:815;left:464"><nobr><span class="ft2">posed method because the error rate of the proposed</span></nobr></DIV>
+<DIV style="position:absolute;top:830;left:464"><nobr><span class="ft2">method with  = 0.5 is equal to the one of Ak-</span></nobr></DIV>
+<DIV style="position:absolute;top:845;left:464"><nobr><span class="ft2">LAESA. We performed 10-NN searches 10000 times</span></nobr></DIV>
+<DIV style="position:absolute;top:860;left:464"><nobr><span class="ft2">for each method and examined the distribution of kth</span></nobr></DIV>
+<DIV style="position:absolute;top:875;left:464"><nobr><span class="ft2">approximate solution to kth optimal solution. We</span></nobr></DIV>
+<DIV style="position:absolute;top:890;left:464"><nobr><span class="ft2">show the results in Figs. 17 and 18. In each figure,</span></nobr></DIV>
+<DIV style="position:absolute;top:905;left:464"><nobr><span class="ft2">x axis represents the distance between a query ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:920;left:464"><nobr><span class="ft2">ject q and the kth object in the optimal solution. y</span></nobr></DIV>
+<DIV style="position:absolute;top:934;left:464"><nobr><span class="ft2">axis shows the distance between q and the kth ob-</span></nobr></DIV>
+<DIV style="position:absolute;top:949;left:464"><nobr><span class="ft2">ject in the approximate solution. The point near the</span></nobr></DIV>
+<DIV style="position:absolute;top:964;left:464"><nobr><span class="ft2">line y = x represents that kth approximate solution is</span></nobr></DIV>
+<DIV style="position:absolute;top:979;left:464"><nobr><span class="ft2">very close to kth optimal solution. In Fig. 17, many</span></nobr></DIV>
+<DIV style="position:absolute;top:994;left:464"><nobr><span class="ft2">points are widely distributed. In the worst case, some</span></nobr></DIV>
+<DIV style="position:absolute;top:1009;left:464"><nobr><span class="ft2">appriximate solutions reach about 3 times of the op-</span></nobr></DIV>
+<DIV style="position:absolute;top:1024;left:464"><nobr><span class="ft2">timal solution. From these figures, we can see that</span></nobr></DIV>
+<DIV style="position:absolute;top:1039;left:464"><nobr><span class="ft2">the accuracy of solution by the proposed method is</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:464"><nobr><span class="ft2">superior to the one by Ak-LAESA. We also show the</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:464"><nobr><span class="ft2">result with  = 0.9 in Fig. 19. Most points exist near</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:464"><nobr><span class="ft2">the line y = x.</span></nobr></DIV>
+<DIV style="position:absolute;top:1099;left:484"><nobr><span class="ft2">Though Ak-LAESA can reduce drastically the</span></nobr></DIV>
+<DIV style="position:absolute;top:1114;left:464"><nobr><span class="ft2">number of distance computations, its approximate so-</span></nobr></DIV>
+<DIV style="position:absolute;top:1129;left:464"><nobr><span class="ft2">lutions are often far from the optimal solutions. On</span></nobr></DIV>
+<DIV style="position:absolute;top:1144;left:464"><nobr><span class="ft2">the other hand, the proposed method can reduce the</span></nobr></DIV>
+<DIV style="position:absolute;top:1159;left:464"><nobr><span class="ft2">number of distance computations to some extent with</span></nobr></DIV>
+</DIV>
+<!-- Page 7 -->
+<a name="7"></a>
+<DIV style="position:relative;width:892;height:1262;">
+<STYLE type="text/css">
+<!--
+	.ft13{font-size:10px;line-height:-6px;font-family:Times;color:#000000;}
+	.ft14{font-size:12px;line-height:17px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+<IMG width="892" height="1262" src="106007.png" alt="background image">
+<DIV style="position:absolute;top:243;left:145"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:134"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:134"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:134"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:134"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:145"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:134"><nobr><span class="ft11"> 1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:134"><nobr><span class="ft11"> 1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:134"><nobr><span class="ft11"> 1.6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:158"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:214"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:275"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:337"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:398"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:114"><nobr><span class="ft11">Distance to the </span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:114"><nobr><span class="ft13">k<br> th Approximate Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:181"><nobr><span class="ft11">Distance to the k th Optimal Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:91"><nobr><span class="ft2">Figure 17: The distribution of the approximate solu-</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:91"><nobr><span class="ft2">tion by Ak-LAESA to the optimal solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:555;left:145"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:134"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:510;left:134"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:134"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:134"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:145"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:134"><nobr><span class="ft11"> 1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:398;left:134"><nobr><span class="ft11"> 1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:134"><nobr><span class="ft11"> 1.6</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:158"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:214"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:275"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:337"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:568;left:398"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:579;left:114"><nobr><span class="ft11">Distance to the </span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:114"><nobr><span class="ft13">k<br> th Approximate Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:181"><nobr><span class="ft11">Distance to the k th Optimal Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:91"><nobr><span class="ft2">Figure 18: The distribution the approximate solution</span></nobr></DIV>
+<DIV style="position:absolute;top:637;left:91"><nobr><span class="ft2">by the proposed method with  = 0.5 to the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:91"><nobr><span class="ft2">solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:91"><nobr><span class="ft2">very low error rate. Moreover, the accuracy of its ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:722;left:91"><nobr><span class="ft2">proximate solutions is superior to that of Ak-LAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:91"><nobr><span class="ft1">6</span></nobr></DIV>
+<DIV style="position:absolute;top:760;left:117"><nobr><span class="ft1">Conclusions</span></nobr></DIV>
+<DIV style="position:absolute;top:790;left:91"><nobr><span class="ft2">In this paper, we proposed some improvements of</span></nobr></DIV>
+<DIV style="position:absolute;top:804;left:91"><nobr><span class="ft2">TLAESA. In order to reduce the number of distance</span></nobr></DIV>
+<DIV style="position:absolute;top:819;left:91"><nobr><span class="ft2">computations in TLAESA, we improved the search</span></nobr></DIV>
+<DIV style="position:absolute;top:834;left:91"><nobr><span class="ft2">algorithm to best first order from depth first order</span></nobr></DIV>
+<DIV style="position:absolute;top:849;left:91"><nobr><span class="ft2">and the tree structure to a multiway tree from a bi-</span></nobr></DIV>
+<DIV style="position:absolute;top:864;left:91"><nobr><span class="ft2">nary tree. In the 1-NN searches and 10-NN searches</span></nobr></DIV>
+<DIV style="position:absolute;top:879;left:91"><nobr><span class="ft2">in a 8-dimensional space, the proposed method re-</span></nobr></DIV>
+<DIV style="position:absolute;top:894;left:91"><nobr><span class="ft2">duced about 40% of distance computations. We then</span></nobr></DIV>
+<DIV style="position:absolute;top:909;left:91"><nobr><span class="ft2">proposed the selection method of root object in the</span></nobr></DIV>
+<DIV style="position:absolute;top:924;left:91"><nobr><span class="ft2">search tree. This improvement is very simple but is</span></nobr></DIV>
+<DIV style="position:absolute;top:939;left:91"><nobr><span class="ft2">effective to reduce the number of accesses to the dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:954;left:91"><nobr><span class="ft2">tance matrix. Finally, we extended our method to an</span></nobr></DIV>
+<DIV style="position:absolute;top:969;left:91"><nobr><span class="ft2">approximation k-NN search algorithm that can en-</span></nobr></DIV>
+<DIV style="position:absolute;top:984;left:91"><nobr><span class="ft14">sure the quality of solutions. The approximate so-<br>lutions of the proposed method are suppressed by</span></nobr></DIV>
+<DIV style="position:absolute;top:999;left:428"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:1010;left:427"><nobr><span class="ft6"></span></nobr></DIV>
+<DIV style="position:absolute;top:1018;left:91"><nobr><span class="ft2">times of the optimal solutions. Experimental results</span></nobr></DIV>
+<DIV style="position:absolute;top:1033;left:91"><nobr><span class="ft2">show that the proposed method can reduce the num-</span></nobr></DIV>
+<DIV style="position:absolute;top:1048;left:91"><nobr><span class="ft2">ber of distance computations with very low error rate</span></nobr></DIV>
+<DIV style="position:absolute;top:1063;left:91"><nobr><span class="ft2">by selecting the appropriate value of , and that the</span></nobr></DIV>
+<DIV style="position:absolute;top:1078;left:91"><nobr><span class="ft2">accuracy of the solutions is superior to Ak-LAESA.</span></nobr></DIV>
+<DIV style="position:absolute;top:1093;left:91"><nobr><span class="ft2">From these viewpoints, the method presented in this</span></nobr></DIV>
+<DIV style="position:absolute;top:1108;left:91"><nobr><span class="ft2">paper is very effective when the distance computa-</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:91"><nobr><span class="ft2">tions are time-consuming.</span></nobr></DIV>
+<DIV style="position:absolute;top:243;left:517"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:506"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:506"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:506"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:153;left:506"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:517"><nobr><span class="ft11"> 1</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:506"><nobr><span class="ft11"> 1.2</span></nobr></DIV>
+<DIV style="position:absolute;top:86;left:506"><nobr><span class="ft11"> 1.4</span></nobr></DIV>
+<DIV style="position:absolute;top:63;left:506"><nobr><span class="ft11"> 1.6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:530"><nobr><span class="ft11"> 0</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:586"><nobr><span class="ft11"> 0.2</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:647"><nobr><span class="ft11"> 0.4</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:709"><nobr><span class="ft11"> 0.6</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:770"><nobr><span class="ft11"> 0.8</span></nobr></DIV>
+<DIV style="position:absolute;top:268;left:486"><nobr><span class="ft11">Distance to the </span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:486"><nobr><span class="ft13">k<br> th Approximate Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:554"><nobr><span class="ft11">Distance to the k th Optimal Solution</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:464"><nobr><span class="ft2">Figure 19: The distribution the approximate solution</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:464"><nobr><span class="ft2">by the proposed method with  = 0.9 to the optimal</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:464"><nobr><span class="ft2">solution.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:464"><nobr><span class="ft2">References</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:464"><nobr><span class="ft2">Ciaccia, P., Patella, M. &amp; Zezula, P. (1997), M-tree:</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:495"><nobr><span class="ft2">An efficient access method for similarity search</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:495"><nobr><span class="ft2">in metric spaces, in `Proceedings of the 23rd</span></nobr></DIV>
+<DIV style="position:absolute;top:466;left:495"><nobr><span class="ft2">International Conference on Very Large Data</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:495"><nobr><span class="ft2">Bases (VLDB'97)', pp. 426­435.</span></nobr></DIV>
+<DIV style="position:absolute;top:505;left:464"><nobr><span class="ft2">Hjaltason, G. R. &amp; Samet, H. (2003), `Index-driven</span></nobr></DIV>
+<DIV style="position:absolute;top:520;left:495"><nobr><span class="ft2">similarity search in metric spaces', ACM Trans-</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:495"><nobr><span class="ft2">actions on Database Systems 28(4), 517­580.</span></nobr></DIV>
+<DIV style="position:absolute;top:559;left:464"><nobr><span class="ft2">Mic´o, L. &amp; Oncina, J. (1998), `Comparison of fast</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:495"><nobr><span class="ft2">nearest neighbour classifiers for handwritten</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:495"><nobr><span class="ft2">character recognition', Pattern Recognition Let-</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:495"><nobr><span class="ft2">ters 19(3-4), 351­356.</span></nobr></DIV>
+<DIV style="position:absolute;top:627;left:464"><nobr><span class="ft2">Mic´o, L., Oncina, J. &amp; Carrasco, R. C. (1996), `A</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:495"><nobr><span class="ft2">fast branch &amp; bound nearest neighbour classi-</span></nobr></DIV>
+<DIV style="position:absolute;top:657;left:495"><nobr><span class="ft2">fier in metric spaces', Pattern Recognition Let-</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:495"><nobr><span class="ft2">ters 17(7), 731­739.</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:464"><nobr><span class="ft2">Mic´o, M. L., Oncina, J. &amp; Vidal, E. (1994), `A new</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:495"><nobr><span class="ft2">version of the nearest-neighbour approximating</span></nobr></DIV>
+<DIV style="position:absolute;top:726;left:495"><nobr><span class="ft2">and eliminating search algorithm (AESA) with</span></nobr></DIV>
+<DIV style="position:absolute;top:741;left:495"><nobr><span class="ft2">linear preprocessing time and memory require-</span></nobr></DIV>
+<DIV style="position:absolute;top:756;left:495"><nobr><span class="ft2">ments', Pattern Recognition Letters 15(1), 9­17.</span></nobr></DIV>
+<DIV style="position:absolute;top:779;left:464"><nobr><span class="ft2">Moreno-Seco, F., Mic´o, L. &amp; Oncina, J. (2002),</span></nobr></DIV>
+<DIV style="position:absolute;top:794;left:495"><nobr><span class="ft2">`Extending LAESA fast nearest neighbour algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:809;left:495"><nobr><span class="ft2">rithm to find the k-nearest neighbours', Lecture</span></nobr></DIV>
+<DIV style="position:absolute;top:824;left:495"><nobr><span class="ft2">Notes in Computer Science - Lecture Notes in</span></nobr></DIV>
+<DIV style="position:absolute;top:839;left:495"><nobr><span class="ft2">Artificial Intelligence 2396, 691­699.</span></nobr></DIV>
+<DIV style="position:absolute;top:863;left:464"><nobr><span class="ft2">Moreno-Seco, F., Mic´o, L. &amp; Oncina, J. (2003), `A</span></nobr></DIV>
+<DIV style="position:absolute;top:878;left:495"><nobr><span class="ft2">modification of the LAESA algorithm for ap-</span></nobr></DIV>
+<DIV style="position:absolute;top:893;left:495"><nobr><span class="ft2">proximated k-NN classification', Pattern Recog-</span></nobr></DIV>
+<DIV style="position:absolute;top:908;left:495"><nobr><span class="ft2">nition Letters 24(1-3), 47­53.</span></nobr></DIV>
+<DIV style="position:absolute;top:932;left:464"><nobr><span class="ft2">Navarro, G. (2002), `Searching in metric spaces</span></nobr></DIV>
+<DIV style="position:absolute;top:946;left:495"><nobr><span class="ft2">by spatial approximation', The VLDB Journal</span></nobr></DIV>
+<DIV style="position:absolute;top:961;left:495"><nobr><span class="ft2">11(1), 28­46.</span></nobr></DIV>
+<DIV style="position:absolute;top:985;left:464"><nobr><span class="ft2">Rico-Juan, J. R. &amp; Mic´o, L. (2003), `Comparison</span></nobr></DIV>
+<DIV style="position:absolute;top:1000;left:495"><nobr><span class="ft2">of AESA and LAESA search algorithms using</span></nobr></DIV>
+<DIV style="position:absolute;top:1015;left:495"><nobr><span class="ft2">string and tree-edit-distances', Pattern Recogni-</span></nobr></DIV>
+<DIV style="position:absolute;top:1030;left:495"><nobr><span class="ft2">tion Letters 24(9-10), 1417­1426.</span></nobr></DIV>
+<DIV style="position:absolute;top:1054;left:464"><nobr><span class="ft2">Vidal, E. (1986), `An algorithm for finding nearest</span></nobr></DIV>
+<DIV style="position:absolute;top:1069;left:495"><nobr><span class="ft2">neighbours in (approximately) constant average</span></nobr></DIV>
+<DIV style="position:absolute;top:1084;left:495"><nobr><span class="ft2">time', Pattern Recognition Letters 4(3), 145­157.</span></nobr></DIV>
+<DIV style="position:absolute;top:1107;left:464"><nobr><span class="ft2">Yianilos, P. N. (1993), Data structures and algo-</span></nobr></DIV>
+<DIV style="position:absolute;top:1122;left:495"><nobr><span class="ft2">rithms for nearest neighbor search in general</span></nobr></DIV>
+<DIV style="position:absolute;top:1137;left:495"><nobr><span class="ft2">metric spaces, in `SODA '93: Proceedings of the</span></nobr></DIV>
+<DIV style="position:absolute;top:1152;left:495"><nobr><span class="ft2">fourth annual ACM-SIAM Symposium on Dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:1167;left:495"><nobr><span class="ft2">crete algorithms', pp. 311­321.</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>
