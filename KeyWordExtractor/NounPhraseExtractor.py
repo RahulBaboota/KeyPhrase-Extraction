@@ -11,3 +11,17 @@ sentence_re = r'''(?x)      # set flag to allow verbose regexps
     | \.\.\.                # ellipsis
     | [][.,;"'?():-_`]      # these are separate tokens
 '''
+
+## Optional Stemmer and Lemmatizer .
+Lemmatizer = nltk.WordNetLemmatizer()
+Stemmer = nltk.stem.porter.PorterStemmer()
+
+## Defining Grammar for extracting Noun Phrases .
+grammar = r"""
+    NBAR:
+        {<NN.*|JJ>*<NN.*>}  # Nouns and Adjectives, terminated with Nouns
+
+    NP:
+        {<NBAR>}
+        {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
+"""
