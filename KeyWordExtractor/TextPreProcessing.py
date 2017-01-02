@@ -35,7 +35,7 @@ def TextTokenize(Text):
 
     ## Removing stop words from the created word_tokens
     word_tokens_filtered = []
-    no_of_sentences = len(word_tokens)  
+    no_of_sentences = len(word_tokens)
 
     for i in range(0,no_of_sentences):
         no_of_tokens = len(word_tokens[i])
@@ -54,7 +54,7 @@ def TextTokenize(Text):
 
 ## For creating a baseline model , we dont' define any kind of grammar rules for extracting the candidate keywords and simply make ## all the tokens as the candidates . Therefore , there isn't any kind of function required to do this task .
 
-## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
+## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to
 ## "nouns only."
 
 def Extract_Candidates_Nouns(Text_tokens):
@@ -75,7 +75,7 @@ def Extract_Candidates_Nouns(Text_tokens):
 
     return Noun_Candidates
 
-## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to 
+## Next , we will define a function which extracts candidates for keywords wherein the candidate selection criterion is set to
 ## "nouns and adjectves".
 
 def Extract_Candidates_Nouns_Adjective(Text_tokens):

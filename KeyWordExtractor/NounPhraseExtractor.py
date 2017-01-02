@@ -7,6 +7,8 @@
 import nltk
 import itertools
 import string
+from TextPreProcessing import TextTokenize
+from TextPreProcessing import Extract_Candidates_Nouns_Adjective
 
 ## For Key Phrase Extraction , we first need to extract possible candidates which could be labelled as Keywords / KeyPhrases .
 ## Assigning all of the words as KeyWords would be an extremely bruteForce method which would ultimately end up in poor
@@ -45,3 +47,17 @@ def Extract_Candidate_Chunks(Text , Grammar):
     Candidates = [' '.join(Word for Word, Pos, Chunk in Group).lower() for Key, Group in itertools.groupby(Chunks, lambda (Word,Pos,Chunk): Chunk != 'O') if Key]
 
     return [ Candidate for Candidate in Candidates if Candidate not in Stop_Words and not all(Char in Punctuation for Char in Candidate)]
+
+"""
+------------------------------   Extracting Nouns and Adjectives   ------------------------------------------
+"""
+
+def Extract_Candidate_Words(Text) :
+
+    ## Tokenizing the text
+    Text_Tokens = TextTokenize(Text)
+
+    ## Extracting the candidates from the created tokens which in this case is "nouns" and "adjectives" .
+    Candidates_Nouns_Adjectives = Extract_Candidates_Nouns_Adjective(Text_Tokens)
+
+    return Candidates_Nouns_Adjectives

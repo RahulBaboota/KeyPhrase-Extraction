@@ -68,7 +68,7 @@ def Baseline_Nouns_Adjectives(Text):
     ## Tokenizing the text
     Text_Tokens = TextTokenize(Text)
 
-    ## Extracting the candidates from the created tokens which in this case is "nouns"
+    ## Extracting the candidates from the created tokens which in this case is "nouns" and "adjectives" .
     Candidates_Nouns_Adjectives = Extract_Candidates_Nouns_Adjective(Text_Tokens)
 
     ## Initialising a dictionary to map the tokens with their frequencies .
