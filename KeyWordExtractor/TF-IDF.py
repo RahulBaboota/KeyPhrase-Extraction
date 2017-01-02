@@ -56,12 +56,12 @@ def TF_IDF(Text,norm="l2",term_frequency="default"):
         TF_Matrix = Count_Vectorizer.transform(Text).todense()
         TF_Matrix = TF_Matrix + 1
         TF_Matrix = np.log(TF_Matrix)
-        TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)        
+        TF_Matrix = normalize(TF_Matrix, norm=norm, axis=1)
 
         # print TF_Matrix
 
     # Creating the vector for each document (sentence) for helping us evaluate the idf weight for each matrix .
-    IDF_Help = Count_Vectorizer.transform(Sentence_Tokens).todense() 
+    IDF_Help = Count_Vectorizer.transform(Sentence_Tokens).todense()
 
     # print IDF_Help
 
@@ -72,7 +72,7 @@ def TF_IDF(Text,norm="l2",term_frequency="default"):
 
     # print IDF_Matrix
 
-    ## Converting the IDF_Matrix to a square diagonal matrix for vector multiplication with TF_Matrix Matrix to evaluate 
+    ## Converting the IDF_Matrix to a square diagonal matrix for vector multiplication with TF_Matrix Matrix to evaluate
     ## the resulting matrix with final scores .
     IDF_Square_Matrix = np.diag(IDF_Matrix)
 
@@ -114,9 +114,9 @@ def TF_IDF(Text,norm="l2",term_frequency="default"):
 
 """
 -----------------------------------------  Creating Model with open words ----------------------------------------------------
-""" 
+"""
 
-## Herein , we are creating a model with open words that is we are not trimming / pruning any of the original text except for 
+## Herein , we are creating a model with open words that is we are not trimming / pruning any of the original text except for
 ## the stop words . Therefore , in practice , the model with open words will simply be the above created function for evaluating
 ## TF-IDF Scores .
 
@@ -128,13 +128,13 @@ def TF_IDF_Candidates_All(Text,norm,term_frequency):
 
 """
 -----------------------------------------  Creating Model with Nouns ----------------------------------------------------
-""" 
+"""
 
 def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
 
     All_Tokens_Scores = TF_IDF(Text,norm=norm,term_frequency=term_frequency)
 
-    ## Storing the Text Tokens in a list 
+    ## Storing the Text Tokens in a list
     Text_Tokens = []
 
     for key in All_Tokens_Scores:
@@ -155,7 +155,7 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
     ## Deleting the undesired keys from the original dictionary .
     for token in Delete_Keys:
         del All_Tokens_Scores[token]
-    
+
     ## Making a copy of the modified original dictionary to a new dictionary to be returned
     Scores_Candidates_Nouns = All_Tokens_Scores
 
@@ -163,13 +163,13 @@ def TF_IDF_Candidates_Nouns(Text,norm,term_frequency):
 
 """
 -----------------------------------------  Creating Model with Nouns ----------------------------------------------------
-""" 
+"""
 
 def TF_IDF_Candidates_Nouns_Adjectives(Text,norm,term_frequency):
 
     All_Tokens_Scores = TF_IDF(Text,norm=norm,term_frequency=term_frequency)
 
-    ## Storing the Text Tokens in a list 
+    ## Storing the Text Tokens in a list
     Text_Tokens = []
 
     for key in All_Tokens_Scores:
@@ -190,10 +190,10 @@ def TF_IDF_Candidates_Nouns_Adjectives(Text,norm,term_frequency):
     ## Deleting the undesired keys from the original dictionary .
     for token in Delete_Keys:
         del All_Tokens_Scores[token]
-    
+
     ## Making a copy of the modified original dictionary to a new dictionary to be returned
     Scores_Candidates_Nouns_Adjectives = All_Tokens_Scores
-    
+
     return Scores_Candidates_Nouns_Adjectives
 
 #-----------------------------------------------------------------------------------------------------------------------------------
