@@ -1,8 +1,6 @@
 """
 
-
 ------------------------------   Creating the Different Models for Baseline   ------------------------------------------
-
 
 """
 
@@ -22,7 +20,7 @@ Text = 'Rashid Siddiqui kept hearing those words from his fellow Muslim pilgrims
 
 def Baseline_Candidates_All(Text):
 
-    ## When we are creating our model with open words (all words) , the candidates in this case are all the tokens . 
+    ## When we are creating our model with open words (all words) , the candidates in this case are all the tokens .
     Candidates_All = TextTokenize(Text)
 
     ## Initialising a dictionary to map the tokens with their frequencies .
